@@ -15,16 +15,6 @@ class Spells {
     Spell("images/spells/invoker_ice_wall.png",<String>["q","q","e"]),
     Spell("images/spells/invoker_sun_strike.png",<String>["e","e","e"]),
     Spell("images/spells/invoker_tornado.png",<String>["w","w","q"]),
-
-    /*"images/spells/invoker_alacrity.png";
-    "images/spells/invoker_chaos_meteor.png",
-    "images/spells/invoker_cold_snap.png",
-    "images/spells/invoker_deafening_blast.png",
-    "images/spells/invoker_emp.png",
-    "images/spells/invoker_forge_spirit.png",
-    "images/spells/invoker_ice_wall.png",
-    "images/spells/invoker_sun_strike.png",
-    "images/spells/invoker_tornado.png",*/
   ];
 
   late Spell _temp=Spell("images/spells/invoker_alacrity.png",<String>["w","w","e"]);
@@ -44,6 +34,6 @@ class Spells {
     _temp=newSpell;
     return newSpell;
   }
-  
+
 
 }

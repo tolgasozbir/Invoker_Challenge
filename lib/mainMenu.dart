@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:dota2_invoker/loadingScreen.dart';
 import 'package:dota2_invoker/onlySkillsScreen.dart';
+import 'package:dota2_invoker/sounds.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -13,6 +14,7 @@ class MainMenu extends StatefulWidget {
 
 class _MainMenuState extends State<MainMenu> {
 
+  Sounds _sounds = Sounds();
   double currentOpacity=0;
 
   @override
@@ -88,6 +90,7 @@ class _MainMenuState extends State<MainMenu> {
               ],
             ),
             onPressed: () {
+              _sounds.playSoundBegining();
               Navigator.push(context, MaterialPageRoute(builder: (context)=>LoadingScreen(OnlySkillsScreen())));
             },
           ),

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dota2_invoker/sounds.dart';
 import 'package:dota2_invoker/spell.dart';
 import 'package:dota2_invoker/spells.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,13 @@ class OnlySkillsScreen extends StatefulWidget {
 
 class _OnlySkillsScreenState extends State<OnlySkillsScreen> with TickerProviderStateMixin  {
 
-  double StartButtonOpacity=1.0;
+  Sounds _sounds =Sounds();
+  int trueCounterValue=0;
+  double tabPerSeconds=0;
+  int totalTabs=0;
+  double castPerSeconds=0;
+  int totalCast=0;
+  double startButtonOpacity=1.0;
 
   Spells spells=Spells();
   String randomSpellImg="images/quas-wex-exort.jpg";
@@ -44,16 +51,22 @@ class _OnlySkillsScreenState extends State<OnlySkillsScreen> with TickerProvider
   late Animation<double> animAlphaFalse;
 
   @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
-    animControlTrue=AnimationController(vsync: this,duration: Duration(milliseconds: 500));
-    animTranslateTrue=Tween(begin: 18.0.sp,end: -30.0.sp).animate(animControlTrue)..addListener(() {setState(() { });});
+    animControlTrue=AnimationController(vsync: this,duration: Duration(milliseconds: 600));
+    animTranslateTrue=Tween(begin: 8.0.h,end: -12.0.h).animate(animControlTrue)..addListener(() {setState(() { });});
     animAlphaTrue=Tween(begin: 1.0,end: 0.0).animate(animControlTrue)..addListener(() {setState(() { });});
 
-    animControlFalse=AnimationController(vsync: this,duration: Duration(milliseconds: 500));
-    animTranslateFalse=Tween(begin: 18.0.sp,end: -30.0.sp).animate(animControlFalse)..addListener(() {setState(() { });});
+    animControlFalse=AnimationController(vsync: this,duration: Duration(milliseconds: 600));
+    animTranslateFalse=Tween(begin: 8.0.h,end: -12.0.h).animate(animControlFalse)..addListener(() {setState(() { });});
     animAlphaFalse=Tween(begin: 1.0,end: 0.0).animate(animControlFalse)..addListener(() {setState(() { });});
-
+        //30 sp -50 sp
   }
 
   @override
@@ -72,9 +85,13 @@ class _OnlySkillsScreenState extends State<OnlySkillsScreen> with TickerProvider
   Widget buildBody() {
     return SafeArea(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          trueFalseIcons(),
+          trueCounter(),
+          Padding(
+            padding: EdgeInsets.only(top: 12.h),
+            child: trueFalseIcons(),
+          ),
           invokerCombinedSkills(randomSpellImg),
           selectedElements(),
           Row(
@@ -87,6 +104,21 @@ class _OnlySkillsScreenState extends State<OnlySkillsScreen> with TickerProvider
             ],
           ),
           startButton(),
+        ],
+      ),
+    );
+  }
+
+  Widget trueCounter(){
+    return Container(
+      width: double.infinity,
+      height: 12.h,
+      child: Stack(
+        children: [
+          Center(child: Text(trueCounterValue.toString(),style: TextStyle(fontSize: 12.w,color: Colors.green,),)),
+          Positioned(right: 2.w, top: 2.w, child: Text("$time seconds passed",style: TextStyle(fontSize: 4.w,),)),
+          Positioned(left: 2.w, top: 2.w, child: Tooltip(message: "Click per seconds average by elapsed time.", child: Text((tabPerSeconds).toStringAsFixed(1)+" Cps",style: TextStyle(fontSize: 4.w,),))),
+          Positioned(left: 2.w, top: 8.w, child: Tooltip(message: "Spell cast per seconds average by elapsed time.", child: Text((castPerSeconds).toStringAsFixed(1)+" Scps",style: TextStyle(fontSize: 4.w,),))),
         ],
       ),
     );
@@ -117,12 +149,12 @@ class _OnlySkillsScreenState extends State<OnlySkillsScreen> with TickerProvider
 
   Widget invokerCombinedSkills(String image) {      //onpres ile bilgi verirsin
     return Container(
-      width: 26.w,
-      height: 16.h,
+      width: 28.w,
+      height: 28.w,//14.h
       decoration: BoxDecoration(
         boxShadow: [ BoxShadow(color: Colors.white30, blurRadius: 12, spreadRadius: 4), ],
       ),
-      child: Image.asset(image,width: 24.w,)
+      child: Image.asset(image)
     );
   }
 
@@ -155,26 +187,34 @@ class _OnlySkillsScreenState extends State<OnlySkillsScreen> with TickerProvider
       onTap: () {
         if(image=="images/invoker_quas.png"){
           switchElements("images/invoker_quas.png","q");
+          totalTabs++;
         }
         else if(image=="images/invoker_wex.png"){
           switchElements("images/invoker_wex.png","w");
+          totalTabs++;
         }
         else if(image=="images/invoker_exort.png"){
           switchElements("images/invoker_exort.png","e");
+          totalTabs++;
         }
         else{
           if (currentCombination.toString()==trueCombination.toString()) {
             print("true");
+            trueCounterValue++;
+            totalCast++;
+            _sounds.trueCombinationSound(trueCombination);
             animControlTrue.forward();
-            Timer(Duration(milliseconds: 450), (){animControlTrue.reset();});
+            Timer(Duration(milliseconds: 600), (){animControlTrue.reset();});
           }else{
             print("false");
+            _sounds.failCombinationSound();
             animControlFalse.forward();
-            Timer(Duration(milliseconds: 450), (){animControlFalse.reset();});
+            Timer(Duration(milliseconds: 600), (){animControlFalse.reset();});
           }
           Spell nextSpell=spells.getRandomSpell();
           randomSpellImg=nextSpell.image;
           trueCombination=nextSpell.combine;
+          totalTabs++;
           setState(() { });
           print(trueCombination);
           
@@ -195,7 +235,7 @@ class _OnlySkillsScreenState extends State<OnlySkillsScreen> with TickerProvider
   Widget startButton() {
     return Transform.translate(offset: Offset(0.0,64.0),
       child: Opacity(
-        opacity: StartButtonOpacity,
+        opacity: startButtonOpacity,
         child: SizedBox(
           width: 36.w,
           height: 6.h,
@@ -205,10 +245,17 @@ class _OnlySkillsScreenState extends State<OnlySkillsScreen> with TickerProvider
             ),
             child: Text("Start",style: TextStyle(fontSize: 12.sp),),
             onPressed: () {
+              timer=Timer.periodic(Duration(seconds: 1), (timer) { 
+                setState(() {
+                  time++;
+                  tabPerSeconds=totalTabs/time;
+                  castPerSeconds=totalCast/time;
+                });
+              });
               Spell nextSpell = spells.getRandomSpell();
               randomSpellImg = nextSpell.image;
               trueCombination = nextSpell.combine;
-              StartButtonOpacity=0.0;
+              startButtonOpacity=0.0;
               setState(() {});
             },
           ),
@@ -216,6 +263,9 @@ class _OnlySkillsScreenState extends State<OnlySkillsScreen> with TickerProvider
       ),
     );
   }
+
+  late Timer timer;
+  int time=0;
   
 }
 
