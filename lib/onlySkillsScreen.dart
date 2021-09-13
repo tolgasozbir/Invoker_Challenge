@@ -349,5 +349,5 @@ class _OnlySkillsScreenState extends State<OnlySkillsScreen> with TickerProvider
 
 
 
-     /*    circle        Card(child: Image.asset("images/invoker_quas.png",width: 20.w,),elevation: 10, shadowColor: Colors.amber, shape: CircleBorder(),
+     /*    circle image       Card(child: Image.asset("images/invoker_quas.png",width: 20.w,),elevation: 10, shadowColor: Colors.amber, shape: CircleBorder(),
     clipBehavior: Clip.antiAlias,),*/
