@@ -1,11 +1,15 @@
 import 'dart:async';
 
+import 'package:dota2_invoker/providerModels/timerModel.dart';
 import 'package:dota2_invoker/sounds.dart';
 import 'package:dota2_invoker/spell.dart';
 import 'package:dota2_invoker/spells.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
+
+import 'showSpellsWidget.dart';
 
 class OnlySkillsScreen extends StatefulWidget {
 
@@ -15,15 +19,26 @@ class OnlySkillsScreen extends StatefulWidget {
 
 class _OnlySkillsScreenState extends State<OnlySkillsScreen> with TickerProviderStateMixin  {
 
+  bool isStart=false;
+
   Sounds _sounds =Sounds();
+
   int trueCounterValue=0;
-  double tabPerSeconds=0;
+
   int totalTabs=0;
-  double castPerSeconds=0;
+
   int totalCast=0;
+
+  bool showSpellsVisible=false;
+
   double startButtonOpacity=1.0;
 
+  late Timer timer;
+ 
+
   Spells spells=Spells();
+  List<String> spellList=[];
+  
   String randomSpellImg="images/quas-wex-exort.jpg";
   List<String> trueCombination=[];
   List<String> currentCombination=["q","w","e"];
@@ -67,16 +82,22 @@ class _OnlySkillsScreenState extends State<OnlySkillsScreen> with TickerProvider
     animTranslateFalse=Tween(begin: 8.0.h,end: -12.0.h).animate(animControlFalse)..addListener(() {setState(() { });});
     animAlphaFalse=Tween(begin: 1.0,end: 0.0).animate(animControlFalse)..addListener(() {setState(() { });});
         //30 sp -50 sp
+    spellList=spells.getSpells();
   }
 
   @override
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
-      return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData.dark(),
-        home: Scaffold(
-          body: buildBody(),
+      return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => TimerModel()),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData.dark(),
+          home: Scaffold(
+            body: buildBody(),
+          ),
         ),
       );
     });
@@ -88,8 +109,9 @@ class _OnlySkillsScreenState extends State<OnlySkillsScreen> with TickerProvider
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           trueCounter(),
+          ShowSpellsWidget(showSpellsVisible: showSpellsVisible, spellList: spellList,height: 21.h,width: 100.w,),
           Padding(
-            padding: EdgeInsets.only(top: 12.h),
+            padding: showSpellsVisible==false? EdgeInsets.only(top: 12.h) : EdgeInsets.only(top: 8.h),
             child: trueFalseIcons(),
           ),
           invokerCombinedSkills(randomSpellImg),
@@ -116,12 +138,65 @@ class _OnlySkillsScreenState extends State<OnlySkillsScreen> with TickerProvider
       child: Stack(
         children: [
           Center(child: Text(trueCounterValue.toString(),style: TextStyle(fontSize: 12.w,color: Colors.green,),)),
-          Positioned(right: 2.w, top: 2.w, child: Text("$time seconds passed",style: TextStyle(fontSize: 4.w,),)),
-          Positioned(left: 2.w, top: 2.w, child: Tooltip(message: "Click per seconds average by elapsed time.", child: Text((tabPerSeconds).toStringAsFixed(1)+" Cps",style: TextStyle(fontSize: 4.w,),))),
-          Positioned(left: 2.w, top: 8.w, child: Tooltip(message: "Spell cast per seconds average by elapsed time.", child: Text((castPerSeconds).toStringAsFixed(1)+" Scps",style: TextStyle(fontSize: 4.w,),))),
+          timerCounter(),
+          showSpells(),
+          clickPerSecond(),
+          skillCastPerSecond(),
         ],
       ),
     );
+  }
+
+  Positioned skillCastPerSecond() {
+    return Positioned(
+        left: 2.w,
+        top: 8.w,
+        child: Tooltip(
+          message: "Skill cast per seconds average by elapsed time.",
+          child: Consumer<TimerModel>(builder: (context, timerModel, child){
+            return Text((timerModel.calculateScps(totalCast)).toStringAsFixed(1) + " SCps",style: TextStyle(fontSize: 4.w,),);
+          }),
+      ),
+    );
+  }
+
+  Positioned clickPerSecond() {
+    return Positioned(
+        left: 2.w,
+        top: 2.w,
+        child: Tooltip(
+          message: "Click per seconds average by elapsed time.",
+          child: Consumer<TimerModel>(builder: (context, timerModel, child){
+            return Text((timerModel.calculateCps(totalTabs)).toStringAsFixed(1) + " Cps",style: TextStyle(fontSize: 4.w,),);
+          }),
+      ),
+    );
+  }
+
+  Positioned timerCounter() {
+    return Positioned(
+      right: 2.w,
+      top: 2.w,
+      child: Consumer<TimerModel>(builder: (context, timerModel, child) {
+        return Text(
+          "${timerModel.getTimeValue()} seconds passed",
+          style: TextStyle(
+            fontSize: 4.w,
+          ),
+        );
+      }),
+    );
+  }
+
+  Positioned showSpells() {
+    return Positioned(right: 2.w, top: 8.w, child: GestureDetector(
+          child: Container(width: 8.w, height: 8.w, child: Icon(FontAwesomeIcons.questionCircle,color: Colors.amberAccent)),
+          onTap: (){
+            showSpellsVisible==true?showSpellsVisible=false:showSpellsVisible=true;
+            setState(() {  });
+          },
+          ),
+        );
   }
 
   Stack trueFalseIcons() {
@@ -198,26 +273,27 @@ class _OnlySkillsScreenState extends State<OnlySkillsScreen> with TickerProvider
           totalTabs++;
         }
         else{
-          if (currentCombination.toString()==trueCombination.toString()) {
-            print("true");
-            trueCounterValue++;
-            totalCast++;
-            _sounds.trueCombinationSound(trueCombination);
-            animControlTrue.forward();
-            Timer(Duration(milliseconds: 600), (){animControlTrue.reset();});
-          }else{
-            print("false");
-            _sounds.failCombinationSound();
-            animControlFalse.forward();
-            Timer(Duration(milliseconds: 600), (){animControlFalse.reset();});
+          if(isStart){          
+            if (currentCombination.toString()==trueCombination.toString()) {
+              print("true");
+              trueCounterValue++;
+              totalCast++;
+              _sounds.trueCombinationSound(trueCombination);
+              animControlTrue.forward();
+              Timer(Duration(milliseconds: 600), (){animControlTrue.reset();});
+            }else{
+              print("false");
+              _sounds.failCombinationSound();
+              animControlFalse.forward();
+              Timer(Duration(milliseconds: 600), (){animControlFalse.reset();});
+            }
+            Spell nextSpell=spells.getRandomSpell();
+            randomSpellImg=nextSpell.image;
+            trueCombination=nextSpell.combine;
+            totalTabs++;
+            setState(() { });
+            print(trueCombination);
           }
-          Spell nextSpell=spells.getRandomSpell();
-          randomSpellImg=nextSpell.image;
-          trueCombination=nextSpell.combine;
-          totalTabs++;
-          setState(() { });
-          print(trueCombination);
-          
         }
       },
     );
@@ -239,35 +315,37 @@ class _OnlySkillsScreenState extends State<OnlySkillsScreen> with TickerProvider
         child: SizedBox(
           width: 36.w,
           height: 6.h,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              primary: Color(0xFF545454),
-            ),
-            child: Text("Start",style: TextStyle(fontSize: 12.sp),),
-            onPressed: () {
-              timer=Timer.periodic(Duration(seconds: 1), (timer) { 
-                setState(() {
-                  time++;
-                  tabPerSeconds=totalTabs/time;
-                  castPerSeconds=totalCast/time;
-                });
-              });
-              Spell nextSpell = spells.getRandomSpell();
-              randomSpellImg = nextSpell.image;
-              trueCombination = nextSpell.combine;
-              startButtonOpacity=0.0;
-              setState(() {});
+          child: Consumer<TimerModel>(
+            builder: (context,timerModel,child){
+              return ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xFF545454),
+                ),
+                child: Text("Start",style: TextStyle(fontSize: 12.sp),),
+                onPressed: () {
+                  isStart=true;
+                  timer=Timer.periodic(Duration(seconds: 1), (timer) { 
+                      timerModel.timeIncrease();
+                  });
+                  Spell nextSpell = spells.getRandomSpell();
+                  randomSpellImg = nextSpell.image;
+                  trueCombination = nextSpell.combine;
+                  startButtonOpacity=0.0;
+                  setState(() {});
+                },
+              );
             },
-          ),
+          )
         ),
       ),
     );
   }
 
-  late Timer timer;
-  int time=0;
+
   
 }
+
+
 
 
 
