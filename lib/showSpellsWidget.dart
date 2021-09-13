@@ -89,60 +89,62 @@ class ShowSpellsWidget extends StatelessWidget {
   }
 
   Widget secondColumn() {
-    return Card(
-      color: Color(0x23EC3DFF),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Card(
-            color: Color(0x34EC3DFF),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Image.asset(spellList[3],scale: 5,), 
-                Card(color: Color(0x60EC3DFF), child: Text(" W ", style: TextStyle(fontSize: 17),)),
-                Card(color: Color(0x60EC3DFF), child: Text(" W ", style: TextStyle(fontSize: 17),)),
-                Card(color: Color(0x60EC3DFF), child: Text(" W ", style: TextStyle(fontSize: 17),)),
-              ],
+    return SingleChildScrollView(
+      child: Card(
+        color: Color(0x23EC3DFF),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Card(
+              color: Color(0x34EC3DFF),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Image.asset(spellList[3],scale: 5,), 
+                  Card(color: Color(0x60EC3DFF), child: Text(" W ", style: TextStyle(fontSize: 17),)),
+                  Card(color: Color(0x60EC3DFF), child: Text(" W ", style: TextStyle(fontSize: 17),)),
+                  Card(color: Color(0x60EC3DFF), child: Text(" W ", style: TextStyle(fontSize: 17),)),
+                ],
+              ),
             ),
-          ),
-          Card(
-            color: Color(0x34EC3DFF),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Image.asset(spellList[4],scale: 5,), 
-                Card(color: Color(0x60EC3DFF), child: Text(" W ", style: TextStyle(fontSize: 17),)),
-                Card(color: Color(0x60EC3DFF), child: Text(" W ", style: TextStyle(fontSize: 17),)),
-                Card(color: Color(0x703DA5FF), child: Text(" Q ", style: TextStyle(fontSize: 17),)),
-              ],
+            Card(
+              color: Color(0x34EC3DFF),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Image.asset(spellList[4],scale: 5,), 
+                  Card(color: Color(0x60EC3DFF), child: Text(" W ", style: TextStyle(fontSize: 17),)),
+                  Card(color: Color(0x60EC3DFF), child: Text(" W ", style: TextStyle(fontSize: 17),)),
+                  Card(color: Color(0x703DA5FF), child: Text(" Q ", style: TextStyle(fontSize: 17),)),
+                ],
+              ),
             ),
-          ),
-          Card(
-            color: Color(0x34EC3DFF),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Image.asset(spellList[5],scale: 5,), 
-                Card(color: Color(0x60EC3DFF), child: Text(" w ", style: TextStyle(fontSize: 17),)),
-                Card(color: Color(0x60EC3DFF), child: Text(" W ", style: TextStyle(fontSize: 17),)),
-                Card(color: Color(0x70FFAA00), child: Text(" E ", style: TextStyle(fontSize: 17),)),
-              ],
+            Card(
+              color: Color(0x34EC3DFF),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Image.asset(spellList[5],scale: 5,), 
+                  Card(color: Color(0x60EC3DFF), child: Text(" w ", style: TextStyle(fontSize: 17),)),
+                  Card(color: Color(0x60EC3DFF), child: Text(" W ", style: TextStyle(fontSize: 17),)),
+                  Card(color: Color(0x70FFAA00), child: Text(" E ", style: TextStyle(fontSize: 17),)),
+                ],
+              ),
             ),
-          ),
-          Card(
-            color: Color(0x34EC3DFF),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Image.asset(spellList[6],scale: 5,), 
-                Card(color: Color(0x703DA5FF), child: Text(" Q ", style: TextStyle(fontSize: 17),)),
-                Card(color: Color(0x60EC3DFF), child: Text(" W ", style: TextStyle(fontSize: 17),)),
-                Card(color: Color(0x70FFAA00), child: Text(" E ", style: TextStyle(fontSize: 17),)),
-              ],
+            Card(
+              color: Color(0x34EC3DFF),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Image.asset(spellList[6],scale: 5,), 
+                  Card(color: Color(0x703DA5FF), child: Text(" Q ", style: TextStyle(fontSize: 17),)),
+                  Card(color: Color(0x60EC3DFF), child: Text(" W ", style: TextStyle(fontSize: 17),)),
+                  Card(color: Color(0x70FFAA00), child: Text(" E ", style: TextStyle(fontSize: 17),)),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
