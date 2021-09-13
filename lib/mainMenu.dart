@@ -46,9 +46,9 @@ class _MainMenuState extends State<MainMenu> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            onlySkills(),
-            onlySkillsWithTimer(),
-            skillsWithItems(),
+            trainingButton(),
+            withTimerButton(),
+            challangerButton(),
           ],
         ),
       )
@@ -56,7 +56,7 @@ class _MainMenuState extends State<MainMenu> {
   }
 
 
-  Widget onlySkills() {
+  Widget trainingButton() {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: AnimatedOpacity(
@@ -99,7 +99,7 @@ class _MainMenuState extends State<MainMenu> {
     );
   }
 
-    Widget onlySkillsWithTimer() {
+    Widget withTimerButton() {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: AnimatedOpacity(
@@ -139,7 +139,7 @@ class _MainMenuState extends State<MainMenu> {
     );
   }
 
-  Widget skillsWithItems() {
+  Widget challangerButton() {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: AnimatedOpacity(
