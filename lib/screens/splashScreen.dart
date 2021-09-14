@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:dota2_invoker/mainMenu.dart';
+import 'package:dota2_invoker/screens/mainMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 

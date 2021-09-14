@@ -1,6 +1,7 @@
 import 'dart:async';
-import 'package:dota2_invoker/loadingScreen.dart';
-import 'package:dota2_invoker/onlySkillsScreen.dart';
+import 'package:dota2_invoker/screens/loadingScreen.dart';
+import 'package:dota2_invoker/screens/trainingScreen.dart';
+import 'package:dota2_invoker/screens/withTimerScreen.dart';
 import 'package:dota2_invoker/sounds.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -46,14 +47,66 @@ class _MainMenuState extends State<MainMenu> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            trainingButton(),
+/*            trainingButton(),
             withTimerButton(),
-            challangerButton(),
+            challangerButton(),*/
+            menuButton(Duration(seconds: 1), Colors.blue, Colors.lightBlue, "images/quasGif.gif", "Training", TrainingScreen()),
+            menuButton(Duration(seconds: 2), Colors.pink.shade200, Colors.pink.shade200, "images/wexGif.gif", "With Timer", WithTimerScreen()),
+            menuButton(Duration(seconds: 3), Colors.amber, Colors.amber, "images/exortGif.gif", "Challanger", TrainingScreen()),
           ],
         ),
       )
     );
   }
+
+  Widget menuButton(Duration animDuration,Color colorSide, Color colorshadow, String imageString,String menuName,dynamic screen) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: AnimatedOpacity(
+        duration: animDuration,
+        opacity: currentOpacity,
+        child: SizedBox(
+          width: 80.w,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: Color(0xFF545454),
+              elevation: 10,
+              shadowColor: colorSide,
+              shape: RoundedRectangleBorder(
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
+                side: BorderSide(color: colorshadow),
+              )
+            ),
+            child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  height: 10.h,
+                  width: 12.w,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(image: AssetImage(imageString),
+                    fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Text("$menuName  ",style: TextStyle(fontSize: 16.sp),),
+              ],
+            ),
+            onPressed: () {
+              _sounds.playSoundBegining();
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>LoadingScreen(screen)));
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+
+}
+
+
+/*
 
 
   Widget trainingButton() {
@@ -91,7 +144,7 @@ class _MainMenuState extends State<MainMenu> {
             ),
             onPressed: () {
               _sounds.playSoundBegining();
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>LoadingScreen(OnlySkillsScreen())));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>LoadingScreen(TrainingScreen())));
             },
           ),
         ),
@@ -99,7 +152,7 @@ class _MainMenuState extends State<MainMenu> {
     );
   }
 
-    Widget withTimerButton() {
+  Widget withTimerButton() {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: AnimatedOpacity(
@@ -180,7 +233,10 @@ class _MainMenuState extends State<MainMenu> {
   }
 
 
-}
+*/
+
+/////////////////////////////
+
 
 
 /*

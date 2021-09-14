@@ -1,4 +1,4 @@
-import 'package:dota2_invoker/splashScreen.dart';
+import 'package:dota2_invoker/screens/splashScreen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
