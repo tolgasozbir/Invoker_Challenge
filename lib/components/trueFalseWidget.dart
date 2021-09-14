@@ -17,25 +17,28 @@ class TrueFalseWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Transform.translate(offset: Offset(0.0,animTranslateTrue.value),
-          child: Opacity(
-            opacity: animAlphaTrue.value,
-            child: Icon(
-              FontAwesomeIcons.check,color: Color(0xFF33CC33),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Stack(
+        children: [
+          Transform.translate(offset: Offset(0.0,animTranslateTrue.value),
+            child: Opacity(
+              opacity: animAlphaTrue.value,
+              child: Icon(
+                FontAwesomeIcons.check,color: Color(0xFF33CC33),
+              ),
             ),
           ),
-        ),
-        Transform.translate(offset: Offset(0.0,animTranslateFalse.value),
-          child: Opacity(
-            opacity: animAlphaFalse.value,
-            child: Icon(
-              FontAwesomeIcons.times,color: Color(0xFFCC3333),
+          Transform.translate(offset: Offset(0.0,animTranslateFalse.value),
+            child: Opacity(
+              opacity: animAlphaFalse.value,
+              child: Icon(
+                FontAwesomeIcons.times,color: Color(0xFFCC3333),
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

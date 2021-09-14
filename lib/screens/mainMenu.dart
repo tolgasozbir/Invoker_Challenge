@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:dota2_invoker/screens/loadingScreen.dart';
 import 'package:dota2_invoker/screens/trainingScreen.dart';
 import 'package:dota2_invoker/screens/withTimerScreen.dart';
-import 'package:dota2_invoker/sounds.dart';
+import 'package:dota2_invoker/entities/sounds.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -20,10 +20,7 @@ class _MainMenuState extends State<MainMenu> {
 
   @override
   void initState() {
-    Timer(
-      Duration(milliseconds: 500), 
-      ()=>setState(() { currentOpacity=1; })
-    );
+    Timer(Duration(milliseconds: 500), ()=>setState(() { currentOpacity=1; }));
     super.initState();
   }
 

@@ -1,9 +1,10 @@
 import 'dart:async';
+import 'package:dota2_invoker/components/invokerCombinedSkill.dart';
 import 'package:dota2_invoker/components/trueFalseWidget.dart';
 import 'package:dota2_invoker/providerModels/timerModel.dart';
-import 'package:dota2_invoker/sounds.dart';
-import 'package:dota2_invoker/spell.dart';
-import 'package:dota2_invoker/spells.dart';
+import 'package:dota2_invoker/entities/sounds.dart';
+import 'package:dota2_invoker/entities/spell.dart';
+import 'package:dota2_invoker/entities/spells.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -26,7 +27,7 @@ class _TrainingScreenState extends State<TrainingScreen> with TickerProviderStat
   bool showSpellsVisible=false;
   double startButtonOpacity=1.0;
 
-  late Timer timer;
+  Timer? timer;
  
   Spells spells=Spells();
   List<String> spellList=[];
@@ -59,7 +60,9 @@ class _TrainingScreenState extends State<TrainingScreen> with TickerProviderStat
 
   @override
   void dispose() {
-    timer.cancel();
+    if (timer!=null) {
+      timer!.cancel();
+    }
     super.dispose();
   }
 
@@ -73,7 +76,6 @@ class _TrainingScreenState extends State<TrainingScreen> with TickerProviderStat
     animControlFalse=AnimationController(vsync: this,duration: Duration(milliseconds: 600));
     animTranslateFalse=Tween(begin: 8.0.h,end: -12.0.h).animate(animControlFalse)..addListener(() {setState(() { });});
     animAlphaFalse=Tween(begin: 1.0,end: 0.0).animate(animControlFalse)..addListener(() {setState(() { });});
-        //30 sp -50 sp
     spellList=spells.getSpells();
   }
 
@@ -101,27 +103,17 @@ class _TrainingScreenState extends State<TrainingScreen> with TickerProviderStat
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           trueCounter(),
-          ShowSpellsWidget(showSpellsVisible: showSpellsVisible, spellList: spellList,height: 21.h,width: 100.w,),
-          Padding(
-            padding: showSpellsVisible==false? EdgeInsets.only(top: 12.h) : EdgeInsets.only(top: 8.h),
-            child: TrueFalseWidget(animTranslateTrue: animTranslateTrue, animAlphaTrue: animAlphaTrue, animTranslateFalse: animTranslateFalse, animAlphaFalse: animAlphaFalse),
-          ),
-          invokerCombinedSkills(randomSpellImg),
+          showSpellWidget(),
+          trueFalseIcons(),
+          invokerCombinedSkillWidget(),
           selectedElements(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              invokerElement("images/invoker_quas.png"),
-              invokerElement("images/invoker_wex.png"),
-              invokerElement("images/invoker_exort.png"),
-              invokerElement("images/invoker_invoke.png"),
-            ],
-          ),
+          invokerMainElements(),
           startButton(),
         ],
       ),
     );
   }
+
 
   Widget trueCounter(){
     return Container(
@@ -138,6 +130,85 @@ class _TrainingScreenState extends State<TrainingScreen> with TickerProviderStat
       ),
     );
   }
+
+  ShowSpellsWidget showSpellWidget() {
+    return ShowSpellsWidget(showSpellsVisible: showSpellsVisible, spellList: spellList,height: 21.h,width: 100.w,);
+  }
+
+  Padding trueFalseIcons() {
+    return Padding(
+      padding: showSpellsVisible==false? EdgeInsets.only(top: 12.h) : EdgeInsets.only(top: 8.h),
+      child: TrueFalseWidget(animTranslateTrue: animTranslateTrue, animAlphaTrue: animAlphaTrue, animTranslateFalse: animTranslateFalse, animAlphaFalse: animAlphaFalse),
+    );
+  }
+
+  InvokerCombinedSkillsWidget invokerCombinedSkillWidget() {
+    return InvokerCombinedSkillsWidget(image: randomSpellImg,w: 28.w,);
+  }
+
+  Padding selectedElements() {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 24),
+      child: Container(
+        width: 25.w,
+        height: 10.h,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            selectedElement[0],
+            selectedElement[1],
+            selectedElement[2],
+          ],
+        ),
+      ),
+    );
+  }
+
+  Row invokerMainElements() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        invokerElement("images/invoker_quas.png"),
+        invokerElement("images/invoker_wex.png"),
+        invokerElement("images/invoker_exort.png"),
+        invokerElement("images/invoker_invoke.png"),
+      ],
+    );
+  }
+
+  Widget startButton() {
+    return Transform.translate(offset: Offset(0.0,64.0),
+      child: Opacity(
+        opacity: startButtonOpacity,
+        child: SizedBox(
+          width: 36.w,
+          height: 6.h,
+          child: Consumer<TimerModel>(
+            builder: (context,timerModel,child){
+              return ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xFF545454),
+                ),
+                child: Text("Start",style: TextStyle(fontSize: 12.sp),),
+                onPressed: () {
+                  isStart=true;
+                  timer=Timer.periodic(Duration(seconds: 1), (timer) { 
+                      timerModel.timeIncrease();
+                  });
+                  Spell nextSpell = spells.getRandomSpell();
+                  randomSpellImg = nextSpell.image;
+                  trueCombination = nextSpell.combine;
+                  startButtonOpacity=0.0;
+                  setState(() {});
+                },
+              );
+            },
+          )
+        ),
+      ),
+    );
+  }
+
 
   Positioned skillCastPerSecond() {
     return Positioned(
@@ -170,55 +241,22 @@ class _TrainingScreenState extends State<TrainingScreen> with TickerProviderStat
       right: 2.w,
       top: 2.w,
       child: Consumer<TimerModel>(builder: (context, timerModel, child) {
-        return Text(
-          "${timerModel.getTimeValue()} seconds passed",
-          style: TextStyle(
-            fontSize: 4.w,
-          ),
-        );
+        return Text("${timerModel.getTimeValue()} seconds passed", style: TextStyle(fontSize: 4.w,),);
       }),
     );
   }
 
   Positioned showSpells() {
     return Positioned(right: 2.w, top: 8.w, child: GestureDetector(
-          child: Container(width: 8.w, height: 8.w, child: Icon(FontAwesomeIcons.questionCircle,color: Colors.amberAccent)),
-          onTap: (){
-            showSpellsVisible==true?showSpellsVisible=false:showSpellsVisible=true;
-            setState(() {  });
-          },
-          ),
-        );
-  }
-
-  Widget invokerCombinedSkills(String image) {      //onpres ile bilgi verirsin
-    return Container(
-      width: 28.w,
-      height: 28.w,//14.h
-      decoration: BoxDecoration(
-        boxShadow: [ BoxShadow(color: Colors.white30, blurRadius: 12, spreadRadius: 4), ],
-      ),
-      child: Image.asset(image)
-    );
-  }
-
-  Padding selectedElements() {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 24),
-      child: Container(
-        width: 24.w,
-        height: 10.h,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            selectedElement[0],
-            selectedElement[1],
-            selectedElement[2],
-          ],
-        ),
+      child: Container(width: 8.w, height: 8.w, child: Icon(FontAwesomeIcons.questionCircle,color: Colors.amberAccent)),
+        onTap: (){
+          showSpellsVisible==true?showSpellsVisible=false:showSpellsVisible=true;
+          setState(() {  });
+        },
       ),
     );
   }
+
 
   GestureDetector invokerElement(String image) {
     return GestureDetector(
@@ -277,42 +315,13 @@ class _TrainingScreenState extends State<TrainingScreen> with TickerProviderStat
     );
   }
 
-  Widget startButton() {
-    return Transform.translate(offset: Offset(0.0,64.0),
-      child: Opacity(
-        opacity: startButtonOpacity,
-        child: SizedBox(
-          width: 36.w,
-          height: 6.h,
-          child: Consumer<TimerModel>(
-            builder: (context,timerModel,child){
-              return ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Color(0xFF545454),
-                ),
-                child: Text("Start",style: TextStyle(fontSize: 12.sp),),
-                onPressed: () {
-                  isStart=true;
-                  timer=Timer.periodic(Duration(seconds: 1), (timer) { 
-                      timerModel.timeIncrease();
-                  });
-                  Spell nextSpell = spells.getRandomSpell();
-                  randomSpellImg = nextSpell.image;
-                  trueCombination = nextSpell.combine;
-                  startButtonOpacity=0.0;
-                  setState(() {});
-                },
-              );
-            },
-          )
-        ),
-      ),
-    );
-  }
+
 
 
   
 }
+
+
 
 
 

@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:dota2_invoker/spell.dart';
+import 'package:dota2_invoker/entities/spell.dart';
 
 class Spells {
 
