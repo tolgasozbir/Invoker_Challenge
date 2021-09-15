@@ -1,8 +1,8 @@
 import 'dart:async';
+import 'package:dota2_invoker/components/dbResultWidget.dart';
 import 'package:dota2_invoker/components/invokerCombinedSkill.dart';
 import 'package:dota2_invoker/components/trueFalseWidget.dart';
 import 'package:dota2_invoker/entities/DbAccesLayer.dart';
-import 'package:dota2_invoker/entities/dbResult.dart';
 import 'package:dota2_invoker/providerModels/timerModel.dart';
 import 'package:dota2_invoker/entities/sounds.dart';
 import 'package:dota2_invoker/entities/spell.dart';
@@ -10,6 +10,7 @@ import 'package:dota2_invoker/entities/spells.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -98,40 +99,7 @@ class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderSt
           theme: ThemeData.dark(),
           home: Scaffold(
             resizeToAvoidBottomInset: false,
-            body: StreamBuilder<Event>(
-              stream: refDb.orderByChild("result").limitToFirst(10).onValue,
-              builder: (context,event){
-                if (event.hasData) {
-                  var liste=<DbResult>[];
-
-                  var gelenveri=event.data!.snapshot.value;
-
-                  if (gelenveri!=null) {
-                    gelenveri.forEach((key,nesne){
-                      var gelenkayit=DbResult.fromJson(key,nesne);
-                      liste.add(gelenkayit);
-                    });
-                  }
-                return ListView.builder(
-                  itemCount:liste.length,
-                  itemBuilder: (context,index){
-                    return Card(
-                      child: Row(
-                        children: [
-                          Text(liste[liste.length -1 -index].name),
-                          Text(liste[liste.length -1 -index].result.toString()),
-                        ],
-                      ),
-                    );
-                  },
-                ); 
-                }
-                else{
-                  return Container();
-                }
-              },
-            ),
-            //buildBody(),
+            body: buildBody(),
           ),
         ),
       );
@@ -140,23 +108,22 @@ class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderSt
 
   Widget buildBody() {
     return SafeArea(
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            trueCounter(),
-            timerCounter(),
-            trueFalseIcons(),
-            invokerCombinedSkillWidget(),
-            selectedElements(),
-            invokerMainElements(),
-            startButton(),
-          ],
-        ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          trueCounter(),
+          timerCounter(),
+          trueFalseIcons(),
+          invokerCombinedSkillWidget(),
+          selectedElements(),
+          invokerMainElements(),
+          startButton(),
+          showLeaderBoardButton(),
+          //dbResults(),
+        ],
       ),
     );
   }
-
 
   Widget trueCounter(){
     return Container(
@@ -172,11 +139,32 @@ class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderSt
 
   Widget timerCounter() {
     return Card(
+      color: Color(0xFF303030),
+      child: Consumer<TimerModel>(builder: (context, timerModel, child) {
+        return Stack(
+          alignment: Alignment.center,
+          children: [
+          SizedBox(width: 14.w, height: 14.w, child: CircularProgressIndicator(
+            color: Colors.amber,
+            backgroundColor: Colors.blue,
+            valueColor: timerModel.time60.toDouble()<=10 ? AlwaysStoppedAnimation<Color>(Colors.red) : AlwaysStoppedAnimation<Color>(Colors.amber),
+            value: timerModel.time60.toDouble()/60,
+            strokeWidth: 4,
+          ),),
+          Text( " ${timerModel.getTime60Value()} ",style: TextStyle(fontSize: 8.w,),)
+          ],
+        );
+      }),
+    );
+  }
+
+  /*Widget timerCounter() {
+    return Card(
       child: Consumer<TimerModel>(builder: (context, timerModel, child) {
         return Text( " ${timerModel.getTime60Value()} ",style: TextStyle(fontSize: 8.w,),);
       }),
     );
-  }
+  }*/
 
   Widget trueFalseIcons() {
     return TrueFalseWidget(animTranslateTrue: animTranslateTrue, animAlphaTrue: animAlphaTrue, animTranslateFalse: animTranslateFalse, animAlphaFalse: animAlphaFalse);
@@ -217,7 +205,7 @@ class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderSt
   }
 
   Widget startButton() {
-    return Transform.translate(offset: Offset(0.0,64.0),
+    return Transform.translate(offset: Offset(0.0,48.0),
       child: Opacity(
         opacity: startButtonOpacity,
         child: SizedBox(
@@ -239,6 +227,7 @@ class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderSt
                         timer.cancel();
                         isStart=false;
                         startButtonOpacity=1.0;
+                        timerModel.time60=60;
                         resultDiaglog();
                         setState(() { });
                       }
@@ -248,12 +237,33 @@ class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderSt
                   trueCombination = nextSpell.combine;
                   startButtonOpacity=0.0;
                   trueCounterValue=0;
-                  timerModel.time60=5;
+                  //timerModel.time60=60;
                   setState(() {});
                 },
               );
             },
           )
+        ),
+      ),
+    );
+  }
+
+  Widget showLeaderBoardButton() {
+    return Transform.translate(offset: Offset(0.0,64.0),
+      child: Opacity(
+        opacity: startButtonOpacity,
+        child: SizedBox(
+          width: 36.w,
+          height: 6.h,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: Color(0xFF545454),
+            ),
+            child: Text("Leaderboard",style: TextStyle(fontSize: 12.sp),),
+            onPressed: () {
+              dbResultDiaglog();
+            },
+          ),
         ),
       ),
     );
@@ -314,6 +324,29 @@ class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderSt
   }
 
   
+  void dbResultDiaglog() {
+    showDialog(
+      context: context,
+      builder: (_) => myLeaderboardAlertDialog(),
+      barrierDismissible: false,
+    );
+  }
+
+  Widget myLeaderboardAlertDialog(){
+   return AlertDialog(
+      title: Text("Results",style: TextStyle(color: Color(0xFFEEEEEE),)),
+      content: SizedBox(width: 65.w,height: 35.h, child: Card(color:Color(0xFF666666) , child: DbResultWidget(refDb: refDb))),
+      backgroundColor: Color(0xFF444444),
+      actions: [
+        TextButton(
+          child: Text("Back"),
+          onPressed: (){
+            Navigator.pop(context);
+          },
+        ),
+      ],
+    );
+ }
 
   void resultDiaglog(){
     showDialog(
@@ -335,7 +368,7 @@ class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderSt
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextField(
-                maxLength: 20,
+                maxLength: 14,
                 decoration: InputDecoration(
                   fillColor: Colors.white24,
                   filled: true,
@@ -371,7 +404,11 @@ class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderSt
             TextButton(
               child: Text("Send"),
               onPressed: (){
+                if (textfieldValue.length<=0) {
+                    textfieldValue="Unnamed";
+                }
                 dbAccesLayer.addDbValue(textfieldValue,result);
+                textfieldValue="";
                 Navigator.pop(context);
               },
             ),
