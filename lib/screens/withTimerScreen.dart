@@ -7,7 +7,6 @@ import 'package:dota2_invoker/providerModels/timerModel.dart';
 import 'package:dota2_invoker/entities/sounds.dart';
 import 'package:dota2_invoker/entities/spell.dart';
 import 'package:dota2_invoker/entities/spells.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -23,8 +22,7 @@ class WithTimerScreen extends StatefulWidget {
 
 class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderStateMixin {
 
-  var refDb= FirebaseDatabase.instance.reference().child("result_table");
-
+  
   DbAccesLayer dbAccesLayer = DbAccesLayer();
 
   String textfieldValue="Unnamed";
@@ -39,8 +37,6 @@ class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderSt
   String randomSpellImg="images/quas-wex-exort.jpg";
   List<String> currentCombination=["q","w","e"];
   List<String> trueCombination=[];
-
-
 
   void switchElements(String image,String key) {
     selectedElement.removeAt(0);
@@ -158,16 +154,11 @@ class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderSt
     );
   }
 
-  /*Widget timerCounter() {
-    return Card(
-      child: Consumer<TimerModel>(builder: (context, timerModel, child) {
-        return Text( " ${timerModel.getTime60Value()} ",style: TextStyle(fontSize: 8.w,),);
-      }),
-    );
-  }*/
-
   Widget trueFalseIcons() {
-    return TrueFalseWidget(animTranslateTrue: animTranslateTrue, animAlphaTrue: animAlphaTrue, animTranslateFalse: animTranslateFalse, animAlphaFalse: animAlphaFalse);
+    return Padding(
+      padding: EdgeInsets.only(top: 4.h),
+      child: TrueFalseWidget(animTranslateTrue: animTranslateTrue, animAlphaTrue: animAlphaTrue, animTranslateFalse: animTranslateFalse, animAlphaFalse: animAlphaFalse),
+    );
   }
 
   InvokerCombinedSkillsWidget invokerCombinedSkillWidget() {
@@ -335,7 +326,7 @@ class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderSt
   Widget myLeaderboardAlertDialog(){
    return AlertDialog(
       title: Text("Results",style: TextStyle(color: Color(0xFFEEEEEE),)),
-      content: SizedBox(width: 65.w,height: 35.h, child: Card(color:Color(0xFF666666) , child: DbResultWidget(refDb: refDb))),
+      content: SizedBox(width: 65.w,height: 35.h, child: Card(color:Color(0xFF666666) , child: DbResultWidget())),
       backgroundColor: Color(0xFF444444),
       actions: [
         TextButton(

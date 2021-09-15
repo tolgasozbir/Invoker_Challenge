@@ -2,14 +2,13 @@ import 'package:dota2_invoker/entities/dbResult.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
+var refDb= FirebaseDatabase.instance.reference().child("result_table");
+
 class DbResultWidget extends StatelessWidget {
   const DbResultWidget({
     Key? key,
-    required this.refDb,
   }) : super(key: key);
-
-  final DatabaseReference refDb;
-
+  
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<Event>(
