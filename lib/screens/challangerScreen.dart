@@ -1,30 +1,26 @@
 import 'dart:async';
-import 'package:dota2_invoker/components/dbResultWidget.dart';
+import 'package:dota2_invoker/components/dbChallangerResultWidget.dart';
 import 'package:dota2_invoker/components/invokerCombinedSkill.dart';
 import 'package:dota2_invoker/components/trueFalseWidget.dart';
 import 'package:dota2_invoker/entities/DbAccesLayer.dart';
-import 'package:dota2_invoker/providerModels/timerModel.dart';
 import 'package:dota2_invoker/entities/sounds.dart';
 import 'package:dota2_invoker/entities/spell.dart';
 import 'package:dota2_invoker/entities/spells.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:dota2_invoker/providerModels/timerModel.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
-class WithTimerScreen extends StatefulWidget {
-  const WithTimerScreen({ Key? key }) : super(key: key);
+class ChallangerScreen extends StatefulWidget {
+  const ChallangerScreen({ Key? key }) : super(key: key);
 
   @override
-  _WithTimerScreenState createState() => _WithTimerScreenState();
+  _ChallangerScreenState createState() => _ChallangerScreenState();
 }
 
-class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderStateMixin {
-
-  
+class _ChallangerScreenState extends State<ChallangerScreen> with TickerProviderStateMixin {
   DbAccesLayer dbAccesLayer = DbAccesLayer();
-
+  
   String textfieldValue="Unnamed";
   Timer? timer;
   Sounds _sounds =Sounds();
@@ -34,6 +30,7 @@ class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderSt
   bool isStart=false;
   int trueCounterValue=0;
   late int result;
+  late int resultTime;
   String randomSpellImg="images/quas-wex-exort.jpg";
   List<String> currentCombination=["q","w","e"];
   List<String> trueCombination=[];
@@ -115,7 +112,6 @@ class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderSt
           invokerMainElements(),
           startButton(),
           showLeaderBoardButton(),
-          //dbResults(),
         ],
       ),
     );
@@ -140,14 +136,16 @@ class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderSt
         return Stack(
           alignment: Alignment.center,
           children: [
-          SizedBox(width: 14.w, height: 14.w, child: CircularProgressIndicator(
-            color: Colors.amber,
-            backgroundColor: Colors.blue,
-            valueColor: timerModel.time60.toDouble()<=10 ? AlwaysStoppedAnimation<Color>(Colors.red) : AlwaysStoppedAnimation<Color>(Colors.amber),
-            value: timerModel.time60.toDouble()/60,
-            strokeWidth: 4,
-          ),),
-          Text( " ${timerModel.getTime60Value()} ",style: TextStyle(fontSize: 8.w,),)
+          RotationTransition(
+            turns: new AlwaysStoppedAnimation((timerModel.getTimeValue()*10) / 360),
+            child: SizedBox(width: 14.w, height: 14.w, child: Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(colors: [Color(0x3300BBFF),Color(0x33FFCC00)],),
+                borderRadius: BorderRadius.circular(50),
+              ),
+            )),
+          ),
+          Text( " ${timerModel.getTimeValue()} ",style: TextStyle(fontSize: 8.w,),)
           ],
         );
       }),
@@ -163,15 +161,6 @@ class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderSt
 
   InvokerCombinedSkillsWidget invokerCombinedSkillWidget() {
     return InvokerCombinedSkillsWidget(image: randomSpellImg,w: 28.w,);
-  }
-
-  Widget invokerSelectedElements(String image) {
-    return Container(
-      decoration: BoxDecoration(
-        boxShadow: [ BoxShadow(color: Colors.black54, blurRadius: 12, spreadRadius: 4), ],
-      ),
-      child: Image.asset(image,width: 7.w,)
-    );
   }
 
   Padding selectedElements() {
@@ -201,6 +190,15 @@ class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderSt
         invokerElement("images/invoker_exort.png"),
         invokerElement("images/invoker_invoke.png"),
       ],
+    );
+  }
+
+  Widget invokerSelectedElements(String image) {
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: [ BoxShadow(color: Colors.black54, blurRadius: 12, spreadRadius: 4), ],
+      ),
+      child: Image.asset(image,width: 7.w,)
     );
   }
 
@@ -236,9 +234,13 @@ class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderSt
               Timer(Duration(milliseconds: 600), (){animControlTrue.reset();});
             }else{
               print("false");
-              _sounds.failCombinationSound();
-              animControlFalse.forward();
-              Timer(Duration(milliseconds: 600), (){animControlFalse.reset();});
+              result=trueCounterValue;
+              timer!.cancel();
+              isStart=false;
+              startButtonOpacity=1.0;
+              _sounds.ggSound();
+              resultDiaglog();
+              setState(() { });
             }
             print(trueCombination);
           }
@@ -265,23 +267,16 @@ class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderSt
                 onPressed: () {
                   isStart=true;
                   timer=Timer.periodic(Duration(seconds: 1), (timer) { 
-                      timerModel.timeDecrease();
-                      if (timerModel.time60==0) {
-                        result=trueCounterValue;
-                        timer.cancel();
-                        isStart=false;
-                        startButtonOpacity=1.0;
-                        timerModel.time60=60;
-                        resultDiaglog();
-                        setState(() { });
-                      }
+                      timerModel.timeIncrease();
+                      resultTime=timerModel.time;
                   });
                   Spell nextSpell = spells.getRandomSpell();
                   randomSpellImg = nextSpell.image;
                   trueCombination = nextSpell.combine;
                   startButtonOpacity=0.0;
                   trueCounterValue=0;
-                  //timerModel.time60=60;
+                  timerModel.time=0;
+                  resultTime=0;
                   setState(() {});
                 },
               );
@@ -325,7 +320,20 @@ class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderSt
   Widget myLeaderboardAlertDialog(){
    return AlertDialog(
       title: Text("Results",style: TextStyle(color: Color(0xFFEEEEEE),)),
-      content: SizedBox(width: 65.w,height: 35.h, child: Card(color:Color(0xFF666666) , child: DbResultWidget())),
+      content: SizedBox(width: 65.w,height: 35.h, child: Card(color:Color(0xFF666666) , 
+      child: Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text("        Name",style: TextStyle(color: Color(0xFF00BBFF),)),
+            Text("        Time",style: TextStyle(color: Color(0xFFFFCC00),)),
+            Text("SpellCast     ",style: TextStyle(color: Color(0xFF00FF00),)),
+          ],
+        ),
+        DbChallangerResultWidget()
+      ],
+      ))),
       backgroundColor: Color(0xFF444444),
       actions: [
         TextButton(
@@ -351,33 +359,36 @@ class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderSt
       title: Text("Results",style: TextStyle(color: Color(0xFFEEEEEE),)),
       content: Container(
         width: double.infinity,
-        height: 27.5.h,
-        child: Column(
-          children: [
-            Text("True Combinations\n\n$result",style: TextStyle(fontWeight: FontWeight.w500, color: Color(0xFFEEEEEE), fontSize: 18),textAlign: TextAlign.center,),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                maxLength: 14,
-                decoration: InputDecoration(
-                  fillColor: Colors.white24,
-                  filled: true,
-                  border: OutlineInputBorder(),
-                  hintText: "Name",
-                  labelText: "Name",
-                  labelStyle: TextStyle(color: Colors.amber, fontSize: 18,fontWeight: FontWeight.w600)
+        height: 32.h,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Text("True Combinations\n$result spells\n",style: TextStyle(fontWeight: FontWeight.w500, color: Color(0xFFEEEEEE), fontSize: 18),textAlign: TextAlign.center,),
+              Text("Elapsed time\n$resultTime Second",style: TextStyle(fontWeight: FontWeight.w500, color: Color(0xFFEEEEEE), fontSize: 18),textAlign: TextAlign.center,),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  maxLength: 14,
+                  decoration: InputDecoration(
+                    fillColor: Colors.white24,
+                    filled: true,
+                    border: OutlineInputBorder(),
+                    hintText: "Name",
+                    labelText: "Name",
+                    labelStyle: TextStyle(color: Colors.amber, fontSize: 18,fontWeight: FontWeight.w600)
+                  ),
+                  onChanged: (value){
+                    if (value.length<=0) {
+                      textfieldValue="Unnamed";
+                    }
+                    else{
+                      textfieldValue=value;
+                    }
+                  },
                 ),
-                onChanged: (value){
-                  if (value.length<=0) {
-                    textfieldValue="Unnamed";
-                  }
-                  else{
-                    textfieldValue=value;
-                  }
-                },
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         )
       ),
       backgroundColor: Color(0xFF444444),
@@ -397,7 +408,7 @@ class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderSt
                 if (textfieldValue.length<=0) {
                     textfieldValue="Unnamed";
                 }
-                dbAccesLayer.addDbValue(textfieldValue,result);
+                dbAccesLayer.addDbChallangerValue(textfieldValue,resultTime,result);
                 textfieldValue="";
                 Navigator.pop(context);
               },

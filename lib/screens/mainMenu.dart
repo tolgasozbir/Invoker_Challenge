@@ -1,9 +1,13 @@
 import 'dart:async';
+import 'dart:math';
+import 'package:dota2_invoker/providerModels/invokerNameModel.dart';
+import 'package:dota2_invoker/screens/challangerScreen.dart';
 import 'package:dota2_invoker/screens/loadingScreen.dart';
 import 'package:dota2_invoker/screens/trainingScreen.dart';
 import 'package:dota2_invoker/screens/withTimerScreen.dart';
 import 'package:dota2_invoker/entities/sounds.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 class MainMenu extends StatefulWidget {
@@ -17,10 +21,35 @@ class _MainMenuState extends State<MainMenu> {
 
   Sounds _sounds = Sounds();
   double currentOpacity=0;
+  String chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  String name="INVOKER";
+  Timer? timer;
+  String generateRandomString() {
+    Random rnd=Random();
+    name="";
+    for (var i = 0; i < 7; i++) {
+      name+=chars[rnd.nextInt(chars.length)];
+    }
+    return name;
+  }
+
+  @override
+  void dispose() {
+    if (timer!=null) {
+      timer!.cancel();
+    }
+    super.dispose();
+  }
 
   @override
   void initState() {
     Timer(Duration(milliseconds: 500), ()=>setState(() { currentOpacity=1; }));
+    timer=Timer.periodic(Duration(milliseconds: 10000), (timer) { 
+      name=generateRandomString();
+      setState(() {
+        
+      });
+    });
     super.initState();
   }
 
@@ -28,11 +57,16 @@ class _MainMenuState extends State<MainMenu> {
   @override
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
-      return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData.dark(),
-        home: Scaffold(
-          body: buildBody(),
+      return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (context) => InvokerNameModel()),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData.dark(),
+          home: Scaffold(
+            body: buildBody(),
+          ),
         ),
       );
     });
@@ -44,12 +78,13 @@ class _MainMenuState extends State<MainMenu> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-/*            trainingButton(),
+            Text("$name",style: TextStyle(fontSize: 32),),
+/*          trainingButton(),
             withTimerButton(),
             challangerButton(),*/
             menuButton(Duration(seconds: 1), Colors.blue, Colors.lightBlue, "images/quasGif.gif", "Training", TrainingScreen()),
             menuButton(Duration(seconds: 2), Colors.pink.shade200, Colors.pink.shade200, "images/wexGif.gif", "With Timer", WithTimerScreen()),
-            menuButton(Duration(seconds: 3), Colors.amber, Colors.amber, "images/exortGif.gif", "Challanger", TrainingScreen()),
+            menuButton(Duration(seconds: 3), Colors.amber, Colors.amber, "images/exortGif.gif", "Challanger", ChallangerScreen()),
           ],
         ),
       )

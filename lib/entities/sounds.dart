@@ -17,8 +17,13 @@ class Sounds {
   }
 
   void failCombinationSound(){
-    int random=_rnd.nextInt(_beginingSound.length);
+    int random=_rnd.nextInt(_failSound.length);
     _player.play(_failSound[random],volume: 0.15);
+  }
+
+  void ggSound(){
+    int random=_rnd.nextInt(_ggSound.length);
+    _player.play(_ggSound[random],volume: 0.2);
   }
 
   String _orbValue="";
@@ -115,6 +120,13 @@ class Sounds {
     "fail5.mp3",
     "fail6.mp3",
     "fail7.mp3",
+  ];
+
+    List<String> _ggSound=[
+    "gg1.mpeg",
+    "gg2.mpeg",
+    "gg3.mpeg",
+    "gg4.mpeg",
   ];
 
 }
