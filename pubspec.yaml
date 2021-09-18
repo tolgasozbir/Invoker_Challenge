@@ -38,6 +38,14 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  flutter_launcher_icons: ^0.9.2
+
+flutter_icons:
+    ios: true
+    android: true
+    image_path: "appIcon/invLogo.png"
+    image_path_android: "appIcon/invLogo.png"
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -55,6 +63,7 @@ flutter:
   #  - assets/begin_invoker.mp3
     - images/
     - images/spells/
+    - appIcon/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
