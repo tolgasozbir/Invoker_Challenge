@@ -13,17 +13,17 @@ class Sounds {
 
   void playSoundBegining(){
     int random=_rnd.nextInt(_beginingSound.length);
-    _player.play(_beginingSound[random],volume: 0.30);
+    _player.play(_beginingSound[random],volume: 0.40);
   }
 
   void failCombinationSound(){
     int random=_rnd.nextInt(_failSound.length);
-    _player.play(_failSound[random],volume: 0.15);
+    _player.play(_failSound[random],volume: 0.35);
   }
 
   void ggSound(){
     int random=_rnd.nextInt(_ggSound.length);
-    _player.play(_ggSound[random],volume: 0.2);
+    _player.play(_ggSound[random],volume: 0.35);
   }
 
   String _orbValue="";
@@ -33,16 +33,16 @@ class Sounds {
       _orbValue+=item;
     }
     switch (_orbValue) {
-      case "qqq": _player.play(_coldSnapSound[_rnd.nextInt(_coldSnapSound.length)],volume: 0.15); break;
-      case "qqw": _player.play(_ghostWalkSound[_rnd.nextInt(_ghostWalkSound.length)],volume: 0.15); break;
-      case "qqe": _player.play(_iceWallSound[_rnd.nextInt(_iceWallSound.length)],volume: 0.15); break;
-      case "www": _player.play(_emp[_rnd.nextInt(_emp.length)],volume: 0.15); break;
-      case "wwq": _player.play(_tornado[_rnd.nextInt(_tornado.length)],volume: 0.15); break;
-      case "wwe": _player.play(_alacrity[_rnd.nextInt(_alacrity.length)],volume: 0.15); break;
-      case "eee": _player.play(_sunStrike[_rnd.nextInt(_sunStrike.length)],volume: 0.15); break;
-      case "eeq": _player.play(_forgeSpirit[_rnd.nextInt(_forgeSpirit.length)],volume: 0.15); break;
-      case "eew": _player.play(_chaosMeteor[_rnd.nextInt(_chaosMeteor.length)],volume: 0.15); break;
-      case "qwe": _player.play(_blast[_rnd.nextInt(_blast.length)],volume: 0.15); break;
+      case "qqq": _player.play(_coldSnapSound[_rnd.nextInt(_coldSnapSound.length)],volume: 0.35); break;
+      case "qqw": _player.play(_ghostWalkSound[_rnd.nextInt(_ghostWalkSound.length)],volume: 0.35); break;
+      case "qqe": _player.play(_iceWallSound[_rnd.nextInt(_iceWallSound.length)],volume: 0.35); break;
+      case "www": _player.play(_emp[_rnd.nextInt(_emp.length)],volume: 0.35); break;
+      case "wwq": _player.play(_tornado[_rnd.nextInt(_tornado.length)],volume: 0.35); break;
+      case "wwe": _player.play(_alacrity[_rnd.nextInt(_alacrity.length)],volume: 0.35); break;
+      case "eee": _player.play(_sunStrike[_rnd.nextInt(_sunStrike.length)],volume: 0.35); break;
+      case "eeq": _player.play(_forgeSpirit[_rnd.nextInt(_forgeSpirit.length)],volume: 0.35); break;
+      case "eew": _player.play(_chaosMeteor[_rnd.nextInt(_chaosMeteor.length)],volume: 0.35); break;
+      case "qwe": _player.play(_blast[_rnd.nextInt(_blast.length)],volume: 0.35); break;
       default:
     }
     _orbValue="";

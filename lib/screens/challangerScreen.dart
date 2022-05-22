@@ -225,11 +225,11 @@ class _ChallangerScreenState extends State<ChallangerScreen> with TickerProvider
             if (currentCombination.toString()==trueCombination.toString()) {
               print("true");
               Spell nextSpell=spells.getRandomSpell();
-              randomSpellImg=nextSpell.image;
-              trueCombination=nextSpell.combine;
+              _sounds.trueCombinationSound(trueCombination);
               setState(() { });
               trueCounterValue++;
-              _sounds.trueCombinationSound(trueCombination);
+              randomSpellImg=nextSpell.image;
+              trueCombination=nextSpell.combine;
               animControlTrue.forward();
               Timer(Duration(milliseconds: 600), (){animControlTrue.reset();});
             }else{

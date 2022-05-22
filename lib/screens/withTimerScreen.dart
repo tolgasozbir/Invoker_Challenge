@@ -7,9 +7,7 @@ import 'package:dota2_invoker/providerModels/timerModel.dart';
 import 'package:dota2_invoker/entities/sounds.dart';
 import 'package:dota2_invoker/entities/spell.dart';
 import 'package:dota2_invoker/entities/spells.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -227,11 +225,11 @@ class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderSt
             if (currentCombination.toString()==trueCombination.toString()) {
               print("true");
               Spell nextSpell=spells.getRandomSpell();
-              randomSpellImg=nextSpell.image;
-              trueCombination=nextSpell.combine;
+              _sounds.trueCombinationSound(trueCombination);
               setState(() { });
               trueCounterValue++;
-              _sounds.trueCombinationSound(trueCombination);
+              randomSpellImg=nextSpell.image;
+              trueCombination=nextSpell.combine;
               animControlTrue.forward();
               Timer(Duration(milliseconds: 600), (){animControlTrue.reset();});
             }else{
