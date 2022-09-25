@@ -260,7 +260,7 @@ class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderSt
                   primary: Color(0xFF545454),
                 ),
                 child: Text("Start",style: TextStyle(fontSize: 12.sp),),
-                onPressed: () {
+                onPressed: isStart != true ? () { //TODO: BUTTONLAR İNVİZ ARKADA ÇALIŞIYOR
                   isStart=true;
                   timer=Timer.periodic(Duration(seconds: 1), (timer) { 
                       timerModel.timeDecrease();
@@ -281,7 +281,7 @@ class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderSt
                   trueCounterValue=0;
                   //timerModel.time60=60;
                   setState(() {});
-                },
+                } : null,
               );
             },
           )
