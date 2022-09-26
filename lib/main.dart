@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Dota 2 Invoker',
       debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark(),
       home: SplashView(),
     );
   }

@@ -1,6 +1,5 @@
 import 'dart:math';
-
-import 'package:dota2_invoker/screens/mainMenu.dart';
+import 'package:dota2_invoker/screens/dashboard/dashboard_view.dart';
 import 'package:flutter/material.dart';
 import 'splash_view.dart';
 
@@ -27,7 +26,7 @@ abstract class SplashViewModel extends State<SplashView> {
 
   void goToMainMenu() async {
     await Future.delayed(_duration, (){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MainMenu()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardView()));
     });
   }
 }

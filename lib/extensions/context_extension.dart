@@ -14,6 +14,7 @@ extension MediaQueryExtension on BuildContext {
 
   double dynamicWidth(double val) => width * val;
   double dynamicHeight(double val) => height * val;
+  double sp(double val) => val * (width / 3) / 100;
   
   double get lowValue => height * 0.005;
   double get normalValue => height * 0.01;

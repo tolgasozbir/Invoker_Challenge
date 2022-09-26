@@ -1,14 +1,13 @@
 import 'dart:math';
 import 'package:audioplayers/audioplayers.dart';
 
-
 class Sounds {
   
   final _player = AudioCache();
-  Random _rnd=Random();
+  Random _rnd = Random();
 
   void playSound(String sound){
-    _player.play(sound,volume: 0.50);
+    _player.play(sound, volume: 0.50);
   }
 
   void playSoundBegining(){
