@@ -1,3 +1,4 @@
+import 'package:dota2_invoker/constants/app_strings.dart';
 import 'package:dota2_invoker/screens/splash/splash_view.dart';
 import 'package:flutter/material.dart';
 
@@ -9,8 +10,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Dota 2 Invoker',
       debugShowCheckedModeBanner: false,
+      title: AppStrings.appName,
       theme: ThemeData.dark(),
       home: SplashView(),
     );
