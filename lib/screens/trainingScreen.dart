@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'package:dota2_invoker/components/invokerCombinedSkill.dart';
+import 'package:dota2_invoker/widgets/big_spell_picture.dart';
 import 'package:dota2_invoker/components/trueFalseWidget.dart';
-import 'package:dota2_invoker/providerModels/timerModel.dart';
+import 'package:dota2_invoker/providerModels/timer_provider.dart';
 import 'package:dota2_invoker/entities/sounds.dart';
 import 'package:dota2_invoker/models/spell.dart';
 import 'package:dota2_invoker/entities/spells.dart';
@@ -84,7 +84,7 @@ class _TrainingScreenState extends State<TrainingScreen> with TickerProviderStat
     return Sizer(builder: (context, orientation, deviceType) {
       return MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (context) => TimerModel()),
+          ChangeNotifierProvider(create: (context) => TimerProvider()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -147,8 +147,8 @@ class _TrainingScreenState extends State<TrainingScreen> with TickerProviderStat
     );
   }
 
-  InvokerCombinedSkillsWidget invokerCombinedSkillWidget() {
-    return InvokerCombinedSkillsWidget(image: randomSpellImg,w: 28.w,);
+  BigSpellPicture invokerCombinedSkillWidget() {
+    return BigSpellPicture(image: randomSpellImg,size: 28.w,);
   }
 
   Padding selectedElements() {
@@ -188,7 +188,7 @@ class _TrainingScreenState extends State<TrainingScreen> with TickerProviderStat
         child: SizedBox(
           width: 36.w,
           height: 6.h,
-          child: Consumer<TimerModel>(
+          child: Consumer<TimerProvider>(
             builder: (context,timerModel,child){
               return ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -221,7 +221,7 @@ class _TrainingScreenState extends State<TrainingScreen> with TickerProviderStat
         top: 8.w,
         child: Tooltip(
           message: "Skill cast per seconds average by elapsed time.",
-          child: Consumer<TimerModel>(builder: (context, timerModel, child){
+          child: Consumer<TimerProvider>(builder: (context, timerModel, child){
             return Text((timerModel.calculateScps(totalCast)).toStringAsFixed(1) + " SCps",style: TextStyle(fontSize: 4.w,),);
           }),
       ),
@@ -234,7 +234,7 @@ class _TrainingScreenState extends State<TrainingScreen> with TickerProviderStat
         top: 2.w,
         child: Tooltip(
           message: "Click per seconds average by elapsed time.",
-          child: Consumer<TimerModel>(builder: (context, timerModel, child){
+          child: Consumer<TimerProvider>(builder: (context, timerModel, child){
             return Text((timerModel.calculateCps(totalTabs)).toStringAsFixed(1) + " Cps",style: TextStyle(fontSize: 4.w,),);
           }),
       ),
@@ -245,8 +245,8 @@ class _TrainingScreenState extends State<TrainingScreen> with TickerProviderStat
     return Positioned(
       right: 2.w,
       top: 2.w,
-      child: Consumer<TimerModel>(builder: (context, timerModel, child) {
-        return Text("${timerModel.getTimeValue()} seconds passed", style: TextStyle(fontSize: 4.w,),);
+      child: Consumer<TimerProvider>(builder: (context, timerModel, child) {
+        return Text("${timerModel.getTimeValue} seconds passed", style: TextStyle(fontSize: 4.w,),);
       }),
     );
   }

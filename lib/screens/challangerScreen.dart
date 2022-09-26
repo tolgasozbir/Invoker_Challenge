@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'package:dota2_invoker/components/dbChallangerResultWidget.dart';
-import 'package:dota2_invoker/components/invokerCombinedSkill.dart';
+import 'package:dota2_invoker/widgets/big_spell_picture.dart';
 import 'package:dota2_invoker/components/trueFalseWidget.dart';
 import 'package:dota2_invoker/entities/DbAccesLayer.dart';
 import 'package:dota2_invoker/entities/sounds.dart';
 import 'package:dota2_invoker/models/spell.dart';
 import 'package:dota2_invoker/entities/spells.dart';
-import 'package:dota2_invoker/providerModels/timerModel.dart';
+import 'package:dota2_invoker/providerModels/timer_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -85,7 +85,7 @@ class _ChallangerScreenState extends State<ChallangerScreen> with TickerProvider
     return Sizer(builder: (context, orientation, deviceType) {
       return MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (context) => TimerModel()),
+          ChangeNotifierProvider(create: (context) => TimerProvider()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -132,12 +132,12 @@ class _ChallangerScreenState extends State<ChallangerScreen> with TickerProvider
   Widget timerCounter() {
     return Card(
       color: Color(0xFF303030),
-      child: Consumer<TimerModel>(builder: (context, timerModel, child) {
+      child: Consumer<TimerProvider>(builder: (context, timerModel, child) {
         return Stack(
           alignment: Alignment.center,
           children: [
           RotationTransition(
-            turns: new AlwaysStoppedAnimation((timerModel.getTimeValue()*10) / 360),
+            turns: new AlwaysStoppedAnimation((timerModel.getTimeValue*10) / 360),
             child: SizedBox(width: 14.w, height: 14.w, child: Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(colors: [Color(0x3300BBFF),Color(0x33FFCC00)],),
@@ -145,7 +145,7 @@ class _ChallangerScreenState extends State<ChallangerScreen> with TickerProvider
               ),
             )),
           ),
-          Text( " ${timerModel.getTimeValue()} ",style: TextStyle(fontSize: 8.w,),)
+          Text( " ${timerModel.getTimeValue} ",style: TextStyle(fontSize: 8.w,),)
           ],
         );
       }),
@@ -164,8 +164,8 @@ class _ChallangerScreenState extends State<ChallangerScreen> with TickerProvider
     );
   }
 
-  InvokerCombinedSkillsWidget invokerCombinedSkillWidget() {
-    return InvokerCombinedSkillsWidget(image: randomSpellImg,w: 28.w,);
+  BigSpellPicture invokerCombinedSkillWidget() {
+    return BigSpellPicture(image: randomSpellImg,size: 28.w,);
   }
 
   Padding selectedElements() {
@@ -262,7 +262,7 @@ class _ChallangerScreenState extends State<ChallangerScreen> with TickerProvider
         child: SizedBox(
           width: 36.w,
           height: 6.h,
-          child: Consumer<TimerModel>(
+          child: Consumer<TimerProvider>(
             builder: (context,timerModel,child){
               return ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -273,14 +273,14 @@ class _ChallangerScreenState extends State<ChallangerScreen> with TickerProvider
                   isStart=true;
                   timer=Timer.periodic(Duration(seconds: 1), (timer) { 
                       timerModel.timeIncrease();
-                      resultTime=timerModel.time;
+                      resultTime=timerModel.getTimeValue;
                   });
                   Spell nextSpell = spells.getRandomSpell;
                   randomSpellImg = nextSpell.image;
                   trueCombination = nextSpell.combine;
                   startButtonOpacity=0.0;
                   trueCounterValue=0;
-                  timerModel.time=0;
+                  timerModel.setTimerValue(0);
                   resultTime=0;
                   setState(() {});
                 },

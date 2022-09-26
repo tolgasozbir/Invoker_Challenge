@@ -1,5 +1,5 @@
 import 'package:dota2_invoker/constants/app_strings.dart';
-import 'package:dota2_invoker/providerModels/timerModel.dart';
+import 'package:dota2_invoker/providerModels/timer_provider.dart';
 import 'package:dota2_invoker/screens/splash/splash_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 void main() {
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(create: (context) => TimerModel())
+      ChangeNotifierProvider(create: (context) => TimerProvider())
     ],
     child: MyApp(),
   ));

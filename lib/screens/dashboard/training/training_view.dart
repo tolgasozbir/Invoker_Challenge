@@ -1,13 +1,12 @@
 import 'dart:async';
 
 import 'package:dota2_invoker/extensions/context_extension.dart';
-import 'package:dota2_invoker/providerModels/timerModel.dart';
+import 'package:dota2_invoker/providerModels/timer_provider.dart';
 import 'package:dota2_invoker/screens/dashboard/training/training_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-
-import '../../../components/invokerCombinedSkill.dart';
+import '../../../widgets/big_spell_picture.dart';
 import '../../../widgets/spells_helper_widget.dart';
 import '../../../components/trueFalseWidget.dart';
 import '../../../models/spell.dart';
@@ -30,17 +29,18 @@ class _TrainingViewState extends TrainingViewModel {
 
   Widget _bodyView() {
     return SafeArea(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          counters(),
-          showSpellsVisible ? SpellsHelperWidget() : SizedBox.shrink(),
-          trueFalseIcons(),
-          InvokerCombinedSkillsWidget(image: randomSpellImg, w: context.dynamicWidth(0.28),),
-          selectedElements(),
-          invokerMainElements(),
-          startButton(),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            counters(),
+            showAllSpells ? SpellsHelperWidget() : SizedBox.shrink(),
+            trueFalseIcons(),
+            BigSpellPicture(image: randomSpellImg),
+            selectedElements(),
+            invokerMainElements(),
+            startButton(),
+          ],
+        ),
       ),
     );
   }
@@ -75,7 +75,7 @@ class _TrainingViewState extends TrainingViewModel {
       right: context.dynamicWidth(0.02),
       top: context.dynamicWidth(0.02),
       child: Text(
-        "${context.watch<TimerModel>().getTimeValue()} seconds passed", 
+        "${context.watch<TimerProvider>().getTimeValue} seconds passed", 
         style: TextStyle(fontSize: context.sp(12),)
       ),
     );
@@ -88,15 +88,14 @@ class _TrainingViewState extends TrainingViewModel {
       child: InkWell(
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
-        child: SizedBox(
-          width: context.dynamicWidth(0.08),
-          height: context.dynamicWidth(0.08),
+        child: SizedBox.square(
+          dimension: context.dynamicWidth(0.08),
           child: Icon(FontAwesomeIcons.questionCircle,color: Colors.amberAccent)
         ),
         onTap: (){
-          showSpellsVisible == true 
-            ? showSpellsVisible = false
-            : showSpellsVisible = true;
+          showAllSpells == true 
+            ? showAllSpells = false
+            : showAllSpells = true;
           setState(() { });
         },
       ),
@@ -110,7 +109,7 @@ class _TrainingViewState extends TrainingViewModel {
       child: Tooltip(
         message: "Click per seconds average by elapsed time.",
         child: Text(
-          context.watch<TimerModel>().calculateCps(totalTabs).toStringAsFixed(1) + " Cps",
+          context.watch<TimerProvider>().calculateCps(totalTabs).toStringAsFixed(1) + " Cps",
           style: TextStyle(fontSize: context.sp(12),)
         ),
       ),
@@ -124,7 +123,7 @@ class _TrainingViewState extends TrainingViewModel {
       child: Tooltip(
         message: "Skill cast per seconds average by elapsed time.",
         child: Text(
-          context.watch<TimerModel>().calculateScps(totalCast).toStringAsFixed(1) + " SCps",
+          context.watch<TimerProvider>().calculateScps(totalCast).toStringAsFixed(1) + " SCps",
           style: TextStyle(fontSize: context.sp(12),),
         ),
       ),
@@ -136,44 +135,44 @@ class _TrainingViewState extends TrainingViewModel {
 
   Padding trueFalseIcons() {
     return Padding(
-      padding: showSpellsVisible==false 
+      padding: showAllSpells == false 
         ? EdgeInsets.only(top: context.dynamicHeight(0.12)) 
-        : EdgeInsets.only(top: context.dynamicHeight(0.08)),
+        : EdgeInsets.zero,
       child: TrueFalseWidget(key: globalAnimKey), 
     );
   }
 
-  Padding selectedElements() {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 24),
-      child: Container(
-        width: context.dynamicWidth(0.25),
-        height: context.dynamicHeight(0.10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            selectedElement[0],
-            selectedElement[1],
-            selectedElement[2],
-          ],
-        ),
+  Container selectedElements() {
+    return Container(
+      width: context.dynamicWidth(0.25),
+      height: context.dynamicHeight(0.10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          selectedElement[0],
+          selectedElement[1],
+          selectedElement[2],
+        ],
       ),
     );
   }
 
-    Row invokerMainElements() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        invokerElement("images/invoker_quas.png"),
-        invokerElement("images/invoker_wex.png"),
-        invokerElement("images/invoker_exort.png"),
-        invokerElement("images/invoker_invoke.png"),
-      ],
+  Padding invokerMainElements() {
+    return Padding(
+      padding: EdgeInsets.only(top: context.dynamicHeight(0.03)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          invokerElement("images/invoker_quas.png"),
+          invokerElement("images/invoker_wex.png"),
+          invokerElement("images/invoker_exort.png"),
+          invokerElement("images/invoker_invoke.png"),
+        ],
+      ),
     );
   }
 
-    GestureDetector invokerElement(String image) {
+  GestureDetector invokerElement(String image) {
     return GestureDetector(
       child: Container(
         decoration: BoxDecoration(
@@ -219,15 +218,14 @@ class _TrainingViewState extends TrainingViewModel {
     );
   }
 
-    Widget startButton() {
-    return Padding(
-      padding: EdgeInsets.only(top: context.dynamicHeight(0.08)),
-      child: Opacity(
-        opacity: startButtonOpacity,
+  Widget startButton() {
+    return !isStart 
+      ? Padding(
+        padding: EdgeInsets.only(top: context.dynamicHeight(0.04)),
         child: SizedBox(
           width: context.dynamicWidth(0.36),
           height: context.dynamicHeight(0.06),
-          child: Consumer<TimerModel>(
+          child: Consumer<TimerProvider>(
             builder: (context,timerModel,child){
               return ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -249,8 +247,8 @@ class _TrainingViewState extends TrainingViewModel {
             },
           )
         ),
-      ),
-    );
+      )
+      : SizedBox.shrink();
   }
 
 }

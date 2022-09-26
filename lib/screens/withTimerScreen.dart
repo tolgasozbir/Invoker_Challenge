@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:dota2_invoker/components/dbResultWidget.dart';
-import 'package:dota2_invoker/components/invokerCombinedSkill.dart';
+import 'package:dota2_invoker/widgets/big_spell_picture.dart';
 import 'package:dota2_invoker/components/trueFalseWidget.dart';
 import 'package:dota2_invoker/entities/DbAccesLayer.dart';
-import 'package:dota2_invoker/providerModels/timerModel.dart';
+import 'package:dota2_invoker/providerModels/timer_provider.dart';
 import 'package:dota2_invoker/entities/sounds.dart';
 import 'package:dota2_invoker/models/spell.dart';
 import 'package:dota2_invoker/entities/spells.dart';
@@ -86,7 +86,7 @@ class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderSt
     return Sizer(builder: (context, orientation, deviceType) {
       return MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (context) => TimerModel()),
+          ChangeNotifierProvider(create: (context) => TimerProvider()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -134,7 +134,7 @@ class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderSt
   Widget timerCounter() {
     return Card(
       color: Color(0xFF303030),
-      child: Consumer<TimerModel>(builder: (context, timerModel, child) {
+      child: Consumer<TimerProvider>(builder: (context, timerModel, child) {
         return Stack(
           alignment: Alignment.center,
           children: [
@@ -164,8 +164,8 @@ class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderSt
     );
   }
 
-  InvokerCombinedSkillsWidget invokerCombinedSkillWidget() {
-    return InvokerCombinedSkillsWidget(image: randomSpellImg,w: 28.w,);
+  BigSpellPicture invokerCombinedSkillWidget() {
+    return BigSpellPicture(image: randomSpellImg,size: 28.w,);
   }
 
   Widget invokerSelectedElements(String image) {
@@ -258,7 +258,7 @@ class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderSt
         child: SizedBox(
           width: 36.w,
           height: 6.h,
-          child: Consumer<TimerModel>(
+          child: Consumer<TimerProvider>(
             builder: (context,timerModel,child){
               return ElevatedButton(
                 style: ElevatedButton.styleFrom(

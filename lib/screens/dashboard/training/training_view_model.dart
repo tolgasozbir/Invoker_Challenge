@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'package:dota2_invoker/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../components/trueFalseWidget.dart';
 import '../../../entities/sounds.dart';
 import '../../../entities/spells.dart';
+import '../../../providerModels/timer_provider.dart';
 import 'training_view.dart';
 
 abstract class TrainingViewModel extends State<TrainingView> with TickerProviderStateMixin {
@@ -15,7 +17,7 @@ abstract class TrainingViewModel extends State<TrainingView> with TickerProvider
   int trueCounterValue=0;
   int totalTabs=0;
   int totalCast=0;
-  bool showSpellsVisible=false;
+  bool showAllSpells=false;
   double startButtonOpacity=1.0;
 
   Timer? timer;
@@ -40,19 +42,14 @@ abstract class TrainingViewModel extends State<TrainingView> with TickerProvider
     setState(() {});
   }
 
-
-
-  @override
-  void dispose() {
-    if (timer!=null) {
-      timer!.cancel();
-    }
-    super.dispose();
-  }
-
   @override
   void initState() {
+    init();
     super.initState();
+  }
+  
+  void init() async {
+    Future.microtask(() => context.read<TimerProvider>().disposeTimer());
   }
 
   Widget invokerSelectedElements(String image) {
