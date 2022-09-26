@@ -3,8 +3,8 @@ import 'package:dota2_invoker/constants/app_strings.dart';
 import 'package:flutter/material.dart';
 import '../../widgets/menu_button.dart';
 import '../challangerScreen.dart';
-import '../trainingScreen.dart';
 import '../withTimerScreen.dart';
+import 'training/training_view.dart';
 
 class DashboardView extends StatelessWidget {
   const DashboardView({Key? key}) : super(key: key);
@@ -27,7 +27,7 @@ class DashboardView extends StatelessWidget {
               color: AppColors.quasColor, 
               imagePath: ImagePaths.quas, 
               title: AppStrings.titleTraining, 
-              navigatePage: TrainingScreen(),
+              navigatePage: TrainingView(),
             ),
             MenuButton(
               fadeInDuration: Duration(seconds: 2), 

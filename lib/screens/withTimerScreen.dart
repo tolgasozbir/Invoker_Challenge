@@ -5,7 +5,7 @@ import 'package:dota2_invoker/components/trueFalseWidget.dart';
 import 'package:dota2_invoker/entities/DbAccesLayer.dart';
 import 'package:dota2_invoker/providerModels/timerModel.dart';
 import 'package:dota2_invoker/entities/sounds.dart';
-import 'package:dota2_invoker/entities/spell.dart';
+import 'package:dota2_invoker/models/spell.dart';
 import 'package:dota2_invoker/entities/spells.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -76,7 +76,7 @@ class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderSt
     animTranslateFalse=Tween(begin: 8.0.h,end: -12.0.h).animate(animControlFalse)..addListener(() {setState(() { });});
     animAlphaFalse=Tween(begin: 1.0,end: 0.0).animate(animControlFalse)..addListener(() {setState(() { });});
 
-    spellList=spells.getSpells();
+    spellList=spells.getSpellImagePaths;
 
     dbAccesLayer.getAllResultOnce();
   }
@@ -155,7 +155,12 @@ class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderSt
   Widget trueFalseIcons() {
     return Padding(
       padding: EdgeInsets.only(top: 4.h),
-      child: TrueFalseWidget(animTranslateTrue: animTranslateTrue, animAlphaTrue: animAlphaTrue, animTranslateFalse: animTranslateFalse, animAlphaFalse: animAlphaFalse),
+      child: TrueFalseWidget(
+        // animTranslateTrue: animTranslateTrue, 
+        // animAlphaTrue: animAlphaTrue, 
+        // animTranslateFalse: animTranslateFalse, 
+        // animAlphaFalse: animAlphaFalse
+      ),
     );
   }
 
@@ -224,7 +229,7 @@ class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderSt
           if(isStart){          
             if (currentCombination.toString()==trueCombination.toString()) {
               print("true");
-              Spell nextSpell=spells.getRandomSpell();
+              Spell nextSpell=spells.getRandomSpell;
               _sounds.trueCombinationSound(trueCombination);
               setState(() { });
               trueCounterValue++;
@@ -274,7 +279,7 @@ class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderSt
                         setState(() { });
                       }
                   });
-                  Spell nextSpell = spells.getRandomSpell();
+                  Spell nextSpell = spells.getRandomSpell;
                   randomSpellImg = nextSpell.image;
                   trueCombination = nextSpell.combine;
                   startButtonOpacity=0.0;

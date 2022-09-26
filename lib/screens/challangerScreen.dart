@@ -4,7 +4,7 @@ import 'package:dota2_invoker/components/invokerCombinedSkill.dart';
 import 'package:dota2_invoker/components/trueFalseWidget.dart';
 import 'package:dota2_invoker/entities/DbAccesLayer.dart';
 import 'package:dota2_invoker/entities/sounds.dart';
-import 'package:dota2_invoker/entities/spell.dart';
+import 'package:dota2_invoker/models/spell.dart';
 import 'package:dota2_invoker/entities/spells.dart';
 import 'package:dota2_invoker/providerModels/timerModel.dart';
 import 'package:flutter/material.dart';
@@ -75,7 +75,7 @@ class _ChallangerScreenState extends State<ChallangerScreen> with TickerProvider
     animTranslateFalse=Tween(begin: 8.0.h,end: -12.0.h).animate(animControlFalse)..addListener(() {setState(() { });});
     animAlphaFalse=Tween(begin: 1.0,end: 0.0).animate(animControlFalse)..addListener(() {setState(() { });});
 
-    spellList=spells.getSpells();
+    spellList=spells.getSpellImagePaths;
 
     dbAccesLayer.getAllResultOnce();
   }
@@ -155,7 +155,12 @@ class _ChallangerScreenState extends State<ChallangerScreen> with TickerProvider
   Widget trueFalseIcons() {
     return Padding(
       padding: EdgeInsets.only(top: 4.h),
-      child: TrueFalseWidget(animTranslateTrue: animTranslateTrue, animAlphaTrue: animAlphaTrue, animTranslateFalse: animTranslateFalse, animAlphaFalse: animAlphaFalse),
+      child: TrueFalseWidget(
+        // animTranslateTrue: animTranslateTrue, 
+        // animAlphaTrue: animAlphaTrue, 
+        // animTranslateFalse: animTranslateFalse, 
+        // animAlphaFalse: animAlphaFalse
+      ),
     );
   }
 
@@ -224,7 +229,7 @@ class _ChallangerScreenState extends State<ChallangerScreen> with TickerProvider
           if(isStart){          
             if (currentCombination.toString()==trueCombination.toString()) {
               print("true");
-              Spell nextSpell=spells.getRandomSpell();
+              Spell nextSpell=spells.getRandomSpell;
               _sounds.trueCombinationSound(trueCombination);
               setState(() { });
               trueCounterValue++;
@@ -270,7 +275,7 @@ class _ChallangerScreenState extends State<ChallangerScreen> with TickerProvider
                       timerModel.timeIncrease();
                       resultTime=timerModel.time;
                   });
-                  Spell nextSpell = spells.getRandomSpell();
+                  Spell nextSpell = spells.getRandomSpell;
                   randomSpellImg = nextSpell.image;
                   trueCombination = nextSpell.combine;
                   startButtonOpacity=0.0;

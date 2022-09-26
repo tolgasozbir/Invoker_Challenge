@@ -1,10 +1,26 @@
 import 'dart:math';
 
-import 'package:dota2_invoker/entities/spell.dart';
+import 'package:dota2_invoker/models/spell.dart';
 
 class Spells {
 
-  List<Spell> _spellList=[
+  static Spells? _instance;
+  static Spells get instance {
+    if (_instance != null) {
+      return _instance!;
+    }
+    _instance = Spells._();
+    return _instance!;
+  }
+
+  Spells._();
+
+  Spells();
+
+  Spell _tempSpell = Spell("images/spells/invoker_alacrity.png",<String>["w","w","e"]);
+  Random _rnd = Random();
+
+  List<Spell> _spellList = [
     Spell("images/spells/invoker_cold_snap.png",<String>["q","q","q"]),
     Spell("images/spells/invoker_ghost_walk.png",<String>["q","q","w"]),
     Spell("images/spells/invoker_ice_wall.png",<String>["q","q","e"]),
@@ -17,31 +33,17 @@ class Spells {
     Spell("images/spells/invoker_chaos_meteor.png",<String>["e","e","w"]),
   ];
 
-  late Spell _temp=Spell("images/spells/invoker_alacrity.png",<String>["w","w","e"]);
-  Random _rnd=Random();
-  Spell getRandomSpell(){
+  Spell get getRandomSpell{
+    Spell rndSpell = _spellList[_rnd.nextInt(_spellList.length)];
+    do {
+      rndSpell = _spellList[_rnd.nextInt(_spellList.length)];
+    } while (_tempSpell == rndSpell);
 
-  Spell newSpell=_spellList[_rnd.nextInt(_spellList.length)];
-    if (_temp==newSpell) {
-      newSpell=_spellList[_rnd.nextInt(_spellList.length)];
-    }
-    if (_temp==newSpell) {
-      newSpell=_spellList[_rnd.nextInt(_spellList.length)];
-    }
-    if (_temp==newSpell) {
-      newSpell=_spellList[_rnd.nextInt(_spellList.length)];
-    }
-    _temp=newSpell;
-    return newSpell;
+    _tempSpell = rndSpell;
+    return rndSpell;
   }
 
-  List<String> _spellStrings=[];
-  List<String> getSpells(){
-    for (var item in _spellList) {
-      _spellStrings.add(item.image);
-    }
-    return _spellStrings;
-  }
+  List<String> get getSpellImagePaths => _spellList.map((e) => e.image).toList();
 
 
 }
