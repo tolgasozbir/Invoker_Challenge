@@ -40,7 +40,7 @@ class TimerProvider extends ChangeNotifier {
 
   void startTimer(){
     _timer=Timer.periodic(Duration(seconds: 1), (timer) { 
-        timeIncrease();
+      timeIncrease();
     });
   }
 

@@ -2,6 +2,19 @@ import 'dart:math';
 import 'package:audioplayers/audioplayers.dart';
 
 class Sounds {
+
+  static Sounds? _instance;
+  static Sounds get instance {
+    if (_instance != null) {
+      return _instance!;
+    }
+    _instance = Sounds._();
+    return _instance!;
+  }
+
+  Sounds._();
+
+  Sounds();
   
   final _player = AudioCache();
   Random _rnd = Random();

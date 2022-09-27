@@ -1,6 +1,25 @@
 import 'dart:math';
-
+import 'package:dota2_invoker/constants/app_strings.dart';
 import 'package:dota2_invoker/models/spell.dart';
+
+enum MainSkills {quas, wex, exort, invoke}
+
+extension mainSkillsExtension on MainSkills {
+  String get getImage => '${ImagePaths.main}/invoker_${this.name}.png';
+}
+
+enum Skills {
+  invoker_cold_snap,
+  invoker_ghost_walk,
+  invoker_ice_wall,
+  invoker_emp,
+  invoker_tornado,
+  invoker_alacrity,
+  invoker_deafening_blast,
+  invoker_sun_strike,
+  invoker_forge_spirit,
+  invoker_chaos_meteor,
+}
 
 class Spells {
 

@@ -1,5 +1,7 @@
-import 'dart:async';
-
+import 'package:dota2_invoker/constants/app_colors.dart';
+import 'package:dota2_invoker/constants/app_strings.dart';
+import 'package:dota2_invoker/entities/sounds.dart';
+import 'package:dota2_invoker/entities/spells.dart';
 import 'package:dota2_invoker/extensions/context_extension.dart';
 import 'package:dota2_invoker/providerModels/timer_provider.dart';
 import 'package:dota2_invoker/screens/dashboard/training/training_view_model.dart';
@@ -22,7 +24,6 @@ class _TrainingViewState extends TrainingViewModel {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //appBar: AppBar(),
       body: _bodyView(),
     );
   }
@@ -36,14 +37,16 @@ class _TrainingViewState extends TrainingViewModel {
             showAllSpells ? SpellsHelperWidget() : SizedBox.shrink(),
             trueFalseIcons(),
             BigSpellPicture(image: randomSpellImg),
-            selectedElements(),
-            invokerMainElements(),
+            selectedElementOrbs(),
+            skills(),
             startButton(),
           ],
         ),
       ),
     );
   }
+
+  //Counters
 
   SizedBox counters(){
     return SizedBox(
@@ -65,7 +68,7 @@ class _TrainingViewState extends TrainingViewModel {
     return Center(
       child: Text(
         trueCounterValue.toString(),
-        style: TextStyle(fontSize: context.sp(36), color: Colors.green,),
+        style: TextStyle(fontSize: context.sp(36), color: AppColors.trainingCounterColor,),
       )
     );
   }
@@ -75,7 +78,7 @@ class _TrainingViewState extends TrainingViewModel {
       right: context.dynamicWidth(0.02),
       top: context.dynamicWidth(0.02),
       child: Text(
-        "${context.watch<TimerProvider>().getTimeValue} seconds passed", 
+        '${context.watch<TimerProvider>().getTimeValue} ${AppStrings.secPassed}', 
         style: TextStyle(fontSize: context.sp(12),)
       ),
     );
@@ -90,14 +93,9 @@ class _TrainingViewState extends TrainingViewModel {
         highlightColor: Colors.transparent,
         child: SizedBox.square(
           dimension: context.dynamicWidth(0.08),
-          child: Icon(FontAwesomeIcons.questionCircle,color: Colors.amberAccent)
+          child: Icon(FontAwesomeIcons.questionCircle,color: AppColors.questionMarkColor)
         ),
-        onTap: (){
-          showAllSpells == true 
-            ? showAllSpells = false
-            : showAllSpells = true;
-          setState(() { });
-        },
+        onTap: ()=> setState(()=> showAllSpells = !showAllSpells),
       ),
     );
   }
@@ -107,9 +105,9 @@ class _TrainingViewState extends TrainingViewModel {
       left: context.dynamicWidth(0.02),
       top: context.dynamicWidth(0.02),
       child: Tooltip(
-        message: "Click per seconds average by elapsed time.",
+        message: '${AppStrings.toolTipCPS}',
         child: Text(
-          context.watch<TimerProvider>().calculateCps(totalTabs).toStringAsFixed(1) + " Cps",
+          context.watch<TimerProvider>().calculateCps(totalTabs).toStringAsFixed(1) + '${AppStrings.cps}',
           style: TextStyle(fontSize: context.sp(12),)
         ),
       ),
@@ -121,17 +119,15 @@ class _TrainingViewState extends TrainingViewModel {
       left: context.dynamicWidth(0.02),
       top: context.dynamicWidth(0.08),
       child: Tooltip(
-        message: "Skill cast per seconds average by elapsed time.",
+        message: '${AppStrings.toolTipSCPS}',
         child: Text(
-          context.watch<TimerProvider>().calculateScps(totalCast).toStringAsFixed(1) + " SCps",
+          context.watch<TimerProvider>().calculateScps(totalCast).toStringAsFixed(1) + '${AppStrings.scps}',
           style: TextStyle(fontSize: context.sp(12),),
         ),
       ),
     );
   }
 
-
-  //
 
   Padding trueFalseIcons() {
     return Padding(
@@ -142,113 +138,126 @@ class _TrainingViewState extends TrainingViewModel {
     );
   }
 
-  Container selectedElements() {
-    return Container(
+  // Orbs
+
+  SizedBox selectedElementOrbs() {
+    return SizedBox(
       width: context.dynamicWidth(0.25),
       height: context.dynamicHeight(0.10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          selectedElement[0],
-          selectedElement[1],
-          selectedElement[2],
-        ],
+        children: selectedOrbs,
       ),
     );
   }
 
-  Padding invokerMainElements() {
+  late List<Widget> selectedOrbs = [
+    orb(ImagePaths.quasOrb),
+    orb(ImagePaths.wexOrb),
+    orb(ImagePaths.exortOrb),
+  ];
+
+  Widget orb(String image) {
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: [ BoxShadow(color: Colors.black54, blurRadius: 12, spreadRadius: 4), ],
+      ),
+      child: Image.asset(image,width: context.dynamicWidth(0.07))
+    );
+  }
+
+  // Skill cast
+
+  Padding skills() {
     return Padding(
       padding: EdgeInsets.only(top: context.dynamicHeight(0.03)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          invokerElement("images/invoker_quas.png"),
-          invokerElement("images/invoker_wex.png"),
-          invokerElement("images/invoker_exort.png"),
-          invokerElement("images/invoker_invoke.png"),
+          skill(MainSkills.quas),
+          skill(MainSkills.wex),
+          skill(MainSkills.exort),
+          skill(MainSkills.invoke),
         ],
       ),
     );
   }
 
-  GestureDetector invokerElement(String image) {
-    return GestureDetector(
-      child: Container(
+  InkWell skill(MainSkills mainSkills) {
+    return InkWell(
+      child: DecoratedBox(
         decoration: BoxDecoration(
           boxShadow: [ BoxShadow(color: Colors.black54, blurRadius: 12, spreadRadius: 4), ],
         ),
-        child: Image.asset(image,width: context.dynamicWidth(0.20))
+        child: Image.asset(mainSkills.getImage,width: context.dynamicWidth(0.20))
       ),
-      onTap: () {
-        if(image=="images/invoker_quas.png"){
-          switchElements("images/invoker_quas.png","q");
-          totalTabs++;
-        }
-        else if(image=="images/invoker_wex.png"){
-          switchElements("images/invoker_wex.png","w");
-          totalTabs++;
-        }
-        else if(image=="images/invoker_exort.png"){
-          switchElements("images/invoker_exort.png","e");
-          totalTabs++;
-        }
-        else{
-          if(isStart){          
-            if (currentCombination.toString()==trueCombination.toString()) {
-              print("true");
-              trueCounterValue++;
-              totalCast++;
-              sounds.trueCombinationSound(trueCombination);
-              globalAnimKey.currentState?.trueAnimationForward();
-            }else{
-              print("false");
-              sounds.failCombinationSound();
-              globalAnimKey.currentState?.falseAnimationForward();
-            }
-            Spell nextSpell=spells.getRandomSpell;
-            randomSpellImg=nextSpell.image;
-            trueCombination=nextSpell.combine;
-            totalTabs++;
-            setState(() { });
-            print(trueCombination);
-          }
-        }
-      },
+      onTap: () => skillOnTapFN(mainSkills),
     );
+  }
+
+  void skillOnTapFN(MainSkills mainSkills){
+    switch (mainSkills) {
+      case MainSkills.quas:
+        return switchOrb(mainSkills.getImage, 'q');
+      case MainSkills.wex:
+        return switchOrb(mainSkills.getImage, 'w');
+      case MainSkills.exort:
+        return switchOrb(mainSkills.getImage, 'e');
+      case MainSkills.invoke:
+        if(!isStart) return;
+        if (currentCombination.toString()==trueCombination.toString()) {
+          trueCounterValue++;
+          totalCast++;
+          Sounds.instance.trueCombinationSound(trueCombination);
+          globalAnimKey.currentState?.trueAnimationForward();
+        }else{
+          Sounds.instance.failCombinationSound();
+          globalAnimKey.currentState?.falseAnimationForward();
+        }
+        totalTabs++;
+        nextSpell();
+    }
+  }
+  
+  void switchOrb(String image,String key) {
+    totalTabs++;
+    selectedOrbs.removeAt(0);
+    currentCombination.removeAt(0);
+    currentCombination.add(key);
+    selectedOrbs.add(orb(image));
+    setState(() {});
   }
 
   Widget startButton() {
     return !isStart 
       ? Padding(
-        padding: EdgeInsets.only(top: context.dynamicHeight(0.04)),
-        child: SizedBox(
-          width: context.dynamicWidth(0.36),
-          height: context.dynamicHeight(0.06),
-          child: Consumer<TimerProvider>(
-            builder: (context,timerModel,child){
-              return ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Color(0xFF545454),
-                ),
-                child: Text("Start",style: TextStyle(fontSize: context.sp(12)),),
-                onPressed: () {
-                  isStart=true;
-                  timer=Timer.periodic(Duration(seconds: 1), (timer) { 
-                      timerModel.timeIncrease();
-                  });
-                  Spell nextSpell = spells.getRandomSpell;
-                  randomSpellImg = nextSpell.image;
-                  trueCombination = nextSpell.combine;
-                  startButtonOpacity=0.0;
-                  setState(() {});
-                },
-              );
-            },
+          padding: EdgeInsets.only(top: context.dynamicHeight(0.04)),
+          child: SizedBox(
+            width: context.dynamicWidth(0.36),
+            height: context.dynamicHeight(0.06),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Color(0xFF545454),
+              ),
+              child: Text(AppStrings.start, style: TextStyle(fontSize: context.sp(12)),),
+              onPressed: () {
+                isStart=true;
+                context.read<TimerProvider>().startTimer();
+                startButtonOpacity=0.0;
+                nextSpell();
+              },
+            ),
           )
-        ),
-      )
+        )
       : SizedBox.shrink();
+  }
+
+  void nextSpell(){
+    Spell nextSpell = spells.getRandomSpell;
+    randomSpellImg = nextSpell.image;
+    trueCombination = nextSpell.combine;
+    setState(() {});
+    print('Next Combination : $trueCombination');
   }
 
 }

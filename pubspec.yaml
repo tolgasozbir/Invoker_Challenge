@@ -63,6 +63,8 @@ flutter:
     - assets/images/
     - assets/images/splash_images/
     - assets/images/qwe_gifs/
+    - assets/images/main_skills/
+    - assets/images/other/
   #  - assets/begin_invoker.mp3
     - images/
     - images/spells/
