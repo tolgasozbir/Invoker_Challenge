@@ -11,7 +11,6 @@ import 'package:provider/provider.dart';
 import '../../../widgets/big_spell_picture.dart';
 import '../../../widgets/spells_helper_widget.dart';
 import '../../../components/trueFalseWidget.dart';
-import '../../../models/spell.dart';
 
 class TrainingView extends StatefulWidget {
   const TrainingView({Key? key}) : super(key: key);
@@ -36,7 +35,7 @@ class _TrainingViewState extends TrainingViewModel {
             counters(),
             showAllSpells ? SpellsHelperWidget() : SizedBox.shrink(),
             trueFalseIcons(),
-            BigSpellPicture(image: randomSpellImg),
+            BigSpellPicture(image: nextSpellImg),
             selectedElementOrbs(),
             skills(),
             startButton(),
@@ -151,21 +150,6 @@ class _TrainingViewState extends TrainingViewModel {
     );
   }
 
-  late List<Widget> selectedOrbs = [
-    orb(ImagePaths.quasOrb),
-    orb(ImagePaths.wexOrb),
-    orb(ImagePaths.exortOrb),
-  ];
-
-  Widget orb(String image) {
-    return Container(
-      decoration: BoxDecoration(
-        boxShadow: [ BoxShadow(color: Colors.black54, blurRadius: 12, spreadRadius: 4), ],
-      ),
-      child: Image.asset(image,width: context.dynamicWidth(0.07))
-    );
-  }
-
   // Skill cast
 
   Padding skills() {
@@ -186,9 +170,7 @@ class _TrainingViewState extends TrainingViewModel {
   InkWell skill(MainSkills mainSkills) {
     return InkWell(
       child: DecoratedBox(
-        decoration: BoxDecoration(
-          boxShadow: [ BoxShadow(color: Colors.black54, blurRadius: 12, spreadRadius: 4), ],
-        ),
+        decoration: skillBlackShadowDec,
         child: Image.asset(mainSkills.getImage,width: context.dynamicWidth(0.20))
       ),
       onTap: () => skillOnTapFN(mainSkills),
@@ -219,14 +201,6 @@ class _TrainingViewState extends TrainingViewModel {
     }
   }
   
-  void switchOrb(String image,String key) {
-    totalTabs++;
-    selectedOrbs.removeAt(0);
-    currentCombination.removeAt(0);
-    currentCombination.add(key);
-    selectedOrbs.add(orb(image));
-    setState(() {});
-  }
 
   Widget startButton() {
     return !isStart 
@@ -250,14 +224,6 @@ class _TrainingViewState extends TrainingViewModel {
           )
         )
       : SizedBox.shrink();
-  }
-
-  void nextSpell(){
-    Spell nextSpell = spells.getRandomSpell;
-    randomSpellImg = nextSpell.image;
-    trueCombination = nextSpell.combine;
-    setState(() {});
-    print('Next Combination : $trueCombination');
   }
 
 }

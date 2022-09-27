@@ -21,11 +21,17 @@ class ImagePaths {
   static const String qweGif = '$root/qwe_gifs';
   static const String main = '$root/main_skills';
   static const String other = '$root/other';
+
+  //other
+  static const String spellImage = '$other/quas-wex-exort.jpg';
+  static const String loadingGif = '$other/qweLoading.gif';
+  
+
   //splash
   static const String splashImage1 = '$splash/1.gif';
   static const String splashImage2 = '$splash/2.jpg';
   static const String splashImage3 = '$splash/3.jpg';
-  //main menü
+  //main menu
   static const String quas = '$qweGif/quas.gif';
   static const String wex = '$qweGif/wex.gif';
   static const String exort = '$qweGif/exort.gif';  

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:dota2_invoker/constants/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -35,7 +36,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("images/qweLoading.gif"),
+          image: AssetImage(ImagePaths.loadingGif),
           fit: BoxFit.cover,
         ),
       ),
