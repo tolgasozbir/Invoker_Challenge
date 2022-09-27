@@ -7,7 +7,7 @@ class SpellsHelperWidget extends StatelessWidget {
   
   final double? height;
 
-  final spellImagePaths = Spells.instance.getSpellImagePaths;
+  final _spellImagePaths = Spells.instance.getSpellImagePaths;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class SpellsHelperWidget extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(spellImagePaths[0],scale: 5,), 
+                  Image.asset(_spellImagePaths[0],scale: 5,), 
                   Card(color: Color(0x703DA5FF), child: Text(" Q ", style: TextStyle(fontSize: 17),)),
                   Card(color: Color(0x703DA5FF), child: Text(" Q ", style: TextStyle(fontSize: 17),)),
                   Card(color: Color(0x703DA5FF), child: Text(" Q ", style: TextStyle(fontSize: 17),)),
@@ -50,7 +50,7 @@ class SpellsHelperWidget extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(spellImagePaths[1],scale: 5,),
+                  Image.asset(_spellImagePaths[1],scale: 5,),
                   Card(color: Color(0x703DA5FF), child: Text(" Q ", style: TextStyle(fontSize: 17),)),
                   Card(color: Color(0x703DA5FF), child: Text(" Q ", style: TextStyle(fontSize: 17),)),
                   Card(color: Color(0x70EC3DFF), child: Text(" W ", style: TextStyle(fontSize: 17),)),
@@ -62,7 +62,7 @@ class SpellsHelperWidget extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(spellImagePaths[2],scale: 5,),
+                  Image.asset(_spellImagePaths[2],scale: 5,),
                   Card(color: Color(0x703DA5FF), child: Text(" Q ", style: TextStyle(fontSize: 17),)),
                   Card(color: Color(0x703DA5FF), child: Text(" Q ", style: TextStyle(fontSize: 17),)),
                   Card(color: Color(0x70FFAA00), child: Text(" E ", style: TextStyle(fontSize: 17),)),
@@ -86,7 +86,7 @@ class SpellsHelperWidget extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(spellImagePaths[3],scale: 5,), 
+                Image.asset(_spellImagePaths[3],scale: 5,), 
                 Card(color: Color(0x60EC3DFF), child: Text(" W ", style: TextStyle(fontSize: 17),)),
                 Card(color: Color(0x60EC3DFF), child: Text(" W ", style: TextStyle(fontSize: 17),)),
                 Card(color: Color(0x60EC3DFF), child: Text(" W ", style: TextStyle(fontSize: 17),)),
@@ -98,7 +98,7 @@ class SpellsHelperWidget extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(spellImagePaths[4],scale: 5,), 
+                Image.asset(_spellImagePaths[4],scale: 5,), 
                 Card(color: Color(0x60EC3DFF), child: Text(" W ", style: TextStyle(fontSize: 17),)),
                 Card(color: Color(0x60EC3DFF), child: Text(" W ", style: TextStyle(fontSize: 17),)),
                 Card(color: Color(0x703DA5FF), child: Text(" Q ", style: TextStyle(fontSize: 17),)),
@@ -110,7 +110,7 @@ class SpellsHelperWidget extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(spellImagePaths[5],scale: 5,), 
+                Image.asset(_spellImagePaths[5],scale: 5,), 
                 Card(color: Color(0x60EC3DFF), child: Text(" W ", style: TextStyle(fontSize: 17),)),
                 Card(color: Color(0x60EC3DFF), child: Text(" W ", style: TextStyle(fontSize: 17),)),
                 Card(color: Color(0x70FFAA00), child: Text(" E ", style: TextStyle(fontSize: 17),)),
@@ -122,7 +122,7 @@ class SpellsHelperWidget extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(spellImagePaths[6],scale: 5,), 
+                Image.asset(_spellImagePaths[6],scale: 5,), 
                 Card(color: Color(0x703DA5FF), child: Text(" Q ", style: TextStyle(fontSize: 17),)),
                 Card(color: Color(0x60EC3DFF), child: Text(" W ", style: TextStyle(fontSize: 17),)),
                 Card(color: Color(0x70FFAA00), child: Text(" E ", style: TextStyle(fontSize: 17),)),
@@ -146,7 +146,7 @@ class SpellsHelperWidget extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(spellImagePaths[7],scale: 5,), 
+                  Image.asset(_spellImagePaths[7],scale: 5,), 
                   Card(color: Color(0x70FFAA00), child: Text(" E ", style: TextStyle(fontSize: 17),)),
                   Card(color: Color(0x70FFAA00), child: Text(" E ", style: TextStyle(fontSize: 17),)),
                   Card(color: Color(0x70FFAA00), child: Text(" E ", style: TextStyle(fontSize: 17),)),
@@ -158,7 +158,7 @@ class SpellsHelperWidget extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(spellImagePaths[8],scale: 5,), 
+                  Image.asset(_spellImagePaths[8],scale: 5,), 
                   Card(color: Color(0x70FFAA00), child: Text(" E ", style: TextStyle(fontSize: 17),)),
                   Card(color: Color(0x70FFAA00), child: Text(" E ", style: TextStyle(fontSize: 17),)),
                   Card(color: Color(0x703DA5FF), child: Text(" Q ", style: TextStyle(fontSize: 17),)),
@@ -170,7 +170,7 @@ class SpellsHelperWidget extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(spellImagePaths[9],scale: 5,), 
+                  Image.asset(_spellImagePaths[9],scale: 5,), 
                   Card(color: Color(0x70FFAA00), child: Text(" E ", style: TextStyle(fontSize: 17),)),
                   Card(color: Color(0x70FFAA00), child: Text(" E ", style: TextStyle(fontSize: 17),)),
                   Card(color: Color(0x60EC3DFF), child: Text(" W ", style: TextStyle(fontSize: 17),)),

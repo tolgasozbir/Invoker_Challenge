@@ -1,8 +1,7 @@
 import 'package:dota2_invoker/extensions/context_extension.dart';
+import 'package:dota2_invoker/screens/dashboard/loading_view.dart';
 import 'package:flutter/material.dart';
-
 import '../entities/sounds.dart';
-import '../screens/loadingScreen.dart';
 
 class MenuButton extends StatefulWidget {
   const MenuButton({
@@ -27,17 +26,17 @@ class MenuButton extends StatefulWidget {
 class _MenuButtonState extends State<MenuButton> {
 
   Sounds _sounds = Sounds();
-  double fadeInOpacity=0;
+  double _fadeInOpacity=0;
 
   @override
   void initState() {
-    init();
+    _init();
     super.initState();
   }
 
-  void init() async {
+  void _init() async {
     await Future.delayed(Duration(milliseconds: 400), (){
-      setState(() => fadeInOpacity=1 );
+      setState(() => _fadeInOpacity = 1 );
     });
   }
 
@@ -46,7 +45,7 @@ class _MenuButtonState extends State<MenuButton> {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: AnimatedOpacity(
-        opacity: fadeInOpacity, 
+        opacity: _fadeInOpacity, 
         duration: widget.fadeInDuration,
         child: button(context),
       ),
@@ -72,7 +71,7 @@ class _MenuButtonState extends State<MenuButton> {
         child: buttonSurface(context),
         onPressed: () {
           _sounds.playSoundBegining();
-          Navigator.push(context, MaterialPageRoute(builder: (context)=> LoadingScreen(widget.navigatePage) ));
+          Navigator.push(context, MaterialPageRoute(builder: (context)=> LoadingView(page: widget.navigatePage)));
         },
       ),
     );
