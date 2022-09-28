@@ -1,43 +1,15 @@
 import 'dart:math';
-import 'package:dota2_invoker/constants/app_strings.dart';
-import 'package:dota2_invoker/models/spell.dart';
+import 'package:flutter/material.dart';
+import '../constants/app_strings.dart';
+import '../models/spell.dart';
 
-enum MainSkills {quas, wex, exort, invoke}
+class SpellProvider extends ChangeNotifier {
 
-extension mainSkillsExtension on MainSkills {
-  String get getImage => '${ImagePaths.main}/invoker_${this.name}.png';
-}
+  String _spellImage = ImagePaths.spellImage;
+  List<String> _trueCombination = [];
 
-enum Skills {
-  invoker_cold_snap,
-  invoker_ghost_walk,
-  invoker_ice_wall,
-  invoker_emp,
-  invoker_tornado,
-  invoker_alacrity,
-  invoker_deafening_blast,
-  invoker_sun_strike,
-  invoker_forge_spirit,
-  invoker_chaos_meteor,
-}
-
-class Spells {
-
-  static Spells? _instance;
-  static Spells get instance {
-    if (_instance != null) {
-      return _instance!;
-    }
-    _instance = Spells._();
-    return _instance!;
-  }
-
-  Spells._();
-
-  Spells();
-
-  Spell _tempSpell = Spell("images/spells/invoker_alacrity.png",["w","w","e"]);
-  Random _rnd = Random();
+  String get getNextSpellImage => _spellImage;
+  List<String> get getNextCombination => _trueCombination;
 
   List<Spell> _spellList = [
     Spell("images/spells/invoker_cold_snap.png",        ["q","q","q"]),
@@ -52,17 +24,21 @@ class Spells {
     Spell("images/spells/invoker_chaos_meteor.png",     ["e","e","w"]),
   ];
 
-  Spell get getRandomSpell{
+  Spell _tempSpell = Spell("images/spells/invoker_alacrity.png",["w","w","e"]);
+  Random _rnd = Random();
+
+  void getRandomSpell() {
     Spell rndSpell = _spellList[_rnd.nextInt(_spellList.length)];
     do {
       rndSpell = _spellList[_rnd.nextInt(_spellList.length)];
     } while (_tempSpell == rndSpell);
 
     _tempSpell = rndSpell;
-    return rndSpell;
+    _spellImage = rndSpell.image;
+    _trueCombination = rndSpell.combine;
+    notifyListeners();
+    print('Next Combination : $_trueCombination');
   }
 
-  List<String> get getSpellImagePaths => _spellList.map((e) => e.image).toList();
-
-
+  List<String> get getAllSpellImagePaths => _spellList.map((e) => e.image).toList();
 }

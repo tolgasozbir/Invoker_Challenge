@@ -3,7 +3,7 @@ import 'package:dota2_invoker/components/dbResultWidget.dart';
 import 'package:dota2_invoker/widgets/big_spell_picture.dart';
 import 'package:dota2_invoker/components/trueFalseWidget.dart';
 import 'package:dota2_invoker/entities/DbAccesLayer.dart';
-import 'package:dota2_invoker/providerModels/timer_provider.dart';
+import 'package:dota2_invoker/providers/timer_provider.dart';
 import 'package:dota2_invoker/entities/sounds.dart';
 import 'package:dota2_invoker/models/spell.dart';
 import 'package:dota2_invoker/entities/spells.dart';
@@ -141,11 +141,11 @@ class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderSt
           SizedBox(width: 14.w, height: 14.w, child: CircularProgressIndicator(
             color: Colors.amber,
             backgroundColor: Colors.blue,
-            valueColor: timerModel.time60.toDouble()<=10 ? AlwaysStoppedAnimation<Color>(Colors.red) : AlwaysStoppedAnimation<Color>(Colors.amber),
-            value: timerModel.time60.toDouble()/60,
+            valueColor: timerModel.getCountdownValue.toDouble()<=10 ? AlwaysStoppedAnimation<Color>(Colors.red) : AlwaysStoppedAnimation<Color>(Colors.amber),
+            value: timerModel.getCountdownValue.toDouble()/60,
             strokeWidth: 4,
           ),),
-          Text( " ${timerModel.getTime60Value()} ",style: TextStyle(fontSize: 8.w,),)
+          Text( " ${timerModel.getCountdownValue} ",style: TextStyle(fontSize: 8.w,),)
           ],
         );
       }),
@@ -265,16 +265,16 @@ class _WithTimerScreenState extends State<WithTimerScreen> with TickerProviderSt
                   primary: Color(0xFF545454),
                 ),
                 child: Text("Start",style: TextStyle(fontSize: 12.sp),),
-                onPressed: isStart != true ? () { //TODO: BUTTONLAR İNVİZ ARKADA ÇALIŞIYOR
+                onPressed: isStart != true ? () {
                   isStart=true;
                   timer=Timer.periodic(Duration(seconds: 1), (timer) { 
-                      timerModel.timeDecrease();
-                      if (timerModel.time60==0) {
+                      timerModel.decreaseCountdownValue();
+                      if (timerModel.getCountdownValue==0) {
                         result=trueCounterValue;
                         timer.cancel();
                         isStart=false;
                         startButtonOpacity=1.0;
-                        timerModel.time60=60;
+                        timerModel.resetCountdownValue();
                         resultDiaglog();
                         setState(() { });
                       }

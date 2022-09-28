@@ -6,7 +6,7 @@ import 'package:dota2_invoker/entities/DbAccesLayer.dart';
 import 'package:dota2_invoker/entities/sounds.dart';
 import 'package:dota2_invoker/models/spell.dart';
 import 'package:dota2_invoker/entities/spells.dart';
-import 'package:dota2_invoker/providerModels/timer_provider.dart';
+import 'package:dota2_invoker/providers/timer_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -272,7 +272,7 @@ class _ChallangerScreenState extends State<ChallangerScreen> with TickerProvider
                 onPressed: () {
                   isStart=true;
                   timer=Timer.periodic(Duration(seconds: 1), (timer) { 
-                      timerModel.timeIncrease();
+                      timerModel.increaseTimer();
                       resultTime=timerModel.getTimeValue;
                   });
                   Spell nextSpell = spells.getRandomSpell;

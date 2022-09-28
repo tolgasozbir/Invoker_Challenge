@@ -5,9 +5,7 @@ import 'package:dota2_invoker/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../components/trueFalseWidget.dart';
-import '../../../entities/spells.dart';
-import '../../../models/spell.dart';
-import '../../../providerModels/timer_provider.dart';
+import '../../../providers/timer_provider.dart';
 import 'training_view.dart';
 
 abstract class TrainingViewModel extends State<TrainingView> with TickerProviderStateMixin {
@@ -15,13 +13,8 @@ abstract class TrainingViewModel extends State<TrainingView> with TickerProvider
   final globalAnimKey = GlobalKey<TrueFalseWidgetState>();
 
   bool isStart = false;
-  int trueCounterValue = 0;
-  int totalTabs = 0;
-  int totalCast = 0;
   bool showAllSpells = false;
-  double startButtonOpacity = 1.0;
-  String nextSpellImg = ImagePaths.spellImage;
-  List<String> trueCombination=[];
+
   List<String> currentCombination=["q","w","e"];
 
   BoxDecoration skillBlackShadowDec = BoxDecoration(
@@ -41,7 +34,7 @@ abstract class TrainingViewModel extends State<TrainingView> with TickerProvider
   }
   
   void init() async {
-    Future.microtask(() => context.read<TimerProvider>().disposeTimer());
+    Future.microtask(() => context.read<TimerProvider>().resetTimer());
   }
   
 
@@ -59,20 +52,12 @@ abstract class TrainingViewModel extends State<TrainingView> with TickerProvider
   }
 
   void switchOrb(String image,String key) {
-    totalTabs++;
+    context.read<TimerProvider>().increaseTotalTabs();
     selectedOrbs.removeAt(0);
     currentCombination.removeAt(0);
     currentCombination.add(key);
     selectedOrbs.add(orb(image));
     setState(() {});
-  }
-
-  void nextSpell(){
-    Spell nextSpell = Spells.instance.getRandomSpell;
-    nextSpellImg = nextSpell.image;
-    trueCombination = nextSpell.combine;
-    setState(() {});
-    print('Next Combination : $trueCombination');
   }
 
 }

@@ -3,7 +3,8 @@ import 'package:dota2_invoker/constants/app_strings.dart';
 import 'package:dota2_invoker/entities/sounds.dart';
 import 'package:dota2_invoker/entities/spells.dart';
 import 'package:dota2_invoker/extensions/context_extension.dart';
-import 'package:dota2_invoker/providerModels/timer_provider.dart';
+import 'package:dota2_invoker/providers/spell_provider.dart';
+import 'package:dota2_invoker/providers/timer_provider.dart';
 import 'package:dota2_invoker/screens/dashboard/training/training_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -28,6 +29,7 @@ class _TrainingViewState extends TrainingViewModel {
   }
 
   Widget _bodyView() {
+    print(context.watch<SpellProvider>().getNextSpellImage);
     return SafeArea(
       child: SingleChildScrollView(
         child: Column(
@@ -35,7 +37,7 @@ class _TrainingViewState extends TrainingViewModel {
             counters(),
             showAllSpells ? SpellsHelperWidget() : SizedBox.shrink(),
             trueFalseIcons(),
-            BigSpellPicture(image: nextSpellImg),
+            BigSpellPicture(image: context.watch<SpellProvider>().getNextSpellImage),
             selectedElementOrbs(),
             skills(),
             startButton(),
@@ -53,7 +55,7 @@ class _TrainingViewState extends TrainingViewModel {
       height: context.dynamicHeight(0.12),
       child: Stack(
         children: [
-          trueCounter(),
+          correctCounter(),
           timerCounter(),
           showSpells(),
           clickPerSecond(),
@@ -63,10 +65,10 @@ class _TrainingViewState extends TrainingViewModel {
     );
   }
 
-  Center trueCounter() {
+  Center correctCounter() {
     return Center(
       child: Text(
-        trueCounterValue.toString(),
+        context.watch<TimerProvider>().getCorrectCombinationCount.toString(),
         style: TextStyle(fontSize: context.sp(36), color: AppColors.trainingCounterColor,),
       )
     );
@@ -106,7 +108,7 @@ class _TrainingViewState extends TrainingViewModel {
       child: Tooltip(
         message: '${AppStrings.toolTipCPS}',
         child: Text(
-          context.watch<TimerProvider>().calculateCps(totalTabs).toStringAsFixed(1) + '${AppStrings.cps}',
+          context.watch<TimerProvider>().calculateCps.toStringAsFixed(1) + '${AppStrings.cps}',
           style: TextStyle(fontSize: context.sp(12),)
         ),
       ),
@@ -120,7 +122,7 @@ class _TrainingViewState extends TrainingViewModel {
       child: Tooltip(
         message: '${AppStrings.toolTipSCPS}',
         child: Text(
-          context.watch<TimerProvider>().calculateScps(totalCast).toStringAsFixed(1) + '${AppStrings.scps}',
+          context.watch<TimerProvider>().calculateScps.toStringAsFixed(1) + '${AppStrings.scps}',
           style: TextStyle(fontSize: context.sp(12),),
         ),
       ),
@@ -178,6 +180,8 @@ class _TrainingViewState extends TrainingViewModel {
   }
 
   void skillOnTapFN(MainSkills mainSkills){
+    var spellProvider = context.read<SpellProvider>();
+    var timerProvider = context.read<TimerProvider>();
     switch (mainSkills) {
       case MainSkills.quas:
         return switchOrb(mainSkills.getImage, 'q');
@@ -187,17 +191,17 @@ class _TrainingViewState extends TrainingViewModel {
         return switchOrb(mainSkills.getImage, 'e');
       case MainSkills.invoke:
         if(!isStart) return;
-        if (currentCombination.toString()==trueCombination.toString()) {
-          trueCounterValue++;
-          totalCast++;
-          Sounds.instance.trueCombinationSound(trueCombination);
+        if (currentCombination.toString() == spellProvider.getNextCombination.toString()) {
+          timerProvider.increaseCorrectCounter();
+          timerProvider.increaseTotalCast();
+          Sounds.instance.trueCombinationSound(spellProvider.getNextCombination);
           globalAnimKey.currentState?.trueAnimationForward();
         }else{
           Sounds.instance.failCombinationSound();
           globalAnimKey.currentState?.falseAnimationForward();
         }
-        totalTabs++;
-        nextSpell();
+        timerProvider.increaseTotalTabs();
+        spellProvider.getRandomSpell();
     }
   }
   
@@ -217,8 +221,7 @@ class _TrainingViewState extends TrainingViewModel {
               onPressed: () {
                 isStart=true;
                 context.read<TimerProvider>().startTimer();
-                startButtonOpacity=0.0;
-                nextSpell();
+                context.read<SpellProvider>().getRandomSpell();
               },
             ),
           )
