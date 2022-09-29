@@ -1,7 +1,7 @@
 import 'package:dota2_invoker/extensions/context_extension.dart';
 import 'package:dota2_invoker/screens/dashboard/loading_view.dart';
 import 'package:flutter/material.dart';
-import '../entities/sounds.dart';
+import '../services/sound_service.dart';
 
 class MenuButton extends StatefulWidget {
   const MenuButton({
@@ -24,8 +24,6 @@ class MenuButton extends StatefulWidget {
 }
 
 class _MenuButtonState extends State<MenuButton> {
-
-  Sounds _sounds = Sounds();
   double _fadeInOpacity=0;
 
   @override
@@ -70,7 +68,7 @@ class _MenuButtonState extends State<MenuButton> {
         style: buttonStyle,
         child: buttonSurface(context),
         onPressed: () {
-          _sounds.playSoundBegining();
+          SoundService.instance.playSoundBegining();
           Navigator.push(context, MaterialPageRoute(builder: (context)=> LoadingView(page: widget.navigatePage)));
         },
       ),

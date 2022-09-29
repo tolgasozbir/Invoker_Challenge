@@ -51,13 +51,13 @@ abstract class TrainingViewModel extends State<TrainingView> with TickerProvider
     );
   }
 
-  void switchOrb(Elements element,String key) {
+  void switchOrb(Elements element) {
     if (isStart) {
       context.read<TimerProvider>().increaseTotalTabs();
     }
     selectedOrbs.removeAt(0);
     currentCombination.removeAt(0);
-    currentCombination.add(key);
+    currentCombination.add(element.getKey);
     selectedOrbs.add(orb(element));
   }
 

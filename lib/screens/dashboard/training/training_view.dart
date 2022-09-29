@@ -1,6 +1,6 @@
 import 'package:dota2_invoker/constants/app_colors.dart';
 import 'package:dota2_invoker/constants/app_strings.dart';
-import 'package:dota2_invoker/entities/sounds.dart';
+import 'package:dota2_invoker/services/sound_service.dart';
 import 'package:dota2_invoker/extensions/context_extension.dart';
 import 'package:dota2_invoker/providers/spell_provider.dart';
 import 'package:dota2_invoker/providers/timer_provider.dart';
@@ -183,20 +183,18 @@ class _TrainingViewState extends TrainingViewModel {
     var timerProvider = context.read<TimerProvider>();
     switch (element) {
       case Elements.quas:
-        return switchOrb(element, 'q');
       case Elements.wex:
-        return switchOrb(element, 'w');
       case Elements.exort:
-        return switchOrb(element, 'e');
+        return switchOrb(element);
       case Elements.invoke:
         if(!isStart) return;
         if (currentCombination.toString() == spellProvider.getNextCombination.toString()) {
           timerProvider.increaseCorrectCounter();
           timerProvider.increaseTotalCast();
-          Sounds.instance.trueCombinationSound(spellProvider.getNextCombination);
+          SoundService.instance.trueCombinationSound(spellProvider.getNextCombination);
           globalAnimKey.currentState?.trueAnimationForward();
         }else{
-          Sounds.instance.failCombinationSound();
+          SoundService.instance.failCombinationSound();
           globalAnimKey.currentState?.falseAnimationForward();
         }
         timerProvider.increaseTotalTabs();
