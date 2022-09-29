@@ -1,5 +1,6 @@
 import 'package:dota2_invoker/constants/app_colors.dart';
 import 'package:dota2_invoker/constants/app_strings.dart';
+import 'package:dota2_invoker/screens/dashboard/with_timer/with_timer_view.dart';
 import 'package:flutter/material.dart';
 import '../../widgets/menu_button.dart';
 import '../challangerScreen.dart';
@@ -29,13 +30,13 @@ class DashboardView extends StatelessWidget {
               title: AppStrings.titleTraining, 
               navigatePage: TrainingView(),
             ),
-            // MenuButton(
-            //   fadeInDuration: Duration(seconds: 2), 
-            //   color: AppColors.wexColor,
-            //   imagePath: ImagePaths.wex, 
-            //   title: AppStrings.titleWithTimer, 
-            //   navigatePage: WithTimerScreen(),
-            // ),
+            MenuButton(
+              fadeInDuration: Duration(seconds: 2), 
+              color: AppColors.wexColor,
+              imagePath: ImagePaths.wex, 
+              title: AppStrings.titleWithTimer, 
+              navigatePage: WithTimerView(),
+            ),
             // MenuButton(
             //   fadeInDuration: Duration(seconds: 3), 
             //   color: AppColors.exortColor,
