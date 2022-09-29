@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 import '../../../enums/elements.dart';
 import '../../../widgets/big_spell_picture.dart';
 import '../../../widgets/spells_helper_widget.dart';
-import '../../../components/trueFalseWidget.dart';
+import '../../../widgets/trueFalseWidget.dart';
 
 class TrainingView extends StatefulWidget {
   const TrainingView({Key? key}) : super(key: key);

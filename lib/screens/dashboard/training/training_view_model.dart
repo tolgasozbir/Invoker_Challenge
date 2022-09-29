@@ -4,7 +4,7 @@ import 'package:dota2_invoker/enums/elements.dart';
 import 'package:dota2_invoker/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../components/trueFalseWidget.dart';
+import '../../../widgets/trueFalseWidget.dart';
 import '../../../providers/timer_provider.dart';
 import 'training_view.dart';
 
