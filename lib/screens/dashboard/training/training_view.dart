@@ -1,7 +1,6 @@
 import 'package:dota2_invoker/constants/app_colors.dart';
 import 'package:dota2_invoker/constants/app_strings.dart';
 import 'package:dota2_invoker/entities/sounds.dart';
-import 'package:dota2_invoker/entities/spells.dart';
 import 'package:dota2_invoker/extensions/context_extension.dart';
 import 'package:dota2_invoker/providers/spell_provider.dart';
 import 'package:dota2_invoker/providers/timer_provider.dart';
@@ -9,6 +8,7 @@ import 'package:dota2_invoker/screens/dashboard/training/training_view_model.dar
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import '../../../enums/elements.dart';
 import '../../../widgets/big_spell_picture.dart';
 import '../../../widgets/spells_helper_widget.dart';
 import '../../../components/trueFalseWidget.dart';
@@ -29,7 +29,6 @@ class _TrainingViewState extends TrainingViewModel {
   }
 
   Widget _bodyView() {
-    print(context.watch<SpellProvider>().getNextSpellImage);
     return SafeArea(
       child: SingleChildScrollView(
         child: Column(
@@ -37,7 +36,7 @@ class _TrainingViewState extends TrainingViewModel {
             counters(),
             showAllSpells ? SpellsHelperWidget() : SizedBox.shrink(),
             trueFalseIcons(),
-            BigSpellPicture(image: context.watch<SpellProvider>().getNextSpellImage),
+            BigSpellPicture(image: isStart ? context.watch<SpellProvider>().getNextSpellImage : ImagePaths.spellImage),
             selectedElementOrbs(),
             skills(),
             startButton(),
@@ -160,36 +159,36 @@ class _TrainingViewState extends TrainingViewModel {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          skill(MainSkills.quas),
-          skill(MainSkills.wex),
-          skill(MainSkills.exort),
-          skill(MainSkills.invoke),
+          skill(Elements.quas),
+          skill(Elements.wex),
+          skill(Elements.exort),
+          skill(Elements.invoke),
         ],
       ),
     );
   }
 
-  InkWell skill(MainSkills mainSkills) {
+  InkWell skill(Elements element) {
     return InkWell(
       child: DecoratedBox(
         decoration: skillBlackShadowDec,
-        child: Image.asset(mainSkills.getImage,width: context.dynamicWidth(0.20))
+        child: Image.asset(element.getImage,width: context.dynamicWidth(0.20))
       ),
-      onTap: () => skillOnTapFN(mainSkills),
+      onTap: () => skillOnTapFN(element),
     );
   }
 
-  void skillOnTapFN(MainSkills mainSkills){
+  void skillOnTapFN(Elements element){
     var spellProvider = context.read<SpellProvider>();
     var timerProvider = context.read<TimerProvider>();
-    switch (mainSkills) {
-      case MainSkills.quas:
-        return switchOrb(mainSkills.getImage, 'q');
-      case MainSkills.wex:
-        return switchOrb(mainSkills.getImage, 'w');
-      case MainSkills.exort:
-        return switchOrb(mainSkills.getImage, 'e');
-      case MainSkills.invoke:
+    switch (element) {
+      case Elements.quas:
+        return switchOrb(element, 'q');
+      case Elements.wex:
+        return switchOrb(element, 'w');
+      case Elements.exort:
+        return switchOrb(element, 'e');
+      case Elements.invoke:
         if(!isStart) return;
         if (currentCombination.toString() == spellProvider.getNextCombination.toString()) {
           timerProvider.increaseCorrectCounter();
@@ -219,7 +218,7 @@ class _TrainingViewState extends TrainingViewModel {
               ),
               child: Text(AppStrings.start, style: TextStyle(fontSize: context.sp(12)),),
               onPressed: () {
-                isStart=true;
+                setState(() => isStart=true);
                 context.read<TimerProvider>().startTimer();
                 context.read<SpellProvider>().getRandomSpell();
               },

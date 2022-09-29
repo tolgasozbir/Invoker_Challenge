@@ -1,18 +1,30 @@
-import 'package:dota2_invoker/entities/spells.dart';
 import 'package:dota2_invoker/extensions/context_extension.dart';
+import 'package:dota2_invoker/providers/spell_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class SpellsHelperWidget extends StatelessWidget {
+class SpellsHelperWidget extends StatefulWidget {
   SpellsHelperWidget({Key? key, this.height,}) : super(key: key);
   
   final double? height;
 
-  final _spellImagePaths = Spells.instance.getSpellImagePaths;
+  @override
+  State<SpellsHelperWidget> createState() => _SpellsHelperWidgetState();
+}
+
+class _SpellsHelperWidgetState extends State<SpellsHelperWidget> {
+  late final _spellImagePaths;
+
+  @override
+  void initState() {
+    _spellImagePaths = context.read<SpellProvider>().getAllSpellImagePaths;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: height ?? context.dynamicHeight(0.24), 
+      height: widget.height ?? context.dynamicHeight(0.24), 
       child: Card(
         color: Colors.black12,
         child: Row(
@@ -182,5 +194,4 @@ class SpellsHelperWidget extends StatelessWidget {
       ),
     );
   }
-
 }

@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:dota2_invoker/constants/app_colors.dart';
-import 'package:dota2_invoker/constants/app_strings.dart';
+import 'package:dota2_invoker/enums/elements.dart';
 import 'package:dota2_invoker/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -39,25 +39,26 @@ abstract class TrainingViewModel extends State<TrainingView> with TickerProvider
   
 
   late List<Widget> selectedOrbs = [
-    orb(ImagePaths.quasOrb),
-    orb(ImagePaths.wexOrb),
-    orb(ImagePaths.exortOrb),
+    orb(Elements.quas),
+    orb(Elements.wex),
+    orb(Elements.exort),
   ];
 
-  Widget orb(String image) {
+  Widget orb(Elements element) {
     return Container(
       decoration: skillBlackShadowDec,
-      child: Image.asset(image,width: context.dynamicWidth(0.07))
+      child: Image.asset(element.getImage, width: context.dynamicWidth(0.07))
     );
   }
 
-  void switchOrb(String image,String key) {
-    context.read<TimerProvider>().increaseTotalTabs();
+  void switchOrb(Elements element,String key) {
+    if (isStart) {
+      context.read<TimerProvider>().increaseTotalTabs();
+    }
     selectedOrbs.removeAt(0);
     currentCombination.removeAt(0);
     currentCombination.add(key);
-    selectedOrbs.add(orb(image));
-    setState(() {});
+    selectedOrbs.add(orb(element));
   }
 
 }

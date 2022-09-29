@@ -19,25 +19,20 @@ class ImagePaths {
   static const String root = 'assets/images';
   static const String splash = '$root/splash_images';
   static const String qweGif = '$root/qwe_gifs';
-  static const String main = '$root/main_skills';
   static const String other = '$root/other';
-
-  //other
-  static const String spellImage = '$other/quas-wex-exort.jpg';
-  static const String loadingGif = '$other/qweLoading.gif';
-  
+  static const String elements = '$root/elements/';
+  static const String spells = '$root/spells/';
 
   //splash
   static const String splashImage1 = '$splash/1.gif';
   static const String splashImage2 = '$splash/2.jpg';
   static const String splashImage3 = '$splash/3.jpg';
-  //main menu
+  //main menu element gifs
   static const String quas = '$qweGif/quas.gif';
   static const String wex = '$qweGif/wex.gif';
   static const String exort = '$qweGif/exort.gif';  
-  //skill casting
-  static const String quasOrb = '$main/invoker_quas.png';
-  static const String wexOrb = '$main/invoker_wex.png';
-  static const String exortOrb = '$main/invoker_exort.png';
-  static const String invoke = '$main/invoker_invoke.png';
+  //other
+  static const String spellImage = '$other/quas-wex-exort.jpg';
+  static const String loadingGif = '$other/qweLoading.gif';
+
 }

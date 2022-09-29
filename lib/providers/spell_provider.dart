@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:dota2_invoker/enums/spells.dart';
 import 'package:flutter/material.dart';
 import '../constants/app_strings.dart';
 import '../models/spell.dart';
@@ -12,19 +13,23 @@ class SpellProvider extends ChangeNotifier {
   List<String> get getNextCombination => _trueCombination;
 
   List<Spell> _spellList = [
-    Spell("images/spells/invoker_cold_snap.png",        ["q","q","q"]),
-    Spell("images/spells/invoker_ghost_walk.png",       ["q","q","w"]),
-    Spell("images/spells/invoker_ice_wall.png",         ["q","q","e"]),
-    Spell("images/spells/invoker_emp.png",              ["w","w","w"]),
-    Spell("images/spells/invoker_tornado.png",          ["w","w","q"]),
-    Spell("images/spells/invoker_alacrity.png",         ["w","w","e"]),
-    Spell("images/spells/invoker_deafening_blast.png",  ["q","w","e"]),
-    Spell("images/spells/invoker_sun_strike.png",       ["e","e","e"]),
-    Spell("images/spells/invoker_forge_spirit.png",     ["e","e","q"]),
-    Spell("images/spells/invoker_chaos_meteor.png",     ["e","e","w"]),
+    Spell(Spells.cold_snap.getImage,        ["q","q","q"]),
+    Spell(Spells.ghost_walk.getImage,       ["q","q","w"]),
+    Spell(Spells.ice_wall.getImage,         ["q","q","e"]),
+    Spell(Spells.emp.getImage,              ["w","w","w"]),
+    Spell(Spells.tornado.getImage,          ["w","w","q"]),
+    Spell(Spells.alacrity.getImage,         ["w","w","e"]),
+    Spell(Spells.deafening_blast.getImage,  ["q","w","e"]),
+    Spell(Spells.sun_strike.getImage,       ["e","e","e"]),
+    Spell(Spells.forge_spirit.getImage,     ["e","e","q"]),
+    Spell(Spells.chaos_meteor.getImage,     ["e","e","w"]),
   ];
 
-  Spell _tempSpell = Spell("images/spells/invoker_alacrity.png",["w","w","e"]);
+  Spell _tempSpell = Spell(
+    Spells.alacrity.getImage,
+    ["w","w","e"],
+  );
+  
   Random _rnd = Random();
 
   void getRandomSpell() {

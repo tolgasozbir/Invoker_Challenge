@@ -17,6 +17,9 @@ class TimerProvider extends ChangeNotifier {
   int get getTotalCast => _totalCast;
   int get getCorrectCombinationCount => _correctCombinationCount;
 
+  double get calculateCps => _totalTabs/_timerValue;
+  double get calculateScps => _totalCast/_timerValue;
+
   void setTimerValue(int value){
     _timerValue = value;
     notifyListeners();
@@ -42,22 +45,19 @@ class TimerProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  double get calculateCps => _totalTabs/_timerValue;
-  double get calculateScps => _totalCast/_timerValue;
-
-  void increaseTimer(){ //private olcak TODO: 
+  void _increaseTimer(){
     _timerValue++;
     notifyListeners();
   }
 
-  void decreaseCountdownValue(){
-    _countdownValue--;  
-    notifyListeners();
-  }
+  // void decreaseCountdownValue(){  //TODO
+  //   _countdownValue--;  
+  //   notifyListeners();
+  // }
 
   void startTimer(){
     _timer=Timer.periodic(Duration(seconds: 1), (timer) { 
-      increaseTimer();
+      _increaseTimer();
     });
   }
 
