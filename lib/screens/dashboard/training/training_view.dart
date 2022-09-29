@@ -5,6 +5,7 @@ import 'package:dota2_invoker/extensions/context_extension.dart';
 import 'package:dota2_invoker/providers/spell_provider.dart';
 import 'package:dota2_invoker/providers/timer_provider.dart';
 import 'package:dota2_invoker/screens/dashboard/training/training_view_model.dart';
+import 'package:dota2_invoker/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -204,24 +205,15 @@ class _TrainingViewState extends TrainingViewModel {
   
 
   Widget startButton() {
-    return !isStart 
-      ? Padding(
-          padding: EdgeInsets.only(top: context.dynamicHeight(0.04)),
-          child: SizedBox(
-            width: context.dynamicWidth(0.36),
-            height: context.dynamicHeight(0.06),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Color(0xFF545454),
-              ),
-              child: Text(AppStrings.start, style: TextStyle(fontSize: context.sp(12)),),
-              onPressed: () {
-                setState(() => isStart=true);
-                context.read<TimerProvider>().startTimer();
-                context.read<SpellProvider>().getRandomSpell();
-              },
-            ),
-          )
+    return !isStart
+      ? CustomButton(
+          text: AppStrings.start, 
+          padding: EdgeInsets.only(top: context.dynamicHeight(0.04)), 
+          onTap: () {
+            setState(() => isStart=true);
+            context.read<TimerProvider>().startTimer();
+            context.read<SpellProvider>().getRandomSpell();
+          },
         )
       : SizedBox.shrink();
   }

@@ -1,3 +1,4 @@
+import 'package:dota2_invoker/constants/app_colors.dart';
 import 'package:dota2_invoker/extensions/context_extension.dart';
 import 'package:dota2_invoker/screens/dashboard/loading_view.dart';
 import 'package:flutter/material.dart';
@@ -10,11 +11,13 @@ class MenuButton extends StatefulWidget {
     required this.imagePath,
     required this.title,
     required this.navigatePage,
-    Key? key,
+    this.primaryColor,
+    Key? key, 
   }) : super(key: key);
 
   final Duration fadeInDuration;
   final Color color;
+  final Color? primaryColor;
   final String imagePath;
   final String title;
   final Widget navigatePage;
@@ -53,7 +56,7 @@ class _MenuButtonState extends State<MenuButton> {
   SizedBox button(BuildContext context) {
 
     ButtonStyle buttonStyle = ElevatedButton.styleFrom(
-      primary: Color(0xFF545454),
+      primary: widget.primaryColor ?? AppColors.buttonSurfaceColor,
       elevation: 10,
       shadowColor: widget.color,
       shape: RoundedRectangleBorder(

@@ -13,6 +13,7 @@ class AppStrings {
   static const String scps = ' SCps';
 
   static const String start = 'Start';
+  static const String leaderboard = 'Leaderboard';
 }
 
 class ImagePaths {

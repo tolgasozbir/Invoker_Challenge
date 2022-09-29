@@ -1,4 +1,6 @@
 import 'package:dota2_invoker/extensions/context_extension.dart';
+import 'package:dota2_invoker/widgets/custom_animated_dialog.dart';
+import 'package:dota2_invoker/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../components/dbResultWidget.dart';
@@ -151,56 +153,31 @@ class _WithTimerViewState extends WithTimerViewModel {
 
   Widget startButton() {
     return !isStart 
-      ? Padding(
+      ? CustomButton(
+          text: AppStrings.start, 
           padding: EdgeInsets.only(top: context.dynamicHeight(0.04)),
-          child: SizedBox(
-            width: context.dynamicWidth(0.36),
-            height: context.dynamicHeight(0.06),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Color(0xFF545454),
-              ),
-              child: Text(AppStrings.start, style: TextStyle(fontSize: context.sp(12)),),
-              onPressed: () {
-                setState(() => isStart=true);
-                context.read<TimerProvider>().startTimer();
-                context.read<SpellProvider>().getRandomSpell();
-              },
-            ),
-          )
+          onTap: () {
+            setState(() => isStart=true);
+            context.read<TimerProvider>().startTimer();
+            context.read<SpellProvider>().getRandomSpell();
+          },
         )
       : SizedBox.shrink();
   }
 
-  //TODO: DÜZENLENCEK START button widget olarak çıkar
-
   Widget showLeaderBoardButton() {
-    return Padding(
-      padding: EdgeInsets.only(top: context.dynamicHeight(0.02)),
-      child: SizedBox(
-        width: context.dynamicWidth(0.36),
-        height: context.dynamicHeight(0.06),
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            primary: Color(0xFF545454),
+    return !isStart 
+      ? CustomButton(
+          text: AppStrings.leaderboard, 
+          padding: EdgeInsets.only(top: context.dynamicHeight(0.02)),
+          onTap: () => CustomAnimatedDialog.showCustomDialog(
+            context: context,
+            content: SizedBox(),
           ),
-          child: Text("Leaderboard",style: TextStyle(fontSize: context.sp(12)),),
-          onPressed: () {
-            dbResultDiaglog();
-          },
-        ),
-      ),
-    );
+        )
+      : SizedBox.shrink();
   }
 
-
-  void dbResultDiaglog() {
-    showDialog(
-      context: context,
-      builder: (_) => myLeaderboardAlertDialog(),
-      barrierDismissible: false,
-    );
-  }
 
   Widget myLeaderboardAlertDialog(){
    return AlertDialog(
@@ -224,6 +201,8 @@ class _WithTimerViewState extends WithTimerViewModel {
       ],
     );
  }
+
+  // oyun bitimi için
 
   void resultDiaglog(){
     showDialog(
