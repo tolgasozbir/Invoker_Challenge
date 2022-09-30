@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:dota2_invoker/constants/app_colors.dart';
 import 'package:dota2_invoker/enums/elements.dart';
 import 'package:dota2_invoker/extensions/context_extension.dart';
@@ -34,10 +33,9 @@ abstract class TrainingViewModel extends State<TrainingView> with TickerProvider
   }
   
   void init() async {
-    Future.microtask(() => context.read<TimerProvider>().resetTimer());
+    
   }
   
-
   late List<Widget> selectedOrbs = [
     orb(Elements.quas),
     orb(Elements.wex),

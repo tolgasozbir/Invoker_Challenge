@@ -3,8 +3,6 @@ import 'package:dota2_invoker/constants/app_strings.dart';
 import 'package:dota2_invoker/screens/dashboard/with_timer/with_timer_view.dart';
 import 'package:flutter/material.dart';
 import '../../widgets/menu_button.dart';
-import '../challangerScreen.dart';
-import '../withTimerScreen.dart';
 import 'training/training_view.dart';
 
 class DashboardView extends StatelessWidget {

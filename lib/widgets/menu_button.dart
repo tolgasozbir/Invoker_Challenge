@@ -2,6 +2,8 @@ import 'package:dota2_invoker/constants/app_colors.dart';
 import 'package:dota2_invoker/extensions/context_extension.dart';
 import 'package:dota2_invoker/screens/dashboard/loading_view.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/timer_provider.dart';
 import '../services/sound_service.dart';
 
 class MenuButton extends StatefulWidget {
@@ -72,6 +74,7 @@ class _MenuButtonState extends State<MenuButton> {
         child: buttonSurface(context),
         onPressed: () {
           SoundService.instance.playSoundBegining();
+          context.read<TimerProvider>().resetTimer();
           Navigator.push(context, MaterialPageRoute(builder: (context)=> LoadingView(page: widget.navigatePage)));
         },
       ),

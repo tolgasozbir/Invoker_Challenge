@@ -30,18 +30,20 @@ class _WithTimerViewState extends WithTimerViewModel {
 
   Widget _bodyView() {
     return SafeArea(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          trueCounter(),
-          timerCounter(),
-          trueFalseIcons(),
-          BigSpellPicture(image: isStart ? context.watch<SpellProvider>().getNextSpellImage : ImagePaths.spellImage),
-          selectedElementOrbs(),
-          skills(),
-          startButton(),
-          showLeaderBoardButton(),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            trueCounter(),
+            timerCounter(),
+            trueFalseIcons(),
+            BigSpellPicture(image: isStart ? context.watch<SpellProvider>().getNextSpellImage : ImagePaths.spellImage),
+            selectedElementOrbs(),
+            skills(),
+            startButton(),
+            showLeaderBoardButton(),
+          ],
+        ),
       ),
     );
   }
@@ -86,8 +88,10 @@ class _WithTimerViewState extends WithTimerViewModel {
 
   Widget trueFalseIcons() {
     return Padding(
-      padding: EdgeInsets.only(top: context.dynamicHeight(0.04)),
-      child: TrueFalseWidget(),
+      padding: EdgeInsets.only(top: context.dynamicHeight(0.02)),
+      child: TrueFalseWidget(
+        key: globalAnimKey,
+      ),
     );
   }
 
@@ -158,7 +162,8 @@ class _WithTimerViewState extends WithTimerViewModel {
           padding: EdgeInsets.only(top: context.dynamicHeight(0.04)),
           onTap: () {
             setState(() => isStart=true);
-            context.read<TimerProvider>().startTimer();
+            context.read<TimerProvider>().resetTimer();
+            context.read<TimerProvider>().startCoundown();
             context.read<SpellProvider>().getRandomSpell();
           },
         )
@@ -171,36 +176,24 @@ class _WithTimerViewState extends WithTimerViewModel {
           text: AppStrings.leaderboard, 
           padding: EdgeInsets.only(top: context.dynamicHeight(0.02)),
           onTap: () => CustomAnimatedDialog.showCustomDialog(
-            context: context,
-            content: SizedBox(),
+            title: AppStrings.leaderboard,
+            content: Card(
+              color:Color(0xFF666666) , 
+              child: DbResultWidget() //TODO EDİT
+            ),
+            action: TextButton(
+              child: Text("Back"),
+              onPressed: (){
+                Navigator.pop(context);
+              },
+            ),
           ),
         )
       : SizedBox.shrink();
   }
 
 
-  Widget myLeaderboardAlertDialog(){
-   return AlertDialog(
-      title: Text("Results",style: TextStyle(color: Color(0xFFEEEEEE),)),
-      content: SizedBox(
-        width: context.dynamicWidth(0.65),
-        height: context.dynamicHeight(0.35),
-        child: Card(
-          color:Color(0xFF666666) , 
-          child: DbResultWidget() //TODO WHAT İS THİS
-        )
-      ),
-      backgroundColor: Color(0xFF444444),
-      actions: [
-        TextButton(
-          child: Text("Back"),
-          onPressed: (){
-            Navigator.pop(context);
-          },
-        ),
-      ],
-    );
- }
+
 
   // oyun bitimi için
 

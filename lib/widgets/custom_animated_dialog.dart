@@ -1,24 +1,50 @@
 import 'package:dota2_invoker/constants/app_colors.dart';
 import 'package:dota2_invoker/extensions/context_extension.dart';
+import 'package:dota2_invoker/main.dart';
 import 'package:flutter/material.dart';
 
 class CustomAnimatedDialog {
-  static void showCustomDialog({required BuildContext context, required Widget content}) {
+  static void showCustomDialog({required String title, required Widget content, Widget? action}) {
     showGeneralDialog(
-      context: context,
+      context: navigatorKey.currentContext!,
       barrierLabel: '',
       barrierDismissible: true,
       transitionDuration: Duration(milliseconds: 400),
       pageBuilder: (_, __, ___) {
         return SafeArea(
-          child: Center(
-            child: Container(
-              height: context.dynamicHeight(0.6),
-              child: SizedBox.expand(child: content),
-              margin: EdgeInsets.symmetric(horizontal: 24),
-              decoration: BoxDecoration(
-                color: AppColors.dialogBgColor, 
-                borderRadius: BorderRadius.circular(16),
+          child: Material(
+            type: MaterialType.transparency,
+            child: Center(
+              child: Container(
+                height: navigatorKey.currentContext!.dynamicHeight(0.6),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
+                      child: Text(title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500,),),
+                    ),
+                    Expanded(
+                      flex: 9, 
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 12.0),
+                        child: content,
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight, 
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: action,
+                      )
+                    ),
+                  ],
+                ),
+                margin: EdgeInsets.symmetric(horizontal: 32),
+                decoration: BoxDecoration(
+                  color: AppColors.dialogBgColor, 
+                  borderRadius: BorderRadius.circular(16),
+                ),
               ),
             ),
           ),

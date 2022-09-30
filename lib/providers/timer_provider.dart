@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:dota2_invoker/widgets/custom_animated_dialog.dart';
 import 'package:flutter/material.dart';
 
 class TimerProvider extends ChangeNotifier {
@@ -40,30 +41,35 @@ class TimerProvider extends ChangeNotifier {
     notifyListeners();
   }  
   
-  void resetCountdownValue(){ // no need
-    _countdownValue = 60;
-    notifyListeners();
-  }
-
   void _increaseTimer(){
     _timerValue++;
     notifyListeners();
   }
 
-  // void decreaseCountdownValue(){  //TODO
-  //   _countdownValue--;  
-  //   notifyListeners();
-  // }
+  void _decreaseCountdownValue(){
+    _countdownValue--;  
+    notifyListeners();
+  }
 
   void startTimer(){
-    _timer=Timer.periodic(Duration(seconds: 1), (timer) { 
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) { 
       _increaseTimer();
+    });
+  }
+
+  void startCoundown(){
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) { 
+      _decreaseCountdownValue();
+      if (_countdownValue <= 0) {
+        _disposeTimer();
+        //CustomAnimatedDialog.showCustomDialog(content: Text("data")); //TODO:
+      }
     });
   }
 
   void resetTimer(){
     _timerValue = 0;
-    _countdownValue = 60;
+    _countdownValue = 5;
     _totalTabs = 0;
     _totalCast = 0;
     _correctCombinationCount = 0;

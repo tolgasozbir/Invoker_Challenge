@@ -5,6 +5,8 @@ import 'package:dota2_invoker/screens/splash/splash_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+final navigatorKey = GlobalKey<NavigatorState>();
+
 void main() {
   runApp(MultiProvider(
     providers: [
@@ -23,6 +25,7 @@ class MyApp extends StatelessWidget {
       title: AppStrings.appName,
       theme: ThemeData.dark(),
       home: SplashView(),
+      navigatorKey: navigatorKey,
     );
   }
 }
