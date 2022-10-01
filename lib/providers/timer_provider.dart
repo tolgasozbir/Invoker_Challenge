@@ -94,7 +94,7 @@ class TimerProvider extends ChangeNotifier {
                     name=AppStrings.unNamed;
                   }
                   await DatabaseService.instance.addScore(
-                    table: DatabaseTable.timer, 
+                    table: DatabaseTable.withTimer, 
                     name: name, 
                     score: _correctCombinationCount
                   );

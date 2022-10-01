@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:firebase_database/firebase_database.dart';
 
-enum DatabaseTable { timer, challenger }
+enum DatabaseTable { withTimer, challenger }
 
 class DatabaseService {
 
@@ -28,7 +28,7 @@ class DatabaseService {
 
     try {
       switch (table) {
-        case DatabaseTable.timer:
+        case DatabaseTable.withTimer:
           return await _timerRef.push().set(data);
         case DatabaseTable.challenger:
           return await _challangerRef.push().set(data);
