@@ -11,7 +11,6 @@ import '../../../widgets/trueFalseWidget.dart';
 abstract class WithTimerViewModel extends State<WithTimerView> {
 
   final globalAnimKey = GlobalKey<TrueFalseWidgetState>();
-  bool isStart=false;
   List<String> currentCombination=["q","w","e"];
   String textfieldValue="Unnamed";//TODO:
 
@@ -45,6 +44,7 @@ abstract class WithTimerViewModel extends State<WithTimerView> {
   }
 
   void switchOrb(Elements element) {
+    bool isStart = context.read<TimerProvider>().isStart;
     if (isStart) {
       context.read<TimerProvider>().increaseTotalTabs();
     }

@@ -8,12 +8,13 @@ class CustomAnimatedDialog {
     showGeneralDialog(
       context: navigatorKey.currentContext!,
       barrierLabel: '',
-      barrierDismissible: true,
+      barrierDismissible: false,
       transitionDuration: Duration(milliseconds: 400),
       pageBuilder: (_, __, ___) {
-        return SafeArea(
-          child: Material(
-            type: MaterialType.transparency,
+        return Scaffold(
+          //resizeToAvoidBottomInset: false,
+          backgroundColor: Colors.transparent,
+          body: SafeArea(
             child: Center(
               child: Container(
                 height: navigatorKey.currentContext!.dynamicHeight(0.6),
@@ -28,7 +29,7 @@ class CustomAnimatedDialog {
                       flex: 9, 
                       child: Padding(
                         padding: const EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 12.0),
-                        child: content,
+                        child: SingleChildScrollView(child: content),
                       ),
                     ),
                     Align(

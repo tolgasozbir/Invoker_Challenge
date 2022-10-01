@@ -1,18 +1,25 @@
 import 'dart:async';
+import 'package:dota2_invoker/constants/app_strings.dart';
 import 'package:dota2_invoker/widgets/custom_animated_dialog.dart';
+import 'package:dota2_invoker/widgets/result_dialog.dart';
 import 'package:flutter/material.dart';
+
+import '../main.dart';
 
 class TimerProvider extends ChangeNotifier {
 
   Timer? _timer;
+  TextEditingController _textEditingController = TextEditingController();
 
+  bool _isStart = false;
   int _timerValue = 0;
   int _countdownValue = 60;
   int _totalTabs = 0;
   int _totalCast = 0;
   int _correctCombinationCount = 0;
 
-  int get getTimeValue=> _timerValue;
+  bool get isStart => _isStart;
+  int get getTimeValue => _timerValue;
   int get getCountdownValue => _countdownValue;
   int get getTotalTabs => _totalTabs;
   int get getTotalCast => _totalCast;
@@ -23,6 +30,11 @@ class TimerProvider extends ChangeNotifier {
 
   void setTimerValue(int value){
     _timerValue = value;
+    notifyListeners();
+  }
+
+  void changeIsStartStatus(){
+    _isStart = !_isStart;
     notifyListeners();
   }
 
@@ -58,18 +70,47 @@ class TimerProvider extends ChangeNotifier {
   }
 
   void startCoundown(){
+    changeIsStartStatus();
     _timer = Timer.periodic(Duration(seconds: 1), (timer) { 
       _decreaseCountdownValue();
       if (_countdownValue <= 0) {
         _disposeTimer();
-        //CustomAnimatedDialog.showCustomDialog(content: Text("data")); //TODO:
+        changeIsStartStatus();
+        CustomAnimatedDialog.showCustomDialog(
+          title: AppStrings.result, 
+          content: ResultDialog(
+            correctCount: _correctCombinationCount,
+            textEditingController: _textEditingController
+          ),
+          action: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              TextButton(
+                child: Text(AppStrings.send),
+                onPressed: (){
+                  String name = _textEditingController.text.trim();
+                  if (name.length<=0) {
+                    name=AppStrings.unNamed;
+                  }
+                  // dbAccesLayer.addDbValue(textfieldValue,result);  //TODO: DB ACCESS düzenlencek action ı dışarı atcan training viewdaki isStartlar silinip providerdan alıncak
+                  Navigator.pop(navigatorKey.currentContext!);
+                },
+              ),
+              TextButton(
+                child: Text(AppStrings.back),
+                onPressed: () => Navigator.pop(navigatorKey.currentContext!),
+              ),
+            ],
+          ),
+        );
       }
     });
   }
 
   void resetTimer(){
+    _isStart = false;
     _timerValue = 0;
-    _countdownValue = 5;
+    _countdownValue = 1;
     _totalTabs = 0;
     _totalCast = 0;
     _correctCombinationCount = 0;

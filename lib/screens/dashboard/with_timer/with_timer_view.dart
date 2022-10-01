@@ -24,6 +24,7 @@ class _WithTimerViewState extends WithTimerViewModel {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: _bodyView(),
     );
   }
@@ -37,7 +38,11 @@ class _WithTimerViewState extends WithTimerViewModel {
             trueCounter(),
             timerCounter(),
             trueFalseIcons(),
-            BigSpellPicture(image: isStart ? context.watch<SpellProvider>().getNextSpellImage : ImagePaths.spellImage),
+            BigSpellPicture(
+              image: context.read<TimerProvider>().isStart 
+                ? context.watch<SpellProvider>().getNextSpellImage 
+                : ImagePaths.spellImage
+              ),
             selectedElementOrbs(),
             skills(),
             startButton(),
@@ -140,7 +145,7 @@ class _WithTimerViewState extends WithTimerViewModel {
       case Elements.exort:
         return switchOrb(element);
       case Elements.invoke:
-        if(!isStart) return;
+        if(!timerProvider.isStart) return;
         if (currentCombination.toString() == spellProvider.getNextCombination.toString()) {
           timerProvider.increaseCorrectCounter();
           timerProvider.increaseTotalCast();
@@ -156,12 +161,12 @@ class _WithTimerViewState extends WithTimerViewModel {
   }
 
   Widget startButton() {
+    bool isStart = context.read<TimerProvider>().isStart;
     return !isStart 
       ? CustomButton(
           text: AppStrings.start, 
           padding: EdgeInsets.only(top: context.dynamicHeight(0.04)),
           onTap: () {
-            setState(() => isStart=true);
             context.read<TimerProvider>().resetTimer();
             context.read<TimerProvider>().startCoundown();
             context.read<SpellProvider>().getRandomSpell();
@@ -171,6 +176,7 @@ class _WithTimerViewState extends WithTimerViewModel {
   }
 
   Widget showLeaderBoardButton() {
+    bool isStart = context.read<TimerProvider>().isStart;
     return !isStart 
       ? CustomButton(
           text: AppStrings.leaderboard, 
@@ -191,83 +197,6 @@ class _WithTimerViewState extends WithTimerViewModel {
         )
       : SizedBox.shrink();
   }
-
-
-
-
-  // oyun bitimi için
-
-  void resultDiaglog(){
-    showDialog(
-      context: context,
-      builder: (_) => myAlertDialog(),
-      barrierDismissible: false,
-    );
-  }
-
- Widget myAlertDialog(){
-   return AlertDialog(
-      title: Text("Results",style: TextStyle(color: Color(0xFFEEEEEE),)),
-      content: Container(
-        width: double.infinity,
-        height: context.dynamicHeight(0.275),
-        child: Column(
-          children: [
-            Text("True Combinations\n\n5",style: TextStyle(fontWeight: FontWeight.w500, color: Color(0xFFEEEEEE), fontSize: 18),textAlign: TextAlign.center,),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                maxLength: 14,
-                decoration: InputDecoration(
-                  fillColor: Colors.white24,
-                  filled: true,
-                  border: OutlineInputBorder(),
-                  hintText: "Name",
-                  labelText: "Name",
-                  labelStyle: TextStyle(color: Colors.amber, fontSize: 18,fontWeight: FontWeight.w600)
-                ),
-                onChanged: (value){
-                  if (value.length<=0) {
-                    textfieldValue="Unnamed";
-                  }
-                  else{
-                    textfieldValue=value;
-                  }
-                },
-              ),
-            )
-          ],
-        )
-      ),
-      backgroundColor: Color(0xFF444444),
-      actions: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            TextButton(
-              child: Text("Back"),
-              onPressed: (){
-                Navigator.pop(context);
-              },
-            ),
-            TextButton(
-              child: Text("Send"),
-              onPressed: (){
-                if (textfieldValue.length<=0) {
-                    textfieldValue="Unnamed";
-                }
-                //dbAccesLayer.addDbValue(textfieldValue,result);
-                textfieldValue="";
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        ),
-      ],
-    );
- }
-
-
 
 
 }

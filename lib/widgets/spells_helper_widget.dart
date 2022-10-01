@@ -50,7 +50,7 @@ class _SpellsHelperWidgetState extends State<SpellsHelperWidget> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(_spellImagePaths[0],scale: 5,), 
+                  Image.asset(_spellImagePaths[0],scale: 5,),   //TODO: Q W E  enum yap değere göre kendisini oluştursun
                   Card(color: Color(0x703DA5FF), child: Text(" Q ", style: TextStyle(fontSize: 17),)),
                   Card(color: Color(0x703DA5FF), child: Text(" Q ", style: TextStyle(fontSize: 17),)),
                   Card(color: Color(0x703DA5FF), child: Text(" Q ", style: TextStyle(fontSize: 17),)),
