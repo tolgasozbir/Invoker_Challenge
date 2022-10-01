@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:dota2_invoker/constants/app_strings.dart';
+import 'package:dota2_invoker/services/database_service.dart';
 import 'package:dota2_invoker/widgets/custom_animated_dialog.dart';
 import 'package:dota2_invoker/widgets/result_dialog.dart';
 import 'package:flutter/material.dart';
@@ -87,13 +88,18 @@ class TimerProvider extends ChangeNotifier {
             children: [
               TextButton(
                 child: Text(AppStrings.send),
-                onPressed: (){
+                onPressed: () async {
                   String name = _textEditingController.text.trim();
-                  if (name.length<=0) {
+                  if (name.length == 0) {
                     name=AppStrings.unNamed;
                   }
-                  // dbAccesLayer.addDbValue(textfieldValue,result);  //TODO: DB ACCESS düzenlencek action ı dışarı atcan training viewdaki isStartlar silinip providerdan alıncak
+                  await DatabaseService.instance.addScore(
+                    table: DatabaseTable.timer, 
+                    name: name, 
+                    score: _correctCombinationCount
+                  );
                   Navigator.pop(navigatorKey.currentContext!);
+                  ////TODO: DB ACCESS düzenlencek action ı dışarı atcan training viewdaki isStartlar silinip providerdan alıncak
                 },
               ),
               TextButton(

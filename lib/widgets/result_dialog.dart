@@ -26,7 +26,6 @@ class ResultDialog extends StatelessWidget {
             labelText: AppStrings.name,
             labelStyle: TextStyle(color: Colors.amber, fontSize: 18,fontWeight: FontWeight.w600)
           ),
-          onChanged: (value) => textEditingController.text=value.trim(),
         ),
       ),
     ],
