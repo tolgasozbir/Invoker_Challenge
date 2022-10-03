@@ -1,5 +1,6 @@
 import 'package:dota2_invoker/constants/app_colors.dart';
 import 'package:dota2_invoker/constants/app_strings.dart';
+import 'package:dota2_invoker/screens/dashboard/challanger/challanger_view.dart';
 import 'package:dota2_invoker/screens/dashboard/with_timer/with_timer_view.dart';
 import 'package:flutter/material.dart';
 import '../../widgets/menu_button.dart';
@@ -35,16 +36,16 @@ class DashboardView extends StatelessWidget {
               title: AppStrings.titleWithTimer, 
               navigatePage: WithTimerView(),
             ),
-            // MenuButton(
-            //   fadeInDuration: Duration(seconds: 3), 
-            //   color: AppColors.exortColor,
-            //   imagePath: ImagePaths.exort, 
-            //   title: AppStrings.titleChallanger, 
-            //   navigatePage: ChallangerScreen(),
-            // ),
+            MenuButton(
+              fadeInDuration: Duration(seconds: 3), 
+              color: AppColors.exortColor,
+              imagePath: ImagePaths.exort, 
+              title: AppStrings.titleChallanger, 
+              navigatePage: ChallangerView(),
+            ),
           ],
         ),
-      )
+      ),
     );
   }
   

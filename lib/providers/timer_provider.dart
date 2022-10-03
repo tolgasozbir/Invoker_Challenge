@@ -29,11 +29,6 @@ class TimerProvider extends ChangeNotifier {
   double get calculateCps => _totalTabs/_timerValue;
   double get calculateScps => _totalCast/_timerValue;
 
-  void setTimerValue(int value){
-    _timerValue = value;
-    notifyListeners();
-  }
-
   void changeIsStartStatus(){
     _isStart = !_isStart;
     notifyListeners();
@@ -76,7 +71,7 @@ class TimerProvider extends ChangeNotifier {
     _timer = Timer.periodic(Duration(seconds: 1), (timer) { 
       _decreaseCountdownValue();
       if (_countdownValue <= 0) {
-        _disposeTimer();
+        disposeTimer();
         changeIsStartStatus();
         CustomAnimatedDialog.showCustomDialog(
           title: AppStrings.result, 
@@ -120,11 +115,11 @@ class TimerProvider extends ChangeNotifier {
     _totalTabs = 0;
     _totalCast = 0;
     _correctCombinationCount = 0;
-    _disposeTimer();
+    disposeTimer();
     notifyListeners();
   }
 
-  void _disposeTimer(){
+  void disposeTimer(){
     if (_timer!=null) {
       _timer!.cancel();
     }

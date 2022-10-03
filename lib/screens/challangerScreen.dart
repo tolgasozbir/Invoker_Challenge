@@ -228,15 +228,6 @@
 //         else{
 //           if(isStart){          
 //             if (currentCombination.toString()==trueCombination.toString()) {
-//               print("true");
-//               Spell nextSpell=spells.getRandomSpell;
-//               _sounds.trueCombinationSound(trueCombination);
-//               setState(() { });
-//               trueCounterValue++;
-//               randomSpellImg=nextSpell.image;
-//               trueCombination=nextSpell.combine;
-//               animControlTrue.forward();
-//               Timer(Duration(milliseconds: 600), (){animControlTrue.reset();});
 //             }else{
 //               print("false");
 //               result=trueCounterValue;
