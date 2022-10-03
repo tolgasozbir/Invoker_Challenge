@@ -11,7 +11,6 @@ abstract class TrainingViewModel extends State<TrainingView> with TickerProvider
 
   final globalAnimKey = GlobalKey<TrueFalseWidgetState>();
 
-  bool isStart = false;
   bool showAllSpells = false;
 
   List<String> currentCombination=["q","w","e"];
@@ -50,6 +49,7 @@ abstract class TrainingViewModel extends State<TrainingView> with TickerProvider
   }
 
   void switchOrb(Elements element) {
+    bool isStart = context.read<TimerProvider>().isStart;
     if (isStart) {
       context.read<TimerProvider>().increaseTotalTabs();
     }

@@ -65,6 +65,7 @@ class TimerProvider extends ChangeNotifier {
   }
 
   void startTimer(){
+    changeIsStartStatus();
     _timer = Timer.periodic(Duration(seconds: 1), (timer) { 
       _increaseTimer();
     });
@@ -99,7 +100,6 @@ class TimerProvider extends ChangeNotifier {
                     score: _correctCombinationCount
                   );
                   Navigator.pop(navigatorKey.currentContext!);
-                  ////TODO: DB ACCESS düzenlencek action ı dışarı atcan training viewdaki isStartlar silinip providerdan alıncak
                 },
               ),
               TextButton(
@@ -116,7 +116,7 @@ class TimerProvider extends ChangeNotifier {
   void resetTimer(){
     _isStart = false;
     _timerValue = 0;
-    _countdownValue = 1;
+    _countdownValue = 60;
     _totalTabs = 0;
     _totalCast = 0;
     _correctCombinationCount = 0;

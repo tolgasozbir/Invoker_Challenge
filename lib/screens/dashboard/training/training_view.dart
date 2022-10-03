@@ -37,7 +37,11 @@ class _TrainingViewState extends TrainingViewModel {
             counters(),
             showAllSpells ? SpellsHelperWidget() : SizedBox.shrink(),
             trueFalseIcons(),
-            BigSpellPicture(image: isStart ? context.watch<SpellProvider>().getNextSpellImage : ImagePaths.spellImage),
+            BigSpellPicture(
+              image: context.read<TimerProvider>().isStart 
+                ? context.watch<SpellProvider>().getNextSpellImage 
+                : ImagePaths.spellImage
+            ),
             selectedElementOrbs(),
             skills(),
             startButton(),
@@ -188,7 +192,7 @@ class _TrainingViewState extends TrainingViewModel {
       case Elements.exort:
         return switchOrb(element);
       case Elements.invoke:
-        if(!isStart) return;
+        if(!timerProvider.isStart) return;
         if (currentCombination.toString() == spellProvider.getNextCombination.toString()) {
           timerProvider.increaseCorrectCounter();
           timerProvider.increaseTotalCast();
@@ -205,12 +209,13 @@ class _TrainingViewState extends TrainingViewModel {
   
 
   Widget startButton() {
+    bool isStart = context.read<TimerProvider>().isStart;
     return !isStart
       ? CustomButton(
           text: AppStrings.start, 
           padding: EdgeInsets.only(top: context.dynamicHeight(0.04)), 
           onTap: () {
-            setState(() => isStart=true);
+            context.read<TimerProvider>().resetTimer();
             context.read<TimerProvider>().startTimer();
             context.read<SpellProvider>().getRandomSpell();
           },

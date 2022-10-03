@@ -20,6 +20,7 @@ class AppStrings {
   static const String trueCombinations = 'True Combinations';
   static const String unNamed = 'Unnamed';
   static const String name = 'Name';
+  static const String errorMsg = 'Something went wrong!';
 }
 
 class ImagePaths {

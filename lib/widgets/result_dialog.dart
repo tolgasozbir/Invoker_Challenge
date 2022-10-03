@@ -30,32 +30,5 @@ class ResultDialog extends StatelessWidget {
       ),
     ],
    );
-   
-   
-
-      // actions: [
-      //   Row(
-      //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-      //     children: [
-      //       TextButton(
-      //         child: Text("Back"),
-      //         onPressed: (){
-      //           Navigator.pop(context);
-      //         },
-      //       ),
-      //       TextButton(
-      //         child: Text("Send"),
-      //         onPressed: (){
-      //            if (textfieldValue.length<=0) {
-      //                textfieldValue="Unnamed";
-      //            }
-      //            dbAccesLayer.addDbValue(textfieldValue,result);
-      //            textfieldValue="";
-      //           Navigator.pop(context);
-      //         },
-      //       ),
-      //     ],
-      //   ),
-      // ],
   }
 }

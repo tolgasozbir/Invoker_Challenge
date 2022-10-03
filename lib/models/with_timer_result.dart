@@ -1,29 +1,29 @@
 import 'dart:convert';
 
 class WithTimerResult {
-  final String id;
+  //final String id;
   final String name;
-  final int result;
+  final int score;
 
   WithTimerResult({
-    required this.id,
+    //required this.id,
     required this.name,
-    required this.result,
+    required this.score,
   });
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
+      //'id': id,
       'name': name,
-      'result': result,
+      'score': score,
     };
   }
 
   factory WithTimerResult.fromMap(Map<String, dynamic> map) {
     return WithTimerResult(
-      id: map['id'] as String,
+      //id: map['id'] as String,
       name: map['name'] as String,
-      result: map['result'] as int,
+      score: map['score'] as int,
     );
   }
 

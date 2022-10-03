@@ -11,5 +11,6 @@ class AppColors {
   static const Color blackShadow = Color(0x89000000);
   static const Color buttonSurfaceColor = Color(0xFF545454);
   static const Color dialogBgColor = Color(0xFF444444);
+  static const Color resultCardBg = Color(0xFF666666);
 
 }

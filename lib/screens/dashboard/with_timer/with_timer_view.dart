@@ -1,15 +1,16 @@
+import 'package:dota2_invoker/constants/app_colors.dart';
 import 'package:dota2_invoker/extensions/context_extension.dart';
 import 'package:dota2_invoker/widgets/custom_animated_dialog.dart';
 import 'package:dota2_invoker/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../components/dbResultWidget.dart';
 import '../../../constants/app_strings.dart';
 import '../../../enums/elements.dart';
 import '../../../providers/spell_provider.dart';
 import '../../../providers/timer_provider.dart';
 import '../../../services/sound_service.dart';
 import '../../../widgets/big_spell_picture.dart';
+import '../../../widgets/leaderboard_with_timer.dart';
 import '../../../widgets/trueFalseWidget.dart';
 import 'with_timer_view_model.dart';
 
@@ -42,7 +43,7 @@ class _WithTimerViewState extends WithTimerViewModel {
               image: context.read<TimerProvider>().isStart 
                 ? context.watch<SpellProvider>().getNextSpellImage 
                 : ImagePaths.spellImage
-              ),
+            ),
             selectedElementOrbs(),
             skills(),
             startButton(),
@@ -184,11 +185,11 @@ class _WithTimerViewState extends WithTimerViewModel {
           onTap: () => CustomAnimatedDialog.showCustomDialog(
             title: AppStrings.leaderboard,
             content: Card(
-              color:Color(0xFF666666) , 
-              child: DbResultWidget() //TODO EDİT
+              color: AppColors.resultCardBg, 
+              child: LeaderboardWithTimer(),
             ),
             action: TextButton(
-              child: Text("Back"),
+              child: Text(AppStrings.back),
               onPressed: (){
                 Navigator.pop(context);
               },
