@@ -25,6 +25,8 @@ dependencies:
   #Firebase
   firebase_core: ^1.6.0
   firebase_database: ^7.2.2
+
+  #Animation
   lottie: ^1.4.2
 
 

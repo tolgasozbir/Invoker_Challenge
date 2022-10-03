@@ -1,11 +1,9 @@
-import 'package:dota2_invoker/constants/app_strings.dart';
 import 'package:dota2_invoker/services/database_service.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-
+import '../constants/app_strings.dart';
 import '../models/with_timer_result.dart';
-
 
 class LeaderboardWithTimer extends StatelessWidget {
   LeaderboardWithTimer({Key? key,}) : super(key: key);
@@ -28,12 +26,12 @@ class LeaderboardWithTimer extends StatelessWidget {
             : LottieBuilder.network('https://assets7.lottiefiles.com/temporary_files/WoL9Wc.json');
         } 
         if (event.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator.adaptive();
+          return Center(child: CircularProgressIndicator.adaptive());
         }
         else{
           return LottieBuilder.network(
             'https://assets7.lottiefiles.com/packages/lf20_RaWlll5IJz.json',
-            errorBuilder: (context, error, stackTrace) => Text(AppStrings.errorMsg,),
+            errorBuilder: (context, error, stackTrace) => Text(AppStrings.errorMessage),
           );
         }
       },
