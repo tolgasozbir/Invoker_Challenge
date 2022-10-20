@@ -45,5 +45,6 @@ class SpellProvider extends ChangeNotifier {
     print('Next Combination : $_trueCombination');
   }
 
-  List<String> get getAllSpellImagePaths => _spellList.map((e) => e.image).toList();
+  //List<String> get getAllSpellImagePaths => _spellList.map((e) => e.image).toList();
+  List<Spell> get gelSpellList => _spellList;
 }

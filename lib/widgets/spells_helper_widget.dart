@@ -3,6 +3,23 @@ import 'package:dota2_invoker/providers/spell_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../models/spell.dart';
+
+enum QWEKey { Q, W, E, }
+
+extension qweExtension on QWEKey {
+  Widget getSpellKey(String combineKey){
+    switch (this) {
+      case QWEKey.Q:
+        return Card(color: Color(0x703DA5FF), child: Text(" ${this.name} ", style: TextStyle(fontSize: 17),));
+      case QWEKey.W:
+        return Card(color: Color(0x70EC3DFF), child: Text(" ${this.name} ", style: TextStyle(fontSize: 17),));
+      case QWEKey.E:
+        return Card(color: Color(0x70FFAA00), child: Text(" ${this.name} ", style: TextStyle(fontSize: 17),));
+    }
+  }
+}
+
 class SpellsHelperWidget extends StatefulWidget {
   SpellsHelperWidget({Key? key, this.height,}) : super(key: key);
   
@@ -13,11 +30,11 @@ class SpellsHelperWidget extends StatefulWidget {
 }
 
 class _SpellsHelperWidgetState extends State<SpellsHelperWidget> {
-  late final _spellImagePaths;
+  late final List<Spell> allSpells;
 
   @override
   void initState() {
-    _spellImagePaths = context.read<SpellProvider>().getAllSpellImagePaths;
+    allSpells = context.read<SpellProvider>().gelSpellList;
     super.initState();
   }
 
@@ -38,50 +55,28 @@ class _SpellsHelperWidgetState extends State<SpellsHelperWidget> {
     );
   }
 
+  Row keyCard(int i) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset(allSpells[i].image, scale: 5,),
+        ...List.generate(allSpells[i].combine.length, (index) {
+          return QWEKey.values.byName(allSpells[i].combine[index].toUpperCase()).getSpellKey(allSpells[i].combine[index]);
+        }),
+      ],
+    );
+  }
+
   Widget quasColumn() {
     return Expanded(
       child: Card(
         color: Color(0x333DA5FF),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Card(
+          children: List.generate(3, (i) => Card(
               color: Color(0x443DA5FF),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(_spellImagePaths[0],scale: 5,),   //TODO: Q W E  enum yap değere göre kendisini oluştursun
-                  Card(color: Color(0x703DA5FF), child: Text(" Q ", style: TextStyle(fontSize: 17),)),
-                  Card(color: Color(0x703DA5FF), child: Text(" Q ", style: TextStyle(fontSize: 17),)),
-                  Card(color: Color(0x703DA5FF), child: Text(" Q ", style: TextStyle(fontSize: 17),)),
-                ],
-              ),
-            ),
-            Card(
-              color: Color(0x443DA5FF),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(_spellImagePaths[1],scale: 5,),
-                  Card(color: Color(0x703DA5FF), child: Text(" Q ", style: TextStyle(fontSize: 17),)),
-                  Card(color: Color(0x703DA5FF), child: Text(" Q ", style: TextStyle(fontSize: 17),)),
-                  Card(color: Color(0x70EC3DFF), child: Text(" W ", style: TextStyle(fontSize: 17),)),
-                ],
-              ),
-            ),
-            Card(
-              color: Color(0x443DA5FF),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(_spellImagePaths[2],scale: 5,),
-                  Card(color: Color(0x703DA5FF), child: Text(" Q ", style: TextStyle(fontSize: 17),)),
-                  Card(color: Color(0x703DA5FF), child: Text(" Q ", style: TextStyle(fontSize: 17),)),
-                  Card(color: Color(0x70FFAA00), child: Text(" E ", style: TextStyle(fontSize: 17),)),
-                ],
-              ),
-            ),
-          ],
+              child: keyCard(i),
+            ),),
         ),
       ),
     );
@@ -92,56 +87,10 @@ class _SpellsHelperWidgetState extends State<SpellsHelperWidget> {
       color: Color(0x23EC3DFF),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Card(
-            color: Color(0x34EC3DFF),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(_spellImagePaths[3],scale: 5,), 
-                Card(color: Color(0x60EC3DFF), child: Text(" W ", style: TextStyle(fontSize: 17),)),
-                Card(color: Color(0x60EC3DFF), child: Text(" W ", style: TextStyle(fontSize: 17),)),
-                Card(color: Color(0x60EC3DFF), child: Text(" W ", style: TextStyle(fontSize: 17),)),
-              ],
-            ),
-          ),
-          Card(
-            color: Color(0x34EC3DFF),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(_spellImagePaths[4],scale: 5,), 
-                Card(color: Color(0x60EC3DFF), child: Text(" W ", style: TextStyle(fontSize: 17),)),
-                Card(color: Color(0x60EC3DFF), child: Text(" W ", style: TextStyle(fontSize: 17),)),
-                Card(color: Color(0x703DA5FF), child: Text(" Q ", style: TextStyle(fontSize: 17),)),
-              ],
-            ),
-          ),
-          Card(
-            color: Color(0x34EC3DFF),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(_spellImagePaths[5],scale: 5,), 
-                Card(color: Color(0x60EC3DFF), child: Text(" W ", style: TextStyle(fontSize: 17),)),
-                Card(color: Color(0x60EC3DFF), child: Text(" W ", style: TextStyle(fontSize: 17),)),
-                Card(color: Color(0x70FFAA00), child: Text(" E ", style: TextStyle(fontSize: 17),)),
-              ],
-            ),
-          ),
-          Card(
-            color: Color(0x34EC3DFF),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(_spellImagePaths[6],scale: 5,), 
-                Card(color: Color(0x703DA5FF), child: Text(" Q ", style: TextStyle(fontSize: 17),)),
-                Card(color: Color(0x60EC3DFF), child: Text(" W ", style: TextStyle(fontSize: 17),)),
-                Card(color: Color(0x70FFAA00), child: Text(" E ", style: TextStyle(fontSize: 17),)),
-              ],
-            ),
-          ),
-        ],
+           children: List.generate(4, (i) => Card(
+              color: Color(0x34EC3DFF),
+              child: keyCard(i+3),
+            ),),
       ),
     );
   }
@@ -152,44 +101,10 @@ class _SpellsHelperWidgetState extends State<SpellsHelperWidget> {
         color: Color(0x33EE9900),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Card(
-              color: Color(0x22FFAA11),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(_spellImagePaths[7],scale: 5,), 
-                  Card(color: Color(0x70FFAA00), child: Text(" E ", style: TextStyle(fontSize: 17),)),
-                  Card(color: Color(0x70FFAA00), child: Text(" E ", style: TextStyle(fontSize: 17),)),
-                  Card(color: Color(0x70FFAA00), child: Text(" E ", style: TextStyle(fontSize: 17),)),
-                ],
-              ),
-            ),
-            Card(
-              color: Color(0x22FFAA11),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(_spellImagePaths[8],scale: 5,), 
-                  Card(color: Color(0x70FFAA00), child: Text(" E ", style: TextStyle(fontSize: 17),)),
-                  Card(color: Color(0x70FFAA00), child: Text(" E ", style: TextStyle(fontSize: 17),)),
-                  Card(color: Color(0x703DA5FF), child: Text(" Q ", style: TextStyle(fontSize: 17),)),
-                ],
-              ),
-            ),
-            Card(
-              color: Color(0x22FFAA11),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(_spellImagePaths[9],scale: 5,), 
-                  Card(color: Color(0x70FFAA00), child: Text(" E ", style: TextStyle(fontSize: 17),)),
-                  Card(color: Color(0x70FFAA00), child: Text(" E ", style: TextStyle(fontSize: 17),)),
-                  Card(color: Color(0x60EC3DFF), child: Text(" W ", style: TextStyle(fontSize: 17),)),
-                ],
-              ),
-            ),
-          ],
+            children: List.generate(3, (i) => Card(
+                color: Color(0x22FFAA11),
+                child: keyCard(i+7),
+              ),),
         ),
       ),
     );
