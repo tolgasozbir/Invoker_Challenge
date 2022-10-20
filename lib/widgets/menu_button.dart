@@ -58,7 +58,7 @@ class _MenuButtonState extends State<MenuButton> {
   SizedBox button(BuildContext context) {
 
     ButtonStyle buttonStyle = ElevatedButton.styleFrom(
-      primary: widget.primaryColor ?? AppColors.buttonSurfaceColor,
+      backgroundColor: widget.primaryColor ?? AppColors.buttonSurfaceColor,
       elevation: 10,
       shadowColor: widget.color,
       shape: RoundedRectangleBorder(

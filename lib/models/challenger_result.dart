@@ -1,33 +1,33 @@
 import 'dart:convert';
 
 class Challenger {
-  final String id;
+  //final String id;
   final String name;
   final int time;
-  final int result;
+  final int score;
   
   Challenger({
-    required this.id,
+    //required this.id,
     required this.name,
     required this.time,
-    required this.result,
+    required this.score,
   });
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
+      //'id': id,
       'name': name,
       'time': time,
-      'result': result,
+      'score': score,
     };
   }
 
   factory Challenger.fromMap(Map<String, dynamic> map) {
     return Challenger(
-      id: map['id'] as String,
+      //id: map['id'] as String,
       name: map['name'] as String,
       time: map['time'] as int,
-      result: map['result'] as int,
+      score: map['score'] as int,
     );
   }
 

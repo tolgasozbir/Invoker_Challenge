@@ -6,6 +6,7 @@ import 'challanger_view.dart';
 abstract class ChallangerViewModel extends State<ChallangerView> with OrbMixin {
   
   final globalAnimKey = GlobalKey<TrueFalseWidgetState>();
+  final TextEditingController textEditingController = TextEditingController();
 
   @override
   void initState() {

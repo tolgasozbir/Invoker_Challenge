@@ -1,5 +1,7 @@
 import 'package:dota2_invoker/extensions/context_extension.dart';
 import 'package:dota2_invoker/screens/dashboard/challanger/challanger_view_model.dart';
+import 'package:dota2_invoker/widgets/leaderboard_challanger.dart';
+import 'package:dota2_invoker/widgets/result_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,11 +10,11 @@ import '../../../constants/app_strings.dart';
 import '../../../enums/elements.dart';
 import '../../../providers/spell_provider.dart';
 import '../../../providers/timer_provider.dart';
+import '../../../services/database_service.dart';
 import '../../../services/sound_service.dart';
 import '../../../widgets/big_spell_picture.dart';
 import '../../../widgets/custom_animated_dialog.dart';
 import '../../../widgets/custom_button.dart';
-import '../../../widgets/leaderboard_with_timer.dart';
 import '../../../widgets/trueFalseWidget.dart';
 
 class ChallangerView extends StatefulWidget {
@@ -26,6 +28,7 @@ class _ChallangerViewState extends ChallangerViewModel {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: _bodyView(),
     );
   }
@@ -154,7 +157,38 @@ class _ChallangerViewState extends ChallangerViewModel {
           SoundService.instance.ggSound();
           timerProvider.changeIsStartStatus();
           timerProvider.disposeTimer();
-          //TODO: DİALOG GELCEK
+          CustomAnimatedDialog.showCustomDialog(
+            title: AppStrings.result, 
+            content: ResultDialog(
+              correctCount: context.read<TimerProvider>().getCorrectCombinationCount, 
+              textEditingController: textEditingController
+            ),
+            action: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              TextButton(
+                child: Text(AppStrings.send),
+                onPressed: () async {
+                  String name = textEditingController.text.trim();
+                  if (name.length == 0) {
+                    name=AppStrings.unNamed;
+                  }
+                  await DatabaseService.instance.addScore(
+                    table: DatabaseTable.challenger, 
+                    name: name, 
+                    time: context.read<TimerProvider>().getTimeValue,
+                    score: context.read<TimerProvider>().getCorrectCombinationCount, 
+                  );
+                  Navigator.pop(context);
+                },
+              ),
+              TextButton(
+                child: Text(AppStrings.back),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ],
+          ),
+          );
           globalAnimKey.currentState?.falseAnimationForward();
         }
     }
@@ -185,7 +219,7 @@ class _ChallangerViewState extends ChallangerViewModel {
             title: AppStrings.leaderboard,
             content: Card(
               color: AppColors.resultCardBg, 
-              child: LeaderboardWithTimer(),  //TODO: CHALLANGER
+              child: LeaderboardChallanger()
             ),
             action: TextButton(
               child: Text(AppStrings.back),
