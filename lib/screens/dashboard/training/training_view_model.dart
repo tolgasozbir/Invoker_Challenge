@@ -1,4 +1,4 @@
-import 'package:dota2_invoker/mixins/orb_mixin.dart';
+import '../../../mixins/orb_mixin.dart';
 import 'package:flutter/material.dart';
 import '../../../widgets/trueFalseWidget.dart';
 import 'training_view.dart';

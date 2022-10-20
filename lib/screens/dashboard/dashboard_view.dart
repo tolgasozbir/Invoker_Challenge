@@ -1,7 +1,7 @@
-import 'package:dota2_invoker/constants/app_colors.dart';
-import 'package:dota2_invoker/constants/app_strings.dart';
-import 'package:dota2_invoker/screens/dashboard/challanger/challanger_view.dart';
-import 'package:dota2_invoker/screens/dashboard/with_timer/with_timer_view.dart';
+import '../../constants/app_colors.dart';
+import '../../constants/app_strings.dart';
+import 'challanger/challanger_view.dart';
+import 'with_timer/with_timer_view.dart';
 import 'package:flutter/material.dart';
 import '../../widgets/menu_button.dart';
 import 'training/training_view.dart';

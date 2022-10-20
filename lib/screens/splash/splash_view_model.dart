@@ -1,6 +1,6 @@
 import 'dart:math';
-import 'package:dota2_invoker/constants/app_strings.dart';
-import 'package:dota2_invoker/screens/dashboard/dashboard_view.dart';
+import '../../constants/app_strings.dart';
+import '../dashboard/dashboard_view.dart';
 import 'package:flutter/material.dart';
 import 'splash_view.dart';
 

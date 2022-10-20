@@ -1,7 +1,7 @@
-import 'package:dota2_invoker/constants/app_strings.dart';
-import 'package:dota2_invoker/providers/spell_provider.dart';
-import 'package:dota2_invoker/providers/timer_provider.dart';
-import 'package:dota2_invoker/screens/splash/splash_view.dart';
+import 'constants/app_strings.dart';
+import 'providers/spell_provider.dart';
+import 'providers/timer_provider.dart';
+import 'screens/splash/splash_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

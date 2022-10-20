@@ -1,5 +1,5 @@
-import 'package:dota2_invoker/mixins/orb_mixin.dart';
-import 'package:dota2_invoker/screens/dashboard/with_timer/with_timer_view.dart';
+import '../../../mixins/orb_mixin.dart';
+import 'with_timer_view.dart';
 import 'package:flutter/material.dart';
 import '../../../widgets/trueFalseWidget.dart';
 

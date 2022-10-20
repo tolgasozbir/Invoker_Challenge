@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:dota2_invoker/constants/app_strings.dart';
+import '../constants/app_strings.dart';
 
 class SoundService {
 

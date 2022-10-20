@@ -1,7 +1,7 @@
-import 'package:dota2_invoker/constants/app_colors.dart';
-import 'package:dota2_invoker/extensions/context_extension.dart';
-import 'package:dota2_invoker/widgets/custom_animated_dialog.dart';
-import 'package:dota2_invoker/widgets/custom_button.dart';
+import '../../../constants/app_colors.dart';
+import '../../../extensions/context_extension.dart';
+import '../../../widgets/custom_animated_dialog.dart';
+import '../../../widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../constants/app_strings.dart';

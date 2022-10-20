@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:dota2_invoker/extensions/context_extension.dart';
+import '../extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 

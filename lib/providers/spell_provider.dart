@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:dota2_invoker/enums/spells.dart';
+import '../enums/spells.dart';
 import 'package:flutter/material.dart';
 import '../constants/app_strings.dart';
 import '../models/spell.dart';

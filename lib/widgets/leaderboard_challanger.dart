@@ -1,5 +1,5 @@
-import 'package:dota2_invoker/models/challenger_result.dart';
-import 'package:dota2_invoker/services/database_service.dart';
+import '../models/challenger_result.dart';
+import '../services/database_service.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';

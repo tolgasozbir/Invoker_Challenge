@@ -1,6 +1,6 @@
-import 'package:dota2_invoker/constants/app_colors.dart';
-import 'package:dota2_invoker/extensions/context_extension.dart';
-import 'package:dota2_invoker/screens/dashboard/loading_view.dart';
+import '../constants/app_colors.dart';
+import '../extensions/context_extension.dart';
+import '../screens/dashboard/loading_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/timer_provider.dart';

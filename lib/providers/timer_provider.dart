@@ -1,8 +1,8 @@
 import 'dart:async';
-import 'package:dota2_invoker/constants/app_strings.dart';
-import 'package:dota2_invoker/services/database_service.dart';
-import 'package:dota2_invoker/widgets/custom_animated_dialog.dart';
-import 'package:dota2_invoker/widgets/result_dialog.dart';
+import '../constants/app_strings.dart';
+import '../services/database_service.dart';
+import '../widgets/custom_animated_dialog.dart';
+import '../widgets/result_dialog.dart';
 import 'package:flutter/material.dart';
 
 import '../main.dart';

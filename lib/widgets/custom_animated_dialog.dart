@@ -1,6 +1,6 @@
-import 'package:dota2_invoker/constants/app_colors.dart';
-import 'package:dota2_invoker/extensions/context_extension.dart';
-import 'package:dota2_invoker/main.dart';
+import '../constants/app_colors.dart';
+import '../extensions/context_extension.dart';
+import '../main.dart';
 import 'package:flutter/material.dart';
 
 class CustomAnimatedDialog {

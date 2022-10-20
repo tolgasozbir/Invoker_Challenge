@@ -1,7 +1,7 @@
-import 'package:dota2_invoker/extensions/context_extension.dart';
-import 'package:dota2_invoker/screens/dashboard/challanger/challanger_view_model.dart';
-import 'package:dota2_invoker/widgets/leaderboard_challanger.dart';
-import 'package:dota2_invoker/widgets/result_dialog.dart';
+import '../../../extensions/context_extension.dart';
+import 'challanger_view_model.dart';
+import '../../../widgets/leaderboard_challanger.dart';
+import '../../../widgets/result_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
