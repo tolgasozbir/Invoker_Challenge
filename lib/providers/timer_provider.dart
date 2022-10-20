@@ -111,7 +111,7 @@ class TimerProvider extends ChangeNotifier {
   void resetTimer(){
     _isStart = false;
     _timerValue = 0;
-    _countdownValue = 5;
+    _countdownValue = 60;
     _totalTabs = 0;
     _totalCast = 0;
     _correctCombinationCount = 0;
