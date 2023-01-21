@@ -7,9 +7,9 @@ import 'splash_view.dart';
 abstract class SplashViewModel extends State<SplashView> {
 
   Duration _duration = Duration(milliseconds: 3000);
-  Random rnd = Random();
+  Random _rnd = Random();
 
-  List<String> splashImages = [
+  List<String> _splashImages = [
     ImagePaths.splashImage1,
     ImagePaths.splashImage2,
     ImagePaths.splashImage3,
@@ -30,4 +30,6 @@ abstract class SplashViewModel extends State<SplashView> {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardView()));
     });
   }
+
+  String get getRandomSplahImage => _splashImages[_rnd.nextInt(_splashImages.length)];
 }

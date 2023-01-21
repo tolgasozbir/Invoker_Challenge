@@ -1,5 +1,6 @@
 import '../../constants/app_colors.dart';
 import '../../constants/app_strings.dart';
+import '../../enums/elements.dart';
 import 'challanger/challanger_view.dart';
 import 'with_timer/with_timer_view.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +43,12 @@ class DashboardView extends StatelessWidget {
               imagePath: ImagePaths.exort, 
               title: AppStrings.titleChallanger, 
               navigatePage: ChallangerView(),
+            ),
+            MenuButton.exit(
+              fadeInDuration: Duration(seconds: 3), 
+              color: Colors.white70,
+              imagePath: Elements.invoke.getImage, 
+              title: "Quit Game",
             ),
           ],
         ),

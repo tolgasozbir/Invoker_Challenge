@@ -1,3 +1,5 @@
+import 'package:flutter/services.dart';
+
 import 'constants/app_strings.dart';
 import 'providers/spell_provider.dart';
 import 'providers/timer_provider.dart';
@@ -7,7 +9,9 @@ import 'package:provider/provider.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => TimerProvider()),

@@ -219,7 +219,24 @@ class _ChallangerViewState extends ChallangerViewModel {
             title: AppStrings.leaderboard,
             content: Card(
               color: AppColors.resultCardBg, 
-              child: LeaderboardChallanger()
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        //TODO:
+                        Expanded(flex: 6, child: Text("Name")),
+                        Text("Time"),
+                        Spacer(),
+                        Text("Score"),
+                      ],
+                    ),
+                  ),
+                  LeaderboardChallanger(),
+                ],
+              )
             ),
             action: TextButton(
               child: Text(AppStrings.back),

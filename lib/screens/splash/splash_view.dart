@@ -18,7 +18,7 @@ class _SplashViewState extends SplashViewModel {
     return SafeArea(
       child: SizedBox.expand(
         child: Image.asset(
-          splashImages[rnd.nextInt(splashImages.length)],
+          getRandomSplahImage,
           fit: BoxFit.cover,
         ),
       ),

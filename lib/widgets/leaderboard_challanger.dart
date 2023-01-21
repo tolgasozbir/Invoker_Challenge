@@ -48,8 +48,11 @@ class LeaderboardChallanger extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("  ${index+1}.  "+results[results.length -1 -index].name,style: TextStyle(color: Color(0xFFEEEEEE), fontSize: 18),),
+              Expanded(
+                flex: 4,
+                child: Text("  ${index+1}.  "+results[results.length -1 -index].name,style: TextStyle(color: Color(0xFFEEEEEE), fontSize: 18),)),
               Text(results[results.length -1 -index].time.toString(),style: TextStyle(color: Color(0xFFFFCC00), fontSize: 18),),
+              Spacer(),
               Text(results[results.length -1 -index].score.toString()+"    ",style: TextStyle(color: Color(0xFF00FF00), fontSize: 18),),
             ],
           ),
