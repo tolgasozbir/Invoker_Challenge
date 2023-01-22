@@ -3,14 +3,18 @@ import '../extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class TrueFalseWidget extends StatefulWidget {
-  const TrueFalseWidget({Key? key,}) : super(key: key);
+enum IconType { True, False }
+
+class TrueFalseIconWidget extends StatefulWidget {
+  const TrueFalseIconWidget({Key? key,}) : super(key: key);
 
   @override
-  State<TrueFalseWidget> createState() => TrueFalseWidgetState();
+  State<TrueFalseIconWidget> createState() => TrueFalseWidgetState();
 }
 
-class TrueFalseWidgetState extends State<TrueFalseWidget> with TickerProviderStateMixin {
+class TrueFalseWidgetState extends State<TrueFalseIconWidget> with TickerProviderStateMixin {
+
+  final Duration _animDuration = const Duration(milliseconds: 600);
 
   Tween<double> _translateTween = Tween(
     begin: 56.0, 
@@ -34,15 +38,14 @@ class TrueFalseWidgetState extends State<TrueFalseWidget> with TickerProviderSta
   void initState() {
     super.initState();
 
-
     _animControlTrue = AnimationController(
       vsync: this, 
-      duration: Duration(milliseconds: 600)
+      duration: _animDuration
     );
     
     _animControlFalse = AnimationController(
       vsync: this, 
-      duration: Duration(milliseconds: 600)
+      duration: _animDuration
     );
 
     _animTranslateTrue = _translateTween.animate(_animControlTrue);
@@ -50,11 +53,11 @@ class TrueFalseWidgetState extends State<TrueFalseWidget> with TickerProviderSta
     _animAlphaTrue = _opacityTween.animate(_animControlTrue);
     _animAlphaFalse= _opacityTween.animate(_animControlFalse);
 
-    //add listener and repositioned to calculated size
+    //added listener and repositioned to calculated size
     Future.microtask((){
       _translateTween = Tween(
-        begin: context.dynamicHeight(0.08), 
-        end: -context.dynamicHeight(0.12),
+        begin: context.dynamicWidth(0.12), 
+        end: -context.dynamicWidth(0.24),
       );
 
       _animTranslateTrue = _translateTween.animate(_animControlTrue)..addListener(()=> setState(() { }));
@@ -71,34 +74,27 @@ class TrueFalseWidgetState extends State<TrueFalseWidget> with TickerProviderSta
       padding: const EdgeInsets.all(8.0),
       child: Stack(
         children: [
-          Transform.translate(offset: Offset(0.0, _animTranslateTrue.value),
-            child: Opacity(
-              opacity: _animAlphaTrue.value,
-              child: Icon(
-                FontAwesomeIcons.check,color: Color(0xFF33CC33),
-              ),
-            ),
-          ),
-          Transform.translate(offset: Offset(0.0, _animTranslateFalse.value),
-            child: Opacity(
-              opacity: _animAlphaFalse.value,
-              child: Icon(
-                FontAwesomeIcons.times,color: Color(0xFFCC3333),
-              ),
-            ),
-          ),
+          icon(IconType.True),
+          icon(IconType.False),
         ],
       ),
     );
   }
 
-  void trueAnimationForward(){
-    _animControlTrue.forward();
-    Timer(Duration(milliseconds: 600), ()=> _animControlTrue.reset());
+  Transform icon(IconType type) {
+    return Transform.translate(offset: Offset(0.0, type == IconType.True ? _animTranslateTrue.value : _animTranslateFalse.value),
+      child: Opacity(
+        opacity: type == IconType.True ? _animAlphaTrue.value : _animAlphaFalse.value,
+        child: Icon(
+          type == IconType.True ? FontAwesomeIcons.check : FontAwesomeIcons.times,
+          color: type == IconType.True ? Color(0xFF33CC33) : Color(0xFFCC3333),
+        ),
+      ),
+    );
   }
 
-  void falseAnimationForward(){
-    _animControlFalse.forward();
-    Timer(Duration(milliseconds: 600), ()=> _animControlFalse.reset());
+  void playAnimation(IconType iconType){
+    iconType == IconType.True ? _animControlTrue.forward() : _animControlFalse.forward();
+    Timer(_animDuration, ()=> iconType == IconType.True ? _animControlTrue.reset() : _animControlFalse.reset());
   }
 }

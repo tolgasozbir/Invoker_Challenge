@@ -1,18 +1,12 @@
+import 'package:dota2_invoker/widgets/game_ui_widget.dart';
 import '../../../constants/app_colors.dart';
 import '../../../constants/app_strings.dart';
-import '../../../services/sound_service.dart';
 import '../../../extensions/context_extension.dart';
-import '../../../providers/spell_provider.dart';
 import '../../../providers/timer_provider.dart';
-import 'training_view_model.dart';
-import '../../../widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import '../../../enums/elements.dart';
-import '../../../widgets/big_spell_picture.dart';
 import '../../../widgets/spells_helper_widget.dart';
-import '../../../widgets/trueFalseWidget.dart';
 
 class TrainingView extends StatefulWidget {
   const TrainingView({Key? key}) : super(key: key);
@@ -21,7 +15,10 @@ class TrainingView extends StatefulWidget {
   State<TrainingView> createState() => _TrainingViewState();
 }
 
-class _TrainingViewState extends TrainingViewModel {
+class _TrainingViewState extends State<TrainingView> {
+
+  bool showAllSpells = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,15 +33,7 @@ class _TrainingViewState extends TrainingViewModel {
           children: [
             counters(),
             showAllSpells ? SpellsHelperWidget() : SizedBox.shrink(),
-            trueFalseIcons(),
-            BigSpellPicture(
-              image: context.read<TimerProvider>().isStart 
-                ? context.watch<SpellProvider>().getNextSpellImage 
-                : ImagePaths.spellImage
-            ),
-            selectedElementOrbs(),
-            skills(),
-            startButton(),
+            GameUIWidget(gameType: GameType.Training)
           ],
         ),
       ),
@@ -52,7 +41,6 @@ class _TrainingViewState extends TrainingViewModel {
   }
 
   //Counters
-
   SizedBox counters(){
     return SizedBox(
       width: double.infinity,
@@ -131,96 +119,6 @@ class _TrainingViewState extends TrainingViewModel {
         ),
       ),
     );
-  }
-
-
-  Padding trueFalseIcons() {
-    return Padding(
-      padding: showAllSpells == false 
-        ? EdgeInsets.only(top: context.dynamicHeight(0.12)) 
-        : EdgeInsets.zero,
-      child: TrueFalseWidget(key: globalAnimKey), 
-    );
-  }
-
-  // Orbs
-
-  SizedBox selectedElementOrbs() {
-    return SizedBox(
-      width: context.dynamicWidth(0.25),
-      height: context.dynamicHeight(0.10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: selectedOrbs,
-      ),
-    );
-  }
-
-  // Skill cast
-
-  Padding skills() {
-    return Padding(
-      padding: EdgeInsets.only(top: context.dynamicHeight(0.03)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          skill(Elements.quas),
-          skill(Elements.wex),
-          skill(Elements.exort),
-          skill(Elements.invoke),
-        ],
-      ),
-    );
-  }
-
-  InkWell skill(Elements element) {
-    return InkWell(
-      child: DecoratedBox(
-        decoration: skillBlackShadowDec,
-        child: Image.asset(element.getImage,width: context.dynamicWidth(0.20))
-      ),
-      onTap: () => skillOnTapFN(element),
-    );
-  }
-
-  void skillOnTapFN(Elements element){
-    var spellProvider = context.read<SpellProvider>();
-    var timerProvider = context.read<TimerProvider>();
-    switch (element) {
-      case Elements.quas:
-      case Elements.wex:
-      case Elements.exort:
-        return switchOrb(element);
-      case Elements.invoke:
-        if(!timerProvider.isStart) return;
-        if (currentCombination.toString() == spellProvider.getNextCombination.toString()) {
-          timerProvider.increaseCorrectCounter();
-          timerProvider.increaseTotalCast();
-          SoundService.instance.trueCombinationSound(spellProvider.getNextCombination);
-          globalAnimKey.currentState?.trueAnimationForward();
-        }else{
-          SoundService.instance.failCombinationSound();
-          globalAnimKey.currentState?.falseAnimationForward();
-        }
-        timerProvider.increaseTotalTabs();
-        spellProvider.getRandomSpell();
-    }
-  }
-  
-
-  Widget startButton() {
-    bool isStart = context.read<TimerProvider>().isStart;
-    return !isStart
-      ? CustomButton(
-          text: AppStrings.start, 
-          padding: EdgeInsets.only(top: context.dynamicHeight(0.04)), 
-          onTap: () {
-            context.read<TimerProvider>().resetTimer();
-            context.read<TimerProvider>().startTimer();
-            context.read<SpellProvider>().getRandomSpell();
-          },
-        )
-      : SizedBox.shrink();
   }
 
 }

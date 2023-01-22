@@ -1,3 +1,5 @@
+import 'package:dota2_invoker/widgets/game_ui_widget.dart';
+
 import '../../constants/app_colors.dart';
 import '../../constants/app_strings.dart';
 import '../../enums/elements.dart';
@@ -24,28 +26,28 @@ class DashboardView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             MenuButton(
-              fadeInDuration: Duration(seconds: 1), 
+              fadeInDuration: Duration(milliseconds: 1000), 
               color: AppColors.quasColor, 
               imagePath: ImagePaths.quas, 
               title: AppStrings.titleTraining, 
               navigatePage: TrainingView(),
             ),
             MenuButton(
-              fadeInDuration: Duration(seconds: 2), 
+              fadeInDuration: Duration(milliseconds: 1500), 
               color: AppColors.wexColor,
               imagePath: ImagePaths.wex, 
               title: AppStrings.titleWithTimer, 
               navigatePage: WithTimerView(),
             ),
             MenuButton(
-              fadeInDuration: Duration(seconds: 3), 
+              fadeInDuration: Duration(milliseconds: 2000), 
               color: AppColors.exortColor,
               imagePath: ImagePaths.exort, 
               title: AppStrings.titleChallanger, 
               navigatePage: ChallangerView(),
             ),
             MenuButton.exit(
-              fadeInDuration: Duration(seconds: 3), 
+              fadeInDuration: Duration(milliseconds: 2500), 
               color: Colors.white70,
               imagePath: Elements.invoke.getImage, 
               title: "Quit Game",
