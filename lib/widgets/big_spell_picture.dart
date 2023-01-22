@@ -1,5 +1,6 @@
-import '../extensions/context_extension.dart';
 import 'package:flutter/material.dart';
+
+import '../extensions/context_extension.dart';
 
 class BigSpellPicture extends StatelessWidget {
   const BigSpellPicture({

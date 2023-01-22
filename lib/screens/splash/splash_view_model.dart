@@ -1,7 +1,9 @@
 import 'dart:math';
+
+import 'package:flutter/material.dart';
+
 import '../../constants/app_strings.dart';
 import '../dashboard/dashboard_view.dart';
-import 'package:flutter/material.dart';
 import 'splash_view.dart';
 
 abstract class SplashViewModel extends State<SplashView> {

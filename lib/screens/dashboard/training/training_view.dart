@@ -1,4 +1,4 @@
-import 'package:dota2_invoker/widgets/game_ui_widget.dart';
+import '../../../widgets/game_ui_widget.dart';
 import '../../../constants/app_colors.dart';
 import '../../../constants/app_strings.dart';
 import '../../../extensions/context_extension.dart';

@@ -1,7 +1,7 @@
-import 'package:dota2_invoker/extensions/context_extension.dart';
-import 'package:dota2_invoker/mixins/orb_mixin.dart';
-import 'package:dota2_invoker/widgets/result_dialog.dart';
-import 'package:dota2_invoker/widgets/true_false_icon_widget.dart';
+import '../extensions/context_extension.dart';
+import '../mixins/orb_mixin.dart';
+import 'result_dialog.dart';
+import 'true_false_icon_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../constants/app_strings.dart';

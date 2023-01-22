@@ -1,5 +1,7 @@
 import 'dart:math';
+
 import 'package:audioplayers/audioplayers.dart';
+
 import '../constants/app_strings.dart';
 
 class SoundService {

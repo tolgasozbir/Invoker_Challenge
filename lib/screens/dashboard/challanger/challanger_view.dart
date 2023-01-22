@@ -1,4 +1,4 @@
-import 'package:dota2_invoker/widgets/game_ui_widget.dart';
+import '../../../widgets/game_ui_widget.dart';
 import '../../../extensions/context_extension.dart';
 import '../../../widgets/leaderboard_challanger.dart';
 import 'package:flutter/material.dart';

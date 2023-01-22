@@ -1,11 +1,13 @@
 import 'dart:io';
+
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+
 import '../constants/app_colors.dart';
 import '../extensions/context_extension.dart';
-import '../screens/dashboard/loading_view.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../providers/timer_provider.dart';
+import '../screens/dashboard/loading_view.dart';
 import '../services/sound_service.dart';
 
 class MenuButton extends StatefulWidget {

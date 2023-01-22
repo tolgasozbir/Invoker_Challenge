@@ -1,11 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 import 'constants/app_strings.dart';
 import 'providers/spell_provider.dart';
 import 'providers/timer_provider.dart';
 import 'screens/splash/splash_view.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
