@@ -17,8 +17,8 @@ class DatabaseService {
 
   DatabaseService._();
 
-  var _timerRef = FirebaseDatabase.instance.reference().child(DatabaseTable.withTimer.name);
-  var _challangerRef = FirebaseDatabase.instance.reference().child(DatabaseTable.challenger.name);
+  var _timerRef = FirebaseDatabase.instance.ref().child(DatabaseTable.withTimer.name);
+  var _challangerRef = FirebaseDatabase.instance.ref().child(DatabaseTable.challenger.name);
 
   Future<void> addScore({required DatabaseTable table, required String name, required int score, int? time}) async {
     Map<String,dynamic> data = {

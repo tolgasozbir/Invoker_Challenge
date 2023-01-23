@@ -9,11 +9,11 @@ import '../services/database_service.dart';
 class LeaderboardWithTimer extends StatelessWidget {
   LeaderboardWithTimer({Key? key,}) : super(key: key);
   
-  final refDb = FirebaseDatabase.instance.reference().child(DatabaseTable.withTimer.name);
+  final refDb = FirebaseDatabase.instance.ref().child(DatabaseTable.withTimer.name);
   
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<Event>(
+    return StreamBuilder<DatabaseEvent>(
       stream: refDb.orderByChild("score").onValue,
       builder: (context,event){
         List<WithTimerResult> results = [];

@@ -9,11 +9,11 @@ import '../services/database_service.dart';
 class LeaderboardChallanger extends StatelessWidget {
   LeaderboardChallanger({Key? key,}) : super(key: key);
   
-  final refDb = FirebaseDatabase.instance.reference().child(DatabaseTable.challenger.name);
+  final refDb = FirebaseDatabase.instance.ref().child(DatabaseTable.challenger.name);
   
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<Event>(
+    return StreamBuilder<DatabaseEvent>(
       stream: refDb.orderByChild("score").onValue,
       builder: (context,event){
         List<Challenger> results = [];
