@@ -1,8 +1,9 @@
-import '../extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../constants/app_colors.dart';
 import '../enums/elements.dart';
+import '../extensions/context_extension.dart';
 import '../providers/timer_provider.dart';
 
 mixin OrbMixin<T extends StatefulWidget> on State<T> {

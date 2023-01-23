@@ -1,11 +1,12 @@
-import 'package:dota2_invoker/widgets/game_ui_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+
 import '../../../constants/app_colors.dart';
 import '../../../constants/app_strings.dart';
 import '../../../extensions/context_extension.dart';
 import '../../../providers/timer_provider.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
+import '../../../widgets/game_ui_widget.dart';
 import '../../../widgets/spells_helper_widget.dart';
 
 class TrainingView extends StatefulWidget {
@@ -32,8 +33,11 @@ class _TrainingViewState extends State<TrainingView> {
         child: Column(
           children: [
             counters(),
-            showAllSpells ? SpellsHelperWidget() : SizedBox.shrink(),
-            GameUIWidget(gameType: GameType.Training)
+            showAllSpells ? SpellsHelperWidget() : SizedBox(height: context.dynamicHeight(0.08),),
+            GameUIWidget(
+              gameType: GameType.Training,
+              timerWidget: null,
+            )
           ],
         ),
       ),
@@ -61,7 +65,7 @@ class _TrainingViewState extends State<TrainingView> {
     return Center(
       child: Text(
         context.watch<TimerProvider>().getCorrectCombinationCount.toString(),
-        style: TextStyle(fontSize: context.sp(36), color: AppColors.trainingCounterColor,),
+        style: TextStyle(fontSize: context.sp(36), color: AppColors.correctCounterColor,),
       )
     );
   }

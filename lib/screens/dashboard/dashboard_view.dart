@@ -1,13 +1,12 @@
-import 'package:dota2_invoker/widgets/game_ui_widget.dart';
+import 'package:flutter/material.dart';
 
 import '../../constants/app_colors.dart';
 import '../../constants/app_strings.dart';
 import '../../enums/elements.dart';
-import 'challanger/challanger_view.dart';
-import 'with_timer/with_timer_view.dart';
-import 'package:flutter/material.dart';
 import '../../widgets/menu_button.dart';
+import 'challanger/challanger_view.dart';
 import 'training/training_view.dart';
+import 'with_timer/with_timer_view.dart';
 
 class DashboardView extends StatelessWidget {
   const DashboardView({Key? key}) : super(key: key);
@@ -50,7 +49,7 @@ class DashboardView extends StatelessWidget {
               fadeInDuration: Duration(milliseconds: 2500), 
               color: Colors.white70,
               imagePath: Elements.invoke.getImage, 
-              title: "Quit Game",
+              title: AppStrings.quitGame,
             ),
           ],
         ),

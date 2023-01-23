@@ -42,6 +42,7 @@ class LeaderboardWithTimer extends StatelessWidget {
     return ListView.builder(
       shrinkWrap: true,
       itemCount:results.length,
+      physics: NeverScrollableScrollPhysics(),
       itemBuilder: (context,index){
         var textStyle = TextStyle(color: Color(0xFFEEEEEE), fontSize: 18);
         return Card(
@@ -51,10 +52,18 @@ class LeaderboardWithTimer extends StatelessWidget {
             children: [
               Text(
                 "  ${index+1}.  " + results[results.length -1 -index].name,
-                style: textStyle),
+                style: textStyle,
+                maxLines: 1,
+                softWrap: false,
+                overflow: TextOverflow.fade,
+              ),
               Text(
                 results[results.length -1 -index].score.toString()+"  ",
-                style: textStyle),
+                style: textStyle,
+                maxLines: 1,
+                softWrap: false,
+                overflow: TextOverflow.fade,
+              ),
             ],
           ),
         );

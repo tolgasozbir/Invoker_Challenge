@@ -1,4 +1,4 @@
-import 'package:dota2_invoker/widgets/game_ui_widget.dart';
+import '../../../widgets/game_ui_widget.dart';
 import '../../../extensions/context_extension.dart';
 import '../../../widgets/leaderboard_challanger.dart';
 import 'package:flutter/material.dart';
@@ -30,29 +30,17 @@ class _ChallangerViewState extends State<ChallangerView> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          trueCounter(),
-          timerCounter(),
-          GameUIWidget(gameType: GameType.Challanger),
+          GameUIWidget(
+            gameType: GameType.Challanger,
+            timerWidget: timerCounterWidget(),
+          ),
           showLeaderBoardButton(),
         ],
       ),
     );
   }
 
-  Widget trueCounter(){
-    return Container(
-      width: double.infinity,
-      height: context.dynamicHeight(0.12),
-      child: Center(
-        child: Text(
-          context.watch<TimerProvider>().getCorrectCombinationCount.toString(),
-          style: TextStyle(fontSize: context.sp(36), color: Colors.green,),
-        ),
-      ),
-    );
-  }
-
-  Widget timerCounter() {
+  Widget timerCounterWidget() {
     var timerValue = context.watch<TimerProvider>().getTimeValue;
     return Card(
       color: Color(0xFF303030),
@@ -94,11 +82,9 @@ class _ChallangerViewState extends State<ChallangerView> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        //TODO:
-                        Expanded(flex: 6, child: Text("Name")),
-                        Text("Time"),
-                        Spacer(),
-                        Text("Score"),
+                        Expanded(flex: 5, child: Text(AppStrings.nickname)),
+                        Expanded(flex: 2, child: Center(child: Text(AppStrings.time))),
+                        Expanded(flex: 2, child: Center(child: Text("${AppStrings.score}    "))),
                       ],
                     ),
                   ),

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../constants/app_strings.dart';
 
-class ResultDialog extends StatelessWidget {
-  const ResultDialog({Key? key, required this.correctCount, required this.textEditingController}) : super(key: key);
+class ResultDialogContent extends StatelessWidget {
+  const ResultDialogContent({Key? key, required this.correctCount, required this.textEditingController}) : super(key: key);
 
   final int correctCount;
   final TextEditingController textEditingController;
@@ -22,8 +22,8 @@ class ResultDialog extends StatelessWidget {
             fillColor: Colors.white24,
             filled: true,
             border: OutlineInputBorder(),
-            hintText: AppStrings.name,
-            labelText: AppStrings.name,
+            hintText: AppStrings.nickname,
+            labelText: AppStrings.nickname,
             labelStyle: TextStyle(color: Colors.amber, fontSize: 18,fontWeight: FontWeight.w600)
           ),
         ),
