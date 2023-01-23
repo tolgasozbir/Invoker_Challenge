@@ -1,16 +1,14 @@
 import 'dart:async';
-import '../constants/app_strings.dart';
-import '../services/database_service.dart';
-import '../widgets/custom_animated_dialog.dart';
-import '../widgets/result_dialog.dart';
+
 import 'package:flutter/material.dart';
 
-import '../main.dart';
+import '../services/database_service.dart';
+
+typedef ResultDialogVoidFunc = void Function(DatabaseTable);
 
 class TimerProvider extends ChangeNotifier {
 
   Timer? _timer;
-  TextEditingController _textEditingController = TextEditingController();
 
   bool _isStart = false;
   int _timerValue = 0;
@@ -66,44 +64,14 @@ class TimerProvider extends ChangeNotifier {
     });
   }
 
-  void startCoundown(){
+  void startCoundown(ResultDialogVoidFunc showDialog){
     changeIsStartStatus();
     _timer = Timer.periodic(Duration(seconds: 1), (timer) { 
       _decreaseCountdownValue();
       if (_countdownValue <= 0) {
         disposeTimer();
         changeIsStartStatus();
-        CustomAnimatedDialog.showCustomDialog(
-          title: AppStrings.result, 
-          content: ResultDialog(
-            correctCount: _correctCombinationCount,
-            textEditingController: _textEditingController
-          ),
-          action: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              TextButton(
-                child: Text(AppStrings.send),
-                onPressed: () async {
-                  String name = _textEditingController.text.trim();
-                  if (name.length == 0) {
-                    name=AppStrings.unNamed;
-                  }
-                  await DatabaseService.instance.addScore(
-                    table: DatabaseTable.withTimer, 
-                    name: name, 
-                    score: _correctCombinationCount
-                  );
-                  Navigator.pop(navigatorKey.currentContext!);
-                },
-              ),
-              TextButton(
-                child: Text(AppStrings.back),
-                onPressed: () => Navigator.pop(navigatorKey.currentContext!),
-              ),
-            ],
-          ),
-        );
+        showDialog.call(DatabaseTable.withTimer);
       }
     });
   }

@@ -74,14 +74,14 @@ class TrueFalseWidgetState extends State<TrueFalseIconWidget> with TickerProvide
       padding: const EdgeInsets.all(8.0),
       child: Stack(
         children: [
-          icon(IconType.True),
-          icon(IconType.False),
+          _icon(IconType.True),
+          _icon(IconType.False),
         ],
       ),
     );
   }
 
-  Transform icon(IconType type) {
+  Transform _icon(IconType type) {
     return Transform.translate(offset: Offset(0.0, type == IconType.True ? _animTranslateTrue.value : _animTranslateFalse.value),
       child: Opacity(
         opacity: type == IconType.True ? _animAlphaTrue.value : _animAlphaFalse.value,

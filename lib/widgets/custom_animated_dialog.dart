@@ -1,7 +1,8 @@
+import 'package:flutter/material.dart';
+
 import '../constants/app_colors.dart';
 import '../extensions/context_extension.dart';
 import '../main.dart';
-import 'package:flutter/material.dart';
 
 class CustomAnimatedDialog {
   static void showCustomDialog({required String title, required Widget content, Widget? action}) {
@@ -16,37 +17,35 @@ class CustomAnimatedDialog {
           backgroundColor: Colors.transparent,
           body: SafeArea(
             child: Center(
-              child: SingleChildScrollView(
-                child: Container(
-                  height: navigatorKey.currentContext!.dynamicHeight(0.6),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
-                        child: Text(title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500,),),
+              child: Container(
+                height: navigatorKey.currentContext!.dynamicHeight(0.6),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
+                      child: Text(title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500,),),
+                    ),
+                    Expanded(
+                      flex: 9, 
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 12.0),
+                        child: SingleChildScrollView(child: content),
                       ),
-                      Expanded(
-                        flex: 9, 
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 12.0),
-                          child: SingleChildScrollView(child: content),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.centerRight, 
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: action,
-                        )
-                      ),
-                    ],
-                  ),
-                  margin: EdgeInsets.symmetric(horizontal: 32),
-                  decoration: BoxDecoration(
-                    color: AppColors.dialogBgColor, 
-                    borderRadius: BorderRadius.circular(16),
-                  ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight, 
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: action,
+                      )
+                    ),
+                  ],
+                ),
+                margin: EdgeInsets.symmetric(horizontal: 32),
+                decoration: BoxDecoration(
+                  color: AppColors.dialogBgColor, 
+                  borderRadius: BorderRadius.circular(16),
                 ),
               ),
             ),

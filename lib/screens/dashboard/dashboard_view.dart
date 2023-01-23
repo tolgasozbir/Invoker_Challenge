@@ -49,7 +49,7 @@ class DashboardView extends StatelessWidget {
               fadeInDuration: Duration(milliseconds: 2500), 
               color: Colors.white70,
               imagePath: Elements.invoke.getImage, 
-              title: "Quit Game",
+              title: AppStrings.quitGame,
             ),
           ],
         ),

@@ -13,14 +13,17 @@ class AppStrings {
   static const String scps = ' SCps';
 
   static const String start = 'Start';
+  static const String quitGame = 'Quit Game';
   static const String leaderboard = 'Leaderboard';
   static const String result = 'Result';
   static const String back = 'Back';
   static const String send = 'Send';
   static const String trueCombinations = 'True Combinations';
   static const String unNamed = 'Unnamed';
-  static const String name = 'Name';
+  static const String nickname = 'Nickname';
   static const String errorMessage = 'Something went wrong!';
+  static const String time = 'Time';
+  static const String score = 'Score';
 }
 
 class ImagePaths {

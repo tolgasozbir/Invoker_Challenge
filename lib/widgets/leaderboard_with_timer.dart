@@ -1,9 +1,10 @@
-import '../services/database_service.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+
 import '../constants/app_strings.dart';
 import '../models/with_timer_result.dart';
+import '../services/database_service.dart';
 
 class LeaderboardWithTimer extends StatelessWidget {
   LeaderboardWithTimer({Key? key,}) : super(key: key);
@@ -42,6 +43,7 @@ class LeaderboardWithTimer extends StatelessWidget {
     return ListView.builder(
       shrinkWrap: true,
       itemCount:results.length,
+      physics: NeverScrollableScrollPhysics(),
       itemBuilder: (context,index){
         var textStyle = TextStyle(color: Color(0xFFEEEEEE), fontSize: 18);
         return Card(
@@ -51,10 +53,18 @@ class LeaderboardWithTimer extends StatelessWidget {
             children: [
               Text(
                 "  ${index+1}.  " + results[results.length -1 -index].name,
-                style: textStyle),
+                style: textStyle,
+                maxLines: 1,
+                softWrap: false,
+                overflow: TextOverflow.fade,
+              ),
               Text(
                 results[results.length -1 -index].score.toString()+"  ",
-                style: textStyle),
+                style: textStyle,
+                maxLines: 1,
+                softWrap: false,
+                overflow: TextOverflow.fade,
+              ),
             ],
           ),
         );

@@ -1,12 +1,13 @@
-import '../../../widgets/game_ui_widget.dart';
-import '../../../constants/app_colors.dart';
-import '../../../extensions/context_extension.dart';
-import '../../../widgets/custom_animated_dialog.dart';
-import '../../../widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../../constants/app_colors.dart';
 import '../../../constants/app_strings.dart';
+import '../../../extensions/context_extension.dart';
 import '../../../providers/timer_provider.dart';
+import '../../../widgets/custom_animated_dialog.dart';
+import '../../../widgets/custom_button.dart';
+import '../../../widgets/game_ui_widget.dart';
 import '../../../widgets/leaderboard_with_timer.dart';
 
 class WithTimerView extends StatefulWidget {
@@ -31,9 +32,10 @@ class _WithTimerViewState extends State<WithTimerView> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            trueCounter(),
-            timerCounter(),
-            GameUIWidget(gameType: GameType.Timer),
+            GameUIWidget(
+              gameType: GameType.Timer,
+              timerWidget: timerCounterWidget(),
+            ),
             showLeaderBoardButton(),
           ],
         ),
@@ -41,20 +43,7 @@ class _WithTimerViewState extends State<WithTimerView> {
     );
   }
 
-  Widget trueCounter(){
-    return Container(
-      width: double.infinity,
-      height: context.dynamicHeight(0.12),
-      child: Center(
-        child: Text(
-          context.watch<TimerProvider>().getCorrectCombinationCount.toString(),
-          style: TextStyle(fontSize: context.sp(36), color: Colors.green,),
-        ),
-      ),
-    );
-  }
-
-  Widget timerCounter() {
+  Widget timerCounterWidget() {
     var countdownValue = context.watch<TimerProvider>().getCountdownValue;
     return Card(
       color: Color(0xFF303030),

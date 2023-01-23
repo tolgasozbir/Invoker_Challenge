@@ -1,25 +1,29 @@
-import '../extensions/context_extension.dart';
-import '../mixins/orb_mixin.dart';
-import 'result_dialog.dart';
-import 'true_false_icon_widget.dart';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../constants/app_colors.dart';
 import '../constants/app_strings.dart';
 import '../enums/elements.dart';
+import '../extensions/context_extension.dart';
+import '../mixins/orb_mixin.dart';
 import '../providers/spell_provider.dart';
 import '../providers/timer_provider.dart';
 import '../services/database_service.dart';
 import '../services/sound_service.dart';
-import 'big_spell_picture.dart';
 import 'custom_animated_dialog.dart';
 import 'custom_button.dart';
+import 'result_dialog_content.dart';
+import 'true_false_icon_widget.dart';
 
 enum GameType { Training, Challanger, Timer }
 
 class GameUIWidget extends StatefulWidget {
-  GameUIWidget({Key? key, required this.gameType}) : super(key: key);
+  GameUIWidget({Key? key, required this.gameType, required this.timerWidget}) : super(key: key);
 
   final GameType gameType;
+  final Widget? timerWidget;
 
   @override
   State<GameUIWidget> createState() => _GameUIWidgetState();
@@ -28,8 +32,7 @@ class GameUIWidget extends StatefulWidget {
 class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin {
 
   final _animKey = GlobalKey<TrueFalseWidgetState>();
-  bool showAllSpells = false;
-  final TextEditingController textEditingController = TextEditingController();
+  final TextEditingController _textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) => _bodyView(context);
@@ -37,12 +40,13 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin {
   Column _bodyView(BuildContext context) {
     return Column(
       children: [
-        trueFalseIcons(),
-        BigSpellPicture(
-          image: context.watch<TimerProvider>().isStart 
-            ? context.watch<SpellProvider>().getNextSpellImage 
-            : ImagePaths.spellImage
-        ),
+        //SizedBox(height: context.dynamicHeight(0.02)),
+        if (widget.gameType != GameType.Training)
+          trueCounter(),
+        if (widget.timerWidget != null)
+          widget.timerWidget!,
+        TrueFalseIconWidget(key: _animKey),
+        bigSpellPicture(),
         selectedElementOrbs(),
         skills(),
         startButton()
@@ -50,10 +54,37 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin {
     );
   }
 
-  Widget trueFalseIcons() {
-    return Padding(
-      padding: EdgeInsets.only(top: context.dynamicHeight(0.02)),
-      child: TrueFalseIconWidget(key: _animKey),
+  Widget trueCounter(){
+    return Container(
+      width: double.infinity,
+      height: context.dynamicHeight(0.12),
+      child: Center(
+        child: Text(
+          context.watch<TimerProvider>().getCorrectCombinationCount.toString(),
+          style: TextStyle(fontSize: context.sp(36), color: AppColors.correctCounterColor,),
+        ),
+      ),
+    );
+  }
+
+  Widget bigSpellPicture(){
+    return Container(
+      width: context.dynamicWidth(0.28),
+      height: context.dynamicWidth(0.28),
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.white30, 
+            blurRadius: 12, 
+            spreadRadius: 4
+          ),
+        ],
+      ),
+      child: Image.asset(
+        context.watch<TimerProvider>().isStart 
+          ? context.watch<SpellProvider>().getNextSpellImage 
+          : ImagePaths.spellImage
+      )
     );
   }
 
@@ -129,7 +160,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin {
     }
   }
 
-    void skillOnTapFNTimer(Elements element){
+  void skillOnTapFNTimer(Elements element){
     var spellProvider = context.read<SpellProvider>();
     var timerProvider = context.read<TimerProvider>();
     switch (element) {
@@ -151,7 +182,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin {
     }
   }
 
-    void skillOnTapFNChallanger(Elements element){
+  void skillOnTapFNChallanger(Elements element){
     var spellProvider = context.read<SpellProvider>();
     var timerProvider = context.read<TimerProvider>();
     switch (element) {
@@ -170,41 +201,56 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin {
           SoundService.instance.ggSound();
           timerProvider.changeIsStartStatus();
           timerProvider.disposeTimer();
-          CustomAnimatedDialog.showCustomDialog(
-            title: AppStrings.result, 
-            content: ResultDialog(
-              correctCount: context.read<TimerProvider>().getCorrectCombinationCount, 
-              textEditingController: textEditingController
-            ),
-            action: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              TextButton(
-                child: Text(AppStrings.send),
-                onPressed: () async {
-                  String name = textEditingController.text.trim();
-                  if (name.length == 0) {
-                    name=AppStrings.unNamed;
-                  }
+          _animKey.currentState?.playAnimation(IconType.False);
+          showResultDialog(DatabaseTable.challenger);
+        }
+    }
+  }
+
+  void showResultDialog(DatabaseTable dbTable) {
+    CustomAnimatedDialog.showCustomDialog(
+      title: AppStrings.result, 
+      content: ResultDialogContent(
+        correctCount: context.read<TimerProvider>().getCorrectCombinationCount, 
+        textEditingController: _textEditingController
+      ),
+      action: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          TextButton(
+            child: Text(AppStrings.send),
+            onPressed: () async {
+              String name = _textEditingController.text.trim();
+              if (name.length == 0) {
+                name=AppStrings.unNamed + Random().nextInt(999999).toString();
+              }
+              switch (dbTable) {
+                case DatabaseTable.withTimer:
+                  await DatabaseService.instance.addScore(
+                    table: DatabaseTable.withTimer, 
+                    name: name, 
+                    score: context.read<TimerProvider>().getCorrectCombinationCount,
+                  );
+                  break;
+                case DatabaseTable.challenger:
                   await DatabaseService.instance.addScore(
                     table: DatabaseTable.challenger, 
                     name: name, 
                     time: context.read<TimerProvider>().getTimeValue,
                     score: context.read<TimerProvider>().getCorrectCombinationCount, 
                   );
-                  Navigator.pop(context);
-                },
-              ),
-              TextButton(
-                child: Text(AppStrings.back),
-                onPressed: () => Navigator.pop(context),
-              ),
-            ],
+                  break;
+              }
+              Navigator.pop(context);
+            },
           ),
-          );
-          _animKey.currentState?.playAnimation(IconType.False);
-        }
-    }
+          TextButton(
+            child: Text(AppStrings.back),
+            onPressed: () => Navigator.pop(context),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget startButton() {
@@ -216,7 +262,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin {
           onTap: () {
             context.read<TimerProvider>().resetTimer();
             widget.gameType == GameType.Timer 
-              ? context.read<TimerProvider>().startCoundown()
+              ? context.read<TimerProvider>().startCoundown(showResultDialog)
               : context.read<TimerProvider>().startTimer();
             context.read<SpellProvider>().getRandomSpell();
           },
