@@ -1,21 +1,21 @@
 import 'dart:math';
 
-import '../constants/app_colors.dart';
-
-import '../extensions/context_extension.dart';
-import '../mixins/orb_mixin.dart';
-import 'result_dialog_content.dart';
-import 'true_false_icon_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../constants/app_colors.dart';
 import '../constants/app_strings.dart';
 import '../enums/elements.dart';
+import '../extensions/context_extension.dart';
+import '../mixins/orb_mixin.dart';
 import '../providers/spell_provider.dart';
 import '../providers/timer_provider.dart';
 import '../services/database_service.dart';
 import '../services/sound_service.dart';
 import 'custom_animated_dialog.dart';
 import 'custom_button.dart';
+import 'result_dialog_content.dart';
+import 'true_false_icon_widget.dart';
 
 enum GameType { Training, Challanger, Timer }
 

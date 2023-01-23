@@ -1,13 +1,14 @@
-import '../../../widgets/game_ui_widget.dart';
-import '../../../extensions/context_extension.dart';
-import '../../../widgets/leaderboard_challanger.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../../../constants/app_colors.dart';
 import '../../../constants/app_strings.dart';
+import '../../../extensions/context_extension.dart';
 import '../../../providers/timer_provider.dart';
 import '../../../widgets/custom_animated_dialog.dart';
 import '../../../widgets/custom_button.dart';
+import '../../../widgets/game_ui_widget.dart';
+import '../../../widgets/leaderboard_challanger.dart';
 
 class ChallangerView extends StatefulWidget {
   const ChallangerView({Key? key}) : super(key: key);

@@ -1,6 +1,8 @@
 import 'dart:async';
-import '../services/database_service.dart';
+
 import 'package:flutter/material.dart';
+
+import '../services/database_service.dart';
 
 typedef ResultDialogVoidFunc = void Function(DatabaseTable);
 

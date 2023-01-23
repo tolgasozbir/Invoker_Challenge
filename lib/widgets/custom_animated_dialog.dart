@@ -1,7 +1,8 @@
+import 'package:flutter/material.dart';
+
 import '../constants/app_colors.dart';
 import '../extensions/context_extension.dart';
 import '../main.dart';
-import 'package:flutter/material.dart';
 
 class CustomAnimatedDialog {
   static void showCustomDialog({required String title, required Widget content, Widget? action}) {
