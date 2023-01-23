@@ -1,10 +1,10 @@
+import 'package:dota2_invoker/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants/app_colors.dart';
 import '../../../constants/app_strings.dart';
-import '../../../extensions/context_extension.dart';
 import '../../../providers/timer_provider.dart';
 import '../../../widgets/game_ui_widget.dart';
 import '../../../widgets/spells_helper_widget.dart';
