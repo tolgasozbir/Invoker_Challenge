@@ -16,11 +16,11 @@ class LeaderboardChallanger extends StatelessWidget {
     return StreamBuilder<DatabaseEvent>(
       stream: refDb.orderByChild("score").onValue,
       builder: (context,event){
-        List<Challenger> results = [];
+        List<ChallengerResult> results = [];
         if (event.hasData) {
           var data = event.data!.snapshot.value as Map?;
           if (data != null) {
-            results = data.values.map((e) => Challenger.fromMap(Map<String, dynamic>.from(e))).toList();
+            results = data.values.map((e) => ChallengerResult.fromMap(Map<String, dynamic>.from(e))).toList();
           }
           return results.isNotEmpty 
             ? resultBuilder(results) 
@@ -39,7 +39,7 @@ class LeaderboardChallanger extends StatelessWidget {
     );
   }
 
-  ListView resultBuilder(List<Challenger> results) {
+  ListView resultBuilder(List<ChallengerResult> results) {
     return ListView.builder(
       shrinkWrap: true,
       itemCount:results.length,

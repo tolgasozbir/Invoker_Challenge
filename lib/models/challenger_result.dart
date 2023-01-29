@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-class Challenger {
+class ChallengerResult {
   //final String id;
   final String name;
   final int time;
   final int score;
   
-  Challenger({
+  ChallengerResult({
     //required this.id,
     required this.name,
     required this.time,
@@ -22,8 +22,8 @@ class Challenger {
     };
   }
 
-  factory Challenger.fromMap(Map<String, dynamic> map) {
-    return Challenger(
+  factory ChallengerResult.fromMap(Map<String, dynamic> map) {
+    return ChallengerResult(
       //id: map['id'] as String,
       name: map['name'] as String,
       time: map['time'] as int,
@@ -33,5 +33,5 @@ class Challenger {
 
   String toJson() => json.encode(toMap());
 
-  factory Challenger.fromJson(String source) => Challenger.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory ChallengerResult.fromJson(String source) => ChallengerResult.fromMap(json.decode(source) as Map<String, dynamic>);
 }

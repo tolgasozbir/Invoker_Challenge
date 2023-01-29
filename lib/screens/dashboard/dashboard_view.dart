@@ -1,3 +1,5 @@
+import 'package:dota2_invoker/models/challenger_result.dart';
+import 'package:dota2_invoker/services/database/firestore_service.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/app_colors.dart';
@@ -51,6 +53,22 @@ class DashboardView extends StatelessWidget {
               imagePath: Elements.invoke.getImage, 
               title: AppStrings.quitGame,
             ),
+            // ElevatedButton(
+            //   onPressed: () async {
+            //     var dummy = ChallengerResult(name: "test", time: 27, score: 22);
+            //     await FirestoreService.instance.addChallengerScore(dummy);
+            //     var data = await FirestoreService.instance.getAllChallangerScores();
+            //     data.forEach((element) {
+            //       print(element.name);
+            //       print(element.score);
+            //       print("**************");
+            //     });
+            //   }, 
+            //   child: Text("Fetch")
+
+            //TODO: database_service.dart düzenlencek veya silincek duruma göre
+            // leaderboard a entegre edilcek servicesler
+            // )
           ],
         ),
       ),

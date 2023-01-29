@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 import '../constants/app_strings.dart';
-import '../models/with_timer_result.dart';
+import '../models/timer_result.dart';
 import '../services/database_service.dart';
 
 class LeaderboardWithTimer extends StatelessWidget {
@@ -16,11 +16,11 @@ class LeaderboardWithTimer extends StatelessWidget {
     return StreamBuilder<DatabaseEvent>(
       stream: refDb.orderByChild("score").onValue,
       builder: (context,event){
-        List<WithTimerResult> results = [];
+        List<TimerResult> results = [];
         if (event.hasData) {
           var data = event.data!.snapshot.value as Map?;
           if (data != null) {
-            results = data.values.map((e) => WithTimerResult.fromMap(Map<String, dynamic>.from(e))).toList();
+            results = data.values.map((e) => TimerResult.fromMap(Map<String, dynamic>.from(e))).toList();
           }
           return results.isNotEmpty 
             ? resultBuilder(results) 
@@ -39,7 +39,7 @@ class LeaderboardWithTimer extends StatelessWidget {
     );
   }
 
-  ListView resultBuilder(List<WithTimerResult> results) {
+  ListView resultBuilder(List<TimerResult> results) {
     return ListView.builder(
       shrinkWrap: true,
       itemCount:results.length,
