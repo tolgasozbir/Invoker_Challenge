@@ -1,9 +1,9 @@
-import '../extensions/context_extension.dart';
-import '../providers/spell_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../extensions/context_extension.dart';
 import '../models/spell.dart';
+import '../providers/spell_provider.dart';
 
 enum QWEKey { Q, W, E, }
 

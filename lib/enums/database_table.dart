@@ -1,0 +1,1 @@
+enum DatabaseTable { timer, challenger }

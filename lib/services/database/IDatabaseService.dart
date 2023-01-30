@@ -1,4 +1,4 @@
-import 'package:dota2_invoker/models/timer_result.dart';
+import '../../models/timer_result.dart';
 import '../../models/challenger_result.dart';
 
 abstract class IDatabaseService {

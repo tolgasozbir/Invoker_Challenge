@@ -1,41 +1,39 @@
-import 'package:firebase_database/firebase_database.dart';
+import '../constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-
+import 'package:provider/provider.dart';
 import '../constants/app_strings.dart';
 import '../models/challenger_result.dart';
-import '../services/database_service.dart';
+import '../providers/game_provider.dart';
 
 class LeaderboardChallanger extends StatelessWidget {
   LeaderboardChallanger({Key? key,}) : super(key: key);
   
-  final refDb = FirebaseDatabase.instance.ref().child(DatabaseTable.challenger.name);
-  
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<DatabaseEvent>(
-      stream: refDb.orderByChild("score").onValue,
-      builder: (context,event){
+    return FutureBuilder(
+      future: context.read<GameProvider>().databaseService.getAllChallangerScores(),
+      initialData: null,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
         List<ChallengerResult> results = [];
-        if (event.hasData) {
-          var data = event.data!.snapshot.value as Map?;
-          if (data != null) {
-            results = data.values.map((e) => ChallengerResult.fromMap(Map<String, dynamic>.from(e))).toList();
-          }
-          return results.isNotEmpty 
-            ? resultBuilder(results) 
-            : LottieBuilder.network('https://assets7.lottiefiles.com/temporary_files/WoL9Wc.json');
-        } 
-        if (event.connectionState == ConnectionState.waiting) {
+        if (snapshot.connectionState == ConnectionState.waiting) 
           return Center(child: CircularProgressIndicator.adaptive());
-        }
-        else{
-          return LottieBuilder.network(
-            'https://assets7.lottiefiles.com/packages/lf20_RaWlll5IJz.json',
-            errorBuilder: (context, error, stackTrace) => Text(AppStrings.errorMessage),
-          );
-        }
+        if (!snapshot.hasData)
+          return errorLottie();
+        results = snapshot.data;
+        return results.isNotEmpty 
+          ? resultBuilder(results)
+          : LottieBuilder.asset(LottiePaths.lottieProudFirst);
       },
+    );
+  }
+
+  Column errorLottie() {
+    return Column(
+      children: [
+        LottieBuilder.asset(LottiePaths.lottie404),
+        Text(AppStrings.errorMessage)
+      ],
     );
   }
 
@@ -45,15 +43,16 @@ class LeaderboardChallanger extends StatelessWidget {
       itemCount:results.length,
       physics: NeverScrollableScrollPhysics(),
       itemBuilder: (context,index){
+        var data = results[index];
         return Card(
-          color: Color(0xFF444444),
+          color: AppColors.dialogBgColor,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
                 flex: 5,
                 child: Text(
-                  "  ${index+1}.  "+results[results.length -1 -index].name,
+                  "  ${index+1}.  " + data.name,
                   style: TextStyle(color: Color(0xFFEEEEEE), fontSize: 18),
                   maxLines: 1,
                   softWrap: false,
@@ -64,7 +63,7 @@ class LeaderboardChallanger extends StatelessWidget {
                 flex: 2, 
                 child: Center(
                   child: Text(
-                    results[results.length -1 -index].time.toString(),
+                    data.time.toString(),
                     style: TextStyle(color: Color(0xFFFFCC00), fontSize: 18),
                     maxLines: 1,
                     softWrap: false,
@@ -76,7 +75,7 @@ class LeaderboardChallanger extends StatelessWidget {
                 flex: 2, 
                 child: Center(
                   child: Text(
-                    results[results.length -1 -index].score.toString()+"    ",
+                    data.score.toString()+"    ",
                     style: TextStyle(color: Color(0xFF00FF00), fontSize: 18),
                     maxLines: 1,
                     softWrap: false,

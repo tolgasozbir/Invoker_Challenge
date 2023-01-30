@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../constants/app_colors.dart';
 import '../../../constants/app_strings.dart';
 import '../../../extensions/context_extension.dart';
-import '../../../providers/timer_provider.dart';
+import '../../../providers/game_provider.dart';
 import '../../../widgets/custom_animated_dialog.dart';
 import '../../../widgets/custom_button.dart';
 import '../../../widgets/game_ui_widget.dart';
@@ -44,7 +44,7 @@ class _WithTimerViewState extends State<WithTimerView> {
   }
 
   Widget timerCounterWidget() {
-    var countdownValue = context.watch<TimerProvider>().getCountdownValue;
+    var countdownValue = context.watch<GameProvider>().getCountdownValue;
     return Card(
       color: Color(0xFF303030),
       child: Stack(
@@ -69,7 +69,7 @@ class _WithTimerViewState extends State<WithTimerView> {
   }
 
   Widget showLeaderBoardButton() {
-    bool isStart = context.read<TimerProvider>().isStart;
+    bool isStart = context.read<GameProvider>().isStart;
     return !isStart 
       ? CustomButton(
           text: AppStrings.leaderboard, 

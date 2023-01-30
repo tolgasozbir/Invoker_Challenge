@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../constants/app_colors.dart';
 import '../enums/elements.dart';
 import '../extensions/context_extension.dart';
-import '../providers/timer_provider.dart';
+import '../providers/game_provider.dart';
 
 mixin OrbMixin<T extends StatefulWidget> on State<T> {
 
@@ -34,9 +34,9 @@ mixin OrbMixin<T extends StatefulWidget> on State<T> {
   }
 
   void switchOrb(Elements element) {
-    bool isStart = context.read<TimerProvider>().isStart;
+    bool isStart = context.read<GameProvider>().isStart;
     if (isStart) {
-      context.read<TimerProvider>().increaseTotalTabs();
+      context.read<GameProvider>().increaseTotalTabs();
     }
     selectedOrbs.removeAt(0);
     currentCombination.removeAt(0);

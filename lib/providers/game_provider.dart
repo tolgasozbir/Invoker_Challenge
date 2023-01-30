@@ -1,12 +1,22 @@
 import 'dart:async';
 
+import '../services/database/IDatabaseService.dart';
 import 'package:flutter/material.dart';
 
-import '../services/database_service.dart';
+import '../enums/database_table.dart';
 
 typedef ResultDialogVoidFunc = void Function(DatabaseTable);
 
-class TimerProvider extends ChangeNotifier {
+class GameProvider extends ChangeNotifier {
+
+  late IDatabaseService _databaseService;
+
+  GameProvider({required IDatabaseService databaseService, required}) {
+    this._databaseService = databaseService;
+  }
+
+  IDatabaseService get databaseService => this._databaseService;
+
 
   Timer? _timer;
 
@@ -71,7 +81,7 @@ class TimerProvider extends ChangeNotifier {
       if (_countdownValue <= 0) {
         disposeTimer();
         changeIsStartStatus();
-        showDialog.call(DatabaseTable.withTimer);
+        showDialog.call(DatabaseTable.timer);
       }
     });
   }

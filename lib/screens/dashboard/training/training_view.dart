@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../../constants/app_colors.dart';
 import '../../../constants/app_strings.dart';
-import '../../../providers/timer_provider.dart';
+import '../../../providers/game_provider.dart';
 import '../../../widgets/game_ui_widget.dart';
 import '../../../widgets/spells_helper_widget.dart';
 
@@ -64,7 +64,7 @@ class _TrainingViewState extends State<TrainingView> {
   Center correctCounter() {
     return Center(
       child: Text(
-        context.watch<TimerProvider>().getCorrectCombinationCount.toString(),
+        context.watch<GameProvider>().getCorrectCombinationCount.toString(),
         style: TextStyle(fontSize: context.sp(36), color: AppColors.correctCounterColor,),
       )
     );
@@ -75,7 +75,7 @@ class _TrainingViewState extends State<TrainingView> {
       right: context.dynamicWidth(0.02),
       top: context.dynamicWidth(0.02),
       child: Text(
-        '${context.watch<TimerProvider>().getTimeValue} ${AppStrings.secPassed}', 
+        '${context.watch<GameProvider>().getTimeValue} ${AppStrings.secPassed}', 
         style: TextStyle(fontSize: context.sp(12),)
       ),
     );
@@ -104,7 +104,7 @@ class _TrainingViewState extends State<TrainingView> {
       child: Tooltip(
         message: '${AppStrings.toolTipCPS}',
         child: Text(
-          context.watch<TimerProvider>().calculateCps.toStringAsFixed(1) + '${AppStrings.cps}',
+          context.watch<GameProvider>().calculateCps.toStringAsFixed(1) + '${AppStrings.cps}',
           style: TextStyle(fontSize: context.sp(12),)
         ),
       ),
@@ -118,7 +118,7 @@ class _TrainingViewState extends State<TrainingView> {
       child: Tooltip(
         message: '${AppStrings.toolTipSCPS}',
         child: Text(
-          context.watch<TimerProvider>().calculateScps.toStringAsFixed(1) + '${AppStrings.scps}',
+          context.watch<GameProvider>().calculateScps.toStringAsFixed(1) + '${AppStrings.scps}',
           style: TextStyle(fontSize: context.sp(12),),
         ),
       ),

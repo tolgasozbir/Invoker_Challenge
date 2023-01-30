@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../../../constants/app_colors.dart';
 import '../../../constants/app_strings.dart';
 import '../../../extensions/context_extension.dart';
-import '../../../providers/timer_provider.dart';
+import '../../../providers/game_provider.dart';
 import '../../../widgets/custom_animated_dialog.dart';
 import '../../../widgets/custom_button.dart';
 import '../../../widgets/game_ui_widget.dart';
@@ -42,7 +42,7 @@ class _ChallangerViewState extends State<ChallangerView> {
   }
 
   Widget timerCounterWidget() {
-    var timerValue = context.watch<TimerProvider>().getTimeValue;
+    var timerValue = context.watch<GameProvider>().getTimeValue;
     return Card(
       color: Color(0xFF303030),
       child: Stack(
@@ -67,7 +67,7 @@ class _ChallangerViewState extends State<ChallangerView> {
   }
 
   Widget showLeaderBoardButton() {
-    bool isStart = context.read<TimerProvider>().isStart;
+    bool isStart = context.read<GameProvider>().isStart;
     return !isStart 
       ? CustomButton(
           text: AppStrings.leaderboard, 

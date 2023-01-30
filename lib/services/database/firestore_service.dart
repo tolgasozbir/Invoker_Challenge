@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dota2_invoker/models/timer_result.dart';
-import 'package:dota2_invoker/models/challenger_result.dart';
-import 'package:dota2_invoker/services/database/IDatabaseService.dart';
-import 'package:dota2_invoker/services/database_service.dart';
+import '../../models/timer_result.dart';
+import '../../models/challenger_result.dart';
+import 'IDatabaseService.dart';
+import '../../enums/database_table.dart';
 
 
 class FirestoreService implements IDatabaseService {
@@ -10,7 +10,7 @@ class FirestoreService implements IDatabaseService {
   static FirestoreService? _instance;
   static FirestoreService get instance => _instance ??= FirestoreService._();
 
-  final _collectionRefTimer = FirebaseFirestore.instance.collection(DatabaseTable.withTimer.name);
+  final _collectionRefTimer = FirebaseFirestore.instance.collection(DatabaseTable.timer.name);
   final _collectionRefChallanger = FirebaseFirestore.instance.collection(DatabaseTable.challenger.name);
 
   @override
