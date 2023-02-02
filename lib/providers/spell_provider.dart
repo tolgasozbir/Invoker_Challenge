@@ -1,7 +1,9 @@
 import 'dart:math';
-import '../enums/spells.dart';
+
 import 'package:flutter/material.dart';
+
 import '../constants/app_strings.dart';
+import '../enums/spells.dart';
 import '../models/spell.dart';
 
 class SpellProvider extends ChangeNotifier {

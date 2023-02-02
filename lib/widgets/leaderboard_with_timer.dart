@@ -1,7 +1,8 @@
-import '../constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+
+import '../constants/app_colors.dart';
 import '../constants/app_strings.dart';
 import '../models/timer_result.dart';
 import '../providers/game_provider.dart';

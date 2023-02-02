@@ -1,13 +1,13 @@
-import 'services/database/firestore_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'constants/app_strings.dart';
-import 'providers/spell_provider.dart';
 import 'providers/game_provider.dart';
+import 'providers/spell_provider.dart';
 import 'screens/splash/splash_view.dart';
+import 'services/database/firestore_service.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
