@@ -46,8 +46,8 @@ class MenuButton extends StatefulWidget {
 
 class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateMixin {
   double _fadeInOpacity=0;
-  late AnimationController? controller;
-  late Animation<double>? animation;
+  AnimationController? controller;
+  Animation<double>? animation;
 
   @override
   void initState() {
