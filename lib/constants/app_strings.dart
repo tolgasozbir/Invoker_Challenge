@@ -11,7 +11,7 @@ class AppStrings {
   static const String cps = ' Cps';
   static const String toolTipSCPS = 'Skill cast per seconds average by elapsed time.';
   static const String scps = ' SCps';
-
+  //Common
   static const String start = 'Start';
   static const String quitGame = 'Quit Game';
   static const String settings = 'Settings';
@@ -25,6 +25,10 @@ class AppStrings {
   static const String errorMessage = 'Something went wrong!';
   static const String time = 'Time';
   static const String score = 'Score';
+  //Settings
+  static const String aboutUs = 'About us';
+  static const String feedback = 'Feedback';
+  static const String rateApp = 'Rate this app';
 }
 
 class LottiePaths {

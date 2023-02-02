@@ -1,3 +1,5 @@
+import 'package:dota2_invoker/constants/app_strings.dart';
+
 import '../../../extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -16,17 +18,17 @@ class SettingsView extends StatelessWidget {
           divider(),
           menuItem(
             leading: FontAwesomeIcons.questionCircle,
-            text: "About us"
+            text: AppStrings.aboutUs
           ),
           divider(),
           menuItem(
             leading: FontAwesomeIcons.commentDots,
-            text: "Feedback"
+            text: AppStrings.feedback
           ),
           divider(),
           menuItem(
             leading: FontAwesomeIcons.starHalfAlt,
-            text: "Rate this app"
+            text: AppStrings.rateApp
           ),
           divider(),
         ],
