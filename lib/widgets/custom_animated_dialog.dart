@@ -5,8 +5,8 @@ import '../extensions/context_extension.dart';
 import '../main.dart';
 
 class CustomAnimatedDialog {
-  static void showCustomDialog({required String title, required Widget content, Widget? action}) {
-    showGeneralDialog(
+  static Future<T?> showCustomDialog<T extends Object>({required String title, required Widget content, Widget? action, double? height}) {
+    return showGeneralDialog<T>(
       context: navigatorKey.currentContext!,
       barrierLabel: '',
       barrierDismissible: false,
@@ -18,7 +18,7 @@ class CustomAnimatedDialog {
           body: SafeArea(
             child: Center(
               child: Container(
-                height: navigatorKey.currentContext!.dynamicHeight(0.6),
+                height: height ?? navigatorKey.currentContext!.dynamicHeight(0.6),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

@@ -14,6 +14,7 @@ class AppStrings {
 
   static const String start = 'Start';
   static const String quitGame = 'Quit Game';
+  static const String settings = 'Settings';
   static const String leaderboard = 'Leaderboard';
   static const String result = 'Result';
   static const String back = 'Back';
