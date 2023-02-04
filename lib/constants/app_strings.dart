@@ -29,6 +29,7 @@ class AppStrings {
   static const String aboutUs = 'About us';
   static const String feedback = 'Feedback';
   static const String rateApp = 'Rate this app';
+  static const String volume = 'Volume';
 }
 
 class LottiePaths {

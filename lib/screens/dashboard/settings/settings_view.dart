@@ -48,19 +48,20 @@ class SettingsView extends StatelessWidget {
       },
       appearance: CircularSliderAppearance(
         size: size,
+        animDurationMultiplier: 1.6,
         infoProperties: InfoProperties(
           mainLabelStyle: TextStyle(
             color: Color.fromRGBO(220, 190, 251, 1.0),
             fontSize: size / 5.0,
             fontWeight: FontWeight.w300,
           ),
-          bottomLabelText: "Volume",
+          bottomLabelText: AppStrings.volume,
           bottomLabelStyle: TextStyle(
             color: Color.fromRGBO(220, 190, 251, 1.0),
             fontSize: size / 10.0,
             fontWeight: FontWeight.w600,
           ),
-        )
+        ),
       ),
     );
   }

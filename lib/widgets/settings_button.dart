@@ -77,6 +77,7 @@ class _SettingsButtonState extends State<SettingsButton> with SingleTickerProvid
       height: context.dynamicHeight(0.72),
       title: AppStrings.settings, 
       content: SettingsView(),
+      dismissible: true,
     );
     _controller.reverse();
   }

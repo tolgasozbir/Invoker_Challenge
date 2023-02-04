@@ -5,17 +5,16 @@ import '../extensions/context_extension.dart';
 import '../main.dart';
 
 class CustomAnimatedDialog {
-  static Future<T?> showCustomDialog<T extends Object>({required String title, required Widget content, Widget? action, double? height}) {
+  static Future<T?> showCustomDialog<T extends Object>({required String title, required Widget content, Widget? action, double? height, bool dismissible = false}) {
     return showGeneralDialog<T>(
       context: navigatorKey.currentContext!,
       barrierLabel: '',
-      barrierDismissible: false,
+      barrierDismissible: dismissible,
       transitionDuration: Duration(milliseconds: 400),
       pageBuilder: (_, __, ___) {
-        return Scaffold(
-          //resizeToAvoidBottomInset: false,
-          backgroundColor: Colors.transparent,
-          body: SafeArea(
+        return Material(
+          type: MaterialType.transparency,
+          child: SafeArea(
             child: Center(
               child: Container(
                 height: height ?? navigatorKey.currentContext!.dynamicHeight(0.6),
