@@ -1,5 +1,6 @@
 class AppStrings {
-  static const String appName = 'Dota 2 Invoker';
+  static const String appName = 'Invoker Game';
+  static const String appVersion = 'Beta 1.0';
 
   static const String titleTraining = 'Training';
   static const String titleWithTimer = 'With Timer';

@@ -1,8 +1,10 @@
+import 'package:dota2_invoker/extensions/widget_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/app_colors.dart';
 import '../../constants/app_strings.dart';
 import '../../enums/elements.dart';
+import '../../widgets/beta_banner.dart';
 import '../../widgets/menu_button.dart';
 import '../../widgets/settings_button.dart';
 import 'challanger/challanger_view.dart';
@@ -26,9 +28,12 @@ class DashboardView extends StatelessWidget {
           children: [
             Expanded(
               flex: 1,
-              child: Align(
-                alignment: Alignment.topRight,
-                child: SettingsButton(),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  BetaBanner().wrapAlign(Alignment.topLeft),
+                  SettingsButton().wrapAlign(Alignment.topRight),
+                ],
               ),
             ),
             ...menuBtns(),
@@ -72,4 +77,3 @@ class DashboardView extends StatelessWidget {
   }
   
 }
-
