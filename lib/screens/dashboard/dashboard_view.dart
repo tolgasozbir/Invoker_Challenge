@@ -29,10 +29,20 @@ class DashboardView extends StatelessWidget {
             Expanded(
               flex: 1,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  BetaBanner().wrapAlign(Alignment.topLeft),
-                  SettingsButton().wrapAlign(Alignment.topRight),
+                  BetaBanner().wrapAlign(Alignment.topLeft).wrapExpanded(flex: 1),
+                  // Row(
+                  //   children: [
+                  //     SizedBox.square(
+                  //       dimension: 64,
+                  //       child: ColoredBox(color: Colors.amber),
+                  //     ),
+                  //     Text("   Guest"),
+                  //   ],
+                  // )
+                  // .wrapPadding(EdgeInsets.all(12))
+                  // .wrapAlign(Alignment.topCenter),
+                  SettingsButton().wrapAlign(Alignment.topRight).wrapExpanded(flex: 1),
                 ],
               ),
             ),
