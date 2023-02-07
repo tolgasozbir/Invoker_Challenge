@@ -62,7 +62,6 @@ class _SettingsButtonState extends State<SettingsButton> with SingleTickerProvid
   Icon get icon => Icon(
     Icons.settings, 
     size: 40, 
-    color: Colors.white, 
     shadows: [
       Shadow(
         color: Colors.black, 

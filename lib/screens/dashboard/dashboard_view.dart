@@ -1,10 +1,10 @@
 import 'package:dota2_invoker/extensions/widget_extension.dart';
+import 'package:dota2_invoker/widgets/user_info.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/app_colors.dart';
 import '../../constants/app_strings.dart';
 import '../../enums/elements.dart';
-import '../../widgets/beta_banner.dart';
 import '../../widgets/menu_button.dart';
 import '../../widgets/settings_button.dart';
 import 'challanger/challanger_view.dart';
@@ -30,18 +30,7 @@ class DashboardView extends StatelessWidget {
               flex: 1,
               child: Row(
                 children: [
-                  BetaBanner().wrapAlign(Alignment.topLeft).wrapExpanded(flex: 1),
-                  // Row(
-                  //   children: [
-                  //     SizedBox.square(
-                  //       dimension: 64,
-                  //       child: ColoredBox(color: Colors.amber),
-                  //     ),
-                  //     Text("   Guest"),
-                  //   ],
-                  // )
-                  // .wrapPadding(EdgeInsets.all(12))
-                  // .wrapAlign(Alignment.topCenter),
+                  UserInfo().wrapAlign(Alignment.topLeft).wrapExpanded(flex: 1),
                   SettingsButton().wrapAlign(Alignment.topRight).wrapExpanded(flex: 1),
                 ],
               ),

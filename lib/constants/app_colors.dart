@@ -7,6 +7,7 @@ class AppColors {
 
   static const Color correctCounterColor = Color(0xFF4CAF50);
   static const Color questionMarkColor = Color(0xFFFFD740);
+  static const Color expBarColor = Color(0xFFFFC000);
   
   static const Color blackShadow = Color(0x89000000);
   static const Color buttonSurfaceColor = Color(0xFF545454);
