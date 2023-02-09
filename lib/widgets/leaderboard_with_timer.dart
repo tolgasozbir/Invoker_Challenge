@@ -7,7 +7,7 @@ import '../models/timer_result.dart';
 import '../providers/game_provider.dart';
 
 class LeaderboardWithTimer extends StatefulWidget {
-  LeaderboardWithTimer({Key? key,}) : super(key: key);
+  const LeaderboardWithTimer({super.key,});
 
   @override
   State<LeaderboardWithTimer> createState() => _LeaderboardWithTimerState();
@@ -45,9 +45,9 @@ class _LeaderboardWithTimerState extends State<LeaderboardWithTimer> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        results.isEmpty ? CircularProgressIndicator.adaptive().wrapCenter() : resultListView(results),
+        results.isEmpty ? const CircularProgressIndicator.adaptive().wrapCenter() : resultListView(results),
         if (results.isNotEmpty)
-          showMoreBtn().wrapPadding(EdgeInsets.all(8))
+          showMoreBtn().wrapPadding(const EdgeInsets.all(8))
       ],
     );
   }
@@ -59,11 +59,11 @@ class _LeaderboardWithTimerState extends State<LeaderboardWithTimer> {
       child: ElevatedButton(
         onPressed: isLoading ? null : () async {
           changeLoading();
-          await Future.delayed(Duration(seconds: 1));
+          await Future.delayed(const Duration(seconds: 1));
           results.addAll(await context.read<GameProvider>().databaseService.getTimerScores());
           changeLoading();
         },
-        child: Text(AppStrings.showMore, style: TextStyle(fontSize: 16),)
+        child: const Text(AppStrings.showMore, style: TextStyle(fontSize: 16),),
       ),
     );
   }
@@ -72,24 +72,24 @@ class _LeaderboardWithTimerState extends State<LeaderboardWithTimer> {
     return ListView.builder(
       shrinkWrap: true,
       itemCount: results.length,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context,index){
-        var textStyle = TextStyle(color: Color(0xFFEEEEEE), fontSize: 18);
-        var data = results[index];
+        const textStyle = TextStyle(color: Color(0xFFEEEEEE), fontSize: 18);
+        final data = results[index];
         return Card(
           color: AppColors.dialogBgColor,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "  ${index+1}.  " + data.name,
+                '  ${index+1}.  ${data.name}',
                 style: textStyle,
                 maxLines: 1,
                 softWrap: false,
                 overflow: TextOverflow.fade,
               ),
               Text(
-                data.score.toString()+"  ",
+                '${data.score}  ',
                 style: textStyle,
                 maxLines: 1,
                 softWrap: false,

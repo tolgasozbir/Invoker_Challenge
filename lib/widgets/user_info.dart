@@ -4,15 +4,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../constants/app_colors.dart';
 
 class UserStatus extends StatelessWidget {
-  UserStatus({Key? key}) : super(key: key);
+  UserStatus({super.key});
 
   final boxDecoration = BoxDecoration(
     color: AppColors.buttonSurfaceColor,
-    borderRadius: BorderRadius.circular(8.0),
-    border: Border.all(
-      color: Colors.black,
-      width: 2,
-    ),
+    borderRadius: BorderRadius.circular(8),
+    border: Border.all(width: 2),
   );
 
   @override
@@ -23,14 +20,13 @@ class UserStatus extends StatelessWidget {
         Container(
           width: 64,
           height: 64,
-          margin: EdgeInsets.all(8.0),
+          margin: const EdgeInsets.all(8),
           decoration: boxDecoration,
-          child: Icon(
+          child: const Icon(
             FontAwesomeIcons.userSecret, 
             shadows: [
               Shadow(
-                color: Colors.black, 
-                blurRadius: 32
+                blurRadius: 32,
               ),
             ],
           ),
@@ -38,30 +34,30 @@ class UserStatus extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Guest"),
+            const Text('Guest'),
             SliderTheme(
-              child: Slider(
-                value: 32,
-                max: 100,
-                min: 0,
-                onChanged: (double value) {},
-              ),
               data: SliderTheme.of(context).copyWith(
                 thumbShape: SliderComponentShape.noThumb,
                 overlayShape: SliderComponentShape.noThumb,
                 activeTrackColor: AppColors.expBarColor,
                 inactiveTrackColor: AppColors.expBarColor.withOpacity(0.5),
               ),
-            ).wrapPadding(EdgeInsets.symmetric(vertical: 8)),
+              child: Slider(
+                value: 32,
+                max: 150,
+                min: 10,
+                onChanged: (double value) {},
+              ),
+            ).wrapPadding(const EdgeInsets.symmetric(vertical: 8)),
             Row(
-              children: [
-                Text("Level 1"),
+              children: const [
+                Text('Level 1'),
                 Spacer(),
-                Text("25/100")
+                Text('25/100')
               ],
             )
           ],
-        ).wrapPadding(EdgeInsets.only(top: 8)).wrapExpanded(),
+        ).wrapPadding(const EdgeInsets.only(top: 8)).wrapExpanded(),
       ],
     );
   }

@@ -88,7 +88,7 @@ class _ChallangerViewState extends State<ChallangerView> {
                       ],
                     ),
                   ),
-                  LeaderboardChallanger(),
+                  const LeaderboardChallanger(),
                 ],
               ),
             ),

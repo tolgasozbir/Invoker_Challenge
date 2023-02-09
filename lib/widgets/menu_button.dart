@@ -19,10 +19,11 @@ class MenuButton extends StatefulWidget {
     required this.navigatePage,
     this.primaryColor,
     this.isBtnExit = false,
-    Key? key, 
-  }) : assert(isBtnExit == false), super(key: key);
+    super.key, 
+  }) : assert(isBtnExit == false);
 
   const MenuButton.exit({
+    super.key, 
     required this.fadeInDuration, 
     required this.color, 
     this.primaryColor, 
@@ -53,7 +54,7 @@ class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateM
   void initState() {
     _init();
     if (widget.isBtnExit) {
-      controller = AnimationController(vsync: this, duration: Duration(milliseconds: 4000));
+      controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 4000));
       animation = CurvedAnimation(parent: controller!, curve: Curves.linear);
       controller!.repeat();
     }
@@ -66,8 +67,8 @@ class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateM
     super.dispose();
   }
 
-  void _init() async {
-    await Future.delayed(Duration(milliseconds: 400), (){
+  Future<void> _init() async {
+    await Future.delayed(const Duration(milliseconds: 400), (){
       setState(() => _fadeInOpacity = 1 );
     });
   }
@@ -101,22 +102,22 @@ class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateM
 
   SizedBox button(BuildContext context) {
 
-    ButtonStyle buttonStyle = ElevatedButton.styleFrom(
+    final buttonStyle = ElevatedButton.styleFrom(
       backgroundColor: widget.primaryColor ?? AppColors.buttonSurfaceColor,
       elevation: 10,
       shadowColor: widget.color,
       shape: RoundedRectangleBorder(
         borderRadius: const BorderRadius.all(Radius.circular(8)),
         side: BorderSide(color: widget.color),
-      )
+      ),
     );
 
     return SizedBox(
       width: context.dynamicWidth(0.8),
       child:  ElevatedButton(
         style: buttonStyle,
-        child: buttonSurface(context),
         onPressed: widget.isBtnExit ? _closeApp : _goToGameScreen,
+        child: buttonSurface(context),
       ),
     );
   }
@@ -125,14 +126,15 @@ class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateM
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        widget.isBtnExit 
-          ? RotationTransition(
-              turns: animation!,
-              child: circleImage(context, BoxFit.contain)
-            )
-          : circleImage(context, BoxFit.cover),
+        if (widget.isBtnExit) 
+          RotationTransition(
+            turns: animation!, 
+            child: circleImage(context, BoxFit.contain),
+          ) 
+        else 
+          circleImage(context, BoxFit.cover),
         Text(
-          "${widget.title}  ",
+          '${widget.title}  ',
           style: TextStyle(fontSize: context.sp(16)),
         ),
       ],

@@ -75,7 +75,7 @@ class _WithTimerViewState extends State<WithTimerView> {
           padding: EdgeInsets.only(top: context.dynamicHeight(0.02)),
           onTap: () => CustomAnimatedDialog.showCustomDialog(
             title: AppStrings.leaderboard,
-            content: Card(
+            content: const Card(
               color: AppColors.resultCardBg, 
               child: LeaderboardWithTimer(),
             ),

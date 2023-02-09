@@ -6,7 +6,7 @@ import '../constants/app_colors.dart';
 import '../screens/dashboard/settings/settings_view.dart';
 
 class SettingsButton extends StatefulWidget {
-  const SettingsButton({ Key? key, }) : super(key: key);
+  const SettingsButton({ super.key, });
 
   @override
   State<SettingsButton> createState() => _SettingsButtonState();
@@ -15,12 +15,12 @@ class SettingsButton extends StatefulWidget {
 class _SettingsButtonState extends State<SettingsButton> with SingleTickerProviderStateMixin {
 
   late final AnimationController _controller;
-  final _tween = Tween<double>(begin: 0.0, end: 1.0);
+  final _tween = Tween<double>(begin: 0, end: 1);
   final _animDuration = const Duration(milliseconds: 1000);
 
   final boxDecoration = BoxDecoration(
     color: AppColors.buttonSurfaceColor,
-    borderRadius: BorderRadius.circular(8.0),
+    borderRadius: BorderRadius.circular(8),
     border: Border.all(
       color: Colors.black,
       width: 2,
@@ -49,7 +49,7 @@ class _SettingsButtonState extends State<SettingsButton> with SingleTickerProvid
       child: Container(
         width: 64,
         height: 64,
-        margin: EdgeInsets.all(8.0),
+        margin: const EdgeInsets.all(8),
         decoration: boxDecoration,
         child: RotationTransition(
           turns: _tween.animate(_controller),
@@ -59,13 +59,13 @@ class _SettingsButtonState extends State<SettingsButton> with SingleTickerProvid
     );
   }
 
-  Icon get icon => Icon(
+  Icon get icon => const Icon(
     Icons.settings, 
     size: 40, 
     shadows: [
       Shadow(
         color: Colors.black, 
-        blurRadius: 32
+        blurRadius: 32,
       ),
     ],
   );
@@ -75,7 +75,7 @@ class _SettingsButtonState extends State<SettingsButton> with SingleTickerProvid
     await CustomAnimatedDialog.showCustomDialog<bool>(
       height: context.dynamicHeight(0.72),
       title: AppStrings.settings, 
-      content: SettingsView(),
+      content: const SettingsView(),
       dismissible: true,
     );
     _controller.reverse();

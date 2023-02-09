@@ -8,7 +8,7 @@ import '../extensions/context_extension.dart';
 enum IconType { True, False }
 
 class TrueFalseIconWidget extends StatefulWidget {
-  const TrueFalseIconWidget({Key? key,}) : super(key: key);
+  const TrueFalseIconWidget({super.key,});
 
   @override
   State<TrueFalseIconWidget> createState() => TrueFalseWidgetState();
@@ -19,13 +19,13 @@ class TrueFalseWidgetState extends State<TrueFalseIconWidget> with TickerProvide
   final Duration _animDuration = const Duration(milliseconds: 600);
 
   Tween<double> _translateTween = Tween(
-    begin: 56.0, 
-    end: -86.0,
+    begin: 56, 
+    end: -86,
   );
 
-  Tween<double> _opacityTween = Tween(
-    begin: 1.0,
-    end: 0.0
+  final Tween<double> _opacityTween = Tween(
+    begin: 1,
+    end: 0,
   );
 
   late AnimationController _animControlTrue;
@@ -42,12 +42,12 @@ class TrueFalseWidgetState extends State<TrueFalseIconWidget> with TickerProvide
 
     _animControlTrue = AnimationController(
       vsync: this, 
-      duration: _animDuration
+      duration: _animDuration,
     );
     
     _animControlFalse = AnimationController(
       vsync: this, 
-      duration: _animDuration
+      duration: _animDuration,
     );
 
     _animTranslateTrue = _translateTween.animate(_animControlTrue);
@@ -73,7 +73,7 @@ class TrueFalseWidgetState extends State<TrueFalseIconWidget> with TickerProvide
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8),
       child: Stack(
         children: [
           _icon(IconType.True),
@@ -84,12 +84,12 @@ class TrueFalseWidgetState extends State<TrueFalseIconWidget> with TickerProvide
   }
 
   Transform _icon(IconType type) {
-    return Transform.translate(offset: Offset(0.0, type == IconType.True ? _animTranslateTrue.value : _animTranslateFalse.value),
+    return Transform.translate(offset: Offset(0, type == IconType.True ? _animTranslateTrue.value : _animTranslateFalse.value),
       child: Opacity(
         opacity: type == IconType.True ? _animAlphaTrue.value : _animAlphaFalse.value,
         child: Icon(
           type == IconType.True ? FontAwesomeIcons.check : FontAwesomeIcons.times,
-          color: type == IconType.True ? Color(0xFF33CC33) : Color(0xFFCC3333),
+          color: type == IconType.True ? const Color(0xFF33CC33) : const Color(0xFFCC3333),
         ),
       ),
     );

@@ -11,17 +11,17 @@ extension qweExtension on QWEKey {
   Widget getSpellKey(String combineKey){
     switch (this) {
       case QWEKey.Q:
-        return Card(color: Color(0x703DA5FF), child: Text(" ${this.name} ", style: TextStyle(fontSize: 17),));
+        return Card(color: const Color(0x703DA5FF), child: Text(' $name ', style: const TextStyle(fontSize: 17),));
       case QWEKey.W:
-        return Card(color: Color(0x70EC3DFF), child: Text(" ${this.name} ", style: TextStyle(fontSize: 17),));
+        return Card(color: const Color(0x70EC3DFF), child: Text(' $name ', style: const TextStyle(fontSize: 17),));
       case QWEKey.E:
-        return Card(color: Color(0x70FFAA00), child: Text(" ${this.name} ", style: TextStyle(fontSize: 17),));
+        return Card(color: const Color(0x70FFAA00), child: Text(' $name ', style: const TextStyle(fontSize: 17),));
     }
   }
 }
 
 class SpellsHelperWidget extends StatefulWidget {
-  SpellsHelperWidget({Key? key, this.height,}) : super(key: key);
+  const SpellsHelperWidget({super.key, this.height,});
   
   final double? height;
 
@@ -70,11 +70,11 @@ class _SpellsHelperWidgetState extends State<SpellsHelperWidget> {
   Widget quasColumn() {
     return Expanded(
       child: Card(
-        color: Color(0x333DA5FF),
+        color: const Color(0x333DA5FF),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(3, (i) => Card(
-              color: Color(0x443DA5FF),
+              color: const Color(0x443DA5FF),
               child: keyCard(i),
             ),),
         ),
@@ -84,11 +84,11 @@ class _SpellsHelperWidgetState extends State<SpellsHelperWidget> {
 
   Widget wexColumn() {
     return Card(
-      color: Color(0x23EC3DFF),
+      color: const Color(0x23EC3DFF),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
            children: List.generate(4, (i) => Card(
-              color: Color(0x34EC3DFF),
+              color: const Color(0x34EC3DFF),
               child: keyCard(i+3),
             ),),
       ),
@@ -98,11 +98,11 @@ class _SpellsHelperWidgetState extends State<SpellsHelperWidget> {
   Widget exortColumn() {
     return Expanded(
       child: Card(
-        color: Color(0x33EE9900),
+        color: const Color(0x33EE9900),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
             children: List.generate(3, (i) => Card(
-                color: Color(0x22FFAA11),
+                color: const Color(0x22FFAA11),
                 child: keyCard(i+7),
               ),),
         ),

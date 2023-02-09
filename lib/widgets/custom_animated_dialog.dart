@@ -18,6 +18,11 @@ class CustomAnimatedDialog {
             child: Center(
               child: Container(
                 height: height ?? navigatorKey.currentContext!.dynamicHeight(0.6),
+                margin: const EdgeInsets.symmetric(horizontal: 32),
+                decoration: BoxDecoration(
+                  color: AppColors.dialogBgColor, 
+                  borderRadius: BorderRadius.circular(16),
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -37,14 +42,9 @@ class CustomAnimatedDialog {
                       child: Padding(
                         padding: const EdgeInsets.all(8),
                         child: action,
-                      )
+                      ),
                     ),
                   ],
-                ),
-                margin: const EdgeInsets.symmetric(horizontal: 32),
-                decoration: BoxDecoration(
-                  color: AppColors.dialogBgColor, 
-                  borderRadius: BorderRadius.circular(16),
                 ),
               ),
             ),

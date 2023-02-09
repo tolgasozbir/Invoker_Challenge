@@ -14,7 +14,7 @@ class FirestoreService implements IDatabaseService {
 
   final _collectionRefTimer = FirebaseFirestore.instance.collection(DatabaseTable.timer.name);
   final _collectionRefChallanger = FirebaseFirestore.instance.collection(DatabaseTable.challenger.name);
-  int _fetchLimit = 10;
+  final int _fetchLimit = 10;
   String orderByField = 'score';
   DocumentSnapshot? _lastDocument;
   bool _hasMoreData = true;

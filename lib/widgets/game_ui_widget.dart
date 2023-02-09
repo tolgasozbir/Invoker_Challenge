@@ -218,13 +218,13 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           TextButton(
-            child: Text(AppStrings.send),
+            child: const Text(AppStrings.send),
             onPressed: () async {
-              String name = _textEditingController.text.trim();
-              final int score = context.read<GameProvider>().getCorrectCombinationCount;
-              final int time = context.read<GameProvider>().getTimeValue;
+              var name = _textEditingController.text.trim();
+              final score = context.read<GameProvider>().getCorrectCombinationCount;
+              final time = context.read<GameProvider>().getTimeValue;
               final db = context.read<GameProvider>().databaseService;
-              if (name.length == 0) {
+              if (name.isEmpty) {
                 name = AppStrings.unNamed + Random().nextInt(999999).toString();
               }
               switch (dbTable) {
@@ -239,7 +239,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin {
             },
           ),
           TextButton(
-            child: Text(AppStrings.back),
+            child: const Text(AppStrings.back),
             onPressed: () => Navigator.pop(context),
           ),
         ],
@@ -248,7 +248,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin {
   }
 
   Widget startButton() {
-    final bool isStart = context.read<GameProvider>().isStart;
+    final isStart = context.read<GameProvider>().isStart;
     return !isStart 
       ? CustomButton(
           text: AppStrings.start, 
@@ -261,7 +261,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin {
             context.read<SpellProvider>().getRandomSpell();
           },
         )
-      : SizedBox.shrink();
+      : const SizedBox.shrink();
   }
 
 }

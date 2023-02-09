@@ -7,7 +7,7 @@ import '../models/challenger_result.dart';
 import '../providers/game_provider.dart';
 
 class LeaderboardChallanger extends StatefulWidget {
-  LeaderboardChallanger({Key? key,}) : super(key: key);
+  const LeaderboardChallanger({super.key,});
 
   @override
   State<LeaderboardChallanger> createState() => _LeaderboardChallangerState();
@@ -45,9 +45,9 @@ class _LeaderboardChallangerState extends State<LeaderboardChallanger> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        results.isEmpty ? CircularProgressIndicator.adaptive().wrapCenter() : resultListView(results),
+        results.isEmpty ? const CircularProgressIndicator.adaptive().wrapCenter() : resultListView(results),
         if (results.isNotEmpty)
-          showMoreBtn().wrapPadding(EdgeInsets.all(8))
+          showMoreBtn().wrapPadding(const EdgeInsets.all(8))
       ],
     );
   }
@@ -59,11 +59,11 @@ class _LeaderboardChallangerState extends State<LeaderboardChallanger> {
       child: ElevatedButton(
         onPressed: isLoading ? null : () async {
           changeLoading();
-          await Future.delayed(Duration(seconds: 1));
+          await Future.delayed(const Duration(seconds: 1));
           results.addAll(await context.read<GameProvider>().databaseService.getChallangerScores());
           changeLoading();
         },
-        child: Text(AppStrings.showMore, style: TextStyle(fontSize: 16),)
+        child: const Text(AppStrings.showMore, style: TextStyle(fontSize: 16),),
       ),
     );
   }
@@ -72,9 +72,9 @@ class _LeaderboardChallangerState extends State<LeaderboardChallanger> {
     return ListView.builder(
       shrinkWrap: true,
       itemCount:results.length,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context,index){
-        var data = results[index];
+        final data = results[index];
         return Card(
           color: AppColors.dialogBgColor,
           child: Row(
@@ -83,36 +83,36 @@ class _LeaderboardChallangerState extends State<LeaderboardChallanger> {
               Expanded(
                 flex: 5,
                 child: Text(
-                  "  ${index+1}.  " + data.name,
-                  style: TextStyle(color: Color(0xFFEEEEEE), fontSize: 18),
+                  '  ${index+1}.  ${data.name}',
+                  style: const TextStyle(color: Color(0xFFEEEEEE), fontSize: 18),
                   maxLines: 1,
                   softWrap: false,
                   overflow: TextOverflow.fade,
-                )
+                ),
               ),
               Expanded(
                 flex: 2, 
                 child: Center(
                   child: Text(
                     data.time.toString(),
-                    style: TextStyle(color: Color(0xFFFFCC00), fontSize: 18),
+                    style: const TextStyle(color: Color(0xFFFFCC00), fontSize: 18),
                     maxLines: 1,
                     softWrap: false,
                     overflow: TextOverflow.fade,
-                  )
-                )
+                  ),
+                ),
               ),
               Expanded(
                 flex: 2, 
                 child: Center(
                   child: Text(
-                    data.score.toString()+"    ",
-                    style: TextStyle(color: Color(0xFF00FF00), fontSize: 18),
+                    '${data.score}    ',
+                    style: const TextStyle(color: Color(0xFF00FF00), fontSize: 18),
                     maxLines: 1,
                     softWrap: false,
                     overflow: TextOverflow.fade,
-                  )
-                )
+                  ),
+                ),
               ),
             ],
           ),

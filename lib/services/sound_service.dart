@@ -27,7 +27,7 @@ class SoundService {
   void playSoundBegining(){
     _playSound(
       fileName: _beginingSound[_rnd.nextInt(_beginingSound.length)], 
-      volume: 0.40
+      volume: 0.40,
     );
   }
 
@@ -41,11 +41,11 @@ class SoundService {
 
 
   void trueCombinationSound(List<String> combination){
-    String _orbValue='';
-    for (var item in combination) {
-      _orbValue+=item;
+    var orbValue='';
+    for (final item in combination) {
+      orbValue+=item;
     }
-    switch (_orbValue) {
+    switch (orbValue) {
       case 'qqq': _playSound(fileName: _coldSnapSound[_rnd.nextInt(_coldSnapSound.length)],); break;
       case 'qqw': _playSound(fileName: _ghostWalkSound[_rnd.nextInt(_ghostWalkSound.length)],); break;
       case 'qqe': _playSound(fileName: _iceWallSound[_rnd.nextInt(_iceWallSound.length)],); break;
@@ -57,7 +57,7 @@ class SoundService {
       case 'eew': _playSound(fileName: _chaosMeteor[_rnd.nextInt(_chaosMeteor.length)],); break;
       case 'qwe': _playSound(fileName: _blast[_rnd.nextInt(_blast.length)],); break;
     }
-    _orbValue='';
+    orbValue='';
   }
 
   //spells
