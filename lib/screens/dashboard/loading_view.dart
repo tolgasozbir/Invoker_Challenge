@@ -20,7 +20,7 @@ class _LoadingViewState extends State<LoadingView> {
     _navigateToPage();
     super.initState();
   }
-
+  //TODO: MOUNTED
   void _navigateToPage() async {
     Future.delayed(_loadingDuration, () {
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> widget.page));

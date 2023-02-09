@@ -1,44 +1,74 @@
+import 'package:dota2_invoker/extensions/widget_extension.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-
 import '../constants/app_colors.dart';
 import '../constants/app_strings.dart';
 import '../models/timer_result.dart';
 import '../providers/game_provider.dart';
 
-class LeaderboardWithTimer extends StatelessWidget {
+class LeaderboardWithTimer extends StatefulWidget {
   LeaderboardWithTimer({Key? key,}) : super(key: key);
-  
+
   @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: context.read<GameProvider>().databaseService.getAllTimerScores(),
-      initialData: null,
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        List<TimerResult> results = [];
-        if (snapshot.connectionState == ConnectionState.waiting) 
-          return Center(child: CircularProgressIndicator.adaptive());
-        if (!snapshot.hasData)
-          return errorLottie();
-        results = snapshot.data;
-        return results.isNotEmpty 
-          ? resultBuilder(results)
-          : LottieBuilder.asset(LottiePaths.lottieProudFirst);
-      },
-    );
+  State<LeaderboardWithTimer> createState() => _LeaderboardWithTimerState();
+}
+
+class _LeaderboardWithTimerState extends State<LeaderboardWithTimer> {
+
+  List<TimerResult> results = [];
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    Future.microtask(() async {
+      changeLoading();
+      results = await context.read<GameProvider>().databaseService.getTimerScores();
+      changeLoading();
+    });
+    super.initState();
   }
 
-  Column errorLottie() {
+  @override
+  void didChangeDependencies() {
+    context.read<GameProvider>().databaseService.dispose();
+    super.didChangeDependencies();
+  }
+
+  void changeLoading() {
+    if (!mounted) return;
+    setState(() { 
+      isLoading = !isLoading;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
-        LottieBuilder.asset(LottiePaths.lottie404),
-        Text(AppStrings.errorMessage)
+        results.isEmpty ? CircularProgressIndicator.adaptive().wrapCenter() : resultListView(results),
+        if (results.isNotEmpty)
+          showMoreBtn().wrapPadding(EdgeInsets.all(8))
       ],
     );
   }
 
-  ListView resultBuilder(List<TimerResult> results) {
+  SizedBox showMoreBtn() {
+    return SizedBox(
+      width: double.infinity,
+      height: 48,
+      child: ElevatedButton(
+        onPressed: isLoading ? null : () async {
+          changeLoading();
+          await Future.delayed(Duration(seconds: 1));
+          results.addAll(await context.read<GameProvider>().databaseService.getTimerScores());
+          changeLoading();
+        },
+        child: Text(AppStrings.showMore, style: TextStyle(fontSize: 16),)
+      ),
+    );
+  }
+
+  ListView resultListView(List<TimerResult> results) {
     return ListView.builder(
       shrinkWrap: true,
       itemCount: results.length,
@@ -71,4 +101,5 @@ class LeaderboardWithTimer extends StatelessWidget {
       },
     );
   }
+
 }

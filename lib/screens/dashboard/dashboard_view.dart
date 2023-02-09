@@ -26,15 +26,12 @@ class DashboardView extends StatelessWidget {
       child: SizedBox.expand(
         child: Column(
           children: [
-            Expanded(
-              flex: 1,
-              child: Row(
-                children: [
-                  UserInfo().wrapAlign(Alignment.topLeft).wrapExpanded(flex: 1),
-                  SettingsButton().wrapAlign(Alignment.topRight).wrapExpanded(flex: 1),
-                ],
-              ),
-            ),
+            Row(
+              children: [
+                UserStatus().wrapAlign(Alignment.topLeft).wrapExpanded(flex: 1),
+                SettingsButton().wrapAlign(Alignment.topRight).wrapExpanded(flex: 1),
+              ],
+            ).wrapExpanded(flex: 1),
             ...menuBtns(),
             Spacer(),
           ],

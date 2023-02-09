@@ -1,43 +1,74 @@
+import 'package:dota2_invoker/extensions/widget_extension.dart';
 import '../constants/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import '../constants/app_strings.dart';
 import '../models/challenger_result.dart';
 import '../providers/game_provider.dart';
 
-class LeaderboardChallanger extends StatelessWidget {
+class LeaderboardChallanger extends StatefulWidget {
   LeaderboardChallanger({Key? key,}) : super(key: key);
-  
+
   @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: context.read<GameProvider>().databaseService.getAllChallangerScores(),
-      initialData: null,
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        List<ChallengerResult> results = [];
-        if (snapshot.connectionState == ConnectionState.waiting) 
-          return Center(child: CircularProgressIndicator.adaptive());
-        if (!snapshot.hasData)
-          return errorLottie();
-        results = snapshot.data;
-        return results.isNotEmpty 
-          ? resultBuilder(results)
-          : LottieBuilder.asset(LottiePaths.lottieProudFirst);
-      },
-    );
+  State<LeaderboardChallanger> createState() => _LeaderboardChallangerState();
+}
+
+class _LeaderboardChallangerState extends State<LeaderboardChallanger> {
+
+  List<ChallengerResult> results = [];
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    Future.microtask(() async {
+      changeLoading();
+      results = await context.read<GameProvider>().databaseService.getChallangerScores();
+      changeLoading();
+    });
+    super.initState();
   }
 
-  Column errorLottie() {
+  @override
+  void didChangeDependencies() {
+    context.read<GameProvider>().databaseService.dispose();
+    super.didChangeDependencies();
+  }
+
+  void changeLoading() {
+    if (!mounted) return;
+    setState(() { 
+      isLoading = !isLoading;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       children: [
-        LottieBuilder.asset(LottiePaths.lottie404),
-        Text(AppStrings.errorMessage)
+        results.isEmpty ? CircularProgressIndicator.adaptive().wrapCenter() : resultListView(results),
+        if (results.isNotEmpty)
+          showMoreBtn().wrapPadding(EdgeInsets.all(8))
       ],
     );
   }
 
-  ListView resultBuilder(List<ChallengerResult> results) {
+  SizedBox showMoreBtn() {
+    return SizedBox(
+      width: double.infinity,
+      height: 48,
+      child: ElevatedButton(
+        onPressed: isLoading ? null : () async {
+          changeLoading();
+          await Future.delayed(Duration(seconds: 1));
+          results.addAll(await context.read<GameProvider>().databaseService.getChallangerScores());
+          changeLoading();
+        },
+        child: Text(AppStrings.showMore, style: TextStyle(fontSize: 16),)
+      ),
+    );
+  }
+
+  ListView resultListView(List<ChallengerResult> results) {
     return ListView.builder(
       shrinkWrap: true,
       itemCount:results.length,
@@ -87,6 +118,7 @@ class LeaderboardChallanger extends StatelessWidget {
           ),
         );
       },
-    ); 
+    );
   }
+
 }

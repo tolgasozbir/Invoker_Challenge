@@ -26,6 +26,7 @@ class AppStrings {
   static const String errorMessage = 'Something went wrong!';
   static const String time = 'Time';
   static const String score = 'Score';
+  static const String showMore = 'Show more';
   //Settings
   static const String aboutUs = 'About us';
   static const String feedback = 'Feedback';
@@ -36,8 +37,7 @@ class AppStrings {
 class LottiePaths {
   static const String _root = 'assets/lottie';
 
-  static const String lottie404 = '$_root/lottie_404.json';
-  static const String lottieProudFirst = '$_root/lottie_proud_first.json';
+  static const String lottieNoData = '$_root/lottie_no_data.json';
 }
 
 class ImagePaths {

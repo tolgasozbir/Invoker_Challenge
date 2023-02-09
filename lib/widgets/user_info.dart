@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../constants/app_colors.dart';
 
-class UserInfo extends StatelessWidget {
-  UserInfo({Key? key}) : super(key: key);
+class UserStatus extends StatelessWidget {
+  UserStatus({Key? key}) : super(key: key);
 
   final boxDecoration = BoxDecoration(
     color: AppColors.buttonSurfaceColor,
