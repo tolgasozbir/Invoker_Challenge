@@ -1,10 +1,10 @@
 import 'package:dota2_invoker/extensions/widget_extension.dart';
 import 'package:dota2_invoker/widgets/user_info.dart';
 import 'package:flutter/material.dart';
-
 import '../../constants/app_colors.dart';
 import '../../constants/app_strings.dart';
 import '../../enums/elements.dart';
+import '../../widgets/app_snackbar.dart';
 import '../../widgets/menu_button.dart';
 import '../../widgets/settings_button.dart';
 import 'challanger/challanger_view.dart';
@@ -17,11 +17,11 @@ class DashboardView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _bodyView(),
+      body: _bodyView(context),
     );
   }
 
-  Widget _bodyView() {
+  Widget _bodyView(BuildContext context) {
     return SafeArea(
       child: SizedBox.expand(
         child: Column(
@@ -33,6 +33,13 @@ class DashboardView extends StatelessWidget {
               ],
             ).wrapExpanded(flex: 1),
             ...menuBtns(),
+            // ElevatedButton(
+            //   onPressed: () {
+            //     ScaffoldMessenger.of(context).removeCurrentSnackBar();
+            //     AppSnackBar.showSnackBarMessage(text: "text", snackBartype: SnackBarType.info);
+            //   }, 
+            //   child: Text("Show")
+            // ),
             Spacer(),
           ],
         ),

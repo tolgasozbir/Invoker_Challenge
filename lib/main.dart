@@ -1,3 +1,4 @@
+import 'package:dota2_invoker/widgets/app_snackbar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark(),
       home: SplashView(),
       navigatorKey: navigatorKey,
+      scaffoldMessengerKey: AppSnackBar.scaffoldMessengerKey,
     );
   }
 }
