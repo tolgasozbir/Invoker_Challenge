@@ -11,7 +11,7 @@ import '../../../widgets/game_ui_widget.dart';
 import '../../../widgets/leaderboard_challanger.dart';
 
 class ChallangerView extends StatefulWidget {
-  const ChallangerView({Key? key}) : super(key: key);
+  const ChallangerView({super.key});
 
   @override
   State<ChallangerView> createState() => _ChallangerViewState();
@@ -29,7 +29,6 @@ class _ChallangerViewState extends State<ChallangerView> {
   Widget _bodyView() {
     return SafeArea(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           GameUIWidget(
             gameType: GameType.Challanger,
@@ -42,9 +41,9 @@ class _ChallangerViewState extends State<ChallangerView> {
   }
 
   Widget timerCounterWidget() {
-    var timerValue = context.watch<GameProvider>().getTimeValue;
+    final timerValue = context.watch<GameProvider>().getTimeValue;
     return Card(
-      color: Color(0xFF303030),
+      color: const Color(0xFF303030),
       child: Stack(
         alignment: Alignment.center,
         children: [
@@ -54,7 +53,7 @@ class _ChallangerViewState extends State<ChallangerView> {
               dimension: context.dynamicWidth(0.14),
               child: DecoratedBox(
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: [Color(0x3300BBFF),Color(0x33FFCC00)],),
+                  gradient: const LinearGradient(colors: [Color(0x3300BBFF),Color(0x33FFCC00)],),
                   borderRadius: BorderRadius.circular(50),
                 ),
               ),
@@ -67,7 +66,7 @@ class _ChallangerViewState extends State<ChallangerView> {
   }
 
   Widget showLeaderBoardButton() {
-    bool isStart = context.read<GameProvider>().isStart;
+    final isStart = context.read<GameProvider>().isStart;
     return !isStart 
       ? CustomButton(
           text: AppStrings.leaderboard, 
@@ -79,29 +78,29 @@ class _ChallangerViewState extends State<ChallangerView> {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
+                      children: const [
                         Expanded(flex: 5, child: Text(AppStrings.nickname)),
                         Expanded(flex: 2, child: Center(child: Text(AppStrings.time))),
-                        Expanded(flex: 2, child: Center(child: Text("${AppStrings.score}    "))),
+                        Expanded(flex: 2, child: Center(child: Text('${AppStrings.score}    '))),
                       ],
                     ),
                   ),
                   LeaderboardChallanger(),
                 ],
-              )
+              ),
             ),
             action: TextButton(
-              child: Text(AppStrings.back),
+              child: const Text(AppStrings.back),
               onPressed: (){
                 Navigator.pop(context);
               },
             ),
           ),
         )
-      : SizedBox.shrink();
+      : const SizedBox.shrink();
   }
 
 }

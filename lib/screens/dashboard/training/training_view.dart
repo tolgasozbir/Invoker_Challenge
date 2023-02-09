@@ -10,7 +10,7 @@ import '../../../widgets/game_ui_widget.dart';
 import '../../../widgets/spells_helper_widget.dart';
 
 class TrainingView extends StatefulWidget {
-  const TrainingView({Key? key}) : super(key: key);
+  const TrainingView({super.key});
 
   @override
   State<TrainingView> createState() => _TrainingViewState();
@@ -33,8 +33,11 @@ class _TrainingViewState extends State<TrainingView> {
         child: Column(
           children: [
             counters(),
-            showAllSpells ? SpellsHelperWidget() : SizedBox(height: context.dynamicHeight(0.08),),
-            GameUIWidget(
+            if (showAllSpells) 
+              SpellsHelperWidget() 
+            else 
+              SizedBox(height: context.dynamicHeight(0.08),),
+            const GameUIWidget(
               gameType: GameType.Training,
               timerWidget: null,
             )
@@ -66,7 +69,7 @@ class _TrainingViewState extends State<TrainingView> {
       child: Text(
         context.watch<GameProvider>().getCorrectCombinationCount.toString(),
         style: TextStyle(fontSize: context.sp(36), color: AppColors.correctCounterColor,),
-      )
+      ),
     );
   }
 
@@ -76,7 +79,7 @@ class _TrainingViewState extends State<TrainingView> {
       top: context.dynamicWidth(0.02),
       child: Text(
         '${context.watch<GameProvider>().getTimeValue} ${AppStrings.secPassed}', 
-        style: TextStyle(fontSize: context.sp(12),)
+        style: TextStyle(fontSize: context.sp(12),),
       ),
     );
   }
@@ -90,7 +93,7 @@ class _TrainingViewState extends State<TrainingView> {
         highlightColor: Colors.transparent,
         child: SizedBox.square(
           dimension: context.dynamicWidth(0.08),
-          child: Icon(FontAwesomeIcons.questionCircle,color: AppColors.questionMarkColor)
+          child: const Icon(FontAwesomeIcons.questionCircle,color: AppColors.questionMarkColor),
         ),
         onTap: ()=> setState(()=> showAllSpells = !showAllSpells),
       ),
@@ -102,10 +105,10 @@ class _TrainingViewState extends State<TrainingView> {
       left: context.dynamicWidth(0.02),
       top: context.dynamicWidth(0.02),
       child: Tooltip(
-        message: '${AppStrings.toolTipCPS}',
+        message: AppStrings.toolTipCPS,
         child: Text(
-          context.watch<GameProvider>().calculateCps.toStringAsFixed(1) + '${AppStrings.cps}',
-          style: TextStyle(fontSize: context.sp(12),)
+          context.watch<GameProvider>().calculateCps.toStringAsFixed(1) + AppStrings.cps,
+          style: TextStyle(fontSize: context.sp(12),),
         ),
       ),
     );
@@ -116,9 +119,9 @@ class _TrainingViewState extends State<TrainingView> {
       left: context.dynamicWidth(0.02),
       top: context.dynamicWidth(0.08),
       child: Tooltip(
-        message: '${AppStrings.toolTipSCPS}',
+        message: AppStrings.toolTipSCPS,
         child: Text(
-          context.watch<GameProvider>().calculateScps.toStringAsFixed(1) + '${AppStrings.scps}',
+          context.watch<GameProvider>().calculateScps.toStringAsFixed(1) + AppStrings.scps,
           style: TextStyle(fontSize: context.sp(12),),
         ),
       ),

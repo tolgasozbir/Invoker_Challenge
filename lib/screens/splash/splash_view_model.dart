@@ -8,10 +8,10 @@ import 'splash_view.dart';
 
 abstract class SplashViewModel extends State<SplashView> {
 
-  Duration _duration = Duration(milliseconds: 3000);
-  Random _rnd = Random();
+  final Duration _duration = const Duration(milliseconds: 3000);
+  final Random _rnd = Random();
 
-  List<String> _splashImages = [
+  final List<String> _splashImages = const [
     ImagePaths.splashImage1,
     ImagePaths.splashImage2,
     ImagePaths.splashImage3,
@@ -23,13 +23,13 @@ abstract class SplashViewModel extends State<SplashView> {
     super.initState();
   }
 
-  void init() async {
-    goToMainMenu();
+  Future<void> init() async {
+    await goToMainMenu();
   }
 
-  void goToMainMenu() async {
+  Future<void> goToMainMenu() async {
     await Future.delayed(_duration, (){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardView()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const DashboardView()));
     });
   }
 

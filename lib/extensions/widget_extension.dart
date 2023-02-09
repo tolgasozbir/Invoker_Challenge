@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
 extension MediaQueryExtension on Widget {
-  Widget wrapAlign(Alignment alignment) => Align(child: this, alignment: alignment);
-  Widget wrapPadding(EdgeInsets edgeInsets) => Padding(child: this, padding: edgeInsets);
-  Widget wrapExpanded({int flex = 1}) => Expanded(child: this, flex: flex);
+  Widget wrapAlign(Alignment alignment) => Align(alignment: alignment, child: this);
+  Widget wrapPadding(EdgeInsets edgeInsets) => Padding(padding: edgeInsets, child: this);
+  Widget wrapExpanded({int flex = 1}) => Expanded(flex: flex, child: this);
   Widget wrapCenter() => Center(child: this);
 }

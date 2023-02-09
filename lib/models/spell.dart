@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
 
 class Spell {
+  const Spell(this.image,this.combine);
+
   final String image;
   final List<String> combine;
-
-  Spell(this.image,this.combine);
 
   @override
   bool operator ==(covariant Spell other) {

@@ -11,11 +11,11 @@ class GameProvider extends ChangeNotifier {
 
   late IDatabaseService _databaseService;
 
-  GameProvider({required IDatabaseService databaseService, required}) {
-    this._databaseService = databaseService;
+  GameProvider({required IDatabaseService databaseService}) {
+    _databaseService = databaseService;
   }
 
-  IDatabaseService get databaseService => this._databaseService;
+  IDatabaseService get databaseService => _databaseService;
 
 
   Timer? _timer;
@@ -69,14 +69,14 @@ class GameProvider extends ChangeNotifier {
 
   void startTimer(){
     changeIsStartStatus();
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) { 
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) { 
       _increaseTimer();
     });
   }
 
   void startCoundown(ResultDialogVoidFunc showDialog){
     changeIsStartStatus();
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) { 
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) { 
       _decreaseCountdownValue();
       if (_countdownValue <= 0) {
         disposeTimer();

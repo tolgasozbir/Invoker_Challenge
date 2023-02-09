@@ -8,14 +8,14 @@ import '../providers/game_provider.dart';
 
 mixin OrbMixin<T extends StatefulWidget> on State<T> {
 
-  List<String> currentCombination=["q","w","e"];
+  List<String> currentCombination=['q','w','e'];
 
-  BoxDecoration skillBlackShadowDec = BoxDecoration(
+  BoxDecoration skillBlackShadowDec = const BoxDecoration(
     boxShadow: [
       BoxShadow(
         color: AppColors.blackShadow, 
         blurRadius: 12, 
-        spreadRadius: 4
+        spreadRadius: 4,
       ),
     ],
   );
@@ -27,14 +27,14 @@ mixin OrbMixin<T extends StatefulWidget> on State<T> {
   ];
 
   Widget orb(Elements element) {
-    return Container(
+    return DecoratedBox(
       decoration: skillBlackShadowDec,
-      child: Image.asset(element.getImage, width: context.dynamicWidth(0.07))
+      child: Image.asset(element.getImage, width: context.dynamicWidth(0.07)),
     );
   }
 
   void switchOrb(Elements element) {
-    bool isStart = context.read<GameProvider>().isStart;
+    final isStart = context.read<GameProvider>().isStart;
     if (isStart) {
       context.read<GameProvider>().increaseTotalTabs();
     }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../constants/app_strings.dart';
 
 class LoadingView extends StatefulWidget {
-  const LoadingView({Key? key, required this.page}) : super(key: key);
+  const LoadingView({super.key, required this.page});
 
   final Widget page;
 
@@ -13,7 +13,7 @@ class LoadingView extends StatefulWidget {
 
 class _LoadingViewState extends State<LoadingView> {
 
-  Duration _loadingDuration = Duration(milliseconds: 3000);
+  final Duration _loadingDuration = const Duration(milliseconds: 3000);
 
   @override
   void initState() {
@@ -21,8 +21,8 @@ class _LoadingViewState extends State<LoadingView> {
     super.initState();
   }
 
-  void _navigateToPage() async {
-    Future.delayed(_loadingDuration, () {
+  Future<void> _navigateToPage() async {
+    await Future.delayed(_loadingDuration, () {
       if (mounted) {
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> widget.page));
       }
@@ -37,7 +37,7 @@ class _LoadingViewState extends State<LoadingView> {
   }
 
   Widget _bodyView() {
-    return SizedBox.expand(
+    return const SizedBox.expand(
       child: DecoratedBox(
         decoration: BoxDecoration(
           image: DecorationImage(

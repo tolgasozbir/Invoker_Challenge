@@ -14,7 +14,7 @@ enum Spells {
 }
 
 extension spellsExtension on Spells {
-  String get getImage => '${ImagePaths.spells}${this.name}.png';
+  String get getImage => '${ImagePaths.spells}$name.png';
 
   // List<String> spellCombination(Spells spell) {
   //   switch (spell) {

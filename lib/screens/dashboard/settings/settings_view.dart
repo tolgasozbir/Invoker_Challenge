@@ -6,7 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 class SettingsView extends StatelessWidget {
-  const SettingsView({Key? key}) : super(key: key);
+  const SettingsView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,17 +18,17 @@ class SettingsView extends StatelessWidget {
           divider(),
           menuItem(
             leading: FontAwesomeIcons.questionCircle,
-            text: AppStrings.aboutUs
+            text: AppStrings.aboutUs,
           ),
           divider(),
           menuItem(
             leading: FontAwesomeIcons.commentDots,
-            text: AppStrings.feedback
+            text: AppStrings.feedback,
           ),
           divider(),
           menuItem(
             leading: FontAwesomeIcons.starHalfAlt,
-            text: AppStrings.rateApp
+            text: AppStrings.rateApp,
           ),
           divider(),
         ],
@@ -36,7 +36,7 @@ class SettingsView extends StatelessWidget {
     );
   }
 
-  Divider divider() => Divider(color: Colors.amber, height: 24,);
+  Divider divider() => const Divider(color: Colors.amber, height: 24,);
 
   SleekCircularSlider volumeSlider(double size) {
     return SleekCircularSlider(
@@ -51,13 +51,13 @@ class SettingsView extends StatelessWidget {
         animDurationMultiplier: 1.6,
         infoProperties: InfoProperties(
           mainLabelStyle: TextStyle(
-            color: Color.fromRGBO(220, 190, 251, 1.0),
+            color: const Color.fromRGBO(220, 190, 251, 1),
             fontSize: size / 5.0,
             fontWeight: FontWeight.w300,
           ),
           bottomLabelText: AppStrings.volume,
           bottomLabelStyle: TextStyle(
-            color: Color.fromRGBO(220, 190, 251, 1.0),
+            color: const Color.fromRGBO(220, 190, 251, 1),
             fontSize: size / 10.0,
             fontWeight: FontWeight.w600,
           ),
@@ -71,10 +71,10 @@ class SettingsView extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Icon(leading),
-        Spacer(),
-        Text(text, style: TextStyle(fontSize: 18),),
-        Spacer(flex: 9,),
-        Icon(FontAwesomeIcons.chevronRight)
+        const Spacer(),
+        Text(text, style: const TextStyle(fontSize: 18),),
+        const Spacer(flex: 9,),
+        const Icon(FontAwesomeIcons.chevronRight)
       ],
     );
   }

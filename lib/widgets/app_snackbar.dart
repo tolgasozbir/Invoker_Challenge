@@ -15,7 +15,7 @@ class AppSnackBar {
   static showSnackBarMessage({
     required String text, 
     Duration duration = const Duration(milliseconds: 2000), 
-    required SnackBarType snackBartype
+    required SnackBarType snackBartype,
   }) {
     return scaffoldMessengerKey.currentState?.showSnackBar(
       SnackBar(
@@ -31,7 +31,7 @@ class AppSnackBar {
 }
 
 class _SnacBarContent extends StatefulWidget {
-  const _SnacBarContent({Key? key, required this.type,required this.message,}) : super(key: key);
+  const _SnacBarContent({required this.type,required this.message,});
 
   final SnackBarType type;
   final String message;
@@ -57,8 +57,8 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
   void initState() {
     super.initState();
 
-    _controller = AnimationController(vsync: this, duration: Duration(milliseconds: 600));
-    _animation = Tween<Offset>(begin: Offset(0.0, 10.0), end: Offset.zero)
+    _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 600));
+    _animation = Tween<Offset>(begin: const Offset(0, 10), end: Offset.zero)
                 .animate(CurvedAnimation(
                   parent: _controller, 
                   curve: Curves.elasticOut,
@@ -69,19 +69,19 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
     switch (widget.type) {
       case SnackBarType.info:
         snackBarColor = infoColor;
-        snackBarTitle = "info";
+        snackBarTitle = 'info';
         break;
       case SnackBarType.success:
         snackBarColor = successColor;
-        snackBarTitle = "success";
+        snackBarTitle = 'success';
         break;
       case SnackBarType.warning:
         snackBarColor = warningColor;
-        snackBarTitle = "warning";
+        snackBarTitle = 'warning';
         break;
       case SnackBarType.error:
         snackBarColor = errorColor;
-        snackBarTitle = "error";
+        snackBarTitle = 'error';
         break;
     }
   }
@@ -93,7 +93,6 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
       child: SlideTransition(
         position: _animation,
         child: Stack(
-          clipBehavior: Clip.hardEdge,
           children: [
             Container(
               height: 92,
@@ -104,7 +103,7 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(10),
                   bottomRight: Radius.circular(20),
-                  bottomLeft: Radius.circular(5)
+                  bottomLeft: Radius.circular(5),
                 ),
               ),
               child: Row(
@@ -115,25 +114,25 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "$snackBarTitle!",
+                          '$snackBarTitle!',
                           style: const TextStyle(
                             fontSize: 16,
                             color: Colors.white,
-                            fontWeight: FontWeight.bold
-                          )
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         const Spacer(),
                         Text(
                           widget.message,
                           style: const TextStyle(fontSize: 14,color: Colors.white), 
                           maxLines: 2, 
-                          overflow: TextOverflow.ellipsis
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ],
                     ),
                   ),
                 ],
-              )
+              ),
             ),
           ],
         ),

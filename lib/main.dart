@@ -21,18 +21,20 @@ void main() async {
       ChangeNotifierProvider(create: (context) => GameProvider(databaseService: FirestoreService.instance)),
       ChangeNotifierProvider(create: (context) => SpellProvider()),
     ],
-    child: MyApp(),
-  ));
+    child: const MyApp(),
+  ),);
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: AppStrings.appName,
       theme: ThemeData.dark(),
-      home: SplashView(),
+      home: const SplashView(),
       navigatorKey: navigatorKey,
       scaffoldMessengerKey: AppSnackBar.scaffoldMessengerKey,
     );

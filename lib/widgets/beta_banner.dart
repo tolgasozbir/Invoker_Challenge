@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 
 class BetaBanner extends StatelessWidget {
   const BetaBanner({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Banner(
+    return const Banner(
       message: AppStrings.appVersion, 
       location: BannerLocation.topStart,
       color: Colors.black,

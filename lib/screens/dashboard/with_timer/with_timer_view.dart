@@ -11,7 +11,7 @@ import '../../../widgets/game_ui_widget.dart';
 import '../../../widgets/leaderboard_with_timer.dart';
 
 class WithTimerView extends StatefulWidget {
-  const WithTimerView({Key? key}) : super(key: key);
+  const WithTimerView({super.key});
 
   @override
   State<WithTimerView> createState() => _WithTimerViewState();
@@ -30,7 +30,6 @@ class _WithTimerViewState extends State<WithTimerView> {
     return SafeArea(
       child: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             GameUIWidget(
               gameType: GameType.Timer,
@@ -44,9 +43,9 @@ class _WithTimerViewState extends State<WithTimerView> {
   }
 
   Widget timerCounterWidget() {
-    var countdownValue = context.watch<GameProvider>().getCountdownValue;
+    final countdownValue = context.watch<GameProvider>().getCountdownValue;
     return Card(
-      color: Color(0xFF303030),
+      color: const Color(0xFF303030),
       child: Stack(
         alignment: Alignment.center,
         children: [
@@ -56,8 +55,8 @@ class _WithTimerViewState extends State<WithTimerView> {
               color: Colors.amber,
               backgroundColor: Colors.blue,
               valueColor: countdownValue <=10 
-                ? AlwaysStoppedAnimation<Color>(Colors.red) 
-                : AlwaysStoppedAnimation<Color>(Colors.amber),
+                ? const AlwaysStoppedAnimation<Color>(Colors.red) 
+                : const AlwaysStoppedAnimation<Color>(Colors.amber),
               value: countdownValue / 60,
               strokeWidth: 4,
             ),
@@ -69,7 +68,7 @@ class _WithTimerViewState extends State<WithTimerView> {
   }
 
   Widget showLeaderBoardButton() {
-    bool isStart = context.read<GameProvider>().isStart;
+    final isStart = context.read<GameProvider>().isStart;
     return !isStart 
       ? CustomButton(
           text: AppStrings.leaderboard, 
@@ -81,15 +80,14 @@ class _WithTimerViewState extends State<WithTimerView> {
               child: LeaderboardWithTimer(),
             ),
             action: TextButton(
-              child: Text(AppStrings.back),
+              child: const Text(AppStrings.back),
               onPressed: (){
                 Navigator.pop(context);
               },
             ),
           ),
         )
-      : SizedBox.shrink();
+      : const SizedBox.shrink();
   }
-
 
 }

@@ -10,7 +10,7 @@ class CustomAnimatedDialog {
       context: navigatorKey.currentContext!,
       barrierLabel: '',
       barrierDismissible: dismissible,
-      transitionDuration: Duration(milliseconds: 400),
+      transitionDuration: const Duration(milliseconds: 400),
       pageBuilder: (_, __, ___) {
         return Material(
           type: MaterialType.transparency,
@@ -23,25 +23,25 @@ class CustomAnimatedDialog {
                   children: [
                     Padding(
                       padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
-                      child: Text(title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500,),),
+                      child: Text(title, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500,),),
                     ),
                     Expanded(
                       flex: 9, 
                       child: Padding(
-                        padding: const EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 12.0),
+                        padding: const EdgeInsets.fromLTRB(24, 20, 24, 12),
                         child: SingleChildScrollView(child: content),
                       ),
                     ),
                     Align(
                       alignment: Alignment.centerRight, 
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8),
                         child: action,
                       )
                     ),
                   ],
                 ),
-                margin: EdgeInsets.symmetric(horizontal: 32),
+                margin: const EdgeInsets.symmetric(horizontal: 32),
                 decoration: BoxDecoration(
                   color: AppColors.dialogBgColor, 
                   borderRadius: BorderRadius.circular(16),
@@ -54,8 +54,8 @@ class CustomAnimatedDialog {
       transitionBuilder: (_, anim, __, child) {
         Tween<Offset> tween;
         anim.status == AnimationStatus.reverse 
-          ? tween = Tween(begin: Offset(-1, 0), end: Offset.zero)
-          : tween = Tween(begin: Offset(1, 0), end: Offset.zero);
+          ? tween = Tween(begin: const Offset(-1, 0), end: Offset.zero)
+          : tween = Tween(begin: const Offset(1, 0), end: Offset.zero);
 
         return SlideTransition(
           position: tween.animate(anim),
