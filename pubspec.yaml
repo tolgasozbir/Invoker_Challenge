@@ -22,6 +22,9 @@ dependencies:
   #Utils
   audioplayers: ^0.20.0
 
+  #Local Storage
+  shared_preferences: ^2.0.17
+
   #Firebase
   firebase_core: ^2.4.1
   cloud_firestore: ^4.3.1

@@ -1,3 +1,6 @@
+import 'package:dota2_invoker/services/local_storage/local_storage_service.dart';
+
+import 'services/local_storage/ILocalStorageService.dart';
 import 'widgets/app_snackbar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +19,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  
+  final ILocalStorageService localStorageService = LocalStorageService.instance;
+  await localStorageService.init();
+
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => GameProvider(databaseService: FirestoreService.instance)),
