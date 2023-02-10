@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import '../services/database/IDatabaseService.dart';
 import 'package:flutter/material.dart';
 
 import '../enums/database_table.dart';
@@ -8,16 +7,6 @@ import '../enums/database_table.dart';
 typedef ResultDialogVoidFunc = void Function(DatabaseTable);
 
 class GameProvider extends ChangeNotifier {
-
-  late IDatabaseService _databaseService;
-
-  GameProvider({required IDatabaseService databaseService}) {
-    _databaseService = databaseService;
-  }
-
-  IDatabaseService get databaseService => _databaseService;
-
-
   Timer? _timer;
 
   bool _isStart = false;

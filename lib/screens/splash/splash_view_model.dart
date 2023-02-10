@@ -1,7 +1,6 @@
 import 'dart:math';
-
+import 'package:dota2_invoker/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
-
 import '../../constants/app_strings.dart';
 import '../dashboard/dashboard_view.dart';
 import 'splash_view.dart';
@@ -17,6 +16,8 @@ abstract class SplashViewModel extends State<SplashView> {
     ImagePaths.splashImage3,
   ];
 
+  String get getRandomSplahImage => _splashImages[_rnd.nextInt(_splashImages.length)];
+
   @override
   void initState(){
     init();
@@ -27,11 +28,27 @@ abstract class SplashViewModel extends State<SplashView> {
     await goToMainMenu();
   }
 
+  //TODO:
+  
+  // Future<void> getUserValues() async {
+  //   var user = FirebaseAuthService.instance.getCurrentUser;
+  //   if (user != null) {
+  //     UserRecords.userModel = null;
+  //   }
+  // }
+
+  // Future<void> getUserValuesFromDb() async {
+  //   //context.services.databaseService.
+  // }
+
+  // Future<void> getUserValuesFromLocal() async {
+  //   //context.read<ServicesProvider>().localStorageService.;
+  // }
+
   Future<void> goToMainMenu() async {
     await Future.delayed(_duration, (){
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const DashboardView()));
     });
   }
 
-  String get getRandomSplahImage => _splashImages[_rnd.nextInt(_splashImages.length)];
 }

@@ -225,7 +225,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin {
               var name = _textEditingController.text.trim();
               final score = context.read<GameProvider>().getCorrectCombinationCount;
               final time = context.read<GameProvider>().getTimeValue;
-              final db = context.read<GameProvider>().databaseService;
+              final db = context.services.databaseService;
               if (name.isEmpty) {
                 name = AppStrings.unNamed + Random().nextInt(999999).toString();
               }

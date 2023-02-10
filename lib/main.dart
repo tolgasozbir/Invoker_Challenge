@@ -1,6 +1,7 @@
+import 'package:dota2_invoker/providers/services_provider.dart';
+import 'package:dota2_invoker/services/database/firestore_service.dart';
 import 'package:dota2_invoker/services/local_storage/local_storage_service.dart';
 
-import 'services/local_storage/ILocalStorageService.dart';
 import 'widgets/app_snackbar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,6 @@ import 'constants/app_strings.dart';
 import 'providers/game_provider.dart';
 import 'providers/spell_provider.dart';
 import 'screens/splash/splash_view.dart';
-import 'services/database/firestore_service.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
@@ -20,12 +20,13 @@ void main() async {
   await Firebase.initializeApp();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   
-  final ILocalStorageService localStorageService = LocalStorageService.instance;
-  await localStorageService.init();
-
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(create: (context) => GameProvider(databaseService: FirestoreService.instance)),
+      await ChangeNotifierProvider(create: (context) => ServicesProvider(
+        databaseService: FirestoreService.instance, 
+        localStorageService: LocalStorageService.instance
+      )..initServices()),
+      ChangeNotifierProvider(create: (context) => GameProvider()),
       ChangeNotifierProvider(create: (context) => SpellProvider()),
     ],
     child: const MyApp(),
