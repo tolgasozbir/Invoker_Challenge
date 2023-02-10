@@ -1,5 +1,5 @@
-import 'package:dota2_invoker/extensions/widget_extension.dart';
-import 'package:dota2_invoker/widgets/user_info.dart';
+import '../../extensions/widget_extension.dart';
+import '../../widgets/user_info.dart';
 import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_strings.dart';
@@ -31,7 +31,7 @@ class DashboardView extends StatelessWidget {
                 const SettingsButton().wrapAlign(Alignment.topRight).wrapExpanded(),
               ],
             ).wrapExpanded(),
-            ...menuBtns(),
+            ...menuBtns,
             // ElevatedButton(
             //   onPressed: () {
             //     ScaffoldMessenger.of(context).removeCurrentSnackBar();
@@ -46,36 +46,34 @@ class DashboardView extends StatelessWidget {
     );
   }
 
-  List<Widget> menuBtns() {
-    return [
-      const MenuButton(
-        fadeInDuration: Duration(milliseconds: 1000), 
-        color: AppColors.quasColor, 
-        imagePath: ImagePaths.quas, 
-        title: AppStrings.titleTraining, 
-        navigatePage: TrainingView(),
-      ),
-      const MenuButton(
-        fadeInDuration: Duration(milliseconds: 1500), 
-        color: AppColors.wexColor,
-        imagePath: ImagePaths.wex, 
-        title: AppStrings.titleWithTimer, 
-        navigatePage: WithTimerView(),
-      ),
-      const MenuButton(
-        fadeInDuration: Duration(milliseconds: 2000), 
-        color: AppColors.exortColor,
-        imagePath: ImagePaths.exort, 
-        title: AppStrings.titleChallanger, 
-        navigatePage: ChallangerView(),
-      ),
-      MenuButton.exit(
-        fadeInDuration: const Duration(milliseconds: 2500), 
-        color: Colors.white70,
-        imagePath: Elements.invoke.getImage, 
-        title: AppStrings.quitGame,
-      ),
-    ];
-  }
+  List<Widget> get menuBtns => [
+    const MenuButton(
+      fadeInDuration: Duration(milliseconds: 1000), 
+      color: AppColors.quasColor, 
+      imagePath: ImagePaths.quas, 
+      title: AppStrings.titleTraining, 
+      navigatePage: TrainingView(),
+    ),
+    const MenuButton(
+      fadeInDuration: Duration(milliseconds: 1500), 
+      color: AppColors.wexColor,
+      imagePath: ImagePaths.wex, 
+      title: AppStrings.titleWithTimer, 
+      navigatePage: WithTimerView(),
+    ),
+    const MenuButton(
+      fadeInDuration: Duration(milliseconds: 2000), 
+      color: AppColors.exortColor,
+      imagePath: ImagePaths.exort, 
+      title: AppStrings.titleChallanger, 
+      navigatePage: ChallangerView(),
+    ),
+    MenuButton.exit(
+      fadeInDuration: const Duration(milliseconds: 2500), 
+      color: AppColors.exitBtnColor,
+      imagePath: Elements.invoke.getImage, 
+      title: AppStrings.quitGame,
+    ),
+  ];
   
 }

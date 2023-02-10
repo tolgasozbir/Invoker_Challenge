@@ -1,4 +1,5 @@
-import 'package:dota2_invoker/extensions/widget_extension.dart';
+import '../extensions/context_extension.dart';
+import '../extensions/widget_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../constants/app_colors.dart';
@@ -63,7 +64,7 @@ class _LeaderboardWithTimerState extends State<LeaderboardWithTimer> {
           results.addAll(await context.read<GameProvider>().databaseService.getTimerScores());
           changeLoading();
         },
-        child: const Text(AppStrings.showMore, style: TextStyle(fontSize: 16),),
+        child: Text(AppStrings.showMore, style: TextStyle(fontSize: context.sp(12)),),
       ),
     );
   }
@@ -74,7 +75,7 @@ class _LeaderboardWithTimerState extends State<LeaderboardWithTimer> {
       itemCount: results.length,
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context,index){
-        const textStyle = TextStyle(color: Color(0xFFEEEEEE), fontSize: 18);
+        final textStyle = TextStyle(color: Color(0xFFEEEEEE), fontSize: context.sp(13));
         final data = results[index];
         return Card(
           color: AppColors.dialogBgColor,

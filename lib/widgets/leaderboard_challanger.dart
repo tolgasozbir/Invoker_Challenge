@@ -1,4 +1,5 @@
-import 'package:dota2_invoker/extensions/widget_extension.dart';
+import '../extensions/context_extension.dart';
+import '../extensions/widget_extension.dart';
 import '../constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -63,7 +64,7 @@ class _LeaderboardChallangerState extends State<LeaderboardChallanger> {
           results.addAll(await context.read<GameProvider>().databaseService.getChallangerScores());
           changeLoading();
         },
-        child: const Text(AppStrings.showMore, style: TextStyle(fontSize: 16),),
+        child: Text(AppStrings.showMore, style: TextStyle(fontSize: context.sp(12)),),
       ),
     );
   }
@@ -84,7 +85,7 @@ class _LeaderboardChallangerState extends State<LeaderboardChallanger> {
                 flex: 5,
                 child: Text(
                   '  ${index+1}.  ${data.name}',
-                  style: const TextStyle(color: Color(0xFFEEEEEE), fontSize: 18),
+                  style: TextStyle(color: Color(0xFFEEEEEE), fontSize: context.sp(13)),
                   maxLines: 1,
                   softWrap: false,
                   overflow: TextOverflow.fade,
@@ -95,7 +96,7 @@ class _LeaderboardChallangerState extends State<LeaderboardChallanger> {
                 child: Center(
                   child: Text(
                     data.time.toString(),
-                    style: const TextStyle(color: Color(0xFFFFCC00), fontSize: 18),
+                    style: TextStyle(color: Color(0xFFFFCC00), fontSize: context.sp(13)),
                     maxLines: 1,
                     softWrap: false,
                     overflow: TextOverflow.fade,
@@ -107,7 +108,7 @@ class _LeaderboardChallangerState extends State<LeaderboardChallanger> {
                 child: Center(
                   child: Text(
                     '${data.score}    ',
-                    style: const TextStyle(color: Color(0xFF00FF00), fontSize: 18),
+                    style: TextStyle(color: Color(0xFF00FF00), fontSize: context.sp(13)),
                     maxLines: 1,
                     softWrap: false,
                     overflow: TextOverflow.fade,

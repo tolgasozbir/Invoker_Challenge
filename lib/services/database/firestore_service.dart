@@ -1,10 +1,11 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../models/timer_result.dart';
-import '../../models/challenger_result.dart';
-import 'IDatabaseService.dart';
+
 import '../../enums/database_table.dart';
+import '../../models/challenger_result.dart';
+import '../../models/timer_result.dart';
+import 'IDatabaseService.dart';
 
 
 class FirestoreService implements IDatabaseService {

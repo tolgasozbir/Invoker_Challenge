@@ -17,6 +17,8 @@ class TrueFalseIconWidget extends StatefulWidget {
 class TrueFalseWidgetState extends State<TrueFalseIconWidget> with TickerProviderStateMixin {
 
   final Duration _animDuration = const Duration(milliseconds: 600);
+  final trueIconColor = const Color(0xFF33CC33);
+  final falseIconColor = const Color(0xFFCC3333);
 
   Tween<double> _translateTween = Tween(
     begin: 56, 
@@ -89,7 +91,7 @@ class TrueFalseWidgetState extends State<TrueFalseIconWidget> with TickerProvide
         opacity: type == IconType.True ? _animAlphaTrue.value : _animAlphaFalse.value,
         child: Icon(
           type == IconType.True ? FontAwesomeIcons.check : FontAwesomeIcons.times,
-          color: type == IconType.True ? const Color(0xFF33CC33) : const Color(0xFFCC3333),
+          color: type == IconType.True ? trueIconColor : falseIconColor,
         ),
       ),
     );

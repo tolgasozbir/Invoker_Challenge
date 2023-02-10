@@ -28,7 +28,7 @@ class CustomAnimatedDialog {
                   children: [
                     Padding(
                       padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
-                      child: Text(title, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500,),),
+                      child: Text(title, style: TextStyle(fontSize: navigatorKey.currentContext?.sp(16) ?? 20, fontWeight: FontWeight.w500,),),
                     ),
                     Expanded(
                       flex: 9, 

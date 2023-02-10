@@ -1,4 +1,4 @@
-import 'package:dota2_invoker/constants/app_strings.dart';
+import '../../../constants/app_strings.dart';
 
 import '../../../extensions/context_extension.dart';
 import 'package:flutter/material.dart';
@@ -17,16 +17,19 @@ class SettingsView extends StatelessWidget {
           volumeSlider(size),
           divider(),
           menuItem(
+            context: context,
             leading: FontAwesomeIcons.questionCircle,
             text: AppStrings.aboutUs,
           ),
           divider(),
           menuItem(
+            context: context,
             leading: FontAwesomeIcons.commentDots,
             text: AppStrings.feedback,
           ),
           divider(),
           menuItem(
+            context: context,
             leading: FontAwesomeIcons.starHalfAlt,
             text: AppStrings.rateApp,
           ),
@@ -66,13 +69,13 @@ class SettingsView extends StatelessWidget {
     );
   }
 
-  Widget menuItem({required IconData leading, required String text}){
+  Widget menuItem({required BuildContext context, required IconData leading, required String text}){
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Icon(leading),
         const Spacer(),
-        Text(text, style: const TextStyle(fontSize: 18),),
+        Text(text, style: TextStyle(fontSize: context.sp(14)),),
         const Spacer(flex: 9,),
         const Icon(FontAwesomeIcons.chevronRight)
       ],

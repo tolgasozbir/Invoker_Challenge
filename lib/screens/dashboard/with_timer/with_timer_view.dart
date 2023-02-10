@@ -45,7 +45,7 @@ class _WithTimerViewState extends State<WithTimerView> {
   Widget timerCounterWidget() {
     final countdownValue = context.watch<GameProvider>().getCountdownValue;
     return Card(
-      color: const Color(0xFF303030),
+      color: context.theme.scaffoldBackgroundColor,
       child: Stack(
         alignment: Alignment.center,
         children: [

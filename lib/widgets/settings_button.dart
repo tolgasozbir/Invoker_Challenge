@@ -21,10 +21,7 @@ class _SettingsButtonState extends State<SettingsButton> with SingleTickerProvid
   final boxDecoration = BoxDecoration(
     color: AppColors.buttonSurfaceColor,
     borderRadius: BorderRadius.circular(8),
-    border: Border.all(
-      color: Colors.black,
-      width: 2,
-    ),
+    border: Border.all(width: 2),
   );
 
   @override
@@ -63,10 +60,7 @@ class _SettingsButtonState extends State<SettingsButton> with SingleTickerProvid
     Icons.settings, 
     size: 40, 
     shadows: [
-      Shadow(
-        color: Colors.black, 
-        blurRadius: 32,
-      ),
+      Shadow(blurRadius: 32),
     ],
   );
 

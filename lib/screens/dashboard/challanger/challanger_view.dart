@@ -43,7 +43,7 @@ class _ChallangerViewState extends State<ChallangerView> {
   Widget timerCounterWidget() {
     final timerValue = context.watch<GameProvider>().getTimeValue;
     return Card(
-      color: const Color(0xFF303030),
+      color: context.theme.scaffoldBackgroundColor,
       child: Stack(
         alignment: Alignment.center,
         children: [

@@ -1,3 +1,4 @@
+import '../extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/app_strings.dart';
@@ -12,19 +13,26 @@ class ResultDialogContent extends StatelessWidget {
   Widget build(BuildContext context) {
    return Column(
     children: [
-      Text('${AppStrings.trueCombinations}\n\n$correctCount',style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 18),textAlign: TextAlign.center,),
+      Text(
+        '${AppStrings.trueCombinations}\n\n$correctCount',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontWeight: FontWeight.w500, 
+          fontSize: context.sp(13)
+        ),
+      ),
       Padding(
         padding: const EdgeInsets.all(8),
         child: TextField(
           controller: textEditingController,
           maxLength: 14,
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
             fillColor: Colors.white24,
             filled: true,
-            border: OutlineInputBorder(),
+            border: const OutlineInputBorder(),
             hintText: AppStrings.nickname,
             labelText: AppStrings.nickname,
-            labelStyle: TextStyle(color: Colors.amber, fontSize: 18,fontWeight: FontWeight.w600),
+            labelStyle: TextStyle(color: Colors.amber, fontSize: context.sp(13), fontWeight: FontWeight.w600),
           ),
         ),
       ),

@@ -1,4 +1,4 @@
-import 'package:dota2_invoker/extensions/widget_extension.dart';
+import '../extensions/widget_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../constants/app_colors.dart';
@@ -43,10 +43,10 @@ class UserStatus extends StatelessWidget {
                 inactiveTrackColor: AppColors.expBarColor.withOpacity(0.5),
               ),
               child: Slider(
-                value: 32,
-                max: 150,
-                min: 10,
-                onChanged: (double value) {},
+                value: 25,
+                max: 100,
+                min: 0,
+                onChanged: (value) { },
               ),
             ).wrapPadding(const EdgeInsets.symmetric(vertical: 8)),
             Row(

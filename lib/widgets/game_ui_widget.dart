@@ -1,16 +1,18 @@
 import 'dart:math';
-import '../models/challenger_result.dart';
-import '../models/timer_result.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../constants/app_colors.dart';
 import '../constants/app_strings.dart';
 import '../enums/database_table.dart';
 import '../enums/elements.dart';
 import '../extensions/context_extension.dart';
 import '../mixins/orb_mixin.dart';
-import '../providers/spell_provider.dart';
+import '../models/challenger_result.dart';
+import '../models/timer_result.dart';
 import '../providers/game_provider.dart';
+import '../providers/spell_provider.dart';
 import '../services/sound_service.dart';
 import 'custom_animated_dialog.dart';
 import 'custom_button.dart';
