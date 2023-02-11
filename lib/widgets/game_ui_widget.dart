@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:dota2_invoker/services/app_services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -225,7 +226,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin {
               var name = _textEditingController.text.trim();
               final score = context.read<GameProvider>().getCorrectCombinationCount;
               final time = context.read<GameProvider>().getTimeValue;
-              final db = context.services.databaseService;
+              final db = AppServices.instance.databaseService;
               if (name.isEmpty) {
                 name = AppStrings.unNamed + Random().nextInt(999999).toString();
               }

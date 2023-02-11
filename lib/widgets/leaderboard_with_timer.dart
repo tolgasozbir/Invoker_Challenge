@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../constants/app_colors.dart';
 import '../constants/app_strings.dart';
 import '../models/timer_result.dart';
+import '../services/app_services.dart';
 
 class LeaderboardWithTimer extends StatefulWidget {
   const LeaderboardWithTimer({super.key,});
@@ -21,7 +22,7 @@ class _LeaderboardWithTimerState extends State<LeaderboardWithTimer> {
   void initState() {
     Future.microtask(() async {
       changeLoading();
-      results = await context.services.databaseService.getTimerScores();
+      results = await AppServices.instance.databaseService.getTimerScores();
       changeLoading();
     });
     super.initState();
@@ -29,7 +30,7 @@ class _LeaderboardWithTimerState extends State<LeaderboardWithTimer> {
 
   @override
   void didChangeDependencies() {
-    context.services.databaseService.dispose();
+    AppServices.instance.databaseService.dispose();
     super.didChangeDependencies();
   }
 
@@ -59,7 +60,7 @@ class _LeaderboardWithTimerState extends State<LeaderboardWithTimer> {
         onPressed: isLoading ? null : () async {
           changeLoading();
           await Future.delayed(const Duration(seconds: 1));
-          results.addAll(await context.services.databaseService.getTimerScores());
+          results.addAll(await AppServices.instance.databaseService.getTimerScores());
           changeLoading();
         },
         child: Text(AppStrings.showMore, style: TextStyle(fontSize: context.sp(12)),),

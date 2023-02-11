@@ -4,6 +4,7 @@ import '../constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import '../constants/app_strings.dart';
 import '../models/challenger_result.dart';
+import '../services/app_services.dart';
 
 class LeaderboardChallanger extends StatefulWidget {
   const LeaderboardChallanger({super.key,});
@@ -21,7 +22,7 @@ class _LeaderboardChallangerState extends State<LeaderboardChallanger> {
   void initState() {
     Future.microtask(() async {
       changeLoading();
-      results = await context.services.databaseService.getChallangerScores();
+      results = await AppServices.instance.databaseService.getChallangerScores();
       changeLoading();
     });
     super.initState();
@@ -29,7 +30,7 @@ class _LeaderboardChallangerState extends State<LeaderboardChallanger> {
 
   @override
   void didChangeDependencies() {
-    context.services.databaseService.dispose();
+    AppServices.instance.databaseService.dispose();
     super.didChangeDependencies();
   }
 
@@ -59,7 +60,7 @@ class _LeaderboardChallangerState extends State<LeaderboardChallanger> {
         onPressed: isLoading ? null : () async {
           changeLoading();
           await Future.delayed(const Duration(seconds: 1));
-          results.addAll(await context.services.databaseService.getChallangerScores());
+          results.addAll(await AppServices.instance.databaseService.getChallangerScores());
           changeLoading();
         },
         child: Text(AppStrings.showMore, style: TextStyle(fontSize: context.sp(12)),),

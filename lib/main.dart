@@ -1,4 +1,4 @@
-import 'package:dota2_invoker/providers/services_provider.dart';
+import 'package:dota2_invoker/services/app_services.dart';
 import 'package:dota2_invoker/services/database/firestore_service.dart';
 import 'package:dota2_invoker/services/local_storage/local_storage_service.dart';
 
@@ -20,12 +20,13 @@ void main() async {
   await Firebase.initializeApp();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   
+  await AppServices.instance.initServices(
+    databaseService: FirestoreService.instance, 
+    localStorageService: LocalStorageService.instance
+  );
+
   runApp(MultiProvider(
     providers: [
-      await ChangeNotifierProvider(create: (context) => ServicesProvider(
-        databaseService: FirestoreService.instance, 
-        localStorageService: LocalStorageService.instance
-      )..initServices()),
       ChangeNotifierProvider(create: (context) => GameProvider()),
       ChangeNotifierProvider(create: (context) => SpellProvider()),
     ],
