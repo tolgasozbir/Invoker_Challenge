@@ -54,7 +54,7 @@ class _ChallangerViewState extends State<ChallangerView> {
               dimension: context.dynamicWidth(0.14),
               child: DecoratedBox(
                 decoration: BoxDecoration(
-                  gradient: const LinearGradient(colors: [Color(0x3300BBFF),Color(0x33FFCC00)],),
+                  gradient: LinearGradient(colors: AppColors.gradientBlueYellow,),
                   borderRadius: BorderRadius.circular(50),
                 ),
               ),
@@ -75,7 +75,7 @@ class _ChallangerViewState extends State<ChallangerView> {
           onTap: () => CustomAnimatedDialog.showCustomDialog(
             title: AppStrings.leaderboard,
             content: Card(
-              color: AppColors.resultCardBg, 
+              color: AppColors.resultsCardBg, 
               child: Column(
                 children: [
                   Padding(

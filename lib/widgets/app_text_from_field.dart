@@ -2,6 +2,8 @@ import 'package:dota2_invoker/extensions/context_extension.dart';
 import 'package:dota2_invoker/extensions/widget_extension.dart';
 import 'package:flutter/material.dart';
 
+import '../constants/app_colors.dart';
+
 class AppTextFormField extends StatelessWidget {
   final Key? key;
   final String? hintText;
@@ -64,10 +66,10 @@ class AppTextFormField extends StatelessWidget {
           decoration: InputDecoration(
             contentPadding: EdgeInsets.fromLTRB(12, 20, 12, 12),
             //labelText: hintText,
-            fillColor: bgColor ?? Color.fromRGBO(255, 255, 255, 0.18),
+            fillColor: bgColor ?? AppColors.textFormFieldBg,
             filled: true,
             prefixIcon: this.prefixIcon,
-            enabledBorder: inputBorderSide(color: borderColor ?? Colors.white, width: 1),
+            enabledBorder: inputBorderSide(color: borderColor ?? AppColors.white, width: 1),
             focusedBorder: inputBorderSide(color: focusedBorderColor ?? Theme.of(context).colorScheme.primary),
             errorBorder: inputBorderSide(color: errorBorderColor ?? Theme.of(context).errorColor),
             focusedErrorBorder: inputBorderSide(color: errorBorderColor ?? Theme.of(context).errorColor),

@@ -53,11 +53,11 @@ class _WithTimerViewState extends State<WithTimerView> {
           SizedBox.square(
             dimension: context.dynamicWidth(0.14),
             child: CircularProgressIndicator(
-              color: Colors.amber,
-              backgroundColor: Colors.blue,
+              color: AppColors.amber,
+              backgroundColor: AppColors.blue,
               valueColor: countdownValue <=10 
-                ? const AlwaysStoppedAnimation<Color>(Colors.red) 
-                : const AlwaysStoppedAnimation<Color>(Colors.amber),
+                ? const AlwaysStoppedAnimation<Color>(AppColors.red) 
+                : const AlwaysStoppedAnimation<Color>(AppColors.amber),
               value: countdownValue / 60,
               strokeWidth: 4,
             ),
@@ -77,7 +77,7 @@ class _WithTimerViewState extends State<WithTimerView> {
           onTap: () => CustomAnimatedDialog.showCustomDialog(
             title: AppStrings.leaderboard,
             content: const Card(
-              color: AppColors.resultCardBg, 
+              color: AppColors.resultsCardBg, 
               child: LeaderboardWithTimer(),
             ),
             action: TextButton(

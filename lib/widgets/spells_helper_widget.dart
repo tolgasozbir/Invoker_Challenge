@@ -1,3 +1,4 @@
+import 'package:dota2_invoker/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -43,7 +44,7 @@ class _SpellsHelperWidgetState extends State<SpellsHelperWidget> {
     return SizedBox(
       height: widget.height ?? context.dynamicHeight(0.24), 
       child: Card(
-        color: Colors.black12,
+        color: AppColors.spellHelperShadow,
         child: Row(
           children: [
             quasColumn(),

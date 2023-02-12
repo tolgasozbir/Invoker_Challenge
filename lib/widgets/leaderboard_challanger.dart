@@ -84,7 +84,7 @@ class _LeaderboardChallangerState extends State<LeaderboardChallanger> {
                 flex: 5,
                 child: Text(
                   '  ${index+1}.  ${data.name}',
-                  style: TextStyle(color: Color(0xFFEEEEEE), fontSize: context.sp(13)),
+                  style: TextStyle(color: AppColors.white, fontSize: context.sp(13)),
                   maxLines: 1,
                   softWrap: false,
                   overflow: TextOverflow.fade,
@@ -95,7 +95,7 @@ class _LeaderboardChallangerState extends State<LeaderboardChallanger> {
                 child: Center(
                   child: Text(
                     data.time.toString(),
-                    style: TextStyle(color: Color(0xFFFFCC00), fontSize: context.sp(13)),
+                    style: TextStyle(color: AppColors.amber, fontSize: context.sp(13)),
                     maxLines: 1,
                     softWrap: false,
                     overflow: TextOverflow.fade,
@@ -107,7 +107,7 @@ class _LeaderboardChallangerState extends State<LeaderboardChallanger> {
                 child: Center(
                   child: Text(
                     '${data.score}    ',
-                    style: TextStyle(color: Color(0xFF00FF00), fontSize: context.sp(13)),
+                    style: TextStyle(color: AppColors.fullGreen, fontSize: context.sp(13)),
                     maxLines: 1,
                     softWrap: false,
                     overflow: TextOverflow.fade,

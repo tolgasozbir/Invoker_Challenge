@@ -13,7 +13,7 @@ mixin OrbMixin<T extends StatefulWidget> on State<T> {
   BoxDecoration skillBlackShadowDec = const BoxDecoration(
     boxShadow: [
       BoxShadow(
-        color: AppColors.blackShadow, 
+        color: AppColors.orbsShadow, 
         blurRadius: 12, 
         spreadRadius: 4,
       ),

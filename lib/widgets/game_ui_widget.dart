@@ -65,7 +65,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin {
       child: Center(
         child: Text(
           context.watch<GameProvider>().getCorrectCombinationCount.toString(),
-          style: TextStyle(fontSize: context.sp(36), color: AppColors.correctCounterColor,),
+          style: TextStyle(fontSize: context.sp(36), color: AppColors.scoreCounterColor,),
         ),
       ),
     );
@@ -78,7 +78,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin {
       decoration: const BoxDecoration(
         boxShadow: [
           BoxShadow(
-            color: Colors.white30, 
+            color: AppColors.white30, 
             blurRadius: 12, 
             spreadRadius: 4,
           ),

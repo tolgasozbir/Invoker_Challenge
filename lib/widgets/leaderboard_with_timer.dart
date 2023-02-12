@@ -74,7 +74,7 @@ class _LeaderboardWithTimerState extends State<LeaderboardWithTimer> {
       itemCount: results.length,
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context,index){
-        final textStyle = TextStyle(color: Color(0xFFEEEEEE), fontSize: context.sp(13));
+        final textStyle = TextStyle(color: AppColors.white, fontSize: context.sp(13));
         final data = results[index];
         return Card(
           color: AppColors.dialogBgColor,

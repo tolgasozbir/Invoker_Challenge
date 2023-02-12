@@ -2,32 +2,28 @@ class AppStrings {
   static const String appName = 'Invoker Game';
   static const String appVersion = 'Beta 1.0';
 
+  //Main menu
   static const String titleTraining = 'Training';
   static const String titleWithTimer = 'With Timer';
   static const String titleChallanger = 'Challanger';
+  static const String quitGame = 'Quit Game';
+  static const String settings = 'Settings';
 
   //Training
-  static const String secPassed = 'seconds passed';
+  static const String secPassed = 'Seconds passed';
   static const String toolTipCPS = 'Click per seconds average by elapsed time.';
   static const String cps = ' Cps';
   static const String toolTipSCPS = 'Skill cast per seconds average by elapsed time.';
   static const String scps = ' SCps';
+
   //Common
   static const String start = 'Start';
-  static const String quitGame = 'Quit Game';
-  static const String settings = 'Settings';
   static const String leaderboard = 'Leaderboard';
   static const String result = 'Result';
-  static const String back = 'Back';
-  static const String send = 'Send';
-  static const String trueCombinations = 'True Combinations';
   static const String unNamed = 'Unnamed'; //
+ 
+  //Form-Dialog
   static const String guest = 'Guest';
-  static const String errorMessage = 'Something went wrong!';
-  static const String time = 'Time';
-  static const String score = 'Score';
-  static const String showMore = 'Show more';
-
   static const String eMail = 'Email';
   static const String eMailHint = 'abc@xyz.com';
   static const String username = 'Username';
@@ -36,7 +32,15 @@ class AppStrings {
   static const String login = 'Login';
   static const String or = '-OR-';
   static const String register = 'Register';
+  static const String errorMessage = 'Something went wrong!';
 
+  static const String time = 'Time';
+  static const String score = 'Score';
+  static const String showMore = 'Show more';
+
+  static const String trueCombinations = 'True Combinations'; //score
+  static const String back = 'Back';
+  static const String send = 'Send';
 
   //Settings
   static const String aboutUs = 'About us';
@@ -45,6 +49,7 @@ class AppStrings {
   static const String volume = 'Volume';
 }
 
+//
 class LottiePaths {
   static const String _root = 'assets/lottie';
 

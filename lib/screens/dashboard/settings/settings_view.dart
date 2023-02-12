@@ -1,3 +1,5 @@
+import 'package:dota2_invoker/constants/app_colors.dart';
+
 import '../../../constants/app_strings.dart';
 
 import '../../../extensions/context_extension.dart';
@@ -39,7 +41,7 @@ class SettingsView extends StatelessWidget {
     );
   }
 
-  Divider divider() => const Divider(color: Colors.amber, height: 24,);
+  Divider divider() => const Divider(color: AppColors.amber, height: 24,);
 
   SleekCircularSlider volumeSlider(double size) {
     return SleekCircularSlider(

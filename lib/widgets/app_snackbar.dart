@@ -1,6 +1,8 @@
 import 'package:dota2_invoker/extensions/widget_extension.dart';
 import 'package:flutter/material.dart';
 
+import '../constants/app_colors.dart';
+
 enum SnackBarType{
   info,
   success,
@@ -23,7 +25,7 @@ class AppSnackBar {
         clipBehavior: Clip.none,
         duration: duration,
         behavior: SnackBarBehavior.floating,
-        backgroundColor: Colors.transparent,
+        backgroundColor: AppColors.transparent,
         elevation: 0,
         content: _SnacBarContent(message: text, type: snackBartype),
       ),
@@ -42,12 +44,6 @@ class _SnacBarContent extends StatefulWidget {
 }
 
 class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderStateMixin {
-
-  final Color errorColor = const Color(0xFFC72C41);
-  final Color successColor = const Color(0xFF0C7040);
-  final Color warningColor = const Color(0xFFE88B1D);
-  final Color infoColor = const Color(0xFF0070E0);
-
   late final String snackBarTitle;
   late final Color snackBarColor;
 
@@ -69,19 +65,19 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
 
     switch (widget.type) {
       case SnackBarType.info:
-        snackBarColor = infoColor;
-        snackBarTitle = 'info';
+        snackBarColor = AppColors.infoColor;
+        snackBarTitle = 'info'; //TODO: STRİNGLERDE TOPLAYABİLİRSİN
         break;
       case SnackBarType.success:
-        snackBarColor = successColor;
+        snackBarColor = AppColors.successColor;
         snackBarTitle = 'success';
         break;
       case SnackBarType.warning:
-        snackBarColor = warningColor;
+        snackBarColor = AppColors.warningColor;
         snackBarTitle = 'warning';
         break;
       case SnackBarType.error:
-        snackBarColor = errorColor;
+        snackBarColor = AppColors.errorColor;
         snackBarTitle = 'error';
         break;
     }
@@ -118,14 +114,14 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
                           '$snackBarTitle!',
                           style: const TextStyle(
                             fontSize: 16,
-                            color: Colors.white,
+                            color: AppColors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         const Spacer(),
                         Text(
                           widget.message,
-                          style: const TextStyle(fontSize: 14,color: Colors.white), 
+                          style: const TextStyle(fontSize: 14,color: AppColors.white), 
                           maxLines: 2, 
                           overflow: TextOverflow.ellipsis,
                         ),

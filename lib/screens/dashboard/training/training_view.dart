@@ -68,7 +68,7 @@ class _TrainingViewState extends State<TrainingView> {
     return Center(
       child: Text(
         context.watch<GameProvider>().getCorrectCombinationCount.toString(),
-        style: TextStyle(fontSize: context.sp(36), color: AppColors.correctCounterColor,),
+        style: TextStyle(fontSize: context.sp(36), color: AppColors.scoreCounterColor,),
       ),
     );
   }
@@ -89,11 +89,11 @@ class _TrainingViewState extends State<TrainingView> {
       right: context.dynamicWidth(0.02), 
       top: context.dynamicWidth(0.08), 
       child: InkWell(
-        splashColor: Colors.transparent,
-        highlightColor: Colors.transparent,
+        splashColor: AppColors.transparent,
+        highlightColor: AppColors.transparent,
         child: SizedBox.square(
           dimension: context.dynamicWidth(0.08),
-          child: const Icon(FontAwesomeIcons.questionCircle,color: AppColors.questionMarkColor),
+          child: const Icon(FontAwesomeIcons.questionCircle,color: AppColors.amber),
         ),
         onTap: ()=> setState(()=> showAllSpells = !showAllSpells),
       ),

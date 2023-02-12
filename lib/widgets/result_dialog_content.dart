@@ -1,3 +1,5 @@
+import 'package:dota2_invoker/constants/app_colors.dart';
+
 import '../extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 
@@ -27,12 +29,12 @@ class ResultDialogContent extends StatelessWidget {
           controller: textEditingController,
           maxLength: 14,
           decoration: InputDecoration(
-            fillColor: Colors.white24,
+            fillColor: AppColors.textFormFieldBg,
             filled: true,
             border: const OutlineInputBorder(),
             hintText: AppStrings.username,
             labelText: AppStrings.username,
-            labelStyle: TextStyle(color: Colors.amber, fontSize: context.sp(13), fontWeight: FontWeight.w600),
+            labelStyle: TextStyle(color: AppColors.amber, fontSize: context.sp(13), fontWeight: FontWeight.w600),
           ),
         ),
       ),

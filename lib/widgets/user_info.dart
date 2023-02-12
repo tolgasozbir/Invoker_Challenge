@@ -26,8 +26,8 @@ class UserStatus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      splashColor: Colors.transparent,
-      highlightColor: Colors.transparent,
+      splashColor: AppColors.transparent,
+      highlightColor: AppColors.transparent,
       onTap: () async {
         await CustomAnimatedDialog.showCustomDialog(
           dismissible: true,

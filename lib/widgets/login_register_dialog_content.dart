@@ -1,3 +1,4 @@
+import 'package:dota2_invoker/constants/app_colors.dart';
 import 'package:dota2_invoker/extensions/context_extension.dart';
 import 'package:dota2_invoker/extensions/widget_extension.dart';
 import 'package:dota2_invoker/services/firebase_auth_service.dart';
@@ -94,8 +95,8 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
         onChanged: (value) {
           setState(() => isLoginCheckboxSelected = !isLoginCheckboxSelected);
         },
-        activeColor: Colors.white30,
-        checkColor: Colors.amber,
+        activeColor: AppColors.white30,
+        checkColor: AppColors.amber,
       ).scaleWidget(1.2),
       Spacer(),
     ];
