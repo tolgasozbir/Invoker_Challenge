@@ -14,51 +14,58 @@ class UserStatus extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          width: 64,
-          height: 64,
-          margin: const EdgeInsets.all(8),
-          decoration: boxDecoration,
-          child: const Icon(
-            FontAwesomeIcons.userSecret, 
-            shadows: [
-              Shadow(
-                blurRadius: 32,
-              ),
-            ],
-          ),
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('Guest'),
-            SliderTheme(
-              data: SliderTheme.of(context).copyWith(
-                thumbShape: SliderComponentShape.noThumb,
-                overlayShape: SliderComponentShape.noThumb,
-                activeTrackColor: AppColors.expBarColor,
-                inactiveTrackColor: AppColors.expBarColor.withOpacity(0.5),
-              ),
-              child: Slider(
-                value: 25,
-                max: 100,
-                min: 0,
-                onChanged: (value) { },
-              ),
-            ).wrapPadding(const EdgeInsets.symmetric(vertical: 8)),
-            Row(
-              children: const [
-                Text('Level 1'),
-                Spacer(),
-                Text('25/100')
+    return InkWell(
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      onTap: () {
+
+      },
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 64,
+            height: 64,
+            margin: const EdgeInsets.all(8),
+            decoration: boxDecoration,
+            child: const Icon(
+              FontAwesomeIcons.userSecret, 
+              shadows: [
+                Shadow(
+                  blurRadius: 32,
+                ),
               ],
-            )
-          ],
-        ).wrapPadding(const EdgeInsets.only(top: 8)).wrapExpanded(),
-      ],
+            ),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('Guest'),
+              SliderTheme(
+                data: SliderTheme.of(context).copyWith(
+                  thumbShape: SliderComponentShape.noThumb,
+                  overlayShape: SliderComponentShape.noThumb,
+                  activeTrackColor: AppColors.expBarColor,
+                  inactiveTrackColor: AppColors.expBarColor.withOpacity(0.5),
+                ),
+                child: Slider(
+                  value: 25,
+                  max: 100,
+                  min: 0,
+                  onChanged: (value) { },
+                ),
+              ).wrapPadding(const EdgeInsets.symmetric(vertical: 8)),
+              Row(
+                children: const [
+                  Text('Level 1'),
+                  Spacer(),
+                  Text('25/100')
+                ],
+              )
+            ],
+          ).wrapPadding(const EdgeInsets.only(top: 8)).wrapExpanded(),
+        ],
+      ),
     );
   }
 }

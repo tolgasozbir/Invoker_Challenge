@@ -5,7 +5,7 @@ import '../extensions/context_extension.dart';
 import '../main.dart';
 
 class CustomAnimatedDialog {
-  static Future<T?> showCustomDialog<T extends Object>({required String title, required Widget content, Widget? action, double? height, bool dismissible = false}) {
+  static Future<T?> showCustomDialog<T extends Object>({String? title, required Widget content, Widget? action, double? height, bool dismissible = false}) {
     return showGeneralDialog<T>(
       context: navigatorKey.currentContext!,
       barrierLabel: '',
@@ -26,10 +26,11 @@ class CustomAnimatedDialog {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
-                      child: Text(title, style: TextStyle(fontSize: navigatorKey.currentContext?.sp(16) ?? 20, fontWeight: FontWeight.w500,),),
-                    ),
+                    if (title != null)
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
+                        child: Text(title, style: TextStyle(fontSize: navigatorKey.currentContext?.sp(16) ?? 20, fontWeight: FontWeight.w500,),),
+                      ),
                     Expanded(
                       flex: 9, 
                       child: Padding(

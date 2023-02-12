@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dota2_invoker/models/user_model.dart';
 
 import '../../enums/database_table.dart';
 import '../../models/challenger_result.dart';
@@ -13,12 +14,34 @@ class FirestoreService implements IDatabaseService {
   static FirestoreService? _instance;
   static FirestoreService get instance => _instance ??= FirestoreService._();
 
+  final _collectionRefUsers = FirebaseFirestore.instance.collection('Users');
   final _collectionRefTimer = FirebaseFirestore.instance.collection(DatabaseTable.timer.name);
   final _collectionRefChallanger = FirebaseFirestore.instance.collection(DatabaseTable.challenger.name);
   final int _fetchLimit = 10;
   String orderByField = 'score';
   DocumentSnapshot? _lastDocument;
   bool _hasMoreData = true;
+
+  @override
+  Future<void> createUser(UserModel userModel) async {
+    try {
+      if (userModel.uid == null) throw Exception("uuid cant be null");
+      await _collectionRefUsers.doc(userModel.uid).set((userModel.toMap()));
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+  
+  @override
+  Future<UserModel?> getUserRecords(String uid) async {
+    try {
+      var response = await _collectionRefUsers.doc(uid).get();
+      return UserModel.fromMap(response.data()!);
+    } catch (e) {
+      log(e.toString());
+      return null;
+    }
+  }
 
   @override
   Future<void> addChallengerScore(ChallengerResult score) async {

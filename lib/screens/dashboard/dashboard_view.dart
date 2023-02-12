@@ -16,6 +16,7 @@ class DashboardView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: _bodyView(context),
     );
   }
@@ -32,13 +33,6 @@ class DashboardView extends StatelessWidget {
               ],
             ).wrapExpanded(),
             ...menuBtns,
-            // ElevatedButton(
-            //   onPressed: () {
-            //     ScaffoldMessenger.of(context).removeCurrentSnackBar();
-            //     AppSnackBar.showSnackBarMessage(text: "text", snackBartype: SnackBarType.info);
-            //   }, 
-            //   child: Text("Show")
-            // ),
             const Spacer(),
           ],
         ),
