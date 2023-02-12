@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:dota2_invoker/extensions/widget_extension.dart';
 import 'package:dota2_invoker/services/app_services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -223,6 +224,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin {
           TextButton(
             child: const Text(AppStrings.send),
             onPressed: () async {
+              //TODO:
               var name = _textEditingController.text.trim();
               final score = context.read<GameProvider>().getCorrectCombinationCount;
               final time = context.read<GameProvider>().getTimeValue;
@@ -264,7 +266,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin {
             context.read<SpellProvider>().getRandomSpell();
           },
         )
-      : const SizedBox.shrink();
+      : const EmptyBox();
   }
 
 }

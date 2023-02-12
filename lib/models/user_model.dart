@@ -17,7 +17,7 @@ class UserModel {
     required this.nickname,
     this.maxChallengerScore = 0,
     this.maxTimerScore = 0,
-    this.level = 0,
+    this.level = 1,
     this.exp = 0,
     this.expMultiplier = 1,
   });
@@ -49,8 +49,8 @@ class UserModel {
       maxChallengerScore: map['maxChallengerScore'] as int,
       maxTimerScore: map['maxTimerScore'] as int,
       level: map['level'] as int,
-      exp: map['exp'] as double,
-      expMultiplier: map['expMultiplier'] as double,
+      exp: double.tryParse(map['exp'].toString()) ?? 0, 
+      expMultiplier: double.tryParse(map['expMultiplier'].toString()) ?? 0,
     );
   }
 

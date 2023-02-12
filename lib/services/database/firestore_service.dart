@@ -8,7 +8,6 @@ import '../../models/challenger_result.dart';
 import '../../models/timer_result.dart';
 import 'IDatabaseService.dart';
 
-
 class FirestoreService implements IDatabaseService {
   FirestoreService._();
   static FirestoreService? _instance;

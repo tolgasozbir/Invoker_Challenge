@@ -1,4 +1,9 @@
+import 'dart:developer';
+import 'package:dota2_invoker/enums/local_storage_keys.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+import '../utils/user_records.dart';
+import 'app_services.dart';
 
 class FirebaseAuthService {
   FirebaseAuthService._();
@@ -15,7 +20,22 @@ class FirebaseAuthService {
   }
 
   Future<void> signUp({required String email, required String password, required String username}) async {
-    await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+    try {
+      var user = UserRecords.userModel;
+      if (user == null) throw Exception("User could not be created!");
+
+      final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+      if (userCredential.user != null) {
+        user.uid = userCredential.user!.uid;
+        user.nickname = username;
+        await AppServices.instance.localStorageService.setStringValue(LocalStorageKey.UserRecords, user.toJson());
+        await AppServices.instance.databaseService.createUser(user);
+      }
+    } on FirebaseAuthException catch (error) {
+      log(getErrorMessage(error.code));
+    } catch (error) {
+      log(getErrorMessage(error.toString()));
+    }
   }
 
   Future<void> resetPassword({required String email}) async {

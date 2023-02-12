@@ -22,12 +22,22 @@ class AppStrings {
   static const String send = 'Send';
   static const String trueCombinations = 'True Combinations';
   static const String unNamed = 'Unnamed'; //
-  static const String nickname = 'Nickname';
   static const String guest = 'Guest';
   static const String errorMessage = 'Something went wrong!';
   static const String time = 'Time';
   static const String score = 'Score';
   static const String showMore = 'Show more';
+
+  static const String eMail = 'Email';
+  static const String eMailHint = 'abc@xyz.com';
+  static const String username = 'Username';
+  static const String usernameHint = 'Topson';
+  static const String password = 'Password';
+  static const String login = 'Login';
+  static const String or = '-OR-';
+  static const String register = 'Register';
+
+
   //Settings
   static const String aboutUs = 'About us';
   static const String feedback = 'Feedback';

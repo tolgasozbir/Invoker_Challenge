@@ -1,3 +1,4 @@
+import 'package:dota2_invoker/extensions/widget_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -82,7 +83,7 @@ class _ChallangerViewState extends State<ChallangerView> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: const [
-                        Expanded(flex: 5, child: Text(AppStrings.nickname)),
+                        Expanded(flex: 5, child: Text(AppStrings.username)),
                         Expanded(flex: 2, child: Center(child: Text(AppStrings.time))),
                         Expanded(flex: 2, child: Center(child: Text('${AppStrings.score}    '))),
                       ],
@@ -100,7 +101,7 @@ class _ChallangerViewState extends State<ChallangerView> {
             ),
           ),
         )
-      : const SizedBox.shrink();
+      : const EmptyBox();
   }
 
 }

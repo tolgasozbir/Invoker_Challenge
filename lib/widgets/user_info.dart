@@ -1,3 +1,8 @@
+import 'package:dota2_invoker/constants/app_strings.dart';
+import 'package:dota2_invoker/utils/user_records.dart';
+import 'package:dota2_invoker/widgets/custom_animated_dialog.dart';
+import 'package:dota2_invoker/widgets/login_register_dialog_content.dart';
+
 import '../extensions/widget_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -12,13 +17,22 @@ class UserStatus extends StatelessWidget {
     border: Border.all(width: 2),
   );
 
+  final username = UserRecords.userModel?.nickname ?? '${AppStrings.guest}';
+  final currentExp = UserRecords.userModel?.exp ?? 0;
+  final nextLevelExp = ((UserRecords.userModel?.level ?? 0) * 25) + 100;
+  final minExp = 0;
+  final level = 'Level ${(UserRecords.userModel?.level ?? 0)}';
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
-      onTap: () {
-
+      onTap: () async {
+        await CustomAnimatedDialog.showCustomDialog(
+          dismissible: true,
+          content: LoginRegisterDialogContent()
+        );
       },
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,16 +45,14 @@ class UserStatus extends StatelessWidget {
             child: const Icon(
               FontAwesomeIcons.userSecret, 
               shadows: [
-                Shadow(
-                  blurRadius: 32,
-                ),
+                Shadow(blurRadius: 32,),
               ],
             ),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Guest'),
+              Text(username),
               SliderTheme(
                 data: SliderTheme.of(context).copyWith(
                   thumbShape: SliderComponentShape.noThumb,
@@ -49,17 +61,17 @@ class UserStatus extends StatelessWidget {
                   inactiveTrackColor: AppColors.expBarColor.withOpacity(0.5),
                 ),
                 child: Slider(
-                  value: 25,
-                  max: 100,
-                  min: 0,
+                  value: currentExp,
+                  max: nextLevelExp.toDouble(),
+                  min: minExp.toDouble(),
                   onChanged: (value) { },
                 ),
               ).wrapPadding(const EdgeInsets.symmetric(vertical: 8)),
               Row(
-                children: const [
-                  Text('Level 1'),
+                children: [
+                  Text(level),
                   Spacer(),
-                  Text('25/100')
+                  Text(currentExp.toStringAsFixed(0) + '/' + '$nextLevelExp')
                 ],
               )
             ],
@@ -68,4 +80,5 @@ class UserStatus extends StatelessWidget {
       ),
     );
   }
+
 }

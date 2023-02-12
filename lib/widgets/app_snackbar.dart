@@ -1,3 +1,4 @@
+import 'package:dota2_invoker/extensions/widget_extension.dart';
 import 'package:flutter/material.dart';
 
 enum SnackBarType{
@@ -108,7 +109,7 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
               ),
               child: Row(
                 children: [
-                  const SizedBox(width: 32),
+                  const EmptyBox.w32(),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

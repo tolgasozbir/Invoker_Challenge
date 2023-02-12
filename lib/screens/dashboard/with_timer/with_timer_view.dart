@@ -1,3 +1,4 @@
+import 'package:dota2_invoker/extensions/widget_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -87,7 +88,7 @@ class _WithTimerViewState extends State<WithTimerView> {
             ),
           ),
         )
-      : const SizedBox.shrink();
+      : const EmptyBox();
   }
 
 }
