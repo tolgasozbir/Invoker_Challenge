@@ -1,3 +1,6 @@
 enum LocalStorageKey {
-  UserRecords
+  //string keys
+  userRecords,
+  //int keys
+  volume,
 }

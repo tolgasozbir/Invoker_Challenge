@@ -1,4 +1,7 @@
 import 'package:dota2_invoker/constants/app_colors.dart';
+import 'package:dota2_invoker/enums/local_storage_keys.dart';
+import 'package:dota2_invoker/services/app_services.dart';
+import 'package:dota2_invoker/services/sound_manager.dart';
 
 import '../../../constants/app_strings.dart';
 
@@ -47,9 +50,13 @@ class SettingsView extends StatelessWidget {
     return SleekCircularSlider(
       min: 0,
       max: 100,
-      initialValue: 50,
-      onChangeEnd: (value) {
-        print(value);
+      initialValue: SoundManager.instance.getVolume,
+      onChangeEnd: (value) async {
+        SoundManager.instance.setVolume(value);
+        await AppServices.instance.localStorageService.setIntValue(
+          LocalStorageKey.volume, 
+          value.ceil().toInt()
+        );
       },
       appearance: CircularSliderAppearance(
         size: size,

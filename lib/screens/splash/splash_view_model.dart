@@ -1,10 +1,12 @@
 import 'dart:developer';
 import 'dart:math' as math;
+import 'package:dota2_invoker/services/sound_manager.dart';
 import 'package:dota2_invoker/services/user_manager.dart';
 import 'package:dota2_invoker/services/app_services.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import '../../constants/app_strings.dart';
+import '../../enums/local_storage_keys.dart';
 import '../dashboard/dashboard_view.dart';
 import 'splash_view.dart';
 
@@ -29,6 +31,7 @@ abstract class SplashViewModel extends State<SplashView> {
 
   Future<void> init() async {
     await getUserRecords();
+    getSettingsValues();
     await goToMainMenu();
   }
 
@@ -43,6 +46,12 @@ abstract class SplashViewModel extends State<SplashView> {
     } 
     log(UserManager.instance.user?.uid ?? "uid: null");
     log(UserManager.instance.user?.nickname ?? "nickname: null");
+  }
+
+  void getSettingsValues() {
+    SoundManager.instance.setVolume(
+      AppServices.instance.localStorageService.getIntValue(LocalStorageKey.volume)?.toDouble() ?? 100
+    );  
   }
 
   Future<void> goToMainMenu() async {

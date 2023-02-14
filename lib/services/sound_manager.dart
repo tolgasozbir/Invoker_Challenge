@@ -20,8 +20,14 @@ class SoundManager {
   final _player = AudioCache();
   final Random _rnd = Random();
 
+  double _volume = 100;
+  double get getVolume => _volume;
+  void setVolume(double value) {
+    _volume = value;
+  }
+
   void _playSound({required String fileName, double volume = 0.35}){
-    _player.play(fileName, volume: volume);
+    _player.play(fileName, volume: volume * getVolume/100);
   }
 
   void playSoundBegining(){

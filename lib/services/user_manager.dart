@@ -24,7 +24,7 @@ class UserManager {
   }
 
   String? getUserFromLocal() {
-    return AppServices.instance.localStorageService.getStringValue(LocalStorageKey.UserRecords);
+    return AppServices.instance.localStorageService.getStringValue(LocalStorageKey.userRecords);
   }
 
   Future<UserModel?> getUserFromDb(String uid) async {
@@ -33,7 +33,7 @@ class UserManager {
 
   Future<void> setAndSaveUserToLocale(UserModel user) async {
     await AppServices.instance.localStorageService.setStringValue(
-      LocalStorageKey.UserRecords, 
+      LocalStorageKey.userRecords, 
       user.toJson(),
     );
     setUser(user);
