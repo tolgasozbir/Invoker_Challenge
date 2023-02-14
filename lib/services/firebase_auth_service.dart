@@ -1,11 +1,6 @@
 import 'dart:developer';
-import 'package:dota2_invoker/enums/local_storage_keys.dart';
+import 'package:dota2_invoker/services/user_manager.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-import '../constants/app_strings.dart';
-import '../models/user_model.dart';
-import '../utils/id_generator.dart';
-import '../utils/user_records.dart';
 import 'app_services.dart';
 
 class FirebaseAuthService {
@@ -23,12 +18,9 @@ class FirebaseAuthService {
       final userCredential = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
       if (userCredential.user != null) {
         //fetch records from firebase
-        UserRecords.user = await AppServices.instance.databaseService.getUserRecords(userCredential.user!.uid);
+        var user = await UserManager.instance.getUserFromDb(userCredential.user!.uid);
         //set locale
-        await AppServices.instance.localStorageService.setStringValue(
-          LocalStorageKey.UserRecords, 
-          UserRecords.user!.toJson()
-        );
+        await UserManager.instance.setAndSaveUserToLocale(user!);
       }
     } on FirebaseAuthException catch (error) {
       log(getErrorMessage(error.code));
@@ -39,7 +31,7 @@ class FirebaseAuthService {
 
   Future<void> signUp({required String email, required String password, required String username}) async {
     try {
-      var user = UserRecords.user;
+      var user = UserManager.instance.user;
       if (user == null) throw Exception("User could not be created!");
 
       final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
@@ -47,10 +39,7 @@ class FirebaseAuthService {
         user.uid = userCredential.user!.uid; //set uid
         user.nickname = username; //set username
         //set locale
-        await AppServices.instance.localStorageService.setStringValue(
-          LocalStorageKey.UserRecords, 
-          user.toJson()
-        );
+        await UserManager.instance.setAndSaveUserToLocale(user);
         //set firebase
         await AppServices.instance.databaseService.createOrUpdateUser(user);
       }
@@ -68,10 +57,9 @@ class FirebaseAuthService {
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
     //create new guest user
-    var newGuestUser = UserModel.guest(nickname: AppStrings.guest+idGenerator());
-    //set locale
-    await AppServices.instance.localStorageService.setStringValue(LocalStorageKey.UserRecords, newGuestUser.toJson(),);
-    UserRecords.user = newGuestUser;
+    var newGuestUser = UserManager.instance.createUser();
+    //create new guest user and set locale
+    await UserManager.instance.setAndSaveUserToLocale(newGuestUser);
   }
 
   String getErrorMessage(String errorCode){

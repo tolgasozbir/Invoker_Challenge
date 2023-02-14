@@ -15,7 +15,7 @@ import '../models/challenger_result.dart';
 import '../models/timer_result.dart';
 import '../providers/game_provider.dart';
 import '../providers/spell_provider.dart';
-import '../services/sound_service.dart';
+import '../services/sound_manager.dart';
 import 'custom_animated_dialog.dart';
 import 'custom_button.dart';
 import 'result_dialog_content.dart';
@@ -153,10 +153,10 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin {
         if (currentCombination.toString() == spellProvider.getNextCombination.toString()) {
           timerProvider.increaseCorrectCounter();
           timerProvider.increaseTotalCast(); 
-          SoundService.instance.trueCombinationSound(spellProvider.getNextCombination);
+          SoundManager.instance.trueCombinationSound(spellProvider.getNextCombination);
           _animKey.currentState?.playAnimation(IconType.True);
         }else{
-          SoundService.instance.failCombinationSound();
+          SoundManager.instance.failCombinationSound();
           _animKey.currentState?.playAnimation(IconType.False);
         }
         timerProvider.increaseTotalTabs();
@@ -176,10 +176,10 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin {
         if(!timerProvider.isStart) return;
         if (currentCombination.toString() == spellProvider.getNextCombination.toString()) {
           timerProvider.increaseCorrectCounter();
-          SoundService.instance.trueCombinationSound(spellProvider.getNextCombination);
+          SoundManager.instance.trueCombinationSound(spellProvider.getNextCombination);
           _animKey.currentState?.playAnimation(IconType.True);
         }else{
-          SoundService.instance.failCombinationSound();
+          SoundManager.instance.failCombinationSound();
           _animKey.currentState?.playAnimation(IconType.False);
         }
         spellProvider.getRandomSpell();
@@ -198,11 +198,11 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin {
         if (!timerProvider.isStart) return;
         if (currentCombination.toString() == spellProvider.getNextCombination.toString()) {
           timerProvider.increaseCorrectCounter();
-          SoundService.instance.trueCombinationSound(spellProvider.getNextCombination);
+          SoundManager.instance.trueCombinationSound(spellProvider.getNextCombination);
           _animKey.currentState?.playAnimation(IconType.True);
           spellProvider.getRandomSpell();
         } else {
-          SoundService.instance.ggSound();
+          SoundManager.instance.ggSound();
           timerProvider.changeIsStartStatus();
           timerProvider.disposeTimer();
           _animKey.currentState?.playAnimation(IconType.False);

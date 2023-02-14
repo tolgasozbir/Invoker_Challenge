@@ -4,18 +4,18 @@ import 'package:audioplayers/audioplayers.dart';
 
 import '../constants/app_strings.dart';
 
-class SoundService {
+class SoundManager {
 
-  static SoundService? _instance;
-  static SoundService get instance {
+  static SoundManager? _instance;
+  static SoundManager get instance {
     if (_instance != null) {
       return _instance!;
     }
-    _instance = SoundService._();
+    _instance = SoundManager._();
     return _instance!;
   }
 
-  SoundService._();
+  SoundManager._();
 
   final _player = AudioCache();
   final Random _rnd = Random();

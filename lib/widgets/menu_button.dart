@@ -8,7 +8,7 @@ import '../constants/app_colors.dart';
 import '../extensions/context_extension.dart';
 import '../providers/game_provider.dart';
 import '../screens/dashboard/loading_view.dart';
-import '../services/sound_service.dart';
+import '../services/sound_manager.dart';
 
 class MenuButton extends StatefulWidget {
   const MenuButton({
@@ -83,7 +83,7 @@ class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateM
 
   void _goToGameScreen() {
     if (widget.navigatePage == null) return;
-    SoundService.instance.playSoundBegining();
+    SoundManager.instance.playSoundBegining();
     context.read<GameProvider>().resetTimer();
     Navigator.push(context, MaterialPageRoute(builder: (context)=> LoadingView(page: widget.navigatePage!)));
   }

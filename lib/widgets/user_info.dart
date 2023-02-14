@@ -1,12 +1,12 @@
 import 'package:dota2_invoker/constants/app_strings.dart';
-import 'package:dota2_invoker/services/firebase_auth_service.dart';
+import 'package:dota2_invoker/services/app_services.dart';
 import 'package:dota2_invoker/widgets/custom_animated_dialog.dart';
 import 'package:dota2_invoker/widgets/login_register_dialog_content.dart';
 import '../extensions/widget_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../constants/app_colors.dart';
-import '../utils/user_records.dart';
+import '../services/user_manager.dart';
 
 class UserStatus extends StatefulWidget {
   UserStatus({super.key});
@@ -24,11 +24,11 @@ class _UserStatusState extends State<UserStatus> {
 
   @override
   Widget build(BuildContext context) {
-    final username = UserRecords.user?.nickname ?? '${AppStrings.guest}';
-    final currentExp = UserRecords.user?.exp ?? 0;
-    final nextLevelExp = ((UserRecords.user?.level ?? 0) * 25) + 100;
+    final username = UserManager.instance.user?.nickname ?? '${AppStrings.guest}';
+    final currentExp = UserManager.instance.user?.exp ?? 0;
+    final nextLevelExp = ((UserManager.instance.user?.level ?? 0) * 25) + 100;
     final minExp = 0;
-    final level = 'Level ${(UserRecords.user?.level ?? 0)}';
+    final level = 'Level ${(UserManager.instance.user?.level ?? 0)}';
 
     return InkWell(
       splashColor: AppColors.transparent,
@@ -36,11 +36,11 @@ class _UserStatusState extends State<UserStatus> {
       onTap: () async {
         await CustomAnimatedDialog.showCustomDialog(
           dismissible: true,
-          content: FirebaseAuthService.instance.getCurrentUser == null 
+          content: AppServices.instance.firebaseAuthService.getCurrentUser == null 
             ? LoginRegisterDialogContent()
             : ElevatedButton( //TODO:
               onPressed: () async {
-                await FirebaseAuthService.instance.signOut();
+                await AppServices.instance.firebaseAuthService.signOut();
                 if (mounted) Navigator.pop(context);
               }, 
               child: Text("logout")

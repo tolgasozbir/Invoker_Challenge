@@ -1,14 +1,10 @@
 import 'dart:developer';
 import 'dart:math' as math;
-import 'package:dota2_invoker/enums/local_storage_keys.dart';
-import 'package:dota2_invoker/models/user_model.dart';
+import 'package:dota2_invoker/services/user_manager.dart';
 import 'package:dota2_invoker/services/app_services.dart';
-import 'package:dota2_invoker/utils/id_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import '../../constants/app_strings.dart';
-import '../../services/firebase_auth_service.dart';
-import '../../utils/user_records.dart';
 import '../dashboard/dashboard_view.dart';
 import 'splash_view.dart';
 
@@ -37,33 +33,16 @@ abstract class SplashViewModel extends State<SplashView> {
   }
 
   Future<void> getUserRecords() async {
-    var user = FirebaseAuthService.instance.getCurrentUser;
+    var user = AppServices.instance.firebaseAuthService.getCurrentUser;
     var hasConnection = await InternetConnectionChecker().hasConnection;
-    //fetch user records from local
-    UserRecords.user = await getUserRecordsFromLocal();
-    print(UserRecords.user?.uid ?? "uid null amk");
+    //fetch or create user record and set data
+    UserManager.instance.setUser(await UserManager.instance.fetchOrCreateUser());
     //Saving local data to db if user is logged in and has internet connection
     if (user != null && hasConnection) {
-      await AppServices.instance.databaseService.createOrUpdateUser(UserRecords.user!);
+      await AppServices.instance.databaseService.createOrUpdateUser(UserManager.instance.user!);
     } 
-    log(UserRecords.user?.uid ?? "uid: null");
-    log(UserRecords.user?.nickname ?? "nickname: null");
-  }
-
-  Future<UserModel> getUserRecordsFromLocal() async {
-    final localData = AppServices.instance.localStorageService.getStringValue(LocalStorageKey.UserRecords);
-    if (localData != null) {
-      return UserModel.fromJson(localData);
-    } 
-    else {
-      //create new userModel and save to locale
-      var newUser = UserModel.guest(nickname: AppStrings.guest+idGenerator());
-      await AppServices.instance.localStorageService.setStringValue(
-        LocalStorageKey.UserRecords, 
-        newUser.toJson(),
-      );
-      return newUser;
-    }
+    log(UserManager.instance.user?.uid ?? "uid: null");
+    log(UserManager.instance.user?.nickname ?? "nickname: null");
   }
 
   Future<void> goToMainMenu() async {
