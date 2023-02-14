@@ -25,9 +25,9 @@ class AppStrings {
   //Form-Dialog
   static const String guest = 'Guest';
   static const String eMail = 'Email';
-  static const String eMailHint = 'abc@xyz.com';
+  static const String eMailHint = 'fakeKuroKy@xyz.com';
   static const String username = 'Username';
-  static const String usernameHint = 'Topson';
+  static const String usernameHint = 'KuroKy';
   static const String password = 'Password';
   static const String login = 'Login';
   static const String or = '-OR-';

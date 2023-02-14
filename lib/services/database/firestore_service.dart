@@ -22,7 +22,8 @@ class FirestoreService implements IDatabaseService {
   bool _hasMoreData = true;
 
   @override
-  Future<void> createUser(UserModel userModel) async {
+  Future<void> createOrUpdateUser(UserModel userModel) async {
+    //if not exist create if exist update
     try {
       if (userModel.uid == null) throw Exception("uuid cant be null");
       await _collectionRefUsers.doc(userModel.uid).set((userModel.toMap()));

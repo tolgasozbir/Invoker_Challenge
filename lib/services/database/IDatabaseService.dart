@@ -4,7 +4,7 @@ import '../../models/challenger_result.dart';
 import '../../models/timer_result.dart';
 
 abstract class IDatabaseService {
-  Future<void> createUser(UserModel userModel);
+  Future<void> createOrUpdateUser(UserModel userModel);
   Future<UserModel?> getUserRecords(String uid);
   Future<List<TimerResult>> getTimerScores();
   Future<List<ChallengerResult>> getChallangerScores();

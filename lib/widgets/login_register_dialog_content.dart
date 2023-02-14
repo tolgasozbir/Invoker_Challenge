@@ -23,7 +23,9 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
   bool isLoading = false;
 
   void changeLoadingState() {
-    setState(() => isLoading = !isLoading);
+    if (mounted) {
+      setState(() => isLoading = !isLoading);
+    }
   } 
 
   @override
@@ -124,7 +126,7 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
           );
         }
         changeLoadingState();
-        Navigator.pop(context);
+        if (mounted) Navigator.pop(context);
       }, 
       child: Text(
         isLoginCheckboxSelected ? AppStrings.login : AppStrings.register,

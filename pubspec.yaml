@@ -21,6 +21,7 @@ dependencies:
 
   #Utils
   audioplayers: ^0.20.0
+  internet_connection_checker: ^1.0.0+1
 
   #Local Storage
   shared_preferences: ^2.0.17
