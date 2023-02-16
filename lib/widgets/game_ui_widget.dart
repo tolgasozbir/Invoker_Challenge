@@ -5,6 +5,7 @@ import 'package:dota2_invoker/services/user_manager.dart';
 import 'package:dota2_invoker/widgets/app_outlined_button.dart';
 import 'package:dota2_invoker/widgets/app_snackbar.dart';
 import 'package:flutter/material.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/app_colors.dart';
@@ -255,17 +256,27 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
     }
 
     if (score <= UserManager.instance.getBestScore(widget.gameType)) {
-        AppSnackBar.showSnackBarMessage(
+      AppSnackBar.showSnackBarMessage(
         text: AppStrings.errorSubmitScore2, 
         snackBartype: SnackBarType.error,
       );
       return;
     }
 
-    setState.call(() => changeLoadingState(forceUI: false));
+    var hasConnection = await InternetConnectionChecker().hasConnection;
+    if (!hasConnection) {
+      AppSnackBar.showSnackBarMessage(
+        text: AppStrings.errorConnection, 
+        snackBartype: SnackBarType.error,
+      );
+      return;
+    }
+
+    if (mounted) setState.call(() => changeLoadingState(forceUI: false));
+    bool isOk = false;
     switch (dbTable) {
       case DatabaseTable.timer:
-        await db.addTimerScore(
+        isOk = await db.addTimerScore(
           TimerResult(
             uid: uid, 
             name: name, 
@@ -274,7 +285,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
         );
         break;
       case DatabaseTable.challenger:
-        await db.addChallengerScore(
+        isOk = await db.addChallengerScore(
           ChallengerResult(
             uid: uid, 
             name: name, 
@@ -284,14 +295,23 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
         );
         break;
     }
-    setState.call(() => changeLoadingState(forceUI: false));
 
-    AppSnackBar.showSnackBarMessage(
-      text: AppStrings.succesSubmitScore, 
-      snackBartype: SnackBarType.success,
-    );
+    if (isOk) {
+      AppSnackBar.showSnackBarMessage(
+        text: AppStrings.succesSubmitScore, 
+        snackBartype: SnackBarType.success
+      );
+    } else {
+      AppSnackBar.showSnackBarMessage(
+        text: AppStrings.errorMessage, 
+        snackBartype: SnackBarType.error
+      );
+    }
 
-    Navigator.pop(context);
+    if (mounted) {
+      setState.call(() => changeLoadingState(forceUI: false));
+      if (isOk) Navigator.pop(context);
+    }
   }
 
   Widget startButton() {

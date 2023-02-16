@@ -3,9 +3,11 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dota2_invoker/models/user_model.dart';
 
+import '../../constants/app_strings.dart';
 import '../../enums/database_table.dart';
 import '../../models/challenger_result.dart';
 import '../../models/timer_result.dart';
+import '../../widgets/app_snackbar.dart';
 import 'IDatabaseService.dart';
 
 class FirestoreService implements IDatabaseService {
@@ -21,6 +23,16 @@ class FirestoreService implements IDatabaseService {
   DocumentSnapshot? _lastDocument;
   bool _hasMoreData = true;
 
+  void errorSnackbar() => AppSnackBar.showSnackBarMessage(
+    text: AppStrings.errorMessage, 
+    snackBartype: SnackBarType.error,
+  );
+
+  void _noMoreSnackbar() => AppSnackBar.showSnackBarMessage(
+    text: AppStrings.noMoreData, 
+    snackBartype: SnackBarType.info,
+  );
+
   @override
   Future<void> createOrUpdateUser(UserModel userModel) async {
     //if not exist create if exist update
@@ -35,8 +47,11 @@ class FirestoreService implements IDatabaseService {
   @override
   Future<UserModel?> getUserRecords(String uid) async {
     try {
-      var response = await _collectionRefUsers.doc(uid).get();
-      return UserModel.fromMap(response.data()!);
+      var response = await _collectionRefUsers.doc(uid).get(GetOptions(source: Source.server));
+      if (response.data() != null) {
+        return UserModel.fromMap(response.data()!);
+      }
+      throw Exception("data is null");
     } catch (e) {
       log(e.toString());
       return null;
@@ -44,26 +59,33 @@ class FirestoreService implements IDatabaseService {
   }
 
   @override
-  Future<void> addChallengerScore(ChallengerResult result) async {
+  Future<bool> addChallengerScore(ChallengerResult result) async {
     try {
       await _collectionRefChallanger.doc(result.uid).set(result.toMap());
+      return true;
     } catch (e) {
       log(e.toString());
+      return false;
     }
   }
 
   @override
-  Future<void> addTimerScore(TimerResult result) async {
+  Future<bool> addTimerScore(TimerResult result) async {
     try {
       await _collectionRefTimer.doc(result.uid).set(result.toMap());
+      return true;
     } catch (e) {
       log(e.toString());
+      return false;
     }
   }
 
   @override
   Future<List<ChallengerResult>> getChallangerScores() async {
-    if (!_hasMoreData) return [];
+    if (!_hasMoreData) {
+      _noMoreSnackbar();
+      return [];
+    }
     
     QuerySnapshot<Map<String,dynamic>> snapshot;
     try {
@@ -89,13 +111,17 @@ class FirestoreService implements IDatabaseService {
     } 
     catch (e) {
       log(e.toString());
+      errorSnackbar();
       return [];
     }
   }
 
   @override
   Future<List<TimerResult>> getTimerScores() async {
-    if (!_hasMoreData) return [];
+    if (!_hasMoreData) {
+      _noMoreSnackbar();
+      return [];
+    }
     
     QuerySnapshot<Map<String,dynamic>> snapshot;
     try {
@@ -121,6 +147,7 @@ class FirestoreService implements IDatabaseService {
     } 
     catch (e) {
       log(e.toString());
+      errorSnackbar();
       return [];
     }
   }

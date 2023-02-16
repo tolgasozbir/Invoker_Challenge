@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:dota2_invoker/services/user_manager.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../widgets/app_snackbar.dart';
 import 'app_services.dart';
 
 class FirebaseAuthService {
@@ -12,6 +13,11 @@ class FirebaseAuthService {
   final _firebaseAuth = FirebaseAuth.instance;
   
   User? get getCurrentUser => _firebaseAuth.currentUser;
+
+  void errorSnackbar(String error) => AppSnackBar.showSnackBarMessage(
+    text: error, 
+    snackBartype: SnackBarType.error,
+  );
   
   Future<void> signIn({required String email, required String password}) async {
     try {
@@ -24,8 +30,10 @@ class FirebaseAuthService {
       }
     } on FirebaseAuthException catch (error) {
       log(getErrorMessage(error.code));
+      errorSnackbar(getErrorMessage(error.code));
     } catch (error) {
       log(getErrorMessage(error.toString()));
+      errorSnackbar(getErrorMessage(error.toString()));
     }
   }
 
@@ -45,21 +53,39 @@ class FirebaseAuthService {
       }
     } on FirebaseAuthException catch (error) {
       log(getErrorMessage(error.code));
+      errorSnackbar(getErrorMessage(error.code));
     } catch (error) {
       log(getErrorMessage(error.toString()));
+      errorSnackbar(getErrorMessage(error.toString()));
     }
   }
 
   Future<void> resetPassword({required String email}) async {
-    await _firebaseAuth.sendPasswordResetEmail(email: email);
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (error) {
+      log(getErrorMessage(error.code));
+      errorSnackbar(getErrorMessage(error.code));
+    } catch (error) {
+      log(getErrorMessage(error.toString()));
+      errorSnackbar(getErrorMessage(error.toString()));
+    }
   }  
   
   Future<void> signOut() async {
-    await _firebaseAuth.signOut();
-    //create new guest user
-    var newGuestUser = UserManager.instance.createUser();
-    //create new guest user and set locale
-    await UserManager.instance.setAndSaveUserToLocale(newGuestUser);
+    try {
+      await _firebaseAuth.signOut();
+      //create new guest user
+      var newGuestUser = UserManager.instance.createUser();
+      //create new guest user and set locale
+      await UserManager.instance.setAndSaveUserToLocale(newGuestUser);
+    } on FirebaseAuthException catch (error) {
+      log(getErrorMessage(error.code));
+      errorSnackbar(getErrorMessage(error.code));
+    } catch (error) {
+      log(getErrorMessage(error.toString()));
+      errorSnackbar(getErrorMessage(error.toString()));
+    }
   }
 
   String getErrorMessage(String errorCode){

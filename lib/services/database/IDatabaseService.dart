@@ -8,7 +8,7 @@ abstract class IDatabaseService {
   Future<UserModel?> getUserRecords(String uid);
   Future<List<TimerResult>> getTimerScores();
   Future<List<ChallengerResult>> getChallangerScores();
-  Future<void> addTimerScore(TimerResult score);
-  Future<void> addChallengerScore(ChallengerResult score);
+  Future<bool> addTimerScore(TimerResult score);
+  Future<bool> addChallengerScore(ChallengerResult score);
   void dispose();
 }

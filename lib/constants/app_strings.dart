@@ -35,6 +35,7 @@ class AppStrings {
   static const String or = '-OR-';
   static const String register = 'Register';
   static const String errorMessage = 'Something went wrong!';
+  static const String errorConnection = 'Check your internet connection and try again.';
   static const String errorSubmitScore1 = 'You must be logged in to submit your score.';
   static const String errorSubmitScore2 = 'To submit your score, you need to beat your previous score.';
   static const String succesSubmitScore = 'Your score has been sent successfully.';
@@ -42,6 +43,7 @@ class AppStrings {
   static const String time = 'Time';
   static const String score = 'Score';
   static const String showMore = 'Show more';
+  static const String noMoreData = 'No more data!';
 
   static const String trueCombinations = 'True Combinations'; //score
   static const String bestScore = 'Your best score is';
