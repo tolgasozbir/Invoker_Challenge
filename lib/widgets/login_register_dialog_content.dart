@@ -1,9 +1,11 @@
 import 'package:dota2_invoker/constants/app_colors.dart';
 import 'package:dota2_invoker/extensions/context_extension.dart';
 import 'package:dota2_invoker/extensions/widget_extension.dart';
+import 'package:dota2_invoker/mixins/input_validation_mixin.dart';
 import 'package:dota2_invoker/mixins/loading_state_mixin.dart';
 import 'package:dota2_invoker/services/app_services.dart';
 import 'package:dota2_invoker/widgets/app_outlined_button.dart';
+import 'package:dota2_invoker/widgets/app_snackbar.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/app_strings.dart';
@@ -16,7 +18,7 @@ class LoginRegisterDialogContent extends StatefulWidget {
   State<LoginRegisterDialogContent> createState() => _LoginRegisterDialogContentState();
 }
 
-class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent> with LoadingState {
+class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent> with LoadingState, InputValidationMixin {
   final eMailController = TextEditingController();
   final passwordController = TextEditingController();
   final usernameController = TextEditingController();
@@ -26,6 +28,7 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: formKey,
       child: Column(
         children: [
           usernameFieldAnimated(),
@@ -35,6 +38,7 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
             controller: eMailController,
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
+            validator: isValidEmail,
           ),
           const EmptyBox.h16(),
           AppTextFormField(
@@ -43,6 +47,7 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
             controller: passwordController,
             keyboardType: TextInputType.visiblePassword,
             textInputAction: TextInputAction.done,
+            validator: isValidPassword,
           ),
           const EmptyBox.h16(),
           Row(
@@ -76,6 +81,7 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
         controller: usernameController,
         textInputAction: TextInputAction.next,
         maxLength: isLoginCheckboxSelected ? null : 16,
+        validator: isLoginCheckboxSelected ? null : isValid,
       ), 
       crossFadeState: isLoginCheckboxSelected ? CrossFadeState.showFirst : CrossFadeState.showSecond, 
       duration: Duration(milliseconds: 400),
@@ -109,23 +115,30 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
   }
 
   void onTapFn() async {
+    setState(() => isValidate = formKey.currentState!.validate());
+    if (!isValidate) {
+      AppSnackBar.showSnackBarMessage(text: AppStrings.fillFields, snackBartype: SnackBarType.info);
+      return;
+    }
+    
     changeLoadingState();
     final auth = AppServices.instance.firebaseAuthService;
+    var isOk = false;
     if (isLoginCheckboxSelected) {
-      await auth.signIn(
+      isOk = await auth.signIn(
         email: eMailController.text.trim(), 
         password: passwordController.text.trim()
       );
     } 
     else {
-      await auth.signUp(
+      isOk = await auth.signUp(
         email: eMailController.text.trim(), 
         password: passwordController.text.trim(), 
         username: usernameController.text.trim(),
       );
     }
     changeLoadingState();
-    if (mounted) Navigator.pop(context);
+    if (mounted && isOk) Navigator.pop(context);
   }
   
 }

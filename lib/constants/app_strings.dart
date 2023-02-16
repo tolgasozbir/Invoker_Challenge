@@ -34,6 +34,14 @@ class AppStrings {
   static const String login = 'Login';
   static const String or = '-OR-';
   static const String register = 'Register';
+
+  //Input Validation
+  static const String cannotEmpty = 'Cannot be empty';
+  static const String invalidMail = 'Invalid email';
+  static const String invalidPass = 'Must be at least 6 characters';
+
+  //Snackbar messages
+  static const String fillFields = 'Please fill out all required fields';
   static const String errorMessage = 'Something went wrong!';
   static const String errorConnection = 'Check your internet connection and try again.';
   static const String errorSubmitScore1 = 'You must be logged in to submit your score.';

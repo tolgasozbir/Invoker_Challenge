@@ -41,7 +41,7 @@ abstract class SplashViewModel extends State<SplashView> {
     //fetch or create user record and set data
     UserManager.instance.setUser(await UserManager.instance.fetchOrCreateUser());
     //Saving local data to db if user is logged in and has internet connection
-    if (!isLoggedIn && hasConnection) {
+    if (isLoggedIn && hasConnection) {
       await AppServices.instance.databaseService.createOrUpdateUser(UserManager.instance.user!);
     } 
     log(UserManager.instance.user?.uid ?? "uid: null");

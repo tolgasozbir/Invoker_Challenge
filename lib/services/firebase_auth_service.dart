@@ -19,7 +19,7 @@ class FirebaseAuthService {
     snackBartype: SnackBarType.error,
   );
   
-  Future<void> signIn({required String email, required String password}) async {
+  Future<bool> signIn({required String email, required String password}) async {
     try {
       final userCredential = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
       if (userCredential.user != null) {
@@ -27,17 +27,21 @@ class FirebaseAuthService {
         var user = await UserManager.instance.getUserFromDb(userCredential.user!.uid);
         //set locale
         await UserManager.instance.setAndSaveUserToLocale(user!);
+        return true;
       }
+      return false;
     } on FirebaseAuthException catch (error) {
       log(getErrorMessage(error.code));
       errorSnackbar(getErrorMessage(error.code));
+      return false;
     } catch (error) {
       log(getErrorMessage(error.toString()));
       errorSnackbar(getErrorMessage(error.toString()));
+      return false;
     }
   }
 
-  Future<void> signUp({required String email, required String password, required String username}) async {
+  Future<bool> signUp({required String email, required String password, required String username}) async {
     try {
       var user = UserManager.instance.user;
       if (user == null) throw Exception("User could not be created!");
@@ -50,13 +54,17 @@ class FirebaseAuthService {
         await UserManager.instance.setAndSaveUserToLocale(user);
         //set firebase
         await AppServices.instance.databaseService.createOrUpdateUser(user);
+        return true;
       }
+      return false;
     } on FirebaseAuthException catch (error) {
       log(getErrorMessage(error.code));
       errorSnackbar(getErrorMessage(error.code));
+      return false;
     } catch (error) {
       log(getErrorMessage(error.toString()));
       errorSnackbar(getErrorMessage(error.toString()));
+      return false;
     }
   }
 
