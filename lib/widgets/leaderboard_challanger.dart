@@ -1,3 +1,6 @@
+import 'package:dota2_invoker/mixins/loading_state_mixin.dart';
+import 'package:dota2_invoker/widgets/app_outlined_button.dart';
+
 import '../extensions/context_extension.dart';
 import '../extensions/widget_extension.dart';
 import '../constants/app_colors.dart';
@@ -13,17 +16,16 @@ class LeaderboardChallanger extends StatefulWidget {
   State<LeaderboardChallanger> createState() => _LeaderboardChallangerState();
 }
 
-class _LeaderboardChallangerState extends State<LeaderboardChallanger> {
+class _LeaderboardChallangerState extends State<LeaderboardChallanger> with LoadingState {
 
   List<ChallengerResult> results = [];
-  bool isLoading = false;
 
   @override
   void initState() {
     Future.microtask(() async {
-      changeLoading();
+      changeLoadingState();
       results = await AppServices.instance.databaseService.getChallangerScores();
-      changeLoading();
+      changeLoadingState();
     });
     super.initState();
   }
@@ -32,13 +34,6 @@ class _LeaderboardChallangerState extends State<LeaderboardChallanger> {
   void didChangeDependencies() {
     AppServices.instance.databaseService.dispose();
     super.didChangeDependencies();
-  }
-
-  void changeLoading() {
-    if (!mounted) return;
-    setState(() { 
-      isLoading = !isLoading;
-    });
   }
 
   @override
@@ -52,19 +47,16 @@ class _LeaderboardChallangerState extends State<LeaderboardChallanger> {
     );
   }
 
-  SizedBox showMoreBtn() {
-    return SizedBox(
+  AppOutlinedButton showMoreBtn() {
+    return AppOutlinedButton(
       width: double.infinity,
-      height: 48,
-      child: ElevatedButton(
-        onPressed: isLoading ? null : () async {
-          changeLoading();
-          await Future.delayed(const Duration(seconds: 1));
-          results.addAll(await AppServices.instance.databaseService.getChallangerScores());
-          changeLoading();
-        },
-        child: Text(AppStrings.showMore, style: TextStyle(fontSize: context.sp(12)),),
-      ),
+      title: AppStrings.showMore,
+      onPressed: isLoading ? null : () async {
+        changeLoadingState();
+        await Future.delayed(const Duration(seconds: 1));
+        results.addAll(await AppServices.instance.databaseService.getChallangerScores());
+        changeLoadingState();
+      },
     );
   }
 

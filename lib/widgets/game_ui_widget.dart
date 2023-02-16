@@ -1,4 +1,5 @@
 import 'package:dota2_invoker/extensions/widget_extension.dart';
+import 'package:dota2_invoker/mixins/loading_state_mixin.dart';
 import 'package:dota2_invoker/services/app_services.dart';
 import 'package:dota2_invoker/services/user_manager.dart';
 import 'package:dota2_invoker/widgets/app_outlined_button.dart';
@@ -33,7 +34,7 @@ class GameUIWidget extends StatefulWidget {
   State<GameUIWidget> createState() => _GameUIWidgetState();
 }
 
-class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin {
+class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState {
 
   final _animKey = GlobalKey<TrueFalseWidgetState>();
 
@@ -217,67 +218,80 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin {
         correctCount: context.read<GameProvider>().getCorrectCombinationCount,
         gameType: widget.gameType,
       ),
-      action: Row(
-        children: [
-          TextButton(
-            //TODO:
-            child: const Text(AppStrings.send),
-            onPressed: () async {
-              final isLoggedIn = UserManager.instance.isLoggedIn();
-              final user = UserManager.instance.user;
-              final uid = user?.uid;
-              final name = user!.nickname;
-              final score = context.read<GameProvider>().getCorrectCombinationCount;
-              final time = context.read<GameProvider>().getTimeValue;
-              final db = AppServices.instance.databaseService;
-              if (!isLoggedIn || uid == null) {
-                AppSnackBar.showSnackBarMessage(
-                  text: AppStrings.errorSubmitScore1, 
-                  snackBartype: SnackBarType.error,
-                );
-                return;
-              }
-      
-              if (score <= UserManager.instance.getBestScore(widget.gameType)) {
-                  AppSnackBar.showSnackBarMessage(
-                  text: AppStrings.errorSubmitScore2, 
-                  snackBartype: SnackBarType.error,
-                );
-                return;
-              }
-      
-              switch (dbTable) {
-                case DatabaseTable.timer:
-                  await db.addTimerScore(
-                    TimerResult(
-                      uid: uid, 
-                      name: name, 
-                      score: score,
-                    ),
-                  );
-                  break;
-                case DatabaseTable.challenger:
-                  await db.addChallengerScore(
-                    ChallengerResult(
-                      uid: uid, 
-                      name: name, 
-                      time: time, 
-                      score: score,
-                    ),
-                  );
-                  break;
-              }
-      
-              Navigator.pop(context);
-            },
-          ).wrapExpanded(),
-          TextButton(
-            child: const Text(AppStrings.back),
-            onPressed: () => Navigator.pop(context),
-          ).wrapExpanded(),
-        ],
+      action: StatefulBuilder(
+        builder: (context, setState) => Row(
+          children: [
+            AppOutlinedButton(
+              title: AppStrings.send,
+              onPressed: isLoading ? null : () async => await submitScoreFn(setState ,dbTable),
+            ).wrapExpanded(),
+            EmptyBox.w8(),
+            AppOutlinedButton(
+              title: AppStrings.back,
+              onPressed: isLoading ? null : () => Navigator.pop(context),
+            ).wrapExpanded(),
+          ],
+        ),
       ),
     );
+  }
+
+  Future<void> submitScoreFn(void Function(void Function()) setState, DatabaseTable dbTable) async {
+    final isLoggedIn = UserManager.instance.isLoggedIn();
+    final user = UserManager.instance.user;
+    final uid = user?.uid;
+    final name = user!.nickname;
+    final score = context.read<GameProvider>().getCorrectCombinationCount;
+    final time = context.read<GameProvider>().getTimeValue;
+    final db = AppServices.instance.databaseService;
+
+    ScaffoldMessenger.of(context).removeCurrentSnackBar();
+    if (!isLoggedIn || uid == null) {
+      AppSnackBar.showSnackBarMessage(
+        text: AppStrings.errorSubmitScore1, 
+        snackBartype: SnackBarType.error,
+      );
+      return;
+    }
+
+    if (score <= UserManager.instance.getBestScore(widget.gameType)) {
+        AppSnackBar.showSnackBarMessage(
+        text: AppStrings.errorSubmitScore2, 
+        snackBartype: SnackBarType.error,
+      );
+      return;
+    }
+
+    setState.call(() => changeLoadingState(forceUI: false));
+    switch (dbTable) {
+      case DatabaseTable.timer:
+        await db.addTimerScore(
+          TimerResult(
+            uid: uid, 
+            name: name, 
+            score: score,
+          ),
+        );
+        break;
+      case DatabaseTable.challenger:
+        await db.addChallengerScore(
+          ChallengerResult(
+            uid: uid, 
+            name: name, 
+            time: time, 
+            score: score,
+          ),
+        );
+        break;
+    }
+    setState.call(() => changeLoadingState(forceUI: false));
+
+    AppSnackBar.showSnackBarMessage(
+      text: AppStrings.succesSubmitScore, 
+      snackBartype: SnackBarType.success,
+    );
+
+    Navigator.pop(context);
   }
 
   Widget startButton() {
@@ -287,20 +301,22 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin {
       title: AppStrings.start, 
       width: context.dynamicWidth(0.4),
       padding: EdgeInsets.only(top: context.dynamicHeight(0.04)),
-      onPressed: () {
-        context.read<GameProvider>().resetTimer();
-        switch (widget.gameType) {
-          case GameType.Training: break;
-          case GameType.Challanger: 
-            context.read<GameProvider>().startTimer(); 
-            break;
-          case GameType.Timer:
-            context.read<GameProvider>().startCoundown(showResultDialog);
-            break;
-        }
-        context.read<SpellProvider>().getRandomSpell();
-      },
+      onPressed: startBtnFn,
     );
   }
 
+  void startBtnFn() {
+    context.read<GameProvider>().resetTimer();
+    switch (widget.gameType) {
+      case GameType.Training: break;
+      case GameType.Challanger: 
+        context.read<GameProvider>().startTimer(); 
+        break;
+      case GameType.Timer:
+        context.read<GameProvider>().startCoundown(showResultDialog);
+        break;
+    }
+    context.read<SpellProvider>().getRandomSpell();
+  }
+  
 }

@@ -1,3 +1,5 @@
+import 'package:dota2_invoker/mixins/loading_state_mixin.dart';
+
 import '../extensions/context_extension.dart';
 import '../extensions/widget_extension.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +7,7 @@ import '../constants/app_colors.dart';
 import '../constants/app_strings.dart';
 import '../models/timer_result.dart';
 import '../services/app_services.dart';
+import 'app_outlined_button.dart';
 
 class LeaderboardWithTimer extends StatefulWidget {
   const LeaderboardWithTimer({super.key,});
@@ -13,17 +16,16 @@ class LeaderboardWithTimer extends StatefulWidget {
   State<LeaderboardWithTimer> createState() => _LeaderboardWithTimerState();
 }
 
-class _LeaderboardWithTimerState extends State<LeaderboardWithTimer> {
+class _LeaderboardWithTimerState extends State<LeaderboardWithTimer> with LoadingState {
 
   List<TimerResult> results = [];
-  bool isLoading = false;
 
   @override
   void initState() {
     Future.microtask(() async {
-      changeLoading();
+      changeLoadingState();
       results = await AppServices.instance.databaseService.getTimerScores();
-      changeLoading();
+      changeLoadingState();
     });
     super.initState();
   }
@@ -32,13 +34,6 @@ class _LeaderboardWithTimerState extends State<LeaderboardWithTimer> {
   void didChangeDependencies() {
     AppServices.instance.databaseService.dispose();
     super.didChangeDependencies();
-  }
-
-  void changeLoading() {
-    if (!mounted) return;
-    setState(() { 
-      isLoading = !isLoading;
-    });
   }
 
   @override
@@ -52,19 +47,16 @@ class _LeaderboardWithTimerState extends State<LeaderboardWithTimer> {
     );
   }
 
-  SizedBox showMoreBtn() {
-    return SizedBox(
+  AppOutlinedButton showMoreBtn() {
+    return AppOutlinedButton(
       width: double.infinity,
-      height: 48,
-      child: ElevatedButton(
-        onPressed: isLoading ? null : () async {
-          changeLoading();
-          await Future.delayed(const Duration(seconds: 1));
-          results.addAll(await AppServices.instance.databaseService.getTimerScores());
-          changeLoading();
-        },
-        child: Text(AppStrings.showMore, style: TextStyle(fontSize: context.sp(12)),),
-      ),
+      title: AppStrings.showMore,
+      onPressed: isLoading ? null : () async {
+        changeLoadingState();
+        await Future.delayed(const Duration(seconds: 1));
+        results.addAll(await AppServices.instance.databaseService.getTimerScores());
+        changeLoadingState();
+      },
     );
   }
 

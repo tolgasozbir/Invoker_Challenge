@@ -81,8 +81,8 @@ class _WithTimerViewState extends State<WithTimerView> {
           color: AppColors.resultsCardBg, 
           child: LeaderboardWithTimer(),
         ),
-        action: TextButton(
-          child: const Text(AppStrings.back),
+        action: AppOutlinedButton(
+          title: AppStrings.back,
           onPressed: (){
             Navigator.pop(context);
           },

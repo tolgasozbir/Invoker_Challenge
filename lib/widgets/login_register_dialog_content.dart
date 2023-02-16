@@ -1,6 +1,7 @@
 import 'package:dota2_invoker/constants/app_colors.dart';
 import 'package:dota2_invoker/extensions/context_extension.dart';
 import 'package:dota2_invoker/extensions/widget_extension.dart';
+import 'package:dota2_invoker/mixins/loading_state_mixin.dart';
 import 'package:dota2_invoker/services/app_services.dart';
 import 'package:dota2_invoker/widgets/app_outlined_button.dart';
 import 'package:flutter/material.dart';
@@ -15,19 +16,12 @@ class LoginRegisterDialogContent extends StatefulWidget {
   State<LoginRegisterDialogContent> createState() => _LoginRegisterDialogContentState();
 }
 
-class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent> {
+class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent> with LoadingState {
   final eMailController = TextEditingController();
   final passwordController = TextEditingController();
   final usernameController = TextEditingController();
   TextStyle get textStyle => TextStyle(fontSize: context.sp(12));
   bool isLoginCheckboxSelected = true;
-  bool isLoading = false;
-
-  void changeLoadingState() {
-    if (mounted) {
-      setState(() => isLoading = !isLoading);
-    }
-  } 
 
   @override
   Widget build(BuildContext context) {

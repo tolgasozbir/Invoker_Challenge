@@ -94,8 +94,8 @@ class _ChallangerViewState extends State<ChallangerView> {
             ],
           ),
         ),
-        action: TextButton(
-          child: const Text(AppStrings.back),
+        action: AppOutlinedButton(
+          title: AppStrings.back,
           onPressed: (){
             Navigator.pop(context);
           },
