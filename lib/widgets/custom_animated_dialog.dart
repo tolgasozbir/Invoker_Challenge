@@ -14,53 +14,59 @@ class CustomAnimatedDialog {
       pageBuilder: (context, __, ___) {
         return Scaffold(
           backgroundColor: AppColors.transparent,
-          body: InkWell(
-            splashColor: AppColors.transparent,
-            highlightColor: AppColors.transparent,
-            onTap: () {
-              if (dismissible) {
-                Navigator.pop(context);
-              }
-            },
-            child: SafeArea(
-              child: Center(
-                child: InkWell(
-                  splashColor: AppColors.transparent,
-                  highlightColor: AppColors.transparent,
-                  onTap: () { },
-                  child: Container(
-                    height: height ?? navigatorKey.currentContext!.dynamicHeight(0.6),
-                    margin: const EdgeInsets.symmetric(horizontal: 32),
-                    decoration: BoxDecoration(
-                      color: AppColors.dialogBgColor, 
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        if (title != null)
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
-                            child: Text(
-                              title, 
-                              style: TextStyle(fontSize: context.sp(16), fontWeight: FontWeight.w500),
+          resizeToAvoidBottomInset: false,
+          body: AnimatedPadding(
+            padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.ease,
+            child: InkWell(
+              splashColor: AppColors.transparent,
+              highlightColor: AppColors.transparent,
+              onTap: () {
+                if (dismissible) {
+                  Navigator.pop(context);
+                }
+              },
+              child: SafeArea(
+                child: Center(
+                  child: InkWell(
+                    splashColor: AppColors.transparent,
+                    highlightColor: AppColors.transparent,
+                    onTap: () { },
+                    child: Container(
+                      height: height ?? navigatorKey.currentContext!.dynamicHeight(0.6),
+                      margin: const EdgeInsets.symmetric(horizontal: 32),
+                      decoration: BoxDecoration(
+                        color: AppColors.dialogBgColor, 
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (title != null)
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
+                              child: Text(
+                                title, 
+                                style: TextStyle(fontSize: context.sp(16), fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                          Expanded(
+                            flex: 9, 
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(24, 20, 24, 12),
+                              child: SingleChildScrollView(child: content),
                             ),
                           ),
-                        Expanded(
-                          flex: 9, 
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(24, 20, 24, 12),
-                            child: SingleChildScrollView(child: content),
+                          Align(
+                            alignment: Alignment.centerRight, 
+                            child: Padding(
+                              padding: const EdgeInsets.all(8),
+                              child: action,
+                            ),
                           ),
-                        ),
-                        Align(
-                          alignment: Alignment.centerRight, 
-                          child: Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: action,
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
