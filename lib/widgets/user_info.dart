@@ -17,7 +17,7 @@ class UserStatus extends StatefulWidget {
 
 class _UserStatusState extends State<UserStatus> {
   final boxDecoration = BoxDecoration(
-    color: AppColors.buttonSurfaceColor,
+    color: AppColors.buttonBgColor,
     borderRadius: BorderRadius.circular(8),
     border: Border.all(width: 2),
   );

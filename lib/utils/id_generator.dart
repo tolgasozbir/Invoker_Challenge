@@ -1,5 +1,7 @@
- String idGenerator() {
-    final now = DateTime.now();
-    final id = now.microsecondsSinceEpoch.toString();
-    return id.substring(10, id.length);
-  }
+ import 'dart:math';
+
+String idGenerator() {
+  final rnd = Random();
+  final id = rnd.nextInt(899999) + 100000;
+  return id.toString();
+}

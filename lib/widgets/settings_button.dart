@@ -19,7 +19,7 @@ class _SettingsButtonState extends State<SettingsButton> with SingleTickerProvid
   final _animDuration = const Duration(milliseconds: 1000);
 
   final boxDecoration = BoxDecoration(
-    color: AppColors.buttonSurfaceColor,
+    color: AppColors.buttonBgColor,
     borderRadius: BorderRadius.circular(8),
     border: Border.all(width: 2),
   );

@@ -2,6 +2,7 @@ import 'package:dota2_invoker/constants/app_colors.dart';
 import 'package:dota2_invoker/extensions/context_extension.dart';
 import 'package:dota2_invoker/extensions/widget_extension.dart';
 import 'package:dota2_invoker/services/app_services.dart';
+import 'package:dota2_invoker/widgets/app_outlined_button.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/app_strings.dart';
@@ -105,34 +106,32 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
   }
 
   Widget loginOrRegisterBtn() {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        minimumSize: Size(double.infinity, 48)
-      ),
-      onPressed: isLoading ? null : () async {
-        changeLoadingState();
-        final auth = AppServices.instance.firebaseAuthService;
-        if (isLoginCheckboxSelected) {
-          await auth.signIn(
-            email: eMailController.text.trim(), 
-            password: passwordController.text.trim()
-          );
-        } 
-        else {
-          await auth.signUp(
-            email: eMailController.text.trim(), 
-            password: passwordController.text.trim(), 
-            username: usernameController.text.trim(),
-          );
-        }
-        changeLoadingState();
-        if (mounted) Navigator.pop(context);
-      }, 
-      child: Text(
-        isLoginCheckboxSelected ? AppStrings.login : AppStrings.register,
-        style: textStyle,
-      )
+    return AppOutlinedButton(
+      width: double.infinity,
+      onPressed: isLoading ? null : onTapFn, 
+      title: isLoginCheckboxSelected ? AppStrings.login : AppStrings.register,
+      textStyle: textStyle,
     ).wrapPadding(EdgeInsets.symmetric(horizontal: 4));
   }
 
+  void onTapFn() async {
+    changeLoadingState();
+    final auth = AppServices.instance.firebaseAuthService;
+    if (isLoginCheckboxSelected) {
+      await auth.signIn(
+        email: eMailController.text.trim(), 
+        password: passwordController.text.trim()
+      );
+    } 
+    else {
+      await auth.signUp(
+        email: eMailController.text.trim(), 
+        password: passwordController.text.trim(), 
+        username: usernameController.text.trim(),
+      );
+    }
+    changeLoadingState();
+    if (mounted) Navigator.pop(context);
+  }
+  
 }

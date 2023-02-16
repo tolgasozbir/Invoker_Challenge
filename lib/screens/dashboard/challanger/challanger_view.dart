@@ -1,4 +1,5 @@
 import 'package:dota2_invoker/extensions/widget_extension.dart';
+import 'package:dota2_invoker/widgets/app_outlined_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -7,7 +8,6 @@ import '../../../constants/app_strings.dart';
 import '../../../extensions/context_extension.dart';
 import '../../../providers/game_provider.dart';
 import '../../../widgets/custom_animated_dialog.dart';
-import '../../../widgets/custom_button.dart';
 import '../../../widgets/game_ui_widget.dart';
 import '../../../widgets/leaderboard_challanger.dart';
 
@@ -68,40 +68,40 @@ class _ChallangerViewState extends State<ChallangerView> {
 
   Widget showLeaderBoardButton() {
     final isStart = context.read<GameProvider>().isStart;
-    return !isStart 
-      ? CustomButton(
-          text: AppStrings.leaderboard, 
-          padding: EdgeInsets.only(top: context.dynamicHeight(0.02)),
-          onTap: () => CustomAnimatedDialog.showCustomDialog(
-            title: AppStrings.leaderboard,
-            content: Card(
-              color: AppColors.resultsCardBg, 
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
-                        Expanded(flex: 5, child: Text(AppStrings.username)),
-                        Expanded(flex: 2, child: Center(child: Text(AppStrings.time))),
-                        Expanded(flex: 2, child: Center(child: Text('${AppStrings.score}    '))),
-                      ],
-                    ),
-                  ),
-                  const LeaderboardChallanger(),
-                ],
+    if (isStart) return EmptyBox();
+    return AppOutlinedButton(
+      title: AppStrings.leaderboard,
+      width: context.dynamicWidth(0.4),
+      padding: EdgeInsets.only(top: context.dynamicHeight(0.02)),
+      onPressed: () => CustomAnimatedDialog.showCustomDialog(
+        title: AppStrings.leaderboard,
+        content: Card(
+          color: AppColors.resultsCardBg, 
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Expanded(flex: 5, child: Text(AppStrings.username)),
+                    Expanded(flex: 2, child: Center(child: Text(AppStrings.time))),
+                    Expanded(flex: 2, child: Center(child: Text('${AppStrings.score}    '))),
+                  ],
+                ),
               ),
-            ),
-            action: TextButton(
-              child: const Text(AppStrings.back),
-              onPressed: (){
-                Navigator.pop(context);
-              },
-            ),
+              const LeaderboardChallanger(),
+            ],
           ),
-        )
-      : const EmptyBox();
+        ),
+        action: TextButton(
+          child: const Text(AppStrings.back),
+          onPressed: (){
+            Navigator.pop(context);
+          },
+        ),
+      ),
+    );
   }
 
 }

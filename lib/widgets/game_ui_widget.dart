@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:dota2_invoker/extensions/widget_extension.dart';
 import 'package:dota2_invoker/services/app_services.dart';
+import 'package:dota2_invoker/widgets/app_outlined_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,7 +18,6 @@ import '../providers/game_provider.dart';
 import '../providers/spell_provider.dart';
 import '../services/sound_manager.dart';
 import 'custom_animated_dialog.dart';
-import 'custom_button.dart';
 import 'result_dialog_content.dart';
 import 'true_false_icon_widget.dart';
 
@@ -254,19 +254,19 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin {
 
   Widget startButton() {
     final isStart = context.read<GameProvider>().isStart;
-    return !isStart 
-      ? CustomButton(
-          text: AppStrings.start, 
-          padding: EdgeInsets.only(top: context.dynamicHeight(0.04)),
-          onTap: () {
-            context.read<GameProvider>().resetTimer();
-            widget.gameType == GameType.Timer 
-              ? context.read<GameProvider>().startCoundown(showResultDialog)
-              : context.read<GameProvider>().startTimer();
-            context.read<SpellProvider>().getRandomSpell();
-          },
-        )
-      : const EmptyBox();
+    if (isStart) return EmptyBox();
+    return AppOutlinedButton(
+      title: AppStrings.start, 
+      width: context.dynamicWidth(0.4),
+      padding: EdgeInsets.only(top: context.dynamicHeight(0.04)),
+      onPressed: () {
+        context.read<GameProvider>().resetTimer();
+        widget.gameType == GameType.Timer 
+          ? context.read<GameProvider>().startCoundown(showResultDialog)
+          : context.read<GameProvider>().startTimer();
+        context.read<SpellProvider>().getRandomSpell();
+      },
+    );
   }
 
 }

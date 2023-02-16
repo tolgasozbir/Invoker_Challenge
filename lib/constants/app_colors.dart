@@ -13,9 +13,15 @@ class AppColors {
   static const Color successColor = Color(0xFF0C7040);
   static const Color warningColor = Color(0xFFE88B1D);
   static const Color infoColor    = Color(0xFF0070E0);
-
+  
+  //True false icon colors
   static const Color correctIconColor  = const Color(0xFF33CC33);
   static const Color wrongIconColor = const Color(0xFFCC3333);
+
+  //Button colors
+  static const Color outlinedBorder    = Color(0xFF9BBED7);
+  static const Color outlinedSurface   = Color(0xFFDCF0FF);
+  static const Color buttonBgColor = Color(0xFF545454);
 
   static const Color expBarColor       = Color(0xFFFFC000);
   static const Color scoreCounterColor = Color(0xFF4CAF50);
@@ -23,7 +29,6 @@ class AppColors {
   static const Color spellHelperShadow = Colors.black12;
 
   static const Color textFormFieldBg    = Color(0x2CFFFFFF);
-  static const Color buttonSurfaceColor = Color(0xFF545454);
   static const Color dialogBgColor      = Color(0xFF444444);
   static const Color resultsCardBg      = Color(0xFF666666);
 

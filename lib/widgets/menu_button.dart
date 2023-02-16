@@ -103,7 +103,7 @@ class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateM
   SizedBox button(BuildContext context) {
 
     final buttonStyle = ElevatedButton.styleFrom(
-      backgroundColor: widget.primaryColor ?? AppColors.buttonSurfaceColor,
+      backgroundColor: widget.primaryColor ?? AppColors.buttonBgColor,
       elevation: 10,
       shadowColor: widget.color,
       shape: RoundedRectangleBorder(
