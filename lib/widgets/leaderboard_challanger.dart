@@ -1,5 +1,5 @@
-import 'package:dota2_invoker/mixins/loading_state_mixin.dart';
-import 'package:dota2_invoker/widgets/app_outlined_button.dart';
+import '../mixins/loading_state_mixin.dart';
+import 'app_outlined_button.dart';
 
 import '../extensions/context_extension.dart';
 import '../extensions/widget_extension.dart';

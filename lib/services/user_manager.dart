@@ -1,5 +1,5 @@
-import 'package:dota2_invoker/models/user_model.dart';
-import 'package:dota2_invoker/widgets/game_ui_widget.dart';
+import '../models/user_model.dart';
+import '../widgets/game_ui_widget.dart';
 
 import '../constants/app_strings.dart';
 import '../enums/local_storage_keys.dart';

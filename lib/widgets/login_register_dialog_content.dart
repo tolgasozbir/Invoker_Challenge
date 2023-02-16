@@ -1,11 +1,11 @@
-import 'package:dota2_invoker/constants/app_colors.dart';
-import 'package:dota2_invoker/extensions/context_extension.dart';
-import 'package:dota2_invoker/extensions/widget_extension.dart';
-import 'package:dota2_invoker/mixins/input_validation_mixin.dart';
-import 'package:dota2_invoker/mixins/loading_state_mixin.dart';
-import 'package:dota2_invoker/services/app_services.dart';
-import 'package:dota2_invoker/widgets/app_outlined_button.dart';
-import 'package:dota2_invoker/widgets/app_snackbar.dart';
+import '../constants/app_colors.dart';
+import '../extensions/context_extension.dart';
+import '../extensions/widget_extension.dart';
+import '../mixins/input_validation_mixin.dart';
+import '../mixins/loading_state_mixin.dart';
+import '../services/app_services.dart';
+import 'app_outlined_button.dart';
+import 'app_snackbar.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/app_strings.dart';

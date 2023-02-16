@@ -1,7 +1,7 @@
-import 'package:dota2_invoker/services/app_services.dart';
-import 'package:dota2_invoker/services/database/firestore_service.dart';
-import 'package:dota2_invoker/services/firebase_auth_service.dart';
-import 'package:dota2_invoker/services/local_storage/local_storage_service.dart';
+import 'services/app_services.dart';
+import 'services/database/firestore_service.dart';
+import 'services/firebase_auth_service.dart';
+import 'services/local_storage/local_storage_service.dart';
 
 import 'widgets/app_snackbar.dart';
 import 'package:firebase_core/firebase_core.dart';

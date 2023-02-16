@@ -1,4 +1,4 @@
-import 'package:dota2_invoker/enums/local_storage_keys.dart';
+import '../../enums/local_storage_keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'ILocalStorageService.dart';

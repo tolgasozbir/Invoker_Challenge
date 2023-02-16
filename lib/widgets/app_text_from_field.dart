@@ -1,5 +1,5 @@
-import 'package:dota2_invoker/extensions/context_extension.dart';
-import 'package:dota2_invoker/extensions/widget_extension.dart';
+import '../extensions/context_extension.dart';
+import '../extensions/widget_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/app_colors.dart';

@@ -1,7 +1,7 @@
-import 'package:dota2_invoker/constants/app_strings.dart';
-import 'package:dota2_invoker/services/app_services.dart';
-import 'package:dota2_invoker/widgets/custom_animated_dialog.dart';
-import 'package:dota2_invoker/widgets/login_register_dialog_content.dart';
+import '../constants/app_strings.dart';
+import '../services/app_services.dart';
+import 'custom_animated_dialog.dart';
+import 'login_register_dialog_content.dart';
 import '../extensions/widget_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

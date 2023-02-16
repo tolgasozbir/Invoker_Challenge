@@ -1,9 +1,10 @@
+import 'package:flutter/material.dart';
+
+import '../constants/app_colors.dart';
 import '../constants/app_strings.dart';
 import '../extensions/context_extension.dart';
-import 'custom_animated_dialog.dart';
-import 'package:flutter/material.dart';
-import '../constants/app_colors.dart';
 import '../screens/dashboard/settings/settings_view.dart';
+import 'custom_animated_dialog.dart';
 
 class SettingsButton extends StatefulWidget {
   const SettingsButton({ super.key, });

@@ -1,6 +1,6 @@
-import 'package:dota2_invoker/services/database/IDatabaseService.dart';
-import 'package:dota2_invoker/services/firebase_auth_service.dart';
-import 'package:dota2_invoker/services/local_storage/ILocalStorageService.dart';
+import 'database/IDatabaseService.dart';
+import 'firebase_auth_service.dart';
+import 'local_storage/ILocalStorageService.dart';
 
 class AppServices {
   AppServices._();

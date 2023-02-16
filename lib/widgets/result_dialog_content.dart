@@ -1,6 +1,6 @@
-import 'package:dota2_invoker/constants/app_colors.dart';
-import 'package:dota2_invoker/services/user_manager.dart';
-import 'package:dota2_invoker/widgets/game_ui_widget.dart';
+import '../constants/app_colors.dart';
+import '../services/user_manager.dart';
+import 'game_ui_widget.dart';
 
 import '../extensions/context_extension.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,4 @@
-import 'package:dota2_invoker/mixins/loading_state_mixin.dart';
+import '../mixins/loading_state_mixin.dart';
 
 import '../extensions/context_extension.dart';
 import '../extensions/widget_extension.dart';

@@ -1,4 +1,4 @@
-import 'package:dota2_invoker/enums/local_storage_keys.dart';
+import '../../enums/local_storage_keys.dart';
 
 abstract class ILocalStorageService {
   Future<void> init();

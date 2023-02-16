@@ -1,11 +1,12 @@
-import '../../extensions/widget_extension.dart';
-import '../../widgets/user_info.dart';
 import 'package:flutter/material.dart';
+
 import '../../constants/app_colors.dart';
 import '../../constants/app_strings.dart';
 import '../../enums/elements.dart';
+import '../../extensions/widget_extension.dart';
 import '../../widgets/menu_button.dart';
 import '../../widgets/settings_button.dart';
+import '../../widgets/user_info.dart';
 import 'challanger/challanger_view.dart';
 import 'training/training_view.dart';
 import 'with_timer/with_timer_view.dart';

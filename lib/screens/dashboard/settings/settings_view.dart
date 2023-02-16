@@ -1,7 +1,7 @@
-import 'package:dota2_invoker/constants/app_colors.dart';
-import 'package:dota2_invoker/enums/local_storage_keys.dart';
-import 'package:dota2_invoker/services/app_services.dart';
-import 'package:dota2_invoker/services/sound_manager.dart';
+import '../../../constants/app_colors.dart';
+import '../../../enums/local_storage_keys.dart';
+import '../../../services/app_services.dart';
+import '../../../services/sound_manager.dart';
 
 import '../../../constants/app_strings.dart';
 

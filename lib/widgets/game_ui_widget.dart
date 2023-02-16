@@ -1,9 +1,9 @@
-import 'package:dota2_invoker/extensions/widget_extension.dart';
-import 'package:dota2_invoker/mixins/loading_state_mixin.dart';
-import 'package:dota2_invoker/services/app_services.dart';
-import 'package:dota2_invoker/services/user_manager.dart';
-import 'package:dota2_invoker/widgets/app_outlined_button.dart';
-import 'package:dota2_invoker/widgets/app_snackbar.dart';
+import '../extensions/widget_extension.dart';
+import '../mixins/loading_state_mixin.dart';
+import '../services/app_services.dart';
+import '../services/user_manager.dart';
+import 'app_outlined_button.dart';
+import 'app_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';

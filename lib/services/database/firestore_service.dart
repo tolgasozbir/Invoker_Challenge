@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dota2_invoker/models/user_model.dart';
+import '../../models/user_model.dart';
 
 import '../../constants/app_strings.dart';
 import '../../enums/database_table.dart';

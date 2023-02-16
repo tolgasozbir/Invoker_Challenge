@@ -1,8 +1,8 @@
 import 'dart:developer';
 import 'dart:math' as math;
-import 'package:dota2_invoker/services/sound_manager.dart';
-import 'package:dota2_invoker/services/user_manager.dart';
-import 'package:dota2_invoker/services/app_services.dart';
+import '../../services/sound_manager.dart';
+import '../../services/user_manager.dart';
+import '../../services/app_services.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import '../../constants/app_strings.dart';
