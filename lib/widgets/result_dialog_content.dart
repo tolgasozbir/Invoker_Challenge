@@ -13,14 +13,6 @@ class ResultDialogContent extends StatelessWidget {
   final int correctCount;
   final GameType gameType;
 
-  int get bestScore {
-    switch (gameType) {
-      case GameType.Training: return 0;
-      case GameType.Challanger: return UserManager.instance.user?.maxChallengerScore ?? 0;
-      case GameType.Timer: return UserManager.instance.user?.maxTimerScore ?? 0;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
    return Column(
@@ -36,7 +28,7 @@ class ResultDialogContent extends StatelessWidget {
       ),
       Divider(thickness: 1, color: AppColors.amber.withOpacity(0.6),),
       Text(
-        '${AppStrings.bestScore}\n\n${bestScore}',
+        '${AppStrings.bestScore}\n\n${UserManager.instance.getBestScore(gameType)}',
         textAlign: TextAlign.center,
         style: TextStyle(
           fontWeight: FontWeight.w500, 

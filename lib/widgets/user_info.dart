@@ -36,15 +36,9 @@ class _UserStatusState extends State<UserStatus> {
       onTap: () async {
         await CustomAnimatedDialog.showCustomDialog(
           dismissible: true,
-          content: AppServices.instance.firebaseAuthService.getCurrentUser == null 
-            ? LoginRegisterDialogContent()
-            : ElevatedButton( //TODO:
-              onPressed: () async {
-                await AppServices.instance.firebaseAuthService.signOut();
-                if (mounted) Navigator.pop(context);
-              }, 
-              child: Text("logout")
-            )
+          content: UserManager.instance.isLoggedIn() 
+            ? logoutbtn(context)
+            : LoginRegisterDialogContent()
         );
         if (mounted) setState(() { });
       },
@@ -92,6 +86,16 @@ class _UserStatusState extends State<UserStatus> {
           ).wrapPadding(const EdgeInsets.only(top: 8)).wrapExpanded(),
         ],
       ),
+    );
+  }
+
+  ElevatedButton logoutbtn(BuildContext context) {
+    return ElevatedButton( //TODO:
+      onPressed: () async {
+        await AppServices.instance.firebaseAuthService.signOut();
+        if (mounted) Navigator.pop(context);
+      }, 
+      child: Text("logout")
     );
   }
 

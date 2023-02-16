@@ -223,37 +223,29 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin {
             //TODO:
             child: const Text(AppStrings.send),
             onPressed: () async {
+              final isLoggedIn = UserManager.instance.isLoggedIn();
               final user = UserManager.instance.user;
-              final isLoggedIn = AppServices.instance.firebaseAuthService.getCurrentUser;
               final uid = user?.uid;
               final name = user!.nickname;
               final score = context.read<GameProvider>().getCorrectCombinationCount;
               final time = context.read<GameProvider>().getTimeValue;
               final db = AppServices.instance.databaseService;
-              if (isLoggedIn == null || uid == null) {
+              if (!isLoggedIn || uid == null) {
                 AppSnackBar.showSnackBarMessage(
                   text: AppStrings.errorSubmitScore1, 
                   snackBartype: SnackBarType.error,
                 );
                 return;
               }
-
-              int getBestScore() {
-                switch (widget.gameType) {
-                  case GameType.Training: return 0;
-                  case GameType.Challanger: return user.maxChallengerScore;
-                  case GameType.Timer: return user.maxTimerScore;
-                }
-              }
-
-              if (score <= getBestScore()) {
+      
+              if (score <= UserManager.instance.getBestScore(widget.gameType)) {
                   AppSnackBar.showSnackBarMessage(
                   text: AppStrings.errorSubmitScore2, 
                   snackBartype: SnackBarType.error,
                 );
                 return;
               }
-
+      
               switch (dbTable) {
                 case DatabaseTable.timer:
                   await db.addTimerScore(
@@ -275,7 +267,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin {
                   );
                   break;
               }
-
+      
               Navigator.pop(context);
             },
           ).wrapExpanded(),

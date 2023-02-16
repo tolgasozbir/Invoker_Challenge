@@ -36,12 +36,12 @@ abstract class SplashViewModel extends State<SplashView> {
   }
 
   Future<void> getUserRecords() async {
-    var user = AppServices.instance.firebaseAuthService.getCurrentUser;
+    var isLoggedIn = UserManager.instance.isLoggedIn();
     var hasConnection = await InternetConnectionChecker().hasConnection;
     //fetch or create user record and set data
     UserManager.instance.setUser(await UserManager.instance.fetchOrCreateUser());
     //Saving local data to db if user is logged in and has internet connection
-    if (user != null && hasConnection) {
+    if (!isLoggedIn && hasConnection) {
       await AppServices.instance.databaseService.createOrUpdateUser(UserManager.instance.user!);
     } 
     log(UserManager.instance.user?.uid ?? "uid: null");

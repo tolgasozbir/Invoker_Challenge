@@ -1,4 +1,5 @@
 import 'package:dota2_invoker/models/user_model.dart';
+import 'package:dota2_invoker/widgets/game_ui_widget.dart';
 
 import '../constants/app_strings.dart';
 import '../enums/local_storage_keys.dart';
@@ -16,6 +17,11 @@ class UserManager {
 
   void setUser(UserModel user){
     _userModel = user;
+  }
+
+  bool isLoggedIn() {
+    var user = AppServices.instance.firebaseAuthService.getCurrentUser;
+    return user == null ? false : true;
   }
 
   UserModel createUser() {
@@ -51,6 +57,14 @@ class UserManager {
       await setAndSaveUserToLocale(createdUser);
       setUser(createdUser);
       return createdUser;
+    }
+  }
+
+  int getBestScore(GameType gameType) {
+    switch (gameType) {
+      case GameType.Training: return 0;
+      case GameType.Challanger: return user?.maxChallengerScore ?? 0;
+      case GameType.Timer: return user?.maxTimerScore ?? 0;
     }
   }
 }
