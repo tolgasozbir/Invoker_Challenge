@@ -1,8 +1,8 @@
-import 'dart:math';
-
 import 'package:dota2_invoker/extensions/widget_extension.dart';
 import 'package:dota2_invoker/services/app_services.dart';
+import 'package:dota2_invoker/services/user_manager.dart';
 import 'package:dota2_invoker/widgets/app_outlined_button.dart';
+import 'package:dota2_invoker/widgets/app_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -36,7 +36,6 @@ class GameUIWidget extends StatefulWidget {
 class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin {
 
   final _animKey = GlobalKey<TrueFalseWidgetState>();
-  final TextEditingController _textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) => _bodyView(context);
@@ -215,38 +214,75 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin {
     CustomAnimatedDialog.showCustomDialog(
       title: AppStrings.result, 
       content: ResultDialogContent(
-        correctCount: context.read<GameProvider>().getCorrectCombinationCount, 
-        textEditingController: _textEditingController,
+        correctCount: context.read<GameProvider>().getCorrectCombinationCount,
+        gameType: widget.gameType,
       ),
       action: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           TextButton(
+            //TODO:
             child: const Text(AppStrings.send),
             onPressed: () async {
-              //TODO:
-              var name = _textEditingController.text.trim();
+              final user = UserManager.instance.user;
+              final isLoggedIn = AppServices.instance.firebaseAuthService.getCurrentUser;
+              final uid = user?.uid;
+              final name = user!.nickname;
               final score = context.read<GameProvider>().getCorrectCombinationCount;
               final time = context.read<GameProvider>().getTimeValue;
               final db = AppServices.instance.databaseService;
-              if (name.isEmpty) {
-                name = AppStrings.unNamed + Random().nextInt(999999).toString();
+              if (isLoggedIn == null || uid == null) {
+                AppSnackBar.showSnackBarMessage(
+                  text: AppStrings.errorSubmitScore1, 
+                  snackBartype: SnackBarType.error,
+                );
+                return;
               }
+
+              int getBestScore() {
+                switch (widget.gameType) {
+                  case GameType.Training: return 0;
+                  case GameType.Challanger: return user.maxChallengerScore;
+                  case GameType.Timer: return user.maxTimerScore;
+                }
+              }
+
+              if (score <= getBestScore()) {
+                  AppSnackBar.showSnackBarMessage(
+                  text: AppStrings.errorSubmitScore2, 
+                  snackBartype: SnackBarType.error,
+                );
+                return;
+              }
+
               switch (dbTable) {
                 case DatabaseTable.timer:
-                  await db.addTimerScore(TimerResult(name: name, score: score));
+                  await db.addTimerScore(
+                    TimerResult(
+                      uid: uid, 
+                      name: name, 
+                      score: score,
+                    ),
+                  );
                   break;
                 case DatabaseTable.challenger:
-                  await db.addChallengerScore(ChallengerResult(name: name, time: time, score: score));
+                  await db.addChallengerScore(
+                    ChallengerResult(
+                      uid: uid, 
+                      name: name, 
+                      time: time, 
+                      score: score,
+                    ),
+                  );
                   break;
               }
+
               Navigator.pop(context);
             },
-          ),
+          ).wrapExpanded(),
           TextButton(
             child: const Text(AppStrings.back),
             onPressed: () => Navigator.pop(context),
-          ),
+          ).wrapExpanded(),
         ],
       ),
     );
@@ -261,9 +297,15 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin {
       padding: EdgeInsets.only(top: context.dynamicHeight(0.04)),
       onPressed: () {
         context.read<GameProvider>().resetTimer();
-        widget.gameType == GameType.Timer 
-          ? context.read<GameProvider>().startCoundown(showResultDialog)
-          : context.read<GameProvider>().startTimer();
+        switch (widget.gameType) {
+          case GameType.Training: break;
+          case GameType.Challanger: 
+            context.read<GameProvider>().startTimer(); 
+            break;
+          case GameType.Timer:
+            context.read<GameProvider>().startCoundown(showResultDialog);
+            break;
+        }
         context.read<SpellProvider>().getRandomSpell();
       },
     );

@@ -84,6 +84,12 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),

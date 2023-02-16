@@ -1,4 +1,6 @@
 class AppStrings {
+  AppStrings._();
+  
   static const String appName = 'Invoker Game';
   static const String appVersion = 'Beta 1.0';
 
@@ -33,12 +35,15 @@ class AppStrings {
   static const String or = '-OR-';
   static const String register = 'Register';
   static const String errorMessage = 'Something went wrong!';
+  static const String errorSubmitScore1 = 'You must be logged in to submit your score.';
+  static const String errorSubmitScore2 = 'To submit your score, you need to beat your previous score.';
 
   static const String time = 'Time';
   static const String score = 'Score';
   static const String showMore = 'Show more';
 
   static const String trueCombinations = 'True Combinations'; //score
+  static const String bestScore = 'Your best score is';
   static const String back = 'Back';
   static const String send = 'Send';
 

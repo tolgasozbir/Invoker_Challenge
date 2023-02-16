@@ -1,13 +1,13 @@
 import 'dart:convert';
 
 class ChallengerResult {
-  //final String id;
+  final String uid;
   final String name;
   final int time;
   final int score;
   
   ChallengerResult({
-    //required this.id,
+    required this.uid,
     required this.name,
     required this.time,
     required this.score,
@@ -15,7 +15,7 @@ class ChallengerResult {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      //'id': id,
+      'uid': uid,
       'name': name,
       'time': time,
       'score': score,
@@ -24,7 +24,7 @@ class ChallengerResult {
 
   factory ChallengerResult.fromMap(Map<String, dynamic> map) {
     return ChallengerResult(
-      //id: map['id'] as String,
+      uid: map['uid'] as String,
       name: map['name'] as String,
       time: map['time'] as int,
       score: map['score'] as int,

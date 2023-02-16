@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:splash/splash.dart';
 
 import '../constants/app_colors.dart';
 import '../extensions/context_extension.dart';
@@ -106,6 +107,7 @@ class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateM
       backgroundColor: widget.primaryColor ?? AppColors.buttonBgColor,
       elevation: 10,
       shadowColor: widget.color,
+      splashFactory: WaveSplash.splashFactory,
       shape: RoundedRectangleBorder(
         borderRadius: const BorderRadius.all(Radius.circular(8)),
         side: BorderSide(color: widget.color),

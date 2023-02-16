@@ -12,9 +12,9 @@ class CustomAnimatedDialog {
       barrierDismissible: dismissible,
       transitionDuration: const Duration(milliseconds: 400),
       pageBuilder: (_, __, ___) {
-        return Material(
-          type: MaterialType.transparency,
-          child: SafeArea(
+        return Scaffold(
+          backgroundColor: AppColors.transparent,
+          body: SafeArea(
             child: Center(
               child: Container(
                 height: height ?? navigatorKey.currentContext!.dynamicHeight(0.6),

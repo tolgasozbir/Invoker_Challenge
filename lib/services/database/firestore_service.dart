@@ -44,18 +44,18 @@ class FirestoreService implements IDatabaseService {
   }
 
   @override
-  Future<void> addChallengerScore(ChallengerResult score) async {
+  Future<void> addChallengerScore(ChallengerResult result) async {
     try {
-      await _collectionRefChallanger.add(score.toMap());
+      await _collectionRefChallanger.doc(result.uid).set(result.toMap());
     } catch (e) {
       log(e.toString());
     }
   }
 
   @override
-  Future<void> addTimerScore(TimerResult score) async {
+  Future<void> addTimerScore(TimerResult result) async {
     try {
-      await _collectionRefTimer.add(score.toMap());
+      await _collectionRefTimer.doc(result.uid).set(result.toMap());
     } catch (e) {
       log(e.toString());
     }
