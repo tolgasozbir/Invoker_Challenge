@@ -20,6 +20,7 @@ dependencies:
   cupertino_icons: ^1.0.2
 
   #Utils
+  flutter_svg: ^1.1.6
   audioplayers: ^0.20.0
   internet_connection_checker: ^1.0.0+1
 
@@ -62,3 +63,4 @@ flutter:
     - assets/sounds/spell_sounds/
 
     - assets/lottie/
+    - assets/svg/

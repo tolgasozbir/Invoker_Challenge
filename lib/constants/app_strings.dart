@@ -47,6 +47,10 @@ class AppStrings {
   static const String errorSubmitScore1 = 'You must be logged in to submit your score.';
   static const String errorSubmitScore2 = 'To submit your score, you need to beat your previous score.';
   static const String succesSubmitScore = 'Your score has been sent successfully.';
+  static const String sbInfo = 'Info';
+  static const String sbSuccess = 'Success';
+  static const String sbWarning = 'Warning';
+  static const String sbError = 'Error';
 
   static const String time = 'Time';
   static const String score = 'Score';

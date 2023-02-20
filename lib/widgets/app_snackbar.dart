@@ -1,3 +1,5 @@
+import 'package:dota2_invoker/constants/app_strings.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../extensions/widget_extension.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +19,7 @@ class AppSnackBar {
 
   static showSnackBarMessage({
     required String text, 
-    Duration duration = const Duration(milliseconds: 2000), 
+    Duration duration = const Duration(milliseconds: 2400), 
     required SnackBarType snackBartype,
   }) {
     return scaffoldMessengerKey.currentState?.showSnackBar(
@@ -49,36 +51,36 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
 
   late final AnimationController _controller;
   late final Animation<Offset> _animation;
+  final animOffset = Tween<Offset>(begin: const Offset(0, 10), end: Offset.zero);
+
+  final double SnackBarHeight = 92;
+  final double bgIconSize = 64;
+  double get position => (SnackBarHeight - bgIconSize) / 2;
 
   @override
   void initState() {
     super.initState();
 
     _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 600));
-    _animation = Tween<Offset>(begin: const Offset(0, 10), end: Offset.zero)
-                .animate(CurvedAnimation(
-                  parent: _controller, 
-                  curve: Curves.elasticOut,
-                ),
-              );
+    _animation = animOffset.animate(CurvedAnimation(parent: _controller, curve: Curves.elasticOut));
     _controller.forward();
 
     switch (widget.type) {
       case SnackBarType.info:
         snackBarColor = AppColors.infoColor;
-        snackBarTitle = 'info'; //TODO: STRİNGLERDE TOPLAYABİLİRSİN
+        snackBarTitle = AppStrings.sbInfo;
         break;
       case SnackBarType.success:
         snackBarColor = AppColors.successColor;
-        snackBarTitle = 'success';
+        snackBarTitle = AppStrings.sbSuccess;
         break;
       case SnackBarType.warning:
         snackBarColor = AppColors.warningColor;
-        snackBarTitle = 'warning';
+        snackBarTitle = AppStrings.sbWarning;
         break;
       case SnackBarType.error:
         snackBarColor = AppColors.errorColor;
-        snackBarTitle = 'error';
+        snackBarTitle = AppStrings.sbError;
         break;
     }
   }
@@ -95,23 +97,26 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
       onTap: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
       child: SlideTransition(
         position: _animation,
-        child: Stack(
-          children: [
-            Container(
-              height: 92,
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: snackBarColor,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(10),
-                  bottomRight: Radius.circular(20),
-                  bottomLeft: Radius.circular(5),
-                ),
-              ),
-              child: Row(
+        child: Container(
+          height: SnackBarHeight,
+          decoration: BoxDecoration(
+            color: snackBarColor,
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(10),
+              bottomRight: Radius.circular(20),
+              bottomLeft: Radius.circular(5),
+            ),
+          ),
+          child: Stack(
+            children: [
+              quas(),
+              wex(),
+              exort(),
+              invokerLogo(),
+              dota2Logo(),
+              Row(
                 children: [
-                  const EmptyBox.w32(),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -135,11 +140,75 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
                     ),
                   ),
                 ],
-              ),
-            ),
-          ],
+              ).wrapPadding(const EdgeInsets.all(16)),
+            ],
+          ),
         ),
       ),
     );
   }
+
+  Positioned invokerLogo() {
+    return Positioned(
+      left: 0,
+      top: -position,
+      child: SvgPicture.asset(
+        "assets/svg/ic_invoker.svg",
+        color: Colors.grey.shade800.withOpacity(0.16),
+        width: bgIconSize+32,
+      ),
+    );
+  }
+
+  Positioned dota2Logo() {
+    return Positioned(
+      right: position,
+      top: position,
+      child: SvgPicture.asset(
+        "assets/svg/ic_dota2.svg",
+        color: Colors.grey.shade800.withOpacity(0.32),
+        width: bgIconSize,
+      ),
+    );
+  }
+  
+  Positioned quas() {
+    return Positioned(
+      left: 0,
+      right: 64,
+      top: position/2,
+      child: SvgPicture.asset(
+        "assets/svg/quas.svg",
+        color: AppColors.quasColor.withOpacity(0.72),
+        width: bgIconSize/2,
+      ),
+    );
+  }
+  
+  Positioned wex() {
+    return Positioned(
+      left: 0,
+      right: 0,
+      top: position/2,
+      child: SvgPicture.asset(
+        "assets/svg/wex.svg",
+        color: AppColors.wexColor.withOpacity(0.72),
+        width: bgIconSize/2,
+      ),
+    );
+  }
+  
+  Positioned exort() {
+    return Positioned(
+      left: 64,
+      right: 0,
+      top: position/2,
+      child: SvgPicture.asset(
+        "assets/svg/exort.svg",
+        color: AppColors.exortColor.withOpacity(0.72),
+        width: bgIconSize/2,
+      ),
+    );
+  }  
+  
 }
