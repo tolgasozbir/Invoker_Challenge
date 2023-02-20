@@ -17,7 +17,8 @@ class SoundManager {
 
   SoundManager._();
 
-  final _player = AudioCache();
+  AudioPlayer? _player;
+  final _cache = AudioCache();
   final Random _rnd = Random();
 
   double _volume = 100;
@@ -26,8 +27,15 @@ class SoundManager {
     _volume = value;
   }
 
-  void _playSound({required String fileName, double volume = 0.35}){
-    _player.play(fileName, volume: volume * getVolume/100);
+  void _playSound({required String fileName, double volume = 0.35, bool nonstop = true}) async {
+    if (!nonstop) {
+      _player?.stop();
+    }
+    _player = await _cache.play(fileName, volume: volume * getVolume/100);
+  }
+
+  void playMeepMerp() {
+    _playSound(fileName: SoundPaths.meepMerp);
   }
 
   void playSoundBegining(){

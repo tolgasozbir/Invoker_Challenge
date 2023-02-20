@@ -51,8 +51,10 @@ class _LeaderboardWithTimerState extends State<LeaderboardWithTimer> with Loadin
     return AppOutlinedButton(
       width: double.infinity,
       title: AppStrings.showMore,
-      onPressed: isLoading ? null : () async {
+      isButtonActive: !isLoading,
+      onPressed: () async {
         changeLoadingState();
+        ScaffoldMessenger.of(context).removeCurrentSnackBar();
         await Future.delayed(const Duration(seconds: 1));
         results.addAll(await AppServices.instance.databaseService.getTimerScores());
         changeLoadingState();

@@ -224,12 +224,14 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
           children: [
             AppOutlinedButton(
               title: AppStrings.send,
-              onPressed: isLoading ? null : () async => await submitScoreFn(setState ,dbTable),
+              isButtonActive: !isLoading,
+              onPressed: () async => await submitScoreFn(setState ,dbTable),
             ).wrapExpanded(),
             EmptyBox.w8(),
             AppOutlinedButton(
               title: AppStrings.back,
-              onPressed: isLoading ? null : () => Navigator.pop(context),
+              isButtonActive: !isLoading,
+              onPressed: () => Navigator.pop(context),
             ).wrapExpanded(),
           ],
         ),

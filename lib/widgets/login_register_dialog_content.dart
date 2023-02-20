@@ -108,7 +108,8 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
   Widget loginOrRegisterBtn() {
     return AppOutlinedButton(
       width: double.infinity,
-      onPressed: isLoading ? null : onTapFn, 
+      onPressed: onTapFn, 
+      isButtonActive: !isLoading,
       title: isLoginCheckboxSelected ? AppStrings.login : AppStrings.register,
       textStyle: textStyle,
     ).wrapPadding(EdgeInsets.symmetric(horizontal: 4));

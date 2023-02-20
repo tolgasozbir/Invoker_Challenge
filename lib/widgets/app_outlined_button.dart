@@ -1,3 +1,4 @@
+import 'package:dota2_invoker/services/sound_manager.dart';
 import '../constants/app_colors.dart';
 import '../extensions/context_extension.dart';
 import '../extensions/widget_extension.dart';
@@ -12,7 +13,8 @@ class AppOutlinedButton extends StatelessWidget {
     this.width, 
     this.height, 
     this.textStyle, 
-    this.padding
+    this.padding,
+    this.isButtonActive = true,
   });
 
   final void Function()? onPressed;
@@ -21,11 +23,14 @@ class AppOutlinedButton extends StatelessWidget {
   final double? height;
   final TextStyle? textStyle;
   final EdgeInsets? padding;
+  final bool isButtonActive;
+
+  Color _buttonStateColor(Color color) => isButtonActive ? color : color.withOpacity(0.5);
 
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
-      onPressed: onPressed, 
+      onPressed: isButtonActive ? onPressed : () => SoundManager.instance.playMeepMerp(), 
       child: Text(title, style: textStyle ?? TextStyle(fontSize: context.sp(12))),
       style: OutlinedButton.styleFrom(
         splashFactory: WaveSplash.splashFactory,
@@ -34,9 +39,9 @@ class AppOutlinedButton extends StatelessWidget {
           height ?? 48
         ),
         //textStyle: TextStyle(fontSize: context.sp(12)),
-        side: BorderSide(color: AppColors.outlinedBorder),
-        foregroundColor: AppColors.outlinedSurface,
-        backgroundColor: AppColors.buttonBgColor,
+        side: BorderSide(color: _buttonStateColor(AppColors.outlinedBorder)),
+        foregroundColor: _buttonStateColor(AppColors.outlinedSurface),
+        backgroundColor: _buttonStateColor(AppColors.buttonBgColor),
       ),
     ).wrapPadding(padding ?? EdgeInsets.zero);
   }

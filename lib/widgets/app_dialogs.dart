@@ -1,3 +1,4 @@
+import 'package:dota2_invoker/services/sound_manager.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/app_colors.dart';
@@ -34,6 +35,8 @@ class AppDialogs {
               onTap: () {
                 if (dismissible) {
                   Navigator.pop(context);
+                } else {
+                  SoundManager.instance.playMeepMerp();
                 }
               },
               child: SafeArea(
