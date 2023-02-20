@@ -61,6 +61,7 @@ flutter:
     - assets/sounds/gg_sounds/
     - assets/sounds/loading_sounds/
     - assets/sounds/spell_sounds/
+    - assets/sounds/misc/
 
     - assets/lottie/
     - assets/svg/

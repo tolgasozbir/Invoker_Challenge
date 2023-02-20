@@ -84,6 +84,15 @@ class ImagePaths {
   static const String elements = '$_root/elements/';
   static const String spells = '$_root/spells/';
 
+  //svg
+  static const String _svgRoot = 'assets/svg';
+
+  static const String svgQuas = '$_svgRoot/quas.svg';
+  static const String svgWex = '$_svgRoot/wex.svg';
+  static const String svgExort = '$_svgRoot/exort.svg';
+  static const String svgDota2 = '$_svgRoot/dota2.svg';
+  static const String svgInvoker = '$_svgRoot/invoker.svg';
+
   //splash
   static const String splashImage1 = '$_splash/1.gif';
   static const String splashImage2 = '$_splash/2.jpg';
@@ -103,6 +112,10 @@ class SoundPaths {
   static const String _ggSounds = '$_root/gg_sounds';
   static const String _loadingSounds = '$_root/loading_sounds';
   static const String _spellSounds = '$_root/spell_sounds';
+  static const String _misc = '$_root/misc';
+
+  //misc
+  static const String meepMerp = '$_misc/meep_merp.mp3';
 
   //fail sounds
   static const String fail1 = '$_failSounds/fail1.mp3';

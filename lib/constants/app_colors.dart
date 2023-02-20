@@ -32,6 +32,9 @@ class AppColors {
   static const Color dialogBgColor      = Color(0xFF444444);
   static const Color resultsCardBg      = Color(0xFF666666);
 
+  //Svg Color
+  static const Color svgGray = Color(0xFF424242);
+
   static List<Color> get gradientBlueYellow => const [
     Color(0x3300BBFF),
     Color(0x33FFCC00)

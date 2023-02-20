@@ -153,8 +153,8 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
       left: 0,
       top: -position,
       child: SvgPicture.asset(
-        "assets/svg/ic_invoker.svg",
-        color: Colors.grey.shade800.withOpacity(0.16),
+        ImagePaths.svgInvoker,
+        color: AppColors.svgGray.withOpacity(0.16),
         width: bgIconSize+32,
       ),
     );
@@ -165,8 +165,8 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
       right: position,
       top: position,
       child: SvgPicture.asset(
-        "assets/svg/ic_dota2.svg",
-        color: Colors.grey.shade800.withOpacity(0.32),
+        ImagePaths.svgDota2,
+        color: AppColors.svgGray.withOpacity(0.32),
         width: bgIconSize,
       ),
     );
@@ -178,7 +178,7 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
       right: 64,
       top: position/2,
       child: SvgPicture.asset(
-        "assets/svg/quas.svg",
+        ImagePaths.svgQuas,
         color: AppColors.quasColor.withOpacity(0.72),
         width: bgIconSize/2,
       ),
@@ -191,7 +191,7 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
       right: 0,
       top: position/2,
       child: SvgPicture.asset(
-        "assets/svg/wex.svg",
+        ImagePaths.svgWex,
         color: AppColors.wexColor.withOpacity(0.72),
         width: bgIconSize/2,
       ),
@@ -204,7 +204,7 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
       right: 0,
       top: position/2,
       child: SvgPicture.asset(
-        "assets/svg/exort.svg",
+        ImagePaths.svgExort,
         color: AppColors.exortColor.withOpacity(0.72),
         width: bgIconSize/2,
       ),

@@ -117,6 +117,7 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
   void onTapFn() async {
     setState(() => isValidate = formKey.currentState!.validate());
     if (!isValidate) {
+      ScaffoldMessenger.of(context).removeCurrentSnackBar();
       AppSnackBar.showSnackBarMessage(text: AppStrings.fillFields, snackBartype: SnackBarType.info);
       return;
     }
