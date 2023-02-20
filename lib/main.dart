@@ -1,3 +1,5 @@
+import 'package:dota2_invoker/widgets/app_dialogs.dart';
+
 import 'services/app_services.dart';
 import 'services/database/firestore_service.dart';
 import 'services/firebase_auth_service.dart';
@@ -13,8 +15,6 @@ import 'constants/app_strings.dart';
 import 'providers/game_provider.dart';
 import 'providers/spell_provider.dart';
 import 'screens/splash/splash_view.dart';
-
-final navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
       title: AppStrings.appName,
       theme: ThemeData.dark(),
       home: const SplashView(),
-      navigatorKey: navigatorKey,
+      navigatorKey: AppDialogs.navigatorKey,
       scaffoldMessengerKey: AppSnackBar.scaffoldMessengerKey,
     );
   }

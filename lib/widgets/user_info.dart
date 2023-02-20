@@ -1,6 +1,6 @@
 import '../constants/app_strings.dart';
 import '../services/app_services.dart';
-import 'custom_animated_dialog.dart';
+import 'app_dialogs.dart';
 import 'login_register_dialog_content.dart';
 import '../extensions/widget_extension.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +34,7 @@ class _UserStatusState extends State<UserStatus> {
       splashColor: AppColors.transparent,
       highlightColor: AppColors.transparent,
       onTap: () async {
-        await CustomAnimatedDialog.showCustomDialog(
+        await AppDialogs.showSlidingDialog(
           dismissible: true,
           content: UserManager.instance.isLoggedIn() 
             ? logoutbtn(context)

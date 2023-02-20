@@ -19,7 +19,7 @@ import '../models/timer_result.dart';
 import '../providers/game_provider.dart';
 import '../providers/spell_provider.dart';
 import '../services/sound_manager.dart';
-import 'custom_animated_dialog.dart';
+import 'app_dialogs.dart';
 import 'result_dialog_content.dart';
 import 'true_false_icon_widget.dart';
 
@@ -213,7 +213,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
   }
 
   void showResultDialog(DatabaseTable dbTable) {
-    CustomAnimatedDialog.showCustomDialog(
+    AppDialogs.showSlidingDialog(
       title: AppStrings.result, 
       content: ResultDialogContent(
         correctCount: context.read<GameProvider>().getCorrectCombinationCount,

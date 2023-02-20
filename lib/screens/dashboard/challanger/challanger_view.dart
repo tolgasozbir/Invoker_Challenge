@@ -7,7 +7,7 @@ import '../../../constants/app_colors.dart';
 import '../../../constants/app_strings.dart';
 import '../../../extensions/context_extension.dart';
 import '../../../providers/game_provider.dart';
-import '../../../widgets/custom_animated_dialog.dart';
+import '../../../widgets/app_dialogs.dart';
 import '../../../widgets/game_ui_widget.dart';
 import '../../../widgets/leaderboard_challanger.dart';
 
@@ -73,7 +73,7 @@ class _ChallangerViewState extends State<ChallangerView> {
       title: AppStrings.leaderboard,
       width: context.dynamicWidth(0.4),
       padding: EdgeInsets.only(top: context.dynamicHeight(0.02)),
-      onPressed: () => CustomAnimatedDialog.showCustomDialog(
+      onPressed: () => AppDialogs.showScaleDialog(
         title: AppStrings.leaderboard,
         content: Card(
           color: AppColors.resultsCardBg, 

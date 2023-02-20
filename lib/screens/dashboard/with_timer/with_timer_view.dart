@@ -7,7 +7,7 @@ import '../../../constants/app_colors.dart';
 import '../../../constants/app_strings.dart';
 import '../../../extensions/context_extension.dart';
 import '../../../providers/game_provider.dart';
-import '../../../widgets/custom_animated_dialog.dart';
+import '../../../widgets/app_dialogs.dart';
 import '../../../widgets/game_ui_widget.dart';
 import '../../../widgets/leaderboard_with_timer.dart';
 
@@ -75,7 +75,7 @@ class _WithTimerViewState extends State<WithTimerView> {
       title: AppStrings.leaderboard, 
       width: context.dynamicWidth(0.4),
       padding: EdgeInsets.only(top: context.dynamicHeight(0.02)),
-      onPressed: () => CustomAnimatedDialog.showCustomDialog(
+      onPressed: () => AppDialogs.showScaleDialog(
         title: AppStrings.leaderboard,
         content: const Card(
           color: AppColors.resultsCardBg, 

@@ -4,7 +4,7 @@ import '../constants/app_colors.dart';
 import '../constants/app_strings.dart';
 import '../extensions/context_extension.dart';
 import '../screens/dashboard/settings/settings_view.dart';
-import 'custom_animated_dialog.dart';
+import 'app_dialogs.dart';
 
 class SettingsButton extends StatefulWidget {
   const SettingsButton({ super.key, });
@@ -67,7 +67,7 @@ class _SettingsButtonState extends State<SettingsButton> with SingleTickerProvid
 
   void onTapFn() async {
     _controller.forward();
-    await CustomAnimatedDialog.showCustomDialog<bool>(
+    await AppDialogs.showSlidingDialog<bool>(
       height: context.dynamicHeight(0.72),
       title: AppStrings.settings, 
       content: const SettingsView(),
