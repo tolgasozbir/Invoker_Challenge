@@ -1,4 +1,4 @@
-import '../constants/app_strings.dart';
+import 'package:dota2_invoker/models/user_model.dart';
 import '../services/app_services.dart';
 import 'app_dialogs.dart';
 import 'login_register_dialog_content.dart';
@@ -6,10 +6,12 @@ import '../extensions/widget_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../constants/app_colors.dart';
-import '../services/user_manager.dart';
+import '../providers/user_manager.dart';
 
 class UserStatus extends StatefulWidget {
-  UserStatus({super.key});
+  UserStatus({super.key, required this.user});
+
+  final UserModel user;
 
   @override
   State<UserStatus> createState() => _UserStatusState();
@@ -24,11 +26,11 @@ class _UserStatusState extends State<UserStatus> {
 
   @override
   Widget build(BuildContext context) {
-    final username = UserManager.instance.user?.nickname ?? '${AppStrings.guest}';
-    final currentExp = UserManager.instance.user?.exp ?? 0;
-    final nextLevelExp = ((UserManager.instance.user?.level ?? 0) * 25) + 100;
+    final username = widget.user.nickname;
+    final currentExp = widget.user.exp;
+    final nextLevelExp = widget.user.level * 25;
     final minExp = 0;
-    final level = 'Level ${(UserManager.instance.user?.level ?? 0)}';
+    final level = 'Level ${widget.user.level}';
 
     return InkWell(
       splashColor: AppColors.transparent,

@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'dart:math' as math;
 import '../../services/sound_manager.dart';
-import '../../services/user_manager.dart';
+import '../../providers/user_manager.dart';
 import '../../services/app_services.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -42,10 +42,10 @@ abstract class SplashViewModel extends State<SplashView> {
     UserManager.instance.setUser(await UserManager.instance.fetchOrCreateUser());
     //Saving local data to db if user is logged in and has internet connection
     if (isLoggedIn && hasConnection) {
-      await AppServices.instance.databaseService.createOrUpdateUser(UserManager.instance.user!);
+      await AppServices.instance.databaseService.createOrUpdateUser(UserManager.instance.user);
     } 
-    log(UserManager.instance.user?.uid ?? "uid: null");
-    log(UserManager.instance.user?.nickname ?? "nickname: null");
+    log(UserManager.instance.user.uid ?? "uid: null");
+    log(UserManager.instance.user.nickname);
   }
 
   void getSettingsValues() {

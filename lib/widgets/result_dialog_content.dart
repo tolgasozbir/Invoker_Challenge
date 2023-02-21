@@ -1,5 +1,5 @@
 import '../constants/app_colors.dart';
-import '../services/user_manager.dart';
+import '../providers/user_manager.dart';
 import 'game_ui_widget.dart';
 
 import '../extensions/context_extension.dart';

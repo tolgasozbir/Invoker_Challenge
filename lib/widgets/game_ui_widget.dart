@@ -1,7 +1,7 @@
 import '../extensions/widget_extension.dart';
 import '../mixins/loading_state_mixin.dart';
 import '../services/app_services.dart';
-import '../services/user_manager.dart';
+import '../providers/user_manager.dart';
 import 'app_outlined_button.dart';
 import 'app_snackbar.dart';
 import 'package:flutter/material.dart';
@@ -213,10 +213,13 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
   }
 
   void showResultDialog(DatabaseTable dbTable) {
+    var score = context.read<GameProvider>().getCorrectCombinationCount;
+    UserManager.instance.addExp(score);
+    UserManager.instance.setBestScore(widget.gameType, score);
     AppDialogs.showSlidingDialog(
       title: AppStrings.result, 
       content: ResultDialogContent(
-        correctCount: context.read<GameProvider>().getCorrectCombinationCount,
+        correctCount: score,
         gameType: widget.gameType,
       ),
       action: StatefulBuilder(
@@ -242,8 +245,8 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
   Future<void> submitScoreFn(void Function(void Function()) setState, DatabaseTable dbTable) async {
     final isLoggedIn = UserManager.instance.isLoggedIn();
     final user = UserManager.instance.user;
-    final uid = user?.uid;
-    final name = user!.nickname;
+    final uid = user.uid;
+    final name = user.nickname;
     final score = context.read<GameProvider>().getCorrectCombinationCount;
     final time = context.read<GameProvider>().getTimeValue;
     final db = AppServices.instance.databaseService;
@@ -257,7 +260,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
       return;
     }
 
-    if (score <= UserManager.instance.getBestScore(widget.gameType)) {
+    if (score < UserManager.instance.getBestScore(widget.gameType)) {
       AppSnackBar.showSnackBarMessage(
         text: AppStrings.errorSubmitScore2, 
         snackBartype: SnackBarType.error,

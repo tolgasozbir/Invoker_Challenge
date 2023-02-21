@@ -1,5 +1,5 @@
 import 'dart:developer';
-import 'user_manager.dart';
+import '../providers/user_manager.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../widgets/app_snackbar.dart';
 import 'app_services.dart';
@@ -44,8 +44,6 @@ class FirebaseAuthService {
   Future<bool> signUp({required String email, required String password, required String username}) async {
     try {
       var user = UserManager.instance.user;
-      if (user == null) throw Exception("User could not be created!");
-
       final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
       if (userCredential.user != null) {
         user.uid = userCredential.user!.uid; //set uid

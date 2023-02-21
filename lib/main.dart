@@ -1,3 +1,4 @@
+import 'package:dota2_invoker/providers/user_manager.dart';
 import 'package:dota2_invoker/widgets/app_dialogs.dart';
 
 import 'services/app_services.dart';
@@ -31,6 +32,7 @@ void main() async {
     providers: [
       ChangeNotifierProvider(create: (context) => GameProvider()),
       ChangeNotifierProvider(create: (context) => SpellProvider()),
+      ChangeNotifierProvider(create: (context) => UserManager.instance),
     ],
     child: const MyApp(),
   ),);
