@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 import '../../../constants/app_colors.dart';
 import '../../../enums/local_storage_keys.dart';
 import '../../../services/app_services.dart';
@@ -86,7 +88,7 @@ class SettingsView extends StatelessWidget {
         const Spacer(),
         Text(text, style: TextStyle(fontSize: context.sp(14)),),
         const Spacer(flex: 9,),
-        const Icon(FontAwesomeIcons.chevronRight)
+        const Icon(CupertinoIcons.chevron_forward)
       ],
     );
   }
