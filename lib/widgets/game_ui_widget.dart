@@ -333,7 +333,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
   void startBtnFn() {
     context.read<GameProvider>().resetTimer();
     switch (widget.gameType) {
-      case GameType.Training: break;
+      case GameType.Training:
       case GameType.Challanger: 
         context.read<GameProvider>().startTimer(); 
         break;
