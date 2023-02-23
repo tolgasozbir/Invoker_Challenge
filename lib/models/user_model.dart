@@ -4,9 +4,9 @@ import 'dart:convert';
 class UserModel {
   UserModel({
     required this.uid,
-    required this.nickname,
-    required this.maxChallengerScore,
-    required this.maxTimerScore,
+    required this.username,
+    required this.bestChallengerScore,
+    required this.bestTimerScore,
     required this.level,
     required this.exp,
     required this.expMultiplier,
@@ -15,9 +15,9 @@ class UserModel {
 
   UserModel.guest({
     this.uid = null,
-    required this.nickname,
-    this.maxChallengerScore = 0,
-    this.maxTimerScore = 0,
+    required this.username,
+    this.bestChallengerScore = 0,
+    this.bestTimerScore = 0,
     this.level = 1,
     this.exp = 0,
     this.expMultiplier = 1,
@@ -30,9 +30,9 @@ class UserModel {
   });
 
   String? uid;
-  String nickname;
-  int maxChallengerScore;
-  int maxTimerScore;
+  String username;
+  int bestChallengerScore;
+  int bestTimerScore;
   int level;
   double exp;
   double expMultiplier;
@@ -41,9 +41,9 @@ class UserModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'uid': uid,
-      'nickname': nickname,
-      'maxChallengerScore': maxChallengerScore,
-      'maxTimerScore': maxTimerScore,
+      'username': username,
+      'bestChallengerScore': bestChallengerScore,
+      'bestTimerScore': bestTimerScore,
       'level': level,
       'exp': exp,
       'expMultiplier': expMultiplier,
@@ -54,9 +54,9 @@ class UserModel {
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
       uid: map['uid'] as String?,
-      nickname: map['nickname'] as String,
-      maxChallengerScore: map['maxChallengerScore'] as int,
-      maxTimerScore: map['maxTimerScore'] as int,
+      username: map['username'] as String,
+      bestChallengerScore: map['bestChallengerScore'] as int,
+      bestTimerScore: map['bestTimerScore'] as int,
       level: map['level'] as int,
       exp: double.tryParse(map['exp'].toString()) ?? 0, 
       expMultiplier: double.tryParse(map['expMultiplier'].toString()) ?? 0,

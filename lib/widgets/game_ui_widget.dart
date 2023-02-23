@@ -246,7 +246,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
     final isLoggedIn = UserManager.instance.isLoggedIn();
     final user = UserManager.instance.user;
     final uid = user.uid;
-    final name = user.nickname;
+    final name = user.username;
     final score = context.read<GameProvider>().getCorrectCombinationCount;
     final time = context.read<GameProvider>().getTimeValue;
     final db = AppServices.instance.databaseService;

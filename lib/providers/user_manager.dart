@@ -26,7 +26,7 @@ class UserManager extends ChangeNotifier {
   }
 
   UserModel createUser() {
-    var guest = UserModel.guest(nickname: AppStrings.guest+idGenerator());
+    var guest = UserModel.guest(username: AppStrings.guest+idGenerator());
     return guest;
   }
 
@@ -65,8 +65,8 @@ class UserManager extends ChangeNotifier {
   int getBestScore(GameType gameType) {
     switch (gameType) {
       case GameType.Training: return 0;
-      case GameType.Challanger: return user.maxChallengerScore;
-      case GameType.Timer: return user.maxTimerScore;
+      case GameType.Challanger: return user.bestChallengerScore;
+      case GameType.Timer: return user.bestTimerScore;
     }
   }  
   
@@ -75,10 +75,10 @@ class UserManager extends ChangeNotifier {
     switch (gameType) {
       case GameType.Training: break;
       case GameType.Challanger: 
-        user.maxChallengerScore = score;
+        user.bestChallengerScore = score;
         break;
       case GameType.Timer:
-        user.maxTimerScore = score;
+        user.bestTimerScore = score;
         break;
     }
     await setAndSaveUserToLocale(user);

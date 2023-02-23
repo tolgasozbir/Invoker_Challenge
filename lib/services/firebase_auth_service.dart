@@ -47,7 +47,7 @@ class FirebaseAuthService {
       final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
       if (userCredential.user != null) {
         user.uid = userCredential.user!.uid; //set uid
-        user.nickname = username; //set username
+        user.username = username; //set username
         //set locale
         await UserManager.instance.setAndSaveUserToLocale(user);
         //set firebase

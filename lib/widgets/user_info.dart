@@ -26,7 +26,7 @@ class _UserStatusState extends State<UserStatus> {
 
   @override
   Widget build(BuildContext context) {
-    final username = widget.user.nickname;
+    final username = widget.user.username;
     final currentExp = widget.user.exp;
     final nextLevelExp = widget.user.level * 25;
     final minExp = 0;

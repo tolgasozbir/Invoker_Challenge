@@ -45,7 +45,7 @@ abstract class SplashViewModel extends State<SplashView> {
       await AppServices.instance.databaseService.createOrUpdateUser(UserManager.instance.user);
     } 
     log(UserManager.instance.user.uid ?? "uid: null");
-    log(UserManager.instance.user.nickname);
+    log(UserManager.instance.user.username);
   }
 
   void getSettingsValues() {
