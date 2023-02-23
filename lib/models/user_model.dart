@@ -10,6 +10,7 @@ class UserModel {
     required this.level,
     required this.exp,
     required this.expMultiplier,
+    required this.talentTree,
   });
 
   UserModel.guest({
@@ -20,6 +21,12 @@ class UserModel {
     this.level = 1,
     this.exp = 0,
     this.expMultiplier = 1,
+    this.talentTree = const {
+                        '10' : false,
+                        '15' : false,
+                        '20' : false,
+                        '25' : false
+                      }
   });
 
   String? uid;
@@ -29,6 +36,7 @@ class UserModel {
   int level;
   double exp;
   double expMultiplier;
+  Map<String,dynamic>? talentTree;
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -39,6 +47,7 @@ class UserModel {
       'level': level,
       'exp': exp,
       'expMultiplier': expMultiplier,
+      'talentTree': talentTree,
     };
   }
 
@@ -51,6 +60,7 @@ class UserModel {
       level: map['level'] as int,
       exp: double.tryParse(map['exp'].toString()) ?? 0, 
       expMultiplier: double.tryParse(map['expMultiplier'].toString()) ?? 0,
+      talentTree: map['talentTree'] != null ? Map<String,dynamic>.from((map['talentTree'] as Map<String,dynamic>)) : null,
     );
   }
 

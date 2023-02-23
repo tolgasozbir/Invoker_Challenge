@@ -154,7 +154,7 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
       top: -position,
       child: SvgPicture.asset(
         ImagePaths.svgInvoker,
-        color: AppColors.svgGray.withOpacity(0.16),
+        color: AppColors.svgGrey.withOpacity(0.16),
         width: bgIconSize+32,
       ),
     );
@@ -166,7 +166,7 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
       top: position,
       child: SvgPicture.asset(
         ImagePaths.svgDota2,
-        color: AppColors.svgGray.withOpacity(0.32),
+        color: AppColors.svgGrey.withOpacity(0.32),
         width: bgIconSize,
       ),
     );

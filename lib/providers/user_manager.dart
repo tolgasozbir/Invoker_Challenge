@@ -76,11 +76,9 @@ class UserManager extends ChangeNotifier {
       case GameType.Training: break;
       case GameType.Challanger: 
         user.maxChallengerScore = score;
-        print("new best challenger score : " + user.maxChallengerScore.toString());
         break;
       case GameType.Timer:
         user.maxTimerScore = score;
-        print("new best timer score : " + user.maxTimerScore.toString());
         break;
     }
     await setAndSaveUserToLocale(user);
@@ -98,8 +96,6 @@ class UserManager extends ChangeNotifier {
     var currExp = _getCurrentExp + (exp * _expMultiplier);
     _levelUp(currExp);
     await setAndSaveUserToLocale(user);
-    print("Current Exp : " + user.exp.toString());
-    print("Current Level : " + user.level.toString());
   }
 
   void _levelUp(double exp) {
@@ -116,6 +112,36 @@ class UserManager extends ChangeNotifier {
       }
     }
     user.exp = currExp;
+    enableTalents();
+  }
+
+  //Talent Tree
+  final _treeLevels = const [10, 15, 20, 25];
+  List<int> get treeLevels => _treeLevels;
+
+  void enableTalents() {
+    var level = user.level;
+
+    //Return true if user level is in skill tree level array and talent is not active
+    var reachedTalent = !(user.talentTree?['$level'] ?? true) && treeLevels.contains(level);
+    if (!reachedTalent) return;
+
+    //TODO: Talents
+    switch (level) {
+      case 10: 
+        user.expMultiplier += 2; 
+        break;
+      case 15:
+        user.expMultiplier += 5;
+        break;
+      case 20:
+      case 25:
+        break;
+      default: break;
+    }
+    
+    //active current talent
+    user.talentTree?['$level'] = true;
   }
 
 }

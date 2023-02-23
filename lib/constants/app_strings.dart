@@ -60,7 +60,20 @@ class AppStrings {
   static const String trueCombinations = 'True Combinations'; //score
   static const String bestScore = 'Your best score is';
   static const String back = 'Back';
+  static const String close = 'Close';
   static const String send = 'Submit';
+
+  //Talent tree
+  static const String talentTree = 'Talent Tree';
+  static const String talent10 = '+2 exp multiplier';
+  static const List<String> talents = const [
+    '+2 exp multiplier',
+    '15 Talent Tree',
+    '20 Talent Tree',
+    '25 Talent Tree',
+  ];
+
+
 
   //Settings
   static const String aboutUs = 'About us';
@@ -77,6 +90,7 @@ class LottiePaths {
 }
 
 class ImagePaths {
+  ImagePaths._();
   static const String _root = 'assets/images';
   static const String _splash = '$_root/splash_images';
   static const String _qweGif = '$_root/qwe_gifs';
@@ -92,6 +106,7 @@ class ImagePaths {
   static const String svgExort = '$_svgRoot/exort.svg';
   static const String svgDota2 = '$_svgRoot/dota2.svg';
   static const String svgInvoker = '$_svgRoot/invoker.svg';
+  static const String svgTalentTree = '$_svgRoot/talent_tree.svg';
 
   //splash
   static const String splashImage1 = '$_splash/1.gif';
@@ -107,6 +122,7 @@ class ImagePaths {
 }
 
 class SoundPaths {
+  SoundPaths._();
   static const String _root = 'sounds';
   static const String _failSounds = '$_root/fail_sounds';
   static const String _ggSounds = '$_root/gg_sounds';

@@ -8,6 +8,7 @@ import '../../extensions/widget_extension.dart';
 import '../../providers/user_manager.dart';
 import '../../widgets/menu_button.dart';
 import '../../widgets/settings_button.dart';
+import '../../widgets/talent_tree.dart';
 import '../../widgets/user_info.dart';
 import 'challanger/challanger_view.dart';
 import 'training/training_view.dart';
@@ -25,13 +26,15 @@ class DashboardView extends StatelessWidget {
   }
 
   Widget _bodyView(BuildContext context) {
+    var user = context.watch<UserManager>().user;
     return SafeArea(
       child: SizedBox.expand(
         child: Column(
           children: [
             Row(
               children: [
-                UserStatus(user: context.watch<UserManager>().user).wrapAlign(Alignment.topLeft).wrapExpanded(),
+                UserStatus(user: user).wrapAlign(Alignment.topLeft).wrapExpanded(flex: 2),
+                TalentTree(user: user).wrapExpanded(),
                 const SettingsButton().wrapAlign(Alignment.topRight).wrapExpanded(),
               ],
             ).wrapExpanded(),
