@@ -21,7 +21,7 @@ import '../providers/game_provider.dart';
 import '../providers/spell_provider.dart';
 import '../services/sound_manager.dart';
 import 'app_dialogs.dart';
-import 'result_dialog_content.dart';
+import 'dialog_contents/result_dialog_content.dart';
 import 'true_false_icon_widget.dart';
 
 enum GameType { Training, Challanger, Timer }

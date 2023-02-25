@@ -19,10 +19,19 @@ class AppStrings {
   static const String scps = ' SCps';
 
   //Common
-  static const String start = 'Start';
   static const String leaderboard = 'Leaderboard';
+  static const String showMore = 'Show more';
   static const String result = 'Result';
-  static const String unNamed = 'Unnamed'; //
+  static const String send = 'Submit';
+  static const String start = 'Start';
+  static const String close = 'Close';
+  static const String back = 'Back';
+  static const String logout = 'Logout';
+
+  static const String time = 'Time';
+  static const String score = 'Score';
+  static const String trueCombinations = 'True Combinations';
+  static const String bestScore = 'Your best score is';
  
   //Form-Dialog
   static const String guest = 'Guest';
@@ -51,17 +60,7 @@ class AppStrings {
   static const String sbSuccess = 'Success';
   static const String sbWarning = 'Warning';
   static const String sbError = 'Error';
-
-  static const String time = 'Time';
-  static const String score = 'Score';
-  static const String showMore = 'Show more';
-  static const String noMoreData = 'No more data!';
-
-  static const String trueCombinations = 'True Combinations'; //score
-  static const String bestScore = 'Your best score is';
-  static const String back = 'Back';
-  static const String close = 'Close';
-  static const String send = 'Submit';
+  static const String sbNoMoreData = 'No more data!';
 
   //Talent tree
   static const String talentTree = 'Talent Tree';
@@ -72,8 +71,6 @@ class AppStrings {
     '20 Talent Tree',
     '25 Talent Tree',
   ];
-
-
 
   //Settings
   static const String aboutUs = 'About us';

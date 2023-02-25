@@ -132,8 +132,6 @@ class UserManager extends ChangeNotifier {
         user.expMultiplier += 2; 
         break;
       case 15:
-        user.expMultiplier += 5;
-        break;
       case 20:
       case 25:
         break;

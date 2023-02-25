@@ -1,7 +1,7 @@
 import 'package:dota2_invoker/models/user_model.dart';
-import '../services/app_services.dart';
+import 'package:dota2_invoker/widgets/dialog_contents/profile_dialog_content.dart';
 import 'app_dialogs.dart';
-import 'login_register_dialog_content.dart';
+import 'dialog_contents/login_register_dialog_content.dart';
 import '../extensions/widget_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -39,7 +39,7 @@ class _UserStatusState extends State<UserStatus> {
         await AppDialogs.showSlidingDialog(
           dismissible: true,
           content: UserManager.instance.isLoggedIn() 
-            ? logoutbtn(context)
+            ? ProfileDialogContent()
             : LoginRegisterDialogContent()
         );
         if (mounted) setState(() { });
@@ -88,16 +88,6 @@ class _UserStatusState extends State<UserStatus> {
           ).wrapPadding(const EdgeInsets.only(top: 8)).wrapExpanded(),
         ],
       ),
-    );
-  }
-
-  ElevatedButton logoutbtn(BuildContext context) {
-    return ElevatedButton( //TODO:
-      onPressed: () async {
-        await AppServices.instance.firebaseAuthService.signOut();
-        if (mounted) Navigator.pop(context);
-      }, 
-      child: Text("logout")
     );
   }
 

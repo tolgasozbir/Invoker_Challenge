@@ -1,15 +1,15 @@
-import '../constants/app_colors.dart';
-import '../extensions/context_extension.dart';
-import '../extensions/widget_extension.dart';
-import '../mixins/input_validation_mixin.dart';
-import '../mixins/loading_state_mixin.dart';
-import '../services/app_services.dart';
-import 'app_outlined_button.dart';
-import 'app_snackbar.dart';
+import '../../constants/app_colors.dart';
+import '../../extensions/context_extension.dart';
+import '../../extensions/widget_extension.dart';
+import '../../mixins/input_validation_mixin.dart';
+import '../../mixins/loading_state_mixin.dart';
+import '../../services/app_services.dart';
+import '../app_outlined_button.dart';
+import '../app_snackbar.dart';
 import 'package:flutter/material.dart';
 
-import '../constants/app_strings.dart';
-import 'app_text_from_field.dart';
+import '../../constants/app_strings.dart';
+import '../app_text_from_field.dart';
 
 class LoginRegisterDialogContent extends StatefulWidget {
   const LoginRegisterDialogContent({Key? key}) : super(key: key);

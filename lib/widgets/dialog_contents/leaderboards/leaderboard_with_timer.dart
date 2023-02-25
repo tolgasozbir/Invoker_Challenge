@@ -1,13 +1,13 @@
-import '../mixins/loading_state_mixin.dart';
+import '../../../mixins/loading_state_mixin.dart';
 
-import '../extensions/context_extension.dart';
-import '../extensions/widget_extension.dart';
+import '../../../extensions/context_extension.dart';
+import '../../../extensions/widget_extension.dart';
 import 'package:flutter/material.dart';
-import '../constants/app_colors.dart';
-import '../constants/app_strings.dart';
-import '../models/timer_result.dart';
-import '../services/app_services.dart';
-import 'app_outlined_button.dart';
+import '../../../constants/app_colors.dart';
+import '../../../constants/app_strings.dart';
+import '../../../models/timer_result.dart';
+import '../../../services/app_services.dart';
+import '../../app_outlined_button.dart';
 
 class LeaderboardWithTimer extends StatefulWidget {
   const LeaderboardWithTimer({super.key,});
@@ -38,12 +38,15 @@ class _LeaderboardWithTimerState extends State<LeaderboardWithTimer> with Loadin
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        results.isEmpty ? const CircularProgressIndicator.adaptive().wrapCenter() : resultListView(results),
-        if (results.isNotEmpty)
-          showMoreBtn().wrapPadding(const EdgeInsets.all(8))
-      ],
+    return Card(
+      color: AppColors.resultsCardBg,
+      child: Column(
+        children: [
+          results.isEmpty ? const CircularProgressIndicator.adaptive().wrapCenter() : resultListView(results),
+          if (results.isNotEmpty)
+            showMoreBtn().wrapPadding(const EdgeInsets.all(8))
+        ],
+      ),
     );
   }
 

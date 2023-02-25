@@ -1,3 +1,5 @@
+import 'package:dota2_invoker/extensions/widget_extension.dart';
+import 'package:dota2_invoker/providers/user_manager.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../constants/app_colors.dart';
@@ -11,6 +13,8 @@ import '../../../extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
+
+import '../../../widgets/app_outlined_button.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
@@ -41,6 +45,7 @@ class SettingsView extends StatelessWidget {
             text: AppStrings.rateApp,
           ),
           divider(),
+          logoutbtn(context),
         ],
       ),
     );
@@ -90,6 +95,19 @@ class SettingsView extends StatelessWidget {
         const Spacer(flex: 9,),
         const Icon(CupertinoIcons.chevron_forward)
       ],
+    );
+  }
+
+  Widget logoutbtn(BuildContext context) {
+    var isLoggedIn = UserManager.instance.isLoggedIn();
+    if (!isLoggedIn) return EmptyBox();
+    return AppOutlinedButton(
+      width: double.infinity,
+      onPressed: () async {
+        await AppServices.instance.firebaseAuthService.signOut();
+        Navigator.pop(context);
+      }, 
+      title: AppStrings.logout
     );
   }
 }

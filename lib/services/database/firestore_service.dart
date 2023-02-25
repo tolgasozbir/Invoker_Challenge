@@ -29,7 +29,7 @@ class FirestoreService implements IDatabaseService {
   );
 
   void _noMoreSnackbar() => AppSnackBar.showSnackBarMessage(
-    text: AppStrings.noMoreData, 
+    text: AppStrings.sbNoMoreData, 
     snackBartype: SnackBarType.info,
   );
 
