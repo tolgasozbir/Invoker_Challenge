@@ -36,12 +36,6 @@ class AppColors {
   static const Color svgGrey = Color(0xFF424242);
   static const Color svgTalentTree = Colors.grey;
 
-
-  static List<Color> get gradientBlueYellow => const [
-    Color(0x3300BBFF),
-    Color(0x33FFCC00)
-  ];
-
   //Common colors
   static const Color transparent = Colors.transparent;
   static const Color white = Colors.white;

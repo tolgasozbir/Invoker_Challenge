@@ -41,6 +41,7 @@ class SpellsHelperWidget extends StatefulWidget {
 
 class _SpellsHelperWidgetState extends State<SpellsHelperWidget> {
   late final List<Spell> allSpells;
+  final margin = const EdgeInsets.symmetric(vertical: 4);
 
   @override
   void initState() {
@@ -80,6 +81,7 @@ class _SpellsHelperWidgetState extends State<SpellsHelperWidget> {
 
   Widget quasColumn() {
     return Card(
+      margin: margin,
       color: const Color(0x333DA5FF),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -93,6 +95,7 @@ class _SpellsHelperWidgetState extends State<SpellsHelperWidget> {
 
   Widget wexColumn() {
     return Card(
+      margin: margin,
       color: const Color(0x23EC3DFF),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -106,6 +109,7 @@ class _SpellsHelperWidgetState extends State<SpellsHelperWidget> {
 
   Widget exortColumn() {
     return Card(
+      margin: margin,
       color: const Color(0x33EE9900),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

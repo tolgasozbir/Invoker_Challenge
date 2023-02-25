@@ -33,14 +33,9 @@ class _TrainingViewState extends State<TrainingView> {
         child: Column(
           children: [
             counters(),
-            if (showAllSpells) 
-              const SpellsHelperWidget() 
-            else 
-              SizedBox(height: context.dynamicHeight(0.08),),
-            const GameUIWidget(
-              gameType: GameType.Training,
-              timerWidget: null,
-            )
+            if (showAllSpells) const SpellsHelperWidget() 
+            else SizedBox(height: context.dynamicHeight(0.1)),
+            const GameUIWidget(gameType: GameType.Training)
           ],
         ),
       ),

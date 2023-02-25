@@ -73,14 +73,11 @@ class TrueFalseWidgetState extends State<TrueFalseIconWidget> with TickerProvide
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8),
-      child: Stack(
-        children: [
-          _icon(IconType.True),
-          _icon(IconType.False),
-        ],
-      ),
+    return Stack(
+      children: [
+        _icon(IconType.True),
+        _icon(IconType.False),
+      ],
     );
   }
 

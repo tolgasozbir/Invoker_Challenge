@@ -32,10 +32,7 @@ class _WithTimerViewState extends State<WithTimerView> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            GameUIWidget(
-              gameType: GameType.Timer,
-              timerWidget: timerCounterWidget(),
-            ),
+            const GameUIWidget(gameType: GameType.Timer),
             showLeaderBoardButton(),
           ],
         ),
@@ -43,33 +40,8 @@ class _WithTimerViewState extends State<WithTimerView> {
     );
   }
 
-  Widget timerCounterWidget() {
-    final countdownValue = context.watch<GameProvider>().getCountdownValue;
-    return Card(
-      color: context.theme.scaffoldBackgroundColor,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          SizedBox.square(
-            dimension: context.dynamicWidth(0.14),
-            child: CircularProgressIndicator(
-              color: AppColors.amber,
-              backgroundColor: AppColors.blue,
-              valueColor: countdownValue <=10 
-                ? const AlwaysStoppedAnimation<Color>(AppColors.red) 
-                : const AlwaysStoppedAnimation<Color>(AppColors.amber),
-              value: countdownValue / 60,
-              strokeWidth: 4,
-            ),
-          ),
-          Text(countdownValue.toString(), style: TextStyle(fontSize: context.sp(24)),),
-        ],
-      ),
-    );
-  }
-
   Widget showLeaderBoardButton() {
-    final isStart = context.read<GameProvider>().isStart;
+    final isStart = context.watch<GameProvider>().isStart;
     if (isStart) return EmptyBox();
     return AppOutlinedButton(
       title: AppStrings.leaderboard, 

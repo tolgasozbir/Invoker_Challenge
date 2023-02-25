@@ -31,43 +31,15 @@ class _ChallangerViewState extends State<ChallangerView> {
     return SafeArea(
       child: Column(
         children: [
-          GameUIWidget(
-            gameType: GameType.Challanger,
-            timerWidget: timerCounterWidget(),
-          ),
+          const GameUIWidget(gameType: GameType.Challanger),
           showLeaderBoardButton(),
         ],
       ),
     );
   }
 
-  Widget timerCounterWidget() {
-    final timerValue = context.watch<GameProvider>().getTimeValue;
-    return Card(
-      color: context.theme.scaffoldBackgroundColor,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          RotationTransition(
-            turns: AlwaysStoppedAnimation((timerValue*10) / 360 ),
-            child: SizedBox.square(
-              dimension: context.dynamicWidth(0.14),
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: AppColors.gradientBlueYellow,),
-                  borderRadius: BorderRadius.circular(50),
-                ),
-              ),
-            ),
-          ), 
-          Text(timerValue.toString(), style: TextStyle(fontSize: context.sp(24)),),
-        ],
-      ),
-    );
-  }
-
   Widget showLeaderBoardButton() {
-    final isStart = context.read<GameProvider>().isStart;
+    final isStart = context.watch<GameProvider>().isStart;
     if (isStart) return EmptyBox();
     return AppOutlinedButton(
       title: AppStrings.leaderboard,

@@ -119,6 +119,7 @@ class ImagePaths {
   //other
   static const String spellImage = '$_other/quas-wex-exort.jpg';
   static const String loadingGif = '$_other/qweLoading.gif';
+  static const String todClock = '$_other/time_of_day_clock.png';
 }
 
 class SoundPaths {

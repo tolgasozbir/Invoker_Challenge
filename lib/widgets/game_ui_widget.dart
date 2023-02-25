@@ -1,3 +1,4 @@
+import 'package:dota2_invoker/widgets/timer_hud.dart';
 import '../extensions/widget_extension.dart';
 import '../mixins/loading_state_mixin.dart';
 import '../services/app_services.dart';
@@ -26,10 +27,9 @@ import 'true_false_icon_widget.dart';
 enum GameType { Training, Challanger, Timer }
 
 class GameUIWidget extends StatefulWidget {
-  const GameUIWidget({super.key, required this.gameType, required this.timerWidget});
+  const GameUIWidget({super.key, required this.gameType});
 
   final GameType gameType;
-  final Widget? timerWidget;
 
   @override
   State<GameUIWidget> createState() => _GameUIWidgetState();
@@ -40,16 +40,15 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
   final _animKey = GlobalKey<TrueFalseWidgetState>();
 
   @override
-  Widget build(BuildContext context) => _bodyView(context);
+  Widget build(BuildContext context) => _bodyView();
 
-  Column _bodyView(BuildContext context) {
+  Column _bodyView() {
     return Column(
       children: [
-        //SizedBox(height: context.dynamicHeight(0.02)),
-        if (widget.gameType != GameType.Training)
+        if (widget.gameType != GameType.Training)...[
+          TimerHud(gameType: widget.gameType),
           trueCounter(),
-        if (widget.timerWidget != null)
-          widget.timerWidget!,
+        ],
         TrueFalseIconWidget(key: _animKey),
         bigSpellPicture(),
         selectedElementOrbs(),
@@ -60,16 +59,10 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
   }
 
   Widget trueCounter(){
-    return SizedBox(
-      width: double.infinity,
-      height: context.dynamicHeight(0.12),
-      child: Center(
-        child: Text(
-          context.watch<GameProvider>().getCorrectCombinationCount.toString(),
-          style: TextStyle(fontSize: context.sp(36), color: AppColors.scoreCounterColor,),
-        ),
-      ),
-    );
+    return Text(
+      context.watch<GameProvider>().getCorrectCombinationCount.toString(),
+      style: TextStyle(fontSize: context.sp(36), color: AppColors.scoreCounterColor,),
+    ).wrapPadding(EdgeInsets.only(top: 8));
   }
 
   Widget bigSpellPicture(){
