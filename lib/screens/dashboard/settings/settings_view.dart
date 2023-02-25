@@ -1,5 +1,6 @@
 import 'package:dota2_invoker/extensions/widget_extension.dart';
 import 'package:dota2_invoker/providers/user_manager.dart';
+import 'package:dota2_invoker/screens/dashboard/settings/about_me/about_me.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../constants/app_colors.dart';
@@ -30,7 +31,8 @@ class SettingsView extends StatelessWidget {
           menuItem(
             context: context,
             leading: FontAwesomeIcons.questionCircle,
-            text: AppStrings.aboutUs,
+            text: AppStrings.aboutMe,
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AboutMe(),)),
           ),
           divider(),
           menuItem(
@@ -85,16 +87,19 @@ class SettingsView extends StatelessWidget {
     );
   }
 
-  Widget menuItem({required BuildContext context, required IconData leading, required String text}){
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Icon(leading),
-        const Spacer(),
-        Text(text, style: TextStyle(fontSize: context.sp(14)),),
-        const Spacer(flex: 9,),
-        const Icon(CupertinoIcons.chevron_forward)
-      ],
+  Widget menuItem({required BuildContext context, required IconData leading, required String text, VoidCallback? onTap}){
+    return InkWell(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Icon(leading),
+          const Spacer(),
+          Text(text, style: TextStyle(fontSize: context.sp(14)),),
+          const Spacer(flex: 9,),
+          const Icon(CupertinoIcons.chevron_forward)
+        ],
+      ),
+      onTap: onTap,
     );
   }
 

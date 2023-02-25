@@ -73,7 +73,7 @@ class AppStrings {
   ];
 
   //Settings
-  static const String aboutUs = 'About us';
+  static const String aboutMe = 'About me';
   static const String feedback = 'Feedback';
   static const String rateApp = 'Rate this app';
   static const String volume = 'Volume';
