@@ -1,6 +1,9 @@
 import 'dart:math';
+import 'package:dota2_invoker/constants/app_strings.dart';
 import 'package:dota2_invoker/extensions/context_extension.dart';
 import 'package:dota2_invoker/extensions/widget_extension.dart';
+import 'package:dota2_invoker/widgets/context_menu.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_arc_text/flutter_arc_text.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -17,12 +20,12 @@ class AboutMe extends StatefulWidget {
 class _AboutMeState extends State<AboutMe> with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _animation;
-  final _duration = Duration(milliseconds: 800);
+  final _duration = Duration(milliseconds: 1000);
 
   @override
   void initState() {
     _animationController = AnimationController(vsync: this, duration: _duration, reverseDuration: _duration);
-    _animation = Tween<double>(begin: 4, end: 8).animate(_animationController);
+    _animation = Tween<double>(begin: 4, end: 12).animate(_animationController);
     _animationController.repeat(reverse: true);
     _animationController.addListener(() {
       setState(() { });
@@ -67,7 +70,7 @@ class _AboutMeState extends State<AboutMe> with SingleTickerProviderStateMixin {
             child: Column(
               children: [
                 avatar(context),
-                EmptyBox.h24(),
+                EmptyBox.h32(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -82,7 +85,62 @@ class _AboutMeState extends State<AboutMe> with SingleTickerProviderStateMixin {
                   thickness: 1,
                   indent: context.dynamicWidth(0.24),
                   endIndent: context.dynamicWidth(0.24),
+                ),
+                EmptyBox.h32(),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Languages and Tools:", style: TextStyle(fontWeight: FontWeight.bold)),
+                    Wrap(
+                      children: [
+                        Chip(
+                          label: Text("Flutter"), 
+                          avatar: FlutterLogo(),
+                          labelPadding: EdgeInsets.only(left: 2, right: 4),
+                        ),
+                        EmptyBox.w4(),
+                        Chip(
+                          label: Text("C#"), 
+                          avatar: Image.asset("assets/images/other/ic_csharp.png"),
+                          labelPadding: EdgeInsets.only(left: 2, right: 4),
+                        ),
+                        EmptyBox.w4(),
+                        Chip(
+                          label: Text("Firebase"), 
+                          avatar: Image.asset("assets/images/other/ic_firebase.png"),
+                          labelPadding: EdgeInsets.only(left: 2, right: 4),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                EmptyBox.h32(),
+                Container(
+                  padding: EdgeInsets.all(8),
+                  width: context.dynamicWidth(0.72),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(8),
+                      topRight: Radius.circular(4),
+                      bottomLeft: Radius.circular(4),
+                      bottomRight: Radius.circular(8),
+
+                    ),
+                    border: Border.all(color: Colors.white70)
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(AppStrings.aboutMe, style: TextStyle(fontSize: context.sp(12), fontWeight: FontWeight.bold)),
+                      EmptyBox.h4(),
+                      Text(
+                        "Heyy, I'm Tolga Sözbir from Turkey. I'm a Freelance Flutter developer. If you wants to contact me to build your product leave message.",
+                        style: TextStyle(fontSize: context.sp(12)),
+                      ),
+                    ],
+                  ),
                 )
+
               ],
             ),
           ),
@@ -92,8 +150,7 @@ class _AboutMeState extends State<AboutMe> with SingleTickerProviderStateMixin {
   }
 
   Widget avatar(BuildContext context) {
-    return Container(
-      color: Colors.green.withOpacity(0.1),
+    return SizedBox(
       height: context.height/3,
       width: double.infinity,
       child: Stack(
@@ -106,28 +163,34 @@ class _AboutMeState extends State<AboutMe> with SingleTickerProviderStateMixin {
           ),
           Positioned(
             top: context.dynamicHeight(0.08),
-            child: CircleAvatar(
-              backgroundColor: Colors.white,
-              radius: context.dynamicHeight(0.086),
+            child: ContextMenu(
+              previewBuilder: (context, animation, child) {
+                return Image.asset("assets/images/other/profile.jpeg");
+              },
               child: CircleAvatar(
-                backgroundImage: AssetImage("assets/images/other/profile.jpeg"),
-                radius: context.dynamicHeight(0.08),
-                child: Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    Positioned(
-                      bottom: 0,
-                      right: -context.dynamicHeight(0.004),
-                      child: CircleAvatar(
-                        backgroundColor: Colors.white,
-                        radius: context.dynamicHeight(0.024),
+                backgroundColor: Colors.white,
+                radius: context.dynamicHeight(0.086),
+                child: CircleAvatar(
+                  backgroundImage: AssetImage("assets/images/other/profile.jpeg"),
+                  radius: context.dynamicHeight(0.08),
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      Positioned(
+                        bottom: 0,
+                        right: -context.dynamicHeight(0.004),
                         child: CircleAvatar(
-                          backgroundColor: Colors.deepPurple,
-                          radius: context.dynamicHeight(0.020),
+                          backgroundColor: Colors.white,
+                          radius: context.dynamicHeight(0.024),
+                          child: CircleAvatar(
+                            backgroundColor: Colors.deepPurple,
+                            radius: context.dynamicHeight(0.020),
+                            child: Icon(CupertinoIcons.zoom_in, color: Colors.white,),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

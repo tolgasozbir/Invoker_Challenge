@@ -27,11 +27,11 @@ class TimerHud extends StatelessWidget {
     return Stack(
       alignment: Alignment.topCenter,
       children: [
-        Image.asset(ImagePaths.todClock, height: context.dynamicHeight(0.12),),
+        Image.asset(ImagePaths.todClock, height: context.dynamicHeight(0.1)),
         Text(
           getTimerValue(context),
           style: TextStyle(
-            fontSize: context.sp(24),
+            fontSize: context.dynamicHeight(0.04),
             color: Color.fromARGB(255, 255, 255, 255),
             shadows: [
               Shadow(

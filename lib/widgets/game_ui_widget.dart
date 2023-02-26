@@ -48,6 +48,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
         if (widget.gameType != GameType.Training)...[
           TimerHud(gameType: widget.gameType),
           trueCounter(),
+          SizedBox(height: context.dynamicHeight(0.04)),
         ],
         TrueFalseIconWidget(key: _animKey),
         bigSpellPicture(),
