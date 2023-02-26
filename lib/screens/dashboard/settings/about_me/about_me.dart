@@ -1,3 +1,6 @@
+import 'package:dota2_invoker/widgets/app_snackbar.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import '../../../../constants/app_colors.dart';
 import '../../../../constants/app_strings.dart';
 import '../../../../extensions/context_extension.dart';
@@ -10,18 +13,25 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class AboutMeView extends StatelessWidget {
   const AboutMeView({super.key});
 
-  final technologyList = const [
+  final gMail = "tolgasoz1@gmail.com";
+  final urlLinkedIn = "https://www.linkedin.com/in/tolga-sözbir/";
+  final urlGit = "https://github.com/tolgasozbir";
+  final urlInstagram = "https://www.instagram.com/tolga_sozbir/";
+  final List<Map<String, dynamic>> technologyList = const [
     {
       "tool" : "Flutter",
       "icon" : "${ImagePaths.icFlutter}",
+      "color" : Colors.blue,
     },
     {
       "tool" : "C#",
       "icon" : "${ImagePaths.icCsharp}",
+      "color" : Colors.purpleAccent,
     },
     {
       "tool" : "Firebase",
       "icon" : "${ImagePaths.icFirebase}",
+      "color" : Colors.amber,
     },
   ];
 
@@ -29,6 +39,11 @@ class AboutMeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
         body: SizedBox.expand(
           child: CustomPaint(
             painter: AboutMePainter(),
@@ -39,22 +54,17 @@ class AboutMeView extends StatelessWidget {
     );
   }
 
-  Stack _bodyView(BuildContext context) {
-    return Stack(
+  Column _bodyView(BuildContext context) {
+    return Column(
       children: [
-        BackButton(),
-        Column(
-          children: [
-            ProfileAvatar(),
-            EmptyBox.h32(),
-            socialIcons(),
-            whiteDivider(context),
-            EmptyBox.h32(),
-            technologies(),
-            EmptyBox.h32(),
-            aboutMeBio(context)
-          ],
-        ),
+        ProfileAvatar(),
+        EmptyBox.h32(),
+        socialIcons(),
+        whiteDivider(context),
+        EmptyBox.h32(),
+        technologies(),
+        EmptyBox.h32(),
+        aboutMeBio(context)
       ],
     );
   }
@@ -63,12 +73,43 @@ class AboutMeView extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SocialIcon(icon: FontAwesomeIcons.google, corner: Corner.left),
-        SocialIcon(icon: FontAwesomeIcons.linkedin),
-        SocialIcon(icon: FontAwesomeIcons.github),
-        SocialIcon(icon: FontAwesomeIcons.instagram, corner: Corner.right),
+        SocialIcon(
+          icon: FontAwesomeIcons.google, 
+          corner: Corner.left,
+          onTap: () async => await SocialBtnFn(gMail, sendMail: true)
+        ),
+        SocialIcon(
+          icon: FontAwesomeIcons.linkedin,
+          onTap: () async => await SocialBtnFn(urlLinkedIn)
+        ),
+        SocialIcon(
+          icon: FontAwesomeIcons.github,
+          onTap: () async => await SocialBtnFn(urlGit)
+        ),
+        SocialIcon(
+          icon: FontAwesomeIcons.instagram, 
+          corner: Corner.right,
+          onTap: () async => await SocialBtnFn(urlInstagram)
+        ),
       ],
     );
+  }
+
+  Future<void> SocialBtnFn(String path, {bool sendMail = false}) async {
+    try{
+      Uri? url;
+      if (!sendMail) url = Uri.parse(path);
+      else {
+        url = Uri(
+          scheme: 'mailto',
+          path: path,
+        );
+      }
+      await launchUrl(url);
+    }
+    catch(e) {
+      AppSnackBar.showSnackBarMessage(text: AppStrings.errorMessage, snackBartype: SnackBarType.error);
+    }
   }
 
   Divider whiteDivider(BuildContext context) {
@@ -89,10 +130,14 @@ class AboutMeView extends StatelessWidget {
           children: List.generate(technologyList.length, (index) {
             var item = technologyList[index];
             return Chip(
-              label: Text(item["tool"]!), 
-              avatar: Image.asset(item["icon"]!),
+              side: BorderSide(
+                strokeAlign: BorderSide.strokeAlignOutside,
+                color: item["color"],
+              ),
+              label: Text(item["tool"]), 
+              avatar: Image.asset(item["icon"]),
               labelPadding: EdgeInsets.only(left: 2, right: 4),
-            ).wrapPadding(EdgeInsets.symmetric(horizontal: 2));
+            ).wrapPadding(EdgeInsets.symmetric(horizontal: 3));
           }),
         ),
       ],

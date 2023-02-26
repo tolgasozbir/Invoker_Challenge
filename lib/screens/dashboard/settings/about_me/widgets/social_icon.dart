@@ -5,10 +5,11 @@ import '../../../../../constants/app_colors.dart';
 enum Corner {left, middle, right}
 
 class SocialIcon extends StatefulWidget {
-  const SocialIcon({super.key, required this.icon, this.corner = Corner.middle});
+  const SocialIcon({super.key, required this.icon, this.corner = Corner.middle, required this.onTap});
 
   final IconData icon;
   final Corner corner;
+  final VoidCallback onTap;
 
   @override
   State<SocialIcon> createState() => _SocialIconState();
@@ -22,12 +23,13 @@ class _SocialIconState extends State<SocialIcon> with SingleTickerProviderStateM
 
   @override
   void initState() {
-    _animationController = AnimationController(vsync: this, duration: _duration, reverseDuration: _duration);
+    _animationController = AnimationController(
+      vsync: this, 
+      duration: _duration, 
+      reverseDuration: _duration
+    )..repeat(reverse: true);
     _animation = Tween<double>(begin: 4, end: 12).animate(_animationController);
-    _animationController.repeat(reverse: true);
-    _animationController.addListener(() {
-      setState(() { });
-    });
+    _animationController.addListener(() => setState(() { }));
     super.initState();
   }
 
@@ -60,26 +62,29 @@ class _SocialIconState extends State<SocialIcon> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: _size,
-      height: _size,
-      margin: const EdgeInsets.all(2),
-      decoration: BoxDecoration(
-        borderRadius: _getCornerRadius(widget.corner),
-        border: Border.all(color: AppColors.white),
-        gradient: const LinearGradient(
-          colors: AppColors.aboutMeGradient,
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight
-        ),
-        boxShadow: [
-          BoxShadow(
-            blurRadius: _animation.value,
-            color: AppColors.white
+    return InkWell(
+      child: Container(
+        width: _size,
+        height: _size,
+        margin: const EdgeInsets.all(2),
+        decoration: BoxDecoration(
+          borderRadius: _getCornerRadius(widget.corner),
+          border: Border.all(color: AppColors.white),
+          gradient: const LinearGradient(
+            colors: AppColors.aboutMeGradient,
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight
           ),
-        ],
+          boxShadow: [
+            BoxShadow(
+              blurRadius: _animation.value,
+              color: AppColors.white
+            ),
+          ],
+        ),
+        child: Icon(widget.icon),
       ),
-      child: Icon(widget.icon),
+      onTap: widget.onTap,
     );
   }
 }

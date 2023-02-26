@@ -23,6 +23,7 @@ dependencies:
   flutter_svg: ^1.1.6
   audioplayers: ^0.20.0
   internet_connection_checker: ^1.0.0+1
+  url_launcher: ^6.1.10
 
   #Local Storage
   shared_preferences: ^2.0.17
@@ -44,7 +45,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  #analysis options
+  #Linter rules
   very_good_analysis: ^3.1.0
 
 
