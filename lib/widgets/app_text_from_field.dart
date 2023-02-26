@@ -71,8 +71,8 @@ class AppTextFormField extends StatelessWidget {
             prefixIcon: this.prefixIcon,
             enabledBorder: inputBorderSide(color: borderColor ?? AppColors.white, width: 1),
             focusedBorder: inputBorderSide(color: focusedBorderColor ?? Theme.of(context).colorScheme.primary),
-            errorBorder: inputBorderSide(color: errorBorderColor ?? Theme.of(context).errorColor),
-            focusedErrorBorder: inputBorderSide(color: errorBorderColor ?? Theme.of(context).errorColor),
+            errorBorder: inputBorderSide(color: errorBorderColor ?? Theme.of(context).colorScheme.error),
+            focusedErrorBorder: inputBorderSide(color: errorBorderColor ?? Theme.of(context).colorScheme.error),
             hintText: this.hintText,
             errorText: this.errorText
           ),

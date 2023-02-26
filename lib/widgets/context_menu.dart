@@ -251,7 +251,7 @@ class _ContextMenuWidgetState extends State<ContextMenu> with TickerProviderStat
         );
       },
     );
-    Overlay.of(context, rootOverlay: true)!.insert(_lastOverlayEntry!);
+    Overlay.of(context, rootOverlay: true).insert(_lastOverlayEntry!);
     _openController.forward();
   }
 

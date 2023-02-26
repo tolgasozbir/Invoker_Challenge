@@ -110,7 +110,7 @@ class SettingsView extends StatelessWidget {
       width: double.infinity,
       onPressed: () async {
         await AppServices.instance.firebaseAuthService.signOut();
-        Navigator.pop(context);
+        if (context.mounted) Navigator.pop(context);
       }, 
       title: AppStrings.logout
     );
