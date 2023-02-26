@@ -1,21 +1,18 @@
-import 'package:dota2_invoker/extensions/widget_extension.dart';
-import 'package:dota2_invoker/providers/user_manager.dart';
-import 'package:dota2_invoker/screens/dashboard/settings/about_me/about_me.dart';
 import 'package:flutter/cupertino.dart';
-
-import '../../../constants/app_colors.dart';
-import '../../../enums/local_storage_keys.dart';
-import '../../../services/app_services.dart';
-import '../../../services/sound_manager.dart';
-
-import '../../../constants/app_strings.dart';
-
-import '../../../extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
+import '../../../constants/app_colors.dart';
+import '../../../constants/app_strings.dart';
+import '../../../enums/local_storage_keys.dart';
+import '../../../extensions/context_extension.dart';
+import '../../../extensions/widget_extension.dart';
+import '../../../providers/user_manager.dart';
+import '../../../services/app_services.dart';
+import '../../../services/sound_manager.dart';
 import '../../../widgets/app_outlined_button.dart';
+import 'about_me/about_me.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});

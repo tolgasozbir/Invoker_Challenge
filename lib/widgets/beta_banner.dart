@@ -1,7 +1,7 @@
-import '../constants/app_colors.dart';
-
-import '../constants/app_strings.dart';
 import 'package:flutter/material.dart';
+
+import '../constants/app_colors.dart';
+import '../constants/app_strings.dart';
 
 class BetaBanner extends StatelessWidget {
   const BetaBanner({

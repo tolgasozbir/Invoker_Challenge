@@ -1,5 +1,5 @@
-import 'package:dota2_invoker/models/user_model.dart';
-import 'package:dota2_invoker/widgets/dialog_contents/profile_dialog_content.dart';
+import '../models/user_model.dart';
+import 'dialog_contents/profile_dialog_content.dart';
 import 'app_dialogs.dart';
 import 'dialog_contents/login_register_dialog_content.dart';
 import '../extensions/widget_extension.dart';

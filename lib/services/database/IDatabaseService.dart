@@ -1,7 +1,6 @@
-import '../../models/user_model.dart';
-
 import '../../models/challenger_result.dart';
 import '../../models/timer_result.dart';
+import '../../models/user_model.dart';
 
 abstract class IDatabaseService {
   Future<void> createOrUpdateUser(UserModel userModel);

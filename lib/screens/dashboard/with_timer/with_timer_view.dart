@@ -1,14 +1,14 @@
-import '../../../extensions/widget_extension.dart';
-import '../../../widgets/app_outlined_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants/app_strings.dart';
 import '../../../extensions/context_extension.dart';
+import '../../../extensions/widget_extension.dart';
 import '../../../providers/game_provider.dart';
 import '../../../widgets/app_dialogs.dart';
-import '../../../widgets/game_ui_widget.dart';
+import '../../../widgets/app_outlined_button.dart';
 import '../../../widgets/dialog_contents/leaderboards/leaderboard_with_timer.dart';
+import '../../../widgets/game_ui_widget.dart';
 
 class WithTimerView extends StatefulWidget {
   const WithTimerView({super.key});

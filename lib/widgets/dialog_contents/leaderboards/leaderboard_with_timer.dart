@@ -1,10 +1,10 @@
-import '../../../mixins/loading_state_mixin.dart';
-
-import '../../../extensions/context_extension.dart';
-import '../../../extensions/widget_extension.dart';
 import 'package:flutter/material.dart';
+
 import '../../../constants/app_colors.dart';
 import '../../../constants/app_strings.dart';
+import '../../../extensions/context_extension.dart';
+import '../../../extensions/widget_extension.dart';
+import '../../../mixins/loading_state_mixin.dart';
 import '../../../models/timer_result.dart';
 import '../../../services/app_services.dart';
 import '../../app_outlined_button.dart';

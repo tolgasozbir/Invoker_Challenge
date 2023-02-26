@@ -1,11 +1,10 @@
-import '../../constants/app_colors.dart';
-import '../../providers/user_manager.dart';
-import '../game_ui_widget.dart';
-
-import '../../extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 
+import '../../constants/app_colors.dart';
 import '../../constants/app_strings.dart';
+import '../../extensions/context_extension.dart';
+import '../../providers/user_manager.dart';
+import '../game_ui_widget.dart';
 
 class ResultDialogContent extends StatelessWidget {
   const ResultDialogContent({super.key, required this.correctCount, required this.gameType});

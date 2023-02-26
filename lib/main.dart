@@ -1,12 +1,3 @@
-import 'package:dota2_invoker/providers/user_manager.dart';
-import 'package:dota2_invoker/widgets/app_dialogs.dart';
-
-import 'services/app_services.dart';
-import 'services/database/firestore_service.dart';
-import 'services/firebase_auth_service.dart';
-import 'services/local_storage/local_storage_service.dart';
-
-import 'widgets/app_snackbar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,7 +6,14 @@ import 'package:provider/provider.dart';
 import 'constants/app_strings.dart';
 import 'providers/game_provider.dart';
 import 'providers/spell_provider.dart';
+import 'providers/user_manager.dart';
 import 'screens/splash/splash_view.dart';
+import 'services/app_services.dart';
+import 'services/database/firestore_service.dart';
+import 'services/firebase_auth_service.dart';
+import 'services/local_storage/local_storage_service.dart';
+import 'widgets/app_dialogs.dart';
+import 'widgets/app_snackbar.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

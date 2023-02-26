@@ -1,6 +1,8 @@
 import 'dart:developer';
-import '../providers/user_manager.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
+
+import '../providers/user_manager.dart';
 import '../widgets/app_snackbar.dart';
 import 'app_services.dart';
 

@@ -1,7 +1,7 @@
 import 'dart:math' as math;
-import 'package:dota2_invoker/constants/app_colors.dart';
-import 'package:dota2_invoker/constants/app_strings.dart';
-import 'package:dota2_invoker/extensions/context_extension.dart';
+import '../../../../../constants/app_colors.dart';
+import '../../../../../constants/app_strings.dart';
+import '../../../../../extensions/context_extension.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_arc_text/flutter_arc_text.dart';

@@ -1,7 +1,7 @@
-import '../constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../constants/app_colors.dart';
 import '../extensions/context_extension.dart';
 import '../models/spell.dart';
 import '../providers/spell_provider.dart';

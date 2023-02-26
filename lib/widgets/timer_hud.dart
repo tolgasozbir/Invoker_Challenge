@@ -1,7 +1,7 @@
-import 'package:dota2_invoker/constants/app_strings.dart';
-import 'package:dota2_invoker/extensions/context_extension.dart';
-import 'package:dota2_invoker/extensions/widget_extension.dart';
-import 'package:dota2_invoker/widgets/game_ui_widget.dart';
+import '../constants/app_strings.dart';
+import '../extensions/context_extension.dart';
+import '../extensions/widget_extension.dart';
+import 'game_ui_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/game_provider.dart';

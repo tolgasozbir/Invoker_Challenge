@@ -1,9 +1,9 @@
-import 'package:dota2_invoker/constants/app_strings.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import '../extensions/widget_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../constants/app_colors.dart';
+import '../constants/app_strings.dart';
+import '../extensions/widget_extension.dart';
 
 enum SnackBarType{
   info,

@@ -1,4 +1,4 @@
-import 'package:dota2_invoker/widgets/timer_hud.dart';
+import 'timer_hud.dart';
 import '../extensions/widget_extension.dart';
 import '../mixins/loading_state_mixin.dart';
 import '../services/app_services.dart';

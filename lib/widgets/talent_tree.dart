@@ -1,7 +1,7 @@
-import 'package:dota2_invoker/constants/app_strings.dart';
-import 'package:dota2_invoker/extensions/widget_extension.dart';
-import 'package:dota2_invoker/models/user_model.dart';
-import 'package:dota2_invoker/providers/user_manager.dart';
+import '../constants/app_strings.dart';
+import '../extensions/widget_extension.dart';
+import '../models/user_model.dart';
+import '../providers/user_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/svg.dart';
 import '../constants/app_colors.dart';

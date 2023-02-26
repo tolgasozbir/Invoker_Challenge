@@ -1,4 +1,4 @@
-import 'package:dota2_invoker/services/sound_manager.dart';
+import '../services/sound_manager.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/app_colors.dart';

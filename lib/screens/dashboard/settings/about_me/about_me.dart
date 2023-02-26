@@ -1,9 +1,9 @@
-import 'package:dota2_invoker/constants/app_colors.dart';
-import 'package:dota2_invoker/constants/app_strings.dart';
-import 'package:dota2_invoker/extensions/context_extension.dart';
-import 'package:dota2_invoker/extensions/widget_extension.dart';
-import 'package:dota2_invoker/screens/dashboard/settings/about_me/widgets/profile_avatar.dart';
-import 'package:dota2_invoker/screens/dashboard/settings/about_me/widgets/social_icon.dart';
+import '../../../../constants/app_colors.dart';
+import '../../../../constants/app_strings.dart';
+import '../../../../extensions/context_extension.dart';
+import '../../../../extensions/widget_extension.dart';
+import 'widgets/profile_avatar.dart';
+import 'widgets/social_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
