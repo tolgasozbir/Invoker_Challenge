@@ -65,7 +65,7 @@ class AppStrings {
   //Talent tree
   static const String talentTree = 'Talent Tree';
   static const String talent10 = '+2 exp multiplier';
-  static const List<String> talents = const [
+  static const talents = const [
     '+2 exp multiplier',
     '15 Talent Tree',
     '20 Talent Tree',
@@ -77,6 +77,11 @@ class AppStrings {
   static const String feedback = 'Feedback';
   static const String rateApp = 'Rate this app';
   static const String volume = 'Volume';
+
+  //About me
+  static const String bio = "Heyy, I'm Tolga Sözbir from Turkey. I'm a Freelance mobile developer. If you wants to contact me to build your product leave message.";
+  static const String langsAndTools = 'Languages and Tools:';
+
 }
 
 //
@@ -116,7 +121,11 @@ class ImagePaths {
   //other
   static const String spellImage = '$_other/quas-wex-exort.jpg';
   static const String loadingGif = '$_other/qweLoading.gif';
-  static const String todClock = '$_other/time_of_day_clock.png';
+  static const String todClock =   '$_other/time_of_day_clock.png';
+  static const String profilePic = '$_other/profile.jpeg';
+  static const String icFlutter =  '$_other/ic_flutter.png';
+  static const String icCsharp =   '$_other/ic_csharp.png';
+  static const String icFirebase = '$_other/ic_firebase.png';
 }
 
 class SoundPaths {

@@ -36,6 +36,14 @@ class AppColors {
   static const Color svgGrey = Color(0xFF424242);
   static const Color svgTalentTree = Colors.grey;
 
+  //About me
+  static const Color aboutMeSmallCircle = Colors.deepPurple;
+  static const aboutMeGradient = const [
+    Colors.purple, 
+    Colors.deepPurpleAccent
+  ];
+
+
   //Common colors
   static const Color transparent = Colors.transparent;
   static const Color white = Colors.white;

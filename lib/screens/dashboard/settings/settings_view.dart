@@ -32,7 +32,7 @@ class SettingsView extends StatelessWidget {
             context: context,
             leading: FontAwesomeIcons.questionCircle,
             text: AppStrings.aboutMe,
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AboutMe(),)),
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AboutMeView(),)),
           ),
           divider(),
           menuItem(

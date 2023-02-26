@@ -1,64 +1,29 @@
-import 'dart:math';
+import 'package:dota2_invoker/constants/app_colors.dart';
 import 'package:dota2_invoker/constants/app_strings.dart';
 import 'package:dota2_invoker/extensions/context_extension.dart';
 import 'package:dota2_invoker/extensions/widget_extension.dart';
-import 'package:dota2_invoker/widgets/context_menu.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:dota2_invoker/screens/dashboard/settings/about_me/widgets/profile_avatar.dart';
+import 'package:dota2_invoker/screens/dashboard/settings/about_me/widgets/social_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_arc_text/flutter_arc_text.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-enum Corner {left, middle, right}
+class AboutMeView extends StatelessWidget {
+  const AboutMeView({super.key});
 
-class AboutMe extends StatefulWidget {
-  const AboutMe({super.key});
-
-  @override
-  State<AboutMe> createState() => _AboutMeState();
-}
-
-class _AboutMeState extends State<AboutMe> with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
-  late Animation<double> _animation;
-  final _duration = Duration(milliseconds: 1000);
-
-  @override
-  void initState() {
-    _animationController = AnimationController(vsync: this, duration: _duration, reverseDuration: _duration);
-    _animation = Tween<double>(begin: 4, end: 12).animate(_animationController);
-    _animationController.repeat(reverse: true);
-    _animationController.addListener(() {
-      setState(() { });
-    });
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
-
-  BorderRadius getCornerRadius(Corner corner) {
-    switch (corner) {
-      case Corner.left:
-        return const BorderRadius.only(
-          topLeft: Radius.circular(12),
-          topRight: Radius.circular(2),
-          bottomLeft: Radius.circular(2),
-          bottomRight: Radius.circular(4),
-        );
-      case Corner.middle:
-        return const BorderRadius.all(Radius.circular(2));
-      case Corner.right:
-        return const BorderRadius.only(
-          topLeft: Radius.circular(2),
-          topRight: Radius.circular(12),
-          bottomLeft: Radius.circular(4),
-          bottomRight: Radius.circular(2),
-        );
-    }
-  }
+  final technologyList = const [
+    {
+      "tool" : "Flutter",
+      "icon" : "${ImagePaths.icFlutter}",
+    },
+    {
+      "tool" : "C#",
+      "icon" : "${ImagePaths.icCsharp}",
+    },
+    {
+      "tool" : "Firebase",
+      "icon" : "${ImagePaths.icFirebase}",
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -67,180 +32,103 @@ class _AboutMeState extends State<AboutMe> with SingleTickerProviderStateMixin {
         body: SizedBox.expand(
           child: CustomPaint(
             painter: AboutMePainter(),
-            child: Column(
-              children: [
-                avatar(context),
-                EmptyBox.h32(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    socialIcon(FontAwesomeIcons.google, corner: Corner.left),
-                    socialIcon(FontAwesomeIcons.linkedin),
-                    socialIcon(FontAwesomeIcons.github),
-                    socialIcon(FontAwesomeIcons.instagram, corner: Corner.right),
-                  ],
-                ),
-                Divider(
-                  color: Colors.white, 
-                  thickness: 1,
-                  indent: context.dynamicWidth(0.24),
-                  endIndent: context.dynamicWidth(0.24),
-                ),
-                EmptyBox.h32(),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Languages and Tools:", style: TextStyle(fontWeight: FontWeight.bold)),
-                    Wrap(
-                      children: [
-                        Chip(
-                          label: Text("Flutter"), 
-                          avatar: FlutterLogo(),
-                          labelPadding: EdgeInsets.only(left: 2, right: 4),
-                        ),
-                        EmptyBox.w4(),
-                        Chip(
-                          label: Text("C#"), 
-                          avatar: Image.asset("assets/images/other/ic_csharp.png"),
-                          labelPadding: EdgeInsets.only(left: 2, right: 4),
-                        ),
-                        EmptyBox.w4(),
-                        Chip(
-                          label: Text("Firebase"), 
-                          avatar: Image.asset("assets/images/other/ic_firebase.png"),
-                          labelPadding: EdgeInsets.only(left: 2, right: 4),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                EmptyBox.h32(),
-                Container(
-                  padding: EdgeInsets.all(8),
-                  width: context.dynamicWidth(0.72),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(8),
-                      topRight: Radius.circular(4),
-                      bottomLeft: Radius.circular(4),
-                      bottomRight: Radius.circular(8),
-
-                    ),
-                    border: Border.all(color: Colors.white70)
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(AppStrings.aboutMe, style: TextStyle(fontSize: context.sp(12), fontWeight: FontWeight.bold)),
-                      EmptyBox.h4(),
-                      Text(
-                        "Heyy, I'm Tolga Sözbir from Turkey. I'm a Freelance Flutter developer. If you wants to contact me to build your product leave message.",
-                        style: TextStyle(fontSize: context.sp(12)),
-                      ),
-                    ],
-                  ),
-                )
-
-              ],
-            ),
+            child: _bodyView(context),
           ),
         ),
       ),
     );
   }
 
-  Widget avatar(BuildContext context) {
-    return SizedBox(
-      height: context.height/3,
-      width: double.infinity,
-      child: Stack(
-        alignment: Alignment.center,
+  Stack _bodyView(BuildContext context) {
+    return Stack(
+      children: [
+        BackButton(),
+        Column(
+          children: [
+            ProfileAvatar(),
+            EmptyBox.h32(),
+            socialIcons(),
+            whiteDivider(context),
+            EmptyBox.h32(),
+            technologies(),
+            EmptyBox.h32(),
+            aboutMeBio(context)
+          ],
+        ),
+      ],
+    );
+  }
+
+  Row socialIcons() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SocialIcon(icon: FontAwesomeIcons.google, corner: Corner.left),
+        SocialIcon(icon: FontAwesomeIcons.linkedin),
+        SocialIcon(icon: FontAwesomeIcons.github),
+        SocialIcon(icon: FontAwesomeIcons.instagram, corner: Corner.right),
+      ],
+    );
+  }
+
+  Divider whiteDivider(BuildContext context) {
+    return Divider(
+      color: AppColors.white, 
+      thickness: 1,
+      indent: context.dynamicWidth(0.24),
+      endIndent: context.dynamicWidth(0.24),
+    );
+  }
+
+  Column technologies() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(AppStrings.langsAndTools, style: TextStyle(fontWeight: FontWeight.bold)),
+        Wrap(
+          children: List.generate(technologyList.length, (index) {
+            var item = technologyList[index];
+            return Chip(
+              label: Text(item["tool"]!), 
+              avatar: Image.asset(item["icon"]!),
+              labelPadding: EdgeInsets.only(left: 2, right: 4),
+            ).wrapPadding(EdgeInsets.symmetric(horizontal: 2));
+          }),
+        ),
+      ],
+    );
+  }
+
+  Container aboutMeBio(BuildContext context) {
+    final boxDecoration = BoxDecoration(
+      borderRadius: const BorderRadius.only(
+        topLeft: Radius.circular(8),
+        topRight: Radius.circular(4),
+        bottomLeft: Radius.circular(4),
+        bottomRight: Radius.circular(8),
+      ),
+      border: Border.all(color: AppColors.white30)
+    );
+
+    return Container(
+      padding: const EdgeInsets.all(8),
+      width: context.dynamicWidth(0.72),
+      decoration: boxDecoration,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Positioned(
-            top: 0,
-            left: 0,
-            child: BackButton(),
+          Text(
+            AppStrings.aboutMe, 
+            style: TextStyle(fontSize: context.sp(12), fontWeight: FontWeight.bold),
           ),
-          Positioned(
-            top: context.dynamicHeight(0.08),
-            child: ContextMenu(
-              previewBuilder: (context, animation, child) {
-                return Image.asset("assets/images/other/profile.jpeg");
-              },
-              child: CircleAvatar(
-                backgroundColor: Colors.white,
-                radius: context.dynamicHeight(0.086),
-                child: CircleAvatar(
-                  backgroundImage: AssetImage("assets/images/other/profile.jpeg"),
-                  radius: context.dynamicHeight(0.08),
-                  child: Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      Positioned(
-                        bottom: 0,
-                        right: -context.dynamicHeight(0.004),
-                        child: CircleAvatar(
-                          backgroundColor: Colors.white,
-                          radius: context.dynamicHeight(0.024),
-                          child: CircleAvatar(
-                            backgroundColor: Colors.deepPurple,
-                            radius: context.dynamicHeight(0.020),
-                            child: Icon(CupertinoIcons.zoom_in, color: Colors.white,),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            top: 0,
-            child: ArcText(
-              radius: context.height/3,
-              text: "Tolga Sözbir",
-              textStyle: TextStyle(
-                fontSize: context.sp(20),
-                fontWeight: FontWeight.w500, 
-                shadows: [Shadow(blurRadius: 8,),],
-              ),
-              direction: Direction.counterClockwise,
-              startAngleAlignment: StartAngleAlignment.center,
-              startAngle: pi,
-              placement: Placement.inside,
-            ),
-          )
+          const EmptyBox.h4(),
+          Text(AppStrings.bio,style: TextStyle(fontSize: context.sp(12))),
         ],
       ),
     );
   }
 
-  Widget socialIcon(IconData icon, {Corner corner = Corner.middle}) {
-    return Container(
-      width: 40,
-      height: 40,
-      margin: EdgeInsets.all(2),
-      decoration: BoxDecoration(
-        borderRadius: getCornerRadius(corner),
-        border: Border.all(color: Colors.white),
-        gradient: LinearGradient(
-          colors: [Colors.purple, Colors.deepPurpleAccent],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight
-        ),
-        boxShadow: [
-          BoxShadow(
-            blurRadius: _animation.value,
-            color: Colors.white
-          )
-        ]
-      ),
-      child: Icon(icon),
-    );
-  }  
 }
-
 
 class AboutMePainter extends CustomPainter {
 
