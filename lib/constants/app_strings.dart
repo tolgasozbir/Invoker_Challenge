@@ -90,6 +90,8 @@ class LottiePaths {
   static const String _root = 'assets/lottie';
 
   static const String lottieNoData = '$_root/lottie_no_data.json';
+  static const String lottieFeedback = '$_root/lottie_feedback.json';
+  static const String lottieSending = '$_root/lottie_sending.json';
 }
 
 class ImagePaths {
@@ -110,6 +112,14 @@ class ImagePaths {
   static const String svgDota2 = '$_svgRoot/dota2.svg';
   static const String svgInvoker = '$_svgRoot/invoker.svg';
   static const String svgTalentTree = '$_svgRoot/talent_tree.svg';
+
+  static const ratingFaces = const [
+    '$_svgRoot/rate1.svg',
+    '$_svgRoot/rate2.svg',
+    '$_svgRoot/rate3.svg',
+    '$_svgRoot/rate4.svg',
+    '$_svgRoot/rate5.svg',
+  ];
 
   //splash
   static const String splashImage1 = '$_splash/1.gif';

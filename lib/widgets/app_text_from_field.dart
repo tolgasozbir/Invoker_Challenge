@@ -11,6 +11,7 @@ class AppTextFormField extends StatelessWidget {
   final Widget? prefixIcon;
   final String topLabel;
   final bool obscureText;
+  final bool isExpand;
   final TextInputAction? textInputAction;
   final FormFieldSetter<String>? onSaved;
   final ValueChanged<String>? onChanged;
@@ -24,12 +25,13 @@ class AppTextFormField extends StatelessWidget {
   final Color? borderColor;
   final Color? bgColor;
 
-  AppTextFormField({
+  const AppTextFormField({
     this.key,
     this.hintText,
     this.prefixIcon,
     this.topLabel = '',
     this.obscureText = false,
+    this.isExpand = false,
     this.textInputAction,
     this.onSaved,
     this.keyboardType,
@@ -44,6 +46,7 @@ class AppTextFormField extends StatelessWidget {
     this.focusedBorderColor,
     this.bgColor,
   });
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -56,32 +59,36 @@ class AppTextFormField extends StatelessWidget {
           controller: this.controller,
           maxLines: maxLines,
           maxLength: maxLength,
+          textAlignVertical: TextAlignVertical.top,
           keyboardType: this.keyboardType,
           obscureText: this.obscureText,
+          expands: isExpand,
           onSaved: this.onSaved,
           onChanged: this.onChanged,
           validator: this.validator,
           textInputAction: textInputAction,
+          textCapitalization: TextCapitalization.sentences,
           style: TextStyle(fontSize: context.sp(12), fontWeight: FontWeight.w600),
           decoration: InputDecoration(
             contentPadding: EdgeInsets.fromLTRB(12, 20, 12, 12),
             //labelText: hintText,
+            hintMaxLines: 4,
             fillColor: bgColor ?? AppColors.textFormFieldBg,
             filled: true,
             prefixIcon: this.prefixIcon,
-            enabledBorder: inputBorderSide(color: borderColor ?? AppColors.white, width: 1),
-            focusedBorder: inputBorderSide(color: focusedBorderColor ?? Theme.of(context).colorScheme.primary),
-            errorBorder: inputBorderSide(color: errorBorderColor ?? Theme.of(context).colorScheme.error),
-            focusedErrorBorder: inputBorderSide(color: errorBorderColor ?? Theme.of(context).colorScheme.error),
+            enabledBorder: _inputBorderSide(color: borderColor ?? AppColors.white, width: 1),
+            focusedBorder: _inputBorderSide(color: focusedBorderColor ?? Theme.of(context).colorScheme.primary),
+            errorBorder: _inputBorderSide(color: errorBorderColor ?? Theme.of(context).colorScheme.error),
+            focusedErrorBorder: _inputBorderSide(color: errorBorderColor ?? Theme.of(context).colorScheme.error),
             hintText: this.hintText,
             errorText: this.errorText
           ),
-        )
+        ).wrapExpanded(flex: isExpand ? 1 : 0)
       ],
     );
   }
 
-  OutlineInputBorder inputBorderSide({required Color color, double width = 2}) {
+  OutlineInputBorder _inputBorderSide({required Color color, double width = 2}) {
     return OutlineInputBorder(
       borderSide: BorderSide(
         color: color,

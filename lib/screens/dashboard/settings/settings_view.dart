@@ -1,3 +1,4 @@
+import 'package:dota2_invoker/screens/dashboard/settings/feedback/feedback_view.dart';
 import 'package:dota2_invoker/utils/circular_reveal_page_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +38,7 @@ class SettingsView extends StatelessWidget {
             context: context,
             leading: FontAwesomeIcons.commentDots,
             text: AppStrings.feedback,
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => FeedbackView())),
           ),
           divider(),
           menuItem(
