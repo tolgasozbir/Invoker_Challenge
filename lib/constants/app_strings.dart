@@ -86,6 +86,7 @@ class AppStrings {
 
 //
 class LottiePaths {
+  LottiePaths._();
   static const String _root = 'assets/lottie';
 
   static const String lottieNoData = '$_root/lottie_no_data.json';

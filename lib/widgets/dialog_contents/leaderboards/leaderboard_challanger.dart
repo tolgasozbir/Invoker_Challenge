@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import '../../../constants/app_strings.dart';
 import '../../../models/challenger_result.dart';
 import '../../../services/app_services.dart';
+import 'package:lottie/lottie.dart';
 
 class LeaderboardChallanger extends StatefulWidget {
   const LeaderboardChallanger({super.key,});
@@ -18,7 +19,7 @@ class LeaderboardChallanger extends StatefulWidget {
 
 class _LeaderboardChallangerState extends State<LeaderboardChallanger> with LoadingState {
 
-  List<ChallengerResult> results = [];
+  List<ChallengerResult>? results = null;
 
   @override
   void initState() {
@@ -53,8 +54,12 @@ class _LeaderboardChallangerState extends State<LeaderboardChallanger> with Load
               ],
             ),
           ),
-          results.isEmpty ? const CircularProgressIndicator.adaptive().wrapCenter() : resultListView(results),
-          if (results.isNotEmpty)
+          results == null
+            ? const CircularProgressIndicator.adaptive().wrapCenter()
+            : results!.isEmpty
+              ? Lottie.asset(LottiePaths.lottieNoData, height: context.dynamicHeight(0.32))
+              : resultListView(results!),
+          if (results!= null && results!.isNotEmpty)
             showMoreBtn().wrapPadding(const EdgeInsets.all(8))
         ],
       ),
@@ -70,7 +75,7 @@ class _LeaderboardChallangerState extends State<LeaderboardChallanger> with Load
         changeLoadingState();
         ScaffoldMessenger.of(context).removeCurrentSnackBar();
         await Future.delayed(const Duration(seconds: 1));
-        results.addAll(await AppServices.instance.databaseService.getChallangerScores());
+        results?.addAll((await AppServices.instance.databaseService.getChallangerScores()));
         changeLoadingState();
       },
     );
