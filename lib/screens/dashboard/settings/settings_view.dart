@@ -1,3 +1,4 @@
+import 'package:dota2_invoker/utils/circular_reveal_page_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -29,7 +30,7 @@ class SettingsView extends StatelessWidget {
             context: context,
             leading: FontAwesomeIcons.questionCircle,
             text: AppStrings.aboutMe,
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AboutMeView(),)),
+            onTap: () => Navigator.push(context, circularRevealPageRoute(AboutMeView())),
           ),
           divider(),
           menuItem(

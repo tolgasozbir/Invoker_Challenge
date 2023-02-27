@@ -183,7 +183,7 @@ class AboutMePainter extends CustomPainter {
     final height = size.height;
 
     final gradient = LinearGradient(
-      colors: [Colors.purple, Colors.deepPurpleAccent],
+      colors: AppColors.aboutMeGradient,
       begin: Alignment.centerLeft,
       end: Alignment.centerRight,
     ).createShader(
@@ -194,7 +194,7 @@ class AboutMePainter extends CustomPainter {
         ),
       );
 
-    Paint paint = Paint();
+    final paint = Paint();
     paint.shader = gradient;
 
     final path = Path();
