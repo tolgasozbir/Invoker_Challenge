@@ -60,7 +60,6 @@ class AppStrings {
   static const String feedbackSuccessMessage = 'Thank you! your feedback will help me improve your experience.';
   static const String sbInfo = 'Info';
   static const String sbSuccess = 'Success';
-  static const String sbWarning = 'Warning';
   static const String sbError = 'Error';
   static const String sbNoMoreData = 'No more data!';
 
@@ -119,9 +118,12 @@ class ImagePaths {
   static const String svgQuas = '$_svgRoot/quas.svg';
   static const String svgWex = '$_svgRoot/wex.svg';
   static const String svgExort = '$_svgRoot/exort.svg';
-  static const String svgDota2 = '$_svgRoot/dota2.svg';
-  static const String svgInvoker = '$_svgRoot/invoker.svg';
   static const String svgTalentTree = '$_svgRoot/talent_tree.svg';
+  static const String svgDota2Logo = '$_svgRoot/dota2.svg';
+  static const svgInvokerLogo = const [
+    '$_svgRoot/invoker1.svg',
+    '$_svgRoot/invoker2.svg',
+  ];
 
   static const ratingFaces = const [
     '$_svgRoot/rate1.svg',

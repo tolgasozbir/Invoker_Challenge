@@ -10,8 +10,7 @@ class AppColors {
 
   //Snackbar colors
   static const Color errorColor   = Color(0xFFC72C41);
-  static const Color successColor = Color(0xFF0C7040);
-  static const Color warningColor = Color(0xFFE88B1D);
+  static const Color successColor = Color(0xFF0D7B46);
   static const Color infoColor    = Color(0xFF0070E0);
   
   //True false icon colors

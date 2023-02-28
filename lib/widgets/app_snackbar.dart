@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -8,7 +10,6 @@ import '../extensions/widget_extension.dart';
 enum SnackBarType{
   info,
   success,
-  warning,
   error,
 }
 
@@ -74,10 +75,6 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
         snackBarColor = AppColors.successColor;
         snackBarTitle = AppStrings.sbSuccess;
         break;
-      case SnackBarType.warning:
-        snackBarColor = AppColors.warningColor;
-        snackBarTitle = AppStrings.sbWarning;
-        break;
       case SnackBarType.error:
         snackBarColor = AppColors.errorColor;
         snackBarTitle = AppStrings.sbError;
@@ -113,7 +110,7 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
               quas(),
               wex(),
               exort(),
-              invokerLogo(),
+              invokerLogo2(),
               dota2Logo(),
               Row(
                 children: [
@@ -137,7 +134,7 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
                           overflow: TextOverflow.ellipsis,
                         ),
                       ],
-                    ),
+                    ).wrapPadding(EdgeInsets.only(left: 8)),
                   ),
                 ],
               ).wrapPadding(const EdgeInsets.all(16)),
@@ -148,13 +145,15 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
     );
   }
 
-  Positioned invokerLogo() {
+  Positioned invokerLogo2() {
+    var rnd = Random();
+    var index = rnd.nextInt(ImagePaths.svgInvokerLogo.length);
+    var svg = ImagePaths.svgInvokerLogo[index];
     return Positioned(
-      left: 0,
-      top: -position,
+      right: 0,
       child: SvgPicture.asset(
-        ImagePaths.svgInvoker,
-        color: AppColors.svgGrey.withOpacity(0.16),
+        svg,
+        color: AppColors.svgGrey.withOpacity(0.64),
         width: bgIconSize+32,
       ),
     );
@@ -162,10 +161,10 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
 
   Positioned dota2Logo() {
     return Positioned(
-      right: position,
+      left: position,
       top: position,
       child: SvgPicture.asset(
-        ImagePaths.svgDota2,
+        ImagePaths.svgDota2Logo,
         color: AppColors.svgGrey.withOpacity(0.32),
         width: bgIconSize,
       ),
