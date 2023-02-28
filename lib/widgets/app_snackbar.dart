@@ -110,32 +110,30 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
               quas(),
               wex(),
               exort(),
-              invokerLogo2(),
+              invokerLogo(),
               dota2Logo(),
               Row(
                 children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '$snackBarTitle!',
-                          style: const TextStyle(
-                            fontSize: 16,
-                            color: AppColors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '$snackBarTitle!',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: AppColors.white,
+                          fontWeight: FontWeight.bold,
                         ),
-                        const Spacer(),
-                        Text(
-                          widget.message,
-                          style: const TextStyle(fontSize: 14,color: AppColors.white), 
-                          maxLines: 2, 
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
-                    ).wrapPadding(EdgeInsets.only(left: 8)),
-                  ),
+                      ),
+                      const Spacer(),
+                      Text(
+                        widget.message,
+                        style: const TextStyle(fontSize: 14,color: AppColors.white), 
+                        maxLines: 2, 
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ).wrapPadding(EdgeInsets.only(left: 8)).wrapExpanded(),
                 ],
               ).wrapPadding(const EdgeInsets.all(16)),
             ],
@@ -145,7 +143,7 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
     );
   }
 
-  Positioned invokerLogo2() {
+  Positioned invokerLogo() {
     var rnd = Random();
     var index = rnd.nextInt(ImagePaths.svgInvokerLogo.length);
     var svg = ImagePaths.svgInvokerLogo[index];
@@ -165,7 +163,7 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
       top: position,
       child: SvgPicture.asset(
         ImagePaths.svgDota2Logo,
-        color: AppColors.svgGrey.withOpacity(0.32),
+        color: AppColors.svgGrey.withOpacity(0.24),
         width: bgIconSize,
       ),
     );

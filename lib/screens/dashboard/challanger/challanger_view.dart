@@ -28,11 +28,13 @@ class _ChallangerViewState extends State<ChallangerView> {
 
   Widget _bodyView() {
     return SafeArea(
-      child: Column(
-        children: [
-          const GameUIWidget(gameType: GameType.Challanger),
-          showLeaderBoardButton(),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            const GameUIWidget(gameType: GameType.Challanger),
+            showLeaderBoardButton(),
+          ],
+        ),
       ),
     );
   }

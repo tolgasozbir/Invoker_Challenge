@@ -43,6 +43,12 @@ class AppColors {
     Colors.deepPurpleAccent
   ];
 
+  //hud slider
+  static const qwerHudSliderGradient = const [
+    Color(0xFF5C5C5C),
+    Color(0xFF757575),
+    Color(0xFF5C5C5C),
+  ];
 
   //Common colors
   static const Color transparent = Colors.transparent;

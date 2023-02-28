@@ -1,3 +1,4 @@
+import '../enums/local_storage_keys.dart';
 import 'timer_hud.dart';
 import '../extensions/widget_extension.dart';
 import '../mixins/loading_state_mixin.dart';
@@ -98,9 +99,10 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
     );
   }
 
+  //QWER Ability Hud
   Padding skills() {
     return Padding(
-      padding: EdgeInsets.only(top: context.dynamicHeight(0.03)),
+      padding: EdgeInsets.only(top: qwerHudHeight),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -338,4 +340,19 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
     context.read<SpellProvider>().getRandomSpell();
   }
   
+  double get qwerHudHeight {
+    double min = context.dynamicHeight(0.00);
+    double max = context.dynamicHeight(0.09);
+    double val = (AppServices.instance.localStorageService.
+      getIntValue(LocalStorageKey.qwerHudHeight)?.toDouble() ?? 40) / 100 * max;
+
+    if (val >= max) {
+      return max;
+    } else if (val <= min) {
+      return min;
+    } else {
+      return val;
+    }
+  }
+
 }

@@ -58,6 +58,8 @@ class AppStrings {
   static const String succesSubmitScore = 'Your score has been sent successfully.';
   static const String feedbackInfoMessage = 'Your message must be at least 10 characters.';
   static const String feedbackSuccessMessage = 'Thank you! your feedback will help me improve your experience.';
+  static const String qwerHudInfoMessage1 = 'Adjusts the height of the quas, wex, exort, and invoke buttons.';
+  static const String qwerHudInfoMessage2 = 'The higher it is, the closer it is to the bottom.';
   static const String sbInfo = 'Info';
   static const String sbSuccess = 'Success';
   static const String sbError = 'Error';

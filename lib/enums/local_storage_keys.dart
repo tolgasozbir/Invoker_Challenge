@@ -3,4 +3,5 @@ enum LocalStorageKey {
   userRecords,
   //int keys
   volume,
+  qwerHudHeight,
 }

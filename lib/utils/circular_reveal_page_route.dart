@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 Route circularRevealPageRoute(Widget routePage) {
   return PageRouteBuilder(
-    transitionDuration: const Duration(milliseconds: 1600),
+    transitionDuration: const Duration(milliseconds: 1200),
     reverseTransitionDuration: const Duration(milliseconds: 1200),
     opaque: false,
     barrierDismissible: false,
@@ -11,7 +11,7 @@ Route circularRevealPageRoute(Widget routePage) {
       final screenSize = MediaQuery.of(context).size;
       final center = Offset(screenSize.width/2, screenSize.height/2);
       final beginRadius = 0.0;
-      final endRadius = screenSize.height * 1.2;
+      final endRadius = screenSize.height * 0.8;
       final borderWidth = 16.0;
 
       final tween = Tween(begin: beginRadius, end: endRadius);
