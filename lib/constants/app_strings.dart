@@ -56,6 +56,8 @@ class AppStrings {
   static const String errorSubmitScore1 = 'You must be logged in to submit your score.';
   static const String errorSubmitScore2 = 'To submit your score, you need to beat your previous score.';
   static const String succesSubmitScore = 'Your score has been sent successfully.';
+  static const String feedbackInfoMessage = 'Your message must be at least 10 characters.';
+  static const String feedbackSuccessMessage = 'Thank you! your feedback will help me improve your experience.';
   static const String sbInfo = 'Info';
   static const String sbSuccess = 'Success';
   static const String sbWarning = 'Warning';
@@ -81,6 +83,14 @@ class AppStrings {
   //About me
   static const String bio = "Heyy, I'm Tolga Sözbir from Turkey. I'm a Freelance mobile developer. If you wants to contact me to build your product leave message.";
   static const String langsAndTools = 'Languages and Tools:';
+
+  //Feedback
+  static const String fbTitleFirst = 'Send me your';
+  static const String fbTitleSecond = 'Feedback!';
+  static const String fbMidText = 'Tell me how your experience was and let me know what I can improve.!';
+  static const String fbHint = 'Drop me any suggestions, questions or complaints to improve :)';
+  static const String fbSendBtn = 'Send Feedback';
+
 
 }
 

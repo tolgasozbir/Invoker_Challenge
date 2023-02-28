@@ -12,6 +12,7 @@ class AppOutlinedButton extends StatelessWidget {
     required this.title, 
     this.width, 
     this.height, 
+    this.bgColor,
     this.textStyle, 
     this.padding,
     this.isButtonActive = true,
@@ -21,6 +22,7 @@ class AppOutlinedButton extends StatelessWidget {
   final String title;
   final double? width;
   final double? height;
+  final Color? bgColor;
   final TextStyle? textStyle;
   final EdgeInsets? padding;
   final bool isButtonActive;
@@ -41,7 +43,7 @@ class AppOutlinedButton extends StatelessWidget {
         //textStyle: TextStyle(fontSize: context.sp(12)),
         side: BorderSide(color: _buttonStateColor(AppColors.outlinedBorder)),
         foregroundColor: _buttonStateColor(AppColors.outlinedSurface),
-        backgroundColor: _buttonStateColor(AppColors.buttonBgColor),
+        backgroundColor: _buttonStateColor(bgColor ?? AppColors.buttonBgColor),
       ),
     ).wrapPadding(padding ?? EdgeInsets.zero);
   }

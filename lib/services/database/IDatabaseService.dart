@@ -1,4 +1,5 @@
 import '../../models/challenger_result.dart';
+import '../../models/feedback_model.dart';
 import '../../models/timer_result.dart';
 import '../../models/user_model.dart';
 
@@ -9,5 +10,6 @@ abstract class IDatabaseService {
   Future<List<ChallengerResult>> getChallangerScores();
   Future<bool> addTimerScore(TimerResult score);
   Future<bool> addChallengerScore(ChallengerResult score);
+  Future<bool> sendFeedback(FeedbackModel feedbackModel);
   void dispose();
 }

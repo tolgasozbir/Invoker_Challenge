@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dota2_invoker/models/feedback_model.dart';
 
 import '../../constants/app_strings.dart';
 import '../../enums/database_table.dart';
@@ -16,6 +17,7 @@ class FirestoreService implements IDatabaseService {
   static FirestoreService get instance => _instance ??= FirestoreService._();
 
   final _collectionRefUsers = FirebaseFirestore.instance.collection('Users');
+  final _collectionRefFeedbacks = FirebaseFirestore.instance.collection('Feedbacks');
   final _collectionRefTimer = FirebaseFirestore.instance.collection(DatabaseTable.timer.name);
   final _collectionRefChallanger = FirebaseFirestore.instance.collection(DatabaseTable.challenger.name);
   final int _fetchLimit = 10;
@@ -152,6 +154,17 @@ class FirestoreService implements IDatabaseService {
     }
   }
   
+  @override
+  Future<bool> sendFeedback(FeedbackModel feedbackModel) async {
+    try {
+      await _collectionRefFeedbacks.add(feedbackModel.toMap());
+      return true;
+    } catch (e) {
+      log(e.toString());
+      return false;
+    }
+  }
+
   @override
   void dispose() {
     _hasMoreData = true;

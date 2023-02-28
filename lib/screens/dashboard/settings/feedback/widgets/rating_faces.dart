@@ -16,20 +16,23 @@ class RatingFaces extends StatefulWidget {
 
 class _RatingFacesState extends State<RatingFaces> {
   int selectedIndex = 5;
+  int flex = 5;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: List.generate(ImagePaths.ratingFaces.length, (index) {
         var svg = ImagePaths.ratingFaces[index];
+        var isSelected = selectedIndex == index+1;
+        flex = isSelected ? 6 : 5;
         return InkWell(
-          child: SvgPicture.asset(svg, color: selectedIndex == index+1 ? AppColors.amber : AppColors.white30),
+          child: SvgPicture.asset(svg, color: isSelected ? AppColors.amber : AppColors.white30),
           onTap: () {
             FocusManager.instance.primaryFocus?.unfocus();
             setState(() => selectedIndex = index+1);
             widget.onSelected.call(selectedIndex);
           },
-        ).wrapPadding(EdgeInsets.symmetric(horizontal: 4)).wrapExpanded();
+        ).wrapPadding(EdgeInsets.symmetric(horizontal: 4)).wrapExpanded(flex: flex);
       }),
     );
   }

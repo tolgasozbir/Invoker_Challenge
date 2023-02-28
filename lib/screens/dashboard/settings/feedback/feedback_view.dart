@@ -2,10 +2,17 @@ import 'package:dota2_invoker/constants/app_colors.dart';
 import 'package:dota2_invoker/constants/app_strings.dart';
 import 'package:dota2_invoker/extensions/context_extension.dart';
 import 'package:dota2_invoker/extensions/widget_extension.dart';
+import 'package:dota2_invoker/mixins/loading_state_mixin.dart';
+import 'package:dota2_invoker/models/feedback_model.dart';
+import 'package:dota2_invoker/providers/user_manager.dart';
 import 'package:dota2_invoker/screens/dashboard/settings/feedback/widgets/rating_faces.dart';
+import 'package:dota2_invoker/services/app_services.dart';
+import 'package:dota2_invoker/utils/formatted_date.dart';
 import 'package:dota2_invoker/widgets/app_outlined_button.dart';
+import 'package:dota2_invoker/widgets/app_snackbar.dart';
 import 'package:dota2_invoker/widgets/app_text_from_field.dart';
 import 'package:flutter/material.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:splash/splash.dart';
 
@@ -16,14 +23,21 @@ class FeedbackView extends StatefulWidget {
   State<FeedbackView> createState() => _FeedbackViewState();
 }
 
-class _FeedbackViewState extends State<FeedbackView> with SingleTickerProviderStateMixin {
+class _FeedbackViewState extends State<FeedbackView> with SingleTickerProviderStateMixin, LoadingState {
   late final AnimationController _lottieController;
-  bool hide = false;
+  final _feedbackController = TextEditingController();
+  int _ratingValue = 5;
 
   @override
   void initState() {
     _lottieController = AnimationController(vsync: this);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _lottieController.dispose();
+    super.dispose();
   }
 
   @override
@@ -35,12 +49,12 @@ class _FeedbackViewState extends State<FeedbackView> with SingleTickerProviderSt
           backgroundColor: Colors.transparent,
           elevation: 0,
         ),
-        body: _bodyView(context),
+        body: _bodyView(),
       ),
     );
   }
 
-  Widget _bodyView(BuildContext context) {
+  Widget _bodyView() {
     return InkWell(
       splashFactory: WaveSplash.splashFactory,
       //splashColor: AppColors.transparent,
@@ -54,7 +68,7 @@ class _FeedbackViewState extends State<FeedbackView> with SingleTickerProviderSt
           child: Column(
             children: [
               EmptyBox.h8(),
-              LottieBuilder.asset(LottiePaths.lottieFeedback, width: double.infinity,).wrapExpanded(),
+              LottieBuilder.asset(LottiePaths.lottieFeedback, width: double.infinity,).wrapExpanded(flex: 4),
               EmptyBox.h8(),
               Container(
                 width: context.dynamicWidth(0.9),
@@ -66,74 +80,123 @@ class _FeedbackViewState extends State<FeedbackView> with SingleTickerProviderSt
                 ),
                 child: Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("Send me your", style: TextStyle(fontSize: context.sp(16), color: Color(0xFF4295F9), fontWeight: FontWeight.bold),),
-                        EmptyBox.w4(),
-                        Text(AppStrings.feedback+"!", style: TextStyle(fontSize: context.sp(16), color: Color(0xFF29C594), fontWeight: FontWeight.bold),),
-                      ],
-                    ).wrapPadding(EdgeInsets.only(top: 16)),
                     EmptyBox.h16(),
-                    Text(
-                      "Tell me how your experience was and let me know what I can improve.", 
-                      style: TextStyle(fontSize: context.sp(12), color: Colors.grey.shade400),
-                      textAlign: TextAlign.center,
-                    ),
+                    titleText(),
+                    EmptyBox.h16(),
+                    middleText(),
                     EmptyBox.h8(),
-                    RatingFaces(
-                      onSelected: (value) {
-                        print(value);
-                      },
-                    ).wrapExpanded(),
-                    AppTextFormField(
-                      maxLines: null,
-                      isExpand: true,
-                      hintText: "Drop me any suggestions, questions or complaints to improve :)",
-                      textInputAction: TextInputAction.done,
-                    ).wrapExpanded(flex: 3),
+                    RatingFaces(onSelected: (value) => _ratingValue = value).wrapExpanded(),
+                    feedbackTextField().wrapExpanded(flex: 3),
                   ],
-                )
-              ).wrapExpanded(flex: 3),
-              Stack(
-                children: [
-                  AppOutlinedButton(
-                    padding: EdgeInsets.only(top: 16),
-                    width: context.dynamicWidth(0.9),
-                    title: "Send Feedback",
-                    isButtonActive: true,
-                    onPressed: () async {
-                      await _lottieController.animateTo(1);
-                      setState(() {
-                        hide = !hide;
-                      });
-                      await _lottieController.animateBack(0, duration: Duration.zero);
-                      setState(() {
-                        hide = !hide;
-                      });
-                    },
-                  ),
-                  Positioned(
-                    right: 0,
-                    top: 16,
-                    bottom: 0,
-                    child: Offstage(
-                      offstage: hide,
-                      child: LottieBuilder.asset(
-                        LottiePaths.lottieSending, 
-                        height: 48,
-                        controller: _lottieController,
-                        onLoaded: (composition) => _lottieController.duration = composition.duration,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              EmptyBox.h32(),
+                ),
+              ).wrapExpanded(flex: 10),
+              sendButton(),
+              Spacer(),
             ],
           ),
         ),
       ),
     );
   }
+
+  Row titleText() {
+    var textStyle = TextStyle(fontSize: context.sp(16), fontWeight: FontWeight.bold);
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(AppStrings.fbTitleFirst, style: textStyle.copyWith(color: Color(0xFF4295F9)),),
+        EmptyBox.w4(),
+        Text(AppStrings.fbTitleSecond, style: textStyle.copyWith(color: Color(0xFF29C594))),
+      ],
+    );
+  }
+
+  Text middleText() {
+    return Text(
+      AppStrings.fbMidText, 
+      style: TextStyle(fontSize: context.sp(12), color: Colors.grey.shade400),
+      textAlign: TextAlign.center,
+    );
+  }
+
+  AppTextFormField feedbackTextField() {
+    return AppTextFormField(
+      maxLines: null,
+      isExpand: true,
+      controller: _feedbackController,
+      hintText: AppStrings.fbHint,
+      textInputAction: TextInputAction.done,
+    );
+  }
+
+  Stack sendButton() {
+    return Stack(
+      children: [
+        AppOutlinedButton(
+          title: AppStrings.fbSendBtn,
+          width: context.dynamicWidth(0.9),
+          bgColor: AppColors.fbSendBtn,
+          padding: EdgeInsets.only(top: 16),
+          isButtonActive: !isLoading,
+          onPressed: sendBtnFn,
+        ),
+        Positioned(
+          right: 0,
+          top: 16,
+          bottom: 0,
+          child: LottieBuilder.asset(
+            LottiePaths.lottieSending, 
+            height: 48,
+            width: 48,
+            controller: _lottieController,
+            onLoaded: (composition) => _lottieController.duration = composition.duration,
+          ),
+        ),
+      ],
+    );
+  }
+
+  void sendBtnFn() async {
+    if (_feedbackController.text.length < 10) {
+      AppSnackBar.showSnackBarMessage(text: AppStrings.feedbackInfoMessage, snackBartype: SnackBarType.info);
+      return;
+    }
+
+    var hasConnection = await InternetConnectionChecker().hasConnection;
+    if (!hasConnection) {
+      AppSnackBar.showSnackBarMessage(text: AppStrings.errorConnection, snackBartype: SnackBarType.info);
+      return;
+    }
+
+    changeLoadingState();
+    var feedback = FeedbackModel(
+      senderId: UserManager.instance.user.uid,
+      sender: UserManager.instance.user.username, 
+      ratePoint: _ratingValue, 
+      message: _feedbackController.text,
+      createdAt: getFormattedDate
+    );
+
+    var success = await AppServices.instance.databaseService.sendFeedback(feedback);
+    final duration = const Duration(milliseconds: 3000);
+    if (success) {
+      await _lottieController.animateTo(1);
+      _feedbackController.clear();
+      AppSnackBar.showSnackBarMessage(
+        text: AppStrings.feedbackSuccessMessage, 
+        snackBartype: SnackBarType.success,
+        duration: duration
+      );
+    }else {
+      AppSnackBar.showSnackBarMessage(
+        text: AppStrings.errorMessage + " " +  AppStrings.errorConnection, 
+        snackBartype: SnackBarType.error,
+        duration: duration,
+      );
+    }
+
+    changeLoadingState();
+      await _lottieController.animateBack(0, duration: Duration.zero);
+  }
+
 }
