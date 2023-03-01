@@ -1,9 +1,10 @@
-import '../services/sound_manager.dart';
+import 'package:flutter/material.dart';
+import 'package:splash/splash.dart';
+
 import '../constants/app_colors.dart';
 import '../extensions/context_extension.dart';
 import '../extensions/widget_extension.dart';
-import 'package:flutter/material.dart';
-import 'package:splash/splash.dart';
+import '../services/sound_manager.dart';
 
 class AppOutlinedButton extends StatelessWidget {
   const AppOutlinedButton({

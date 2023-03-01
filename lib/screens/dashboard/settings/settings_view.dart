@@ -1,6 +1,6 @@
-import 'package:dota2_invoker/screens/dashboard/settings/feedback/feedback_view.dart';
-import 'package:dota2_invoker/utils/circular_reveal_page_route.dart';
-import 'package:dota2_invoker/widgets/sliders/qwer_hud_height_slider.dart';
+import 'feedback/feedback_view.dart';
+import '../../../utils/circular_reveal_page_route.dart';
+import '../../../widgets/sliders/qwer_hud_height_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

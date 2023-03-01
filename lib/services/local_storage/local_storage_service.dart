@@ -1,6 +1,6 @@
-import '../../enums/local_storage_keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../enums/local_storage_keys.dart';
 import 'ILocalStorageService.dart';
 
 class LocalStorageService implements ILocalStorageService {

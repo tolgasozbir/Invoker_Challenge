@@ -1,12 +1,13 @@
-import '../models/user_model.dart';
-import 'dialog_contents/profile_dialog_content.dart';
-import 'app_dialogs.dart';
-import 'dialog_contents/login_register_dialog_content.dart';
-import '../extensions/widget_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import '../constants/app_colors.dart';
+import '../extensions/widget_extension.dart';
+import '../models/user_model.dart';
 import '../providers/user_manager.dart';
+import 'app_dialogs.dart';
+import 'dialog_contents/login_register_dialog_content.dart';
+import 'dialog_contents/profile_dialog_content.dart';
 
 class UserStatus extends StatefulWidget {
   UserStatus({super.key, required this.user});

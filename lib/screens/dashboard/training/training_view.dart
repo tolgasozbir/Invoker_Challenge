@@ -1,6 +1,6 @@
-import 'package:dota2_invoker/extensions/widget_extension.dart';
-import 'package:dota2_invoker/providers/game_provider.dart';
-import 'package:dota2_invoker/widgets/spells_helper_widget.dart';
+import '../../../extensions/widget_extension.dart';
+import '../../../providers/game_provider.dart';
+import '../../../widgets/spells_helper_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';

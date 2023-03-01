@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import '../models/user_model.dart';
-import '../widgets/game_ui_widget.dart';
 
 import '../constants/app_strings.dart';
 import '../enums/local_storage_keys.dart';
+import '../models/user_model.dart';
 import '../services/app_services.dart';
 import '../utils/id_generator.dart';
+import '../widgets/game_ui_widget.dart';
 
 class UserManager extends ChangeNotifier {
   UserManager._();

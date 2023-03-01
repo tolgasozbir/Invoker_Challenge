@@ -1,4 +1,4 @@
-import 'package:dota2_invoker/constants/app_colors.dart';
+import '../constants/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../constants/app_strings.dart';

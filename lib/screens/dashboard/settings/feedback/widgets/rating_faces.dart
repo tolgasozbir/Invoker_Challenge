@@ -1,4 +1,4 @@
-import 'package:dota2_invoker/extensions/widget_extension.dart';
+import '../../../../../extensions/widget_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 

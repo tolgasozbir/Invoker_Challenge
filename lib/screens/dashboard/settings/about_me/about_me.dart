@@ -1,4 +1,4 @@
-import 'package:dota2_invoker/widgets/app_snackbar.dart';
+import '../../../../widgets/app_snackbar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../constants/app_colors.dart';
