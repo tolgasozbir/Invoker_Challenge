@@ -82,7 +82,7 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
         textInputAction: TextInputAction.next,
         maxLength: isLoginCheckboxSelected ? null : 16,
         validator: isLoginCheckboxSelected ? null : isValid,
-      ), 
+      ).wrapPadding(EdgeInsets.only(top: 16)),
       crossFadeState: isLoginCheckboxSelected ? CrossFadeState.showFirst : CrossFadeState.showSecond, 
       duration: Duration(milliseconds: 400),
       sizeCurve: Curves.decelerate,

@@ -1,3 +1,5 @@
+import 'package:dota2_invoker/constants/app_colors.dart';
+
 import '../constants/app_strings.dart';
 import '../extensions/context_extension.dart';
 import '../extensions/widget_extension.dart';
@@ -27,15 +29,15 @@ class TimerHud extends StatelessWidget {
     return Stack(
       alignment: Alignment.topCenter,
       children: [
-        Image.asset(ImagePaths.todClock, height: context.dynamicHeight(0.1)),
+        Image.asset(ImagePaths.todClock, height: context.dynamicHeight(0.08)), //0.1
         Text(
           getTimerValue(context),
           style: TextStyle(
-            fontSize: context.dynamicHeight(0.04),
-            color: Color.fromARGB(255, 255, 255, 255),
+            fontSize: context.dynamicHeight(0.032), //0.4
+            color: AppColors.white,
             shadows: [
               Shadow(
-                color: Colors.black,
+                color: AppColors.black,
                 blurRadius: 8,
               )
             ]

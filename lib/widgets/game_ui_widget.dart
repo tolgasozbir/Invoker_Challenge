@@ -49,7 +49,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
         if (widget.gameType != GameType.Training)...[
           TimerHud(gameType: widget.gameType),
           trueCounter(),
-          SizedBox(height: context.dynamicHeight(0.04)),
+          SizedBox(height: context.dynamicHeight(0.04)), //0.04
         ],
         TrueFalseIconWidget(key: _animKey),
         bigSpellPicture(),
@@ -100,8 +100,9 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
   }
 
   //QWER Ability Hud
-  Padding skills() {
-    return Padding(
+  AnimatedPadding skills() {
+    return AnimatedPadding(
+      duration: Duration(milliseconds: 400),
       padding: EdgeInsets.only(top: qwerHudHeight),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -341,18 +342,15 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
   }
   
   double get qwerHudHeight {
-    double min = context.dynamicHeight(0.00);
-    double max = context.dynamicHeight(0.09);
-    double val = (AppServices.instance.localStorageService.
-      getIntValue(LocalStorageKey.qwerHudHeight)?.toDouble() ?? 40) / 100 * max;
+    var isStart = context.read<GameProvider>().isStart;
+    final totalButtonHeight = 96;
+    double max = context.dynamicHeight(0.12);
+    double sliderVal = AppServices.instance.localStorageService.
+      getIntValue(LocalStorageKey.qwerHudHeight)?.toDouble() ?? 40;
 
-    if (val >= max) {
-      return max;
-    } else if (val <= min) {
-      return min;
-    } else {
-      return val;
-    }
+    var calculatedVal =  (sliderVal / 100 * max) + (isStart ? (sliderVal / 100 * totalButtonHeight) : 0);
+
+    return calculatedVal;
   }
 
 }

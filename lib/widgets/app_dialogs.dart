@@ -13,7 +13,8 @@ class AppDialogs {
     String? title, 
     required Widget content, 
     Widget? action, 
-    double? height, 
+    double? height,
+    bool showBackButton = false, 
     bool dismissible = false
   }) {
     return showGeneralDialog<T?>(
@@ -55,19 +56,24 @@ class AppDialogs {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          if (title != null)
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
-                              child: Text(
-                                title, 
-                                style: TextStyle(fontSize: context.sp(16), fontWeight: FontWeight.w500),
-                              ),
-                            ),
+                          Row(
+                            children: [
+                              if (showBackButton) BackButton(),
+                              if (title != null)
+                                Padding(
+                                  padding: showBackButton ? EdgeInsets.zero : const EdgeInsets.fromLTRB(24, 20, 0, 0),
+                                  child: Text(title, style: TextStyle(fontSize: context.sp(16), fontWeight: FontWeight.w500)),
+                                ),
+                            ],
+                          ),
                           Expanded(
                             flex: 9, 
                             child: Padding(
-                              padding: const EdgeInsets.fromLTRB(24, 20, 24, 12),
-                              child: SingleChildScrollView(child: content),
+                              padding: const EdgeInsets.fromLTRB(24, 8, 24, 4),
+                              child: SingleChildScrollView(
+                                physics: BouncingScrollPhysics(),
+                                child: content,
+                              ),
                             ),
                           ),
                           Align(
