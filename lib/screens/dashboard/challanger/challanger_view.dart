@@ -7,6 +7,7 @@ import '../../../constants/app_strings.dart';
 import '../../../extensions/context_extension.dart';
 import '../../../providers/game_provider.dart';
 import '../../../widgets/app_dialogs.dart';
+import '../../../widgets/app_scaffold.dart';
 import '../../../widgets/game_ui_widget.dart';
 import '../../../widgets/dialog_contents/leaderboards/leaderboard_challanger.dart';
 
@@ -20,21 +21,21 @@ class ChallangerView extends StatefulWidget {
 class _ChallangerViewState extends State<ChallangerView> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: _bodyView(),
+    return SafeArea(
+      child: AppScaffold(
+        resizeToAvoidBottomInset: false,
+        body: _bodyView(),
+      ),
     );
   }
 
   Widget _bodyView() {
-    return SafeArea(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            const GameUIWidget(gameType: GameType.Challanger),
-            showLeaderBoardButton(),
-          ],
-        ),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          const GameUIWidget(gameType: GameType.Challanger),
+          showLeaderBoardButton(),
+        ],
       ),
     );
   }

@@ -10,34 +10,24 @@ class GameProvider extends ChangeNotifier {
   Timer? _timer;
 
   bool _isStart = false;
+  bool _spellHeplerIsOpen = false;
   int _timerValue = 0;
   int _countdownValue = 60;
-  int _totalTabs = 0;
-  int _totalCast = 0;
   int _correctCombinationCount = 0;
 
   bool get isStart => _isStart;
+  bool get spellHelperIsOpen => _spellHeplerIsOpen;
   int get getTimeValue => _timerValue;
   int get getCountdownValue => _countdownValue;
-  int get getTotalTabs => _totalTabs;
-  int get getTotalCast => _totalCast;
   int get getCorrectCombinationCount => _correctCombinationCount;
-
-  double get calculateCps => _totalTabs/_timerValue;
-  double get calculateScps => _totalCast/_timerValue;
 
   void changeIsStartStatus(){
     _isStart = !_isStart;
     notifyListeners();
   }
 
-  void increaseTotalTabs(){
-    _totalTabs++;
-    notifyListeners();
-  }  
-
-  void increaseTotalCast(){
-    _totalCast++;
+  void showCloseHelperWidget() {
+    _spellHeplerIsOpen = !_spellHeplerIsOpen;
     notifyListeners();
   }
 
@@ -75,12 +65,14 @@ class GameProvider extends ChangeNotifier {
     });
   }
 
+  void updateView() {
+    notifyListeners();
+  }
+
   void resetTimer(){
     _isStart = false;
     _timerValue = 0;
     _countdownValue = 60;
-    _totalTabs = 0;
-    _totalCast = 0;
     _correctCombinationCount = 0;
     disposeTimer();
     notifyListeners();

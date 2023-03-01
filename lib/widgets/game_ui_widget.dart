@@ -47,11 +47,18 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
   Column _bodyView() {
     return Column(
       children: [
-        if (widget.gameType != GameType.Training)...[
-          TimerHud(gameType: widget.gameType),
-          trueCounter(),
-          SizedBox(height: context.dynamicHeight(0.04)), //0.04
-        ],
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Spacer(),
+            TimerHud(gameType: widget.gameType).wrapExpanded(),
+            trueCounter().wrapExpanded(),
+          ],
+        ),
+        if (widget.gameType == GameType.Training)
+          SizedBox(height: context.dynamicHeight(0.16) + (context.watch<GameProvider>().spellHelperIsOpen ? -context.dynamicHeight(0.12) : 0))
+        else
+          SizedBox(height: context.dynamicHeight(0.20)),
         TrueFalseIconWidget(key: _animKey),
         bigSpellPicture(),
         selectedElementOrbs(),
@@ -62,10 +69,15 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
   }
 
   Widget trueCounter(){
+    var score = context.watch<GameProvider>().getCorrectCombinationCount.toString();
     return Text(
-      context.watch<GameProvider>().getCorrectCombinationCount.toString(),
-      style: TextStyle(fontSize: context.sp(36), color: AppColors.scoreCounterColor,),
-    ).wrapPadding(EdgeInsets.only(top: 8));
+      AppStrings.score + ": " + score,
+      textAlign: TextAlign.right,
+      style: TextStyle(
+        fontSize: context.sp(20), 
+        color: AppColors.scoreCounterColor
+      ),
+    ).wrapPadding(EdgeInsets.only(top: 4, right: 8));
   }
 
   Widget bigSpellPicture(){
@@ -165,14 +177,12 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
         if(!timerProvider.isStart) return;
         if (currentCombination.toString() == spellProvider.getNextCombination.toString()) {
           timerProvider.increaseCorrectCounter();
-          timerProvider.increaseTotalCast(); 
           SoundManager.instance.trueCombinationSound(spellProvider.getNextCombination);
           _animKey.currentState?.playAnimation(IconType.True);
         }else{
           SoundManager.instance.failCombinationSound();
           _animKey.currentState?.playAnimation(IconType.False);
         }
-        timerProvider.increaseTotalTabs();
         spellProvider.getRandomSpell();
     }
   }

@@ -11,13 +11,6 @@ class AppStrings {
   static const String quitGame = 'Quit Game';
   static const String settings = 'Settings';
 
-  //Training
-  static const String secPassed = 'Seconds passed';
-  static const String toolTipCPS = 'Click per seconds average by elapsed time.';
-  static const String cps = ' Cps';
-  static const String toolTipSCPS = 'Skill cast per seconds average by elapsed time.';
-  static const String scps = ' SCps';
-
   //Common
   static const String leaderboard = 'Leaderboard';
   static const String showMore = 'Show more';

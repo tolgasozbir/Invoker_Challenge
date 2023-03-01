@@ -26,24 +26,24 @@ class TimerHud extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.topCenter,
-      children: [
-        Image.asset(ImagePaths.todClock, height: context.dynamicHeight(0.08)), //0.1
-        Text(
-          getTimerValue(context),
-          style: TextStyle(
-            fontSize: context.dynamicHeight(0.032), //0.4
-            color: AppColors.white,
-            shadows: [
-              Shadow(
-                color: AppColors.black,
-                blurRadius: 8,
-              )
-            ]
-          )
-        ).wrapPadding(EdgeInsets.only(top: 4)),
-      ],
+    return PhysicalModel(
+      color: AppColors.transparent,
+      elevation: 24,
+      borderRadius: BorderRadius.vertical(bottom: Radius.circular(50)),
+      child: Stack(
+        alignment: Alignment.topCenter,
+        children: [
+          Image.asset(ImagePaths.todClock, height: context.dynamicHeight(0.08)), //0.1
+          Text(
+            getTimerValue(context),
+            style: TextStyle(
+              fontSize: context.dynamicHeight(0.032), //0.4
+              color: AppColors.white,
+              shadows: List.generate(2, (index) => Shadow(blurRadius: 8,)),
+            ),
+          ).wrapPadding(EdgeInsets.only(top: 4)),
+        ],
+      ),
     );
   }
 }

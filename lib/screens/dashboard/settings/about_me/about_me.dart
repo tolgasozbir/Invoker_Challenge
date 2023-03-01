@@ -5,6 +5,7 @@ import '../../../../constants/app_colors.dart';
 import '../../../../constants/app_strings.dart';
 import '../../../../extensions/context_extension.dart';
 import '../../../../extensions/widget_extension.dart';
+import '../../../../widgets/app_scaffold.dart';
 import 'widgets/profile_avatar.dart';
 import 'widgets/social_icon.dart';
 import 'package:flutter/material.dart';
@@ -38,12 +39,7 @@ class AboutMeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-        ),
+      child: AppScaffold(
         body: SizedBox.expand(
           child: CustomPaint(
             painter: AboutMePainter(),

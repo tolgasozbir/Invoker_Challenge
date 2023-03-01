@@ -7,6 +7,7 @@ import '../../../extensions/widget_extension.dart';
 import '../../../providers/game_provider.dart';
 import '../../../widgets/app_dialogs.dart';
 import '../../../widgets/app_outlined_button.dart';
+import '../../../widgets/app_scaffold.dart';
 import '../../../widgets/dialog_contents/leaderboards/leaderboard_with_timer.dart';
 import '../../../widgets/game_ui_widget.dart';
 
@@ -20,21 +21,21 @@ class WithTimerView extends StatefulWidget {
 class _WithTimerViewState extends State<WithTimerView> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: _bodyView(),
+    return SafeArea(
+      child: AppScaffold(
+        resizeToAvoidBottomInset: false,
+        body: _bodyView(),
+      ),
     );
   }
 
   Widget _bodyView() {
-    return SafeArea(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            const GameUIWidget(gameType: GameType.Timer),
-            showLeaderBoardButton(),
-          ],
-        ),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          const GameUIWidget(gameType: GameType.Timer),
+          showLeaderBoardButton(),
+        ],
       ),
     );
   }

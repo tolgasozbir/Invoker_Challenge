@@ -52,13 +52,10 @@ mixin OrbMixin<T extends StatefulWidget> on State<T> {
   }
 
   void switchOrb(Elements element) {
-    final isStart = context.read<GameProvider>().isStart;
-    if (isStart) {
-      context.read<GameProvider>().increaseTotalTabs();
-    }
     selectedOrbs.removeAt(0);
     currentCombination.removeAt(0);
     currentCombination.add(element.getKey);
     selectedOrbs.add(orb(element));
+    context.read<GameProvider>().updateView();
   }
 }

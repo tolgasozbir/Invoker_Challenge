@@ -1,13 +1,14 @@
+import 'package:dota2_invoker/extensions/widget_extension.dart';
+import 'package:dota2_invoker/providers/game_provider.dart';
+import 'package:dota2_invoker/widgets/spells_helper_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants/app_colors.dart';
-import '../../../constants/app_strings.dart';
 import '../../../extensions/context_extension.dart';
-import '../../../providers/game_provider.dart';
+import '../../../widgets/app_scaffold.dart';
 import '../../../widgets/game_ui_widget.dart';
-import '../../../widgets/spells_helper_widget.dart';
 
 class TrainingView extends StatefulWidget {
   const TrainingView({super.key});
@@ -22,67 +23,41 @@ class _TrainingViewState extends State<TrainingView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _bodyView(),
-    );
-  }
-
-  Widget _bodyView() {
+    showAllSpells = context.watch<GameProvider>().spellHelperIsOpen;
     return SafeArea(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            counters(),
-            if (showAllSpells) const SpellsHelperWidget() 
-            else SizedBox(height: context.dynamicHeight(0.1)),
-            const GameUIWidget(gameType: GameType.Training)
-          ],
-        ),
+      child: AppScaffold(
+        extendBodyBehindAppBar: true,
+        body: _bodyView(),
       ),
     );
   }
 
-  //Counters
-  SizedBox counters(){
-    return SizedBox(
-      width: double.infinity,
-      height: context.dynamicHeight(0.12),
+  Widget _bodyView() {
+    return SingleChildScrollView(
       child: Stack(
         children: [
-          correctCounter(),
-          timerCounter(),
+          Column(
+            children: [
+              AnimatedCrossFade(
+                duration: Duration(milliseconds: 400),
+                firstChild: EmptyBox(),
+                secondChild: SpellsHelperWidget(),
+                crossFadeState: showAllSpells ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+              ),
+              const GameUIWidget(gameType: GameType.Training),
+            ],
+          ),
           showSpells(),
-          clickPerSecond(),
-          skillCastPerSecond(),
         ],
       ),
     );
   }
 
-  Center correctCounter() {
-    return Center(
-      child: Text(
-        context.watch<GameProvider>().getCorrectCombinationCount.toString(),
-        style: TextStyle(fontSize: context.sp(36), color: AppColors.scoreCounterColor,),
-      ),
-    );
-  }
-
-  Positioned timerCounter() {
-    return Positioned(
-      right: context.dynamicWidth(0.02),
-      top: context.dynamicWidth(0.02),
-      child: Text(
-        '${context.watch<GameProvider>().getTimeValue} ${AppStrings.secPassed}', 
-        style: TextStyle(fontSize: context.sp(12),),
-      ),
-    );
-  }
-
-  Positioned showSpells() {
-    return Positioned(
+  AnimatedPositioned showSpells() {
+    return AnimatedPositioned(
+      duration: Duration(milliseconds: 400),
       right: context.dynamicWidth(0.02), 
-      top: context.dynamicWidth(0.08), 
+      top: kToolbarHeight + (showAllSpells ? context.dynamicHeight(0.24) : 0),
       child: InkWell(
         splashColor: AppColors.transparent,
         highlightColor: AppColors.transparent,
@@ -90,35 +65,7 @@ class _TrainingViewState extends State<TrainingView> {
           dimension: context.dynamicWidth(0.08),
           child: const Icon(FontAwesomeIcons.questionCircle,color: AppColors.amber),
         ),
-        onTap: ()=> setState(()=> showAllSpells = !showAllSpells),
-      ),
-    );
-  }
-
-  Positioned clickPerSecond() {
-    return Positioned(
-      left: context.dynamicWidth(0.02),
-      top: context.dynamicWidth(0.02),
-      child: Tooltip(
-        message: AppStrings.toolTipCPS,
-        child: Text(
-          context.watch<GameProvider>().calculateCps.toStringAsFixed(1) + AppStrings.cps,
-          style: TextStyle(fontSize: context.sp(12),),
-        ),
-      ),
-    );
-  }
-
-  Positioned skillCastPerSecond() {
-    return Positioned(
-      left: context.dynamicWidth(0.02),
-      top: context.dynamicWidth(0.08),
-      child: Tooltip(
-        message: AppStrings.toolTipSCPS,
-        child: Text(
-          context.watch<GameProvider>().calculateScps.toStringAsFixed(1) + AppStrings.scps,
-          style: TextStyle(fontSize: context.sp(12),),
-        ),
+        onTap: () => context.read<GameProvider>().showCloseHelperWidget(),
       ),
     );
   }

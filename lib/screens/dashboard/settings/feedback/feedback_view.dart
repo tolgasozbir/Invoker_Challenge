@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:splash/splash.dart';
+import '../../../../widgets/app_scaffold.dart';
 
 class FeedbackView extends StatefulWidget {
   const FeedbackView({super.key});
@@ -43,14 +44,7 @@ class _FeedbackViewState extends State<FeedbackView> with SingleTickerProviderSt
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-        ),
-        body: _bodyView(),
-      ),
+      child: AppScaffold(body: _bodyView()),
     );
   }
 
