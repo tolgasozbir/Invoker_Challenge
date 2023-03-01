@@ -1,3 +1,5 @@
+
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -13,30 +15,27 @@ import '../services/sound_manager.dart';
 
 class MenuButton extends StatefulWidget {
   const MenuButton({
-    required this.fadeInDuration,
     required this.color,
     required this.imagePath,
     required this.title,
     required this.navigatePage,
-    this.primaryColor,
+    this.backgroundColor,
     this.isBtnExit = false,
     super.key, 
   }) : assert(isBtnExit == false);
 
   const MenuButton.exit({
     super.key, 
-    required this.fadeInDuration, 
     required this.color, 
-    this.primaryColor, 
+    this.backgroundColor, 
     required this.imagePath, 
     required this.title, 
     this.navigatePage,
     this.isBtnExit = true,
   }) : assert(navigatePage == null), assert(isBtnExit == true);
 
-  final Duration fadeInDuration;
   final Color color;
-  final Color? primaryColor;
+  final Color? backgroundColor;
   final String imagePath;
   final String title;
   final Widget? navigatePage;
@@ -47,13 +46,11 @@ class MenuButton extends StatefulWidget {
 }
 
 class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateMixin {
-  double _fadeInOpacity=0;
   AnimationController? controller;
   Animation<double>? animation;
 
   @override
   void initState() {
-    _init();
     if (widget.isBtnExit) {
       controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 4000));
       animation = CurvedAnimation(parent: controller!, curve: Curves.linear);
@@ -66,12 +63,6 @@ class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateM
   void dispose() {
     controller?.dispose();
     super.dispose();
-  }
-
-  Future<void> _init() async {
-    await Future.delayed(const Duration(milliseconds: 400), (){
-      setState(() => _fadeInOpacity = 1 );
-    });
   }
 
   void _closeApp() {
@@ -93,18 +84,14 @@ class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateM
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10),
-      child: AnimatedOpacity(
-        opacity: _fadeInOpacity, 
-        duration: widget.fadeInDuration,
-        child: button(context),
-      ),
+      child: button(context),
     );
   }
 
   SizedBox button(BuildContext context) {
 
     final buttonStyle = ElevatedButton.styleFrom(
-      backgroundColor: widget.primaryColor ?? AppColors.buttonBgColor,
+      backgroundColor: widget.backgroundColor ?? AppColors.buttonBgColor,
       elevation: 10,
       shadowColor: widget.color,
       splashFactory: WaveSplash.splashFactory,

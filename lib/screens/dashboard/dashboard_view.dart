@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/app_colors.dart';
@@ -38,7 +39,17 @@ class DashboardView extends StatelessWidget {
                 const SettingsButton().wrapAlign(Alignment.topRight).wrapExpanded(),
               ],
             ).wrapExpanded(),
-            ...menuBtns,
+            ...List.generate(menuBtns.length, (index) => AnimationLimiter(
+                child: AnimationConfiguration.staggeredList(
+                  duration: const Duration(milliseconds: 1600),
+                  position: index, 
+                  child: SlideAnimation(
+                    verticalOffset: -72,
+                    child: FadeInAnimation(child: menuBtns[index])
+                  ),
+                ),
+              ),
+            ),
             const Spacer(),
           ],
         ),
@@ -47,29 +58,25 @@ class DashboardView extends StatelessWidget {
   }
 
   List<Widget> get menuBtns => [
-    const MenuButton(
-      fadeInDuration: Duration(milliseconds: 1000), 
+    const MenuButton( 
       color: AppColors.quasColor, 
       imagePath: ImagePaths.quas, 
       title: AppStrings.titleTraining, 
       navigatePage: TrainingView(),
     ),
     const MenuButton(
-      fadeInDuration: Duration(milliseconds: 1500), 
       color: AppColors.wexColor,
       imagePath: ImagePaths.wex, 
       title: AppStrings.titleWithTimer, 
       navigatePage: WithTimerView(),
     ),
     const MenuButton(
-      fadeInDuration: Duration(milliseconds: 2000), 
       color: AppColors.exortColor,
       imagePath: ImagePaths.exort, 
       title: AppStrings.titleChallanger, 
       navigatePage: ChallangerView(),
     ),
     MenuButton.exit(
-      fadeInDuration: const Duration(milliseconds: 2500), 
       color: AppColors.exitBtnColor,
       imagePath: Elements.invoke.getImage, 
       title: AppStrings.quitGame,
