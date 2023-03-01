@@ -24,6 +24,7 @@ dependencies:
   audioplayers: ^0.20.0
   internet_connection_checker: ^1.0.0+1
   url_launcher: ^6.1.10
+  store_redirect: ^2.0.1
 
   #Local Storage
   shared_preferences: ^2.0.17
@@ -45,7 +46,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  #Linter rules
+  #Lint
   very_good_analysis: ^3.1.0
 
 

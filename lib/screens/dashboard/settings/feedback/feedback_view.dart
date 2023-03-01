@@ -125,6 +125,7 @@ class _FeedbackViewState extends State<FeedbackView> with SingleTickerProviderSt
       isExpand: true,
       controller: _feedbackController,
       hintText: AppStrings.fbHint,
+      textCapitalization: TextCapitalization.sentences,
       textInputAction: TextInputAction.done,
     );
   }

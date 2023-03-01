@@ -44,6 +44,7 @@ class SettingsView extends StatelessWidget {
             context: context,
             leading: FontAwesomeIcons.starHalfAlt,
             text: AppStrings.rateApp,
+            //onTap: () => StoreRedirect.redirect(androidAppId: ''), //TODO:
           ),
           divider(),
           logoutbtn(context),

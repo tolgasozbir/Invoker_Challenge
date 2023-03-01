@@ -12,6 +12,7 @@ class AppTextFormField extends StatelessWidget {
   final String topLabel;
   final bool obscureText;
   final bool isExpand;
+  final TextCapitalization textCapitalization;
   final TextInputAction? textInputAction;
   final FormFieldSetter<String>? onSaved;
   final ValueChanged<String>? onChanged;
@@ -32,6 +33,7 @@ class AppTextFormField extends StatelessWidget {
     this.topLabel = '',
     this.obscureText = false,
     this.isExpand = false,
+    this.textCapitalization = TextCapitalization.none,
     this.textInputAction,
     this.onSaved,
     this.keyboardType,
@@ -67,7 +69,7 @@ class AppTextFormField extends StatelessWidget {
           onChanged: this.onChanged,
           validator: this.validator,
           textInputAction: textInputAction,
-          textCapitalization: TextCapitalization.sentences,
+          textCapitalization: textCapitalization,
           style: TextStyle(fontSize: context.sp(12), fontWeight: FontWeight.w600),
           decoration: InputDecoration(
             contentPadding: EdgeInsets.fromLTRB(12, 20, 12, 12),

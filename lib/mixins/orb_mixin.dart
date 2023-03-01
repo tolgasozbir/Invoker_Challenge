@@ -10,15 +10,33 @@ mixin OrbMixin<T extends StatefulWidget> on State<T> {
 
   List<String> currentCombination=['q','w','e'];
 
-  BoxDecoration skillBlackShadowDec = const BoxDecoration(
+  BoxDecoration qwerAbilityDecoration(Color color) => BoxDecoration(
+    borderRadius: BorderRadius.circular(2),
+    border: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
     boxShadow: [
       BoxShadow(
-        color: AppColors.orbsShadow, 
-        blurRadius: 12, 
-        spreadRadius: 4,
+        color: color, 
+        blurRadius: 16,
+        offset: Offset(2, 2)
       ),
     ],
   );
+
+  final _orbDecoration = BoxDecoration(
+    borderRadius: BorderRadius.circular(2),
+    border: Border.all(
+      width: 1.6, 
+      strokeAlign: BorderSide.strokeAlignOutside
+    ),
+    boxShadow: [
+      BoxShadow(
+        color: AppColors.orbsShadow, 
+        blurRadius: 4, 
+        spreadRadius: 2,
+        offset: Offset(2, 2)
+      ),
+    ],
+  );  
 
   late List<Widget> selectedOrbs = [
     orb(Elements.quas),
@@ -28,7 +46,7 @@ mixin OrbMixin<T extends StatefulWidget> on State<T> {
 
   Widget orb(Elements element) {
     return DecoratedBox(
-      decoration: skillBlackShadowDec,
+      decoration: _orbDecoration,
       child: Image.asset(element.getImage, width: context.dynamicWidth(0.07)),
     );
   }

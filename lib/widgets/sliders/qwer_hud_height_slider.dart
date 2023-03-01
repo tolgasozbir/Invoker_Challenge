@@ -29,7 +29,7 @@ class _SliderWidgetState extends State<QWERHudHeightSlider> {
 
   @override
   void initState() {
-    _value = AppServices.instance.localStorageService.getIntValue(LocalStorageKey.qwerHudHeight)?.toDouble() ?? 40;
+    _value = AppServices.instance.localStorageService.getIntValue(LocalStorageKey.qwerHudHeight)?.toDouble() ?? 20;
     super.initState();
   }
 

@@ -1,4 +1,5 @@
 import '../enums/local_storage_keys.dart';
+import 'bouncing_button.dart';
 import 'timer_hud.dart';
 import '../extensions/widget_extension.dart';
 import '../mixins/loading_state_mixin.dart';
@@ -71,7 +72,12 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
     return Container(
       width: context.dynamicWidth(0.28),
       height: context.dynamicWidth(0.28),
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(4)),
+        border: Border.all(
+          width: 1.6,
+          color: AppColors.white30,
+        ),
         boxShadow: [
           BoxShadow(
             color: AppColors.white30, 
@@ -84,7 +90,8 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
         context.watch<GameProvider>().isStart 
           ? context.watch<SpellProvider>().getNextSpellImage 
           : ImagePaths.spellImage,
-      ),
+        fit: BoxFit.cover,
+      ).wrapClipRRect(BorderRadius.circular(4)),
     );
   }
 
@@ -106,23 +113,31 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
       padding: EdgeInsets.only(top: qwerHudHeight),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          skill(Elements.quas),
-          skill(Elements.wex),
-          skill(Elements.exort),
-          skill(Elements.invoke),
-        ],
+        children: List.generate(Elements.values.length, (index) => skill(Elements.values[index])),
       ),
     );
   }
 
-  InkWell skill(Elements element) {
-    return InkWell(
-      child: DecoratedBox(
-        decoration: skillBlackShadowDec,
-        child: Image.asset(element.getImage,width: context.dynamicWidth(0.20)),
+  BouncingButton skill(Elements element) {
+    return BouncingButton(
+      child: Stack(
+        children: [
+          DecoratedBox(
+            decoration: qwerAbilityDecoration(element.getColor),
+            child: Image.asset(element.getImage,width: context.dynamicWidth(0.18)),
+          ),
+          Text(
+            element.getKey.toUpperCase(), 
+            style: TextStyle(
+              color: element.getColor, 
+              fontSize: context.sp(16),
+              fontWeight: FontWeight.w500,
+              shadows: List.generate(3, (index) => Shadow(blurRadius: 8)),
+            ),
+          ).wrapPadding(EdgeInsets.only(left: 2)),
+        ],
       ),
-      onTap: () {
+      onPressed: () {
         switch (widget.gameType) {
           case GameType.Training:
             skillOnTapFNTraining(element);
@@ -210,6 +225,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
   }
 
   void showResultDialog(DatabaseTable dbTable) {
+    if (!mounted) return;
     var score = context.read<GameProvider>().getCorrectCombinationCount;
     UserManager.instance.addExp(score);
     UserManager.instance.setBestScore(widget.gameType, score);
@@ -346,7 +362,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
     final totalButtonHeight = 96;
     double max = context.dynamicHeight(0.12);
     double sliderVal = AppServices.instance.localStorageService.
-      getIntValue(LocalStorageKey.qwerHudHeight)?.toDouble() ?? 40;
+      getIntValue(LocalStorageKey.qwerHudHeight)?.toDouble() ?? 20;
 
     var calculatedVal =  (sliderVal / 100 * max) + (isStart ? (sliderVal / 100 * totalButtonHeight) : 0);
 
