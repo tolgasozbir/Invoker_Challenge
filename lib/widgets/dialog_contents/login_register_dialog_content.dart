@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../../constants/app_colors.dart';
 import '../../constants/app_strings.dart';
@@ -120,6 +121,13 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
     if (!isValidate) {
       ScaffoldMessenger.of(context).removeCurrentSnackBar();
       AppSnackBar.showSnackBarMessage(text: AppStrings.fillFields, snackBartype: SnackBarType.info);
+      return;
+    }
+
+    bool hasConnection = await InternetConnectionChecker().hasConnection;
+    if (!hasConnection) {
+      ScaffoldMessenger.of(context).removeCurrentSnackBar();
+      AppSnackBar.showSnackBarMessage(text: AppStrings.errorConnection, snackBartype: SnackBarType.info);
       return;
     }
     

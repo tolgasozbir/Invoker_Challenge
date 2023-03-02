@@ -24,7 +24,6 @@ class AppColors {
   static const Color fbSendBtn = Color(0xFF0A4C9D); //feedback send button
 
   static const Color expBarColor       = Color(0xFFFFC000);
-  static const Color scoreCounterColor = Color(0xFF4CAF50);
   static const Color orbsShadow        = Color(0x89000000);
   static const Color spellHelperShadow = Colors.black12;
 
@@ -54,10 +53,12 @@ class AppColors {
   static const Color transparent = Colors.transparent;
   static const Color white = Colors.white;
   static const Color white30 = Colors.white30;
+  static const Color grey = Colors.grey;
   static const Color black = Colors.black;
   static const Color amber = Colors.amber;
   static const Color red = Colors.red;
   static const Color blue = Colors.blue;
+  static const Color green = Colors.green;
   static const Color fullGreen = Color(0xFF00FF00);
 
 }

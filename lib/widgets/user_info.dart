@@ -1,3 +1,5 @@
+import 'package:dota2_invoker/constants/app_strings.dart';
+import 'package:dota2_invoker/widgets/sliders/progress_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -30,7 +32,6 @@ class _UserStatusState extends State<UserStatus> {
     final username = widget.user.username;
     final currentExp = widget.user.exp;
     final nextLevelExp = widget.user.level * 25;
-    final minExp = 0;
     final level = 'Level ${widget.user.level}';
 
     return InkWell(
@@ -39,6 +40,8 @@ class _UserStatusState extends State<UserStatus> {
       onTap: () async {
         await AppDialogs.showSlidingDialog(
           dismissible: true,
+          showBackButton: true,
+          title: AppStrings.profile,
           content: UserManager.instance.isLoggedIn() 
             ? ProfileDialogContent()
             : LoginRegisterDialogContent()
@@ -64,19 +67,11 @@ class _UserStatusState extends State<UserStatus> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(username),
-              SliderTheme(
-                data: SliderTheme.of(context).copyWith(
-                  thumbShape: SliderComponentShape.noThumb,
-                  overlayShape: SliderComponentShape.noThumb,
-                  activeTrackColor: AppColors.expBarColor,
-                  inactiveTrackColor: AppColors.expBarColor.withOpacity(0.5),
-                ),
-                child: Slider(
-                  value: currentExp,
-                  max: nextLevelExp.toDouble(),
-                  min: minExp.toDouble(),
-                  onChanged: (value) { },
-                ),
+              ProgressSlider(
+                current: currentExp,
+                max: nextLevelExp.toDouble(),
+                activeColor: AppColors.expBarColor,
+                inactiveColor: AppColors.expBarColor.withOpacity(0.5),
               ).wrapPadding(const EdgeInsets.symmetric(vertical: 8)),
               Row(
                 children: [

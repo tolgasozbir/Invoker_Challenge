@@ -60,6 +60,7 @@ flutter:
     - assets/images/other/
     - assets/images/elements/
     - assets/images/spells/
+    - assets/images/achievements/
 
     - assets/sounds/fail_sounds/
     - assets/sounds/gg_sounds/

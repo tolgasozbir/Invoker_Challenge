@@ -75,7 +75,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
       textAlign: TextAlign.right,
       style: TextStyle(
         fontSize: context.sp(18), 
-        color: AppColors.scoreCounterColor
+        color: AppColors.green
       ),
     ).wrapPadding(EdgeInsets.only(top: 4, right: 8));
   }

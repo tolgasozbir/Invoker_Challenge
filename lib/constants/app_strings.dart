@@ -10,6 +10,7 @@ class AppStrings {
   static const String titleChallanger = 'Challanger';
   static const String quitGame = 'Quit Game';
   static const String settings = 'Settings';
+  static const String profile = 'Profile';
 
   //Common
   static const String leaderboard = 'Leaderboard';
