@@ -74,7 +74,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
       AppStrings.score + ": " + score,
       textAlign: TextAlign.right,
       style: TextStyle(
-        fontSize: context.sp(20), 
+        fontSize: context.sp(18), 
         color: AppColors.scoreCounterColor
       ),
     ).wrapPadding(EdgeInsets.only(top: 4, right: 8));
@@ -85,6 +85,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
       width: context.dynamicWidth(0.28),
       height: context.dynamicWidth(0.28),
       decoration: BoxDecoration(
+        color: AppColors.svgGrey,
         borderRadius: BorderRadius.all(Radius.circular(4)),
         border: Border.all(
           width: 1.6,

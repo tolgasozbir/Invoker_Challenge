@@ -28,7 +28,7 @@ class TimerHud extends StatelessWidget {
   Widget build(BuildContext context) {
     return PhysicalModel(
       color: AppColors.transparent,
-      elevation: 24,
+      elevation: 16, //24
       borderRadius: BorderRadius.vertical(bottom: Radius.circular(50)),
       child: Stack(
         alignment: Alignment.topCenter,

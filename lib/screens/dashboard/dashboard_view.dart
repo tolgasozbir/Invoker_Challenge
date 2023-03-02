@@ -44,7 +44,7 @@ class DashboardView extends StatelessWidget {
                   duration: const Duration(milliseconds: 1600),
                   position: index, 
                   child: SlideAnimation(
-                    verticalOffset: -72,
+                    verticalOffset: -100,
                     child: FadeInAnimation(child: menuBtns[index])
                   ),
                 ),

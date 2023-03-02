@@ -17,7 +17,7 @@ class TrueFalseIconWidget extends StatefulWidget {
 
 class TrueFalseWidgetState extends State<TrueFalseIconWidget> with TickerProviderStateMixin {
 
-  final Duration _animDuration = const Duration(milliseconds: 600);
+  final Duration _animDuration = const Duration(milliseconds: 500);
 
   Tween<double> _translateTween = Tween(
     begin: 56, 
@@ -93,8 +93,9 @@ class TrueFalseWidgetState extends State<TrueFalseIconWidget> with TickerProvide
     );
   }
 
-  void playAnimation(IconType iconType){
+  void playAnimation(IconType iconType) {
+    _animControlTrue.reset();
+    _animControlFalse.reset();
     iconType == IconType.True ? _animControlTrue.forward() : _animControlFalse.forward();
-    Timer(_animDuration, ()=> iconType == IconType.True ? _animControlTrue.reset() : _animControlFalse.reset());
   }
 }

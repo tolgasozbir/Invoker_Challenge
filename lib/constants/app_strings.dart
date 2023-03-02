@@ -81,7 +81,7 @@ class AppStrings {
   //Feedback
   static const String fbTitleFirst = 'Send me your';
   static const String fbTitleSecond = 'Feedback!';
-  static const String fbMidText = 'Tell me how your experience was and let me know what I can improve.!';
+  static const String fbMidText = 'Tell me how your experience was and let me know what I can improve.';
   static const String fbHint = 'Drop me any suggestions, questions or complaints to improve :)';
   static const String fbSendBtn = 'Send Feedback';
 

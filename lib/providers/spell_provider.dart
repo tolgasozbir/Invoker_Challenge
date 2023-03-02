@@ -28,10 +28,7 @@ class SpellProvider extends ChangeNotifier {
     Spell(Spells.chaos_meteor.getImage,     ['e','e','w']),
   ];
 
-  Spell _tempSpell = Spell(
-    Spells.alacrity.getImage,
-    ['w','w','e'],
-  );
+  List<Spell> _tempSpells = [];
   
   final math.Random _rnd = math.Random();
 
@@ -39,9 +36,13 @@ class SpellProvider extends ChangeNotifier {
     var rndSpell = _spellList[_rnd.nextInt(_spellList.length)];
     do {
       rndSpell = _spellList[_rnd.nextInt(_spellList.length)];
-    } while (_tempSpell == rndSpell);
+    } while (_tempSpells.contains(rndSpell));
 
-    _tempSpell = rndSpell;
+    _tempSpells.insert(0, rndSpell);
+    if (_tempSpells.length > 3) {
+      _tempSpells.removeLast(); 
+    }
+ 
     _spellImage = rndSpell.image;
     _trueCombination = rndSpell.combine;
     notifyListeners();
