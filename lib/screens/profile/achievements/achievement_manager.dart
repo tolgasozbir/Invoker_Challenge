@@ -1,7 +1,7 @@
 import 'package:dota2_invoker/providers/user_manager.dart';
-import '../enums/achievements.dart';
+import '../../../enums/achievements.dart';
 
-import '../screens/profile/achievements/widgets/achievement_widget.dart';
+import 'widgets/achievement_widget.dart';
 
 class AchievementManager {
   AchievementManager._() {
@@ -37,7 +37,7 @@ class AchievementManager {
 
   void updateChallenger(int score, int time) {
     var currentRecord = _userRecords?["challenger"] ?? 0;
-    if (score <= currentRecord || time > 300) return;
+    if (score <= currentRecord || time > 180) return;
     UserManager.instance.user.achievements?["challenger"] = score;
     print("Challenger Score : ${UserManager.instance.user.achievements?["challenger"]}");
   }  

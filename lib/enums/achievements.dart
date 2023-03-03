@@ -9,12 +9,12 @@ enum Achievements {
   played_games3(title: "We're Just Getting Started",  description: "Play Any Mode 50 times.",   maxProgress: 50),
   played_games4(title: "Almost Pro",                  description: "Play Any Mode 100 times.",  maxProgress: 100),
   played_games5(title: "Invoker GOD!",                description: "Play Any Mode 200 times.",  maxProgress: 200),
-  timer1(title: "Always Hard",      description: "Reach 50 Score before time runs out in Timer mode.",  maxProgress: 50),
-  timer2(title: "Speed Freak",      description: "Reach 75 Score before time runs out in Timer mode.",  maxProgress: 75),
-  timer3(title: "OUT OF CONTROL!",  description: "Reach 100 Score before time runs out in Timer mode.", maxProgress: 100),
-  challenger1(title: "Streaker",              description: "Reach 50 points in under 5 minutes in Challenger mode.",  maxProgress: 50),
-  challenger2(title: "Must Try Harder",       description: "Reach 100 points in under 5 minutes in Challenger mode.", maxProgress: 100),
-  challenger3(title: "The Real CHALLENGER!",  description: "Reach 200 points in under 5 minutes in Challenger mode.", maxProgress: 200);
+  timer1(title: "Always Hard",      description: "Reach 40 Score before time runs out in Timer mode.",  maxProgress: 40),
+  timer2(title: "Speed Freak",      description: "Reach 50 Score before time runs out in Timer mode.",  maxProgress: 50),
+  timer3(title: "OUT OF CONTROL!",  description: "Reach 60 Score before time runs out in Timer mode.",  maxProgress: 60),
+  challenger1(title: "Streaker",              description: "Reach 100 points in under 3 minutes in Challenger mode.",   maxProgress: 100),
+  challenger2(title: "Must Try Harder",       description: "Reach 125 points in under 3 minutes in Challenger mode.",   maxProgress: 125),
+  challenger3(title: "The Real CHALLENGER!",  description: "Reach 150 points in under 3 minutes in Challenger mode.",   maxProgress: 150);
 
   const Achievements({required this.title, required this.description, required this.maxProgress});
 

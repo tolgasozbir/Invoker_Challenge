@@ -3,7 +3,7 @@ import 'package:dota2_invoker/extensions/widget_extension.dart';
 import 'package:dota2_invoker/screens/profile/achievements/widgets/achievement_widget.dart';
 import 'package:dota2_invoker/widgets/app_scaffold.dart';
 import 'package:flutter/material.dart';
-import '../../../providers/achievement_manager.dart';
+import 'achievement_manager.dart';
 import '../../../widgets/sliders/progress_slider.dart';
 
 class AchievementsView extends StatelessWidget {
