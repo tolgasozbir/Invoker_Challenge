@@ -1,5 +1,4 @@
 import 'package:dota2_invoker/extensions/context_extension.dart';
-import 'package:dota2_invoker/models/achievement_model.dart';
 import 'package:dota2_invoker/widgets/sliders/progress_slider.dart';
 import 'package:flutter/material.dart';
 import '../../../../extensions/widget_extension.dart';
@@ -7,7 +6,7 @@ import '../../../../extensions/widget_extension.dart';
 class AchievementWidget extends StatelessWidget {
   const AchievementWidget({super.key, required this.achievement});
 
-  final AchievementModel achievement;
+  final AchievementWidgetModel achievement;
   
   @override
   Widget build(BuildContext context) {
@@ -27,7 +26,7 @@ class AchievementWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               FittedBox(child: Text(achievement.title, style: TextStyle(fontSize: context.sp(18)),)),
-              FittedBox(child: Text(achievement.goalText, style: TextStyle(fontSize: context.sp(12)),)),
+              FittedBox(child: Text(achievement.description, style: TextStyle(fontSize: context.sp(12)),)),
               Row(
                 children: [
                   Text(achievement.currentProgress.toString()),
@@ -48,4 +47,25 @@ class AchievementWidget extends StatelessWidget {
       ),
     );
   }
+}
+
+class AchievementWidgetModel {
+  final String id;
+  final String iconPath;
+  final String title;
+  final String description;
+  int currentProgress;
+  final int maxProgress;
+  bool isDone;
+
+  AchievementWidgetModel({
+    required this.id,
+    required this.iconPath,
+    required this.title,
+    required this.description,
+    required this.isDone,
+    required this.currentProgress,
+    required this.maxProgress,
+  });
+
 }
