@@ -4,12 +4,12 @@ class AppScaffold extends Scaffold {
   final Widget body;
   final bool resizeToAvoidBottomInset;
   final bool extendBodyBehindAppBar;
-  final AppBar? appBar;
+  final AppBar? appbar;
 
-  AppScaffold({required this.body, this.resizeToAvoidBottomInset = true, this.extendBodyBehindAppBar = true, this.appBar}) : super(
+  AppScaffold({required this.body, this.resizeToAvoidBottomInset = true, this.extendBodyBehindAppBar = true, this.appbar}) : super(
     resizeToAvoidBottomInset: resizeToAvoidBottomInset,
     extendBodyBehindAppBar: extendBodyBehindAppBar,
-    appBar: appBar ?? _BaseAppBar(),
+    appBar: appbar ?? _BaseAppBar(),
     body: body,
   );
 }

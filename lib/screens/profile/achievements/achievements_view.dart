@@ -13,7 +13,7 @@ class AchievementsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppScaffold(
       extendBodyBehindAppBar: false,
-      appBar: AppBar(
+      appbar: AppBar(
         centerTitle: true,
         title: Text("Achievements"),
         actions: [
