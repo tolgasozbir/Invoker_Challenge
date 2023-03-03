@@ -57,7 +57,7 @@ class AchievementManager {
       iconPath: "assets/images/achievements/ic_achievements.png", 
       title: "Achieve All", 
       description: "Get all achievements!", 
-      isDone: false, 
+      isDone: currentProgress >= achievements.length, 
       currentProgress: currentProgress, 
       maxProgress: achievements.length
     );

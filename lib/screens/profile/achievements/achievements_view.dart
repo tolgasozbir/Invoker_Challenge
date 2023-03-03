@@ -1,3 +1,4 @@
+import 'package:dota2_invoker/constants/app_strings.dart';
 import 'package:dota2_invoker/extensions/context_extension.dart';
 import 'package:dota2_invoker/extensions/widget_extension.dart';
 import 'package:dota2_invoker/screens/profile/achievements/widgets/achievement_widget.dart';
@@ -11,11 +12,13 @@ class AchievementsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var totalCount = AchievementManager.instance.achievements.length;
+    var current = AchievementManager.instance.achievements.where((e) => e.isDone == true).toList().length;
     return AppScaffold(
       extendBodyBehindAppBar: false,
       appbar: AppBar(
         centerTitle: true,
-        title: Text("Achievements"),
+        title: Text(AppStrings.achievements),
         actions: [
           SizedBox(
             width: context.dynamicWidth(0.3),
@@ -25,12 +28,12 @@ class AchievementsView extends StatelessWidget {
               children: [
                 Spacer(),
                 Text(
-                  "0/18", 
+                  "$current/$totalCount", 
                   style: TextStyle(fontSize: context.sp(12)),
                 ).wrapAlign(Alignment.center),
                 ProgressSlider(
-                  max: 18,
-                  current: 5,
+                  max: totalCount.toDouble(),
+                  current: current.toDouble(),
                 ),
                 Spacer(flex: 3),
               ],

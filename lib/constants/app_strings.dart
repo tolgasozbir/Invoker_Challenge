@@ -11,6 +11,7 @@ class AppStrings {
   static const String quitGame = 'Quit Game';
   static const String settings = 'Settings';
   static const String profile = 'Profile';
+  static const String achievements = 'Achievements';
 
   //Common
   static const String leaderboard = 'Leaderboard';
