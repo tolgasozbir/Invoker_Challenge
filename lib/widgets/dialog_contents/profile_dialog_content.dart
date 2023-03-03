@@ -1,8 +1,8 @@
-import 'package:dota2_invoker/constants/app_colors.dart';
-import 'package:dota2_invoker/constants/app_strings.dart';
-import 'package:dota2_invoker/extensions/context_extension.dart';
-import 'package:dota2_invoker/extensions/widget_extension.dart';
-import 'package:dota2_invoker/screens/profile/achievements/achievements_view.dart';
+import '../../constants/app_colors.dart';
+import '../../constants/app_strings.dart';
+import '../../extensions/context_extension.dart';
+import '../../extensions/widget_extension.dart';
+import '../../screens/profile/achievements/achievements_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../screens/profile/achievements/achievement_manager.dart';

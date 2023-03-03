@@ -1,4 +1,4 @@
-import 'package:dota2_invoker/screens/profile/achievements/achievement_manager.dart';
+import '../screens/profile/achievements/achievement_manager.dart';
 
 import '../enums/local_storage_keys.dart';
 import 'bouncing_button.dart';

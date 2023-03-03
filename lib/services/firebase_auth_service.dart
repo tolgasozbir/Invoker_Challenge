@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:dota2_invoker/enums/local_storage_keys.dart';
+import '../enums/local_storage_keys.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../providers/user_manager.dart';

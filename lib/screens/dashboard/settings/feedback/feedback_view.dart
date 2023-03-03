@@ -1,3 +1,8 @@
+import 'package:flutter/material.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:lottie/lottie.dart';
+import 'package:splash/splash.dart';
+
 import '../../../../constants/app_colors.dart';
 import '../../../../constants/app_strings.dart';
 import '../../../../extensions/context_extension.dart';
@@ -5,17 +10,13 @@ import '../../../../extensions/widget_extension.dart';
 import '../../../../mixins/loading_state_mixin.dart';
 import '../../../../models/feedback_model.dart';
 import '../../../../providers/user_manager.dart';
-import 'widgets/rating_faces.dart';
 import '../../../../services/app_services.dart';
 import '../../../../utils/formatted_date.dart';
 import '../../../../widgets/app_outlined_button.dart';
+import '../../../../widgets/app_scaffold.dart';
 import '../../../../widgets/app_snackbar.dart';
 import '../../../../widgets/app_text_from_field.dart';
-import 'package:flutter/material.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:lottie/lottie.dart';
-import 'package:splash/splash.dart';
-import '../../../../widgets/app_scaffold.dart';
+import 'widgets/rating_faces.dart';
 
 class FeedbackView extends StatefulWidget {
   const FeedbackView({super.key});

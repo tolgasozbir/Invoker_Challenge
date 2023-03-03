@@ -1,4 +1,4 @@
-import 'package:dota2_invoker/providers/user_manager.dart';
+import '../../../providers/user_manager.dart';
 import '../../../enums/achievements.dart';
 
 import 'widgets/achievement_widget.dart';

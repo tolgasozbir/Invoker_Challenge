@@ -1,14 +1,14 @@
-import '../../../extensions/widget_extension.dart';
-import '../../../providers/game_provider.dart';
-import '../../../widgets/spells_helper_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants/app_colors.dart';
 import '../../../extensions/context_extension.dart';
+import '../../../extensions/widget_extension.dart';
+import '../../../providers/game_provider.dart';
 import '../../../widgets/app_scaffold.dart';
 import '../../../widgets/game_ui_widget.dart';
+import '../../../widgets/spells_helper_widget.dart';
 
 class TrainingView extends StatefulWidget {
   const TrainingView({super.key});

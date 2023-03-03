@@ -1,12 +1,12 @@
-import '../constants/app_colors.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../constants/app_colors.dart';
 import '../constants/app_strings.dart';
 import '../extensions/context_extension.dart';
 import '../extensions/widget_extension.dart';
-import 'game_ui_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../providers/game_provider.dart';
+import 'game_ui_widget.dart';
 
 class TimerHud extends StatelessWidget {
   const TimerHud({super.key, required this.gameType});

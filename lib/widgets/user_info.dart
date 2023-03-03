@@ -1,5 +1,5 @@
-import 'package:dota2_invoker/constants/app_strings.dart';
-import 'package:dota2_invoker/widgets/sliders/progress_slider.dart';
+import '../constants/app_strings.dart';
+import 'sliders/progress_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
