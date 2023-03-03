@@ -1,3 +1,5 @@
+import 'package:dota2_invoker/providers/achievement_manager.dart';
+
 import '../enums/local_storage_keys.dart';
 import 'bouncing_button.dart';
 import 'timer_hud.dart';
@@ -202,6 +204,9 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
           timerProvider.increaseCorrectCounter();
           SoundManager.instance.trueCombinationSound(spellProvider.getNextCombination);
           _animKey.currentState?.playAnimation(IconType.True);
+
+          final score = context.read<GameProvider>().getCorrectCombinationCount;
+          AchievementManager.instance.updateTimer(score);
         }else{
           SoundManager.instance.failCombinationSound();
           _animKey.currentState?.playAnimation(IconType.False);
@@ -225,6 +230,10 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
           SoundManager.instance.trueCombinationSound(spellProvider.getNextCombination);
           _animKey.currentState?.playAnimation(IconType.True);
           spellProvider.getRandomSpell();
+
+          final time = context.read<GameProvider>().getTimeValue;
+          final score = context.read<GameProvider>().getCorrectCombinationCount;
+          AchievementManager.instance.updateChallenger(score, time);
         } else {
           SoundManager.instance.ggSound();
           timerProvider.changeIsStartStatus();
@@ -238,7 +247,9 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
   void showResultDialog(DatabaseTable dbTable) {
     if (!mounted) return;
     var score = context.read<GameProvider>().getCorrectCombinationCount;
+    AchievementManager.instance.updatePlayedGame();
     UserManager.instance.addExp(score);
+    AchievementManager.instance.updateLevel();
     UserManager.instance.setBestScore(widget.gameType, score);
     AppDialogs.showSlidingDialog(
       title: AppStrings.result, 

@@ -48,11 +48,6 @@ abstract class SplashViewModel extends State<SplashView> {
     } 
     log(UserManager.instance.user.uid ?? "uid: null");
     log(UserManager.instance.user.username);
-    // for (var e in UserManager.instance.user.achievements) {
-    //   print(e?.id);
-    //   print(e?.currentProgress);
-    //   print("************");
-    // }
   }
 
   void getSettingsValues() {

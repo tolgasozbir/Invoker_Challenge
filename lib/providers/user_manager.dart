@@ -57,8 +57,10 @@ class UserManager extends ChangeNotifier {
       //create new userModel and save to locale
       var createdUser = createUser();
       await setAndSaveUserToLocale(createdUser);
-      setUser(createdUser);
-      return createdUser;
+      //I can't change the initial const values (achievement & talentTree) ​​so I create the User model from scratch
+      var savedUser = UserModel.fromJson(getUserFromLocal()!);
+      await setAndSaveUserToLocale(savedUser);
+      return savedUser;
     }
   }
 

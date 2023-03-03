@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:dota2_invoker/enums/local_storage_keys.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../providers/user_manager.dart';
@@ -83,6 +84,8 @@ class FirebaseAuthService {
   Future<void> signOut() async {
     try {
       await _firebaseAuth.signOut();
+      //delete locale records
+      await AppServices.instance.localStorageService.removeValue(LocalStorageKey.userRecords);
       //create new guest user
       var newGuestUser = UserManager.instance.createUser();
       //create new guest user and set locale

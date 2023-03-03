@@ -10,6 +10,9 @@ class AchievementWidget extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
+    var currentProgress = achievement.currentProgress.toDouble();
+    var max = achievement.maxProgress.toDouble();
+    var current = currentProgress >= max ? max : currentProgress;
     return Container(
       color: Colors.grey.withOpacity(0.2),
       height: context.dynamicHeight(0.18),
@@ -29,15 +32,15 @@ class AchievementWidget extends StatelessWidget {
               FittedBox(child: Text(achievement.description, style: TextStyle(fontSize: context.sp(12)),)),
               Row(
                 children: [
-                  Text(achievement.currentProgress.toString()),
+                  Text(current.toStringAsFixed(0)),
                   EmptyBox.w8(),
                   ProgressSlider(
                     trackHeight: 6,
-                    current: achievement.currentProgress.toDouble(), 
-                    max: achievement.maxProgress.toDouble(),
+                    current: current,  
+                    max: max,
                   ).wrapExpanded(),
                   EmptyBox.w8(),
-                  Text(achievement.maxProgress.toString()),
+                  Text(max.toStringAsFixed(0)),
                   EmptyBox.w12(),
                 ],
               ),

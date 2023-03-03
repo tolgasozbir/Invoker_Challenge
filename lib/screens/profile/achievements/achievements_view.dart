@@ -43,7 +43,7 @@ class AchievementsView extends StatelessWidget {
   }
 
   Widget _bodyView() {
-    AchievementManager.instance.setAchievements();
+    AchievementManager.instance.initAchievements();
     var achievements = AchievementManager.instance.achievements;
     return ListView.builder(
       padding: EdgeInsets.all(8),

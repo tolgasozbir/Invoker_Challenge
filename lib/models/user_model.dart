@@ -21,13 +21,18 @@ class UserModel {
     this.level = 1,
     this.exp = 0,
     this.expMultiplier = 1,
-    this.achievements = const [],
     this.talentTree = const {
                         '10' : false,
                         '15' : false,
                         '20' : false,
                         '25' : false
                       },
+    this.achievements = const {
+                        'level'       : 0,
+                        'playedGame'  : 0,
+                        'timer'       : 0,
+                        'challenger'  : 0,
+                      }
   });
 
   String? uid;
@@ -38,7 +43,7 @@ class UserModel {
   double exp;
   double expMultiplier;
   Map<String,dynamic>? talentTree;
-  List<UserAchievementModel?> achievements;
+  Map<String,dynamic>? achievements;
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -50,7 +55,7 @@ class UserModel {
       'exp': exp,
       'expMultiplier': expMultiplier,
       'talentTree': talentTree,
-      'achievements': achievements.map((x) => x?.toMap()).toList(),
+      'achievements': achievements,
     };
   }
 
@@ -64,39 +69,11 @@ class UserModel {
       exp: double.tryParse(map['exp'].toString()) ?? 0, 
       expMultiplier: double.tryParse(map['expMultiplier'].toString()) ?? 0,
       talentTree: map['talentTree'] != null ? Map<String,dynamic>.from((map['talentTree'] as Map<String,dynamic>)) : null,
-      achievements: List<UserAchievementModel>.from((map['achievements'] as List<dynamic>).map<UserAchievementModel?>((x) => UserAchievementModel.fromMap(x as Map<String,dynamic>),),),
+      achievements: map['achievements'] != null ? Map<String,dynamic>.from((map['achievements'] as Map<String,dynamic>)) : null,
     );
   }
 
   String toJson() => json.encode(toMap());
 
   factory UserModel.fromJson(String source) => UserModel.fromMap(json.decode(source) as Map<String, dynamic>);
-}
-
-class UserAchievementModel {
-  final String id;
-  int currentProgress;
-  
-  UserAchievementModel({
-    required this.id,
-    required this.currentProgress,
-  });
-
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'id': id,
-      'currentProgress': currentProgress,
-    };
-  }
-
-  factory UserAchievementModel.fromMap(Map<String, dynamic> map) {
-    return UserAchievementModel(
-      id: map['id'] as String,
-      currentProgress: map['currentProgress'] as int,
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory UserAchievementModel.fromJson(String source) => UserAchievementModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }

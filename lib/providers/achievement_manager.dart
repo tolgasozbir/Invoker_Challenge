@@ -1,12 +1,11 @@
 import 'package:dota2_invoker/providers/user_manager.dart';
-
 import '../enums/achievements.dart';
-import '../models/user_model.dart';
+
 import '../screens/profile/achievements/widgets/achievement_widget.dart';
 
 class AchievementManager {
   AchievementManager._() {
-    _initAchievements();
+    initAchievements();
   }
 
   static AchievementManager? _instance;
@@ -15,42 +14,39 @@ class AchievementManager {
   List<AchievementWidgetModel> get achievements => _achievements;
   List<AchievementWidgetModel> _achievements = [];
 
-  void _initAchievements(){
-    _achievements.addAll(levelAchievements);
-    _achievements.addAll(playedGamesAchievements);
-    _achievements.addAll(TimerModeAchievements);
-    _achievements.addAll(ChallengerModeAchievements);
-    //_achievements.insert(0, achieveAll);
+  var _userRecords = UserManager.instance.user.achievements;
+
+  void initAchievements(){
+    _achievements.clear();
+    _achievements.addAll(_levelAchievements);
+    _achievements.addAll(_playedGamesAchievements);
+    _achievements.addAll(_timerModeAchievements);
+    _achievements.addAll(_challengerModeAchievements);
+    _achievements.insert(0, achieveAll);
   }
 
-  void setAchievements(){
-    var records = UserManager.instance.user.achievements;
-    var achs = Achievements.values; //enums
+  void updateLevel() {
+    UserManager.instance.user.achievements?["level"] = UserManager.instance.user.level;
+    print("User Level : ${UserManager.instance.user.achievements?["level"]}");
+  }
 
-    //eğer userda değer yoksa 0 dan değersiz oluşturuyoruz
-    if (records.isEmpty) { //idleri verip 0 ve false olarak dolduruyoruz
-      UserManager.instance.user.achievements = achs.map((e) 
-        => UserAchievementModel(id: e.getId, currentProgress: 0)).toList();
-      _achievements.insert(0, achieveAll);
-      return;
-    }
+  void updatePlayedGame() {
+    UserManager.instance.user.achievements?["playedGame"]++;
+    print("Played Games : ${UserManager.instance.user.achievements?["playedGame"]}");
+  }
 
-    if (achievements.length > achs.length) {
-      achievements.removeAt(0);
-    }
-
-    //Userdaki değereleri göre liste tekrar güncelleniyor
-    //update achievements progress etc.
-    for (var i = 0; i < achievements.length; i++) {
-      var user = UserManager.instance.user.achievements[i];
-      var achsModel = achievements[i];
-      //var model = achievements.firstWhere((element) => element.id == user.id);
-
-      achsModel.currentProgress = user?.currentProgress ?? 0;
-      achsModel.isDone = (user?.currentProgress ?? 0) >= achsModel.maxProgress;
-    }
-
-    _achievements.insert(0, achieveAll);
+  void updateChallenger(int score, int time) {
+    var currentRecord = _userRecords?["challenger"] ?? 0;
+    if (score <= currentRecord || time > 300) return;
+    UserManager.instance.user.achievements?["challenger"] = score;
+    print("Challenger Score : ${UserManager.instance.user.achievements?["challenger"]}");
+  }  
+  
+  void updateTimer(int score) {
+    var currentRecord = _userRecords?["timer"] ?? 0;
+    if (score <= currentRecord) return;
+    UserManager.instance.user.achievements?["timer"] = score;
+    print("Timer Score : ${UserManager.instance.user.achievements?["timer"]}");
   }
 
   //First Achievement total progress
@@ -66,161 +62,81 @@ class AchievementManager {
       maxProgress: achievements.length
     );
   }  
-  
-  List<AchievementWidgetModel> levelAchievements = [
-    AchievementWidgetModel(
-      id: "level1",
-      iconPath: "assets/images/achievements/ic_level1.png", 
-      title: "Good Knowledge",
-      description: "Reach 10 level.", 
-      isDone: false, 
-      currentProgress: 0,
-      maxProgress: 10
-    ),
-    AchievementWidgetModel(
-      id: "level2",
-      iconPath: "assets/images/achievements/ic_level2.png", 
-      title: "Second Chance",
-      description: "Reach 15 level.", 
-      isDone: false, 
-      currentProgress: 0, 
-      maxProgress: 15
-    ),
-    AchievementWidgetModel(
-      id: "level3",
-      iconPath: "assets/images/achievements/ic_level3.png", 
-      title: "THE “NEW YOU”",
-      description: "Reach 20 level.", 
-      isDone: false, 
-      currentProgress: 0, 
-      maxProgress: 20
-    ),
-    AchievementWidgetModel(
-      id: "level4",
-      iconPath: "assets/images/achievements/ic_level4.png", 
-      title: "Near The End",
-      description: "Reach 25 level.", 
-      isDone: false, 
-      currentProgress: 0, 
-      maxProgress: 25
-    ),
-    AchievementWidgetModel(
-      id: "level5",
-      iconPath: "assets/images/achievements/ic_level5.png", 
-      title: "Welcome To The Limit",
-      description: "Reach 30 level.", 
-      isDone: false, 
-      currentProgress: 0, 
-      maxProgress: 30
-    ),
-  ];
 
-  List<AchievementWidgetModel> playedGamesAchievements = [
-    AchievementWidgetModel(
-      id: "played_games1",
-      iconPath: "assets/images/achievements/ic_played_games1.png", 
-      title: "Basic Training",
-      description: "Play Any Mode 10 times.", 
-      isDone: false, 
-      currentProgress: 0, 
-      maxProgress: 10
-    ),
-    AchievementWidgetModel(
-      id: "played_games2",
-      iconPath: "assets/images/achievements/ic_played_games2.png", 
-      title: "Still Learning",
-      description: "Play Any Mode 20 times.", 
-      isDone: false, 
-      currentProgress: 0, 
-      maxProgress: 20
-    ),
-    AchievementWidgetModel(
-      id: "played_games3",
-      iconPath: "assets/images/achievements/ic_played_games3.png", 
-      title: "We're Just Getting Started",
-      description: "Play Any Mode 50 times.", 
-      isDone: false, 
-      currentProgress: 0, 
-      maxProgress: 50
-    ),
-    AchievementWidgetModel(
-      id: "played_games4",
-      iconPath: "assets/images/achievements/ic_played_games4.png", 
-      title: "Almost Pro",
-      description: "Play Any Mode 100 times.", 
-      isDone: false, 
-      currentProgress: 0, 
-      maxProgress: 100
-    ),
-    AchievementWidgetModel(
-      id: "played_games5",
-      iconPath: "assets/images/achievements/ic_played_games5.png", 
-      title: "Invoker GOD!",
-      description: "Play Any Mode 200 times.", 
-      isDone: false, 
-      currentProgress: 0, 
-      maxProgress: 200
-    ),
-  ];
+  List<AchievementWidgetModel> get _levelAchievements {
+    final levelAchievements = const [
+      Achievements.level1, 
+      Achievements.level2, 
+      Achievements.level3, 
+      Achievements.level4, 
+      Achievements.level5,
+    ];
 
-  List<AchievementWidgetModel> TimerModeAchievements = [
-    AchievementWidgetModel(
-      id: "timer1",
-      iconPath: "assets/images/achievements/ic_timer1.png", 
-      title: "Always Hard",
-      description: "Reach 50 Score before time runs out in Timer mode.", 
-      isDone: false, 
-      currentProgress: 0, 
-      maxProgress: 50
-    ),
-    AchievementWidgetModel(
-      id: "timer2",
-      iconPath: "assets/images/achievements/ic_timer2.png", 
-      title: "Speed Freak",
-      description: "Reach 75 Score before time runs out in Timer mode.", 
-      isDone: false, 
-      currentProgress: 0, 
-      maxProgress: 75
-    ),
-    AchievementWidgetModel(
-      id: "timer3",
-      iconPath: "assets/images/achievements/ic_timer3.png", 
-      title: "OUT OF CONTROL!",
-      description: "Reach 100 Score before time runs out in Timer mode.", 
-      isDone: false, 
-      currentProgress: 0, 
-      maxProgress: 100
-    ),
-  ];
+    return levelAchievements.map((e) => AchievementWidgetModel(
+      id: e.getId, 
+      iconPath: e.getIconPath, 
+      title: e.getTitle, 
+      description: e.getDescription, 
+      isDone: (_userRecords?["level"] ?? 0) >= e.getMaxProgress,
+      currentProgress: _userRecords?["level"] ?? 0, 
+      maxProgress: e.getMaxProgress
+    )).toList();
+  }
 
-  List<AchievementWidgetModel> ChallengerModeAchievements = [
-    AchievementWidgetModel(
-      id: "challenger1",
-      iconPath: "assets/images/achievements/ic_challenger1.png", 
-      title: "Streaker",
-      description: "Reach 200 points in under 5 minutes in Challenger mode.", 
-      isDone: false, 
-      currentProgress: 0, 
-      maxProgress: 50
-    ),
-    AchievementWidgetModel(
-      id: "challenger2",
-      iconPath: "assets/images/achievements/ic_challenger2.png", 
-      title: "Must Try Harder",
-      description: "Reach 200 points in under 5 minutes in Challenger mode.", 
-      isDone: false, 
-      currentProgress: 0, 
-      maxProgress: 100
-    ),
-    AchievementWidgetModel(
-      id: "challenger3",
-      iconPath: "assets/images/achievements/ic_challenger3.png", 
-      title: "The Real CHALLENGER!",
-      description: "Reach 200 points in under 5 minutes in Challenger mode.", 
-      isDone: false, 
-      currentProgress: 0, 
-      maxProgress: 200
-    ),
-  ];
+  List<AchievementWidgetModel> get _playedGamesAchievements {
+    final playedGamesAchievements = const [
+      Achievements.played_games1, 
+      Achievements.played_games2,
+      Achievements.played_games3,
+      Achievements.played_games4,
+      Achievements.played_games5,
+    ];
+
+    return playedGamesAchievements.map((e) => AchievementWidgetModel(
+      id: e.getId, 
+      iconPath: e.getIconPath, 
+      title: e.getTitle, 
+      description: e.getDescription, 
+      isDone: (_userRecords?["playedGame"] ?? 0) >= e.getMaxProgress,
+      currentProgress: _userRecords?["playedGame"] ?? 0, 
+      maxProgress: e.getMaxProgress
+    )).toList();
+  }  
+
+  List<AchievementWidgetModel> get _timerModeAchievements {
+    final timerModeAchievements = const [
+      Achievements.timer1,
+      Achievements.timer2,
+      Achievements.timer3,
+    ];
+
+    return timerModeAchievements.map((e) => AchievementWidgetModel(
+      id: e.getId, 
+      iconPath: e.getIconPath, 
+      title: e.getTitle, 
+      description: e.getDescription, 
+      isDone: (_userRecords?["timer"] ?? 0) >= e.getMaxProgress,
+      currentProgress: _userRecords?["timer"] ?? 0,  
+      maxProgress: e.getMaxProgress
+    )).toList();
+  }
+
+  List<AchievementWidgetModel> get _challengerModeAchievements {
+    final challengerModeAchievements = const [
+      Achievements.challenger1,
+      Achievements.challenger2,
+      Achievements.challenger3,
+    ];
+
+    return challengerModeAchievements.map((e) => AchievementWidgetModel(
+      id: e.getId, 
+      iconPath: e.getIconPath, 
+      title: e.getTitle, 
+      description: e.getDescription, 
+      isDone: (_userRecords?["challenger"] ?? 0) >= e.getMaxProgress,
+      currentProgress: _userRecords?["challenger"] ?? 0, 
+      maxProgress: e.getMaxProgress
+    )).toList();
+  }
 
 }
