@@ -64,10 +64,10 @@ class AppStrings {
   static const String talentTree = 'Talent Tree';
   static const String talent10 = '+2 exp multiplier';
   static const talents = const [
-    '+2 exp multiplier',
-    '15 Talent Tree',
-    '20 Talent Tree',
-    '25 Talent Tree',
+    'Unlock Boss Mode',
+    '+1 Challenger Life',
+    '+2 Exp Multiplier',
+    'D. Damage to Bosses',
   ];
 
   //Settings
@@ -146,6 +146,7 @@ class ImagePaths {
   static const String icFlutter =  '$_other/ic_flutter.png';
   static const String icCsharp =   '$_other/ic_csharp.png';
   static const String icFirebase = '$_other/ic_firebase.png';
+  static const String icInvokerHead = '$_other/ic_invoker_head.png';
 }
 
 class SoundPaths {

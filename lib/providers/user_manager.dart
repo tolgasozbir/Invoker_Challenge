@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:snappable_thanos/snappable_thanos.dart';
 
 import '../constants/app_strings.dart';
 import '../enums/local_storage_keys.dart';
@@ -12,8 +13,9 @@ class UserManager extends ChangeNotifier {
   static UserManager? _instance;
   static UserManager get instance => _instance ??= UserManager._();
 
-  UserModel? _userModel;
+  final snappableKey = GlobalKey<SnappableState>();
 
+  UserModel? _userModel;
   UserModel get user => _userModel!;
 
   void setUser(UserModel user){
@@ -130,13 +132,10 @@ class UserManager extends ChangeNotifier {
 
     //TODO: Talents
     switch (level) {
-      case 10: 
-        user.expMultiplier += 2; 
-        break;
-      case 15:
-      case 20:
-      case 25:
-        break;
+      case 10: user.isBossModeEnabled = true; break;
+      case 15: user.challangerLife = 1; break;
+      case 20: user.expMultiplier += 2; break;
+      case 25: break;
       default: break;
     }
     

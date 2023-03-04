@@ -4,6 +4,8 @@ class UserModel {
   UserModel({
     required this.uid,
     required this.username,
+    required this.challangerLife,
+    required this.isBossModeEnabled,
     required this.bestChallengerScore,
     required this.bestTimerScore,
     required this.level,
@@ -16,11 +18,13 @@ class UserModel {
   UserModel.guest({
     this.uid = null,
     required this.username,
+    this.isBossModeEnabled = false,
+    this.challangerLife = 0,
     this.bestChallengerScore = 0,
     this.bestTimerScore = 0,
     this.level = 1,
     this.exp = 0,
-    this.expMultiplier = 1,
+    this.expMultiplier = 3,
     this.talentTree = const {
                         '10' : false,
                         '15' : false,
@@ -37,6 +41,8 @@ class UserModel {
 
   String? uid;
   String username;
+  bool isBossModeEnabled;
+  int challangerLife;
   int bestChallengerScore;
   int bestTimerScore;
   int level;
@@ -49,6 +55,8 @@ class UserModel {
     return <String, dynamic>{
       'uid': uid,
       'username': username,
+      'isBossModeEnabled' : isBossModeEnabled,
+      'challangerLife' : challangerLife,
       'bestChallengerScore': bestChallengerScore,
       'bestTimerScore': bestTimerScore,
       'level': level,
@@ -63,6 +71,8 @@ class UserModel {
     return UserModel(
       uid: map['uid'] as String?,
       username: map['username'] as String,
+      isBossModeEnabled: map['isBossModeEnabled'] as bool,
+      challangerLife: map['challangerLife'] as int,
       bestChallengerScore: map['bestChallengerScore'] as int,
       bestTimerScore: map['bestTimerScore'] as int,
       level: map['level'] as int,

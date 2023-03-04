@@ -42,6 +42,7 @@ class GameUIWidget extends StatefulWidget {
 class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState {
 
   final _animKey = GlobalKey<TrueFalseWidgetState>();
+  var challangerLife = UserManager.instance.user.challangerLife;
 
   @override
   Widget build(BuildContext context) => _bodyView();
@@ -235,6 +236,14 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
           final score = context.read<GameProvider>().getCorrectCombinationCount;
           AchievementManager.instance.updateChallenger(score, time);
         } else {
+          if (challangerLife > 0) {
+            SoundManager.instance.failCombinationSound();
+            _animKey.currentState?.playAnimation(IconType.False);
+            spellProvider.getRandomSpell();
+            challangerLife--;
+            UserManager.instance.snappableKey.currentState?.snap();
+            return;
+          }
           SoundManager.instance.ggSound();
           timerProvider.changeIsStartStatus();
           timerProvider.disposeTimer();
@@ -370,6 +379,8 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
     switch (widget.gameType) {
       case GameType.Training:
       case GameType.Challanger: 
+        UserManager.instance.snappableKey.currentState?.reset();
+        challangerLife = UserManager.instance.user.challangerLife;
         context.read<GameProvider>().startTimer(); 
         break;
       case GameType.Timer:

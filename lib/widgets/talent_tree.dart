@@ -67,9 +67,9 @@ class TalentTree extends StatelessWidget {
     trailingIcon: user.level < talentLevel 
       ? CupertinoIcons.xmark_circle
       : CupertinoIcons.check_mark_circled,
-    child: Text(
-      title,
-      textAlign: TextAlign.center,
+    isDestructiveAction: user.level < talentLevel,
+    child: FittedBox(
+      child: Text(title)
     ).wrapCenter(),
   );
 

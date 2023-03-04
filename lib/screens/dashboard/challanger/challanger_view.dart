@@ -1,5 +1,7 @@
+import 'package:dota2_invoker/providers/user_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:snappable_thanos/snappable_thanos.dart';
 
 import '../../../constants/app_strings.dart';
 import '../../../extensions/context_extension.dart';
@@ -31,11 +33,29 @@ class _ChallangerViewState extends State<ChallangerView> {
 
   Widget _bodyView() {
     return SingleChildScrollView(
-      child: Column(
+      child: Stack(
         children: [
-          const GameUIWidget(gameType: GameType.Challanger),
-          showLeaderBoardButton(),
+          Column(
+            children: [
+              const GameUIWidget(gameType: GameType.Challanger),
+              showLeaderBoardButton(),
+            ],
+          ),
+          if(UserManager.instance.user.challangerLife > 0) lifeIcon(),
         ],
+      ),
+    );
+  }
+
+  Widget lifeIcon() {
+    return Positioned(
+      right: context.dynamicWidth(0.02),
+      top: kToolbarHeight,
+      child: Snappable(
+        key: UserManager.instance.snappableKey,
+        duration: Duration(milliseconds: 1600),
+        onSnapped: () => null,
+        child: Image.asset(ImagePaths.icInvokerHead, height: 80),
       ),
     );
   }

@@ -38,6 +38,7 @@ abstract class SplashViewModel extends State<SplashView> {
   }
 
   Future<void> getUserRecords() async {
+    //AppServices.instance.localStorageService.removeValue(LocalStorageKey.userRecords);
     var isLoggedIn = UserManager.instance.isLoggedIn();
     var hasConnection = await InternetConnectionChecker().hasConnection;
     //fetch or create user record and set data
@@ -52,7 +53,7 @@ abstract class SplashViewModel extends State<SplashView> {
 
   void getSettingsValues() {
     SoundManager.instance.setVolume(
-      AppServices.instance.localStorageService.getIntValue(LocalStorageKey.volume)?.toDouble() ?? 100
+      AppServices.instance.localStorageService.getIntValue(LocalStorageKey.volume)?.toDouble() ?? 80
     );
   }
 

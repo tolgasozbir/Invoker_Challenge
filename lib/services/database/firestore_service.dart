@@ -40,7 +40,8 @@ class FirestoreService implements IDatabaseService {
     //if not exist create if exist update
     try {
       if (userModel.uid == null) throw Exception("uuid cant be null");
-      await _collectionRefUsers.doc(userModel.uid).set((userModel.toMap()));
+      await _collectionRefUsers.doc(userModel.uid).set((userModel.toMap()))
+        .timeout(Duration(milliseconds: 5000), onTimeout: () { return; });
     } catch (e) {
       log(e.toString());
     }
