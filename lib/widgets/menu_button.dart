@@ -1,7 +1,9 @@
-
-
 import 'dart:io';
 
+import 'package:dota2_invoker/constants/app_strings.dart';
+import 'package:dota2_invoker/extensions/widget_extension.dart';
+import 'package:dota2_invoker/providers/user_manager.dart';
+import 'package:dota2_invoker/widgets/app_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -20,10 +22,22 @@ class MenuButton extends StatefulWidget {
     required this.title,
     required this.navigatePage,
     this.backgroundColor,
+    this.isBtnBossMode = false,
     this.isBtnExit = false,
     super.key, 
-  }) : assert(isBtnExit == false);
+  }) : assert(isBtnBossMode == false), assert(isBtnExit == false);
 
+  const MenuButton.bossMode({
+    super.key, 
+    required this.color, 
+    this.backgroundColor, 
+    required this.imagePath, 
+    required this.title, 
+    this.navigatePage,
+    this.isBtnBossMode = true,
+    this.isBtnExit = false,
+  }) : assert(isBtnBossMode == true), assert(isBtnExit == false) ;  
+  
   const MenuButton.exit({
     super.key, 
     required this.color, 
@@ -31,14 +45,16 @@ class MenuButton extends StatefulWidget {
     required this.imagePath, 
     required this.title, 
     this.navigatePage,
+    this.isBtnBossMode = false,
     this.isBtnExit = true,
-  }) : assert(navigatePage == null), assert(isBtnExit == true);
+  }) : assert(isBtnBossMode == false), assert(isBtnExit == true), assert(navigatePage == null);
 
   final Color color;
   final Color? backgroundColor;
   final String imagePath;
   final String title;
   final Widget? navigatePage;
+  final bool isBtnBossMode;
   final bool isBtnExit;
 
   @override
@@ -51,7 +67,7 @@ class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateM
 
   @override
   void initState() {
-    if (widget.isBtnExit) {
+    if (widget.isBtnBossMode) {
       controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 4000));
       animation = CurvedAnimation(parent: controller!, curve: Curves.linear);
       controller!.repeat();
@@ -77,6 +93,20 @@ class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateM
     if (widget.navigatePage == null) return;
     SoundManager.instance.playSoundBegining();
     context.read<GameProvider>().resetTimer();
+    ScaffoldMessenger.of(context).removeCurrentSnackBar();
+    Navigator.push(context, MaterialPageRoute(builder: (context)=> LoadingView(page: widget.navigatePage!)));
+  }
+
+  void _goToBossMode() {
+    if (!UserManager.instance.user.isBossModeEnabled) {
+      ScaffoldMessenger.of(context).removeCurrentSnackBar();
+      AppSnackBar.showSnackBarMessage(
+        text: AppStrings.unlockBossModeMessage, 
+        snackBartype: SnackBarType.info,
+        duration: Duration(milliseconds: 3000),
+      );
+      return;
+    }
     Navigator.push(context, MaterialPageRoute(builder: (context)=> LoadingView(page: widget.navigatePage!)));
   }
 
@@ -84,11 +114,11 @@ class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateM
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10),
-      child: button(context),
+      child: button(),
     );
   }
 
-  SizedBox button(BuildContext context) {
+  SizedBox button() {
 
     final buttonStyle = ElevatedButton.styleFrom(
       backgroundColor: widget.backgroundColor ?? AppColors.buttonBgColor,
@@ -105,23 +135,29 @@ class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateM
       width: context.dynamicWidth(0.8),
       child:  ElevatedButton(
         style: buttonStyle,
-        onPressed: widget.isBtnExit ? _closeApp : _goToGameScreen,
-        child: buttonSurface(context),
+        onPressed: widget.isBtnBossMode 
+          ? _goToBossMode 
+          : widget.isBtnExit 
+            ? _closeApp 
+            : _goToGameScreen,
+        child: buttonSurface(),
       ),
     );
   }
 
-  Row buttonSurface(BuildContext context) {
+  Row buttonSurface() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        if (widget.isBtnExit) 
+        if (widget.isBtnBossMode) 
           RotationTransition(
             turns: animation!, 
-            child: circleImage(context, BoxFit.contain),
+            child: circleImage(BoxFit.contain),
           ) 
+        else if (widget.isBtnExit)
+          circleImage(BoxFit.contain).scaleWidget(1.2)
         else 
-          circleImage(context, BoxFit.cover),
+          circleImage(BoxFit.cover),
         Text(
           '${widget.title}  ',
           style: TextStyle(fontSize: context.sp(16)),
@@ -130,7 +166,7 @@ class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateM
     );
   }
 
-  Container circleImage(BuildContext context, BoxFit? fit) {
+  Container circleImage(BoxFit? fit) {
     return Container(
       height: context.dynamicHeight(0.1),
       width: context.dynamicWidth(0.12),

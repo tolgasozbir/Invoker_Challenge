@@ -109,6 +109,7 @@ class UserManager extends ChangeNotifier {
     while (currExp >= _getNextLevelExp) {
       currExp -= _getNextLevelExp;
       user.level++;
+      enableTalents();
       if (user.level >= _maxLevel) {
         user.level = _maxLevel;
         user.exp = _getNextLevelExp;
@@ -116,7 +117,6 @@ class UserManager extends ChangeNotifier {
       }
     }
     user.exp = currExp;
-    enableTalents();
   }
 
   //Talent Tree

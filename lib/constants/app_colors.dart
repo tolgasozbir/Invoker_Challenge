@@ -6,7 +6,8 @@ class AppColors {
   static const Color quasColor    = Color(0xFF2196F3);
   static const Color wexColor     = Color(0xFFF48FB1);
   static const Color exortColor   = Color(0xFFFFC107);
-  static const Color exitBtnColor = Colors.white70;
+  static const Color exitBtnColor = Colors.white54;
+  static const Color exitBtnBgColor = Color(0xFF303030);
 
   //Snackbar colors
   static const Color errorColor   = Color(0xFFC72C41);
@@ -33,7 +34,6 @@ class AppColors {
 
   //Svg Color
   static const Color svgGrey = Color(0xFF424242);
-  static const Color svgTalentTree = Colors.grey;
 
   //About me
   static const Color aboutMeSmallCircle = Colors.deepPurple;

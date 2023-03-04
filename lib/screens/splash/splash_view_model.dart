@@ -38,7 +38,8 @@ abstract class SplashViewModel extends State<SplashView> {
   }
 
   Future<void> getUserRecords() async {
-    //AppServices.instance.localStorageService.removeValue(LocalStorageKey.userRecords);
+    // await AppServices.instance.localStorageService.removeValue(LocalStorageKey.userRecords);
+    // await AppServices.instance.firebaseAuthService.signOut();
     var isLoggedIn = UserManager.instance.isLoggedIn();
     var hasConnection = await InternetConnectionChecker().hasConnection;
     //fetch or create user record and set data

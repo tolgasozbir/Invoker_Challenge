@@ -98,7 +98,7 @@ class TalentTree extends StatelessWidget {
           child: Align(
             alignment: alignment,
             heightFactor: getTreeHeightFactor,
-            child: talentTreeSvg(size, AppColors.svgTalentTree),
+            child: talentTreeSvg(size, AppColors.grey),
           ),
         ),
       ],

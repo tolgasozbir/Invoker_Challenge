@@ -8,6 +8,7 @@ class AppStrings {
   static const String titleTraining = 'Training';
   static const String titleWithTimer = 'With Timer';
   static const String titleChallanger = 'Challanger';
+  static const String titleBossMode = 'Boss Mode';
   static const String quitGame = 'Quit Game';
   static const String settings = 'Settings';
   static const String profile = 'Profile';
@@ -55,6 +56,7 @@ class AppStrings {
   static const String feedbackSuccessMessage = 'Thank you! your feedback will help me improve your experience.';
   static const String qwerHudInfoMessage1 = 'Adjusts the height of the quas, wex, exort, and invoke buttons.';
   static const String qwerHudInfoMessage2 = 'The higher it is, the closer it is to the bottom.';
+  static const String unlockBossModeMessage = 'You have to unlock the boss mode to enter. (Requires level 10)';
   static const String sbInfo = 'Info';
   static const String sbSuccess = 'Success';
   static const String sbError = 'Error';
@@ -147,6 +149,7 @@ class ImagePaths {
   static const String icCsharp =   '$_other/ic_csharp.png';
   static const String icFirebase = '$_other/ic_firebase.png';
   static const String icInvokerHead = '$_other/ic_invoker_head.png';
+  static const String icInvokeLine = '$_other/ic_invoke_line.png';
 }
 
 class SoundPaths {

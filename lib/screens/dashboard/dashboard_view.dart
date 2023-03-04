@@ -76,9 +76,16 @@ class DashboardView extends StatelessWidget {
       title: AppStrings.titleChallanger, 
       navigatePage: ChallangerView(),
     ),
-    MenuButton.exit(
-      color: AppColors.exitBtnColor,
+    MenuButton.bossMode(
+      color: AppColors.white,
       imagePath: Elements.invoke.getImage, 
+      title: AppStrings.titleBossMode,
+      navigatePage: ChallangerView(), //TODO:
+    ),
+    MenuButton.exit(
+      backgroundColor: AppColors.exitBtnBgColor,
+      color: AppColors.exitBtnColor,
+      imagePath: ImagePaths.icInvokeLine, 
       title: AppStrings.quitGame,
     ),
   ];
