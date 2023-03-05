@@ -69,7 +69,7 @@ class AppStrings {
     'Unlock Boss Mode',
     '+1 Challenger Life',
     '+2 Exp Multiplier',
-    'D. Damage to Bosses',
+    'D. Dmg to Bosses',
   ];
 
   //Settings
@@ -150,6 +150,9 @@ class ImagePaths {
   static const String icFirebase = '$_other/ic_firebase.png';
   static const String icInvokerHead = '$_other/ic_invoker_head.png';
   static const String icInvokeLine = '$_other/ic_invoke_line.png';
+
+  static const String icAchievements = '$_root/achievements/ic_achievements.png';
+
 }
 
 class SoundPaths {

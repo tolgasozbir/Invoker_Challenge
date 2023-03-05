@@ -1,3 +1,5 @@
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+
 import '../../../constants/app_strings.dart';
 import '../../../extensions/context_extension.dart';
 import '../../../extensions/widget_extension.dart';
@@ -48,13 +50,24 @@ class AchievementsView extends StatelessWidget {
   Widget _bodyView() {
     AchievementManager.instance.initAchievements();
     var achievements = AchievementManager.instance.achievements;
-    return ListView.builder(
-      padding: EdgeInsets.all(8),
-      itemCount: achievements.length,
-      itemBuilder: (BuildContext context, int index) {
-        var achievement = achievements[index];
-        return AchievementWidget(achievement: achievement);
-      },
+    return AnimationLimiter(
+      child: ListView.builder(
+        padding: EdgeInsets.all(8),
+        itemCount: achievements.length,
+        itemBuilder: (BuildContext context, int index) {
+          var achievement = achievements[index];
+          return AnimationConfiguration.staggeredList(
+            position: index,
+            duration: Duration(milliseconds: 1600),
+            child: SlideAnimation(
+              verticalOffset: 50.0,
+                child: FadeInAnimation(
+                  child: AchievementWidget(achievement: achievement),
+                ),
+            ),
+          );
+        },
+      ),
     );
   }
 }

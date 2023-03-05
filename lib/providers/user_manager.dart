@@ -91,13 +91,13 @@ class UserManager extends ChangeNotifier {
   ///Game System
 
   //Level System
-  double get _getNextLevelExp => user.level * 25;
+  double get getNextLevelExp => user.level < 10 ? (user.level * 20) : (user.level * 25);
   double get _getCurrentExp   => user.exp;
   double get _expMultiplier   => user.expMultiplier;
   int _maxLevel = 30;
 
   void addExp(int exp) async {
-    var currExp = _getCurrentExp + (exp * _expMultiplier);
+    var currExp = ((_getCurrentExp + (exp * _expMultiplier)) +3);
     _levelUp(currExp);
     await setAndSaveUserToLocale(user);
   }
@@ -106,13 +106,13 @@ class UserManager extends ChangeNotifier {
     if (user.level == _maxLevel) return;
     
     var currExp = exp;
-    while (currExp >= _getNextLevelExp) {
-      currExp -= _getNextLevelExp;
+    while (currExp >= getNextLevelExp) {
+      currExp -= getNextLevelExp;
       user.level++;
       enableTalents();
       if (user.level >= _maxLevel) {
         user.level = _maxLevel;
-        user.exp = _getNextLevelExp;
+        user.exp = getNextLevelExp;
         return;
       }
     }

@@ -1,3 +1,5 @@
+import 'package:dota2_invoker/extensions/context_extension.dart';
+
 import '../constants/app_strings.dart';
 import 'sliders/progress_slider.dart';
 import 'package:flutter/material.dart';
@@ -31,9 +33,9 @@ class _UserStatusState extends State<UserStatus> {
   Widget build(BuildContext context) {
     final username = widget.user.username;
     final currentExp = widget.user.exp;
-    final nextLevelExp = widget.user.level * 25;
+    final nextLevelExp = UserManager.instance.getNextLevelExp;
     final level = 'Level ${widget.user.level}';
-
+    var isLoggedIn = UserManager.instance.isLoggedIn();
     return InkWell(
       splashColor: AppColors.transparent,
       highlightColor: AppColors.transparent,
@@ -41,10 +43,11 @@ class _UserStatusState extends State<UserStatus> {
         await AppDialogs.showSlidingDialog(
           dismissible: true,
           showBackButton: true,
-          title: AppStrings.profile,
-          content: UserManager.instance.isLoggedIn() 
+          height: context.dynamicHeight(0.64),
+          title:  isLoggedIn ? AppStrings.profile : "${AppStrings.login}&${AppStrings.register}",
+          content: isLoggedIn
             ? ProfileDialogContent()
-            : LoginRegisterDialogContent()
+            : LoginRegisterDialogContent(),
         );
         if (mounted) setState(() { });
       },
@@ -69,7 +72,7 @@ class _UserStatusState extends State<UserStatus> {
               Text(username),
               ProgressSlider(
                 current: currentExp,
-                max: nextLevelExp.toDouble(),
+                max: nextLevelExp,
                 activeColor: AppColors.expBarColor,
                 inactiveColor: AppColors.expBarColor.withOpacity(0.5),
               ).wrapPadding(const EdgeInsets.symmetric(vertical: 8)),
@@ -77,7 +80,7 @@ class _UserStatusState extends State<UserStatus> {
                 children: [
                   Text(level),
                   Spacer(),
-                  Text(currentExp.toStringAsFixed(0) + '/' + '$nextLevelExp')
+                  Text(currentExp.toStringAsFixed(0) + '/' + nextLevelExp.toStringAsFixed(0))
                 ],
               )
             ],

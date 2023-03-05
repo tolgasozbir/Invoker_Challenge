@@ -22,7 +22,6 @@ class ProfileDialogContent extends StatelessWidget {
   }
 
   InkWell achievements(BuildContext context) {
-    final ic_achievements = "assets/images/achievements/ic_achievements.png";
     var totalCount = AchievementManager.instance.achievements.length;
     var current = AchievementManager.instance.achievements.where((e) => e.isDone == true).toList().length;
     return InkWell(
@@ -31,7 +30,7 @@ class ProfileDialogContent extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset(ic_achievements),
+            Image.asset(ImagePaths.icAchievements),
             Column(
               children: [
                 FittedBox(child: Text(AppStrings.achievements)).wrapExpanded(flex: 2),

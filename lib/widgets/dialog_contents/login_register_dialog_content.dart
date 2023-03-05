@@ -50,7 +50,7 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
             textInputAction: TextInputAction.done,
             validator: isValidPassword,
           ),
-          const EmptyBox.h16(),
+          const EmptyBox.h12(),
           Row(
             children: [
               ...checkboxWithTitle(
@@ -64,9 +64,9 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
               ),
             ],
           ),
-          const EmptyBox.h16(),
+          const EmptyBox.h12(),
           loginOrRegisterBtn(),
-          const EmptyBox.h16(),
+          const EmptyBox.h12(),
           //Text("Reset your password!") //TODO:
         ],
       ),

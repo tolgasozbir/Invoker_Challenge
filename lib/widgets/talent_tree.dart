@@ -42,7 +42,7 @@ class TalentTree extends StatelessWidget {
       ...List.generate(UserManager.instance.treeLevels.length, (index) => 
         menuActionBtn(
           context: context, 
-          title: AppStrings.talents[index], 
+          title: UserManager.instance.treeLevels[index].toString() + ") " + AppStrings.talents[index] + " ", 
           talentLevel: UserManager.instance.treeLevels[index]
         ),
       ).reversed.toList(),
@@ -70,7 +70,7 @@ class TalentTree extends StatelessWidget {
     isDestructiveAction: user.level < talentLevel,
     child: FittedBox(
       child: Text(title)
-    ).wrapCenter(),
+    )
   );
 
   SingleChildScrollView previewWidget() {
