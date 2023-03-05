@@ -17,7 +17,7 @@ class AppStrings {
   //Common
   static const String leaderboard = 'Leaderboard';
   static const String showMore = 'Show more';
-  static const String result = 'Result';
+  static const String result = 'Results';
   static const String send = 'Submit';
   static const String start = 'Start';
   static const String close = 'Close';
@@ -26,8 +26,8 @@ class AppStrings {
 
   static const String time = 'Time';
   static const String score = 'Score';
-  static const String trueCombinations = 'True Combinations';
-  static const String bestScore = 'Your best score is';
+  static const String bestScore = 'Best Score';
+  static const String exp = 'Experience';
  
   //Form-Dialog
   static const String guest = 'Guest';

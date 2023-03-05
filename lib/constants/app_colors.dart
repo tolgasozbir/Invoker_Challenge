@@ -31,6 +31,8 @@ class AppColors {
   static const Color textFormFieldBg    = Color(0x2CFFFFFF);
   static const Color dialogBgColor      = Color(0xFF444444);
   static const Color resultsCardBg      = Color(0xFF666666);
+  static const Color resultFieldBg = Colors.white10;
+
 
   //Svg Color
   static const Color svgGrey = Color(0xFF424242);

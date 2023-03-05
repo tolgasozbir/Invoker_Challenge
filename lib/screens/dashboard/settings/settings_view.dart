@@ -9,9 +9,6 @@ import '../../../constants/app_colors.dart';
 import '../../../constants/app_strings.dart';
 import '../../../extensions/context_extension.dart';
 import '../../../extensions/widget_extension.dart';
-import '../../../providers/user_manager.dart';
-import '../../../services/app_services.dart';
-import '../../../widgets/app_outlined_button.dart';
 import '../../../widgets/sliders/volume_slider.dart';
 import 'about_me/about_me.dart';
 
@@ -25,6 +22,7 @@ class SettingsView extends StatelessWidget {
         children: [
           VolumeSlider(size: context.dynamicHeight(0.24)),
           QWERHudHeightSlider(),
+          EmptyBox.h8(),
           divider(),
           menuItem(
             context: context,
@@ -47,13 +45,12 @@ class SettingsView extends StatelessWidget {
             //onTap: () => StoreRedirect.redirect(androidAppId: ''), //TODO:
           ),
           divider(),
-          logoutbtn(context),
         ],
       ),
     );
   }
 
-  Divider divider() => const Divider(color: AppColors.amber, height: 24,);
+  Divider divider() => const Divider(color: AppColors.amber, height: 28);
 
   Widget menuItem({required BuildContext context, required IconData leading, required String text, VoidCallback? onTap}){
     return InkWell(
@@ -71,16 +68,4 @@ class SettingsView extends StatelessWidget {
     );
   }
 
-  Widget logoutbtn(BuildContext context) {
-    var isLoggedIn = UserManager.instance.isLoggedIn();
-    if (!isLoggedIn) return EmptyBox();
-    return AppOutlinedButton(
-      width: double.infinity,
-      onPressed: () async {
-        await AppServices.instance.firebaseAuthService.signOut();
-        if (context.mounted) Navigator.pop(context);
-      }, 
-      title: AppStrings.logout
-    );
-  }
 }

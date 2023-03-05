@@ -2,10 +2,13 @@ import '../../constants/app_colors.dart';
 import '../../constants/app_strings.dart';
 import '../../extensions/context_extension.dart';
 import '../../extensions/widget_extension.dart';
+import '../../providers/user_manager.dart';
 import '../../screens/profile/achievements/achievements_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../screens/profile/achievements/achievement_manager.dart';
+import '../../services/app_services.dart';
+import '../app_outlined_button.dart';
 
 class ProfileDialogContent extends StatelessWidget {
   const ProfileDialogContent({super.key});
@@ -13,11 +16,16 @@ class ProfileDialogContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Column(
-      children: [
-        achievements(context),
-        Divider(color: AppColors.amber)
-      ],
+    return SizedBox(
+      height: context.dynamicHeight(0.64)-80,
+      child: Column(
+        children: [
+          achievements(context),
+          Divider(color: AppColors.amber),
+          Spacer(),
+          logoutbtn(context),
+        ],
+      ),
     );
   }
 
@@ -43,6 +51,19 @@ class ProfileDialogContent extends StatelessWidget {
         ),
       ),
       onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AchievementsView(),)),
+    );
+  }
+
+  Widget logoutbtn(BuildContext context) {
+    var isLoggedIn = UserManager.instance.isLoggedIn();
+    if (!isLoggedIn) return EmptyBox();
+    return AppOutlinedButton(
+      width: double.infinity,
+      onPressed: () async {
+        await AppServices.instance.firebaseAuthService.signOut();
+        if (context.mounted) Navigator.pop(context);
+      }, 
+      title: AppStrings.logout
     );
   }
 

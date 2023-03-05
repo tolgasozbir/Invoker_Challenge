@@ -1,40 +1,70 @@
+import 'package:dota2_invoker/constants/app_colors.dart';
+import 'package:dota2_invoker/extensions/widget_extension.dart';
 import 'package:flutter/material.dart';
-
-import '../../constants/app_colors.dart';
 import '../../constants/app_strings.dart';
 import '../../extensions/context_extension.dart';
 import '../../providers/user_manager.dart';
 import '../game_ui_widget.dart';
 
 class ResultDialogContent extends StatelessWidget {
-  const ResultDialogContent({super.key, required this.correctCount, required this.gameType});
+  const ResultDialogContent({super.key, required this.correctCount, required this.time, required this.gameType});
 
   final int correctCount;
+  final int time;
   final GameType gameType;
 
   @override
   Widget build(BuildContext context) {
    return Column(
     children: [
-      //TODO:
+      EmptyBox.h8(),
+      resultField(context, AppStrings.score, correctCount.toString()),
+      EmptyBox.h4(),
+      resultField(context, AppStrings.time, time.toString()),
+      EmptyBox.h4(),
+      resultField(context, AppStrings.exp, "+"+UserManager.instance.expCalc(correctCount).toStringAsFixed(0)),
+      EmptyBox.h16(),
       Text(
-        '${AppStrings.trueCombinations}\n\n$correctCount',
+        AppStrings.bestScore,
         textAlign: TextAlign.center,
         style: TextStyle(
           fontWeight: FontWeight.w500, 
-          fontSize: context.sp(13)
+          fontSize: context.sp(13),
         ),
       ),
-      Divider(thickness: 1, color: AppColors.amber.withOpacity(0.6),),
-      Text(
-        '${AppStrings.bestScore}\n\n${UserManager.instance.getBestScore(gameType)}',
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontWeight: FontWeight.w500, 
-          fontSize: context.sp(13)
-        ),
-      ),
+      EmptyBox.h4(),
+      resultField(context, AppStrings.score, UserManager.instance.getBestScore(gameType).toString())
     ],
    );
+  }
+
+  SizedBox resultField(BuildContext context, String title, String value) {
+    return SizedBox(
+      width: double.infinity,
+      child: ColoredBox(
+        color: AppColors.resultFieldBg,
+        child: Row(
+          children: [
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: FontWeight.w500, 
+                fontSize: context.sp(13),
+              ),
+            ),
+            Spacer(),
+            Text(
+              value,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: FontWeight.w800, 
+                fontSize: context.sp(13),
+              ),
+            ),
+          ],
+        ).wrapPadding(EdgeInsets.all(8)),
+      ),
+    );
   }
 }

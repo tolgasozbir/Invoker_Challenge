@@ -256,6 +256,8 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
   void showResultDialog(DatabaseTable dbTable) {
     if (!mounted) return;
     var score = context.read<GameProvider>().getCorrectCombinationCount;
+    var challangerTime = context.read<GameProvider>().getTimeValue;
+    var withTimerTime = 60;
     AchievementManager.instance.updatePlayedGame();
     UserManager.instance.addExp(score);
     AchievementManager.instance.updateLevel();
@@ -264,6 +266,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
       title: AppStrings.result, 
       content: ResultDialogContent(
         correctCount: score,
+        time: widget.gameType == GameType.Timer ? withTimerTime : challangerTime,
         gameType: widget.gameType,
       ),
       action: StatefulBuilder(
