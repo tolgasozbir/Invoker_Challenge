@@ -1,5 +1,8 @@
+import 'dart:developer';
+import 'package:dota2_invoker/utils/ads_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/app_colors.dart';
@@ -15,14 +18,44 @@ import 'challanger/challanger_view.dart';
 import 'training/training_view.dart';
 import 'with_timer/with_timer_view.dart';
 
-class DashboardView extends StatelessWidget {
+class DashboardView extends StatefulWidget {
   const DashboardView({super.key});
+
+  @override
+  State<DashboardView> createState() => _DashboardViewState();
+}
+
+class _DashboardViewState extends State<DashboardView> {
+  BannerAd? _bannerAd;
+  bool _isAdLoaded = false;
+
+  void _initBannerAd() {
+    _bannerAd = BannerAd(
+      size: AdSize.fullBanner, 
+      adUnitId: AdHelper.instance.bannerAdUnitId, 
+      listener: BannerAdListener(
+        onAdLoaded: (ad) => setState(() { _isAdLoaded = true; }),
+        onAdFailedToLoad: (ad, error) {
+          ad.dispose();
+          log('Ad failed to load : $error');
+        },
+      ), 
+      request: AdRequest()
+    )..load();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    //_initBannerAd();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: _bodyView(context),
+      bottomNavigationBar: _isAdLoaded ? AdWidget(ad: _bannerAd!) : SizedBox(width: 468, height: 60),
     );
   }
 
@@ -38,7 +71,7 @@ class DashboardView extends StatelessWidget {
                 TalentTree(user: user).wrapExpanded(),
                 const SettingsButton().wrapAlign(Alignment.topRight).wrapExpanded(),
               ],
-            ).wrapExpanded(),
+            ).wrapExpanded(flex: 3),
             ...List.generate(menuBtns.length, (index) => AnimationLimiter(
                 child: AnimationConfiguration.staggeredList(
                   duration: const Duration(milliseconds: 1600),
@@ -89,5 +122,4 @@ class DashboardView extends StatelessWidget {
       title: AppStrings.quitGame,
     ),
   ];
-  
 }

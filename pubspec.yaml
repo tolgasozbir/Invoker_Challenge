@@ -44,6 +44,9 @@ dependencies:
   sleek_circular_slider: ^2.0.1
   flutter_arc_text: ^0.5.0
 
+  #Ads
+  google_mobile_ads: ^2.3.0
+
 
 dev_dependencies:
   flutter_test:
