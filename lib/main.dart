@@ -1,3 +1,4 @@
+import 'package:dota2_invoker/providers/boss_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -33,6 +34,7 @@ void main() async {
       ChangeNotifierProvider(create: (context) => GameProvider()),
       ChangeNotifierProvider(create: (context) => SpellProvider()),
       ChangeNotifierProvider(create: (context) => UserManager.instance),
+      ChangeNotifierProvider(create: (context) => BossProvider()),
     ],
     child: const MyApp(),
   ),);

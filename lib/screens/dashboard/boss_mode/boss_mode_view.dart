@@ -1,0 +1,398 @@
+import 'dart:math';
+
+import 'package:dota2_invoker/constants/app_colors.dart';
+import 'package:dota2_invoker/constants/app_strings.dart';
+import 'package:dota2_invoker/extensions/context_extension.dart';
+import 'package:dota2_invoker/extensions/widget_extension.dart';
+import 'package:dota2_invoker/providers/boss_provider.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../../enums/elements.dart';
+import '../../../mixins/orb_mixin.dart';
+import '../../../providers/spell_provider.dart';
+import '../../../services/sound_manager.dart';
+import '../../../widgets/bouncing_button.dart';
+
+class BossModeView extends StatefulWidget {
+  const BossModeView({super.key});
+
+  @override
+  State<BossModeView> createState() => _BossModeViewState();
+}
+
+class _BossModeViewState extends State<BossModeView> with OrbMixin {
+  late BossProvider provider;
+  var gradient2 = [const Color(0xFFE20D17), const Color(0xFFB50DE2)];
+
+  @override
+  void initState() {
+    provider = context.read<BossProvider>();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    provider.disposeTimer();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          shopButton()
+        ],
+      ),
+      body: bodyView());
+  }
+
+  LayoutBuilder bodyView() {
+    return LayoutBuilder(builder: (context, constraints) {
+    return Column(
+      children: [
+        Column(
+          children: [
+            ElevatedButton(onPressed: (){
+                context.read<BossProvider>().startGame();
+            }, child: Text("dasd"),)
+          ],
+        ),
+        circles(constraints).wrapExpanded(),
+        selectedElementOrbs(),
+        skills(),
+        EmptyBox.h12(),
+        manaBar(),
+        EmptyBox.h8(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            inventoryHud(),
+            ability().wrapExpanded(),
+          ],
+        ),
+        EmptyBox.h16(),
+      ],
+    );
+  });
+  }
+
+  Widget circles(BoxConstraints constraints) {
+    return Stack(
+      children: [
+        //outer
+        CustomPaint(
+          painter: ArcPainter(
+            progress: context.watch<BossProvider>().healthProgress, 
+            units: context.read<BossProvider>().healthUnit, 
+            radius: constraints.maxHeight * 0.21, 
+            gap: 0.22, 
+            gradient: gradient2,
+            reversedColor: true
+          ),
+        ),
+        //middle
+        CustomPaint(
+          painter: ArcPainter(
+            progress: context.watch<BossProvider>().roundProgress, 
+            units: context.read<BossProvider>().roundUnit, 
+            radius: constraints.maxHeight * 0.18, 
+            gap: 0.24, 
+            gradient: gradient2,
+          ),
+        ),
+        //inner
+        AnimatedContainer(
+          duration: Duration(seconds: 1),
+          child: CustomPaint(
+            painter: ArcPainter(
+              progress: context.watch<BossProvider>().timeProgress, 
+              units: context.read<BossProvider>().timeUnits, 
+              radius: constraints.maxHeight * 0.15, 
+              gap: 0.2, 
+              gradient: gradient2,
+            ),
+          ),
+        ),
+      ],
+    ).wrapCenter();
+  }
+
+  SizedBox selectedElementOrbs() {
+    return SizedBox(
+      width: context.dynamicWidth(0.25),
+      height: context.dynamicHeight(0.08),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: selectedOrbs,
+      ),
+    );
+  }
+
+  //QWER Ability Hud
+  Row skills() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: List.generate(Elements.values.length, (index) => skill(Elements.values[index]).wrapPadding(EdgeInsets.symmetric(horizontal: 8))),
+    );
+  }
+
+  BouncingButton skill(Elements element) {
+    return BouncingButton(
+      child: Stack(
+        children: [
+          DecoratedBox(
+            decoration: qwerAbilityDecoration(element.getColor),
+            child: Image.asset(element.getImage,width: context.dynamicWidth(0.18)),
+          ),
+          Text(
+            element.getKey.toUpperCase(), 
+            style: TextStyle(
+              color: element.getColor, 
+              fontSize: context.sp(16),
+              fontWeight: FontWeight.w500,
+              shadows: List.generate(3, (index) => Shadow(blurRadius: 8)),
+            ),
+          ).wrapPadding(EdgeInsets.only(left: 2)),
+        ],
+      ),
+      onPressed: () {
+        switch (element) {
+          case Elements.quas:
+          case Elements.wex:
+          case Elements.exort:
+            return switchOrb(element);
+          case Elements.invoke:
+            SoundManager.instance.trueCombinationSound(currentCombination);
+        }
+        print(element.name);
+      },
+    );
+  }
+
+  Widget manaBar() {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 24),
+      padding: EdgeInsets.symmetric(horizontal: 8),
+      width: double.infinity,
+      height: context.dynamicHeight(0.048),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(6),
+        gradient: LinearGradient(
+          colors: [Color.fromARGB(255, 30, 136, 222), Color.fromARGB(255, 54, 104, 190)]
+
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Spacer(),
+          Text("1007/1007", style: TextStyle(fontSize: context.sp(12), fontWeight: FontWeight.bold)).wrapCenter().wrapExpanded(),
+          Text("+6.3", style: TextStyle(fontSize: context.sp(12), fontWeight: FontWeight.bold)).wrapAlign(Alignment.centerRight).wrapExpanded(),
+        ],
+      ),
+    );
+  }
+
+
+  Widget ability() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: List.generate(2, (index) {
+        return BouncingButton(
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.black, 
+                  blurRadius: 8,
+                ),
+              ],
+            ),
+            child: Image.asset(ImagePaths.spells+"chaos_meteor.png", width: context.dynamicWidth(0.2)).wrapClipRRect(BorderRadius.circular(8)),
+          ),
+          onPressed: () {
+            print("aa");
+          },
+        );
+      }),
+    );
+  }
+
+  Widget inventoryHud() {
+    return Container(
+      margin: EdgeInsets.only(left: 24),
+      padding: EdgeInsets.all(4),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        gradient: LinearGradient(
+          colors: [Color(0xFF37596D), Color(0xFF244048), Color(0xFF2B5167)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+      ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              emptySlot(),
+              EmptyBox.w4(),
+              emptySlot(),
+              EmptyBox.w4(),
+              emptySlot(),
+            ],
+          ),
+          EmptyBox.h4(),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              emptySlot(),
+              EmptyBox.w4(),
+              emptySlot(),
+              EmptyBox.w4(),
+              emptySlot(),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container emptySlot() {
+    return Container(
+      width: context.dynamicWidth(0.12),
+      height: context.dynamicWidth(0.12),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(4),
+        gradient: LinearGradient(
+          colors: [Color(0xFF1A222B),Color(0xFF1F2B37)],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+      ),
+    );
+  }
+
+  Widget shopButton() {
+    return BouncingButton(
+      child: Stack(
+        children: [
+          Container(
+            width: 72,
+            height: kToolbarHeight,
+            padding: EdgeInsets.all(8),
+            margin: EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(2),
+              gradient: LinearGradient(
+                colors: [Color(0xFFE7CB90), Color(0xFF584226), Color(0xFFAB945A)],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              )
+            ),
+          ),
+          Container(
+            width: 64,
+            alignment: Alignment.center,
+            height: kToolbarHeight,
+            margin: EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(2),
+              gradient: LinearGradient(
+                colors: [Color(0xFFD9BA00), Color(0xFFF4C400), Color(0xFF7E5B0C)],
+                stops: [0, .2, 1],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              )
+            ),
+            child: Text(
+              "SHOP", 
+              style: TextStyle(
+                fontSize: 16, 
+                color: Color(0xFFFBFBCC), 
+                fontWeight: FontWeight.bold, 
+                shadows: [Shadow(blurRadius: 2)]
+              ),
+            ),
+          ),
+        ],
+      ),
+      onPressed: () {
+        print("Shop");
+      },
+    );
+  }
+
+}
+
+
+
+
+class ArcPainter extends CustomPainter {
+  final double progress;
+  final int units;
+  final double gap;
+  final List<Color> gradient;
+  final double radius;
+  final bool reversedColor;
+
+  ArcPainter({
+    required this.progress,
+    required this.units,
+    required this.radius,
+    required this.gap,
+    required this.gradient,
+    this.reversedColor = false
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    var center = Offset(size.width / 2, size.height / 2);
+    var rect = Rect.fromCircle(center: center, radius: radius);
+    final maskFiler = MaskFilter.blur(BlurStyle.solid, 2);
+
+    // final gradient = new SweepGradient(
+    //   startAngle: -pi / 2,
+    //   endAngle: (-pi / 2) + (pi * 2),
+    //   tileMode: TileMode.repeated,
+    //   colors: this._gradient,
+    // );
+
+    final paintFilled = Paint()
+    ..strokeCap = StrokeCap.butt
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 4
+    ..maskFilter = maskFiler
+    ..color = reversedColor ? gradient.last.withOpacity(0.2) : gradient.last;
+    //..shader = gradient.createShader(rect);
+
+    final paintEmpty = Paint()
+      ..strokeCap = StrokeCap.butt
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 4
+      ..maskFilter = maskFiler
+      ..color = reversedColor ? gradient.last : gradient.last.withOpacity(0.2);
+
+    for (var i = 0; i < units; i++) {
+      final double unit = 2 * pi / units;
+      double start = unit * i;
+      double to = (((2 * pi) / units) + unit);
+      canvas.drawArc(
+        rect, 
+        (-pi / 2 + start), 
+        (to * 2 * gap), 
+        false,
+        i < progress ? paintFilled : paintEmpty
+      );
+    }
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return true;
+  }
+}

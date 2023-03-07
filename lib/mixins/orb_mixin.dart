@@ -1,3 +1,4 @@
+import 'package:dota2_invoker/providers/boss_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -57,5 +58,7 @@ mixin OrbMixin<T extends StatefulWidget> on State<T> {
     currentCombination.add(element.getKey);
     selectedOrbs.add(orb(element));
     context.read<GameProvider>().updateView();
+    context.read<BossProvider>().updateView();
   }
+  
 }

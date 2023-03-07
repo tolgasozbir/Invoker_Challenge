@@ -14,6 +14,7 @@ import '../../widgets/menu_button.dart';
 import '../../widgets/settings_button.dart';
 import '../../widgets/talent_tree.dart';
 import '../../widgets/user_info.dart';
+import 'boss_mode/boss_mode_view.dart';
 import 'challanger/challanger_view.dart';
 import 'training/training_view.dart';
 import 'with_timer/with_timer_view.dart';
@@ -37,17 +38,17 @@ class _DashboardViewState extends State<DashboardView> {
         onAdLoaded: (ad) => setState(() { _isAdLoaded = true; }),
         onAdFailedToLoad: (ad, error) {
           ad.dispose();
-          log('Ad failed to load : $error');
+          log('Ad failed to load: ' + error.message);
         },
       ), 
-      request: AdRequest()
+      request: AdRequest(httpTimeoutMillis: 5000)
     )..load();
   }
 
   @override
   void initState() {
     super.initState();
-    //_initBannerAd();
+    //Future.microtask(() => _initBannerAd());
   }
 
   @override
@@ -55,7 +56,13 @@ class _DashboardViewState extends State<DashboardView> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: _bodyView(context),
-      bottomNavigationBar: _isAdLoaded ? AdWidget(ad: _bannerAd!) : SizedBox(width: 468, height: 60),
+      bottomNavigationBar: _isAdLoaded 
+        ? SizedBox(
+            width: 468, 
+            height: 60,
+            child: AdWidget(ad: _bannerAd!)
+          ) 
+        : SizedBox(width: 468, height: 60),
     );
   }
 
@@ -113,7 +120,7 @@ class _DashboardViewState extends State<DashboardView> {
       color: AppColors.white,
       imagePath: Elements.invoke.getImage, 
       title: AppStrings.titleBossMode,
-      navigatePage: ChallangerView(), //TODO:
+      navigatePage: BossModeView(),
     ),
     MenuButton.exit(
       backgroundColor: AppColors.exitBtnBgColor,

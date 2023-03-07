@@ -70,6 +70,7 @@ class SoundManager {
       case 'eeq': _playSound(fileName: _forgeSpirit[_rnd.nextInt(_forgeSpirit.length)],); break;
       case 'eew': _playSound(fileName: _chaosMeteor[_rnd.nextInt(_chaosMeteor.length)],); break;
       case 'qwe': _playSound(fileName: _blast[_rnd.nextInt(_blast.length)],); break;
+      default : failCombinationSound();
     }
     orbValue='';
   }

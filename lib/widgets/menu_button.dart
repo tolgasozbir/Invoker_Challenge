@@ -107,7 +107,7 @@ class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateM
       );
       return;
     }
-    Navigator.push(context, MaterialPageRoute(builder: (context)=> LoadingView(page: widget.navigatePage!)));
+    _goToGameScreen();
   }
 
   @override
