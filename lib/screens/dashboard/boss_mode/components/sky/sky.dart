@@ -1,7 +1,6 @@
 import 'package:dota2_invoker/screens/dashboard/boss_mode/components/sky/sky_painter.dart';
 import 'package:dota2_invoker/screens/dashboard/boss_mode/components/sky/sun.dart';
 import 'package:flutter/material.dart';
-
 import 'moon.dart';
 
 class Sky extends StatefulWidget {

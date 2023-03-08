@@ -5,5 +5,5 @@ class Drop {
   double speed;
   double opacity;
 
-  Drop(this.x, this.y, this.length, this.speed, this.opacity);
+  Drop({required this.x, required this.y, required this.length, required this.speed, required this.opacity});
 }

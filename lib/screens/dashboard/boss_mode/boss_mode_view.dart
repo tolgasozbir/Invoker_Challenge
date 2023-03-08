@@ -5,7 +5,6 @@ import 'package:dota2_invoker/extensions/widget_extension.dart';
 import 'package:dota2_invoker/models/spell.dart';
 import 'package:dota2_invoker/providers/boss_provider.dart';
 import 'package:dota2_invoker/providers/spell_provider.dart';
-import 'package:dota2_invoker/screens/dashboard/boss_mode/components/sky/sky.dart';
 import 'package:dota2_invoker/screens/dashboard/boss_mode/components/weather/weather.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +14,7 @@ import '../../../enums/elements.dart';
 import '../../../mixins/orb_mixin.dart';
 import '../../../services/sound_manager.dart';
 import '../../../widgets/bouncing_button.dart';
+import 'components/sky/sky.dart';
 
 class BossModeView extends StatefulWidget {
   const BossModeView({super.key});
@@ -54,18 +54,20 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
   }
 
   Widget bodyView() {
-    var mode = 'light';
-    var weatherMode = "windy";
+    var skyLight = SkyLight.light;
+    var skyType = SkyType.empty;
+    var weatherType = WeatherType.rainy;
     return LayoutBuilder(builder: (context, constraints) {
     return Column(
       children: [
+      EmptyBox(),
         Stack(
           alignment: Alignment.center,
           fit: StackFit.expand,
           children: [
-            //Sky(color: Colors.black, mode: mode, weatherMode: weatherMode),
+            Sky(color: Colors.black, skyLight: skyLight, skyType: skyType),
             ...circles(constraints),
-            Weather(weatherMode: weatherMode),
+            //Weather(weatherType: weatherType),
             //startBtn(context, constraints),
           ],
         ).wrapExpanded(),

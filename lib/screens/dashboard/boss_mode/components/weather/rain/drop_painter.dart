@@ -1,29 +1,21 @@
+import 'package:dota2_invoker/screens/dashboard/boss_mode/components/weather/rain/drop.dart';
 import 'package:flutter/material.dart';
 
 class DropPainter extends CustomPainter {
-  double x;
-  double y;
-  double length;
-  double speed;
-  double opacity;
+  final Drop drop;
 
-  DropPainter(
-    this.x,
-    this.y,
-    this.length,
-    this.speed,
-    this.opacity,
-  );
+  const DropPainter(this.drop);
 
   @override
   void paint(Canvas canvas, Size size) {
     canvas.drawLine(
-        Offset(this.x, this.y),
-        Offset(this.x, this.y + this.length),
-        Paint()
-          ..color = Colors.black.withOpacity(this.opacity)
-          ..strokeWidth = 3.0
-          ..strokeCap = StrokeCap.round);
+      Offset(this.drop.x, this.drop.y),
+      Offset(this.drop.x, this.drop.y + this.drop.length),
+      Paint()
+        ..color = Colors.black.withOpacity(this.drop.opacity)
+        ..strokeWidth = 3.0
+        ..strokeCap = StrokeCap.round,
+    );
   }
 
   @override

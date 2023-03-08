@@ -1,23 +1,22 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-
 import 'drop.dart';
 import 'drop_painter.dart';
 
 class Rain extends StatefulWidget {
+  const Rain({required this.width, required this.height});
+
   final double width;
   final double height;
 
   @override
   State<StatefulWidget> createState() => RainState();
-
-  const Rain({required this.width, required this.height});
 }
 
 class RainState extends State<Rain> with TickerProviderStateMixin {
-  var _dropPainters = <Widget>[];
-  var _drops = <Drop>[];
- AnimationController? rainAnimationController;
+  List<Widget> _dropPainters = [];
+  List<Drop> _drops = [];
+  late AnimationController rainAnimationController;
 
   @override
   void initState() {
@@ -27,74 +26,50 @@ class RainState extends State<Rain> with TickerProviderStateMixin {
   }
 
   @override
-  void didUpdateWidget(Rain oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
-    if (this._drops.length == 0) {
-      _createDrops();
-      _startAnimation();
-    }
-
-    if (oldWidget.height != widget.height) {
-      this.rainAnimationController?.dispose();
-      _createDrops();
-      _startAnimation();
-    }
-  }
-
-  @override
   void dispose() {
-    this.rainAnimationController?.dispose();
+    rainAnimationController.dispose();
     super.dispose();
   }
 
-  _createDrops() {
-    this._drops = [];
-    var rng = new Random();
+  void _createDrops() {
+    var rng = Random();
     for (var i = 0; i < 150; i += 1) {
       final drop = Drop(
-          rng.nextDouble() * widget.width,
-          rng.nextDouble() * widget.height,
-          rng.nextDouble() * 20 + 2,
-          rng.nextDouble() * 10 + 10,
-          rng.nextDouble() * 0.5
-        );
-      var painter = CustomPaint(
-          painter: DropPainter(drop.x, drop.y, drop.length, 2, drop.opacity));
-      this._drops.add(drop);
-      this._dropPainters.add(painter);
+        x:        rng.nextDouble() * widget.width,
+        y:        rng.nextDouble() * widget.height,
+        length:   rng.nextDouble() * 20 + 2,
+        speed:    rng.nextDouble() * 10 + 10,
+        opacity:  rng.nextDouble() * 0.5
+      );
+      var painter = CustomPaint(painter: DropPainter(drop));
+      _drops.add(drop);
+      _dropPainters.add(painter);
     }
   }
 
-  _startAnimation() {
-    this.rainAnimationController = AnimationController(
-        duration: Duration(milliseconds: 15000), vsync: this);
-    Tween(begin: 0.0, end: 1.0).animate(this.rainAnimationController!)
-      ..addListener(() {
-        setState(() {
-          this._dropPainters = [];
-          this._drops.forEach((drop) {
-            drop.y = drop.y += drop.speed;
+  void _startAnimation() {
+    rainAnimationController = AnimationController(duration: Duration(milliseconds: 15000), vsync: this);
+    Tween(begin: 0.0, end: 1.0).animate(rainAnimationController)..addListener(() {
+      _dropPainters.clear();
+      _drops.forEach((drop) {
+        drop.y = drop.y += drop.speed;
 
-            if (drop.y > widget.height) {
-              drop.y = 0;
-            }
+        if (drop.y > widget.height) drop.y = 0;
 
-            var painter = CustomPaint(
-                painter:
-                    DropPainter(drop.x, drop.y, drop.length, 2, drop.opacity));
-            this._dropPainters.add(painter);
-          });
-        });
+        var painter = CustomPaint(painter:DropPainter(drop));
+        _dropPainters.add(painter);
       });
-    this.rainAnimationController?.repeat();
+      setState(() { });
+    });
+    rainAnimationController.repeat();
   }
 
   @override
   Widget build(BuildContext context) {
     return Stack(
-        alignment: Alignment.center,
-        fit: StackFit.expand,
-        children: this._dropPainters);
+      alignment: Alignment.center,
+      fit: StackFit.expand,
+      children: _dropPainters
+    );
   }
 }
