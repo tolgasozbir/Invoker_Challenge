@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
@@ -36,7 +35,7 @@ class _AdBannerState extends State<AdBanner> {
 
   void _initBannerAd() {
     _bannerAd = BannerAd(
-      size: AdSize.fullBanner, 
+      size: AdSize.banner, 
       adUnitId: AdHelper.instance.bannerAdUnitId, 
       listener: BannerAdListener(
         onAdLoaded: (ad) => setState(() { _isAdLoaded = true; }),
@@ -52,7 +51,7 @@ class _AdBannerState extends State<AdBanner> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => _initBannerAd());
+    //Future.microtask(() => _initBannerAd());
   }
 
   @override
@@ -62,5 +61,5 @@ class _AdBannerState extends State<AdBanner> {
       : bannerBox();
   }
 
-  SizedBox bannerBox({Widget? child}) => SizedBox(width: 468, height: 60, child: child,);
+  SizedBox bannerBox({Widget? child}) => SizedBox(width: 320, height: 50, child: child);
 }

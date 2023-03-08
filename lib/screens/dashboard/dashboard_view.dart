@@ -1,8 +1,6 @@
-import 'dart:developer';
 import 'package:dota2_invoker/utils/ads_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/app_colors.dart';
@@ -19,50 +17,15 @@ import 'challanger/challanger_view.dart';
 import 'training/training_view.dart';
 import 'with_timer/with_timer_view.dart';
 
-class DashboardView extends StatefulWidget {
+class DashboardView extends StatelessWidget {
   const DashboardView({super.key});
-
-  @override
-  State<DashboardView> createState() => _DashboardViewState();
-}
-
-class _DashboardViewState extends State<DashboardView> {
-  BannerAd? _bannerAd;
-  bool _isAdLoaded = false;
-
-  void _initBannerAd() {
-    _bannerAd = BannerAd(
-      size: AdSize.fullBanner, 
-      adUnitId: AdHelper.instance.bannerAdUnitId, 
-      listener: BannerAdListener(
-        onAdLoaded: (ad) => setState(() { _isAdLoaded = true; }),
-        onAdFailedToLoad: (ad, error) {
-          ad.dispose();
-          log('Ad failed to load: ' + error.message);
-        },
-      ), 
-      request: AdRequest(httpTimeoutMillis: 5000)
-    )..load();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    //Future.microtask(() => _initBannerAd());
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: _bodyView(context),
-      bottomNavigationBar: _isAdLoaded 
-        ? SizedBox(
-            width: 468, 
-            height: 60,
-            child: AdWidget(ad: _bannerAd!)
-          ) 
-        : SizedBox(width: 468, height: 60),
+      bottomNavigationBar: AdBanner()
     );
   }
 

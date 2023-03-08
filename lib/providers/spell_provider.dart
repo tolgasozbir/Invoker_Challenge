@@ -50,5 +50,5 @@ class SpellProvider extends ChangeNotifier {
   }
 
   //List<String> get getAllSpellImagePaths => _spellList.map((e) => e.image).toList();
-  List<Spell> get gelSpellList => _spellList;
+  List<Spell> get getSpellList => _spellList;
 }

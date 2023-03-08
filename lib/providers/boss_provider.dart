@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:dota2_invoker/providers/user_manager.dart';
 import 'package:flutter/material.dart';
 
+import '../models/spell.dart';
+
 class BossProvider extends ChangeNotifier {
   bool started = false;
   Timer? _timer;
@@ -16,10 +18,21 @@ class BossProvider extends ChangeNotifier {
 
   double baseDamage = UserManager.instance.user.level * 5;
 
+  List<Spell> castedAbility = [];
+
+  void switchAbility(Spell spell) {
+    if (castedAbility.length > 1 && spell.combine.toString() == castedAbility.first.combine.toString()) return;
+    castedAbility.insert(0, spell);
+    while (castedAbility.length > 2) {
+      castedAbility.removeLast();
+    }
+    notifyListeners();
+  }
+
 
   void autoHit(){
     var damage = baseDamage;
-    var health = (500*roundProgress) / healthUnit;
+    var health = (1000 * roundProgress) / healthUnit;
     var totalDamge = damage/health;
     healthProgress += totalDamge;
   }
@@ -85,6 +98,7 @@ class BossProvider extends ChangeNotifier {
     roundProgress = 0;
     healthProgress = 0;
     timeProgress = 0;
+    castedAbility = [];
   }
 
   void disposeTimer() {

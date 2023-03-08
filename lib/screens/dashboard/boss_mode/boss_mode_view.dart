@@ -1,16 +1,18 @@
 import 'dart:math';
-
 import 'package:dota2_invoker/constants/app_colors.dart';
-import 'package:dota2_invoker/constants/app_strings.dart';
 import 'package:dota2_invoker/extensions/context_extension.dart';
 import 'package:dota2_invoker/extensions/widget_extension.dart';
+import 'package:dota2_invoker/models/spell.dart';
 import 'package:dota2_invoker/providers/boss_provider.dart';
+import 'package:dota2_invoker/providers/spell_provider.dart';
+import 'package:dota2_invoker/screens/dashboard/boss_mode/components/sky/sky.dart';
+import 'package:dota2_invoker/screens/dashboard/boss_mode/components/weather/weather.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:splash/splash.dart';
 
 import '../../../enums/elements.dart';
 import '../../../mixins/orb_mixin.dart';
-import '../../../providers/spell_provider.dart';
 import '../../../services/sound_manager.dart';
 import '../../../widgets/bouncing_button.dart';
 
@@ -24,10 +26,12 @@ class BossModeView extends StatefulWidget {
 class _BossModeViewState extends State<BossModeView> with OrbMixin {
   late BossProvider provider;
   var gradient2 = [const Color(0xFFE20D17), const Color(0xFFB50DE2)];
+  List<Spell> spellList = [];
 
   @override
   void initState() {
     provider = context.read<BossProvider>();
+    spellList = context.read<SpellProvider>().getSpellList;
     super.initState();
   }
 
@@ -39,27 +43,32 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold( //appscaffold action parametresi alcak
       appBar: AppBar(
         actions: [
           shopButton()
         ],
       ),
-      body: bodyView());
+      body: bodyView()
+      );
   }
 
-  LayoutBuilder bodyView() {
+  Widget bodyView() {
+    var mode = 'light';
+    var weatherMode = "windy";
     return LayoutBuilder(builder: (context, constraints) {
     return Column(
       children: [
-        Column(
+        Stack(
+          alignment: Alignment.center,
+          fit: StackFit.expand,
           children: [
-            ElevatedButton(onPressed: (){
-                context.read<BossProvider>().startGame();
-            }, child: Text("dasd"),)
+            //Sky(color: Colors.black, mode: mode, weatherMode: weatherMode),
+            ...circles(constraints),
+            Weather(weatherMode: weatherMode),
+            //startBtn(context, constraints),
           ],
-        ),
-        circles(constraints).wrapExpanded(),
+        ).wrapExpanded(),
         selectedElementOrbs(),
         skills(),
         EmptyBox.h12(),
@@ -75,12 +84,24 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
         EmptyBox.h16(),
       ],
     );
-  });
+    });
   }
 
-  Widget circles(BoxConstraints constraints) {
-    return Stack(
-      children: [
+  InkWell startBtn(BuildContext context, BoxConstraints constraints) {
+    return InkWell(
+            splashFactory: WaveSplash.splashFactory,
+            highlightColor: Colors.transparent,
+            onTap: () => context.read<BossProvider>().startGame(),
+            child: SizedBox(
+              width: constraints.maxWidth,
+              height: constraints.maxHeight,
+              child: Text("Start").wrapCenter(),
+            ),
+          );
+  }
+
+  List<Widget> circles(BoxConstraints constraints) {
+    return [
         //outer
         CustomPaint(
           painter: ArcPainter(
@@ -115,8 +136,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
             ),
           ),
         ),
-      ],
-    ).wrapCenter();
+      ];
   }
 
   SizedBox selectedElementOrbs() {
@@ -165,6 +185,11 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
             return switchOrb(element);
           case Elements.invoke:
             SoundManager.instance.trueCombinationSound(currentCombination);
+            var castedSpell = spellList.firstWhere((element) => element.combine.toString() == currentCombination.toString(), orElse: () => const Spell("", []),);
+            if(castedSpell.combine.isEmpty) return;
+            context.read<BossProvider>().switchAbility(castedSpell);
+
+            //context.watch<BossProvider>().castedAbility.add();
         }
         print(element.name);
       },
@@ -197,28 +222,28 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
 
 
   Widget ability() {
+    var castedAbility = context.watch<BossProvider>().castedAbility;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: List.generate(2, (index) {
-        return BouncingButton(
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.black, 
-                  blurRadius: 8,
-                ),
-              ],
-            ),
-            child: Image.asset(ImagePaths.spells+"chaos_meteor.png", width: context.dynamicWidth(0.2)).wrapClipRRect(BorderRadius.circular(8)),
+      children: List.generate(2, (index) => BouncingButton(
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.black, 
+                blurRadius: 8,
+              ),
+            ],
           ),
-          onPressed: () {
-            print("aa");
-          },
-        );
-      }),
+          child: castedAbility.length < index+1 ? emptyAbilitySlot() : Image.asset(castedAbility[index].image, width: context.dynamicWidth(0.2)).wrapClipRRect(BorderRadius.circular(8)),
+        ),
+        onPressed: () {
+          print("aa");
+          print(castedAbility[index].combine);
+        },
+      )).toList(),
     );
   }
 
@@ -324,6 +349,32 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
       onPressed: () {
         print("Shop");
       },
+    );
+  }
+
+  Widget emptyAbilitySlot() {
+    return Container(
+      padding: EdgeInsets.all(4),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        gradient: LinearGradient(
+          colors: [Color(0xFF37596D), Color(0xFF244048), Color(0xFF2B5167)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+      ),
+      child: Container(
+        width: context.dynamicWidth(0.2),
+        height: context.dynamicWidth(0.2),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(4),
+          gradient: LinearGradient(
+            colors: [Color(0xFF1A222B),Color(0xFF1F2B37)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+      ),
     );
   }
 

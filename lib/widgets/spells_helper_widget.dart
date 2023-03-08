@@ -45,7 +45,7 @@ class _SpellsHelperWidgetState extends State<SpellsHelperWidget> {
 
   @override
   void initState() {
-    allSpells = context.read<SpellProvider>().gelSpellList;
+    allSpells = context.read<SpellProvider>().getSpellList;
     super.initState();
   }
 
