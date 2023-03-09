@@ -8,9 +8,24 @@ class AdHelper {
   static AdHelper _instance = AdHelper._();
   static AdHelper get instance => _instance;
 
+  //Ads Id's
+
   String get bannerAdUnitId {
     if (Platform.isAndroid) {
-      return 'ca-app-pub-4671677138522189/9703298269';
+      //return 'ca-app-pub-4671677138522189/9703298269';
+      return 'ca-app-pub-3940256099942544/6300978111'; //test
+    }
+
+    if (Platform.isIOS) {
+      return 'ca-app-pub-4671677138522189/8391266343';
+    }
+
+    throw new UnsupportedError("Unsupported platform");
+  }  
+  
+  String get appOpenAdUnitId {
+    if (Platform.isAndroid) {
+      return 'ca-app-pub-3940256099942544/3419835294';
     }
 
     if (Platform.isIOS) {
@@ -20,7 +35,27 @@ class AdHelper {
     throw new UnsupportedError("Unsupported platform");
   }
 
+  //AppOpenAd
+
+  Future<void> AppOpenAdLoad() async {
+    AppOpenAd? _appOpenAd;
+    await AppOpenAd.load(
+      adUnitId: appOpenAdUnitId, 
+      request: AdRequest(), 
+      adLoadCallback: AppOpenAdLoadCallback(
+        onAdLoaded: (ad) {
+          _appOpenAd = ad;
+          _appOpenAd?.show();
+        }, 
+        onAdFailedToLoad: (error) => log('Ad failed to load: ' + error.message),
+      ), 
+      orientation: AppOpenAd.orientationPortrait
+    );
+  }
+
 }
+
+//BANNER
 
 class AdBanner extends StatefulWidget {
   const AdBanner({super.key});
@@ -38,7 +73,7 @@ class _AdBannerState extends State<AdBanner> {
       size: AdSize.banner, 
       adUnitId: AdHelper.instance.bannerAdUnitId, 
       listener: BannerAdListener(
-        onAdLoaded: (ad) => setState(() { _isAdLoaded = true; }),
+        onAdLoaded: (ad) => setState(() => _isAdLoaded = true),
         onAdFailedToLoad: (ad, error) {
           ad.dispose();
           log('Ad failed to load: ' + error.message);
@@ -51,7 +86,7 @@ class _AdBannerState extends State<AdBanner> {
   @override
   void initState() {
     super.initState();
-    //Future.microtask(() => _initBannerAd());
+    Future.microtask(() => _initBannerAd());
   }
 
   @override

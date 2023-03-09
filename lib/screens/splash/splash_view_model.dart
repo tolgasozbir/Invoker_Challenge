@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:math' as math;
 
+import 'package:dota2_invoker/utils/ads_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
@@ -59,6 +60,7 @@ abstract class SplashViewModel extends State<SplashView> {
   }
 
   Future<void> goToMainMenu() async {
+    await AdHelper.instance.AppOpenAdLoad();
     await Future.delayed(_duration, (){
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const DashboardView()));
     });
