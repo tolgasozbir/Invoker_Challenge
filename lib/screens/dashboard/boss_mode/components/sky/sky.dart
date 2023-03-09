@@ -1,7 +1,8 @@
-import 'package:dota2_invoker/screens/dashboard/boss_mode/components/sky/sky_painter.dart';
-import 'package:dota2_invoker/screens/dashboard/boss_mode/components/sky/sun_painter.dart';
 import 'package:flutter/material.dart';
+
 import 'moon_painter.dart';
+import 'sky_painter.dart';
+import 'sun_painter.dart';
 
 enum SkyLight { light, dark }
 enum SkyType { normal, sunny, thunderstorm }

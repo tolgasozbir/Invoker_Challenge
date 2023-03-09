@@ -1,4 +1,4 @@
-import 'package:dota2_invoker/providers/boss_provider.dart';
+import '../providers/boss_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

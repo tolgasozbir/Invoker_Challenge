@@ -1,5 +1,5 @@
-import 'package:dota2_invoker/extensions/widget_extension.dart';
-import 'package:dota2_invoker/screens/dashboard/boss_mode/components/weather/rain/rain.dart';
+import '../../../../../extensions/widget_extension.dart';
+import 'rain/rain.dart';
 import 'package:flutter/material.dart';
 
 enum WeatherType { normal, rainy, }

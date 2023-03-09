@@ -1,4 +1,4 @@
-import 'package:dota2_invoker/utils/ads_helper.dart';
+import '../../utils/ads_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';

@@ -1,4 +1,4 @@
-import 'package:dota2_invoker/providers/user_manager.dart';
+import '../../../providers/user_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:snappable_thanos/snappable_thanos.dart';

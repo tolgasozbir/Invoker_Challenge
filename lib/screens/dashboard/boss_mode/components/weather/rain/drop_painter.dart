@@ -1,4 +1,4 @@
-import 'package:dota2_invoker/screens/dashboard/boss_mode/components/weather/rain/drop.dart';
+import 'drop.dart';
 import 'package:flutter/material.dart';
 
 class DropPainter extends CustomPainter {

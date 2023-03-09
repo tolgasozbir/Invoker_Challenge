@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'dart:math' as math;
 
-import 'package:dota2_invoker/utils/ads_helper.dart';
+import '../../utils/ads_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 

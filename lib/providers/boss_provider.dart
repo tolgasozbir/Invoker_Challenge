@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:dota2_invoker/providers/user_manager.dart';
+import 'user_manager.dart';
 import 'package:flutter/material.dart';
 
 import '../models/spell.dart';

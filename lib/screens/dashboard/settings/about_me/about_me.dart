@@ -1,4 +1,5 @@
-import '../../../../widgets/app_snackbar.dart';
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../constants/app_colors.dart';
@@ -6,10 +7,9 @@ import '../../../../constants/app_strings.dart';
 import '../../../../extensions/context_extension.dart';
 import '../../../../extensions/widget_extension.dart';
 import '../../../../widgets/app_scaffold.dart';
+import '../../../../widgets/app_snackbar.dart';
 import 'widgets/profile_avatar.dart';
 import 'widgets/social_icon.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AboutMeView extends StatelessWidget {
   const AboutMeView({super.key});

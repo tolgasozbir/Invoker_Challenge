@@ -1,4 +1,4 @@
-import 'package:dota2_invoker/extensions/context_extension.dart';
+import '../extensions/context_extension.dart';
 
 import '../constants/app_strings.dart';
 import 'sliders/progress_slider.dart';

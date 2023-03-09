@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:dota2_invoker/constants/app_strings.dart';
-import 'package:dota2_invoker/extensions/widget_extension.dart';
-import 'package:dota2_invoker/providers/user_manager.dart';
-import 'package:dota2_invoker/widgets/app_snackbar.dart';
+import '../constants/app_strings.dart';
+import '../extensions/widget_extension.dart';
+import '../providers/user_manager.dart';
+import 'app_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
