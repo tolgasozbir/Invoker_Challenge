@@ -1,4 +1,4 @@
-name: dota2_invoker
+name: dota2_invoker_game
 description: DOTA 2 Invoker practice game.
 
 publish_to: 'none'

@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.dota2_invoker">
+    package="com.dota2.invoker.game">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -18,7 +18,7 @@
     </queries>
 
     <application
-        android:label="dota2_invoker"
+        android:label="Dota2 Invoker Game"
         android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
         <activity

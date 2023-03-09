@@ -1,4 +1,4 @@
-package com.example.dota2_invoker
+package com.dota2.invoker.game
 
 import io.flutter.embedding.android.FlutterActivity
 
