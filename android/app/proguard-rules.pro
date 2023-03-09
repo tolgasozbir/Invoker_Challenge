@@ -1,0 +1,1 @@
+-keep class com.example.dota2_invoker.*BuildConfig { *; }

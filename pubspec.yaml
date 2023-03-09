@@ -25,6 +25,7 @@ dependencies:
   internet_connection_checker: ^1.0.0+1
   url_launcher: ^6.1.10
   store_redirect: ^2.0.1
+  flutter_config: ^2.0.0
 
   #Local Storage
   shared_preferences: ^2.0.17
@@ -59,6 +60,8 @@ flutter:
   uses-material-design: true
 
   assets:
+    - .env
+
     - assets/images/splash_images/
     - assets/images/qwe_gifs/
     - assets/images/other/

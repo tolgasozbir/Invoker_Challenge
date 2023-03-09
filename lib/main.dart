@@ -2,6 +2,7 @@ import 'package:dota2_invoker/providers/boss_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_config/flutter_config.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 
@@ -19,10 +20,10 @@ import 'widgets/app_snackbar.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await FlutterConfig.loadEnvVariables();
   await MobileAds.instance.initialize();
   await Firebase.initializeApp();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  
   await AppServices.instance.initServices(
     databaseService: FirestoreService.instance, 
     localStorageService: LocalStorageService.instance,

@@ -48,11 +48,11 @@ class _ResultDialogContentState extends State<ResultDialogContent> {
       ElevatedButton(
         onPressed: () async {
           if (AdsHelper.instance.rewardedInterstitialAd == null) return;
-          await AdsHelper.instance.rewardedInterstitialAd?.show(onUserEarnedReward: (ad, reward) {
-            //TODO: BİRÇOK KEZ TIKLANABİLİR BİR KEZ ÖDÜL ALINABİLİR
+          await AdsHelper.instance.rewardedInterstitialAd?.show(onUserEarnedReward: (ad, reward) async {
+            await AdsHelper.instance.rewardedInterstitialAdLoad();
           });
         }, 
-        child: Text("sdas"),
+        child: Text("test ad"),
       ),
       EmptyBox.h4(),
       resultField(context, AppStrings.score, UserManager.instance.getBestScore(widget.gameType).toString())

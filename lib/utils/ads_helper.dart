@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_config/flutter_config.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class AdsHelper {
@@ -8,40 +9,47 @@ class AdsHelper {
   static AdsHelper _instance = AdsHelper._();
   static AdsHelper get instance => _instance;
 
+  bool enableAndroidTestIds = true;
+
   //Ads Id's
 
   String get bannerAdUnitId {
+    if (enableAndroidTestIds) return 'ca-app-pub-3940256099942544/6300978111';
+
     if (Platform.isAndroid) {
-      //return 'ca-app-pub-4671677138522189/9703298269';
-      return 'ca-app-pub-3940256099942544/6300978111'; //test
+      return FlutterConfig.get("BANNER_AD_UNIT_ID_ANDROID");
     }
 
     if (Platform.isIOS) {
-      return '';
+      return FlutterConfig.get("BANNER_AD_UNIT_ID_IOS");
     }
 
     throw new UnsupportedError("Unsupported platform");
   }
   
   String get appOpenAdUnitId {
+    if (enableAndroidTestIds) return 'ca-app-pub-3940256099942544/3419835294';
+
     if (Platform.isAndroid) {
-      return 'ca-app-pub-3940256099942544/3419835294';
+      return FlutterConfig.get("APP_OPEN_AD_ANDROID");
     }
 
     if (Platform.isIOS) {
-      return '';
+      return FlutterConfig.get("APP_OPEN_AD_IOS");
     }
 
     throw new UnsupportedError("Unsupported platform");
   }
   
-  String get rewardedAdUnitId {
+  String get rewardedInterstitialAdUnitId {
+    if (enableAndroidTestIds) return 'ca-app-pub-3940256099942544/5354046379';
+
     if (Platform.isAndroid) {
-      return 'ca-app-pub-3940256099942544/5354046379';
+      return FlutterConfig.get("REWARDED_INTERSTITIAL_AD_ANDROID");
     }
 
     if (Platform.isIOS) {
-      return '';
+      return FlutterConfig.get("REWARDED_INTERSTITIAL_AD_IOS");
     }
 
     throw new UnsupportedError("Unsupported platform");
@@ -68,7 +76,7 @@ class AdsHelper {
   RewardedInterstitialAd? rewardedInterstitialAd;
   Future<void> rewardedInterstitialAdLoad() async {
     await RewardedInterstitialAd.load(
-      adUnitId: rewardedAdUnitId,
+      adUnitId: rewardedInterstitialAdUnitId,
       request: const AdRequest(),
       rewardedInterstitialAdLoadCallback: RewardedInterstitialAdLoadCallback(
         onAdLoaded: (ad) => rewardedInterstitialAd = ad,
