@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
-class AdHelper {
-  const AdHelper._();
-  static AdHelper _instance = AdHelper._();
-  static AdHelper get instance => _instance;
+class AdsHelper {
+  AdsHelper._();
+  static AdsHelper _instance = AdsHelper._();
+  static AdsHelper get instance => _instance;
 
   //Ads Id's
 
@@ -17,11 +17,11 @@ class AdHelper {
     }
 
     if (Platform.isIOS) {
-      return 'ca-app-pub-4671677138522189/8391266343';
+      return '';
     }
 
     throw new UnsupportedError("Unsupported platform");
-  }  
+  }
   
   String get appOpenAdUnitId {
     if (Platform.isAndroid) {
@@ -29,27 +29,51 @@ class AdHelper {
     }
 
     if (Platform.isIOS) {
-      return 'ca-app-pub-4671677138522189/8391266343';
+      return '';
+    }
+
+    throw new UnsupportedError("Unsupported platform");
+  }
+  
+  String get rewardedAdUnitId {
+    if (Platform.isAndroid) {
+      return 'ca-app-pub-3940256099942544/5354046379';
+    }
+
+    if (Platform.isIOS) {
+      return '';
     }
 
     throw new UnsupportedError("Unsupported platform");
   }
 
   //AppOpenAd
-
   Future<void> AppOpenAdLoad() async {
-    AppOpenAd? _appOpenAd;
+    AppOpenAd? appOpenAd;
     await AppOpenAd.load(
       adUnitId: appOpenAdUnitId, 
-      request: AdRequest(), 
+      request: const AdRequest(), 
       adLoadCallback: AppOpenAdLoadCallback(
         onAdLoaded: (ad) {
-          _appOpenAd = ad;
-          _appOpenAd?.show();
+          appOpenAd = ad;
+          appOpenAd!.show();
         }, 
         onAdFailedToLoad: (error) => log('Ad failed to load: ' + error.message),
       ), 
       orientation: AppOpenAd.orientationPortrait
+    );
+  }
+
+  //RewardedAd
+  RewardedInterstitialAd? rewardedInterstitialAd;
+  Future<void> rewardedInterstitialAdLoad() async {
+    await RewardedInterstitialAd.load(
+      adUnitId: rewardedAdUnitId,
+      request: const AdRequest(),
+      rewardedInterstitialAdLoadCallback: RewardedInterstitialAdLoadCallback(
+        onAdLoaded: (ad) => rewardedInterstitialAd = ad,
+        onAdFailedToLoad: (error) => log('Ad failed to load: ' + error.message),
+      ),
     );
   }
 
@@ -71,7 +95,7 @@ class _AdBannerState extends State<AdBanner> {
   void _initBannerAd() {
     _bannerAd = BannerAd(
       size: AdSize.banner, 
-      adUnitId: AdHelper.instance.bannerAdUnitId, 
+      adUnitId: AdsHelper.instance.bannerAdUnitId, 
       listener: BannerAdListener(
         onAdLoaded: (ad) => setState(() => _isAdLoaded = true),
         onAdFailedToLoad: (ad, error) {
@@ -79,7 +103,7 @@ class _AdBannerState extends State<AdBanner> {
           log('Ad failed to load: ' + error.message);
         },
       ), 
-      request: AdRequest(httpTimeoutMillis: 5000)
+      request: const AdRequest(httpTimeoutMillis: 5000)
     )..load();
   }
 

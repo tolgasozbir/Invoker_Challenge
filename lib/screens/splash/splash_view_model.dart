@@ -60,7 +60,7 @@ abstract class SplashViewModel extends State<SplashView> {
   }
 
   Future<void> goToMainMenu() async {
-    await AdHelper.instance.AppOpenAdLoad();
+    await AdsHelper.instance.AppOpenAdLoad();
     await Future.delayed(_duration, (){
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const DashboardView()));
     });

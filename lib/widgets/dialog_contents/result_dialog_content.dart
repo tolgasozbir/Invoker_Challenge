@@ -1,12 +1,13 @@
 import 'package:dota2_invoker/constants/app_colors.dart';
 import 'package:dota2_invoker/extensions/widget_extension.dart';
+import 'package:dota2_invoker/utils/ads_helper.dart';
 import 'package:flutter/material.dart';
 import '../../constants/app_strings.dart';
 import '../../extensions/context_extension.dart';
 import '../../providers/user_manager.dart';
 import '../game_ui_widget.dart';
 
-class ResultDialogContent extends StatelessWidget {
+class ResultDialogContent extends StatefulWidget {
   const ResultDialogContent({super.key, required this.correctCount, required this.time, required this.gameType});
 
   final int correctCount;
@@ -14,15 +15,27 @@ class ResultDialogContent extends StatelessWidget {
   final GameType gameType;
 
   @override
+  State<ResultDialogContent> createState() => _ResultDialogContentState();
+}
+
+class _ResultDialogContentState extends State<ResultDialogContent> {
+
+  @override
+  void initState() {
+    Future.microtask(() async => await AdsHelper.instance.rewardedInterstitialAdLoad());
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
    return Column(
     children: [
       EmptyBox.h8(),
-      resultField(context, AppStrings.score, correctCount.toString()),
+      resultField(context, AppStrings.score, widget.correctCount.toString()),
       EmptyBox.h4(),
-      resultField(context, AppStrings.time, time.toString()),
+      resultField(context, AppStrings.time, widget.time.toString()),
       EmptyBox.h4(),
-      resultField(context, AppStrings.exp, "+"+UserManager.instance.expCalc(correctCount).toStringAsFixed(0)),
+      resultField(context, AppStrings.exp, "+"+UserManager.instance.expCalc(widget.correctCount).toStringAsFixed(0)),
       EmptyBox.h16(),
       Text(
         AppStrings.bestScore,
@@ -32,8 +45,17 @@ class ResultDialogContent extends StatelessWidget {
           fontSize: context.sp(13),
         ),
       ),
+      ElevatedButton(
+        onPressed: () async {
+          if (AdsHelper.instance.rewardedInterstitialAd == null) return;
+          await AdsHelper.instance.rewardedInterstitialAd?.show(onUserEarnedReward: (ad, reward) {
+            //TODO: BİRÇOK KEZ TIKLANABİLİR BİR KEZ ÖDÜL ALINABİLİR
+          });
+        }, 
+        child: Text("sdas"),
+      ),
       EmptyBox.h4(),
-      resultField(context, AppStrings.score, UserManager.instance.getBestScore(gameType).toString())
+      resultField(context, AppStrings.score, UserManager.instance.getBestScore(widget.gameType).toString())
     ],
    );
   }
