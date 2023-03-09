@@ -9,9 +9,13 @@
 .history
 .svn/
 
-#other
+#environment variables
 .env
-*.json
+#firebase
+android/app/google-services.json
+ios/runner/GoogleService-Info.plist
+firebase_app_id_file.json
+firebase_options.dart
 
 # IntelliJ related
 *.iml
