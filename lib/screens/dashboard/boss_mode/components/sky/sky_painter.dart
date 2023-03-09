@@ -1,29 +1,22 @@
 import 'package:flutter/material.dart';
 
 class SkyPainter extends CustomPainter {
-  Paint _paint;
+  final double radius;
+  final double fraction;
+  final Paint skyPaint;
 
-  double _radius;
-  double _fraction;
-  Color _color;
-
-  SkyPainter(
-    this._radius,
-    this._fraction,
-    this._color,
-    this._paint,
-  );
+  const SkyPainter(this.radius, this.fraction, this.skyPaint);
 
   @override
   void paint(Canvas canvas, Size size) {
     Offset center = Offset(size.width / 2, (size.height / 2) - 0);
-    this._paint.color = this._color.withOpacity(this._fraction);
+    skyPaint.color = Colors.black.withOpacity(fraction);
 
-    canvas.drawCircle(center, this._radius, this._paint);
+    canvas.drawCircle(center, radius, skyPaint);
   }
 
   @override
   bool shouldRepaint(SkyPainter oldDelegate) {
-    return oldDelegate._fraction != _fraction;
+    return oldDelegate.fraction != fraction;
   }
 }

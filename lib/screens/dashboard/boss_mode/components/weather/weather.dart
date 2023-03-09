@@ -2,7 +2,7 @@ import 'package:dota2_invoker/extensions/widget_extension.dart';
 import 'package:dota2_invoker/screens/dashboard/boss_mode/components/weather/rain/rain.dart';
 import 'package:flutter/material.dart';
 
-enum WeatherType { empty, rainy, thunderstorm, }
+enum WeatherType { normal, rainy, }
 
 class Weather extends StatefulWidget {
   const Weather({super.key, required this.weatherType});
@@ -20,11 +20,10 @@ class _WeatherState extends State<Weather> {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       switch (widget.weatherType) {
-        case WeatherType.empty:
+        case WeatherType.normal:
           weather = const EmptyBox();
           break;
         case WeatherType.rainy:
-        case WeatherType.thunderstorm:
           weather = Rain(
             width: constraints.maxWidth, 
             height: constraints.maxHeight

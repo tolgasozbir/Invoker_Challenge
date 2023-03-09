@@ -55,8 +55,8 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
 
   Widget bodyView() {
     var skyLight = SkyLight.light;
-    var skyType = SkyType.empty;
-    var weatherType = WeatherType.rainy;
+    var skyType = SkyType.sunny;
+    var weatherType = WeatherType.normal;
     return LayoutBuilder(builder: (context, constraints) {
     return Column(
       children: [
@@ -65,9 +65,9 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
           alignment: Alignment.center,
           fit: StackFit.expand,
           children: [
-            Sky(color: Colors.black, skyLight: skyLight, skyType: skyType),
+            Sky(skyLight: skyLight, skyType: skyType),
             ...circles(constraints),
-            //Weather(weatherType: weatherType),
+            Weather(weatherType: weatherType),
             //startBtn(context, constraints),
           ],
         ).wrapExpanded(),
