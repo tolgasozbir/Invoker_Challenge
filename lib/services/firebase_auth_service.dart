@@ -1,8 +1,8 @@
 import 'dart:developer';
 
-import '../enums/local_storage_keys.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../enums/local_storage_keys.dart';
 import '../providers/user_manager.dart';
 import '../widgets/app_snackbar.dart';
 import 'app_services.dart';

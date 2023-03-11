@@ -1,6 +1,5 @@
-import '../../../providers/user_manager.dart';
 import '../../../enums/achievements.dart';
-
+import '../../../providers/user_manager.dart';
 import 'widgets/achievement_widget.dart';
 
 class AchievementManager {

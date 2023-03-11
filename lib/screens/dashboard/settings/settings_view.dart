@@ -1,6 +1,3 @@
-import 'feedback/feedback_view.dart';
-import '../../../utils/circular_reveal_page_route.dart';
-import '../../../widgets/sliders/qwer_hud_height_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,8 +6,11 @@ import '../../../constants/app_colors.dart';
 import '../../../constants/app_strings.dart';
 import '../../../extensions/context_extension.dart';
 import '../../../extensions/widget_extension.dart';
+import '../../../utils/circular_reveal_page_route.dart';
+import '../../../widgets/sliders/qwer_hud_height_slider.dart';
 import '../../../widgets/sliders/volume_slider.dart';
 import 'about_me/about_me.dart';
+import 'feedback/feedback_view.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});

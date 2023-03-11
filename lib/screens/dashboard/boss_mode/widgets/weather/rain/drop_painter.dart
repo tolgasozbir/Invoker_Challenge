@@ -1,5 +1,6 @@
-import 'drop.dart';
 import 'package:flutter/material.dart';
+
+import 'drop.dart';
 
 class DropPainter extends CustomPainter {
   final Drop drop;

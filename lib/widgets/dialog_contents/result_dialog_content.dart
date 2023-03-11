@@ -1,10 +1,11 @@
-import '../../constants/app_colors.dart';
-import '../../extensions/widget_extension.dart';
-import '../../utils/ads_helper.dart';
 import 'package:flutter/material.dart';
+
+import '../../constants/app_colors.dart';
 import '../../constants/app_strings.dart';
 import '../../extensions/context_extension.dart';
+import '../../extensions/widget_extension.dart';
 import '../../providers/user_manager.dart';
+import '../../utils/ads_helper.dart';
 import '../game_ui_widget.dart';
 
 class ResultDialogContent extends StatefulWidget {

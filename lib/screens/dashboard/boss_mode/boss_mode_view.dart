@@ -1,5 +1,10 @@
 import 'dart:math';
-import 'package:dota2_invoker_game/screens/dashboard/boss_mode/components/animated_dps_text.dart';
+import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/inventory_hud.dart';
+import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/mana_bar.dart';
+
+import 'widgets/animated_dps_text.dart';
+import 'widgets/shop_button.dart';
+import 'widgets/weather/weather.dart';
 
 import '../../../constants/app_colors.dart';
 import '../../../extensions/context_extension.dart';
@@ -7,8 +12,6 @@ import '../../../extensions/widget_extension.dart';
 import '../../../models/spell.dart';
 import '../../../providers/boss_provider.dart';
 import '../../../providers/spell_provider.dart';
-import 'components/shop_button.dart';
-import 'components/weather/weather.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:splash/splash.dart';
@@ -17,7 +20,7 @@ import '../../../enums/elements.dart';
 import '../../../mixins/orb_mixin.dart';
 import '../../../services/sound_manager.dart';
 import '../../../widgets/bouncing_button.dart';
-import 'components/sky/sky.dart';
+import 'widgets/sky/sky.dart';
 
 class BossModeView extends StatefulWidget {
   const BossModeView({super.key});
@@ -27,10 +30,12 @@ class BossModeView extends StatefulWidget {
 }
 
 class _BossModeViewState extends State<BossModeView> with OrbMixin {
+  var skyLight = SkyLight.light;
+  var skyType = SkyType.normal;
+  var weatherType = WeatherType.normal;
   late BossProvider provider;
   var gradient2 = [const Color(0xFFE20D17), const Color(0xFFB50DE2)];
   List<Spell> spellList = [];
-  AnimationController? dpsController;
 
   @override
   void initState() {
@@ -48,7 +53,6 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //appscaffold action parametresi alcak
       appBar: AppBar(
         actions: [
           ShopButton(),
@@ -59,13 +63,9 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
   }
 
   Widget bodyView() {
-    var skyLight = SkyLight.light;
-    var skyType = SkyType.normal;
-    var weatherType = WeatherType.normal;
     return LayoutBuilder(builder: (context, constraints) {
       return Column(
         children: [
-          EmptyBox(),
           Stack(
             alignment: Alignment.center,
             fit: StackFit.expand,
@@ -73,19 +73,23 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
               Sky(skyLight: skyLight, skyType: skyType),
               ...circles(constraints),
               Weather(weatherType: weatherType),
+              AnimatedDPSText(
+                controller: (contoller) => context.read<BossProvider>().setDpsController(contoller),
+                dps: context.watch<BossProvider>().dps,
+                isStarted: context.watch<BossProvider>().started,
+              ),
               startBtn(context, constraints),
-          AnimatedDPSText(controller: (contoller) => dpsController = contoller,),
             ],
           ).wrapExpanded(),
           selectedElementOrbs(),
           skills(),
           EmptyBox.h12(),
-          manaBar(),
+          ManaBar(),
           EmptyBox.h8(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              inventoryHud(),
+              InventoryHud(),
               ability().wrapExpanded(),
             ],
           ),
@@ -96,18 +100,18 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
   }
 
   InkWell startBtn(BuildContext context, BoxConstraints constraints) {
+    bool isStarted = context.watch<BossProvider>().started;
     return InkWell(
       splashFactory: WaveSplash.splashFactory,
       highlightColor: Colors.transparent,
       onTap: () {
+        if (isStarted) return;
         context.read<BossProvider>().startGame();
-        context.read<BossProvider>().setDpsController(dpsController!);
-        //dpsController?.repeat();
       },
       child: SizedBox(
         width: constraints.maxWidth,
         height: constraints.maxHeight,
-        child: Text("Start").wrapCenter(),
+        child: isStarted ? EmptyBox() : Text("Start").wrapCenter(),
       ),
     );
   }
@@ -201,37 +205,9 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
             var castedSpell = spellList.firstWhere((element) => element.combine.toString() == currentCombination.toString(), orElse: () => const Spell("", []));
             if (castedSpell.combine.isEmpty) return;
             context.read<BossProvider>().switchAbility(castedSpell);
-
-          //context.watch<BossProvider>().castedAbility.add();
         }
         print(element.name);
       },
-    );
-  }
-
-  Widget manaBar() {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 24),
-      padding: EdgeInsets.symmetric(horizontal: 8),
-      width: double.infinity,
-      height: context.dynamicHeight(0.048),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(6),
-        gradient: LinearGradient(
-          colors: [
-          Color.fromARGB(255, 30, 136, 222),
-          Color.fromARGB(255, 54, 104, 190)
-          ],
-        ),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Spacer(),
-          Text("1007/1007", style: TextStyle(fontSize: context.sp(12), fontWeight: FontWeight.bold)).wrapCenter().wrapExpanded(),
-          Text("+6.3", style: TextStyle(fontSize: context.sp(12), fontWeight: FontWeight.bold)).wrapAlign(Alignment.centerRight).wrapExpanded(),
-        ],
-      ),
     );
   }
 
@@ -254,9 +230,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
           ),
           child: castedAbility.length < index + 1
               ? emptyAbilitySlot()
-              : Image.asset(castedAbility[index].image,
-                      width: context.dynamicWidth(0.2))
-                  .wrapClipRRect(BorderRadius.circular(8)),
+              : Image.asset(castedAbility[index].image, width: context.dynamicWidth(0.2)).wrapClipRRect(BorderRadius.circular(8)),
         ),
         onPressed: () {
           print("aa");
@@ -266,86 +240,34 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
     );
   }
 
-  Widget inventoryHud() {
-    return Container(
-      margin: EdgeInsets.only(left: 24),
-      padding: EdgeInsets.all(4),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        gradient: LinearGradient(
-          colors: [Color(0xFF37596D), Color(0xFF244048), Color(0xFF2B5167)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-      ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              emptySlot(),
-              EmptyBox.w4(),
-              emptySlot(),
-              EmptyBox.w4(),
-              emptySlot(),
-            ],
-          ),
-          EmptyBox.h4(),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              emptySlot(),
-              EmptyBox.w4(),
-              emptySlot(),
-              EmptyBox.w4(),
-              emptySlot(),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Container emptySlot() {
-    return Container(
-      width: context.dynamicWidth(0.12),
-      height: context.dynamicWidth(0.12),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4),
-        gradient: LinearGradient(
-          colors: [Color(0xFF1A222B), Color(0xFF1F2B37)],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ),
-      ),
-    );
-  }
-
   Widget emptyAbilitySlot() {
     return Container(
-      padding: EdgeInsets.all(4),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
+      padding: const EdgeInsets.all(4),
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(8)),
         gradient: LinearGradient(
           colors: [Color(0xFF37596D), Color(0xFF244048), Color(0xFF2B5167)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
       ),
-      child: Container(
+      child: SizedBox(
         width: context.dynamicWidth(0.2),
         height: context.dynamicWidth(0.2),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(4),
-          gradient: LinearGradient(
-            colors: [Color(0xFF1A222B), Color(0xFF1F2B37)],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+        child: DecoratedBox(
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(4)),
+            gradient: LinearGradient(
+              colors: [Color(0xFF1A222B), Color(0xFF1F2B37)],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
           ),
         ),
       ),
     );
   }
+
 }
 
 class ArcPainter extends CustomPainter {

@@ -1,19 +1,19 @@
 import 'dart:io';
 
-import '../constants/app_strings.dart';
-import '../extensions/widget_extension.dart';
-import '../providers/user_manager.dart';
-import 'app_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:splash/splash.dart';
 
 import '../constants/app_colors.dart';
+import '../constants/app_strings.dart';
 import '../extensions/context_extension.dart';
+import '../extensions/widget_extension.dart';
 import '../providers/game_provider.dart';
+import '../providers/user_manager.dart';
 import '../screens/dashboard/loading_view.dart';
 import '../services/sound_manager.dart';
+import 'app_snackbar.dart';
 
 class MenuButton extends StatefulWidget {
   const MenuButton({

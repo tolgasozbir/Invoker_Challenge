@@ -1,4 +1,4 @@
- import 'dart:math';
+import 'dart:math';
 
 String idGenerator() {
   final rnd = Random();

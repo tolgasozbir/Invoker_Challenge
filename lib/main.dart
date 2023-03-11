@@ -1,5 +1,3 @@
-import 'firebase_options.dart';
-import 'providers/boss_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,6 +6,8 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 
 import 'constants/app_strings.dart';
+import 'firebase_options.dart';
+import 'providers/boss_provider.dart';
 import 'providers/game_provider.dart';
 import 'providers/spell_provider.dart';
 import 'providers/user_manager.dart';

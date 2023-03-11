@@ -1,52 +1,57 @@
 import 'dart:async';
-import 'user_manager.dart';
+import 'dart:developer';
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
 import '../models/spell.dart';
+import 'user_manager.dart';
 
 class BossProvider extends ChangeNotifier {
-  bool started = false;
   Timer? _timer;
+  final rng = math.Random();
+  bool started = false;
 
+  //Circle Values
+  int get roundUnit => 12;
+  int get healthUnit => 60;
+  int get timeUnits => 180;
   double roundProgress = 0;
   double healthProgress = 0;
   double timeProgress = 0;
 
-  int get roundUnit => 12;
-  int get healthUnit => 60;
-  int get timeUnits => 180;
+  double get baseDamage => UserManager.instance.user.level * 5;
 
-  double baseDamage = UserManager.instance.user.level * 5;
-
-  List<Spell> castedAbility = [];
+  List<Spell> _castedAbility = [];
+  List<Spell> get castedAbility => _castedAbility;
 
   void switchAbility(Spell spell) {
-    if (castedAbility.length > 1 && spell.combine.toString() == castedAbility.first.combine.toString()) return;
-    castedAbility.insert(0, spell);
-    while (castedAbility.length > 2) {
-      castedAbility.removeLast();
+    if (_castedAbility.length > 1 && spell.combine.toString() == _castedAbility.first.combine.toString()) return;
+    _castedAbility.insert(0, spell);
+    while (_castedAbility.length > 2) {
+      _castedAbility.removeLast();
     }
     notifyListeners();
   }
 
-
-  //test
   AnimationController? _dpsController;
+  double dps = 0;
   void setDpsController(AnimationController controller) {
     _dpsController = controller;
-    notifyListeners();
   }
 
   void autoHit(){
-    var damage = baseDamage;
+    _dpsController!.reset();
+    var damage = baseDamage + rng.nextInt(10);
     var health = (1000 * roundProgress) / healthUnit;
     var totalDamge = damage/health;
     healthProgress += totalDamge;
+    _dpsController!.repeat(reverse: true);
+    dps = damage;
   }
 
-  //
-  void hit(double damage) {
-    healthProgress += damage;
+  void hit() {
+    autoHit();
   }
 
   void _increaseTime() {
@@ -54,24 +59,29 @@ class BossProvider extends ChangeNotifier {
   }
 
   void nextRound() {
+    started = true;
     roundProgress++;
     healthProgress = 0;
     timeProgress = 0;
-    //started = false;
+    dps = 0;
     notifyListeners();
   }
 
   void checkTimeOrHp() {
-    if (healthProgress == healthUnit) {
-      print("Boss down");
+    if (healthProgress >= healthUnit) {
+      log("Boss down");
       _timer?.cancel();
       _timer = null;
+      started = false;
+      _dpsController!.stop();
+      _dpsController!.reset();
       return;
     }
 
-    if (timeProgress == timeUnits) {
-      print("Time out");
+    if (timeProgress >= timeUnits) {
+      log("Time out");
       _timer?.cancel();
+      started = false;
       return;
     }
 
@@ -82,11 +92,8 @@ class BossProvider extends ChangeNotifier {
     if (_timer != null) return;
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       print("Tick");
-        _dpsController!.reset();
-        _dpsController!.forward();
-      
       _increaseTime();
-      autoHit();
+      hit();
       checkTimeOrHp();
       //if (!started) timer.cancel();
       notifyListeners();
@@ -108,7 +115,7 @@ class BossProvider extends ChangeNotifier {
     roundProgress = 0;
     healthProgress = 0;
     timeProgress = 0;
-    castedAbility = [];
+    _castedAbility.clear();
   }
 
   void disposeTimer() {

@@ -1,7 +1,8 @@
-import '../../../../extensions/context_extension.dart';
-import '../../../../widgets/sliders/progress_slider.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../extensions/context_extension.dart';
 import '../../../../extensions/widget_extension.dart';
+import '../../../../widgets/sliders/progress_slider.dart';
 
 class AchievementWidget extends StatelessWidget {
   const AchievementWidget({super.key, required this.achievement});

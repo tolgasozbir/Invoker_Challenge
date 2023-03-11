@@ -1,6 +1,8 @@
+
+import 'package:flutter/material.dart';
+
 import '../../../../../extensions/widget_extension.dart';
 import 'rain/rain.dart';
-import 'package:flutter/material.dart';
 
 enum WeatherType { normal, rainy, }
 
