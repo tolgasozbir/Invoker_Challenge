@@ -30,6 +30,13 @@ class BossProvider extends ChangeNotifier {
   }
 
 
+  //test
+  AnimationController? _dpsController;
+  void setDpsController(AnimationController controller) {
+    _dpsController = controller;
+    notifyListeners();
+  }
+
   void autoHit(){
     var damage = baseDamage;
     var health = (1000 * roundProgress) / healthUnit;
@@ -75,6 +82,9 @@ class BossProvider extends ChangeNotifier {
     if (_timer != null) return;
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       print("Tick");
+        _dpsController!.reset();
+        _dpsController!.forward();
+      
       _increaseTime();
       autoHit();
       checkTimeOrHp();

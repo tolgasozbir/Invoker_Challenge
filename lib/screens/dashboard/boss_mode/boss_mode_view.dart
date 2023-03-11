@@ -1,10 +1,13 @@
 import 'dart:math';
+import 'package:dota2_invoker_game/screens/dashboard/boss_mode/components/animated_dps_text.dart';
+
 import '../../../constants/app_colors.dart';
 import '../../../extensions/context_extension.dart';
 import '../../../extensions/widget_extension.dart';
 import '../../../models/spell.dart';
 import '../../../providers/boss_provider.dart';
 import '../../../providers/spell_provider.dart';
+import 'components/shop_button.dart';
 import 'components/weather/weather.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +30,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
   late BossProvider provider;
   var gradient2 = [const Color(0xFFE20D17), const Color(0xFFB50DE2)];
   List<Spell> spellList = [];
+  AnimationController? dpsController;
 
   @override
   void initState() {
@@ -43,102 +47,105 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold( //appscaffold action parametresi alcak
+    return Scaffold(
+      //appscaffold action parametresi alcak
       appBar: AppBar(
         actions: [
-          shopButton()
+          ShopButton(),
         ],
       ),
-      body: bodyView()
-      );
+      body: bodyView(),
+    );
   }
 
   Widget bodyView() {
     var skyLight = SkyLight.light;
-    var skyType = SkyType.sunny;
+    var skyType = SkyType.normal;
     var weatherType = WeatherType.normal;
     return LayoutBuilder(builder: (context, constraints) {
-    return Column(
-      children: [
-      EmptyBox(),
-        Stack(
-          alignment: Alignment.center,
-          fit: StackFit.expand,
-          children: [
-            Sky(skyLight: skyLight, skyType: skyType),
-            ...circles(constraints),
-            Weather(weatherType: weatherType),
-            //startBtn(context, constraints),
-          ],
-        ).wrapExpanded(),
-        selectedElementOrbs(),
-        skills(),
-        EmptyBox.h12(),
-        manaBar(),
-        EmptyBox.h8(),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            inventoryHud(),
-            ability().wrapExpanded(),
-          ],
-        ),
-        EmptyBox.h16(),
-      ],
-    );
+      return Column(
+        children: [
+          EmptyBox(),
+          Stack(
+            alignment: Alignment.center,
+            fit: StackFit.expand,
+            children: [
+              Sky(skyLight: skyLight, skyType: skyType),
+              ...circles(constraints),
+              Weather(weatherType: weatherType),
+              startBtn(context, constraints),
+          AnimatedDPSText(controller: (contoller) => dpsController = contoller,),
+            ],
+          ).wrapExpanded(),
+          selectedElementOrbs(),
+          skills(),
+          EmptyBox.h12(),
+          manaBar(),
+          EmptyBox.h8(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              inventoryHud(),
+              ability().wrapExpanded(),
+            ],
+          ),
+          EmptyBox.h16(),
+        ],
+      );
     });
   }
 
   InkWell startBtn(BuildContext context, BoxConstraints constraints) {
     return InkWell(
-            splashFactory: WaveSplash.splashFactory,
-            highlightColor: Colors.transparent,
-            onTap: () => context.read<BossProvider>().startGame(),
-            child: SizedBox(
-              width: constraints.maxWidth,
-              height: constraints.maxHeight,
-              child: Text("Start").wrapCenter(),
-            ),
-          );
+      splashFactory: WaveSplash.splashFactory,
+      highlightColor: Colors.transparent,
+      onTap: () {
+        context.read<BossProvider>().startGame();
+        context.read<BossProvider>().setDpsController(dpsController!);
+        //dpsController?.repeat();
+      },
+      child: SizedBox(
+        width: constraints.maxWidth,
+        height: constraints.maxHeight,
+        child: Text("Start").wrapCenter(),
+      ),
+    );
   }
 
   List<Widget> circles(BoxConstraints constraints) {
     return [
-        //outer
-        CustomPaint(
-          painter: ArcPainter(
-            progress: context.watch<BossProvider>().healthProgress, 
-            units: context.read<BossProvider>().healthUnit, 
-            radius: constraints.maxHeight * 0.21, 
-            gap: 0.22, 
-            gradient: gradient2,
-            reversedColor: true
-          ),
+      //outer
+      CustomPaint(
+        painter: ArcPainter(
+          progress: context.watch<BossProvider>().healthProgress,
+          units: context.read<BossProvider>().healthUnit,
+          radius: constraints.maxHeight * 0.21,
+          gap: 0.22,
+          gradient: gradient2,
+          reversedColor: true,
         ),
-        //middle
-        CustomPaint(
-          painter: ArcPainter(
-            progress: context.watch<BossProvider>().roundProgress, 
-            units: context.read<BossProvider>().roundUnit, 
-            radius: constraints.maxHeight * 0.18, 
-            gap: 0.24, 
-            gradient: gradient2,
-          ),
+      ),
+      //middle
+      CustomPaint(
+        painter: ArcPainter(
+          progress: context.watch<BossProvider>().roundProgress,
+          units: context.read<BossProvider>().roundUnit,
+          radius: constraints.maxHeight * 0.18,
+          gap: 0.24,
+          gradient: gradient2,
         ),
-        //inner
-        AnimatedContainer(
-          duration: Duration(seconds: 1),
-          child: CustomPaint(
-            painter: ArcPainter(
-              progress: context.watch<BossProvider>().timeProgress, 
-              units: context.read<BossProvider>().timeUnits, 
-              radius: constraints.maxHeight * 0.15, 
-              gap: 0.2, 
-              gradient: gradient2,
-            ),
-          ),
+      ),
+      //inner
+      CustomPaint(
+        painter: ArcPainter(
+          progress: context.watch<BossProvider>().timeProgress,
+          units: context.read<BossProvider>().timeUnits,
+          radius: constraints.maxHeight * 0.15,
+          gap: 0.2,
+          gradient: gradient2,
         ),
-      ];
+      ),
+    ];
   }
 
   SizedBox selectedElementOrbs() {
@@ -156,7 +163,8 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
   Row skills() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(Elements.values.length, (index) => skill(Elements.values[index]).wrapPadding(EdgeInsets.symmetric(horizontal: 8))),
+      children: List.generate(Elements.values.length, (index) => skill(Elements.values[index]).wrapPadding(EdgeInsets.symmetric(horizontal: 8)),
+      ),
     );
   }
 
@@ -166,12 +174,15 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
         children: [
           DecoratedBox(
             decoration: qwerAbilityDecoration(element.getColor),
-            child: Image.asset(element.getImage,width: context.dynamicWidth(0.18)),
+            child: Image.asset(
+              element.getImage,
+              width: context.dynamicWidth(0.18),
+            ),
           ),
           Text(
-            element.getKey.toUpperCase(), 
+            element.getKey.toUpperCase(),
             style: TextStyle(
-              color: element.getColor, 
+              color: element.getColor,
               fontSize: context.sp(16),
               fontWeight: FontWeight.w500,
               shadows: List.generate(3, (index) => Shadow(blurRadius: 8)),
@@ -187,11 +198,11 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
             return switchOrb(element);
           case Elements.invoke:
             SoundManager.instance.trueCombinationSound(currentCombination);
-            var castedSpell = spellList.firstWhere((element) => element.combine.toString() == currentCombination.toString(), orElse: () => const Spell("", []),);
-            if(castedSpell.combine.isEmpty) return;
+            var castedSpell = spellList.firstWhere((element) => element.combine.toString() == currentCombination.toString(), orElse: () => const Spell("", []));
+            if (castedSpell.combine.isEmpty) return;
             context.read<BossProvider>().switchAbility(castedSpell);
 
-            //context.watch<BossProvider>().castedAbility.add();
+          //context.watch<BossProvider>().castedAbility.add();
         }
         print(element.name);
       },
@@ -207,8 +218,10 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(6),
         gradient: LinearGradient(
-          colors: [Color.fromARGB(255, 30, 136, 222), Color.fromARGB(255, 54, 104, 190)]
-
+          colors: [
+          Color.fromARGB(255, 30, 136, 222),
+          Color.fromARGB(255, 54, 104, 190)
+          ],
         ),
       ),
       child: Row(
@@ -222,24 +235,28 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
     );
   }
 
-
   Widget ability() {
     var castedAbility = context.watch<BossProvider>().castedAbility;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: List.generate(2, (index) => BouncingButton(
+      children: List.generate(2,(index) => BouncingButton(
         child: DecoratedBox(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
+            border:
+                Border.all(strokeAlign: BorderSide.strokeAlignOutside),
             boxShadow: [
               BoxShadow(
-                color: AppColors.black, 
+                color: AppColors.black,
                 blurRadius: 8,
               ),
             ],
           ),
-          child: castedAbility.length < index+1 ? emptyAbilitySlot() : Image.asset(castedAbility[index].image, width: context.dynamicWidth(0.2)).wrapClipRRect(BorderRadius.circular(8)),
+          child: castedAbility.length < index + 1
+              ? emptyAbilitySlot()
+              : Image.asset(castedAbility[index].image,
+                      width: context.dynamicWidth(0.2))
+                  .wrapClipRRect(BorderRadius.circular(8)),
         ),
         onPressed: () {
           print("aa");
@@ -296,61 +313,11 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4),
         gradient: LinearGradient(
-          colors: [Color(0xFF1A222B),Color(0xFF1F2B37)],
+          colors: [Color(0xFF1A222B), Color(0xFF1F2B37)],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ),
       ),
-    );
-  }
-
-  Widget shopButton() {
-    return BouncingButton(
-      child: Stack(
-        children: [
-          Container(
-            width: 72,
-            height: kToolbarHeight,
-            padding: EdgeInsets.all(8),
-            margin: EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(2),
-              gradient: LinearGradient(
-                colors: [Color(0xFFE7CB90), Color(0xFF584226), Color(0xFFAB945A)],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              )
-            ),
-          ),
-          Container(
-            width: 64,
-            alignment: Alignment.center,
-            height: kToolbarHeight,
-            margin: EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(2),
-              gradient: LinearGradient(
-                colors: [Color(0xFFD9BA00), Color(0xFFF4C400), Color(0xFF7E5B0C)],
-                stops: [0, .2, 1],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              )
-            ),
-            child: Text(
-              "SHOP", 
-              style: TextStyle(
-                fontSize: 16, 
-                color: Color(0xFFFBFBCC), 
-                fontWeight: FontWeight.bold, 
-                shadows: [Shadow(blurRadius: 2)]
-              ),
-            ),
-          ),
-        ],
-      ),
-      onPressed: () {
-        print("Shop");
-      },
     );
   }
 
@@ -371,7 +338,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4),
           gradient: LinearGradient(
-            colors: [Color(0xFF1A222B),Color(0xFF1F2B37)],
+            colors: [Color(0xFF1A222B), Color(0xFF1F2B37)],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -379,11 +346,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
       ),
     );
   }
-
 }
-
-
-
 
 class ArcPainter extends CustomPainter {
   final double progress;
@@ -416,11 +379,11 @@ class ArcPainter extends CustomPainter {
     // );
 
     final paintFilled = Paint()
-    ..strokeCap = StrokeCap.butt
-    ..style = PaintingStyle.stroke
-    ..strokeWidth = 4
-    ..maskFilter = maskFiler
-    ..color = reversedColor ? gradient.last.withOpacity(0.2) : gradient.last;
+      ..strokeCap = StrokeCap.butt
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 4
+      ..maskFilter = maskFiler
+      ..color = reversedColor ? gradient.last.withOpacity(0.2) : gradient.last;
     //..shader = gradient.createShader(rect);
 
     final paintEmpty = Paint()
