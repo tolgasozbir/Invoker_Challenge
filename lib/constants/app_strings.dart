@@ -110,6 +110,7 @@ class ImagePaths {
   static const String _other = '$_root/other';
   static const String elements = '$_root/elements/';
   static const String spells = '$_root/spells/';
+  static const String bosses = '$_root/bosses/';
 
   //svg
   static const String _svgRoot = 'assets/svg';

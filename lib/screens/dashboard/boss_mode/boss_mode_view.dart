@@ -1,7 +1,10 @@
 import 'dart:math';
+import 'package:dota2_invoker_game/enums/Bosses.dart';
 import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/inventory_hud.dart';
 import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/mana_bar.dart';
+import 'package:snappable_thanos/snappable_thanos.dart';
 
+import '../../../utils/number_formatter.dart';
 import 'widgets/animated_dps_text.dart';
 import 'widgets/shop_button.dart';
 import 'widgets/weather/weather.dart';
@@ -30,9 +33,6 @@ class BossModeView extends StatefulWidget {
 }
 
 class _BossModeViewState extends State<BossModeView> with OrbMixin {
-  var skyLight = SkyLight.light;
-  var skyType = SkyType.normal;
-  var weatherType = WeatherType.normal;
   late BossProvider provider;
   var gradient2 = [const Color(0xFFE20D17), const Color(0xFFB50DE2)];
   List<Spell> spellList = [];
@@ -54,6 +54,13 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: BackButton(
+          onPressed: () {
+            //TODO: android back button içinde yapılcak canpop değilse snackbar çıkar
+            var canPop = context.read<BossProvider>().snapIsDone;
+            if (canPop) Navigator.pop(context);
+          },
+        ),
         actions: [
           ShopButton(),
         ],
@@ -63,12 +70,15 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
   }
 
   Widget bodyView() {
+    var skyLight = SkyLight.light;
+    var skyType = SkyType.normal;
+    var weatherType = WeatherType.normal;
     return LayoutBuilder(builder: (context, constraints) {
       return Column(
         children: [
           Stack(
             alignment: Alignment.center,
-            fit: StackFit.expand,
+            //fit: StackFit.expand,
             children: [
               Sky(skyLight: skyLight, skyType: skyType),
               ...circles(constraints),
@@ -78,7 +88,8 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
                 dps: context.watch<BossProvider>().dps,
                 isStarted: context.watch<BossProvider>().started,
               ),
-              startBtn(context, constraints),
+              bossHeads(constraints),
+              startBtn(constraints),
             ],
           ).wrapExpanded(),
           selectedElementOrbs(),
@@ -99,22 +110,50 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
     });
   }
 
-  InkWell startBtn(BuildContext context, BoxConstraints constraints) {
+  InkWell startBtn(BoxConstraints constraints) {
     bool isStarted = context.watch<BossProvider>().started;
+    bool snapIsDone = context.watch<BossProvider>().snapIsDone;
+    bool status = isStarted || !snapIsDone;
     return InkWell(
       splashFactory: WaveSplash.splashFactory,
       highlightColor: Colors.transparent,
       onTap: () {
-        if (isStarted) return;
+        if (status) return;
         context.read<BossProvider>().startGame();
       },
       child: SizedBox(
         width: constraints.maxWidth,
         height: constraints.maxHeight,
-        child: isStarted ? EmptyBox() : Text("Start").wrapCenter(),
+        child: status ? EmptyBox() : Text("Start").wrapCenter(),
       ),
     );
   }
+
+  Widget bossHeads(BoxConstraints constraints) {
+    var provider = context.watch<BossProvider>();
+    return Positioned(
+      top: constraints.maxHeight/7,
+      child: Snappable(
+        key: provider.snappableKey,
+        onSnapped: () => null,
+        duration: Duration(milliseconds: 3000),
+        child: Column(
+          children: [
+            Opacity(
+              opacity: provider.currentBossAlive ? 1 : 0,
+              child: AnimatedScale(
+                scale: provider.currentBossAlive ? 1 : 4,
+                curve: Curves.bounceOut,
+                duration: Duration(milliseconds: 1600),
+                child: Image.asset(provider.currentBoss.getImage, height: context.height/6,)
+              ),
+            ),
+          ],
+        ),
+      ));
+  }
+
+
 
   List<Widget> circles(BoxConstraints constraints) {
     return [
@@ -132,7 +171,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
       //middle
       CustomPaint(
         painter: ArcPainter(
-          progress: context.watch<BossProvider>().roundProgress,
+          progress: context.watch<BossProvider>().roundProgress.toDouble() +1,
           units: context.read<BossProvider>().roundUnit,
           radius: constraints.maxHeight * 0.18,
           gap: 0.24,

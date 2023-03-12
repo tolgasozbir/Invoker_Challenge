@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:math' as math;
 
+import 'package:dota2_invoker_game/enums/Bosses.dart';
 import 'package:flutter/material.dart';
+import 'package:snappable_thanos/snappable_thanos.dart';
 
 import '../models/spell.dart';
 import 'user_manager.dart';
@@ -13,12 +15,32 @@ class BossProvider extends ChangeNotifier {
   bool started = false;
 
   //Circle Values
-  int get roundUnit => 12;
+  int get roundUnit => Bosses.values.length;//12;
   int get healthUnit => 60;
   int get timeUnits => 180;
-  double roundProgress = 0;
+  int roundProgress = -1;
   double healthProgress = 0;
   double timeProgress = 0;
+
+  bool currentBossAlive = false;
+  double currentBossHp = 0;
+  final bossList = Bosses.values;
+  var currentBoss = Bosses.values.first;
+  final snappableKey = GlobalKey<SnappableState>();
+
+  bool snapIsDone = true;
+  void changeSnapIsDoneStatus () {
+    snapIsDone = !snapIsDone;
+    ChangeNotifier();
+  }
+
+  Future<void> snapBoss() async {
+    changeSnapIsDoneStatus();
+    await snappableKey.currentState?.snap();
+    await Future.delayed(Duration(milliseconds: 3000));
+    changeSnapIsDoneStatus();
+  }
+
 
   double get baseDamage => UserManager.instance.user.level * 5;
 
@@ -42,12 +64,14 @@ class BossProvider extends ChangeNotifier {
 
   void autoHit(){
     _dpsController!.reset();
-    var damage = baseDamage + rng.nextInt(10);
-    var health = (1000 * roundProgress) / healthUnit;
+    var damage = baseDamage + rng.nextInt(10) +3000;
+    var health = currentBoss.getHp / healthUnit;
     var totalDamge = damage/health;
     healthProgress += totalDamge;
     _dpsController!.repeat(reverse: true);
     dps = damage;
+    currentBossHp = currentBoss.getHp - (healthProgress * health);
+    print(currentBoss.name + " Hp : " + (currentBoss.getHp - (healthProgress * health)).toStringAsFixed(0));
   }
 
   void hit() {
@@ -60,14 +84,17 @@ class BossProvider extends ChangeNotifier {
 
   void nextRound() {
     started = true;
+    currentBossAlive = true;
+    snappableKey.currentState?.reset();
     roundProgress++;
+    currentBoss = bossList[roundProgress];
     healthProgress = 0;
     timeProgress = 0;
     dps = 0;
     notifyListeners();
   }
 
-  void checkTimeOrHp() {
+  void checkTimeOrHp() async {
     if (healthProgress >= healthUnit) {
       log("Boss down");
       _timer?.cancel();
@@ -75,6 +102,9 @@ class BossProvider extends ChangeNotifier {
       started = false;
       _dpsController!.stop();
       _dpsController!.reset();
+      await snapBoss();
+      currentBossAlive = false;
+      notifyListeners();
       return;
     }
 
@@ -91,7 +121,6 @@ class BossProvider extends ChangeNotifier {
     nextRound();
     if (_timer != null) return;
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      print("Tick");
       _increaseTime();
       hit();
       checkTimeOrHp();
@@ -112,10 +141,12 @@ class BossProvider extends ChangeNotifier {
 
   void _reset() {
     started = false;
-    roundProgress = 0;
+    roundProgress = -1;
     healthProgress = 0;
     timeProgress = 0;
     _castedAbility.clear();
+    currentBossAlive = false;
+    currentBoss = Bosses.values.first;
   }
 
   void disposeTimer() {
