@@ -22,23 +22,25 @@ class BossProvider extends ChangeNotifier {
   double healthProgress = 0;
   double timeProgress = 0;
 
+  double dps = 0;
+
   bool currentBossAlive = false;
   double currentBossHp = 0;
   final bossList = Bosses.values;
   var currentBoss = Bosses.values.first;
+  
   final snappableKey = GlobalKey<SnappableState>();
-
   bool snapIsDone = true;
-  void changeSnapIsDoneStatus () {
+  void changeSnapStatus () {
     snapIsDone = !snapIsDone;
-    ChangeNotifier();
+    notifyListeners();
   }
 
   Future<void> snapBoss() async {
-    changeSnapIsDoneStatus();
+    changeSnapStatus();
     await snappableKey.currentState?.snap();
     await Future.delayed(Duration(milliseconds: 3000));
-    changeSnapIsDoneStatus();
+    changeSnapStatus();
   }
 
 
@@ -56,19 +58,12 @@ class BossProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  AnimationController? _dpsController;
-  double dps = 0;
-  void setDpsController(AnimationController controller) {
-    _dpsController = controller;
-  }
-
+  
   void autoHit(){
-    _dpsController!.reset();
-    var damage = baseDamage + rng.nextInt(10) +3000;
+    var damage = baseDamage + rng.nextInt(10) +2000;
     var health = currentBoss.getHp / healthUnit;
     var totalDamge = damage/health;
     healthProgress += totalDamge;
-    _dpsController!.repeat(reverse: true);
     dps = damage;
     currentBossHp = currentBoss.getHp - (healthProgress * health);
     print(currentBoss.name + " Hp : " + (currentBoss.getHp - (healthProgress * health)).toStringAsFixed(0));
@@ -88,9 +83,9 @@ class BossProvider extends ChangeNotifier {
     snappableKey.currentState?.reset();
     roundProgress++;
     currentBoss = bossList[roundProgress];
+    currentBossHp = currentBoss.getHp;
     healthProgress = 0;
     timeProgress = 0;
-    dps = 0;
     notifyListeners();
   }
 
@@ -100,8 +95,9 @@ class BossProvider extends ChangeNotifier {
       _timer?.cancel();
       _timer = null;
       started = false;
-      _dpsController!.stop();
-      _dpsController!.reset();
+      currentBossHp = 0; // eksi değer göstermemesi için
+      dps = 0;
+      await Future.delayed(Duration(milliseconds: 100)); //snap işleminde 100 ms sonrasını baz almak için
       await snapBoss();
       currentBossAlive = false;
       notifyListeners();
@@ -145,6 +141,8 @@ class BossProvider extends ChangeNotifier {
     healthProgress = 0;
     timeProgress = 0;
     _castedAbility.clear();
+    dps = 0;
+    snapIsDone = true;
     currentBossAlive = false;
     currentBoss = Bosses.values.first;
   }

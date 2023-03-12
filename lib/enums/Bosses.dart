@@ -13,4 +13,5 @@ enum Bosses {
 extension bossExtension on Bosses {
   double get getHp => _health;
   String get getImage => '${ImagePaths.bosses}boss_$name.png';
+  String get getName => "${name[0].toUpperCase()}${name.substring(1).toLowerCase()}";
 }

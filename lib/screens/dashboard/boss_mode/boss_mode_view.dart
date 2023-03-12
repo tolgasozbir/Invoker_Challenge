@@ -4,8 +4,6 @@ import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/inventory
 import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/mana_bar.dart';
 import 'package:snappable_thanos/snappable_thanos.dart';
 
-import '../../../utils/number_formatter.dart';
-import 'widgets/animated_dps_text.dart';
 import 'widgets/shop_button.dart';
 import 'widgets/weather/weather.dart';
 
@@ -70,9 +68,9 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
   }
 
   Widget bodyView() {
-    var skyLight = SkyLight.light;
-    var skyType = SkyType.normal;
-    var weatherType = WeatherType.normal;
+    var skyLight = context.watch<BossProvider>().currentBossAlive ? SkyLight.dark : SkyLight.light;
+    var skyType = SkyType.thunderstorm; // normal ile başlıcak sunny olcak sonlara doğru thunder
+    var weatherType = WeatherType.normal; // son 2 3 round rainy olcak
     return LayoutBuilder(builder: (context, constraints) {
       return Column(
         children: [
@@ -82,13 +80,13 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
             children: [
               Sky(skyLight: skyLight, skyType: skyType),
               ...circles(constraints),
-              Weather(weatherType: weatherType),
-              AnimatedDPSText(
-                controller: (contoller) => context.read<BossProvider>().setDpsController(contoller),
-                dps: context.watch<BossProvider>().dps,
-                isStarted: context.watch<BossProvider>().started,
-              ),
               bossHeads(constraints),
+              Weather(weatherType: weatherType),
+              Positioned(
+                top: 8,
+                left: 8,
+                child: Text("Dps : " + context.watch<BossProvider>().dps.toStringAsFixed(0))
+              ),
               startBtn(constraints),
             ],
           ).wrapExpanded(),
@@ -124,7 +122,10 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
       child: SizedBox(
         width: constraints.maxWidth,
         height: constraints.maxHeight,
-        child: status ? EmptyBox() : Text("Start").wrapCenter(),
+        child: AnimatedSwitcher(
+          duration: Duration(seconds: 1),
+          child: status ? EmptyBox() : Text("Start"),
+        ),
       ),
     );
   }
@@ -137,23 +138,23 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
         key: provider.snappableKey,
         onSnapped: () => null,
         duration: Duration(milliseconds: 3000),
-        child: Column(
-          children: [
-            Opacity(
-              opacity: provider.currentBossAlive ? 1 : 0,
-              child: AnimatedScale(
-                scale: provider.currentBossAlive ? 1 : 4,
+        child: Opacity(
+          opacity: provider.currentBossAlive ? 1 : 0,
+          child: Column(
+            children: [
+              AnimatedScale(
+                scale: provider.currentBossAlive ? 1 : 2,
                 curve: Curves.bounceOut,
                 duration: Duration(milliseconds: 1600),
-                child: Image.asset(provider.currentBoss.getImage, height: context.height/6,)
+                child: Image.asset(provider.currentBoss.getImage, height: context.height/5,)
               ),
-            ),
-          ],
+              Text(provider.currentBossHp.toStringAsFixed(0)),
+              Text(provider.currentBoss.getName),
+            ],
+          ),
         ),
       ));
   }
-
-
 
   List<Widget> circles(BoxConstraints constraints) {
     return [
