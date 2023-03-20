@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:audioplayers/audioplayers.dart';
@@ -36,6 +37,10 @@ class SoundManager {
 
   void playMeepMerp() {
     _playSound(fileName: SoundPaths.meepMerp);
+  }  
+  
+  void playInvoke() {
+    _playSound(fileName: SoundPaths.invoke);
   }
 
   void playSoundBegining(){
@@ -53,13 +58,8 @@ class SoundManager {
     _playSound(fileName: _ggSound[_rnd.nextInt(_ggSound.length)],);
   }
 
-
-  void trueCombinationSound(List<String> combination){
-    var orbValue='';
-    for (final item in combination) {
-      orbValue+=item;
-    }
-    switch (orbValue) {
+  void trueCombinationSound(String combination){
+    switch (combination) {
       case 'qqq': _playSound(fileName: _coldSnapSound[_rnd.nextInt(_coldSnapSound.length)],); break;
       case 'qqw': _playSound(fileName: _ghostWalkSound[_rnd.nextInt(_ghostWalkSound.length)],); break;
       case 'qqe': _playSound(fileName: _iceWallSound[_rnd.nextInt(_iceWallSound.length)],); break;
@@ -72,7 +72,33 @@ class SoundManager {
       case 'qwe': _playSound(fileName: _blast[_rnd.nextInt(_blast.length)],); break;
       default : failCombinationSound();
     }
-    orbValue='';
+  }
+
+  void spellCastTriggerSound(String combination){
+    trueCombinationSound(combination);
+    switch (combination) {
+      case 'qqq': coldSnapCastAndTrigger(); break;
+      case 'qqw': _playSound(fileName: _ghostWalkSound[_rnd.nextInt(_ghostWalkSound.length)],); break;
+      case 'qqe': _playSound(fileName: _iceWallSound[_rnd.nextInt(_iceWallSound.length)],); break;
+      case 'www': _playSound(fileName: _emp[_rnd.nextInt(_emp.length)],); break;
+      case 'wwq': _playSound(fileName: _tornado[_rnd.nextInt(_tornado.length)],); break;
+      case 'wwe': _playSound(fileName: _alacrity[_rnd.nextInt(_alacrity.length)],); break;
+      case 'eee': _playSound(fileName: _sunStrike[_rnd.nextInt(_sunStrike.length)],); break;
+      case 'eeq': _playSound(fileName: _forgeSpirit[_rnd.nextInt(_forgeSpirit.length)],); break;
+      case 'eew': _playSound(fileName: _chaosMeteor[_rnd.nextInt(_chaosMeteor.length)],); break;
+      case 'qwe': _playSound(fileName: _blast[_rnd.nextInt(_blast.length)],); break;
+      default : failCombinationSound();
+    }
+  }
+
+  void coldSnapCastAndTrigger() {
+    var counter = 0;
+    _playSound(volume: 0.15, fileName: SoundPaths.coldSnapCast);
+    Timer.periodic(Duration(seconds: 1), (timer) {
+      counter++;
+      _playSound(volume: (0.15 - ((counter/100)*1.5)), fileName: SoundPaths.coldSnapTrigger);
+      if (counter==5) timer.cancel();
+    });
   }
 
   //spells

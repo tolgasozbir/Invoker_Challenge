@@ -5,37 +5,22 @@ import 'package:flutter/material.dart';
 
 import '../constants/app_strings.dart';
 import '../enums/spells.dart';
-import '../models/spell.dart';
 
 class SpellProvider extends ChangeNotifier {
 
   String _spellImage = ImagePaths.spellImage;
-  List<String> _trueCombination = [];
+  String _trueCombination = '';
 
   String get getNextSpellImage => _spellImage;
-  List<String> get getNextCombination => _trueCombination;
+  String get getNextCombination => _trueCombination;
 
-  final List<Spell> _spellList = [
-    Spell(Spells.cold_snap.getImage,        ['q','q','q']),
-    Spell(Spells.ghost_walk.getImage,       ['q','q','w']),
-    Spell(Spells.ice_wall.getImage,         ['q','q','e']),
-    Spell(Spells.emp.getImage,              ['w','w','w']),
-    Spell(Spells.tornado.getImage,          ['w','w','q']),
-    Spell(Spells.alacrity.getImage,         ['w','w','e']),
-    Spell(Spells.deafening_blast.getImage,  ['q','w','e']),
-    Spell(Spells.sun_strike.getImage,       ['e','e','e']),
-    Spell(Spells.forge_spirit.getImage,     ['e','e','q']),
-    Spell(Spells.chaos_meteor.getImage,     ['e','e','w']),
-  ];
-
-  List<Spell> _tempSpells = [];
-  
-  final math.Random _rnd = math.Random();
+  List<Spells> _tempSpells = [];
+  final _rng  = math.Random();
 
   void getRandomSpell() {
-    var rndSpell = _spellList[_rnd.nextInt(_spellList.length)];
+    var rndSpell = Spells.values[_rng.nextInt(Spells.values.length)];
     do {
-      rndSpell = _spellList[_rnd.nextInt(_spellList.length)];
+      rndSpell = Spells.values[_rng.nextInt(Spells.values.length)];
     } while (_tempSpells.contains(rndSpell));
 
     _tempSpells.insert(0, rndSpell);
@@ -49,6 +34,4 @@ class SpellProvider extends ChangeNotifier {
     log('Next Combination : $_trueCombination');
   }
 
-  //List<String> get getAllSpellImagePaths => _spellList.map((e) => e.image).toList();
-  List<Spell> get getSpellList => _spellList;
 }

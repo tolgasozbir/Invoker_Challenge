@@ -3,10 +3,10 @@ import 'dart:developer';
 import 'dart:math' as math;
 
 import 'package:dota2_invoker_game/enums/Bosses.dart';
+import 'package:dota2_invoker_game/enums/spells.dart';
 import 'package:flutter/material.dart';
 import 'package:snappable_thanos/snappable_thanos.dart';
 
-import '../models/spell.dart';
 import 'user_manager.dart';
 
 class BossProvider extends ChangeNotifier {
@@ -43,14 +43,13 @@ class BossProvider extends ChangeNotifier {
     changeSnapStatus();
   }
 
-
   double get baseDamage => UserManager.instance.user.level * 5;
 
-  List<Spell> _castedAbility = [];
-  List<Spell> get castedAbility => _castedAbility;
+  List<Spells> _castedAbility = [];
+  List<Spells> get castedAbility => _castedAbility;
 
-  void switchAbility(Spell spell) {
-    if (_castedAbility.length > 1 && spell.combine.toString() == _castedAbility.first.combine.toString()) return;
+  void switchAbility(Spells spell) {
+    if (_castedAbility.length > 1 && spell.combine == _castedAbility.first.combine) return;
     _castedAbility.insert(0, spell);
     while (_castedAbility.length > 2) {
       _castedAbility.removeLast();

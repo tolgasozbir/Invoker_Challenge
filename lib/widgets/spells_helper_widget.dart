@@ -1,10 +1,8 @@
+import 'package:dota2_invoker_game/enums/spells.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../constants/app_colors.dart';
 import '../extensions/context_extension.dart';
-import '../models/spell.dart';
-import '../providers/spell_provider.dart';
 
 enum QWEKey { Q, W, E, }
 
@@ -40,14 +38,8 @@ class SpellsHelperWidget extends StatefulWidget {
 }
 
 class _SpellsHelperWidgetState extends State<SpellsHelperWidget> {
-  late final List<Spell> allSpells;
+  final List<Spells> allSpells = Spells.values;
   final margin = const EdgeInsets.symmetric(vertical: 4);
-
-  @override
-  void initState() {
-    allSpells = context.read<SpellProvider>().getSpellList;
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

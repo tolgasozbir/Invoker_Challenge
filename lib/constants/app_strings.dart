@@ -163,10 +163,12 @@ class SoundPaths {
   static const String _ggSounds = '$_root/gg_sounds';
   static const String _loadingSounds = '$_root/loading_sounds';
   static const String _spellSounds = '$_root/spell_sounds';
+  static const String _castTriggerSounds = '$_spellSounds/cast_trigger_sounds';
   static const String _misc = '$_root/misc';
 
   //misc
   static const String meepMerp = '$_misc/meep_merp.mp3';
+  static const String invoke = '$_misc/Invoke.mpeg';
 
   //fail sounds
   static const String fail1 = '$_failSounds/fail1.mp3';
@@ -226,5 +228,8 @@ class SoundPaths {
   static const String tornado1 = '$_spellSounds/tornado1.mp3';
   static const String tornado2 = '$_spellSounds/tornado2.mp3';
   static const String tornado3 = '$_spellSounds/tornado3.mp3';
+
+  static const String coldSnapCast = '$_castTriggerSounds/cold_snap_cast.mpeg';
+  static const String coldSnapTrigger = '$_castTriggerSounds/cold_snap_trigger.mpeg';
 
 }

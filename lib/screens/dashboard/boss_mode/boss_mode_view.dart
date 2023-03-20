@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:dota2_invoker_game/enums/Bosses.dart';
+import 'package:dota2_invoker_game/enums/spells.dart';
 import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/inventory_hud.dart';
 import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/mana_bar.dart';
 import 'package:snappable_thanos/snappable_thanos.dart';
@@ -10,9 +11,7 @@ import 'widgets/weather/weather.dart';
 import '../../../constants/app_colors.dart';
 import '../../../extensions/context_extension.dart';
 import '../../../extensions/widget_extension.dart';
-import '../../../models/spell.dart';
 import '../../../providers/boss_provider.dart';
-import '../../../providers/spell_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:splash/splash.dart';
@@ -33,12 +32,10 @@ class BossModeView extends StatefulWidget {
 class _BossModeViewState extends State<BossModeView> with OrbMixin {
   late BossProvider provider;
   var gradient2 = [const Color(0xFFE20D17), const Color(0xFFB50DE2)];
-  List<Spell> spellList = [];
 
   @override
   void initState() {
     provider = context.read<BossProvider>();
-    spellList = context.read<SpellProvider>().getSpellList;
     super.initState();
   }
 
@@ -69,7 +66,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
 
   Widget bodyView() {
     var skyLight = context.watch<BossProvider>().currentBossAlive ? SkyLight.dark : SkyLight.light;
-    var skyType = SkyType.thunderstorm; // normal ile başlıcak sunny olcak sonlara doğru thunder
+    var skyType = SkyType.normal; // normal ile başlıcak sunny olcak sonlara doğru thunder
     var weatherType = WeatherType.normal; // son 2 3 round rainy olcak
     return LayoutBuilder(builder: (context, constraints) {
       return Column(
@@ -99,7 +96,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               InventoryHud(),
-              ability().wrapExpanded(),
+              abilitySlot().wrapExpanded(),
             ],
           ),
           EmptyBox.h16(),
@@ -241,41 +238,65 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
           case Elements.exort:
             return switchOrb(element);
           case Elements.invoke:
-            SoundManager.instance.trueCombinationSound(currentCombination);
-            var castedSpell = spellList.firstWhere((element) => element.combine.toString() == currentCombination.toString(), orElse: () => const Spell("", []));
-            if (castedSpell.combine.isEmpty) return;
-            context.read<BossProvider>().switchAbility(castedSpell);
+            SoundManager.instance.playInvoke();
+            var castedSpell = null;
+            for(Spells spell in Spells.values) {
+              if (spell.combine == currentCombination) {
+                castedSpell = spell;
+                break;
+              }
+            }
+            if (castedSpell == null) return;
+            context.read<BossProvider>().switchAbility(castedSpell); 
         }
         print(element.name);
       },
     );
   }
 
-  Widget ability() {
+  Widget abilitySlot() {
     var castedAbility = context.watch<BossProvider>().castedAbility;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: List.generate(2,(index) => BouncingButton(
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            border:
-                Border.all(strokeAlign: BorderSide.strokeAlignOutside),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.black,
-                blurRadius: 8,
-              ),
-            ],
-          ),
-          child: castedAbility.length < index + 1
-              ? emptyAbilitySlot()
-              : Image.asset(castedAbility[index].image, width: context.dynamicWidth(0.2)).wrapClipRRect(BorderRadius.circular(8)),
+      children: List.generate(2,(index) => DecoratedBox(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.black,
+              blurRadius: 8,
+            ),
+          ],
         ),
-        onPressed: () {
-          print("aa");
-          print(castedAbility[index].combine);
-        },
+        child: castedAbility.length < index + 1
+          ? emptyAbilitySlot()
+          : BouncingButton(
+              child: Stack(
+                children: [
+                  Image.asset(
+                    castedAbility[index].image, 
+                    width: context.dynamicWidth(0.2)
+                  ).wrapClipRRect(BorderRadius.circular(8)),
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: Text(
+                      castedAbility[index].mana.toStringAsFixed(0),
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontSize: context.sp(16),
+                        fontWeight: FontWeight.w500,
+                        shadows: List.generate(6, (index) => Shadow(blurRadius: 8)),
+                      ),
+                    ).wrapPadding(EdgeInsets.only(right: 4)),
+                  ),
+                ],
+              ),
+            onPressed: () {
+              SoundManager.instance.spellCastTriggerSound(castedAbility[index].combine);
+            },
+          ),
       )).toList(),
     );
   }

@@ -9,7 +9,8 @@ import '../providers/game_provider.dart';
 
 mixin OrbMixin<T extends StatefulWidget> on State<T> {
 
-  List<String> currentCombination=['q','w','e'];
+  List<String> _currentCombination=['q','w','e'];
+  String get currentCombination => _currentCombination.join();
 
   BoxDecoration qwerAbilityDecoration(Color color) => BoxDecoration(
     borderRadius: BorderRadius.circular(2),
@@ -54,8 +55,8 @@ mixin OrbMixin<T extends StatefulWidget> on State<T> {
 
   void switchOrb(Elements element) {
     selectedOrbs.removeAt(0);
-    currentCombination.removeAt(0);
-    currentCombination.add(element.getKey);
+    _currentCombination.removeAt(0);
+    _currentCombination.add(element.getKey);
     selectedOrbs.add(orb(element));
     context.read<GameProvider>().updateView();
     context.read<BossProvider>().updateView();

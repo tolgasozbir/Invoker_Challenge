@@ -179,7 +179,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
         return switchOrb(element);
       case Elements.invoke:
         if(!timerProvider.isStart) return;
-        if (currentCombination.toString() == spellProvider.getNextCombination.toString()) {
+        if (currentCombination == spellProvider.getNextCombination) {
           timerProvider.increaseCorrectCounter();
           SoundManager.instance.trueCombinationSound(spellProvider.getNextCombination);
           _animKey.currentState?.playAnimation(IconType.True);
@@ -201,7 +201,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
         return switchOrb(element);
       case Elements.invoke:
         if(!timerProvider.isStart) return;
-        if (currentCombination.toString() == spellProvider.getNextCombination.toString()) {
+        if (currentCombination == spellProvider.getNextCombination) {
           timerProvider.increaseCorrectCounter();
           SoundManager.instance.trueCombinationSound(spellProvider.getNextCombination);
           _animKey.currentState?.playAnimation(IconType.True);
@@ -226,7 +226,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
         return switchOrb(element);
       case Elements.invoke:
         if (!timerProvider.isStart) return;
-        if (currentCombination.toString() == spellProvider.getNextCombination.toString()) {
+        if (currentCombination == spellProvider.getNextCombination) {
           timerProvider.increaseCorrectCounter();
           SoundManager.instance.trueCombinationSound(spellProvider.getNextCombination);
           _animKey.currentState?.playAnimation(IconType.True);
