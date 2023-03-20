@@ -229,7 +229,17 @@ class SoundPaths {
   static const String tornado2 = '$_spellSounds/tornado2.mp3';
   static const String tornado3 = '$_spellSounds/tornado3.mp3';
 
+  //Spell Cast and Trigger Sounds
   static const String coldSnapCast = '$_castTriggerSounds/cold_snap_cast.mpeg';
   static const String coldSnapTrigger = '$_castTriggerSounds/cold_snap_trigger.mpeg';
+  static const String ghostWalkCast = '$_castTriggerSounds/ghost_walk_cast.mpeg';
+  static const String iceWallCast = '$_castTriggerSounds/ice_wall_cast.mpeg';
+  static const String empCast = '$_castTriggerSounds/emp_cast.mpeg';
+  static const String tornadoCast = '$_castTriggerSounds/tornado_cast.mpeg';
+  static const String alacrityCast = '$_castTriggerSounds/alacrity_cast.mpeg';
+  static const String deafeningBlastCast = '$_castTriggerSounds/deafening_blast_cast.mpeg';
+  static const String sunStrikeCast = '$_castTriggerSounds/sun_strike_cast.mpeg';
+  static const String forgeSpiritCast = '$_castTriggerSounds/forge_spirit_cast.mpeg';
+  static const String chaosMeteorCast = '$_castTriggerSounds/chaos_meteor_cast.mpeg';
 
 }

@@ -77,21 +77,21 @@ class SoundManager {
   void spellCastTriggerSound(String combination){
     trueCombinationSound(combination);
     switch (combination) {
-      case 'qqq': coldSnapCastAndTrigger(); break;
-      case 'qqw': _playSound(fileName: _ghostWalkSound[_rnd.nextInt(_ghostWalkSound.length)],); break;
-      case 'qqe': _playSound(fileName: _iceWallSound[_rnd.nextInt(_iceWallSound.length)],); break;
-      case 'www': _playSound(fileName: _emp[_rnd.nextInt(_emp.length)],); break;
-      case 'wwq': _playSound(fileName: _tornado[_rnd.nextInt(_tornado.length)],); break;
-      case 'wwe': _playSound(fileName: _alacrity[_rnd.nextInt(_alacrity.length)],); break;
-      case 'eee': _playSound(fileName: _sunStrike[_rnd.nextInt(_sunStrike.length)],); break;
-      case 'eeq': _playSound(fileName: _forgeSpirit[_rnd.nextInt(_forgeSpirit.length)],); break;
-      case 'eew': _playSound(fileName: _chaosMeteor[_rnd.nextInt(_chaosMeteor.length)],); break;
-      case 'qwe': _playSound(fileName: _blast[_rnd.nextInt(_blast.length)],); break;
+      case 'qqq': _coldSnapCastAndTrigger(); break;
+      case 'qqw': _ghostWalkCast(); break;
+      case 'qqe': _iceWallCast(); break;
+      case 'www': _empCast(); break;
+      case 'wwq': _tornadoCast(); break;
+      case 'wwe': _alacrityCast(); break;
+      case 'qwe': _deafeningBlastCast(); break;
+      case 'eee': _sunStrikeCast(); break;
+      case 'eeq': _forgeSpiritCast(); break;
+      case 'eew': _chaosMeteorCast(); break;
       default : failCombinationSound();
     }
   }
 
-  void coldSnapCastAndTrigger() {
+  void _coldSnapCastAndTrigger() {
     var counter = 0;
     _playSound(volume: 0.15, fileName: SoundPaths.coldSnapCast);
     Timer.periodic(Duration(seconds: 1), (timer) {
@@ -99,6 +99,42 @@ class SoundManager {
       _playSound(volume: (0.15 - ((counter/100)*1.5)), fileName: SoundPaths.coldSnapTrigger);
       if (counter==5) timer.cancel();
     });
+  }
+  
+  void _ghostWalkCast() {
+    _playSound(volume: 0.2, fileName: SoundPaths.ghostWalkCast);
+  }
+  
+  void _iceWallCast() {
+    _playSound(volume: 0.15, fileName: SoundPaths.iceWallCast);
+  }
+  
+  void _empCast() {
+    _playSound(volume: 0.15, fileName: SoundPaths.empCast);
+  }
+  
+  void _tornadoCast() {
+    _playSound(volume: 0.2, fileName: SoundPaths.tornadoCast);
+  }
+  
+  void _alacrityCast() {
+    _playSound(volume: 0.15, fileName: SoundPaths.alacrityCast);
+  }
+  
+  void _deafeningBlastCast() {
+    _playSound(volume: 0.2, fileName: SoundPaths.deafeningBlastCast);
+  }
+  
+  void _sunStrikeCast() {
+    _playSound(volume: 0.2, fileName: SoundPaths.sunStrikeCast);
+  }
+  
+  void _forgeSpiritCast() {
+    _playSound(volume: 0.2, fileName: SoundPaths.forgeSpiritCast);
+  }
+  
+  void _chaosMeteorCast() {
+    _playSound(volume: 0.2, fileName: SoundPaths.chaosMeteorCast);
   }
 
   //spells
