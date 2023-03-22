@@ -1,10 +1,13 @@
 import 'dart:math';
+import 'package:dota2_invoker_game/constants/app_strings.dart';
 import 'package:dota2_invoker_game/enums/Bosses.dart';
 import 'package:dota2_invoker_game/enums/spells.dart';
 import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/inventory_hud.dart';
 import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/mana_bar.dart';
+import 'package:dota2_invoker_game/widgets/app_snackbar.dart';
 import 'package:snappable_thanos/snappable_thanos.dart';
 
+import '../../../models/ability_cooldown.dart';
 import '../../../widgets/cooldown_animation.dart';
 import 'widgets/shop_button.dart';
 import 'widgets/weather/weather.dart';
@@ -52,17 +55,30 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
       appBar: AppBar(
         leading: BackButton(
           onPressed: () {
-            //TODO: android back button içinde yapılcak canpop değilse snackbar çıkar
-            var canPop = context.read<BossProvider>().snapIsDone;
-            if (canPop) Navigator.pop(context);
+            if (backButtonFn()) Navigator.pop(context);
           },
         ),
         actions: [
           ShopButton(),
         ],
       ),
-      body: bodyView(),
+      body: WillPopScope(
+        child: bodyView(),
+        onWillPop: () async => backButtonFn(),
+      ),
     );
+  }
+
+  bool backButtonFn() {
+    var canPop = context.read<BossProvider>().snapIsDone;
+    if (!canPop) {
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      AppSnackBar.showSnackBarMessage(
+        text: AppStrings.sbWaitAnimation, 
+        snackBartype: SnackBarType.info
+      );
+    }
+    return canPop;
   }
 
   Widget bodyView() {

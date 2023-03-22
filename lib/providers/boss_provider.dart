@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
 import 'dart:developer';
 import 'dart:math' as math;
@@ -9,7 +8,7 @@ import 'package:snappable_thanos/snappable_thanos.dart';
 import 'package:dota2_invoker_game/enums/Bosses.dart';
 import 'package:dota2_invoker_game/enums/spells.dart';
 
-import '../services/sound_manager.dart';
+import '../models/ability_cooldown.dart';
 import 'user_manager.dart';
 
 class BossProvider extends ChangeNotifier {
@@ -18,7 +17,7 @@ class BossProvider extends ChangeNotifier {
   bool started = false;
 
   //Circle Values
-  int get roundUnit => Bosses.values.length;//12;
+  int get roundUnit => Bosses.values.length;
   int get healthUnit => 60;
   int get timeUnits => 180;
   int roundProgress = -1;
@@ -155,26 +154,6 @@ class BossProvider extends ChangeNotifier {
     var index = Spells.values.indexOf(spell);
     SpellCooldowns[index].onPressedAbility();
     notifyListeners();
-  }
-
-}
-
-class AbilityCooldown {
-  Spells spell;
-  DateTime _lastPressedAt = DateTime.now().subtract(Duration(minutes: 1));
-  double get cooldownLeft => spell.cooldown - (DateTime.now().difference(_lastPressedAt).inSeconds);
-
-  AbilityCooldown({required this.spell});
-
-  void onPressedAbility() {
-    if (DateTime.now().difference(_lastPressedAt) > Duration(seconds: spell.cooldown.toInt())) {
-      _lastPressedAt = DateTime.now();
-      SoundManager.instance.spellCastTriggerSound(spell.combine);
-      //todo : check mana control if has mana use spell
-    } else {
-      //TODO: not time yet
-      SoundManager.instance.playMeepMerp();
-    }
   }
 
 }
