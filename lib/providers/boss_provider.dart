@@ -1,12 +1,15 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
 import 'dart:developer';
 import 'dart:math' as math;
 
-import 'package:dota2_invoker_game/enums/Bosses.dart';
-import 'package:dota2_invoker_game/enums/spells.dart';
 import 'package:flutter/material.dart';
 import 'package:snappable_thanos/snappable_thanos.dart';
 
+import 'package:dota2_invoker_game/enums/Bosses.dart';
+import 'package:dota2_invoker_game/enums/spells.dart';
+
+import '../services/sound_manager.dart';
 import 'user_manager.dart';
 
 class BossProvider extends ChangeNotifier {
@@ -45,12 +48,12 @@ class BossProvider extends ChangeNotifier {
 
   double get baseDamage => UserManager.instance.user.level * 5;
 
-  List<Spells> _castedAbility = [];
-  List<Spells> get castedAbility => _castedAbility;
+  List<AbilityCooldown> _castedAbility = [];
+  List<AbilityCooldown> get castedAbility => _castedAbility;
 
-  void switchAbility(Spells spell) {
-    if (_castedAbility.length > 1 && spell.combine == _castedAbility.first.combine) return;
-    _castedAbility.insert(0, spell);
+  void switchAbility(AbilityCooldown abilityCooldown) {
+    if (_castedAbility.length > 1 && abilityCooldown.spell.combine == _castedAbility.first.spell.combine) return;
+    _castedAbility.insert(0, abilityCooldown);
     while (_castedAbility.length > 2) {
       _castedAbility.removeLast();
     }
@@ -124,12 +127,6 @@ class BossProvider extends ChangeNotifier {
     });
   }
 
-
-
-
-
-
-
   void updateView() {
     notifyListeners();
   }
@@ -151,6 +148,33 @@ class BossProvider extends ChangeNotifier {
     if (_timer == null) return;
     _timer?.cancel();
     _timer = null;
+  }
+
+  List<AbilityCooldown> SpellCooldowns = Spells.values.map((e) => AbilityCooldown(spell: e)).toList();
+  void onPressedAbility(Spells spell) async {
+    var index = Spells.values.indexOf(spell);
+    SpellCooldowns[index].onPressedAbility();
+    notifyListeners();
+  }
+
+}
+
+class AbilityCooldown {
+  Spells spell;
+  DateTime _lastPressedAt = DateTime.now().subtract(Duration(minutes: 1));
+  double get cooldownLeft => spell.cooldown - (DateTime.now().difference(_lastPressedAt).inSeconds);
+
+  AbilityCooldown({required this.spell});
+
+  void onPressedAbility() {
+    if (DateTime.now().difference(_lastPressedAt) > Duration(seconds: spell.cooldown.toInt())) {
+      _lastPressedAt = DateTime.now();
+      SoundManager.instance.spellCastTriggerSound(spell.combine);
+      //todo : check mana control if has mana use spell
+    } else {
+      //TODO: not time yet
+      SoundManager.instance.playMeepMerp();
+    }
   }
 
 }

@@ -5,6 +5,7 @@ import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/inventory
 import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/mana_bar.dart';
 import 'package:snappable_thanos/snappable_thanos.dart';
 
+import '../../../widgets/cooldown_animation.dart';
 import 'widgets/shop_button.dart';
 import 'widgets/weather/weather.dart';
 
@@ -247,57 +248,69 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
               }
             }
             if (castedSpell == null) return;
-            context.read<BossProvider>().switchAbility(castedSpell); 
+            var index = Spells.values.indexOf(castedSpell);
+            var spll = context.read<BossProvider>().SpellCooldowns[index];
+            context.read<BossProvider>().switchAbility(spll);
         }
-        print(element.name);
       },
     );
   }
 
+  var boxDecoration = BoxDecoration(
+    borderRadius: BorderRadius.circular(8),
+    border: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
+    boxShadow: [
+      BoxShadow(
+        color: AppColors.black,
+        blurRadius: 8,
+      ),
+    ],
+  );
+
   Widget abilitySlot() {
-    var castedAbility = context.watch<BossProvider>().castedAbility;
+    var castedAbilities = context.watch<BossProvider>().castedAbility;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: List.generate(2,(index) => DecoratedBox(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          border: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.black,
-              blurRadius: 8,
+      children: List.generate(2, (index) => castedAbilities.length < index + 1 ? emptyAbilitySlot() : DecoratedBox(
+          decoration: boxDecoration,
+          child: abilityButton(castedAbilities[index]),
+        ),
+      ).toList(),
+    );
+  }
+
+  BouncingButton abilityButton(AbilityCooldown abilityCooldown) {
+    return BouncingButton(
+      child: CooldownAnimation(
+        key: ObjectKey(abilityCooldown.spell),
+        duration: Duration(seconds: abilityCooldown.spell.cooldown.toInt()),
+        remainingCd: abilityCooldown.cooldownLeft,
+        child: Stack(
+          children: [
+            Image.asset(
+              abilityCooldown.spell.image, 
+              width: context.dynamicWidth(0.2)
+            ).wrapClipRRect(BorderRadius.circular(8)),
+            Positioned(
+              bottom: 0,
+              right: 0,
+              child: Text(
+                abilityCooldown.spell.mana.toStringAsFixed(0),
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontSize: context.sp(16),
+                  fontWeight: FontWeight.w500,
+                  shadows: List.generate(6, (index) => Shadow(blurRadius: 8)),
+                ),
+              ).wrapPadding(EdgeInsets.only(right: 4)),
             ),
           ],
         ),
-        child: castedAbility.length < index + 1
-          ? emptyAbilitySlot()
-          : BouncingButton(
-              child: Stack(
-                children: [
-                  Image.asset(
-                    castedAbility[index].image, 
-                    width: context.dynamicWidth(0.2)
-                  ).wrapClipRRect(BorderRadius.circular(8)),
-                  Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: Text(
-                      castedAbility[index].mana.toStringAsFixed(0),
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontSize: context.sp(16),
-                        fontWeight: FontWeight.w500,
-                        shadows: List.generate(6, (index) => Shadow(blurRadius: 8)),
-                      ),
-                    ).wrapPadding(EdgeInsets.only(right: 4)),
-                  ),
-                ],
-              ),
-            onPressed: () {
-              SoundManager.instance.spellCastTriggerSound(castedAbility[index].combine);
-            },
-          ),
-      )).toList(),
+      ),
+      onPressed: () {
+        var provider = context.read<BossProvider>();
+        provider.onPressedAbility(abilityCooldown.spell);
+      },
     );
   }
 
