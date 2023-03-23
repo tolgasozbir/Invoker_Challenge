@@ -35,7 +35,7 @@ class BossProvider extends ChangeNotifier {
   //Mana Bar
 
   final double totalMana = 200 + UserManager.instance.user.level * 67;
-  double currentMana = 0 + UserManager.instance.user.level * 67;
+  double currentMana = 200 + UserManager.instance.user.level * 67;
   final double baseManaRegen = UserManager.instance.user.level * 0.27;
   double get manaBarWidthMultiplier => ((currentMana / totalMana) * 100) / 100;
 
@@ -85,7 +85,7 @@ class BossProvider extends ChangeNotifier {
 
   
   void autoHit(){
-    var damage = baseDamage + rng.nextInt(10) +2000;
+    var damage = baseDamage + rng.nextInt(10) +200;
     var health = currentBoss.getHp / healthUnit;
     var totalDamge = damage/health;
     healthProgress += totalDamge;

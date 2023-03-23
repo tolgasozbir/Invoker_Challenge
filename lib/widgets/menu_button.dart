@@ -91,7 +91,7 @@ class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateM
 
   void _goToGameScreen() {
     if (widget.navigatePage == null) return;
-    SoundManager.instance.playSoundBegining();
+    SoundManager.instance.playLoadingSound();
     context.read<GameProvider>().resetTimer();
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
     Navigator.push(context, MaterialPageRoute(builder: (context)=> LoadingView(page: widget.navigatePage!)));

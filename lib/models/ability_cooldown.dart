@@ -19,7 +19,7 @@ class AbilityCooldown {
       //no mana
       return false;
     } else {
-      //TODO: not time yet
+      SoundManager.instance.playAbilityOnCooldownSound();
       return false;
     }
   }

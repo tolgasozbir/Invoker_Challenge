@@ -43,9 +43,19 @@ class SoundManager {
     _playSound(fileName: SoundPaths.invoke);
   }
 
-  void playSoundBegining(){
+  DateTime lastPlayedCdTime = DateTime.now();
+  void playAbilityOnCooldownSound() {
+    if (!(DateTime.now().difference(lastPlayedCdTime) > Duration(seconds: 1))) return;
+    lastPlayedCdTime = DateTime.now();
+    int soundNum = _rnd.nextInt(3) + 1;
+    int soundLevel = _rnd.nextInt(3) + 1;
+    String sound = SoundPaths.abilityOnCooldown+"/notyet_${soundNum}_${soundLevel}.mpeg";
+    _playSound(fileName: sound);
+  }
+
+  void playLoadingSound(){
     _playSound(
-      fileName: _beginingSound[_rnd.nextInt(_beginingSound.length)], 
+      fileName: _loadingSound[_rnd.nextInt(_loadingSound.length)], 
       volume: 0.40,
     );
   }
@@ -195,7 +205,7 @@ class SoundManager {
   ];
 
   //loading
-  final List<String> _beginingSound=[
+  final List<String> _loadingSound=[
     SoundPaths.begin1,
     SoundPaths.begin2,
     SoundPaths.begin3,

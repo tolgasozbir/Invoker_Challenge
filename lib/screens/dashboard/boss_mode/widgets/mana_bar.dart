@@ -65,7 +65,7 @@ class _ManaBarState extends State<ManaBar> {
               Row(
                 children: [
                   NumberAnimation(
-                    key: UniqueKey(),
+                    key: ObjectKey(context.watch<BossProvider>().currentMana),
                     initialValue: context.watch<BossProvider>().currentMana, 
                     increment: context.watch<BossProvider>().baseManaRegen,
                     maxValue: context.watch<BossProvider>().totalMana,
