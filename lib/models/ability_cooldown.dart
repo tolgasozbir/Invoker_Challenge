@@ -10,13 +10,13 @@ class AbilityCooldown {
 
   bool onPressedAbility(double currentMana) {
     if (DateTime.now().difference(_lastPressedAt) > Duration(seconds: spell.cooldown.toInt())) {
-      _lastPressedAt = DateTime.now();
       bool canUseAbility = currentMana >= spell.mana;
       if (canUseAbility) {
+        _lastPressedAt = DateTime.now();
         SoundManager.instance.spellCastTriggerSound(spell.combine);
         return true;
       }
-      //no mana
+      SoundManager.instance.playNoManaSound();
       return false;
     } else {
       SoundManager.instance.playAbilityOnCooldownSound();

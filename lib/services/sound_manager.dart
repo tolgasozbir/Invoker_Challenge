@@ -47,9 +47,17 @@ class SoundManager {
   void playAbilityOnCooldownSound() {
     if (!(DateTime.now().difference(lastPlayedCdTime) > Duration(seconds: 1))) return;
     lastPlayedCdTime = DateTime.now();
-    int soundNum = _rnd.nextInt(3) + 1;
-    int soundLevel = _rnd.nextInt(3) + 1;
-    String sound = SoundPaths.abilityOnCooldown+"/notyet_${soundNum}_${soundLevel}.mpeg";
+    int soundNum = _rnd.nextInt(9) + 1;
+    String sound = SoundPaths.abilityOnCooldown+"$soundNum.mpeg";
+    _playSound(fileName: sound);
+  }  
+  
+  DateTime lastPlayedNoManaTime = DateTime.now();
+  void playNoManaSound() {
+    if (!(DateTime.now().difference(lastPlayedNoManaTime) > Duration(seconds: 1))) return;
+    lastPlayedNoManaTime = DateTime.now();
+    int soundNum = _rnd.nextInt(9) + 1;
+    String sound = SoundPaths.notEnoughMana+"$soundNum.mpeg";
     _playSound(fileName: sound);
   }
 

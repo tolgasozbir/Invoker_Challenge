@@ -166,7 +166,11 @@ class SoundPaths {
   static const String _spellSounds = '$_root/spell_sounds';
   static const String _castTriggerSounds = '$_spellSounds/cast_trigger_sounds';
   static const String _misc = '$_root/misc';
-  static const String abilityOnCooldown = '$_root/ability_on_cooldown';
+
+  //Ability on cooldown sounds
+  static const String abilityOnCooldown = '$_root/ability_on_cooldown/notyet';
+  //Not enough mana sounds
+  static const String notEnoughMana = '$_root/not_enough_mana/nomana';
 
   //misc
   static const String meepMerp = '$_misc/meep_merp.mp3';
