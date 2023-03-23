@@ -8,14 +8,19 @@ class AbilityCooldown {
 
   AbilityCooldown({required this.spell});
 
-  void onPressedAbility() {
+  bool onPressedAbility(double currentMana) {
     if (DateTime.now().difference(_lastPressedAt) > Duration(seconds: spell.cooldown.toInt())) {
       _lastPressedAt = DateTime.now();
-      SoundManager.instance.spellCastTriggerSound(spell.combine);
-      //todo : check mana control if has mana use spell
+      bool canUseAbility = currentMana >= spell.mana;
+      if (canUseAbility) {
+        SoundManager.instance.spellCastTriggerSound(spell.combine);
+        return true;
+      }
+      //no mana
+      return false;
     } else {
       //TODO: not time yet
-      SoundManager.instance.playMeepMerp();
+      return false;
     }
   }
 

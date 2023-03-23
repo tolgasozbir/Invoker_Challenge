@@ -9,6 +9,7 @@ import 'package:dota2_invoker_game/enums/Bosses.dart';
 import 'package:dota2_invoker_game/enums/spells.dart';
 
 import '../models/ability_cooldown.dart';
+import '../services/sound_manager.dart';
 import 'user_manager.dart';
 
 class BossProvider extends ChangeNotifier {
@@ -30,7 +31,30 @@ class BossProvider extends ChangeNotifier {
   double currentBossHp = 0;
   final bossList = Bosses.values;
   var currentBoss = Bosses.values.first;
-  
+
+  //Mana Bar
+
+  final double totalMana = 200 + UserManager.instance.user.level * 67;
+  double currentMana = 0 + UserManager.instance.user.level * 67;
+  final double baseManaRegen = UserManager.instance.user.level * 0.27;
+  double get manaBarWidthMultiplier => ((currentMana / totalMana) * 100) / 100;
+
+  void manaRegenFn() {
+    if (currentMana < totalMana) {
+      currentMana += baseManaRegen;
+      if (currentMana > totalMana) {
+        currentMana = totalMana;
+      }
+    }
+  }
+
+  updateCurrentMana(double val) {
+    currentMana += val;
+  }
+
+  //
+
+  //
   final snappableKey = GlobalKey<SnappableState>();
   bool snapIsDone = true;
   void changeSnapStatus () {
@@ -87,6 +111,7 @@ class BossProvider extends ChangeNotifier {
     currentBossHp = currentBoss.getHp;
     healthProgress = 0;
     timeProgress = 0;
+    currentMana = totalMana;
     notifyListeners();
   }
 
@@ -121,6 +146,7 @@ class BossProvider extends ChangeNotifier {
       _increaseTime();
       hit();
       checkTimeOrHp();
+      manaRegenFn();
       //if (!started) timer.cancel();
       notifyListeners();
     });
@@ -151,8 +177,15 @@ class BossProvider extends ChangeNotifier {
 
   List<AbilityCooldown> SpellCooldowns = Spells.values.map((e) => AbilityCooldown(spell: e)).toList();
   void onPressedAbility(Spells spell) async {
+    if (!started) {
+      SoundManager.instance.playMeepMerp();
+      return;
+    }
     var index = Spells.values.indexOf(spell);
-    SpellCooldowns[index].onPressedAbility();
+    var spellUsed = SpellCooldowns[index].onPressedAbility(currentMana);
+    if (spellUsed) {
+      updateCurrentMana(-spell.mana);
+    }
     notifyListeners();
   }
 

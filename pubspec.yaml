@@ -76,6 +76,7 @@ flutter:
     - assets/sounds/spell_sounds/
     - assets/sounds/spell_sounds/cast_trigger_sounds/
     - assets/sounds/misc/
+    - assets/sounds/ability_on_cooldown/
 
     - assets/lottie/
     - assets/svg/

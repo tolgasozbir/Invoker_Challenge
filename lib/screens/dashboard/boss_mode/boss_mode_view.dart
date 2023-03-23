@@ -37,6 +37,17 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
   late BossProvider provider;
   var gradient2 = [const Color(0xFFE20D17), const Color(0xFFB50DE2)];
 
+  final boxDecoration = BoxDecoration(
+    borderRadius: BorderRadius.circular(8),
+    border: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
+    boxShadow: [
+      BoxShadow(
+        color: AppColors.black,
+        blurRadius: 8,
+      ),
+    ],
+  );
+
   @override
   void initState() {
     provider = context.read<BossProvider>();
@@ -271,17 +282,6 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
       },
     );
   }
-
-  var boxDecoration = BoxDecoration(
-    borderRadius: BorderRadius.circular(8),
-    border: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
-    boxShadow: [
-      BoxShadow(
-        color: AppColors.black,
-        blurRadius: 8,
-      ),
-    ],
-  );
 
   Widget abilitySlot() {
     var castedAbilities = context.watch<BossProvider>().castedAbility;
