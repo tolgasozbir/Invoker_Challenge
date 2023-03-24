@@ -49,7 +49,7 @@ class BossProvider extends ChangeNotifier {
   }
 
   updateCurrentMana(double val) {
-    currentMana += val;
+    currentMana -= val;
   }
 
   //
@@ -69,7 +69,8 @@ class BossProvider extends ChangeNotifier {
     changeSnapStatus();
   }
 
-  double get baseDamage => UserManager.instance.user.level * 5;
+  double get baseDamage => UserManager.instance.user.level * 5 + rng.nextDouble() * 10;
+  double spellDamage = 0;
 
   List<AbilityCooldown> _castedAbility = [];
   List<AbilityCooldown> get castedAbility => _castedAbility;
@@ -85,17 +86,21 @@ class BossProvider extends ChangeNotifier {
 
   
   void autoHit(){
-    var damage = baseDamage + rng.nextInt(10) +200;
     var health = currentBoss.getHp / healthUnit;
-    var totalDamge = damage/health;
+    var totalDamge = baseDamage/health;
     healthProgress += totalDamge;
-    dps = damage;
+    dps += baseDamage;
     currentBossHp = currentBoss.getHp - (healthProgress * health);
     print(currentBoss.name + " Hp : " + (currentBoss.getHp - (healthProgress * health)).toStringAsFixed(0));
   }
 
-  void hit() {
-    autoHit();
+  void hitWithSpell(double damage) {
+    var health = currentBoss.getHp / healthUnit;
+    var totalDamge = damage/health;
+    healthProgress += totalDamge;
+    dps += damage;
+    currentBossHp = currentBoss.getHp - (healthProgress * health);
+    notifyListeners();
   }
 
   void _increaseTime() {
@@ -143,8 +148,10 @@ class BossProvider extends ChangeNotifier {
     nextRound();
     if (_timer != null) return;
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      dps = 0;
       _increaseTime();
-      hit();
+      autoHit();
+      hitWithSpell(spellDamage);
       checkTimeOrHp();
       manaRegenFn();
       //if (!started) timer.cancel();
@@ -184,9 +191,16 @@ class BossProvider extends ChangeNotifier {
     var index = Spells.values.indexOf(spell);
     var spellUsed = SpellCooldowns[index].onPressedAbility(currentMana);
     if (spellUsed) {
-      updateCurrentMana(-spell.mana);
+      updateCurrentMana(spell.mana);
+      if (spell.duration == 0) {
+        spellDamage += spell.damage;
+        await Future.delayed(Duration(seconds: 1), () => spellDamage -= spell.damage );
+      }
+      else {
+        spellDamage += spell.damage;
+        await Future.delayed(Duration(seconds: spell.duration), () => spellDamage -= spell.damage );
+      }
     }
-    notifyListeners();
   }
 
 }
