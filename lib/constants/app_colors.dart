@@ -25,6 +25,7 @@ class AppColors {
   static const Color fbSendBtn = Color(0xFF0A4C9D); //feedback send button
 
   static const Color expBarColor       = Color(0xFFFFC000);
+  static const Color goldColor         = Color(0xFFFFD035);
   static const Color orbsShadow        = Color(0x89000000);
   static const Color spellHelperShadow = Colors.black12;
 

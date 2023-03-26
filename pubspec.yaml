@@ -64,11 +64,12 @@ flutter:
 
     - assets/images/splash_images/
     - assets/images/qwe_gifs/
-    - assets/images/other/
+    - assets/images/misc/
     - assets/images/elements/
     - assets/images/spells/
     - assets/images/achievements/
     - assets/images/bosses/
+    - assets/images/items/
 
     - assets/sounds/fail_sounds/
     - assets/sounds/gg_sounds/

@@ -108,10 +108,11 @@ class ImagePaths {
   static const String _root = 'assets/images';
   static const String _splash = '$_root/splash_images';
   static const String _qweGif = '$_root/qwe_gifs';
-  static const String _other = '$_root/other';
+  static const String _misc = '$_root/misc';
   static const String elements = '$_root/elements/';
   static const String spells = '$_root/spells/';
   static const String bosses = '$_root/bosses/';
+  static const String items = '$_root/items/';
 
   //svg
   static const String _svgRoot = 'assets/svg';
@@ -143,15 +144,16 @@ class ImagePaths {
   static const String wex = '$_qweGif/wex.gif';
   static const String exort = '$_qweGif/exort.gif';  
   //other
-  static const String spellImage = '$_other/quas-wex-exort.jpg';
-  static const String loadingGif = '$_other/qweLoading.gif';
-  static const String todClock =   '$_other/time_of_day_clock.png';
-  static const String profilePic = '$_other/profile.jpeg';
-  static const String icFlutter =  '$_other/ic_flutter.png';
-  static const String icCsharp =   '$_other/ic_csharp.png';
-  static const String icFirebase = '$_other/ic_firebase.png';
-  static const String icInvokerHead = '$_other/ic_invoker_head.png';
-  static const String icInvokeLine = '$_other/ic_invoke_line.png';
+  static const String spellImage = '$_misc/quas-wex-exort.jpg';
+  static const String loadingGif = '$_misc/qweLoading.gif';
+  static const String todClock =   '$_misc/time_of_day_clock.png';
+  static const String profilePic = '$_misc/profile.jpeg';
+  static const String icFlutter =  '$_misc/ic_flutter.png';
+  static const String icCsharp =   '$_misc/ic_csharp.png';
+  static const String icFirebase = '$_misc/ic_firebase.png';
+  static const String icInvokerHead = '$_misc/ic_invoker_head.png';
+  static const String icInvokeLine = '$_misc/ic_invoke_line.png';
+  static const String gold = '$_misc/gold.png';
 
   static const String icAchievements = '$_root/achievements/ic_achievements.png';
 

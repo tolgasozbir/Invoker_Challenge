@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:math' as math;
 
+import 'package:dota2_invoker_game/enums/items.dart';
 import 'package:flutter/material.dart';
 import 'package:snappable_thanos/snappable_thanos.dart';
 
@@ -81,7 +82,22 @@ class BossProvider extends ChangeNotifier {
   _spendMana(double val) {
     currentMana -= val;
   }
-///-----     End Mana Bar Values     -----///
+  ///-----     End Mana Bar Values     -----///
+
+  ///-----     Inventory     -----///
+  
+  //TODO: gold eklencek
+  List<Items> _inventory = [];
+  List<Items> get inventory => _inventory;
+
+  void addItemToInventory(Items item) {
+    _inventory.add(item);
+    notifyListeners();
+  }
+
+
+  ///-----     EndInventory     -----///
+
 
 
   //F-D Keys Casted Abilities

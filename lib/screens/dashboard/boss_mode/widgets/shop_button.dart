@@ -1,3 +1,4 @@
+import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/shop_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../widgets/bouncing_button.dart';
@@ -53,6 +54,8 @@ class ShopButton extends StatelessWidget {
       ),
       onPressed: () {
         print("Shop");
+        //hohoh you found me sound
+        Navigator.push(context, MaterialPageRoute(builder: (context) => ShopView(),));
       },
     );
   }
