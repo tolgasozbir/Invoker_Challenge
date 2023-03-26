@@ -56,7 +56,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
 
   @override
   void dispose() {
-    provider.disposeTimer();
+    provider.disposeGame();
     super.dispose();
   }
 
@@ -276,8 +276,8 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
             }
             if (castedSpell == null) return;
             var index = Spells.values.indexOf(castedSpell);
-            var spll = context.read<BossProvider>().SpellCooldowns[index];
-            context.read<BossProvider>().switchAbility(spll);
+            var spell = context.read<BossProvider>().SpellCooldowns[index];
+            context.read<BossProvider>().switchAbility(spell);
         }
       },
     );

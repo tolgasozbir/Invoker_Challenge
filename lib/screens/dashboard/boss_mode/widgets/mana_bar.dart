@@ -136,17 +136,17 @@ class _NumberAnimationState extends State<NumberAnimation> with SingleTickerProv
     );
   }
 
-  void update({required double initialValue, required double increment}) {
-    setState(() {
-      _currentValue = initialValue;
-      _animation = Tween(begin: _currentValue, end: _currentValue + increment)
-          .animate(_controller)
-            ..addListener(() {
-              setState(() {});
-            });
-    });
+  // void update({required double initialValue, required double increment}) {
+  //   setState(() {
+  //     _currentValue = initialValue;
+  //     _animation = Tween(begin: _currentValue, end: _currentValue + increment)
+  //         .animate(_controller)
+  //           ..addListener(() {
+  //             setState(() {});
+  //           });
+  //   });
 
-    _controller.reset();
-    _controller.forward();
-  }
+  //   _controller.reset();
+  //   _controller.forward();
+  // }
 }
