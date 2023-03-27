@@ -1,12 +1,12 @@
-import 'package:dota2_invoker_game/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 
 class CooldownAnimation extends StatefulWidget {
   final Widget child;
   final double remainingCd;
   final Duration duration; 
+  final double size;
 
-  const CooldownAnimation({super.key, required this.child, required this.duration, required this.remainingCd});
+  const CooldownAnimation({super.key, required this.child, required this.duration, required this.remainingCd, required this.size});
 
   @override
   _CooldownAnimationState createState() => _CooldownAnimationState();
@@ -90,8 +90,8 @@ class _CooldownAnimationState extends State<CooldownAnimation> with SingleTicker
                   opacity: _opacity.value == 0.0 ? 1.0 : _opacity.value,
                   child: Container(
                     color: Colors.black,
-                    height: _animation.value * context.dynamicWidth(0.2),
-                    width: context.dynamicWidth(0.2),
+                    height: _animation.value * widget.size,
+                    width: widget.size,
                   ),
                 ),
                 AnimatedCrossFade(
@@ -100,7 +100,7 @@ class _CooldownAnimationState extends State<CooldownAnimation> with SingleTicker
                   crossFadeState: _durationText.value != 0 ? CrossFadeState.showFirst : CrossFadeState.showSecond,
                   duration: Duration(milliseconds: 400), 
                   firstChild: SizedBox.square(
-                    dimension: context.dynamicWidth(0.2),
+                    dimension: widget.size,
                     child: Center(
                       child: Text(
                         _durationText.value.toStringAsFixed(0),
@@ -112,7 +112,7 @@ class _CooldownAnimationState extends State<CooldownAnimation> with SingleTicker
                       ),
                     ),
                   ),
-                  secondChild: SizedBox.square(dimension: context.dynamicWidth(0.2)),
+                  secondChild: SizedBox.square(dimension: widget.size),
                 ),
               ],
             );

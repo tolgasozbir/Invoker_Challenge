@@ -2,7 +2,10 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:math' as math;
 
+import 'package:dota2_invoker_game/constants/app_strings.dart';
 import 'package:dota2_invoker_game/enums/items.dart';
+import 'package:dota2_invoker_game/models/Item.dart';
+import 'package:dota2_invoker_game/widgets/app_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:snappable_thanos/snappable_thanos.dart';
 
@@ -20,6 +23,7 @@ class BossProvider extends ChangeNotifier {
   //Boss Game Values
   bool started = false;
   double get baseDamage => UserManager.instance.user.level * 5 + rng.nextDouble() * 16;
+  double bonusDamage = 0;
   double dps = 0; //Damage Per Seconds
   double spellDamage = 0; //Ability Damage
   //
@@ -57,9 +61,9 @@ class BossProvider extends ChangeNotifier {
   //
 
   ///-----     Mana Bar Values     -----///
-  final double totalMana = 200 + UserManager.instance.user.level * 67;
+  double totalMana = 200 + UserManager.instance.user.level * 67;
   double currentMana = 200 + UserManager.instance.user.level * 67;
-  final double baseManaRegen = UserManager.instance.user.level * 0.27;
+  double baseManaRegen = UserManager.instance.user.level * 0.27;
   double get manaBarWidthMultiplier => ((currentMana / totalMana) * 100) / 100;
 
   ///Increases the player's current mana by the base mana regeneration rate per second.
@@ -82,17 +86,106 @@ class BossProvider extends ChangeNotifier {
   _spendMana(double val) {
     currentMana -= val;
   }
+  
+  _addMana(double val) {
+    currentMana += val;
+    if (currentMana > totalMana) {
+      currentMana = totalMana;
+    }
+  }
   ///-----     End Mana Bar Values     -----///
 
   ///-----     Inventory     -----///
   
   //TODO: gold eklencek
-  List<Items> _inventory = [];
-  List<Items> get inventory => _inventory;
+  List<Item> _inventory = [];
+  List<Item> get inventory => _inventory;
 
-  void addItemToInventory(Items item) {
+  void addItemToInventory(Item item) {
+    if (inventory.length == 6) {
+      AppSnackBar.showSnackBarMessage(
+        text: AppStrings.sbInventoryFull, 
+        snackBartype: SnackBarType.error,
+      );
+      return;
+    }
     _inventory.add(item);
-    notifyListeners();
+    _buyItem(item);
+    currentMana = totalMana;
+    updateView();
+  }
+  
+  void removeItemToInventory(Item item) {
+    _inventory.remove(item);
+    _sellItem(item);
+    currentMana = totalMana;
+    updateView();
+  }
+
+  void _buyItem(Item item) {
+    switch (item.item) {
+      case Items.Null_talisman:
+        baseManaRegen += 1;
+        totalMana += 60;
+        break;
+      case Items.Void_stone:
+        baseManaRegen += 2.25;
+        break;
+      case Items.Arcane_boots:
+        totalMana += 250;
+        break;
+      case Items.Power_treads:
+        totalMana += 120;
+        bonusDamage += 12;
+        break;
+      case Items.Phase_boots:
+        bonusDamage += 30;
+        break;
+    }
+  }
+
+  void _sellItem(Item item) {
+    switch (item.item) {
+      case Items.Null_talisman:
+        baseManaRegen -= 1;
+        totalMana -= 60;
+        break;
+      case Items.Void_stone:
+        baseManaRegen -= 2.25;
+        break;
+      case Items.Arcane_boots:
+        totalMana -= 250;
+        break;
+      case Items.Power_treads:
+        totalMana -= 120;
+        bonusDamage -= 12;
+        break;
+      case Items.Phase_boots:
+        bonusDamage -= 30;
+        break;
+    }
+  }
+
+  onPressedItem(Item item) {
+    if (!started) { // If the started variable is false, play a meep merp sound and return from the function.
+      SoundManager.instance.playMeepMerp();
+      return;
+    }
+    var isItemUsed = item.onPressedItem(currentMana);
+    if (isItemUsed) {
+      _spendMana(item.item.mana ?? 0);
+      switch (item.item) {
+        case Items.Null_talisman:
+        case Items.Void_stone:
+        case Items.Power_treads:
+        case Items.Phase_boots:
+          break;
+        case Items.Arcane_boots:
+          _addMana(175);
+          break;
+      }
+      updateView();
+    }
   }
 
 
@@ -111,7 +204,7 @@ class BossProvider extends ChangeNotifier {
   ///
   ///[abilityCooldown] An AbilityCooldown object representing the used ability.
   void switchAbility(AbilityCooldown abilityCooldown) {
-    if (_castedAbility.length > 1 && abilityCooldown.spell.combine == _castedAbility.first.spell.combine) return;
+    if (_castedAbility.length >= 1 && abilityCooldown.spell.combine == _castedAbility.first.spell.combine) return;
     _castedAbility.insert(0, abilityCooldown);
     while (_castedAbility.length > 2) {
       _castedAbility.removeLast();
@@ -161,9 +254,9 @@ class BossProvider extends ChangeNotifier {
   /// this function is called inside the [_timer] object
   void _autoHit(){
     var health = currentBoss.getHp / healthUnit;
-    var totalDamge = baseDamage/health;
-    healthProgress += totalDamge;
-    dps += baseDamage;
+    var totalDamage = (baseDamage+bonusDamage)/health;
+    healthProgress += totalDamage;
+    dps += (baseDamage+bonusDamage);
     currentBossHp = currentBoss.getHp - (healthProgress * health);
     //print(currentBoss.name + " Hp : " + (currentBoss.getHp - (healthProgress * health)).toStringAsFixed(0));
   }
@@ -212,6 +305,7 @@ class BossProvider extends ChangeNotifier {
     healthProgress = 0;
     timeProgress = 0;
     currentMana = totalMana;
+    _resetCooldowns();
     updateView();
   }
 
@@ -278,11 +372,22 @@ class BossProvider extends ChangeNotifier {
     roundProgress = -1;
     healthProgress = 0;
     timeProgress = 0;
+    _resetCooldowns();
     _castedAbility.clear();
+    _inventory.clear();
     snapIsDone = true;
     currentBossAlive = false;
     currentBoss = Bosses.values.first;
     currentMana = totalMana;
+  }
+
+  void _resetCooldowns() {
+    castedAbility.forEach((element) {
+      element.resetCooldown();
+    });
+    inventory.forEach((element) {
+      element.resetCooldown();
+    });
   }
 
   ///Resets the game values and stops the timer object. 

@@ -101,7 +101,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
         children: [
           Stack(
             alignment: Alignment.center,
-            //fit: StackFit.expand,
+            fit: StackFit.expand,
             children: [
               Sky(skyLight: skyLight, skyType: skyType),
               ...circles(constraints),
@@ -157,28 +157,27 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
 
   Widget bossHeads(BoxConstraints constraints) {
     var provider = context.watch<BossProvider>();
-    return Positioned(
-      top: constraints.maxHeight/7,
-      child: Snappable(
-        key: provider.snappableKey,
-        onSnapped: () => null,
-        duration: Duration(milliseconds: 3000),
-        child: Opacity(
-          opacity: provider.currentBossAlive ? 1 : 0,
-          child: Column(
-            children: [
-              AnimatedScale(
-                scale: provider.currentBossAlive ? 1 : 2,
-                curve: Curves.bounceOut,
-                duration: Duration(milliseconds: 1600),
-                child: Image.asset(provider.currentBoss.getImage, height: context.height/5,)
-              ),
-              Text(provider.currentBossHp.toStringAsFixed(0)),
-              Text(provider.currentBoss.getName),
-            ],
-          ),
-        ),
-      ));
+    return Snappable(
+      key: provider.snappableKey,
+      onSnapped: () => null,
+      duration: Duration(milliseconds: 3000),
+      child: Opacity(
+        opacity: provider.currentBossAlive ? 1 : 0,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AnimatedScale(
+              scale: provider.currentBossAlive ? 1 : 2,
+              curve: Curves.bounceOut,
+              duration: Duration(milliseconds: 1600),
+              child: Image.asset(provider.currentBoss.getImage, height: context.dynamicHeight(0.18),)
+            ),
+            Text(provider.currentBossHp.toStringAsFixed(0)),
+            Text(provider.currentBoss.getName),
+          ],
+        ).wrapCenter(),
+      ),
+    );
   }
 
   List<Widget> circles(BoxConstraints constraints) {
@@ -188,7 +187,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
         painter: ArcPainter(
           progress: context.watch<BossProvider>().healthProgress,
           units: context.read<BossProvider>().healthUnit,
-          radius: constraints.maxHeight * 0.21,
+          radius: context.dynamicHeight(0.19),
           gap: 0.22,
           gradient: gradient2,
           reversedColor: true,
@@ -199,7 +198,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
         painter: ArcPainter(
           progress: context.watch<BossProvider>().roundProgress.toDouble() +1,
           units: context.read<BossProvider>().roundUnit,
-          radius: constraints.maxHeight * 0.18,
+          radius: context.dynamicHeight(0.16),
           gap: 0.24,
           gradient: gradient2,
         ),
@@ -209,7 +208,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
         painter: ArcPainter(
           progress: context.watch<BossProvider>().timeProgress,
           units: context.read<BossProvider>().timeUnits,
-          radius: constraints.maxHeight * 0.15,
+          radius: context.dynamicHeight(0.13),
           gap: 0.2,
           gradient: gradient2,
         ),
@@ -301,6 +300,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
         key: ObjectKey(abilityCooldown.spell),
         duration: Duration(seconds: abilityCooldown.spell.cooldown.toInt()),
         remainingCd: abilityCooldown.cooldownLeft,
+        size: context.dynamicWidth(0.2),
         child: Stack(
           children: [
             Image.asset(

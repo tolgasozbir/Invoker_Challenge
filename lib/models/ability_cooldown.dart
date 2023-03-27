@@ -24,4 +24,8 @@ class AbilityCooldown {
     }
   }
 
+  void resetCooldown() {
+    _lastPressedAt = DateTime.now().subtract(Duration(minutes: 1));
+  }
+
 }

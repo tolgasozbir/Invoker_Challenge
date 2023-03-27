@@ -118,6 +118,7 @@ class AppDialogs {
     Duration duration = const Duration(milliseconds: 400),
     bool barrierDismissible = true,
     Color barrierColor = const Color(0x80000000),
+    Color dialogBgColor = AppColors.dialogBgColor,
   }) {
     return showGeneralDialog<T?>(
       context: navigatorKey.currentContext!,
@@ -134,7 +135,7 @@ class AppDialogs {
                 height: height ?? context.dynamicHeight(0.6),
                 margin: const EdgeInsets.symmetric(horizontal: 32),
                 decoration: BoxDecoration(
-                  color: AppColors.dialogBgColor, 
+                  color: dialogBgColor,
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: Column(
@@ -155,13 +156,14 @@ class AppDialogs {
                         child: SingleChildScrollView(child: content),
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.centerRight, 
-                      child: Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: action,
+                    if (action != null)
+                      Align(
+                        alignment: Alignment.centerRight, 
+                        child: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: action,
+                        ),
                       ),
-                    ),
                   ],
                 ),
               ),
@@ -181,8 +183,5 @@ class AppDialogs {
       },
     );
   }
-
-
-
 
 }

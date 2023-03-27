@@ -1,11 +1,20 @@
 import 'package:dota2_invoker_game/enums/items.dart';
 import 'package:dota2_invoker_game/extensions/context_extension.dart';
+import 'package:dota2_invoker_game/extensions/widget_extension.dart';
 import 'package:dota2_invoker_game/providers/boss_provider.dart';
+import 'package:dota2_invoker_game/widgets/cooldown_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../models/Item.dart';
+import '../../../../widgets/app_dialogs.dart';
+import 'item_description_widget.dart';
+
 class InventoryHud extends StatefulWidget {
-  const InventoryHud({super.key});
+  const InventoryHud({super.key, this.isItemsSellable = false});
+
+  ///The sentence describes the state of items in two different screens and highlights their sellability status in each of them.
+  final bool isItemsSellable;
 
   @override
   State<InventoryHud> createState() => _InventoryHudState();
@@ -70,16 +79,48 @@ class _InventoryHudState extends State<InventoryHud> {
     );
   }  
 
-  Container itemSlot(Items item) {
-    return Container(
-      width: context.dynamicWidth(0.12),
-      height: context.dynamicWidth(0.12),
-      margin: EdgeInsets.all(2),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4),
-        color: Colors.black,
-        image: DecorationImage(image: AssetImage(item.image))
+  Widget itemSlot(Item item) {
+    return InkWell(
+      child: CooldownAnimation(
+        key: ObjectKey(item),
+        duration: Duration(seconds: (item.item.cooldown ?? 0).toInt()),
+        remainingCd: item.cooldownLeft,
+        size: context.dynamicWidth(0.12),
+        child: Container(
+          width: context.dynamicWidth(0.12),
+          height: context.dynamicWidth(0.12),
+          margin: EdgeInsets.all(2),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4),
+            color: Colors.black.withOpacity(0.64),
+            image: DecorationImage(image: AssetImage(item.item.image))
+          ),
+          child: Text(
+            widget.isItemsSellable 
+              ? "" 
+              : (item.item.mana?.toStringAsFixed(0) ?? ""), 
+            style: TextStyle(
+              fontSize: context.sp(8), 
+              fontWeight: FontWeight.bold,
+              shadows: [
+                BoxShadow(blurRadius: 4),
+                BoxShadow(blurRadius: 4),
+                BoxShadow(blurRadius: 4),
+              ]
+            ),
+          ).wrapPadding(EdgeInsets.all(2)).wrapAlign(Alignment.bottomRight),
+        ),
       ),
+      onTap: () {
+        if (widget.isItemsSellable) {
+          AppDialogs.showScaleDialog(
+            dialogBgColor: Color(0xFF1C2834),
+            content: ItemDescriptionWidget(item: item, isItemSellable: true),
+          );
+        } else {
+          context.read<BossProvider>().onPressedItem(item);
+        }
+      },
     );
   }
 }
