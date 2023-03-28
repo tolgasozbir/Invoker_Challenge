@@ -106,10 +106,12 @@ class BossProvider extends ChangeNotifier {
 
   void _addGold(int val) {
     _userGold += val;
+    SoundManager.instance.playItemSellingSound();
   }
 
   void _spendGold(int val) {
     _userGold -= val;
+    SoundManager.instance.playItemBuyingSound();
   }
 
   List<Item> _inventory = [];

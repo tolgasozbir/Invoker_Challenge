@@ -43,6 +43,26 @@ class SoundManager {
     _playSound(fileName: SoundPaths.invoke);
   }
 
+  void playItemBuyingSound() {
+    _playSound(fileName: SoundPaths.itemBuying);
+  }  
+  
+  void playItemSellingSound() {
+    _playSound(fileName: SoundPaths.itemSelling);
+  }
+  
+  void playWelcomeShopSound() {
+    int soundNum = _rnd.nextInt(6) + 1;
+    String sound = SoundPaths.shopWelcome+"$soundNum.mpeg";
+    _playSound(fileName: sound);
+  }  
+  
+  void playLeaveShopSound() {
+    int soundNum = _rnd.nextInt(5) + 1;
+    String sound = SoundPaths.shopLeave+"$soundNum.mpeg";
+    _playSound(fileName: sound);
+  }
+
   DateTime lastPlayedCdTime = DateTime.now();
   void playAbilityOnCooldownSound() {
     if (!(DateTime.now().difference(lastPlayedCdTime) > Duration(seconds: 1))) return;

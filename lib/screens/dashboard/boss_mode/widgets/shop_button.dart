@@ -53,8 +53,6 @@ class ShopButton extends StatelessWidget {
         ],
       ),
       onPressed: () {
-        print("Shop");
-        //hohoh you found me sound
         Navigator.push(context, MaterialPageRoute(builder: (context) => ShopView(),));
       },
     );

@@ -6,6 +6,7 @@ import 'package:dota2_invoker_game/extensions/widget_extension.dart';
 import 'package:dota2_invoker_game/models/Item.dart';
 import 'package:dota2_invoker_game/providers/boss_provider.dart';
 import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/inventory_hud.dart';
+import 'package:dota2_invoker_game/services/sound_manager.dart';
 import 'package:dota2_invoker_game/widgets/app_dialogs.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,6 +21,19 @@ class ShopView extends StatefulWidget {
 }
 
 class _ShopViewState extends State<ShopView> {
+
+  @override
+  void initState() {
+    SoundManager.instance.playWelcomeShopSound();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    SoundManager.instance.playLeaveShopSound();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -170,11 +170,18 @@ class SoundPaths {
   static const String _spellSounds = '$_root/spell_sounds';
   static const String _castTriggerSounds = '$_spellSounds/cast_trigger_sounds';
   static const String _misc = '$_root/misc';
+  static const String _shop = '$_root/shop_sounds';
 
   //Ability on cooldown sounds
   static const String abilityOnCooldown = '$_root/ability_on_cooldown/notyet';
   //Not enough mana sounds
   static const String notEnoughMana = '$_root/not_enough_mana/nomana';
+
+  //Shop sounds
+  static const String itemBuying = '$_shop/item_buying.mpeg';
+  static const String itemSelling = '$_shop/Item_selling.mpeg';
+  static const String shopWelcome = '$_shop/shop_welcome';
+  static const String shopLeave = '$_shop/shop_leave';
 
   //misc
   static const String meepMerp = '$_misc/meep_merp.mp3';

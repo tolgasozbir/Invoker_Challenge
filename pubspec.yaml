@@ -79,6 +79,7 @@ flutter:
     - assets/sounds/misc/
     - assets/sounds/ability_on_cooldown/
     - assets/sounds/not_enough_mana/
+    - assets/sounds/shop_sounds/
 
     - assets/lottie/
     - assets/svg/
