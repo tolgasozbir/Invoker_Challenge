@@ -86,10 +86,10 @@ class ItemDescriptionWidget extends StatelessWidget {
     return Row(
       children: [
         Text(
-          "Cost: ", 
+          isItemSellable ? "Selling Price: " : "Cost: ", 
           style: TextStyle(fontSize: context.sp(13), fontWeight: FontWeight.w500,),
         ),
-        GoldWidget(gold: item.item.cost),
+        GoldWidget(gold: isItemSellable ? (item.item.cost * 0.75).toInt() : item.item.cost),
       ],
     ).wrapPadding(EdgeInsets.only(bottom: 8));
   }

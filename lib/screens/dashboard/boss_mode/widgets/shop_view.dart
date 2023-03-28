@@ -4,9 +4,11 @@ import 'package:dota2_invoker_game/enums/items.dart';
 import 'package:dota2_invoker_game/extensions/context_extension.dart';
 import 'package:dota2_invoker_game/extensions/widget_extension.dart';
 import 'package:dota2_invoker_game/models/Item.dart';
+import 'package:dota2_invoker_game/providers/boss_provider.dart';
 import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/inventory_hud.dart';
 import 'package:dota2_invoker_game/widgets/app_dialogs.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'item_description_widget.dart';
 
@@ -23,7 +25,7 @@ class _ShopViewState extends State<ShopView> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          GoldWidget(gold: 1000)
+          GoldWidget(gold: context.watch<BossProvider>().userGold)
         ],
       ),
       body: _bodyView(),

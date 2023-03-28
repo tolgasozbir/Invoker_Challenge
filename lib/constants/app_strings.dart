@@ -63,6 +63,7 @@ class AppStrings {
   static const String sbNoMoreData = 'No more data!';
   static const String sbWaitAnimation = 'Button is inactive, it will be enabled in 3 seconds. Please wait.';
   static const String sbInventoryFull = 'Inventory is full!';
+  static const String sbNotEnoughGold = 'Not enough gold';
 
   //Talent tree
   static const String talentTree = 'Talent Tree';

@@ -101,7 +101,17 @@ class BossProvider extends ChangeNotifier {
 
   ///-----     Inventory - Items     -----///
   
-  //TODO: gold eklencek
+  int _userGold = 60000;
+  int get userGold => _userGold;
+
+  void _addGold(int val) {
+    _userGold += val;
+  }
+
+  void _spendGold(int val) {
+    _userGold -= val;
+  }
+
   List<Item> _inventory = [];
   List<Item> get inventory => _inventory;
 
@@ -114,6 +124,13 @@ class BossProvider extends ChangeNotifier {
   }
 
   void addItemToInventory(Item item) {
+    if (item.item.cost > userGold) {
+      AppSnackBar.showSnackBarMessage(
+        text: AppStrings.sbNotEnoughGold,
+        snackBartype: SnackBarType.error,
+      );
+      return;
+    }
     if (inventory.length == 6) {
       AppSnackBar.showSnackBarMessage(
         text: AppStrings.sbInventoryFull, 
@@ -123,6 +140,7 @@ class BossProvider extends ChangeNotifier {
     }
     _inventory.add(item);
     _buyItem(item);
+    _spendGold(item.item.cost);
     currentMana = totalMana;
     updateView();
   }
@@ -130,6 +148,7 @@ class BossProvider extends ChangeNotifier {
   void removeItemToInventory(Item item) {
     _inventory.remove(item);
     _sellItem(item);
+    _addGold((item.item.cost * 0.75).toInt());
     currentMana = totalMana;
     updateView();
   }
@@ -453,6 +472,7 @@ class BossProvider extends ChangeNotifier {
     manaRegenMultiplier = 0;
     spellAmp = 0;
     _isActiveMidas = false;
+    _userGold = 600;
   }
 
   void _resetCooldowns() {
