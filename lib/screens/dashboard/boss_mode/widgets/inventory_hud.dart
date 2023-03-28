@@ -100,7 +100,7 @@ class _InventoryHudState extends State<InventoryHud> {
               ? "" 
               : (item.item.mana?.toStringAsFixed(0) ?? ""), 
             style: TextStyle(
-              fontSize: context.sp(8), 
+              fontSize: context.sp(10), 
               fontWeight: FontWeight.bold,
               shadows: [
                 BoxShadow(blurRadius: 4),

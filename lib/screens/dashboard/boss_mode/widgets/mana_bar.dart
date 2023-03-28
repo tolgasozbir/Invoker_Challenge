@@ -67,7 +67,7 @@ class _ManaBarState extends State<ManaBar> {
                   NumberAnimation(
                     key: ObjectKey(context.watch<BossProvider>().currentMana),
                     initialValue: context.watch<BossProvider>().currentMana, 
-                    increment: context.watch<BossProvider>().baseManaRegen,
+                    increment: context.watch<BossProvider>().manaRegen,
                     maxValue: context.watch<BossProvider>().totalMana,
                     textStyle: textStyle,
                   ),
@@ -75,7 +75,7 @@ class _ManaBarState extends State<ManaBar> {
                   Text(context.watch<BossProvider>().totalMana.toStringAsFixed(0), style: textStyle),
                 ],
               ),
-              Text("+"+context.watch<BossProvider>().baseManaRegen.toStringAsFixed(1), style: textStyle).wrapAlign(Alignment.centerRight).wrapExpanded(),
+              Text("+"+context.watch<BossProvider>().manaRegen.toStringAsFixed(1), style: textStyle).wrapAlign(Alignment.centerRight).wrapExpanded(),
             ],
           ),
         ),

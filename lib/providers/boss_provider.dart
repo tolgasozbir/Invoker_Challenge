@@ -26,6 +26,7 @@ class BossProvider extends ChangeNotifier {
   double bonusDamage = 0;
   double dps = 0; //Damage Per Seconds
   double spellDamage = 0; //Ability Damage
+  double spellAmp = 0;
   //
 
   //Circle Values
@@ -64,6 +65,8 @@ class BossProvider extends ChangeNotifier {
   double totalMana = 200 + UserManager.instance.user.level * 67;
   double currentMana = 200 + UserManager.instance.user.level * 67;
   double baseManaRegen = UserManager.instance.user.level * 0.27;
+  double manaRegenMultiplier = 0;
+  double get manaRegen => baseManaRegen + (baseManaRegen * manaRegenMultiplier);
   double get manaBarWidthMultiplier => ((currentMana / totalMana) * 100) / 100;
 
   ///Increases the player's current mana by the base mana regeneration rate per second.
@@ -73,7 +76,7 @@ class BossProvider extends ChangeNotifier {
   ///this function is called inside the [_timer] object
   void _manaRegenFn() {
     if (currentMana < totalMana) {
-      currentMana += baseManaRegen;
+      currentMana += baseManaRegen + (baseManaRegen * manaRegenMultiplier);
       if (currentMana > totalMana) {
         currentMana = totalMana;
       }
@@ -141,6 +144,15 @@ class BossProvider extends ChangeNotifier {
       case Items.Phase_boots:
         bonusDamage += 30;
         break;
+      case Items.Veil_of_discord: break;
+      case Items.Kaya:
+        spellAmp += 0.08;
+        manaRegenMultiplier += 0.24;
+        break;
+      case Items.Aether_lens:
+        baseManaRegen += 2.5;
+        totalMana += 300;
+        break;
     }
   }
 
@@ -163,10 +175,19 @@ class BossProvider extends ChangeNotifier {
       case Items.Phase_boots:
         bonusDamage -= 30;
         break;
+      case Items.Veil_of_discord: break;
+      case Items.Kaya:
+        spellAmp -= 0.08;
+        manaRegenMultiplier -= 0.24;
+        break;
+      case Items.Aether_lens:
+        baseManaRegen -= 2.5;
+        totalMana -= 300;
+        break;
     }
   }
 
-  onPressedItem(Item item) {
+  onPressedItem(Item item) async {
     if (!started) { // If the started variable is false, play a meep merp sound and return from the function.
       SoundManager.instance.playMeepMerp();
       return;
@@ -174,14 +195,21 @@ class BossProvider extends ChangeNotifier {
     var isItemUsed = item.onPressedItem(currentMana);
     if (isItemUsed) {
       _spendMana(item.item.mana ?? 0);
+      updateView();
       switch (item.item) {
         case Items.Null_talisman:
         case Items.Void_stone:
         case Items.Power_treads:
         case Items.Phase_boots:
+        case Items.Kaya:
+        case Items.Aether_lens:
           break;
         case Items.Arcane_boots:
           _addMana(175);
+          break;
+        case Items.Veil_of_discord:
+          spellAmp += 0.18;
+          await Future.delayed(Duration(seconds: item.item.duration?.toInt() ?? 0), () => spellAmp -= 0.18,);
           break;
       }
       updateView();
@@ -281,8 +309,8 @@ class BossProvider extends ChangeNotifier {
   ///this function is called inside the [_timer] object
   void _hitWithSpell(double damage) {
     var health = currentBoss.getHp / healthUnit;
-    var totalDamge = damage/health;
-    healthProgress += totalDamge;
+    var totalDamage = damage/health;
+    healthProgress += totalDamage;
     dps += damage;
     currentBossHp = currentBoss.getHp - (healthProgress * health);
   }
@@ -352,7 +380,7 @@ class BossProvider extends ChangeNotifier {
       dps = 0;
       _increaseTime();
       _autoHit();
-      _hitWithSpell(spellDamage);
+      _hitWithSpell(spellDamage + (spellDamage * spellAmp));
       _manaRegenFn();
       _isGameFinished();
       //if (!started) timer.cancel();
@@ -378,7 +406,12 @@ class BossProvider extends ChangeNotifier {
     snapIsDone = true;
     currentBossAlive = false;
     currentBoss = Bosses.values.first;
+    bonusDamage = 0;
+    totalMana = 200 + UserManager.instance.user.level * 67;
     currentMana = totalMana;
+    baseManaRegen = UserManager.instance.user.level * 0.27;
+    manaRegenMultiplier = 0;
+    spellAmp = 0;
   }
 
   void _resetCooldowns() {
