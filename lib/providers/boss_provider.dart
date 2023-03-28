@@ -24,6 +24,7 @@ class BossProvider extends ChangeNotifier {
   bool started = false;
   double get baseDamage => UserManager.instance.user.level * 5 + rng.nextDouble() * 16;
   double bonusDamage = 0;
+  double damageMultiplier = 0;
   double dps = 0; //Damage Per Seconds
   double spellDamage = 0; //Ability Damage
   double spellAmp = 0;
@@ -98,11 +99,19 @@ class BossProvider extends ChangeNotifier {
   }
   ///-----     End Mana Bar Values     -----///
 
-  ///-----     Inventory     -----///
+  ///-----     Inventory - Items     -----///
   
   //TODO: gold eklencek
   List<Item> _inventory = [];
   List<Item> get inventory => _inventory;
+
+  bool _isActiveMidas = false;
+  void _handOfMidasFn() {
+    if (_isActiveMidas) {
+      //TODO:
+      
+    }
+  }
 
   void addItemToInventory(Item item) {
     if (inventory.length == 6) {
@@ -142,7 +151,7 @@ class BossProvider extends ChangeNotifier {
         bonusDamage += 12;
         break;
       case Items.Phase_boots:
-        bonusDamage += 30;
+        bonusDamage += 24;
         break;
       case Items.Veil_of_discord: break;
       case Items.Kaya:
@@ -152,6 +161,15 @@ class BossProvider extends ChangeNotifier {
       case Items.Aether_lens:
         baseManaRegen += 2.5;
         totalMana += 300;
+        break;
+      case Items.Meteor_hammer:
+        baseManaRegen += 2.5;
+        break;
+      case Items.Hand_of_midas:
+        _isActiveMidas = true;
+        break;
+      case Items.Vladmirs_offering:
+        damageMultiplier += 0.18;
         break;
     }
   }
@@ -170,7 +188,7 @@ class BossProvider extends ChangeNotifier {
         break;
       case Items.Power_treads:
         totalMana -= 120;
-        bonusDamage -= 12;
+        bonusDamage -= 24;
         break;
       case Items.Phase_boots:
         bonusDamage -= 30;
@@ -183,6 +201,18 @@ class BossProvider extends ChangeNotifier {
       case Items.Aether_lens:
         baseManaRegen -= 2.5;
         totalMana -= 300;
+        break;
+      case Items.Meteor_hammer:
+        baseManaRegen -= 2.5;
+        break;
+      case Items.Hand_of_midas:
+        bool itemHasInventory = (_inventory.any((element) => element.item == Items.Hand_of_midas));
+        if (!itemHasInventory) {
+          _isActiveMidas = false;
+        }
+        break;
+      case Items.Vladmirs_offering:
+        damageMultiplier -= 0.18;
         break;
     }
   }
@@ -203,6 +233,8 @@ class BossProvider extends ChangeNotifier {
         case Items.Phase_boots:
         case Items.Kaya:
         case Items.Aether_lens:
+        case Items.Hand_of_midas:
+        case Items.Vladmirs_offering:
           break;
         case Items.Arcane_boots:
           _addMana(175);
@@ -211,13 +243,17 @@ class BossProvider extends ChangeNotifier {
           spellAmp += 0.18;
           await Future.delayed(Duration(seconds: item.item.duration?.toInt() ?? 0), () => spellAmp -= 0.18,);
           break;
+        case Items.Meteor_hammer:
+          spellDamage += 80;
+          await Future.delayed(Duration(seconds: item.item.duration?.toInt() ?? 0), () => spellDamage -= 80,);
+          break;
       }
       updateView();
     }
   }
 
 
-  ///-----     EndInventory     -----///
+  ///-----     End Inventory - Items     -----///
 
 
 
@@ -281,10 +317,12 @@ class BossProvider extends ChangeNotifier {
   /// 
   /// this function is called inside the [_timer] object
   void _autoHit(){
+    var fullDamage = (baseDamage+bonusDamage) + (damageMultiplier * (baseDamage+bonusDamage));
+    print(fullDamage);
     var health = currentBoss.getHp / healthUnit;
-    var totalDamage = (baseDamage+bonusDamage)/health;
+    var totalDamage = fullDamage /health;
     healthProgress += totalDamage;
-    dps += (baseDamage+bonusDamage);
+    dps += fullDamage;
     currentBossHp = currentBoss.getHp - (healthProgress * health);
     //print(currentBoss.name + " Hp : " + (currentBoss.getHp - (healthProgress * health)).toStringAsFixed(0));
   }
@@ -333,6 +371,7 @@ class BossProvider extends ChangeNotifier {
     healthProgress = 0;
     timeProgress = 0;
     currentMana = totalMana;
+    _handOfMidasFn();
     _resetCooldowns();
     updateView();
   }
@@ -407,11 +446,13 @@ class BossProvider extends ChangeNotifier {
     currentBossAlive = false;
     currentBoss = Bosses.values.first;
     bonusDamage = 0;
+    damageMultiplier = 0;
     totalMana = 200 + UserManager.instance.user.level * 67;
     currentMana = totalMana;
     baseManaRegen = UserManager.instance.user.level * 0.27;
     manaRegenMultiplier = 0;
     spellAmp = 0;
+    _isActiveMidas = false;
   }
 
   void _resetCooldowns() {
