@@ -151,11 +151,11 @@ class BossProvider extends ChangeNotifier {
         totalMana += 250;
         break;
       case Items.Power_treads:
-        totalMana += 120;
-        bonusDamage += 12;
+        totalMana += 100;
+        bonusDamage += 10;
         break;
       case Items.Phase_boots:
-        bonusDamage += 24;
+        bonusDamage += 18;
         break;
       case Items.Veil_of_discord: break;
       case Items.Kaya:
@@ -173,7 +173,7 @@ class BossProvider extends ChangeNotifier {
         _isActiveMidas = true;
         break;
       case Items.Vladmirs_offering:
-        damageMultiplier += 0.18;
+        damageMultiplier += 0.24;
         break;
       case Items.Ethereal_blade:
         var len = _inventory.where((element) => element.item == Items.Ethereal_blade).toList().length;
@@ -184,7 +184,7 @@ class BossProvider extends ChangeNotifier {
         }
         break;
       case Items.Monkey_king_bar:
-        bonusDamage += 50;
+        bonusDamage += 36;
         break;
       case Items.Refresher_orb:
         baseManaRegen += 7;
@@ -205,11 +205,11 @@ class BossProvider extends ChangeNotifier {
         totalMana -= 250;
         break;
       case Items.Power_treads:
-        totalMana -= 120;
-        bonusDamage -= 24;
+        totalMana -= 100;
+        bonusDamage -= 10;
         break;
       case Items.Phase_boots:
-        bonusDamage -= 30;
+        bonusDamage -= 18;
         break;
       case Items.Veil_of_discord: break;
       case Items.Kaya:
@@ -230,7 +230,7 @@ class BossProvider extends ChangeNotifier {
         }
         break;
       case Items.Vladmirs_offering:
-        damageMultiplier -= 0.18;
+        damageMultiplier -= 0.24;
         break;
       case Items.Ethereal_blade:
         bool itemHasInventory = (_inventory.any((element) => element.item == Items.Ethereal_blade));
@@ -241,7 +241,7 @@ class BossProvider extends ChangeNotifier {
         }
         break;
       case Items.Monkey_king_bar:
-        bonusDamage -= 50;
+        bonusDamage -= 36;
         break;
       case Items.Refresher_orb:
         baseManaRegen -= 7;
@@ -277,8 +277,8 @@ class BossProvider extends ChangeNotifier {
           await Future.delayed(Duration(seconds: item.item.duration?.toInt() ?? 0), () => spellAmp -= 0.18,);
           break;
         case Items.Meteor_hammer:
-          spellDamage += 80;
-          await Future.delayed(Duration(seconds: item.item.duration?.toInt() ?? 0), () => spellDamage -= 80,);
+          spellDamage += 100;
+          await Future.delayed(Duration(seconds: item.item.duration?.toInt() ?? 0), () => spellDamage -= 100,);
           break;
         case Items.Ethereal_blade:
           spellAmp += 0.40;
