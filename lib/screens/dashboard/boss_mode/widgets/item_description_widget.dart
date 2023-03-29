@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../constants/app_colors.dart';
+import '../../../../constants/app_strings.dart';
 import '../../../../enums/items.dart';
 import '../../../../extensions/widget_extension.dart';
 import '../../../../providers/boss_provider.dart';
 import '../../../../services/sound_manager.dart';
+import '../../../../widgets/app_snackbar.dart';
 
 class ItemDescriptionWidget extends StatelessWidget {
   const ItemDescriptionWidget({super.key, required this.item, this.isItemSellable = false});
@@ -163,13 +165,25 @@ class ItemDescriptionWidget extends StatelessWidget {
   }
 
   void buyFn(BuildContext context) {
-    bool purchasable = true;
-    if (purchasable) {
-      context.read<BossProvider>().addItemToInventory(item);
-      Navigator.pop(context);
-    } else {
+    Navigator.pop(context);
+    var provider = context.read<BossProvider>();
+    if (item.item.cost > provider.userGold) {
+      AppSnackBar.showSnackBarMessage(
+        text: AppStrings.sbNotEnoughGold,
+        snackBartype: SnackBarType.error,
+      );
       SoundManager.instance.playMeepMerp();
+      return;
     }
+    if (provider.inventory.length == 6) {
+      AppSnackBar.showSnackBarMessage(
+        text: AppStrings.sbInventoryFull, 
+        snackBartype: SnackBarType.error,
+      );
+      SoundManager.instance.playMeepMerp();
+      return;
+    }
+    context.read<BossProvider>().addItemToInventory(item);
   }
 
   void sellFn(BuildContext context) {

@@ -2,10 +2,8 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:math' as math;
 
-import 'package:dota2_invoker_game/constants/app_strings.dart';
 import 'package:dota2_invoker_game/enums/items.dart';
 import 'package:dota2_invoker_game/models/Item.dart';
-import 'package:dota2_invoker_game/widgets/app_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:snappable_thanos/snappable_thanos.dart';
 
@@ -120,26 +118,11 @@ class BossProvider extends ChangeNotifier {
   bool _isActiveMidas = false;
   void _handOfMidasFn() {
     if (_isActiveMidas) {
-      //TODO:
-      
+      _addGold(200);
     }
   }
 
   void addItemToInventory(Item item) {
-    if (item.item.cost > userGold) {
-      AppSnackBar.showSnackBarMessage(
-        text: AppStrings.sbNotEnoughGold,
-        snackBartype: SnackBarType.error,
-      );
-      return;
-    }
-    if (inventory.length == 6) {
-      AppSnackBar.showSnackBarMessage(
-        text: AppStrings.sbInventoryFull, 
-        snackBartype: SnackBarType.error,
-      );
-      return;
-    }
     _inventory.add(item);
     _buyItem(item);
     _spendGold(item.item.cost);
@@ -192,6 +175,20 @@ class BossProvider extends ChangeNotifier {
       case Items.Vladmirs_offering:
         damageMultiplier += 0.18;
         break;
+      case Items.Ethereal_blade:
+        var len = _inventory.where((element) => element.item == Items.Ethereal_blade).toList().length;
+        if (len < 2){
+          spellAmp += 0.16;
+          manaRegenMultiplier += 0.75;
+          totalMana += 500;
+        }
+        break;
+      case Items.Monkey_king_bar:
+        bonusDamage += 50;
+        break;
+      case Items.Refresher_orb:
+        baseManaRegen += 7;
+        break;
     }
   }
 
@@ -235,6 +232,20 @@ class BossProvider extends ChangeNotifier {
       case Items.Vladmirs_offering:
         damageMultiplier -= 0.18;
         break;
+      case Items.Ethereal_blade:
+        bool itemHasInventory = (_inventory.any((element) => element.item == Items.Ethereal_blade));
+        if (!itemHasInventory){
+          spellAmp -= 0.16;
+          manaRegenMultiplier -= 0.75;
+          totalMana -= 500;
+        }
+        break;
+      case Items.Monkey_king_bar:
+        bonusDamage -= 50;
+        break;
+      case Items.Refresher_orb:
+        baseManaRegen -= 7;
+        break;
     }
   }
 
@@ -256,6 +267,7 @@ class BossProvider extends ChangeNotifier {
         case Items.Aether_lens:
         case Items.Hand_of_midas:
         case Items.Vladmirs_offering:
+        case Items.Monkey_king_bar:
           break;
         case Items.Arcane_boots:
           _addMana(175);
@@ -267,6 +279,13 @@ class BossProvider extends ChangeNotifier {
         case Items.Meteor_hammer:
           spellDamage += 80;
           await Future.delayed(Duration(seconds: item.item.duration?.toInt() ?? 0), () => spellDamage -= 80,);
+          break;
+        case Items.Ethereal_blade:
+          spellAmp += 0.40;
+          await Future.delayed(Duration(seconds: item.item.duration?.toInt() ?? 0), () => spellAmp -= 0.40,);
+          break;
+        case Items.Refresher_orb:
+          _resetCooldowns(withRefresherOrb: false);
           break;
       }
       updateView();
@@ -392,7 +411,6 @@ class BossProvider extends ChangeNotifier {
     healthProgress = 0;
     timeProgress = 0;
     currentMana = totalMana;
-    _handOfMidasFn();
     _resetCooldowns();
     updateView();
   }
@@ -415,6 +433,7 @@ class BossProvider extends ChangeNotifier {
       await Future.delayed(Duration(milliseconds: 100)); //snap işleminde 100 ms sonrasını baz almak için
       await snapBoss();
       currentBossAlive = false;
+      _handOfMidasFn();
       updateView();
       return;
     }
@@ -477,12 +496,19 @@ class BossProvider extends ChangeNotifier {
     _userGold = 600;
   }
 
-  void _resetCooldowns() {
+  void _resetCooldowns({bool withRefresherOrb = true}) {
     castedAbility.forEach((element) {
       element.resetCooldown();
     });
+    if (withRefresherOrb) {
+      inventory.forEach((element) => element.resetCooldown());
+      return;
+    }
+    //refresher orb dışındaki bütün eşyaların cooldown'larını sıfırla
     inventory.forEach((element) {
-      element.resetCooldown();
+      bool isItemRefresherOrb = element.item == Items.Refresher_orb;
+      if (!isItemRefresherOrb) element.resetCooldown(); 
+      else element.onPressedItem(currentMana); //fazladan refresher orb alınmışsa tıklanma fonksiyonunu çağırarak hepsini cooldown'a sok
     });
   }
 

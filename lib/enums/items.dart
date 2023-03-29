@@ -11,8 +11,11 @@ enum Items {
   Hand_of_midas(bonus: "Gives 200 gold at the end of each round.\n(Multiple items won't work!)", cost: 2200),
   Aether_lens(bonus: "+300 mana and +2.5 mana regeneration", cost: 2275),
   Meteor_hammer(bonus: "+2.5 mana regen \nDuration: 6 seconds. Deals damage to bosses over time.", cost: 2300, active: "Damage Per Second: 80", cooldown: 24, mana: 100, duration: 6),
-  Vladmirs_offering(bonus: "Damage +18%", cost: 2450);
-  
+  Vladmirs_offering(bonus: "Damage +18%", cost: 2450),
+  Ethereal_blade(bonus: "+500 Mana with mana regen amp +75% and spell amp +16% \nDuration: 10 Seconds \n(Multiple item stats won't stacks!)", cost: 4650, active: "Magic Amplification +40%", cooldown: 20, mana: 200, duration: 10),
+  Monkey_king_bar(bonus: "Increases damage by 50", cost: 4975),
+  Refresher_orb(bonus: "+7 mana regeneration", cost: 5000, active: "Resets the cooldowns of all your items and abilities.\n(Multiple items won't stacks)", cooldown: 180, mana: 350);
+
   const Items({required this.bonus, required this.cost, this.active, this.cooldown, this.mana, this.duration});
 
   final String bonus;
