@@ -119,6 +119,7 @@ class BossProvider extends ChangeNotifier {
   void _handOfMidasFn() {
     if (_isActiveMidas) {
       _addGold(200);
+      SoundManager.instance.playItemSound(Items.Hand_of_midas.name);
     }
   }
 
@@ -155,7 +156,7 @@ class BossProvider extends ChangeNotifier {
         bonusDamage += 10;
         break;
       case Items.Phase_boots:
-        bonusDamage += 18;
+        bonusDamage += 16;
         break;
       case Items.Veil_of_discord: break;
       case Items.Kaya:
@@ -189,6 +190,21 @@ class BossProvider extends ChangeNotifier {
       case Items.Refresher_orb:
         baseManaRegen += 7;
         break;
+      case Items.Daedalus:
+        bonusDamage += 56;
+        break;
+      case Items.Eye_of_skadi:
+        totalMana += 1500;
+        break;
+      case Items.Bloodthorn:
+        bonusDamage += 50;
+        totalMana += 400;
+        baseManaRegen += 5;
+        break;
+      case Items.Dagon: break;
+      case Items.Divine_rapier:
+        bonusDamage += 128;
+        break;
     }
   }
 
@@ -209,7 +225,7 @@ class BossProvider extends ChangeNotifier {
         bonusDamage -= 10;
         break;
       case Items.Phase_boots:
-        bonusDamage -= 18;
+        bonusDamage -= 16;
         break;
       case Items.Veil_of_discord: break;
       case Items.Kaya:
@@ -246,6 +262,21 @@ class BossProvider extends ChangeNotifier {
       case Items.Refresher_orb:
         baseManaRegen -= 7;
         break;
+      case Items.Daedalus:
+        bonusDamage -= 56;
+        break;
+      case Items.Eye_of_skadi:
+        totalMana -= 1500;
+        break;
+      case Items.Bloodthorn:
+        bonusDamage -= 50;
+        totalMana -= 400;
+        baseManaRegen -= 5;
+        break;
+      case Items.Dagon: break;
+      case Items.Divine_rapier:
+        bonusDamage -= 128;
+        break;
     }
   }
 
@@ -257,6 +288,9 @@ class BossProvider extends ChangeNotifier {
     var isItemUsed = item.onPressedItem(currentMana);
     if (isItemUsed) {
       _spendMana(item.item.mana ?? 0);
+      if (item.item.hasSound) {
+        SoundManager.instance.playItemSound(item.item.name);
+      }
       updateView();
       switch (item.item) {
         case Items.Null_talisman:
@@ -268,6 +302,10 @@ class BossProvider extends ChangeNotifier {
         case Items.Hand_of_midas:
         case Items.Vladmirs_offering:
         case Items.Monkey_king_bar:
+        case Items.Daedalus:
+        case Items.Eye_of_skadi:
+        case Items.Divine_rapier:
+        case Items.Bloodthorn:
           break;
         case Items.Arcane_boots:
           _addMana(175);
@@ -286,6 +324,10 @@ class BossProvider extends ChangeNotifier {
           break;
         case Items.Refresher_orb:
           _resetCooldowns(withRefresherOrb: false);
+          break;
+        case Items.Dagon:
+          spellDamage += 3200;
+          await Future.delayed(Duration(seconds: item.item.duration?.toInt() ?? 0), () => spellDamage -= 3200,);
           break;
       }
       updateView();
@@ -357,10 +399,9 @@ class BossProvider extends ChangeNotifier {
   /// 
   /// this function is called inside the [_timer] object
   void _autoHit(){
-    var fullDamage = (baseDamage+bonusDamage) + (damageMultiplier * (baseDamage+bonusDamage));
-    print(fullDamage);
-    var health = currentBoss.getHp / healthUnit;
-    var totalDamage = fullDamage /health;
+    double fullDamage = (baseDamage+bonusDamage) + (damageMultiplier * (baseDamage+bonusDamage));
+    double health = currentBoss.getHp / healthUnit;
+    double totalDamage = fullDamage /health;
     healthProgress += totalDamage;
     dps += fullDamage;
     currentBossHp = currentBoss.getHp - (healthProgress * health);
@@ -386,8 +427,8 @@ class BossProvider extends ChangeNotifier {
   /// 
   ///this function is called inside the [_timer] object
   void _hitWithSpell(double damage) {
-    var health = currentBoss.getHp / healthUnit;
-    var totalDamage = damage/health;
+    double health = currentBoss.getHp / healthUnit;
+    double totalDamage = damage/health;
     healthProgress += totalDamage;
     dps += damage;
     currentBossHp = currentBoss.getHp - (healthProgress * health);

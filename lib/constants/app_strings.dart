@@ -171,6 +171,7 @@ class SoundPaths {
   static const String _castTriggerSounds = '$_spellSounds/cast_trigger_sounds';
   static const String _misc = '$_root/misc';
   static const String _shop = '$_root/shop_sounds';
+  static const String itemSounds = '$_root/item_sounds';
 
   //Ability on cooldown sounds
   static const String abilityOnCooldown = '$_root/ability_on_cooldown/notyet';

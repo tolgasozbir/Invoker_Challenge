@@ -43,6 +43,10 @@ class SoundManager {
     _playSound(fileName: SoundPaths.invoke);
   }
 
+  void playItemSound(String itemName) {
+    _playSound(fileName: SoundPaths.itemSounds+"/$itemName.mpeg");
+  }
+
   void playItemBuyingSound() {
     _playSound(fileName: SoundPaths.itemBuying);
   }  
