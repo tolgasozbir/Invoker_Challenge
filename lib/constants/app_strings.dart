@@ -61,7 +61,7 @@ class AppStrings {
   static const String sbSuccess = 'Success';
   static const String sbError = 'Error';
   static const String sbNoMoreData = 'No more data!';
-  static const String sbWaitAnimation = 'Button is inactive, it will be enabled in 3 seconds. Please wait.';
+  static const String sbWaitAnimation = 'Button is inactive, it will be enabled in 5 seconds. Please wait.';
   static const String sbInventoryFull = 'Inventory is full!';
   static const String sbNotEnoughGold = 'Not enough gold';
 
@@ -187,6 +187,8 @@ class SoundPaths {
   //misc
   static const String meepMerp = '$_misc/meep_merp.mp3';
   static const String invoke = '$_misc/Invoke.mpeg';
+  static const String horn_dire = '$_misc/horn_dire.mpeg';
+  static const String horn_radiant = '$_misc/horn_radiant.mpeg';
 
   //fail sounds
   static const String fail1 = '$_failSounds/fail1.mp3';

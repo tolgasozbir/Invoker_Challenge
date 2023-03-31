@@ -35,6 +35,15 @@ class SoundManager {
     _player = await _cache.play(fileName, volume: volume * getVolume/100);
   }
 
+  void playHorn() {
+    var horns = [
+      SoundPaths.horn_dire,
+      SoundPaths.horn_radiant,
+    ];
+    var sound = horns[_rnd.nextInt(horns.length)];
+    _playSound(fileName: sound);
+  }
+
   void playMeepMerp() {
     _playSound(fileName: SoundPaths.meepMerp);
   }  

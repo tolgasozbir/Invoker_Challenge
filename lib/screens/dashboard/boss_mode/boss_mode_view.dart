@@ -51,6 +51,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
   @override
   void initState() {
     provider = context.read<BossProvider>();
+    //provider.disposeGame();
     super.initState();
   }
 
@@ -70,7 +71,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
           },
         ),
         actions: [
-          ShopButton(),
+          if(!context.watch<BossProvider>().started && context.watch<BossProvider>().snapIsDone && !context.watch<BossProvider>().isHornSoundPlaying) ShopButton(),
         ],
       ),
       body: WillPopScope(
@@ -81,7 +82,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
   }
 
   bool backButtonFn() {
-    var canPop = context.read<BossProvider>().snapIsDone;
+    var canPop = context.read<BossProvider>().snapIsDone && !context.read<BossProvider>().isHornSoundPlaying;
     if (!canPop) {
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
       AppSnackBar.showSnackBarMessage(

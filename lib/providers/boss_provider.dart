@@ -20,6 +20,9 @@ class BossProvider extends ChangeNotifier {
 
   //Boss Game Values
   bool started = false;
+  bool isHornSoundPlaying = false;
+  bool hornSoundPlayed = false;
+  bool hasHornSoundStopped = false;
   double get baseDamage => UserManager.instance.user.level * 5 + rng.nextDouble() * 16;
   double bonusDamage = 0;
   double damageMultiplier = 0;
@@ -442,7 +445,19 @@ class BossProvider extends ChangeNotifier {
   }
 
   ///This function prepares the game for the next round by setting various variables.
-  void nextRound() {
+  Future<void> nextRound() async {
+    if (!hornSoundPlayed) {
+      SoundManager.instance.playHorn();
+      isHornSoundPlaying = true;
+      hornSoundPlayed = true;
+      updateView();
+      await Future.delayed(Duration(seconds: 10));
+      hasHornSoundStopped = true;
+      isHornSoundPlaying = false;
+    }
+    if (hasHornSoundStopped == false) {
+      return;
+    }
     started = true;
     currentBossAlive = true;
     snappableKey.currentState?.reset();
@@ -482,7 +497,7 @@ class BossProvider extends ChangeNotifier {
     if (timeProgress >= timeUnits) {
       log("Time out");
       _timer?.cancel();
-      started = false;
+      _reset();
       return;
     }
   }
@@ -493,8 +508,9 @@ class BossProvider extends ChangeNotifier {
   // If the timer is already active, the function returns.
   // Also stops the timer depending on whether the boss is dead or the time is up.
   // Calls the updateView() function to update the display.
-  void startGame() {
-    nextRound();
+  void startGame() async {
+    await nextRound();
+    if (!hasHornSoundStopped) return;
     if (_timer != null) return;
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       dps = 0;
@@ -516,6 +532,9 @@ class BossProvider extends ChangeNotifier {
   ///Reset progress values
   void _reset() {
     started = false;
+    isHornSoundPlaying = false;
+    hornSoundPlayed = false;
+    hasHornSoundStopped = false;
     dps = 0;
     roundProgress = -1;
     healthProgress = 0;
