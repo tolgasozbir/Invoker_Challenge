@@ -3,7 +3,8 @@ import '../constants/app_strings.dart';
 enum Bosses {
   warlock(10000),
   omniknight(15000),
-  riki(25000);
+  riki(25000),
+  huskar(35000);
 
   const Bosses(this._health);
 

@@ -451,7 +451,7 @@ class BossProvider extends ChangeNotifier {
       isHornSoundPlaying = true;
       hornSoundPlayed = true;
       updateView();
-      await Future.delayed(Duration(seconds: 10));
+      await Future.delayed(Duration(seconds: 8));
       hasHornSoundStopped = true;
       isHornSoundPlaying = false;
     }
@@ -464,6 +464,7 @@ class BossProvider extends ChangeNotifier {
     roundProgress++;
     currentBoss = bossList[roundProgress];
     currentBossHp = currentBoss.getHp;
+    SoundManager.instance.playBossEnteringSound(currentBoss);
     healthProgress = 0;
     timeProgress = 0;
     currentMana = totalMana;
@@ -487,6 +488,7 @@ class BossProvider extends ChangeNotifier {
       currentBossHp = 0; // eksi değer göstermemesi için
       dps = 0;
       await Future.delayed(Duration(milliseconds: 100)); //snap işleminde 100 ms sonrasını baz almak için
+      SoundManager.instance.playBossDyingSound(currentBoss);
       await snapBoss();
       currentBossAlive = false;
       _handOfMidasFn();
@@ -496,7 +498,7 @@ class BossProvider extends ChangeNotifier {
 
     if (timeProgress >= timeUnits) {
       log("Time out");
-      _timer?.cancel();
+      SoundManager.instance.playBossTauntSound(currentBoss);
       _reset();
       return;
     }
@@ -531,6 +533,8 @@ class BossProvider extends ChangeNotifier {
 
   ///Reset progress values
   void _reset() {
+    _timer?.cancel();
+    _timer = null;
     started = false;
     isHornSoundPlaying = false;
     hornSoundPlayed = false;

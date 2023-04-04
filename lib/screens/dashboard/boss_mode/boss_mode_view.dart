@@ -4,6 +4,7 @@ import 'package:dota2_invoker_game/enums/Bosses.dart';
 import 'package:dota2_invoker_game/enums/spells.dart';
 import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/inventory_hud.dart';
 import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/mana_bar.dart';
+import 'package:dota2_invoker_game/utils/number_formatter.dart';
 import 'package:dota2_invoker_game/widgets/app_snackbar.dart';
 import 'package:snappable_thanos/snappable_thanos.dart';
 
@@ -173,7 +174,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
               duration: Duration(milliseconds: 1600),
               child: Image.asset(provider.currentBoss.getImage, height: context.dynamicHeight(0.18),)
             ),
-            Text(provider.currentBossHp.toStringAsFixed(0)),
+            Text(priceString(provider.currentBossHp)),
             Text(provider.currentBoss.getName),
           ],
         ).wrapCenter(),

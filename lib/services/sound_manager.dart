@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:audioplayers/audioplayers.dart';
+import 'package:dota2_invoker_game/enums/Bosses.dart';
 
 import '../constants/app_strings.dart';
 
@@ -41,6 +42,49 @@ class SoundManager {
       SoundPaths.horn_radiant,
     ];
     var sound = horns[_rnd.nextInt(horns.length)];
+    _playSound(fileName: sound);
+  }
+
+  void playBossEnteringSound(Bosses boss) async {
+    int soundCount = 0;
+    switch (boss) {
+      case Bosses.warlock:
+      case Bosses.omniknight:
+      case Bosses.riki: 
+      case Bosses.huskar: soundCount = 2; break;
+    }
+    int num = _rnd.nextInt(soundCount) + 1;
+    String sound = SoundPaths.bossSounds+"/${boss.name}/entering$num.mpeg";
+    _playSound(fileName: sound);
+    if (boss == Bosses.riki) {
+      String smoke = SoundPaths.bossSounds+"/${boss.name}/smoke.mpeg";
+      Future.delayed(Duration(seconds: 1), () => _playSound(fileName: smoke, volume: 0.16),);
+    }
+  }  
+  
+  void playBossDyingSound(Bosses boss) {
+    int soundCount = 0;
+    switch (boss) {
+      case Bosses.warlock:
+      case Bosses.omniknight:
+      case Bosses.riki:
+      case Bosses.huskar: soundCount = 2; break;
+    }
+    int num = _rnd.nextInt(soundCount) + 1;
+    String sound = SoundPaths.bossSounds+"/${boss.name}/dying$num.mpeg";
+    _playSound(fileName: sound);
+  }  
+  
+  void playBossTauntSound(Bosses boss) {
+    int soundCount = 0;
+    switch (boss) {
+      case Bosses.warlock:
+      case Bosses.omniknight:
+      case Bosses.riki: soundCount = 2; break;
+      case Bosses.huskar: soundCount = 1; break;
+    }
+    int num = _rnd.nextInt(soundCount) + 1;
+    String sound = SoundPaths.bossSounds+"/${boss.name}/taunt$num.mpeg";
     _playSound(fileName: sound);
   }
 

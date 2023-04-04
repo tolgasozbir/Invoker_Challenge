@@ -81,6 +81,10 @@ flutter:
     - assets/sounds/not_enough_mana/
     - assets/sounds/shop_sounds/
     - assets/sounds/item_sounds/
+    - assets/sounds/boss_sounds/warlock/
+    - assets/sounds/boss_sounds/omniknight/
+    - assets/sounds/boss_sounds/riki/
+    - assets/sounds/boss_sounds/huskar/
 
     - assets/lottie/
     - assets/svg/
