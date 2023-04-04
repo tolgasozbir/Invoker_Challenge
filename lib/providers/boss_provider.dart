@@ -19,6 +19,8 @@ class BossProvider extends ChangeNotifier {
   final rng = math.Random();
 
   //Boss Game Values
+  int elapsedTime = 0;
+  int get getRemainingTime => timeUnits - elapsedTime;
   bool started = false;
   bool isHornSoundPlaying = false;
   bool hornSoundPlayed = false;
@@ -64,23 +66,23 @@ class BossProvider extends ChangeNotifier {
   //
 
   ///-----     Mana Bar Values     -----///
-  double totalMana = 200 + UserManager.instance.user.level * 67;
-  double currentMana = 200 + UserManager.instance.user.level * 67;
-  double baseManaRegen = UserManager.instance.user.level * 0.27;
+  double maxMana = 500 + UserManager.instance.user.level * 67;
+  double currentMana = 500 + UserManager.instance.user.level * 67;
+  double baseManaRegen = 2 + UserManager.instance.user.level * 0.27;
   double manaRegenMultiplier = 0;
   double get manaRegen => baseManaRegen + (baseManaRegen * manaRegenMultiplier);
-  double get manaBarWidthMultiplier => ((currentMana / totalMana) * 100) / 100;
+  double get manaBarWidthMultiplier => ((currentMana / maxMana) * 100) / 100;
 
   ///Increases the player's current mana by the base mana regeneration rate per second.
   ///
-  ///If the current mana is greater than the total mana, it sets currentMana to totalMana.
+  ///If the current mana is greater than the total mana, it sets currentMana to maxMana.
   ///
   ///this function is called inside the [_timer] object
   void _manaRegenFn() {
-    if (currentMana < totalMana) {
+    if (currentMana < maxMana) {
       currentMana += baseManaRegen + (baseManaRegen * manaRegenMultiplier);
-      if (currentMana > totalMana) {
-        currentMana = totalMana;
+      if (currentMana > maxMana) {
+        currentMana = maxMana;
       }
     }
   }
@@ -94,16 +96,17 @@ class BossProvider extends ChangeNotifier {
   
   _addMana(double val) {
     currentMana += val;
-    if (currentMana > totalMana) {
-      currentMana = totalMana;
+    if (currentMana > maxMana) {
+      currentMana = maxMana;
     }
   }
   ///-----     End Mana Bar Values     -----///
 
   ///-----     Inventory - Items     -----///
   
-  int _userGold = 60000;
+  int _userGold = 1000;
   int get userGold => _userGold;
+  int get gainedGold => (getRemainingTime * 12) + (roundProgress * 250) + 600;
 
   void _addGold(int val) {
     _userGold += val;
@@ -130,7 +133,7 @@ class BossProvider extends ChangeNotifier {
     _inventory.add(item);
     _buyItem(item);
     _spendGold(item.item.cost);
-    currentMana = totalMana;
+    currentMana = maxMana;
     updateView();
   }
   
@@ -138,7 +141,7 @@ class BossProvider extends ChangeNotifier {
     _inventory.remove(item);
     _sellItem(item);
     _addGold((item.item.cost * 0.75).toInt());
-    currentMana = totalMana;
+    currentMana = maxMana;
     updateView();
   }
 
@@ -146,16 +149,16 @@ class BossProvider extends ChangeNotifier {
     switch (item.item) {
       case Items.Null_talisman:
         baseManaRegen += 1;
-        totalMana += 60;
+        maxMana += 60;
         break;
       case Items.Void_stone:
         baseManaRegen += 2.25;
         break;
       case Items.Arcane_boots:
-        totalMana += 250;
+        maxMana += 250;
         break;
       case Items.Power_treads:
-        totalMana += 100;
+        maxMana += 100;
         bonusDamage += 10;
         break;
       case Items.Phase_boots:
@@ -168,7 +171,7 @@ class BossProvider extends ChangeNotifier {
         break;
       case Items.Aether_lens:
         baseManaRegen += 2.5;
-        totalMana += 300;
+        maxMana += 300;
         break;
       case Items.Meteor_hammer:
         baseManaRegen += 2.5;
@@ -184,7 +187,7 @@ class BossProvider extends ChangeNotifier {
         if (len < 2){
           spellAmp += 0.16;
           manaRegenMultiplier += 0.75;
-          totalMana += 500;
+          maxMana += 500;
         }
         break;
       case Items.Monkey_king_bar:
@@ -197,11 +200,11 @@ class BossProvider extends ChangeNotifier {
         bonusDamage += 56;
         break;
       case Items.Eye_of_skadi:
-        totalMana += 1500;
+        maxMana += 1500;
         break;
       case Items.Bloodthorn:
         bonusDamage += 50;
-        totalMana += 400;
+        maxMana += 400;
         baseManaRegen += 5;
         break;
       case Items.Dagon: break;
@@ -215,16 +218,16 @@ class BossProvider extends ChangeNotifier {
     switch (item.item) {
       case Items.Null_talisman:
         baseManaRegen -= 1;
-        totalMana -= 60;
+        maxMana -= 60;
         break;
       case Items.Void_stone:
         baseManaRegen -= 2.25;
         break;
       case Items.Arcane_boots:
-        totalMana -= 250;
+        maxMana -= 250;
         break;
       case Items.Power_treads:
-        totalMana -= 100;
+        maxMana -= 100;
         bonusDamage -= 10;
         break;
       case Items.Phase_boots:
@@ -237,7 +240,7 @@ class BossProvider extends ChangeNotifier {
         break;
       case Items.Aether_lens:
         baseManaRegen -= 2.5;
-        totalMana -= 300;
+        maxMana -= 300;
         break;
       case Items.Meteor_hammer:
         baseManaRegen -= 2.5;
@@ -256,7 +259,7 @@ class BossProvider extends ChangeNotifier {
         if (!itemHasInventory){
           spellAmp -= 0.16;
           manaRegenMultiplier -= 0.75;
-          totalMana -= 500;
+          maxMana -= 500;
         }
         break;
       case Items.Monkey_king_bar:
@@ -269,11 +272,11 @@ class BossProvider extends ChangeNotifier {
         bonusDamage -= 56;
         break;
       case Items.Eye_of_skadi:
-        totalMana -= 1500;
+        maxMana -= 1500;
         break;
       case Items.Bloodthorn:
         bonusDamage -= 50;
-        totalMana -= 400;
+        maxMana -= 400;
         baseManaRegen -= 5;
         break;
       case Items.Dagon: break;
@@ -375,11 +378,13 @@ class BossProvider extends ChangeNotifier {
     var spellUsed = SpellCooldowns[index].onPressedAbility(currentMana); // Checks if the selected spell can be used, and assigns true to the spellUsed variable if it can.
     if (spellUsed) { // If the selected spell was used
       _spendMana(spell.mana); // Mana is spent equal to the mana value of the chosen spell.
-      spellDamage += spell.damage; // Adds the spell damage to the spellDamage variable.
+      double abilityDamageMultiplier = spell.damage * (UserManager.instance.user.level * 0.02); //max level 0.6
+      double fullDamage = spell.damage + abilityDamageMultiplier;
+      spellDamage += fullDamage; // Adds the spell damage to the spellDamage variable.
       updateView(); // Update the player's view.
       spell.duration == 0 // If the spell has no effect;
-        ? await Future.delayed(Duration(seconds: 1), () => spellDamage -= spell.damage) // Wait for a second and subtract the spell damage from the spellDamage variable.
-        : await Future.delayed(Duration(seconds: spell.duration), () => spellDamage -= spell.damage); // Wait for the spell's duration and subtract the spell damage from the spellDamage variable.
+        ? await Future.delayed(Duration(seconds: 1), () => spellDamage -= fullDamage) // Wait for a second and subtract the spell damage from the spellDamage variable.
+        : await Future.delayed(Duration(seconds: spell.duration), () => spellDamage -= fullDamage); // Wait for the spell's duration and subtract the spell damage from the spellDamage variable.
     }
   }
   //
@@ -467,7 +472,8 @@ class BossProvider extends ChangeNotifier {
     SoundManager.instance.playBossEnteringSound(currentBoss);
     healthProgress = 0;
     timeProgress = 0;
-    currentMana = totalMana;
+    elapsedTime = 0;
+    currentMana = maxMana;
     _resetCooldowns();
     updateView();
   }
@@ -487,6 +493,7 @@ class BossProvider extends ChangeNotifier {
       started = false;
       currentBossHp = 0; // eksi değer göstermemesi için
       dps = 0;
+      _addGold(gainedGold);
       await Future.delayed(Duration(milliseconds: 100)); //snap işleminde 100 ms sonrasını baz almak için
       SoundManager.instance.playBossDyingSound(currentBoss);
       await snapBoss();
@@ -516,6 +523,7 @@ class BossProvider extends ChangeNotifier {
     if (_timer != null) return;
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       dps = 0;
+      elapsedTime++;
       _increaseTime();
       _autoHit();
       _hitWithSpell(spellDamage + (spellDamage * spellAmp));
@@ -540,6 +548,7 @@ class BossProvider extends ChangeNotifier {
     hornSoundPlayed = false;
     hasHornSoundStopped = false;
     dps = 0;
+    elapsedTime = 0;
     roundProgress = -1;
     healthProgress = 0;
     timeProgress = 0;
@@ -551,13 +560,13 @@ class BossProvider extends ChangeNotifier {
     currentBoss = Bosses.values.first;
     bonusDamage = 0;
     damageMultiplier = 0;
-    totalMana = 200 + UserManager.instance.user.level * 67;
-    currentMana = totalMana;
-    baseManaRegen = UserManager.instance.user.level * 0.27;
+    maxMana = 500 + UserManager.instance.user.level * 67;
+    currentMana = maxMana;
+    baseManaRegen = 2 + UserManager.instance.user.level * 0.27;
     manaRegenMultiplier = 0;
     spellAmp = 0;
     _isActiveMidas = false;
-    _userGold = 600;
+    _userGold = 1000;
   }
 
   void _resetCooldowns({bool withRefresherOrb = true}) {

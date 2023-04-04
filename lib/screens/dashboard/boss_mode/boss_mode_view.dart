@@ -138,6 +138,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
   InkWell startBtn(BoxConstraints constraints) {
     bool isStarted = context.watch<BossProvider>().started;
     bool snapIsDone = context.watch<BossProvider>().snapIsDone;
+    bool isHornPlaying = context.watch<BossProvider>().isHornSoundPlaying;
     bool status = isStarted || !snapIsDone;
     return InkWell(
       splashFactory: WaveSplash.splashFactory,
@@ -151,7 +152,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
         height: constraints.maxHeight,
         child: AnimatedSwitcher(
           duration: Duration(seconds: 1),
-          child: status ? EmptyBox() : Text("Start"),
+          child: status ? EmptyBox() : isHornPlaying ? Text("Starting") : Text("Start"),
         ),
       ),
     );
@@ -187,7 +188,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
       //outer
       CustomPaint(
         painter: ArcPainter(
-          progress: context.watch<BossProvider>().healthProgress,
+          progress: context.watch<BossProvider>().healthProgress-1,
           units: context.read<BossProvider>().healthUnit,
           radius: context.dynamicHeight(0.19),
           gap: 0.22,
@@ -275,7 +276,10 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
                 break;
               }
             }
-            if (castedSpell == null) return;
+            if (castedSpell == null) {
+              SoundManager.instance.failCombinationSound();
+              return;
+            }
             var index = Spells.values.indexOf(castedSpell);
             var spell = context.read<BossProvider>().SpellCooldowns[index];
             context.read<BossProvider>().switchAbility(spell);
