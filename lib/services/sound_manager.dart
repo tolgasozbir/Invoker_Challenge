@@ -52,6 +52,7 @@ class SoundManager {
       case Bosses.omniknight:
       case Bosses.riki: 
       case Bosses.huskar: soundCount = 2; break;
+      case Bosses.templar: soundCount = 1; break;
     }
     int num = _rnd.nextInt(soundCount) + 1;
     String sound = SoundPaths.bossSounds+"/${boss.name}/entering$num.mpeg";
@@ -69,6 +70,7 @@ class SoundManager {
       case Bosses.omniknight:
       case Bosses.riki:
       case Bosses.huskar: soundCount = 2; break;
+      case Bosses.templar: soundCount = 1; break;
     }
     int num = _rnd.nextInt(soundCount) + 1;
     String sound = SoundPaths.bossSounds+"/${boss.name}/dying$num.mpeg";
@@ -80,6 +82,7 @@ class SoundManager {
     switch (boss) {
       case Bosses.warlock:
       case Bosses.omniknight:
+      case Bosses.templar:
       case Bosses.riki: soundCount = 2; break;
       case Bosses.huskar: soundCount = 1; break;
     }

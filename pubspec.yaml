@@ -85,6 +85,7 @@ flutter:
     - assets/sounds/boss_sounds/omniknight/
     - assets/sounds/boss_sounds/riki/
     - assets/sounds/boss_sounds/huskar/
+    - assets/sounds/boss_sounds/templar/
 
     - assets/lottie/
     - assets/svg/

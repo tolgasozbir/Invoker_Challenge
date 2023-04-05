@@ -467,6 +467,10 @@ class BossProvider extends ChangeNotifier {
     currentBossAlive = true;
     snappableKey.currentState?.reset();
     roundProgress++;
+    roundProgress++;
+    roundProgress++;
+    roundProgress++;
+    roundProgress++;
     currentBoss = bossList[roundProgress];
     currentBossHp = currentBoss.getHp;
     SoundManager.instance.playBossEnteringSound(currentBoss);

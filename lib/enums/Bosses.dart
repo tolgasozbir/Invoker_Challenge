@@ -4,7 +4,8 @@ enum Bosses {
   warlock(10000),
   omniknight(15000),
   riki(25000),
-  huskar(35000);
+  huskar(35000),
+  templar(45000);
 
   const Bosses(this._health);
 
