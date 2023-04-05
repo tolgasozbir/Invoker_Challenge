@@ -56,7 +56,6 @@ class AppStrings {
   static const String feedbackSuccessMessage = 'Thank you! your feedback will help me improve your experience.';
   static const String qwerHudInfoMessage1 = 'Adjusts the height of the quas, wex, exort, and invoke buttons.';
   static const String qwerHudInfoMessage2 = 'The higher it is, the closer it is to the bottom.';
-  static const String unlockBossModeMessage = 'You have to unlock the boss mode to enter. (Requires level 10)';
   static const String sbInfo = 'Info';
   static const String sbSuccess = 'Success';
   static const String sbError = 'Error';
@@ -69,7 +68,7 @@ class AppStrings {
   static const String talentTree = 'Talent Tree';
   static const String talent10 = '+2 exp multiplier';
   static const talents = const [
-    'Unlock Boss Mode',
+    '+200 Mana in Boss Mode',
     '+1 Challenger Life',
     '+2 Exp Multiplier',
     'D. Dmg to Bosses',

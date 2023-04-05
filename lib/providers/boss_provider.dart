@@ -25,7 +25,7 @@ class BossProvider extends ChangeNotifier {
   bool isHornSoundPlaying = false;
   bool hornSoundPlayed = false;
   bool hasHornSoundStopped = false;
-  double get baseDamage => UserManager.instance.user.level * 5 + rng.nextDouble() * 16;
+  double get baseDamage => (UserManager.instance.user.level * 5) * (UserManager.instance.user.level >= 30 ? 2 : 1) + rng.nextDouble() * 16;
   double bonusDamage = 0;
   double damageMultiplier = 0;
   double dps = 0; //Damage Per Seconds
@@ -66,7 +66,7 @@ class BossProvider extends ChangeNotifier {
   //
 
   ///-----     Mana Bar Values     -----///
-  double maxMana = 500 + UserManager.instance.user.level * 67;
+  double maxMana = (UserManager.instance.user.level * 67) + 500 + (UserManager.instance.user.level >= 10 ? 200 : 0);
   double currentMana = 500 + UserManager.instance.user.level * 67;
   double baseManaRegen = 2 + UserManager.instance.user.level * 0.27;
   double manaRegenMultiplier = 0;
@@ -564,7 +564,7 @@ class BossProvider extends ChangeNotifier {
     currentBoss = Bosses.values.first;
     bonusDamage = 0;
     damageMultiplier = 0;
-    maxMana = 500 + UserManager.instance.user.level * 67;
+    maxMana = (UserManager.instance.user.level * 67) + 500 + (UserManager.instance.user.level >= 10 ? 200 : 0);
     currentMana = maxMana;
     baseManaRegen = 2 + UserManager.instance.user.level * 0.27;
     manaRegenMultiplier = 0;

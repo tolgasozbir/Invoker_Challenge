@@ -5,7 +5,6 @@ class UserModel {
     required this.uid,
     required this.username,
     required this.challangerLife,
-    required this.isBossModeEnabled,
     required this.bestChallengerScore,
     required this.bestTimerScore,
     required this.level,
@@ -18,7 +17,6 @@ class UserModel {
   UserModel.guest({
     this.uid = null,
     required this.username,
-    this.isBossModeEnabled = false,
     this.challangerLife = 0,
     this.bestChallengerScore = 0,
     this.bestTimerScore = 0,
@@ -41,7 +39,6 @@ class UserModel {
 
   String? uid;
   String username;
-  bool isBossModeEnabled;
   int challangerLife;
   int bestChallengerScore;
   int bestTimerScore;
@@ -55,7 +52,6 @@ class UserModel {
     return <String, dynamic>{
       'uid': uid,
       'username': username,
-      'isBossModeEnabled' : isBossModeEnabled,
       'challangerLife' : challangerLife,
       'bestChallengerScore': bestChallengerScore,
       'bestTimerScore': bestTimerScore,
@@ -71,7 +67,6 @@ class UserModel {
     return UserModel(
       uid: map['uid'] as String?,
       username: map['username'] as String,
-      isBossModeEnabled: map['isBossModeEnabled'] as bool,
       challangerLife: map['challangerLife'] as int,
       bestChallengerScore: map['bestChallengerScore'] as int,
       bestTimerScore: map['bestTimerScore'] as int,

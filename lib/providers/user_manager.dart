@@ -133,10 +133,10 @@ class UserManager extends ChangeNotifier {
 
     //TODO: Talents
     switch (level) {
-      case 10: user.isBossModeEnabled = true; break;
+      case 10: break; ///[maxMana += UserManager.instance.user.level >= 10 ? 200] in BossProvider
       case 15: user.challangerLife = 1; break;
       case 20: user.expMultiplier += 2; break;
-      case 25: break;
+      case 25: break; ///[baseDamage *= (UserManager.instance.user.level >= 30 ? 2 : 1)] in BossProvider
       default: break;
     }
     

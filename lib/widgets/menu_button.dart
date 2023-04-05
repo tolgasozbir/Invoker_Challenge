@@ -6,14 +6,11 @@ import 'package:provider/provider.dart';
 import 'package:splash/splash.dart';
 
 import '../constants/app_colors.dart';
-import '../constants/app_strings.dart';
 import '../extensions/context_extension.dart';
 import '../extensions/widget_extension.dart';
 import '../providers/game_provider.dart';
-import '../providers/user_manager.dart';
 import '../screens/dashboard/loading_view.dart';
 import '../services/sound_manager.dart';
-import 'app_snackbar.dart';
 
 class MenuButton extends StatefulWidget {
   const MenuButton({
@@ -97,19 +94,6 @@ class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateM
     Navigator.push(context, MaterialPageRoute(builder: (context)=> LoadingView(page: widget.navigatePage!)));
   }
 
-  void _goToBossMode() {
-    if (!UserManager.instance.user.isBossModeEnabled) {
-      ScaffoldMessenger.of(context).removeCurrentSnackBar();
-      AppSnackBar.showSnackBarMessage(
-        text: AppStrings.unlockBossModeMessage, 
-        snackBartype: SnackBarType.info,
-        duration: Duration(milliseconds: 3000),
-      );
-      return;
-    }
-    _goToGameScreen();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -135,11 +119,7 @@ class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateM
       width: context.dynamicWidth(0.8),
       child:  ElevatedButton(
         style: buttonStyle,
-        onPressed: widget.isBtnBossMode 
-          ? _goToBossMode 
-          : widget.isBtnExit 
-            ? _closeApp 
-            : _goToGameScreen,
+        onPressed: widget.isBtnExit ? _closeApp : _goToGameScreen,
         child: buttonSurface(),
       ),
     );
