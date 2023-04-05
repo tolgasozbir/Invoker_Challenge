@@ -14,7 +14,7 @@ class Item {
       bool canUseItem = currentMana >= (item.mana ?? 0);
       if (canUseItem) {
         _lastPressedAt = DateTime.now();
-        //TODO: İTEM SOUND
+        //TODO: İTEM SOUND //BOSS PROVİDER'DAN BURAYA TAŞIYABİLİRSİN- SWİTCH-CASE'DE DAHİL
         return true;
       } else {
         SoundManager.instance.playNoManaSound();

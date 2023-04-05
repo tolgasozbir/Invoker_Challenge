@@ -1,4 +1,6 @@
+import 'package:dota2_invoker_game/providers/boss_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../constants/app_colors.dart';
 import '../../constants/app_strings.dart';
@@ -15,7 +17,6 @@ class ProfileDialogContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return SizedBox(
       height: context.dynamicHeight(0.64)-80,
       child: Column(
@@ -30,6 +31,7 @@ class ProfileDialogContent extends StatelessWidget {
   }
 
   InkWell achievements(BuildContext context) {
+    AchievementManager.instance.updateAchievements();
     var totalCount = AchievementManager.instance.achievements.length;
     var current = AchievementManager.instance.achievements.where((e) => e.isDone == true).toList().length;
     return InkWell(
@@ -60,6 +62,7 @@ class ProfileDialogContent extends StatelessWidget {
     return AppOutlinedButton(
       width: double.infinity,
       onPressed: () async {
+        context.read<BossProvider>().disposeGame(); //Reset Boss Mode Values
         await AppServices.instance.firebaseAuthService.signOut();
         if (context.mounted) Navigator.pop(context);
       }, 

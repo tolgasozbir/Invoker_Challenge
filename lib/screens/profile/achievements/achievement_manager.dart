@@ -24,6 +24,15 @@ class AchievementManager {
     _achievements.insert(0, achieveAll);
   }
 
+  void updateAchievements() {
+    updateLevel();
+    //updatePlayedGame();
+    updateChallenger(0, 0);
+    updateTimer(0);
+    initAchievements();
+    UserManager.instance.setAndSaveUserToLocale(UserManager.instance.user);
+  }
+
   void updateLevel() {
     UserManager.instance.user.achievements?["level"] = UserManager.instance.user.level;
     print("User Level : ${UserManager.instance.user.achievements?["level"]}");

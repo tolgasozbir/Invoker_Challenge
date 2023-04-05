@@ -50,6 +50,7 @@ class _ResultDialogContentState extends State<ResultDialogContent> {
         onPressed: () async {
           if (AdsHelper.instance.rewardedInterstitialAd == null) return;
           await AdsHelper.instance.rewardedInterstitialAd?.show(onUserEarnedReward: (ad, reward) async {
+            //TODO: REWARD
             await AdsHelper.instance.rewardedInterstitialAdLoad();
           });
         }, 

@@ -98,6 +98,7 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
           height: SnackBarHeight,
           decoration: BoxDecoration(
             color: snackBarColor,
+            border: Border.all(width: 1.6),
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(20),
               topRight: Radius.circular(10),

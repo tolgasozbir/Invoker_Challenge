@@ -131,7 +131,6 @@ class UserManager extends ChangeNotifier {
     var reachedTalent = !(user.talentTree?['$level'] ?? true) && treeLevels.contains(level);
     if (!reachedTalent) return;
 
-    //TODO: Talents
     switch (level) {
       case 10: break; ///[maxMana += UserManager.instance.user.level >= 10 ? 200] in BossProvider
       case 15: user.challangerLife = 1; break;

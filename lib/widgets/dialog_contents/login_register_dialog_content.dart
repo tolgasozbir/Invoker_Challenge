@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../../constants/app_colors.dart';
@@ -65,6 +66,7 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
             ],
           ),
           const EmptyBox.h12(),
+          showHideOrbs(),
           loginOrRegisterBtn(),
           const EmptyBox.h12(),
           //Text("Reset your password!") //TODO:
@@ -89,6 +91,37 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
       sizeCurve: Curves.decelerate,
     );
   }
+
+  Widget showHideOrbs() {
+    return AnimatedCrossFade(
+      firstChild: const EmptyBox(),
+      secondChild: invokerOrbs,
+      crossFadeState: !isLoginCheckboxSelected ? CrossFadeState.showFirst : CrossFadeState.showSecond, 
+      duration: Duration(milliseconds: 400),
+      sizeCurve: Curves.decelerate,
+    );
+  }
+
+  Widget get invokerOrbs => Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      SvgPicture.asset(
+        ImagePaths.svgQuas,
+        color: AppColors.quasColor.withOpacity(0.72),
+        width: 48,
+      ),
+      SvgPicture.asset(
+        ImagePaths.svgWex,
+        color: AppColors.wexColor.withOpacity(0.72),
+        width: 48,
+      ),
+      SvgPicture.asset(
+        ImagePaths.svgExort,
+        color: AppColors.exortColor.withOpacity(0.72),
+        width: 48,
+      ),
+    ],
+  ).wrapPadding(EdgeInsets.only(bottom: 32, top: 8));
 
   List<Widget> checkboxWithTitle({required String title, bool isSelected = false}) {
     return [
