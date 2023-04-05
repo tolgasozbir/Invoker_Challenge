@@ -98,7 +98,13 @@ class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateM
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10),
-      child: button(),
+      child: widget.isBtnBossMode 
+        ? Banner(
+            message: "Beta",
+            location: BannerLocation.bottomEnd,
+            child: button()
+          )
+        : button(),
     );
   }
 

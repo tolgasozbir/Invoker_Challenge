@@ -1,3 +1,4 @@
+import 'package:dota2_invoker_game/utils/my_app_life_cycle_observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,16 +22,24 @@ import 'widgets/app_snackbar.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  //App state observer
+  final observer = MyAppLifecycleObserver();
+  WidgetsBinding.instance.addObserver(observer);
+  //Environment variables
   await FlutterConfig.loadEnvVariables();
+  //Ads
   await MobileAds.instance.initialize();
+  //Firebase
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  //App orientation
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  //Services
   await AppServices.instance.initServices(
     databaseService: FirestoreService.instance, 
     localStorageService: LocalStorageService.instance,
     firebaseAuthService: FirebaseAuthService.instance,
   );
-
+  //Providers
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => GameProvider()),
