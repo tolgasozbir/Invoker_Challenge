@@ -28,9 +28,16 @@ class BossProvider extends ChangeNotifier {
   double get baseDamage => (UserManager.instance.user.level * 5) * (UserManager.instance.user.level >= 30 ? 2 : 1) + rng.nextDouble() * 16;
   double bonusDamage = 0;
   double damageMultiplier = 0;
-  double dps = 0; //Damage Per Seconds
   double spellDamage = 0; //Ability Damage
   double spellAmp = 0;
+  double dps = 0; //Damage Per Seconds
+  double averageDps = 0;
+  double maxDps = 0;
+  double physicalDamage = 0;
+  double physicalPercentage = 0;
+  double magicalDamage = 0;
+  double magicalPercentage = 0;
+  List<double> last5AttackDamage = [];
   //
 
   //Circle Values
@@ -106,7 +113,7 @@ class BossProvider extends ChangeNotifier {
   
   int _userGold = 1000;
   int get userGold => _userGold;
-  int get gainedGold => (getRemainingTime * 12) + (roundProgress * 250) + 600;
+  int get gainedGold => (getRemainingTime * roundProgress) + (roundProgress * 250) + 600;
 
   void _addGold(int val) {
     _userGold += val;
@@ -391,6 +398,26 @@ class BossProvider extends ChangeNotifier {
 
   //-----     Game Functions    -----//
 
+  void _calcDPS(double val) {
+    last5AttackDamage.insert(0, val);
+    if (last5AttackDamage.length > 5) {
+      last5AttackDamage.removeLast();
+    }
+    final total = last5AttackDamage.fold<double>(0, (a, b) => a + b);
+    averageDps = total/last5AttackDamage.length;
+    if (maxDps < averageDps) maxDps = averageDps;
+    dps = averageDps;
+    _calcDamagePercentage();
+  }
+
+  void _calcDamagePercentage() {
+    double totalDamage = physicalDamage + magicalDamage;
+    physicalPercentage = (physicalDamage / totalDamage) * 100;
+    magicalPercentage = (magicalDamage / totalDamage) * 100;
+    print(physicalPercentage);
+    print(magicalPercentage);
+  }
+
   /// This function is triggered to perform an auto-hit every second.
   /// ```dart
   /// double baseDamage = level * 5 + (0-15)
@@ -411,6 +438,7 @@ class BossProvider extends ChangeNotifier {
     double health = currentBoss.getHp / healthUnit;
     double totalDamage = fullDamage /health;
     healthProgress += totalDamage;
+    physicalDamage += fullDamage;
     dps += fullDamage;
     currentBossHp = currentBoss.getHp - (healthProgress * health);
     //print(currentBoss.name + " Hp : " + (currentBoss.getHp - (healthProgress * health)).toStringAsFixed(0));
@@ -439,6 +467,7 @@ class BossProvider extends ChangeNotifier {
     double totalDamage = damage/health;
     healthProgress += totalDamage;
     dps += damage;
+    magicalDamage += damage;
     currentBossHp = currentBoss.getHp - (healthProgress * health);
   }
 
@@ -467,17 +496,18 @@ class BossProvider extends ChangeNotifier {
     currentBossAlive = true;
     snappableKey.currentState?.reset();
     roundProgress++;
-    roundProgress++;
-    roundProgress++;
-    roundProgress++;
-    roundProgress++;
     currentBoss = bossList[roundProgress];
     currentBossHp = currentBoss.getHp;
     SoundManager.instance.playBossEnteringSound(currentBoss);
+    currentMana = maxMana;
     healthProgress = 0;
     timeProgress = 0;
     elapsedTime = 0;
-    currentMana = maxMana;
+    last5AttackDamage.clear();
+    physicalDamage = 0;
+    physicalPercentage = 0;
+    magicalDamage = 0;
+    magicalPercentage = 0;
     _resetCooldowns();
     updateView();
   }
@@ -504,6 +534,7 @@ class BossProvider extends ChangeNotifier {
       currentBossAlive = false;
       _handOfMidasFn();
       updateView();
+      //BossResultDialogs.showBossRoundResults();
       return;
     }
 
@@ -531,6 +562,7 @@ class BossProvider extends ChangeNotifier {
       _increaseTime();
       _autoHit();
       _hitWithSpell(spellDamage + (spellDamage * spellAmp));
+      _calcDPS(dps);
       _manaRegenFn();
       _isGameFinished();
       //if (!started) timer.cancel();
@@ -552,6 +584,13 @@ class BossProvider extends ChangeNotifier {
     hornSoundPlayed = false;
     hasHornSoundStopped = false;
     dps = 0;
+    averageDps = 0;
+    maxDps = 0;
+    physicalDamage = 0;
+    physicalPercentage = 0;
+    magicalDamage = 0;
+    magicalPercentage = 0;
+    last5AttackDamage.clear();
     elapsedTime = 0;
     roundProgress = -1;
     healthProgress = 0;

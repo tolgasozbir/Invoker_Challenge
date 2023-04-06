@@ -48,7 +48,9 @@ class _ResultDialogContentState extends State<ResultDialogContent> {
       ),
       ElevatedButton(
         onPressed: () async {
-          if (AdsHelper.instance.rewardedInterstitialAd == null) return;
+          if (AdsHelper.instance.rewardedInterstitialAd == null) {
+            await AdsHelper.instance.rewardedInterstitialAdLoad();
+          }
           await AdsHelper.instance.rewardedInterstitialAd?.show(onUserEarnedReward: (ad, reward) async {
             //TODO: REWARD
             await AdsHelper.instance.rewardedInterstitialAdLoad();

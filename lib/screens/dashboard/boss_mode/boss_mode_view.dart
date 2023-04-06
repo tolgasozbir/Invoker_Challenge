@@ -6,6 +6,7 @@ import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/inventory
 import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/mana_bar.dart';
 import 'package:dota2_invoker_game/utils/number_formatter.dart';
 import 'package:dota2_invoker_game/widgets/app_snackbar.dart';
+import 'package:dota2_invoker_game/widgets/sliders/progress_slider.dart';
 import 'package:snappable_thanos/snappable_thanos.dart';
 
 import '../../../models/ability_cooldown.dart';
@@ -98,44 +99,78 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
     var skyLight = context.watch<BossProvider>().currentBossAlive ? SkyLight.dark : SkyLight.light;
     var skyType = SkyType.normal; // normal ile başlıcak sunny olcak sonlara doğru thunder
     var weatherType = WeatherType.normal; // son 2 3 round rainy olcak
-    return LayoutBuilder(builder: (context, constraints) {
-      return Column(
-        children: [
-          Stack(
-            alignment: Alignment.center,
-            fit: StackFit.expand,
-            children: [
-              Sky(skyLight: skyLight, skyType: skyType),
-              ...circles(constraints),
-              bossHeads(constraints),
-              Weather(weatherType: weatherType),
-              Positioned(
-                top: 8,
-                left: 8,
-                child: Text("Dps : " + context.watch<BossProvider>().dps.toStringAsFixed(0))
-              ),
-              startBtn(constraints),
-            ],
-          ).wrapExpanded(),
-          selectedElementOrbs(),
-          skills(),
-          EmptyBox.h12(),
-          ManaBar(),
-          EmptyBox.h8(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              InventoryHud(),
-              abilitySlot().wrapExpanded(),
-            ],
-          ),
-          EmptyBox.h16(),
-        ],
-      );
-    });
+    return Column(
+      children: [
+        Stack(
+          alignment: Alignment.center,
+          fit: StackFit.expand,
+          children: [
+            Sky(skyLight: skyLight, skyType: skyType),
+            ...circles(),
+            bossHeads(),
+            Weather(weatherType: weatherType),
+            dpsText(),
+            dpsStick(),
+            startBtn(),
+          ],
+        ).wrapExpanded(),
+        selectedElementOrbs(),
+        skills(),
+        EmptyBox.h12(),
+        ManaBar(),
+        EmptyBox.h8(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            InventoryHud(),
+            abilitySlot().wrapExpanded(),
+          ],
+        ),
+        EmptyBox.h16(),
+      ],
+    );
   }
 
-  InkWell startBtn(BoxConstraints constraints) {
+  Positioned dpsStick() {
+    return Positioned(
+      top: 8,
+      left: 8,
+      child: SizedBox(
+        width: 100,
+        height: 4,
+        child: Row(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: AppColors.red,
+                borderRadius: BorderRadius.horizontal(left: Radius.circular(2))
+              ),
+            ).wrapExpanded(flex: context.watch<BossProvider>().physicalPercentage.round()),
+            Container(
+              decoration: BoxDecoration(
+                color: AppColors.blue,
+                borderRadius: BorderRadius.horizontal(right: Radius.circular(2))
+              ),
+            ).wrapExpanded(flex: context.watch<BossProvider>().magicalPercentage.round()),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Positioned dpsText() {
+    return Positioned(
+      top: 16,
+      left: 8,
+      child: Row(
+        children: [
+          Text("Dps : " + priceString(context.watch<BossProvider>().dps)),
+        ],
+      )
+    );
+  }
+
+  InkWell startBtn() {
     bool isStarted = context.watch<BossProvider>().started;
     bool snapIsDone = context.watch<BossProvider>().snapIsDone;
     bool isHornPlaying = context.watch<BossProvider>().isHornSoundPlaying;
@@ -147,9 +182,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
         if (status) return;
         context.read<BossProvider>().startGame();
       },
-      child: SizedBox(
-        width: constraints.maxWidth,
-        height: constraints.maxHeight,
+      child: SizedBox.expand(
         child: AnimatedSwitcher(
           duration: Duration(seconds: 1),
           child: status ? EmptyBox() : isHornPlaying ? Text("Starting") : Text("Start"),
@@ -158,7 +191,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
     );
   }
 
-  Widget bossHeads(BoxConstraints constraints) {
+  Widget bossHeads() {
     var provider = context.watch<BossProvider>();
     return Snappable(
       key: provider.snappableKey,
@@ -183,7 +216,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
     );
   }
 
-  List<Widget> circles(BoxConstraints constraints) {
+  List<Widget> circles() {
     return [
       //outer
       CustomPaint(
