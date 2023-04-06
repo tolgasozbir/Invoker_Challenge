@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:math' as math;
 
 import 'package:dota2_invoker_game/enums/items.dart';
+import 'package:dota2_invoker_game/extensions/number_extension.dart';
 import 'package:dota2_invoker_game/models/Item.dart';
 import 'package:flutter/material.dart';
 import 'package:snappable_thanos/snappable_thanos.dart';
@@ -10,8 +11,11 @@ import 'package:snappable_thanos/snappable_thanos.dart';
 import 'package:dota2_invoker_game/enums/Bosses.dart';
 import 'package:dota2_invoker_game/enums/spells.dart';
 
+import '../constants/app_strings.dart';
 import '../models/ability_cooldown.dart';
 import '../services/sound_manager.dart';
+import '../widgets/app_dialogs.dart';
+import '../widgets/dialog_contents/boss_result_dialog_content.dart';
 import 'user_manager.dart';
 
 class BossProvider extends ChangeNotifier {
@@ -114,6 +118,13 @@ class BossProvider extends ChangeNotifier {
   int _userGold = 1000;
   int get userGold => _userGold;
   int get gainedGold => (getRemainingTime * roundProgress) + (roundProgress * 250) + 600;
+
+  bool isAdWatched = false;
+  void addGoldAfterWatchingAd(int goldAmount) {
+    _addGold(goldAmount);
+    isAdWatched = true;
+    notifyListeners();
+  }
 
   void _addGold(int val) {
     _userGold += val;
@@ -500,7 +511,7 @@ class BossProvider extends ChangeNotifier {
     currentBossHp = currentBoss.getHp;
     SoundManager.instance.playBossEnteringSound(currentBoss);
     currentMana = maxMana;
-    healthProgress = 0;
+    healthProgress = 58;
     timeProgress = 0;
     elapsedTime = 0;
     last5AttackDamage.clear();
@@ -508,6 +519,7 @@ class BossProvider extends ChangeNotifier {
     physicalPercentage = 0;
     magicalDamage = 0;
     magicalPercentage = 0;
+    isAdWatched = false;
     _resetCooldowns();
     updateView();
   }
@@ -534,7 +546,7 @@ class BossProvider extends ChangeNotifier {
       currentBossAlive = false;
       _handOfMidasFn();
       updateView();
-      //BossResultDialogs.showBossRoundResults();
+      _showRoundResultDialog();
       return;
     }
 
@@ -544,6 +556,27 @@ class BossProvider extends ChangeNotifier {
       _reset();
       return;
     }
+  }
+
+  void _showRoundResultDialog() {
+    var model = BossRoundResultModel(
+      round: roundProgress, 
+      boss: currentBoss.name, 
+      time: elapsedTime, 
+      averageDps: averageDps, 
+      maxDps: maxDps, 
+      physicalDamage: physicalDamage, 
+      magicalDamage: magicalDamage, 
+      earnedGold: gainedGold
+    );
+
+    AppDialogs.showSlidingDialog(
+      dismissible: true,
+      showBackButton: true,
+      height: 420,
+      title: "${(roundProgress+1).getOrdinal()} " + AppStrings.stageResults,
+      content: BossResultRoundDialogContent(model: model),
+    );
   }
 
   /// Function that starts the game. Creates a timer that repeats every second and initiates the game loop.

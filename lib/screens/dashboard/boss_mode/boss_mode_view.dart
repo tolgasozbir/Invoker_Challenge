@@ -6,7 +6,6 @@ import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/inventory
 import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/mana_bar.dart';
 import 'package:dota2_invoker_game/utils/number_formatter.dart';
 import 'package:dota2_invoker_game/widgets/app_snackbar.dart';
-import 'package:dota2_invoker_game/widgets/sliders/progress_slider.dart';
 import 'package:snappable_thanos/snappable_thanos.dart';
 
 import '../../../models/ability_cooldown.dart';

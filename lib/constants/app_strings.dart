@@ -18,6 +18,7 @@ class AppStrings {
   static const String leaderboard = 'Leaderboard';
   static const String showMore = 'Show more';
   static const String result = 'Results';
+  static const String stageResults = 'Stage Summary';
   static const String send = 'Submit';
   static const String start = 'Start';
   static const String close = 'Close';

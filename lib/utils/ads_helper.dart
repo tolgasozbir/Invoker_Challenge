@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -10,7 +11,7 @@ class AdsHelper {
   static AdsHelper _instance = AdsHelper._();
   static AdsHelper get instance => _instance;
 
-  bool enableAndroidTestIds = true;
+  bool enableAndroidTestIds = kDebugMode;
 
   //Ads Id's
 
