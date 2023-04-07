@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../enums/local_storage_keys.dart';
 import '../providers/user_manager.dart';
 import '../widgets/app_snackbar.dart';
 import 'app_services.dart';
@@ -85,7 +84,7 @@ class FirebaseAuthService {
     try {
       await _firebaseAuth.signOut();
       //delete locale records
-      await AppServices.instance.localStorageService.removeValue(LocalStorageKey.userRecords);
+      await AppServices.instance.localStorageService.deleteAllValues();
       //create new guest user
       var newGuestUser = UserManager.instance.createUser();
       //create new guest user and set locale

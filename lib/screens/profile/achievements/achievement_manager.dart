@@ -13,9 +13,10 @@ class AchievementManager {
   List<AchievementWidgetModel> get achievements => _achievements;
   List<AchievementWidgetModel> _achievements = [];
 
-  var _userRecords = UserManager.instance.user.achievements;
+  var _userRecords = UserManager.instance.user.achievements ??= {};
 
   void initAchievements(){
+    UserManager.instance.user.achievements ??= {};
     _achievements.clear();
     _achievements.addAll(_levelAchievements);
     _achievements.addAll(_playedGamesAchievements);
@@ -33,25 +34,36 @@ class AchievementManager {
     UserManager.instance.setAndSaveUserToLocale(UserManager.instance.user);
   }
 
+  void reset() {
+    _achievements.clear();
+    UserManager.instance.user.achievements = {};
+    _userRecords = UserManager.instance.user.achievements!;
+    updateAchievements();
+  }
+
   void updateLevel() {
+    UserManager.instance.user.achievements?.putIfAbsent("level", () => 0);
     UserManager.instance.user.achievements?["level"] = UserManager.instance.user.level;
     print("User Level : ${UserManager.instance.user.achievements?["level"]}");
   }
 
   void updatePlayedGame() {
+    UserManager.instance.user.achievements?.putIfAbsent("playedGame", () => 0);
     UserManager.instance.user.achievements?["playedGame"]++;
     print("Played Games : ${UserManager.instance.user.achievements?["playedGame"]}");
   }
 
   void updateChallenger(int score, int time) {
-    var currentRecord = _userRecords?["challenger"] ?? 0;
+    UserManager.instance.user.achievements?.putIfAbsent("challenger", () => 0);
+    var currentRecord = _userRecords["challenger"] ?? 0;
     if (score <= currentRecord || time > 180) return;
     UserManager.instance.user.achievements?["challenger"] = score;
     print("Challenger Score : ${UserManager.instance.user.achievements?["challenger"]}");
   }  
   
   void updateTimer(int score) {
-    var currentRecord = _userRecords?["timer"] ?? 0;
+    UserManager.instance.user.achievements?.putIfAbsent("timer", () => 0);
+    var currentRecord = _userRecords["timer"] ?? 0;
     if (score <= currentRecord) return;
     UserManager.instance.user.achievements?["timer"] = score;
     print("Timer Score : ${UserManager.instance.user.achievements?["timer"]}");
@@ -85,8 +97,8 @@ class AchievementManager {
       iconPath: e.getIconPath, 
       title: e.getTitle, 
       description: e.getDescription, 
-      isDone: (_userRecords?["level"] ?? 0) >= e.getMaxProgress,
-      currentProgress: _userRecords?["level"] ?? 0, 
+      isDone: (_userRecords["level"] ?? 0) >= e.getMaxProgress,
+      currentProgress: _userRecords["level"] ?? 0, 
       maxProgress: e.getMaxProgress
     )).toList();
   }
@@ -105,8 +117,8 @@ class AchievementManager {
       iconPath: e.getIconPath, 
       title: e.getTitle, 
       description: e.getDescription, 
-      isDone: (_userRecords?["playedGame"] ?? 0) >= e.getMaxProgress,
-      currentProgress: _userRecords?["playedGame"] ?? 0, 
+      isDone: (_userRecords["playedGame"] ?? 0) >= e.getMaxProgress,
+      currentProgress: _userRecords["playedGame"] ?? 0, 
       maxProgress: e.getMaxProgress
     )).toList();
   }  
@@ -123,8 +135,8 @@ class AchievementManager {
       iconPath: e.getIconPath, 
       title: e.getTitle, 
       description: e.getDescription, 
-      isDone: (_userRecords?["timer"] ?? 0) >= e.getMaxProgress,
-      currentProgress: _userRecords?["timer"] ?? 0,  
+      isDone: (_userRecords["timer"] ?? 0) >= e.getMaxProgress,
+      currentProgress: _userRecords["timer"] ?? 0,  
       maxProgress: e.getMaxProgress
     )).toList();
   }
@@ -141,8 +153,8 @@ class AchievementManager {
       iconPath: e.getIconPath, 
       title: e.getTitle, 
       description: e.getDescription, 
-      isDone: (_userRecords?["challenger"] ?? 0) >= e.getMaxProgress,
-      currentProgress: _userRecords?["challenger"] ?? 0, 
+      isDone: (_userRecords["challenger"] ?? 0) >= e.getMaxProgress,
+      currentProgress: _userRecords["challenger"] ?? 0, 
       maxProgress: e.getMaxProgress
     )).toList();
   }

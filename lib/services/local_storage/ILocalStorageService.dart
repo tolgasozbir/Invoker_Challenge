@@ -9,4 +9,5 @@ abstract class ILocalStorageService {
   int? getIntValue(LocalStorageKey key);
   bool? getBoolValue(LocalStorageKey key);
   Future<void> removeValue(LocalStorageKey key);
+  Future<void> deleteAllValues();
 }

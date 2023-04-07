@@ -63,6 +63,7 @@ class ProfileDialogContent extends StatelessWidget {
       width: double.infinity,
       onPressed: () async {
         context.read<BossProvider>().disposeGame(); //Reset Boss Mode Values
+        AchievementManager.instance.reset(); //Reset achievements
         await AppServices.instance.firebaseAuthService.signOut();
         if (context.mounted) Navigator.pop(context);
       }, 

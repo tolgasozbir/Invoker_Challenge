@@ -30,12 +30,7 @@ class UserModel {
                         '20' : false,
                         '25' : false
                       },
-    this.achievements = const {
-                        'level'       : 0,
-                        'playedGame'  : 0,
-                        'timer'       : 0,
-                        'challenger'  : 0,
-                      },
+    this.achievements,
     this.bestBossScores,
   });
 

@@ -55,4 +55,9 @@ class LocalStorageService implements ILocalStorageService {
     await _prefs?.remove(key.name);
   }
   
+  @override
+  Future<void> deleteAllValues() async {
+    await _prefs?.clear();
+  }
+  
 }
