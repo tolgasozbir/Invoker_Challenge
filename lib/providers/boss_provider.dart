@@ -13,6 +13,7 @@ import 'package:dota2_invoker_game/enums/spells.dart';
 
 import '../constants/app_strings.dart';
 import '../models/ability_cooldown.dart';
+import '../models/boss_round_result_model.dart';
 import '../services/sound_manager.dart';
 import '../widgets/app_dialogs.dart';
 import '../widgets/dialog_contents/boss_result_dialog_content.dart';
@@ -569,18 +570,25 @@ class BossProvider extends ChangeNotifier {
       maxDps: maxDps, 
       physicalDamage: physicalDamage, 
       magicalDamage: magicalDamage, 
-      earnedGold: gainedGold,
+      //earnedGold: gainedGold,
       items: inventory.map((e) => e.item.getName).toList(),
     );
 
     UserManager.instance.updateBestBossTimeScore(currentBoss.name, elapsedTime, model);
 
+    int expGain = ((roundProgress+1) * 10) + (getRemainingTime ~/ 2);
+    UserManager.instance.addExp(expGain);
+
     AppDialogs.showSlidingDialog(
       dismissible: false,
       showBackButton: false,
-      height: 460,
+      height: 500,
       title: "${(roundProgress+1).getOrdinal()} " + AppStrings.stageResults,
-      content: BossResultRoundDialogContent(model: model),
+      content: BossResultRoundDialogContent(
+        model: model, 
+        earnedGold: gainedGold, 
+        earnedExp: UserManager.instance.expCalc(expGain),
+      ),
       action: BossResultRoundDialogAction(model: model,)
     );
   }

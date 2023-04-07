@@ -3,10 +3,10 @@ import 'package:snappable_thanos/snappable_thanos.dart';
 
 import '../constants/app_strings.dart';
 import '../enums/local_storage_keys.dart';
+import '../models/boss_round_result_model.dart';
 import '../models/user_model.dart';
 import '../services/app_services.dart';
 import '../utils/id_generator.dart';
-import '../widgets/dialog_contents/boss_result_dialog_content.dart';
 import '../widgets/game_ui_widget.dart';
 
 class UserManager extends ChangeNotifier {
@@ -67,9 +67,8 @@ class UserManager extends ChangeNotifier {
     }
   }
 
-  int getBestBossTimeScore(String bossName) {
-    print(UserManager.instance.user.bestBossScores?[bossName]["time"]);
-    return UserManager.instance.user.bestBossScores?[bossName]["time"] ?? 0;
+  Map<String, dynamic> getBestBossScore(String bossName) {
+    return UserManager.instance.user.bestBossScores?[bossName] ?? {};
   }
 
   void updateBestBossTimeScore(String bossName, int value, BossRoundResultModel model) async {
@@ -145,6 +144,7 @@ class UserManager extends ChangeNotifier {
     var level = user.level;
 
     //Return true if user level is in skill tree level array and talent is not active
+    user.talentTree ??= {};
     var reachedTalent = !(user.talentTree?['$level'] ?? true) && treeLevels.contains(level);
     if (!reachedTalent) return;
 

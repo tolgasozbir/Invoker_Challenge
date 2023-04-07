@@ -1,6 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
@@ -15,19 +12,24 @@ import 'package:dota2_invoker_game/widgets/watch_ad_button.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_strings.dart';
 import '../../extensions/widget_extension.dart';
+import '../../models/boss_round_result_model.dart';
 import '../../providers/user_manager.dart';
 import '../../services/app_services.dart';
 import '../app_outlined_button.dart';
 import '../app_snackbar.dart';
 class BossResultRoundDialogContent extends StatelessWidget {
   final BossRoundResultModel model;
+  final int earnedGold;
+  final double earnedExp;
 
-  const BossResultRoundDialogContent({super.key, required this.model});
+  const BossResultRoundDialogContent({super.key, required this.model, required this.earnedGold, required this.earnedExp});
 
   int get goldAmount => model.round * 100;
 
   @override
   Widget build(BuildContext context) {
+    var bestScore = UserManager.instance.getBestBossScore(model.boss);
+
     return  Column(
       children: [
         _resultField("Boss", model.boss.capitalize()),
@@ -36,7 +38,8 @@ class BossResultRoundDialogContent extends StatelessWidget {
         _resultField("Max DPS (All Round)", priceString(model.maxDps)),
         _resultField("Physical Damage", priceString(model.physicalDamage)),
         _resultField("Magical Damage", priceString(model.magicalDamage)),
-        _resultField("Earned Gold", priceString(model.earnedGold.toDouble())),
+        _resultField("Earned Gold", priceString(earnedGold.toDouble())),
+        _resultField("Earned Exp", priceString(earnedExp)),
         EmptyBox.h4(),
         WatchAdButton(
           afterWatchingAdFn: () => context.read<BossProvider>().addGoldAfterWatchingAd(goldAmount), 
@@ -44,25 +47,27 @@ class BossResultRoundDialogContent extends StatelessWidget {
           title: goldAmount.toString(),
         ),
         EmptyBox.h4(),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              AppStrings.bestScore,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontWeight: FontWeight.w500, 
-                fontSize: context.sp(13),
+        FittedBox(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Your best score by kill time ",//AppStrings.bestScore,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.w500, 
+                  fontSize: context.sp(13),
+                ),
               ),
-            ),
-            Icon(Icons.swipe_down)
-          ],
+              Icon(Icons.swipe_down)
+            ],
+          ),
         ),
-        _resultField("Elapsed Time", "${model.time} Sec"),
-        _resultField("Average DPS", priceString(model.averageDps)),
-        _resultField("Max DPS (All Round)", priceString(model.maxDps)),
-        _resultField("Physical Damage", priceString(model.physicalDamage)),
-        _resultField("Magical Damage", priceString(model.magicalDamage)),
+        _resultField("Elapsed Time", "${bestScore["time"]} Sec"),
+        _resultField("Average DPS", priceString(bestScore["averageDps"])),
+        _resultField("Max DPS", priceString(bestScore["maxDps"])),
+        _resultField("Physical Damage", priceString(bestScore["physicalDamage"])),
+        _resultField("Magical Damage", priceString(bestScore["magicalDamage"])),
       ],
     );
   }
@@ -105,11 +110,15 @@ class BossResultRoundDialogAction extends StatefulWidget {
 }
 
 class _BossResultRoundDialogActionState extends State<BossResultRoundDialogAction> with LoadingState {
+
+  bool get isNewScore => widget.model.time < UserManager.instance.getBestBossScore(widget.model.boss)["time"];
+
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         AppOutlinedButton(
+          bgColor: isNewScore ? AppColors.green.withOpacity(0.24) : AppColors.red.withOpacity(0.24),
           title: AppStrings.send,
           isButtonActive: !isLoading,
           onPressed: () async => await submitScoreFn(),
@@ -139,7 +148,7 @@ class _BossResultRoundDialogActionState extends State<BossResultRoundDialogActio
       return;
     }
 
-    if (widget.model.time > UserManager.instance.getBestBossTimeScore(widget.model.boss)) {
+    if (widget.model.time > UserManager.instance.getBestBossScore(widget.model.boss)["time"]) {
       AppSnackBar.showSnackBarMessage(
         text: AppStrings.errorSubmitScore2, 
         snackBartype: SnackBarType.error,
@@ -178,68 +187,4 @@ class _BossResultRoundDialogActionState extends State<BossResultRoundDialogActio
     changeLoadingState();
     if (isOk) Navigator.pop(context);
   }
-}
-
-class BossRoundResultModel {
-  final String? uid;
-  final String name;
-  final int round;
-  final String boss;
-  final int time;
-  final double averageDps;
-  final double maxDps;
-  final double physicalDamage;
-  final double magicalDamage;
-  final int earnedGold;
-  final List<String> items;
-
-  BossRoundResultModel({
-    required this.uid,
-    required this.name,
-    required this.round,
-    required this.boss,
-    required this.time,
-    required this.averageDps,
-    required this.maxDps,
-    required this.physicalDamage,
-    required this.magicalDamage,
-    required this.earnedGold,
-    required this.items,
-  });
-
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'uid': uid,
-      'name': name,
-      'round': round,
-      'boss': boss,
-      'time': time,
-      'averageDps': averageDps,
-      'maxDps': maxDps,
-      'physicalDamage': physicalDamage,
-      'magicalDamage': magicalDamage,
-      'earnedGold': earnedGold,
-      'items': items,
-    };
-  }
-
-  factory BossRoundResultModel.fromMap(Map<String, dynamic> map) {
-    return BossRoundResultModel(
-      uid: map['uid'] as String,
-      name: map['name'] as String,
-      round: map['round'] as int,
-      boss: map['boss'] as String,
-      time: map['time'] as int,
-      averageDps: map['averageDps'] as double,
-      maxDps: map['maxDps'] as double,
-      physicalDamage: map['physicalDamage'] as double,
-      magicalDamage: map['magicalDamage'] as double,
-      earnedGold: map['earnedGold'] as int,
-      items: List<String>.from((map['items'] as List<String>)),
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory BossRoundResultModel.fromJson(String source) => BossRoundResultModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }

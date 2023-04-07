@@ -24,12 +24,7 @@ class UserModel {
     this.level = 1,
     this.exp = 0,
     this.expMultiplier = 3,
-    this.talentTree = const {
-                        '10' : false,
-                        '15' : false,
-                        '20' : false,
-                        '25' : false
-                      },
+    this.talentTree,
     this.achievements,
     this.bestBossScores,
   });
