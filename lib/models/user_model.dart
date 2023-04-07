@@ -12,6 +12,7 @@ class UserModel {
     required this.expMultiplier,
     required this.talentTree,
     required this.achievements,
+    required this.bestBossScores,
   });
 
   UserModel.guest({
@@ -34,7 +35,8 @@ class UserModel {
                         'playedGame'  : 0,
                         'timer'       : 0,
                         'challenger'  : 0,
-                      }
+                      },
+    this.bestBossScores,
   });
 
   String? uid;
@@ -47,6 +49,7 @@ class UserModel {
   double expMultiplier;
   Map<String,dynamic>? talentTree;
   Map<String,dynamic>? achievements;
+  Map<String,dynamic>? bestBossScores;
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -60,6 +63,7 @@ class UserModel {
       'expMultiplier': expMultiplier,
       'talentTree': talentTree,
       'achievements': achievements,
+      'bestBossScores': bestBossScores,
     };
   }
 
@@ -75,6 +79,7 @@ class UserModel {
       expMultiplier: double.tryParse(map['expMultiplier'].toString()) ?? 0,
       talentTree: map['talentTree'] != null ? Map<String,dynamic>.from((map['talentTree'] as Map<String,dynamic>)) : null,
       achievements: map['achievements'] != null ? Map<String,dynamic>.from((map['achievements'] as Map<String,dynamic>)) : null,
+      bestBossScores: map['bestBossScores'] != null ? Map<String,dynamic>.from((map['bestBossScores'] as Map<String,dynamic>)) : null,
     );
   }
 

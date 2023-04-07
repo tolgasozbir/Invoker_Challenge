@@ -10,6 +10,7 @@ abstract class IDatabaseService {
   Future<List<ChallengerResult>> getChallangerScores();
   Future<bool> addTimerScore(TimerResult score);
   Future<bool> addChallengerScore(ChallengerResult score);
+  Future<bool> addBossScore(String uid, Map<String,dynamic> score);
   Future<bool> sendFeedback(FeedbackModel feedbackModel);
   void dispose();
 }

@@ -54,6 +54,10 @@ class DashboardView extends StatelessWidget {
               ),
             ),
             const Spacer(),
+            SizedBox(
+              width: double.infinity,
+              child: Text(AppStrings.appVersion).wrapPadding(EdgeInsets.all(8))
+            ),
           ],
         ),
       ),

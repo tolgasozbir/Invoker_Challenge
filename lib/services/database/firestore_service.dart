@@ -20,6 +20,7 @@ class FirestoreService implements IDatabaseService {
   final _collectionRefFeedbacks = FirebaseFirestore.instance.collection('Feedbacks');
   final _collectionRefTimer = FirebaseFirestore.instance.collection(DatabaseTable.timer.name);
   final _collectionRefChallanger = FirebaseFirestore.instance.collection(DatabaseTable.challenger.name);
+  final _collectionRefBoss = FirebaseFirestore.instance.collection(DatabaseTable.boss.name);
   final int _fetchLimit = 10;
   String orderByField = 'score';
   DocumentSnapshot? _lastDocument;
@@ -76,6 +77,17 @@ class FirestoreService implements IDatabaseService {
   Future<bool> addTimerScore(TimerResult result) async {
     try {
       await _collectionRefTimer.doc(result.uid).set(result.toMap());
+      return true;
+    } catch (e) {
+      log(e.toString());
+      return false;
+    }
+  }
+
+  @override
+  Future<bool> addBossScore(String uid, Map<String,dynamic> score) async {
+    try {
+      await _collectionRefBoss.doc(uid).set(score);
       return true;
     } catch (e) {
       log(e.toString());

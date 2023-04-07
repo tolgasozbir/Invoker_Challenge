@@ -6,6 +6,7 @@ import '../enums/local_storage_keys.dart';
 import '../models/user_model.dart';
 import '../services/app_services.dart';
 import '../utils/id_generator.dart';
+import '../widgets/dialog_contents/boss_result_dialog_content.dart';
 import '../widgets/game_ui_widget.dart';
 
 class UserManager extends ChangeNotifier {
@@ -64,6 +65,22 @@ class UserManager extends ChangeNotifier {
       await setAndSaveUserToLocale(savedUser);
       return savedUser;
     }
+  }
+
+  int getBestBossTimeScore(String bossName) {
+    print(UserManager.instance.user.bestBossScores?[bossName]["time"]);
+    return UserManager.instance.user.bestBossScores?[bossName]["time"] ?? 0;
+  }
+
+  void updateBestBossTimeScore(String bossName, int value, BossRoundResultModel model) async {
+    UserManager.instance.user.bestBossScores ??= {}; // null check
+    UserManager.instance.user.bestBossScores?.putIfAbsent(bossName, () => model.toMap());
+    if ((UserManager.instance.user.bestBossScores?[bossName]["time"] ?? 0) < value) return;
+    if (UserManager.instance.user.bestBossScores!.containsKey(bossName)) {
+      UserManager.instance.user.bestBossScores?[bossName] = model.toMap();
+    }
+    await setAndSaveUserToLocale(user);
+    print(UserManager.instance.user.bestBossScores);
   }
 
   int getBestScore(GameType gameType) {

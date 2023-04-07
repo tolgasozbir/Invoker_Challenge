@@ -346,6 +346,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
           ),
         );
         break;
+      case DatabaseTable.boss: break;
     }
 
     if (isOk) {

@@ -511,7 +511,7 @@ class BossProvider extends ChangeNotifier {
     currentBossHp = currentBoss.getHp;
     SoundManager.instance.playBossEnteringSound(currentBoss);
     currentMana = maxMana;
-    healthProgress = 58;
+    healthProgress = 50;
     timeProgress = 0;
     elapsedTime = 0;
     last5AttackDamage.clear();
@@ -560,22 +560,28 @@ class BossProvider extends ChangeNotifier {
 
   void _showRoundResultDialog() {
     var model = BossRoundResultModel(
-      round: roundProgress, 
+      uid: UserManager.instance.user.uid ?? "null",
+      name: UserManager.instance.user.username,
+      round: roundProgress+1, 
       boss: currentBoss.name, 
       time: elapsedTime, 
       averageDps: averageDps, 
       maxDps: maxDps, 
       physicalDamage: physicalDamage, 
       magicalDamage: magicalDamage, 
-      earnedGold: gainedGold
+      earnedGold: gainedGold,
+      items: inventory.map((e) => e.item.getName).toList(),
     );
 
+    UserManager.instance.updateBestBossTimeScore(currentBoss.name, elapsedTime, model);
+
     AppDialogs.showSlidingDialog(
-      dismissible: true,
-      showBackButton: true,
-      height: 420,
+      dismissible: false,
+      showBackButton: false,
+      height: 460,
       title: "${(roundProgress+1).getOrdinal()} " + AppStrings.stageResults,
       content: BossResultRoundDialogContent(model: model),
+      action: BossResultRoundDialogAction(model: model,)
     );
   }
 
