@@ -78,9 +78,9 @@ class BossProvider extends ChangeNotifier {
   //
 
   ///-----     Mana Bar Values     -----///
-  double maxMana = (UserManager.instance.user.level * 67) + 500 + (UserManager.instance.user.level >= 10 ? 200 : 0);
-  double currentMana = 500 + UserManager.instance.user.level * 67;
-  double baseManaRegen = 2 + UserManager.instance.user.level * 0.27;
+  double maxMana = (UserManager.instance.user.level * 27) + 1400 + (UserManager.instance.user.level >= 10 ? 400 : 0);
+  double currentMana = 1400 + UserManager.instance.user.level * 27;
+  double baseManaRegen = 3 + UserManager.instance.user.level * 0.27;
   double manaRegenMultiplier = 0;
   double get manaRegen => baseManaRegen + (baseManaRegen * manaRegenMultiplier);
   double get manaBarWidthMultiplier => ((currentMana / maxMana) * 100) / 100;
@@ -167,7 +167,7 @@ class BossProvider extends ChangeNotifier {
   void _buyItem(Item item) {
     switch (item.item) {
       case Items.Null_talisman:
-        baseManaRegen += 1;
+        baseManaRegen += 0.75;
         maxMana += 60;
         break;
       case Items.Void_stone:
@@ -236,7 +236,7 @@ class BossProvider extends ChangeNotifier {
   void _sellItem(Item item) {
     switch (item.item) {
       case Items.Null_talisman:
-        baseManaRegen -= 1;
+        baseManaRegen -= 0.75;
         maxMana -= 60;
         break;
       case Items.Void_stone:
@@ -551,12 +551,13 @@ class BossProvider extends ChangeNotifier {
     if (timeProgress >= timeUnits) {
       log("Time out");
       SoundManager.instance.playBossTauntSound(currentBoss);
+      _showRoundResultDialog(timeUp: true);
       _reset();
       return;
     }
   }
 
-  void _showRoundResultDialog() {
+  void _showRoundResultDialog({bool timeUp = false}) {
     var model = BossRoundResultModel(
       uid: UserManager.instance.user.uid ?? "null",
       name: UserManager.instance.user.username,
@@ -585,6 +586,7 @@ class BossProvider extends ChangeNotifier {
         model: model, 
         earnedGold: gainedGold, 
         earnedExp: UserManager.instance.expCalc(expGain),
+        timeUp: timeUp,
       ),
       action: BossResultRoundDialogAction(model: model,)
     );
@@ -647,9 +649,9 @@ class BossProvider extends ChangeNotifier {
     currentBoss = Bosses.values.first;
     bonusDamage = 0;
     damageMultiplier = 0;
-    maxMana = (UserManager.instance.user.level * 67) + 500 + (UserManager.instance.user.level >= 10 ? 200 : 0);
+    maxMana = (UserManager.instance.user.level * 27) + 1400 + (UserManager.instance.user.level >= 10 ? 400 : 0);
     currentMana = maxMana;
-    baseManaRegen = 2 + UserManager.instance.user.level * 0.27;
+    baseManaRegen = 3 + UserManager.instance.user.level * 0.27;
     manaRegenMultiplier = 0;
     spellAmp = 0;
     _isActiveMidas = false;

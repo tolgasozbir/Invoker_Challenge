@@ -21,8 +21,15 @@ class BossResultRoundDialogContent extends StatelessWidget {
   final BossRoundResultModel model;
   final int earnedGold;
   final double earnedExp;
+  final bool timeUp;
 
-  const BossResultRoundDialogContent({super.key, required this.model, required this.earnedGold, required this.earnedExp});
+  const BossResultRoundDialogContent({
+    super.key, 
+    required this.model, 
+    required this.earnedGold, 
+    required this.earnedExp,
+    required this.timeUp,
+  });
 
   int get goldAmount => model.round * 100;
 
@@ -38,15 +45,18 @@ class BossResultRoundDialogContent extends StatelessWidget {
         _resultField("Max DPS (All Round)", priceString(model.maxDps)),
         _resultField("Physical Damage", priceString(model.physicalDamage)),
         _resultField("Magical Damage", priceString(model.magicalDamage)),
-        _resultField("Earned Gold", priceString(earnedGold.toDouble())),
-        _resultField("Earned Exp", priceString(earnedExp)),
-        EmptyBox.h4(),
-        WatchAdButton(
-          afterWatchingAdFn: () => context.read<BossProvider>().addGoldAfterWatchingAd(goldAmount), 
-          isAdWatched: context.watch<BossProvider>().isAdWatched, 
-          title: goldAmount.toString(),
-        ),
-        EmptyBox.h4(),
+        if (!timeUp) ...[
+          _resultField("Earned Gold", priceString(earnedGold.toDouble())),
+          _resultField("Earned Exp", priceString(earnedExp)),
+          EmptyBox.h4(),
+          WatchAdButton(
+            afterWatchingAdFn: () => context.read<BossProvider>().addGoldAfterWatchingAd(goldAmount), 
+            isAdWatched: context.watch<BossProvider>().isAdWatched, 
+            title: goldAmount.toString(),
+          ),
+        ],
+        !timeUp ? EmptyBox() : EmptyBox.h16(),
+        Divider(),
         FittedBox(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -63,6 +73,7 @@ class BossResultRoundDialogContent extends StatelessWidget {
             ],
           ),
         ),
+        if (timeUp) EmptyBox.h8(),
         _resultField("Elapsed Time", "${bestScore["time"]} Sec"),
         _resultField("Average DPS", priceString(bestScore["averageDps"])),
         _resultField("Max DPS", priceString(bestScore["maxDps"])),

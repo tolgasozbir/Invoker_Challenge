@@ -2,8 +2,8 @@ import '../constants/app_strings.dart';
 
 enum Items {
   Null_talisman(
-    bonus: "Increases mana by +60 and +1 mana regeneration", 
-    cost: 505
+    bonus: "Increases mana by +60 and +0.75 mana regeneration", 
+    cost: 500
   ),
 
   Void_stone(

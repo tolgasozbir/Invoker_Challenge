@@ -67,9 +67,8 @@ class AppStrings {
 
   //Talent tree
   static const String talentTree = 'Talent Tree';
-  static const String talent10 = '+2 exp multiplier';
   static const talents = const [
-    '+200 Mana in Boss Mode',
+    '+400 Mana in Boss Mode',
     '+1 Challenger Life',
     '+2 Exp Multiplier',
     'D. Dmg to Bosses',
