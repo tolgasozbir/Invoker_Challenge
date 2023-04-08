@@ -426,8 +426,6 @@ class BossProvider extends ChangeNotifier {
     double totalDamage = physicalDamage + magicalDamage;
     physicalPercentage = (physicalDamage / totalDamage) * 100;
     magicalPercentage = (magicalDamage / totalDamage) * 100;
-    print(physicalPercentage);
-    print(magicalPercentage);
   }
 
   /// This function is triggered to perform an auto-hit every second.
@@ -453,7 +451,6 @@ class BossProvider extends ChangeNotifier {
     physicalDamage += fullDamage;
     dps += fullDamage;
     currentBossHp = currentBoss.getHp - (healthProgress * health);
-    //print(currentBoss.name + " Hp : " + (currentBoss.getHp - (healthProgress * health)).toStringAsFixed(0));
   }
 
 
@@ -512,7 +509,7 @@ class BossProvider extends ChangeNotifier {
     currentBossHp = currentBoss.getHp;
     SoundManager.instance.playBossEnteringSound(currentBoss);
     currentMana = maxMana;
-    healthProgress = 50;
+    healthProgress = 0;
     timeProgress = 0;
     elapsedTime = 0;
     last5AttackDamage.clear();

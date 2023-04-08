@@ -1,1 +1,1 @@
--keep class com.example.dota2_invoker.*BuildConfig { *; }
+-keep class com.dota2.invoker.game.*BuildConfig { *; }

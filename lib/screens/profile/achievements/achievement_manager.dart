@@ -44,13 +44,13 @@ class AchievementManager {
   void updateLevel() {
     UserManager.instance.user.achievements?.putIfAbsent("level", () => 0);
     UserManager.instance.user.achievements?["level"] = UserManager.instance.user.level;
-    print("User Level : ${UserManager.instance.user.achievements?["level"]}");
+    //print("User Level : ${UserManager.instance.user.achievements?["level"]}");
   }
 
   void updatePlayedGame() {
     UserManager.instance.user.achievements?.putIfAbsent("playedGame", () => 0);
     UserManager.instance.user.achievements?["playedGame"]++;
-    print("Played Games : ${UserManager.instance.user.achievements?["playedGame"]}");
+    //print("Played Games : ${UserManager.instance.user.achievements?["playedGame"]}");
   }
 
   void updateChallenger(int score, int time) {
@@ -58,7 +58,7 @@ class AchievementManager {
     var currentRecord = _userRecords["challenger"] ?? 0;
     if (score <= currentRecord || time > 180) return;
     UserManager.instance.user.achievements?["challenger"] = score;
-    print("Challenger Score : ${UserManager.instance.user.achievements?["challenger"]}");
+    //print("Challenger Score : ${UserManager.instance.user.achievements?["challenger"]}");
   }  
   
   void updateTimer(int score) {
@@ -66,7 +66,7 @@ class AchievementManager {
     var currentRecord = _userRecords["timer"] ?? 0;
     if (score <= currentRecord) return;
     UserManager.instance.user.achievements?["timer"] = score;
-    print("Timer Score : ${UserManager.instance.user.achievements?["timer"]}");
+    //print("Timer Score : ${UserManager.instance.user.achievements?["timer"]}");
   }
 
   //First Achievement total progress

@@ -111,7 +111,7 @@ class BossResultRoundDialogAction extends StatefulWidget {
 
 class _BossResultRoundDialogActionState extends State<BossResultRoundDialogAction> with LoadingState {
 
-  bool get isNewScore => widget.model.time < UserManager.instance.getBestBossScore(widget.model.boss)["time"];
+  bool get isNewScore => widget.model.time <= UserManager.instance.getBestBossScore(widget.model.boss)["time"];
 
   @override
   Widget build(BuildContext context) {

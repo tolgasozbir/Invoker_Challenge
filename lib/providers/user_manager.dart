@@ -79,7 +79,7 @@ class UserManager extends ChangeNotifier {
       UserManager.instance.user.bestBossScores?[bossName] = model.toMap();
     }
     await setAndSaveUserToLocale(user);
-    print(UserManager.instance.user.bestBossScores);
+    //print(UserManager.instance.user.bestBossScores);
   }
 
   int getBestScore(GameType gameType) {
