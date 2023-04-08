@@ -49,11 +49,7 @@ class BossResultRoundDialogContent extends StatelessWidget {
           _resultField("Earned Gold", priceString(earnedGold.toDouble())),
           _resultField("Earned Exp", priceString(earnedExp)),
           EmptyBox.h4(),
-          WatchAdButton(
-            afterWatchingAdFn: () => context.read<BossProvider>().addGoldAfterWatchingAd(goldAmount), 
-            isAdWatched: context.watch<BossProvider>().isAdWatched, 
-            title: goldAmount.toString(),
-          ),
+          watchAdButton(context),
         ],
         !timeUp ? EmptyBox() : EmptyBox.h16(),
         Divider(),
@@ -80,6 +76,29 @@ class BossResultRoundDialogContent extends StatelessWidget {
         _resultField("Physical Damage", priceString(bestScore["physicalDamage"])),
         _resultField("Magical Damage", priceString(bestScore["magicalDamage"])),
       ],
+    );
+  }
+
+  WatchAdButton watchAdButton(BuildContext context) {
+    return WatchAdButton(
+      afterWatchingAdFn: () => context.read<BossProvider>().addGoldAfterWatchingAd(goldAmount), 
+      isAdWatched: context.watch<BossProvider>().isAdWatched, 
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.slow_motion_video, size: 26,),
+          EmptyBox.w4(),
+          Text(
+            goldAmount.toString(),
+            style: TextStyle(
+              fontSize: context.sp(13),
+              fontWeight: FontWeight.bold,
+              shadows: List.generate(2, (index) => Shadow(blurRadius: 2)),
+            ),
+          ),
+          Image.asset(ImagePaths.gold, height: 28),
+        ],
+      ),
     );
   }
 

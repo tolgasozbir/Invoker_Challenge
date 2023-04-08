@@ -8,9 +8,7 @@ import '../mixins/loading_state_mixin.dart';
 import '../services/app_services.dart';
 import '../providers/user_manager.dart';
 import 'app_outlined_button.dart';
-import 'app_snackbar.dart';
 import 'package:flutter/material.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/app_colors.dart';
@@ -19,13 +17,9 @@ import '../enums/database_table.dart';
 import '../enums/elements.dart';
 import '../extensions/context_extension.dart';
 import '../mixins/orb_mixin.dart';
-import '../models/challenger_result.dart';
-import '../models/timer_result.dart';
 import '../providers/game_provider.dart';
 import '../providers/spell_provider.dart';
 import '../services/sound_manager.dart';
-import 'app_dialogs.dart';
-import 'dialog_contents/result_dialog_content.dart';
 import 'true_false_icon_widget.dart';
 
 enum GameType { Training, Challanger, Timer }
@@ -248,122 +242,8 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
           timerProvider.changeIsStartStatus();
           timerProvider.disposeTimer();
           _animKey.currentState?.playAnimation(IconType.False);
-          showResultDialog(DatabaseTable.challenger);
+          context.read<GameProvider>().showResultDialog(GameType.Challanger, DatabaseTable.challenger);
         }
-    }
-  }
-
-  void showResultDialog(DatabaseTable dbTable) {
-    if (!mounted) return;
-    var score = context.read<GameProvider>().getCorrectCombinationCount;
-    var challangerTime = context.read<GameProvider>().getTimeValue;
-    var withTimerTime = 60;
-    AchievementManager.instance.updatePlayedGame();
-    UserManager.instance.addExp(score);
-    AchievementManager.instance.updateLevel();
-    UserManager.instance.setBestScore(widget.gameType, score);
-    AppDialogs.showSlidingDialog(
-      title: AppStrings.result, 
-      content: ResultDialogContent(
-        correctCount: score,
-        time: widget.gameType == GameType.Timer ? withTimerTime : challangerTime,
-        gameType: widget.gameType,
-      ),
-      action: StatefulBuilder(
-        builder: (context, setState) => Row(
-          children: [
-            AppOutlinedButton(
-              title: AppStrings.send,
-              isButtonActive: !isLoading,
-              onPressed: () async => await submitScoreFn(setState ,dbTable),
-            ).wrapExpanded(),
-            EmptyBox.w8(),
-            AppOutlinedButton(
-              title: AppStrings.back,
-              isButtonActive: !isLoading,
-              onPressed: () => Navigator.pop(context),
-            ).wrapExpanded(),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Future<void> submitScoreFn(void Function(void Function()) setState, DatabaseTable dbTable) async {
-    final isLoggedIn = UserManager.instance.isLoggedIn();
-    final user = UserManager.instance.user;
-    final uid = user.uid;
-    final name = user.username;
-    final score = context.read<GameProvider>().getCorrectCombinationCount;
-    final time = context.read<GameProvider>().getTimeValue;
-    final db = AppServices.instance.databaseService;
-
-    ScaffoldMessenger.of(context).removeCurrentSnackBar();
-    if (!isLoggedIn || uid == null) {
-      AppSnackBar.showSnackBarMessage(
-        text: AppStrings.errorSubmitScore1, 
-        snackBartype: SnackBarType.error,
-      );
-      return;
-    }
-
-    if (score < UserManager.instance.getBestScore(widget.gameType)) {
-      AppSnackBar.showSnackBarMessage(
-        text: AppStrings.errorSubmitScore2, 
-        snackBartype: SnackBarType.error,
-      );
-      return;
-    }
-
-    var hasConnection = await InternetConnectionChecker().hasConnection;
-    if (!hasConnection) {
-      AppSnackBar.showSnackBarMessage(
-        text: AppStrings.errorConnection, 
-        snackBartype: SnackBarType.error,
-      );
-      return;
-    }
-
-    if (mounted) setState.call(() => changeLoadingState(forceUI: false));
-    bool isOk = false;
-    switch (dbTable) {
-      case DatabaseTable.timer:
-        isOk = await db.addTimerScore(
-          TimerResult(
-            uid: uid, 
-            name: name, 
-            score: score,
-          ),
-        );
-        break;
-      case DatabaseTable.challenger:
-        isOk = await db.addChallengerScore(
-          ChallengerResult(
-            uid: uid, 
-            name: name, 
-            time: time, 
-            score: score,
-          ),
-        );
-        break;
-      case DatabaseTable.boss: break;
-    }
-
-    if (isOk) {
-      AppSnackBar.showSnackBarMessage(
-        text: AppStrings.succesSubmitScore, 
-        snackBartype: SnackBarType.success
-      );
-    } else {
-      AppSnackBar.showSnackBarMessage(
-        text: AppStrings.errorMessage, 
-        snackBartype: SnackBarType.error
-      );
-    }
-
-    if (mounted) {
-      setState.call(() => changeLoadingState(forceUI: false));
-      if (isOk) Navigator.pop(context);
     }
   }
 
@@ -388,7 +268,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
         context.read<GameProvider>().startTimer(); 
         break;
       case GameType.Timer:
-        context.read<GameProvider>().startCoundown(showResultDialog);
+        context.read<GameProvider>().startCoundown();
         break;
     }
     context.read<SpellProvider>().getRandomSpell();
