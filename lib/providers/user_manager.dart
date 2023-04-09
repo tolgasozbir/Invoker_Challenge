@@ -68,18 +68,20 @@ class UserManager extends ChangeNotifier {
   }
 
   Map<String, dynamic> getBestBossScore(String bossName) {
-    return UserManager.instance.user.bestBossScores?[bossName] ?? {};
+    return user.bestBossScores?[bossName] ?? {};
   }
 
   void updateBestBossTimeScore(String bossName, int value, BossRoundResultModel model) async {
-    UserManager.instance.user.bestBossScores ??= {}; // null check
-    UserManager.instance.user.bestBossScores?.putIfAbsent(bossName, () => model.toMap());
-    if ((UserManager.instance.user.bestBossScores?[bossName]["time"] ?? 0) < value) return;
-    if (UserManager.instance.user.bestBossScores!.containsKey(bossName)) {
-      UserManager.instance.user.bestBossScores?[bossName] = model.toMap();
+    user.bestBossScores ??= {}; // null check
+    user.bestBossScores?.putIfAbsent(bossName, () => model.toMap());
+    if (isLoggedIn() && user.bestBossScores![bossName]["name"].toString().startsWith("Guest")) {
+      user.bestBossScores![bossName]["name"] = user.username;
+    }
+    if ((user.bestBossScores?[bossName]["time"] ?? 0) < value) return;
+    if (user.bestBossScores!.containsKey(bossName)) {
+      user.bestBossScores?[bossName] = model.toMap();
     }
     await setAndSaveUserToLocale(user);
-    //print(UserManager.instance.user.bestBossScores);
   }
 
   int getBestScore(GameType gameType) {

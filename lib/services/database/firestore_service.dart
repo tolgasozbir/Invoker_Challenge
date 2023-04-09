@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dota2_invoker_game/extensions/string_extension.dart';
+import 'package:dota2_invoker_game/models/boss_round_result_model.dart';
 
 import '../../constants/app_strings.dart';
 import '../../enums/database_table.dart';
@@ -20,9 +22,9 @@ class FirestoreService implements IDatabaseService {
   final _collectionRefFeedbacks = FirebaseFirestore.instance.collection('Feedbacks');
   final _collectionRefTimer = FirebaseFirestore.instance.collection(DatabaseTable.timer.name);
   final _collectionRefChallanger = FirebaseFirestore.instance.collection(DatabaseTable.challenger.name);
-  final _collectionRefBoss = FirebaseFirestore.instance.collection(DatabaseTable.boss.name);
   final int _fetchLimit = 10;
   String orderByField = 'score';
+  String orderByTime = 'time';
   DocumentSnapshot? _lastDocument;
   bool _hasMoreData = true;
 
@@ -85,13 +87,53 @@ class FirestoreService implements IDatabaseService {
   }
 
   @override
-  Future<bool> addBossScore(String uid, Map<String,dynamic> score) async {
+  Future<bool> addBossScore(BossRoundResultModel score) async {
+    var collectionPathName = "Boss_" + score.boss.capitalize();
+    var collection = FirebaseFirestore.instance.collection(collectionPathName);
     try {
-      await _collectionRefBoss.doc(uid).set(score);
+      await collection.doc(score.uid).set(score.toMap());
       return true;
     } catch (e) {
       log(e.toString());
       return false;
+    }
+  }
+
+  @override
+  Future<List<BossRoundResultModel>> getBossScores(String bossName) async {
+    if (!_hasMoreData) {
+      _noMoreSnackbar();
+      return [];
+    }
+    var collectionPathName = "Boss_" + bossName.capitalize();
+    var collection = FirebaseFirestore.instance.collection(collectionPathName);
+    QuerySnapshot<Map<String,dynamic>> snapshot;
+    try {
+      if (_lastDocument == null) {
+        snapshot = await collection.orderBy(orderByTime).limit(_fetchLimit).get();
+      } else {
+        snapshot = await collection.
+          orderBy(orderByTime)
+          .limit(_fetchLimit)
+          .startAfterDocument(_lastDocument!)
+          .get();
+      }
+
+      if (snapshot.docs.isNotEmpty) {
+        _lastDocument = snapshot.docs.last;
+      }
+
+      if (snapshot.docs.length < _fetchLimit) {
+        _hasMoreData = false;
+      }
+
+      var data =  snapshot.docs.map((e) => BossRoundResultModel.fromMap(e.data())).toList();
+      return data;
+    } 
+    catch (e) {
+      log(e.toString());
+      errorSnackbar();
+      return [];
     }
   }
 

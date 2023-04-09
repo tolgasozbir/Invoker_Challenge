@@ -168,6 +168,8 @@ class _BossResultRoundDialogActionState extends State<BossResultRoundDialogActio
     final user = UserManager.instance.user;
     final uid = user.uid;
     final db = AppServices.instance.databaseService;
+    final bestTime = UserManager.instance.getBestBossScore(widget.model.boss)["time"];
+    final score = widget.model;
 
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
     if (!isLoggedIn || uid == null) {
@@ -178,7 +180,7 @@ class _BossResultRoundDialogActionState extends State<BossResultRoundDialogActio
       return;
     }
 
-    if (widget.model.time > UserManager.instance.getBestBossScore(widget.model.boss)["time"]) {
+    if (widget.model.time > bestTime) {
       AppSnackBar.showSnackBarMessage(
         text: AppStrings.errorSubmitScore2, 
         snackBartype: SnackBarType.error,
@@ -200,7 +202,7 @@ class _BossResultRoundDialogActionState extends State<BossResultRoundDialogActio
     changeLoadingState();
 
     bool isOk = false;
-    isOk = await db.addBossScore(uid, UserManager.instance.user.bestBossScores!);
+    isOk = await db.addBossScore(score);
 
     if (isOk) {
       AppSnackBar.showSnackBarMessage(

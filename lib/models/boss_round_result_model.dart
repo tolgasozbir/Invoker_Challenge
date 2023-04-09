@@ -51,7 +51,7 @@ class BossRoundResultModel {
       maxDps: map['maxDps'] as double,
       physicalDamage: map['physicalDamage'] as double,
       magicalDamage: map['magicalDamage'] as double,
-      items: List<String>.from((map['items'] as List<String>)),
+      items: List<String>.from((map['items'] as List<dynamic>)),
     );
   }
 
