@@ -14,34 +14,11 @@ class AchievementsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var totalCount = AchievementManager.instance.achievements.length;
-    var current = AchievementManager.instance.achievements.where((e) => e.isDone == true).toList().length;
     return AppScaffold(
       extendBodyBehindAppBar: false,
       appbar: AppBar(
         centerTitle: true,
         title: Text(AppStrings.achievements),
-        actions: [
-          SizedBox(
-            width: context.dynamicWidth(0.3),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Spacer(),
-                Text(
-                  "$current/$totalCount", 
-                  style: TextStyle(fontSize: context.sp(12)),
-                ).wrapAlign(Alignment.center),
-                ProgressSlider(
-                  max: totalCount.toDouble(),
-                  current: current.toDouble(),
-                ),
-                Spacer(flex: 3),
-              ],
-            ).wrapPadding(EdgeInsets.only(right: 8)),
-          ),
-        ],
       ),
       body: _bodyView()
     );
@@ -58,9 +35,9 @@ class AchievementsView extends StatelessWidget {
           var achievement = achievements[index];
           return AnimationConfiguration.staggeredList(
             position: index,
-            duration: Duration(milliseconds: 1600),
+            duration: Duration(milliseconds: 1200),
             child: SlideAnimation(
-              verticalOffset: 50.0,
+              horizontalOffset: 300,//index.isEven ? 300 : -300,
                 child: FadeInAnimation(
                   child: AchievementWidget(achievement: achievement),
                 ),

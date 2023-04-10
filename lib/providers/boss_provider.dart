@@ -545,6 +545,7 @@ class BossProvider extends ChangeNotifier {
       _handOfMidasFn();
       updateView();
       _showRoundResultDialog();
+      if (roundProgress+1 == Bosses.values.length)  _reset();
       return;
     }
 
@@ -574,17 +575,19 @@ class BossProvider extends ChangeNotifier {
 
     UserManager.instance.updateBestBossTimeScore(currentBoss.name, elapsedTime, model);
 
-    int expGain = ((roundProgress+1) * 10) + (getRemainingTime ~/ 2);
+    int expGain = ((roundProgress+1) * 5) + (getRemainingTime ~/ 10);
     UserManager.instance.addExp(expGain);
+
+    String lastBossText = roundProgress+1 == Bosses.values.length ? AppStrings.last : "";
 
     AppDialogs.showSlidingDialog(
       dismissible: false,
       showBackButton: false,
-      height: 500,
-      title: "${(roundProgress+1).getOrdinal()} " + AppStrings.stageResults,
+      height: 540,
+      title: "${(roundProgress+1).getOrdinal()} $lastBossText" + AppStrings.stageResults,
       content: BossResultRoundDialogContent(
         model: model, 
-        earnedGold: gainedGold, 
+        earnedGold: gainedGold + (_isActiveMidas ? 200 : 0), 
         earnedExp: UserManager.instance.expCalc(expGain),
         timeUp: timeUp,
       ),

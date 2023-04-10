@@ -39,6 +39,7 @@ class BossResultRoundDialogContent extends StatelessWidget {
 
     return  Column(
       children: [
+        _victoryDefeatText(),
         _resultField("Boss", model.boss.capitalize()),
         _resultField("Elapsed Time", "${model.time} Sec"),
         _resultField("Average DPS", priceString(model.averageDps)),
@@ -77,6 +78,27 @@ class BossResultRoundDialogContent extends StatelessWidget {
         _resultField("Magical Damage", priceString(bestScore["magicalDamage"])),
       ],
     );
+  }
+
+  Container _victoryDefeatText() {
+    return Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(4),
+        margin: const EdgeInsets.only(bottom: 2),
+        decoration: BoxDecoration(
+          color: AppColors.resultFieldBg,
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: Text(
+          timeUp ? AppStrings.defeated : AppStrings.victory, 
+          style: TextStyle(
+            fontSize: 18, 
+            fontWeight: FontWeight.bold,
+            color: timeUp ? AppColors.red : AppColors.amber
+          ), 
+          textAlign: TextAlign.center
+        ),
+      );
   }
 
   WatchAdButton watchAdButton(BuildContext context) {

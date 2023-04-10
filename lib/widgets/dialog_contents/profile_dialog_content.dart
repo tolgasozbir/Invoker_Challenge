@@ -36,7 +36,7 @@ class ProfileDialogContent extends StatelessWidget {
     var current = AchievementManager.instance.achievements.where((e) => e.isDone == true).toList().length;
     return InkWell(
       child: SizedBox(
-        height: context.dynamicHeight(0.16),
+        height: context.dynamicHeight(0.14),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -48,7 +48,7 @@ class ProfileDialogContent extends StatelessWidget {
                 Spacer(),
               ],
             ).wrapExpanded(flex: 2),
-            Icon(Icons.chevron_right, color: Color.fromARGB(255, 251, 138, 176),).wrapCenter()
+            Icon(Icons.chevron_right, color: AppColors.amber).wrapCenter()
           ],
         ),
       ),

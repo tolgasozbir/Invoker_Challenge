@@ -16,7 +16,7 @@ class AchievementWidget extends StatelessWidget {
     var current = currentProgress >= max ? max : currentProgress;
     return Container(
       color: Colors.grey.withOpacity(0.2),
-      height: context.dynamicHeight(0.18),
+      height: context.dynamicHeight(0.12),
       margin: EdgeInsets.only(bottom: 8),
       padding: EdgeInsets.only(right: 8),
       child: Row(
@@ -29,8 +29,8 @@ class AchievementWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              FittedBox(child: Text(achievement.title, style: TextStyle(fontSize: context.sp(18)),)),
-              FittedBox(child: Text(achievement.description, style: TextStyle(fontSize: context.sp(12)),)),
+              FittedBox(child: Text(achievement.title, style: TextStyle(fontSize: context.sp(16)),)),
+              FittedBox(child: Text(achievement.description, style: TextStyle(fontSize: context.sp(10)),)),
               Row(
                 children: [
                   Text(current.toStringAsFixed(0)),

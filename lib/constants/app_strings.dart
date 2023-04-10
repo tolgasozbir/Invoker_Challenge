@@ -24,7 +24,9 @@ class AppStrings {
   static const String close = 'Close';
   static const String back = 'Back';
   static const String logout = 'Logout';
-
+  static const String victory = "Victory";
+  static const String defeated = "Defeated";
+  static const String last = "(Last) ";
   static const String time = 'Time';
   static const String score = 'Score';
   static const String bestScore = 'Best Score';
