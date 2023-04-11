@@ -92,7 +92,9 @@ class AdsHelper {
 //BANNER
 
 class AdBanner extends StatefulWidget {
-  const AdBanner({super.key});
+  const AdBanner({super.key, this.adSize = AdSize.banner});
+
+  final AdSize adSize;
 
   @override
   State<AdBanner> createState() => _AdBannerState();
@@ -104,7 +106,7 @@ class _AdBannerState extends State<AdBanner> {
 
   void _initBannerAd() {
     _bannerAd = BannerAd(
-      size: AdSize.banner, 
+      size: widget.adSize, 
       adUnitId: AdsHelper.instance.bannerAdUnitId, 
       listener: BannerAdListener(
         onAdLoaded: (ad) => setState(() => _isAdLoaded = true),
@@ -124,11 +126,20 @@ class _AdBannerState extends State<AdBanner> {
   }
 
   @override
+  void dispose() {
+    _bannerAd?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return _isAdLoaded 
       ? bannerBox(child: AdWidget(ad: _bannerAd!)) 
       : bannerBox();
   }
 
-  SizedBox bannerBox({Widget? child}) => SizedBox(width: 320, height: 50, child: child);
+  SizedBox bannerBox({Widget? child}) => SizedBox(
+    height: _bannerAd?.size.height.toDouble(), 
+    child: child
+  );
 }

@@ -1,3 +1,6 @@
+import 'package:dota2_invoker_game/utils/ads_helper.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+
 import '../../../../constants/app_colors.dart';
 import '../../../../constants/app_strings.dart';
 import '../../../../enums/items.dart';
@@ -49,6 +52,7 @@ class _ShopViewState extends State<ShopView> {
   Widget _bodyView() {
     return Column(
       children: [
+        AdBanner(adSize: AdSize.fullBanner),
         GridView.builder(
           shrinkWrap: true,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -77,13 +81,13 @@ class _ShopViewState extends State<ShopView> {
           },
         ).wrapPadding(EdgeInsets.all(8)),
         Spacer(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              InventoryHud(isItemsSellable: true),
-              EmptyBox().wrapExpanded(),
-            ],
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            InventoryHud(isItemsSellable: true),
+            EmptyBox().wrapExpanded(),
+          ],
+        ),
         EmptyBox.h16(),
       ],
     );
