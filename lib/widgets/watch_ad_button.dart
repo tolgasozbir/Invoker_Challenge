@@ -1,4 +1,4 @@
-import 'package:dota2_invoker_game/extensions/context_extension.dart';
+import '../extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../services/sound_manager.dart';

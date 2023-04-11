@@ -1,6 +1,6 @@
-import 'package:dota2_invoker_game/mixins/loading_state_mixin.dart';
-import 'package:dota2_invoker_game/providers/game_provider.dart';
-import 'package:dota2_invoker_game/widgets/watch_ad_button.dart';
+import '../../mixins/loading_state_mixin.dart';
+import '../../providers/game_provider.dart';
+import '../watch_ad_button.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';

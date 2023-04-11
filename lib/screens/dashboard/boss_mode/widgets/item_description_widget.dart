@@ -1,6 +1,6 @@
-import 'package:dota2_invoker_game/extensions/context_extension.dart';
-import 'package:dota2_invoker_game/models/Item.dart';
-import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/shop_view.dart';
+import '../../../../extensions/context_extension.dart';
+import '../../../../models/Item.dart';
+import 'shop_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

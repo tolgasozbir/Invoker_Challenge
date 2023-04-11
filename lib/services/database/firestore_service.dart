@@ -1,11 +1,11 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dota2_invoker_game/extensions/string_extension.dart';
-import 'package:dota2_invoker_game/models/boss_round_result_model.dart';
 
 import '../../constants/app_strings.dart';
 import '../../enums/database_table.dart';
+import '../../extensions/string_extension.dart';
+import '../../models/boss_round_result_model.dart';
 import '../../models/challenger_result.dart';
 import '../../models/feedback_model.dart';
 import '../../models/timer_result.dart';

@@ -1,4 +1,4 @@
-import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/shop_view.dart';
+import 'shop_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../widgets/bouncing_button.dart';

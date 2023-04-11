@@ -1,10 +1,10 @@
-import 'package:dota2_invoker_game/enums/Bosses.dart';
-import 'package:dota2_invoker_game/extensions/widget_extension.dart';
-import 'package:dota2_invoker_game/utils/number_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import '../../../constants/app_strings.dart';
+import '../../../enums/Bosses.dart';
+import '../../../extensions/widget_extension.dart';
+import '../../../utils/number_formatter.dart';
 import '../../../widgets/app_dialogs.dart';
 import '../../../widgets/app_outlined_button.dart';
 import '../../../widgets/app_scaffold.dart';

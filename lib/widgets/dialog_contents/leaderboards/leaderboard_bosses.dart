@@ -1,4 +1,4 @@
-import 'package:dota2_invoker_game/models/boss_round_result_model.dart';
+import '../../../models/boss_round_result_model.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 

@@ -1,4 +1,4 @@
-import 'package:dota2_invoker_game/extensions/string_extension.dart';
+import '../extensions/string_extension.dart';
 import '../constants/app_strings.dart';
 
 enum Bosses {

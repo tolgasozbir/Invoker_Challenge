@@ -1,13 +1,13 @@
-import 'package:dota2_invoker_game/constants/app_colors.dart';
-import 'package:dota2_invoker_game/constants/app_strings.dart';
-import 'package:dota2_invoker_game/enums/items.dart';
-import 'package:dota2_invoker_game/extensions/context_extension.dart';
-import 'package:dota2_invoker_game/extensions/widget_extension.dart';
-import 'package:dota2_invoker_game/models/Item.dart';
-import 'package:dota2_invoker_game/providers/boss_provider.dart';
-import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/inventory_hud.dart';
-import 'package:dota2_invoker_game/services/sound_manager.dart';
-import 'package:dota2_invoker_game/widgets/app_dialogs.dart';
+import '../../../../constants/app_colors.dart';
+import '../../../../constants/app_strings.dart';
+import '../../../../enums/items.dart';
+import '../../../../extensions/context_extension.dart';
+import '../../../../extensions/widget_extension.dart';
+import '../../../../models/Item.dart';
+import '../../../../providers/boss_provider.dart';
+import 'inventory_hud.dart';
+import '../../../../services/sound_manager.dart';
+import '../../../../widgets/app_dialogs.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

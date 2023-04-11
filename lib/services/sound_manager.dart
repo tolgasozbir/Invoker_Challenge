@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:audioplayers/audioplayers.dart';
-import 'package:dota2_invoker_game/enums/Bosses.dart';
+import '../enums/Bosses.dart';
 
 import '../constants/app_strings.dart';
 

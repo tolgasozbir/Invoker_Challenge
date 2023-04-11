@@ -1,7 +1,7 @@
-import 'package:dota2_invoker_game/enums/spells.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/app_colors.dart';
+import '../enums/spells.dart';
 import '../extensions/context_extension.dart';
 
 enum QWEKey { Q, W, E, }

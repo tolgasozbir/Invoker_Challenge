@@ -1,5 +1,5 @@
-import 'package:dota2_invoker_game/providers/boss_provider.dart';
-import 'package:dota2_invoker_game/screens/profile/boss_gallery/boss_gallery_view.dart';
+import '../../providers/boss_provider.dart';
+import '../../screens/profile/boss_gallery/boss_gallery_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

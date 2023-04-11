@@ -1,13 +1,13 @@
-import 'package:dota2_invoker_game/enums/items.dart';
-import 'package:dota2_invoker_game/extensions/context_extension.dart';
-import 'package:dota2_invoker_game/extensions/widget_extension.dart';
-import 'package:dota2_invoker_game/providers/boss_provider.dart';
-import 'package:dota2_invoker_game/widgets/cooldown_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../enums/items.dart';
+import '../../../../extensions/context_extension.dart';
+import '../../../../extensions/widget_extension.dart';
 import '../../../../models/Item.dart';
+import '../../../../providers/boss_provider.dart';
 import '../../../../widgets/app_dialogs.dart';
+import '../../../../widgets/cooldown_animation.dart';
 import 'item_description_widget.dart';
 
 class InventoryHud extends StatefulWidget {

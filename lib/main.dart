@@ -1,4 +1,3 @@
-import 'package:dota2_invoker_game/utils/my_app_life_cycle_observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,6 +16,7 @@ import 'services/app_services.dart';
 import 'services/database/firestore_service.dart';
 import 'services/firebase_auth_service.dart';
 import 'services/local_storage/local_storage_service.dart';
+import 'utils/my_app_life_cycle_observer.dart';
 import 'widgets/app_dialogs.dart';
 import 'widgets/app_snackbar.dart';
 

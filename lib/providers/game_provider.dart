@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:dota2_invoker_game/providers/user_manager.dart';
-import 'package:dota2_invoker_game/widgets/game_ui_widget.dart';
+import 'user_manager.dart';
+import '../widgets/game_ui_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/app_strings.dart';

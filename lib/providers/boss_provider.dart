@@ -2,14 +2,14 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:math' as math;
 
-import 'package:dota2_invoker_game/enums/items.dart';
-import 'package:dota2_invoker_game/extensions/number_extension.dart';
-import 'package:dota2_invoker_game/models/Item.dart';
+import '../enums/items.dart';
+import '../extensions/number_extension.dart';
+import '../models/Item.dart';
 import 'package:flutter/material.dart';
 import 'package:snappable_thanos/snappable_thanos.dart';
 
-import 'package:dota2_invoker_game/enums/Bosses.dart';
-import 'package:dota2_invoker_game/enums/spells.dart';
+import '../enums/Bosses.dart';
+import '../enums/spells.dart';
 
 import '../constants/app_strings.dart';
 import '../models/ability_cooldown.dart';

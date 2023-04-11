@@ -1,11 +1,11 @@
 import 'dart:math';
-import 'package:dota2_invoker_game/constants/app_strings.dart';
-import 'package:dota2_invoker_game/enums/Bosses.dart';
-import 'package:dota2_invoker_game/enums/spells.dart';
-import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/inventory_hud.dart';
-import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/mana_bar.dart';
-import 'package:dota2_invoker_game/utils/number_formatter.dart';
-import 'package:dota2_invoker_game/widgets/app_snackbar.dart';
+import '../../../constants/app_strings.dart';
+import '../../../enums/Bosses.dart';
+import '../../../enums/spells.dart';
+import 'widgets/inventory_hud.dart';
+import 'widgets/mana_bar.dart';
+import '../../../utils/number_formatter.dart';
+import '../../../widgets/app_snackbar.dart';
 import 'package:snappable_thanos/snappable_thanos.dart';
 
 import '../../../models/ability_cooldown.dart';
