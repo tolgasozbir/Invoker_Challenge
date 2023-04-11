@@ -118,7 +118,7 @@ class BossProvider extends ChangeNotifier {
   
   int _userGold = 1000;
   int get userGold => _userGold;
-  int get gainedGold => (getRemainingTime * roundProgress) + (roundProgress * 250) + 600;
+  int get gainedGold => (getRemainingTime * (roundProgress+1)) + ((roundProgress+1) * 400) + 400;
 
   bool isAdWatched = false;
   void addGoldAfterWatchingAd(int goldAmount) {
@@ -141,9 +141,10 @@ class BossProvider extends ChangeNotifier {
   List<Item> get inventory => _inventory;
 
   bool _isActiveMidas = false;
+  final int midasGold = 360;
   void _handOfMidasFn() {
     if (_isActiveMidas) {
-      _addGold(200);
+      _addGold(midasGold);
       SoundManager.instance.playItemSound(Items.Hand_of_midas.name);
     }
   }
@@ -397,7 +398,7 @@ class BossProvider extends ChangeNotifier {
     var spellUsed = SpellCooldowns[index].onPressedAbility(currentMana); // Checks if the selected spell can be used, and assigns true to the spellUsed variable if it can.
     if (spellUsed) { // If the selected spell was used
       _spendMana(spell.mana); // Mana is spent equal to the mana value of the chosen spell.
-      double abilityDamageMultiplier = spell.damage * (UserManager.instance.user.level * 0.02); //max level 0.6
+      double abilityDamageMultiplier = spell.damage * (UserManager.instance.user.level * 0.02); //max level 0.6 - %60
       double fullDamage = spell.damage + abilityDamageMultiplier;
       spellDamage += fullDamage; // Adds the spell damage to the spellDamage variable.
       updateView(); // Update the player's view.
@@ -569,7 +570,6 @@ class BossProvider extends ChangeNotifier {
       maxDps: maxDps, 
       physicalDamage: physicalDamage, 
       magicalDamage: magicalDamage, 
-      //earnedGold: gainedGold,
       items: inventory.map((e) => e.item.getName).toList(),
     );
 
@@ -587,9 +587,10 @@ class BossProvider extends ChangeNotifier {
       title: "${(roundProgress+1).getOrdinal()} $lastBossText" + AppStrings.stageResults,
       content: BossResultRoundDialogContent(
         model: model, 
-        earnedGold: gainedGold + (_isActiveMidas ? 200 : 0), 
+        earnedGold: gainedGold + (_isActiveMidas ? midasGold : 0), 
         earnedExp: UserManager.instance.expCalc(expGain),
         timeUp: timeUp,
+        isLast: model.round != Bosses.values.length,
       ),
       action: BossResultRoundDialogAction(model: model,)
     );

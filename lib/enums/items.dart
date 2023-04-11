@@ -47,7 +47,7 @@ enum Items {
   ),
 
   Hand_of_midas(
-    bonus: "Gives 200 gold at the end of each round.\n(Multiple items won't work!)", 
+    bonus: "Gives 360 gold at the end of each round.\n(Multiple items won't work!)", 
     cost: 2200,
     hasSound: true,
   ),

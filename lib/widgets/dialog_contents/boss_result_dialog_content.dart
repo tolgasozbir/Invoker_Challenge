@@ -17,11 +17,13 @@ import '../../providers/user_manager.dart';
 import '../../services/app_services.dart';
 import '../app_outlined_button.dart';
 import '../app_snackbar.dart';
+
 class BossResultRoundDialogContent extends StatelessWidget {
   final BossRoundResultModel model;
   final int earnedGold;
   final double earnedExp;
   final bool timeUp;
+  final bool isLast;
 
   const BossResultRoundDialogContent({
     super.key, 
@@ -29,6 +31,7 @@ class BossResultRoundDialogContent extends StatelessWidget {
     required this.earnedGold, 
     required this.earnedExp,
     required this.timeUp,
+    required this.isLast
   });
 
   int get goldAmount => model.round * 100;
@@ -46,7 +49,7 @@ class BossResultRoundDialogContent extends StatelessWidget {
         _resultField("Max DPS (All Round)", priceString(model.maxDps)),
         _resultField("Physical Damage", priceString(model.physicalDamage)),
         _resultField("Magical Damage", priceString(model.magicalDamage)),
-        if (!timeUp) ...[
+        if (!timeUp && isLast) ...[
           _resultField("Earned Gold", priceString(earnedGold.toDouble())),
           _resultField("Earned Exp", priceString(earnedExp)),
           EmptyBox.h4(),
