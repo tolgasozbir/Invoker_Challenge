@@ -11,6 +11,7 @@ import '../extensions/widget_extension.dart';
 import '../providers/game_provider.dart';
 import '../screens/dashboard/loading_view.dart';
 import '../services/sound_manager.dart';
+import '../utils/fade_in_page_animation.dart';
 
 class MenuButton extends StatefulWidget {
   const MenuButton({
@@ -91,7 +92,7 @@ class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateM
     SoundManager.instance.playLoadingSound();
     context.read<GameProvider>().resetTimer();
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
-    Navigator.push(context, MaterialPageRoute(builder: (context)=> LoadingView(page: widget.navigatePage!)));
+    Navigator.push(context, fadeInPageRoute(LoadingView(page: widget.navigatePage!)));
   }
 
   @override

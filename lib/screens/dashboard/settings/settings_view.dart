@@ -1,3 +1,4 @@
+import 'package:dota2_invoker_game/utils/fade_in_page_animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -35,7 +36,7 @@ class SettingsView extends StatelessWidget {
             context: context,
             leading: FontAwesomeIcons.commentDots,
             text: AppStrings.feedback,
-            onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => FeedbackView())),
+            onTap: () => Navigator.push(context, fadeInPageRoute(FeedbackView())),
           ),
           divider(),
           menuItem(

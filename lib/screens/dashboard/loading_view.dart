@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../constants/app_strings.dart';
+import '../../utils/fade_in_page_animation.dart';
 
 class LoadingView extends StatefulWidget {
   const LoadingView({super.key, required this.page});
@@ -23,9 +24,7 @@ class _LoadingViewState extends State<LoadingView> {
 
   Future<void> _navigateToPage() async {
     await Future.delayed(_loadingDuration, () {
-      if (mounted) {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> widget.page));
-      }
+      if (mounted) Navigator.pushReplacement(context, fadeInPageRoute(widget.page));
     });
   }
 
