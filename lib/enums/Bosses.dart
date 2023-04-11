@@ -6,7 +6,8 @@ enum Bosses {
   omniknight(15000),
   riki(25000),
   huskar(35000),
-  templar(45000);
+  templar(45000),
+  anti_mage(55000);
 
   const Bosses(this._health);
 
@@ -16,5 +17,5 @@ enum Bosses {
 extension bossExtension on Bosses {
   double get getHp => _health;
   String get getImage => '${ImagePaths.bosses}boss_$name.png';
-  String get getName => name.capitalize();
+  String get getName => name.replaceAll("_", " ").capitalize();
 }

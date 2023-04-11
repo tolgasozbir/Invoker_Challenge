@@ -52,14 +52,20 @@ class SoundManager {
       case Bosses.omniknight:
       case Bosses.riki: 
       case Bosses.huskar: soundCount = 2; break;
+      case Bosses.anti_mage:
       case Bosses.templar: soundCount = 1; break;
     }
     int num = _rnd.nextInt(soundCount) + 1;
     String sound = SoundPaths.bossSounds+"/${boss.name}/entering$num.mpeg";
     _playSound(fileName: sound);
+    //Boss specific sounds
     if (boss == Bosses.riki) {
       String smoke = SoundPaths.bossSounds+"/${boss.name}/smoke.mpeg";
       Future.delayed(Duration(seconds: 1), () => _playSound(fileName: smoke, volume: 0.16),);
+    }    
+    if (boss == Bosses.anti_mage) {
+      String blink = SoundPaths.bossSounds+"/${boss.name}/blink.mpeg";
+      Future.delayed(Duration.zero, () => _playSound(fileName: blink),);
     }
   }  
   
@@ -70,6 +76,7 @@ class SoundManager {
       case Bosses.omniknight:
       case Bosses.riki:
       case Bosses.huskar: soundCount = 2; break;
+      case Bosses.anti_mage:
       case Bosses.templar: soundCount = 1; break;
     }
     int num = _rnd.nextInt(soundCount) + 1;
@@ -84,11 +91,17 @@ class SoundManager {
       case Bosses.omniknight:
       case Bosses.templar:
       case Bosses.riki: soundCount = 2; break;
+      case Bosses.anti_mage:
       case Bosses.huskar: soundCount = 1; break;
     }
     int num = _rnd.nextInt(soundCount) + 1;
     String sound = SoundPaths.bossSounds+"/${boss.name}/taunt$num.mpeg";
     _playSound(fileName: sound);
+    //Boss specific sounds
+    if (boss == Bosses.anti_mage) {
+      String manaVoid = SoundPaths.bossSounds+"/${boss.name}/mana_void.mpeg";
+      Future.delayed(Duration.zero, () => _playSound(fileName: manaVoid),);
+    }
   }
 
   void playMeepMerp() {

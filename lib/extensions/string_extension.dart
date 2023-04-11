@@ -1,6 +1,6 @@
 extension StringExtension on String {
   String capitalize() {
     if (this.isEmpty) return this;
-    else return this[0].toUpperCase() + this.substring(1);
+    else return this.split(' ').map((word) => word[0].toUpperCase() + word.substring(1)).join(' ');
   }
 }
