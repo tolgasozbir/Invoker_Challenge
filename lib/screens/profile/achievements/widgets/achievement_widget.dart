@@ -29,8 +29,14 @@ class AchievementWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              FittedBox(child: Text(achievement.title, style: TextStyle(fontSize: context.sp(16)),)),
-              FittedBox(child: Text(achievement.description, style: TextStyle(fontSize: context.sp(10)),)),
+              Text(
+                achievement.title, 
+                style: TextStyle(fontSize: context.sp(16))
+              ).wrapFittedBox(),
+              Text(
+                achievement.description, 
+                style: TextStyle(fontSize: context.sp(10))
+              ).wrapFittedBox(),
               Row(
                 children: [
                   Text(current.toStringAsFixed(0)),

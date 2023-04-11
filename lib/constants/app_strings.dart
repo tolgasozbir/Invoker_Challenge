@@ -13,6 +13,7 @@ class AppStrings {
   static const String settings = 'Settings';
   static const String profile = 'Profile';
   static const String achievements = 'Achievements';
+  static const String bossGallery = ' Boss Gallery ';
 
   //Common
   static const String leaderboard = 'Leaderboard';

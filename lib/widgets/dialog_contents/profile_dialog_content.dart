@@ -1,4 +1,5 @@
 import 'package:dota2_invoker_game/providers/boss_provider.dart';
+import 'package:dota2_invoker_game/screens/profile/boss_gallery/boss_gallery_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,6 +24,8 @@ class ProfileDialogContent extends StatelessWidget {
         children: [
           achievements(context),
           Divider(color: AppColors.amber),
+          bossGallery(context),
+          Divider(color: AppColors.amber),
           Spacer(),
           logoutbtn(context),
         ],
@@ -43,8 +46,12 @@ class ProfileDialogContent extends StatelessWidget {
             Image.asset(ImagePaths.icAchievements),
             Column(
               children: [
-                FittedBox(child: Text(AppStrings.achievements)).wrapExpanded(flex: 2),
-                FittedBox(child: Text('$current/$totalCount',)).wrapExpanded(flex: 1),
+                Text(AppStrings.achievements)
+                  .wrapFittedBox()
+                  .wrapExpanded(flex: 2),
+                Text('$current/$totalCount',)
+                  .wrapFittedBox()
+                  .wrapExpanded(flex: 1),
                 Spacer(),
               ],
             ).wrapExpanded(flex: 2),
@@ -55,6 +62,23 @@ class ProfileDialogContent extends StatelessWidget {
       onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AchievementsView(),)),
     );
   }
+  
+  InkWell bossGallery(BuildContext context) {
+    return InkWell(
+      child: SizedBox(
+        height: context.dynamicHeight(0.14),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(ImagePaths.icInvokerHead).wrapExpanded(flex: 2),
+            FittedBox(child: Text(AppStrings.bossGallery)).wrapExpanded(flex: 3),
+            Icon(Icons.chevron_right, color: AppColors.amber),
+          ],
+        ),
+      ),
+      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => BossGalleryView(),)),
+    );
+  }
 
   Widget logoutbtn(BuildContext context) {
     var isLoggedIn = UserManager.instance.isLoggedIn();
@@ -62,9 +86,9 @@ class ProfileDialogContent extends StatelessWidget {
     return AppOutlinedButton(
       width: double.infinity,
       onPressed: () async {
+        await AppServices.instance.firebaseAuthService.signOut();
         context.read<BossProvider>().disposeGame(); //Reset Boss Mode Values
         AchievementManager.instance.reset(); //Reset achievements
-        await AppServices.instance.firebaseAuthService.signOut();
         if (context.mounted) Navigator.pop(context);
       }, 
       title: AppStrings.logout

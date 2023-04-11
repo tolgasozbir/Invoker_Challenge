@@ -1,3 +1,4 @@
+import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import '../constants/app_strings.dart';
 
 enum Bosses {
@@ -15,5 +16,5 @@ enum Bosses {
 extension bossExtension on Bosses {
   double get getHp => _health;
   String get getImage => '${ImagePaths.bosses}boss_$name.png';
-  String get getName => "${name[0].toUpperCase()}${name.substring(1).toLowerCase()}";
+  String get getName => name.capitalize();
 }
