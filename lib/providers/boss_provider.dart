@@ -30,7 +30,7 @@ class BossProvider extends ChangeNotifier {
   bool isHornSoundPlaying = false;
   bool hornSoundPlayed = false;
   bool hasHornSoundStopped = false;
-  int get baseDamage => (UserManager.instance.user.level * 5) * (UserManager.instance.user.level >= 30 ? 2 : 1) + rng.nextInt(16);
+  int baseDamage = (30 + (UserManager.instance.user.level * 4)) * (UserManager.instance.user.level >= 30 ? 2 : 1);
   double bonusDamage = 0;
   double damageMultiplier = 0;
   double spellDamage = 0; //Ability Damage
@@ -46,9 +46,9 @@ class BossProvider extends ChangeNotifier {
   //
 
   //Circle Values
-  int get roundUnit => Bosses.values.length;
-  int get healthUnit => 60;
-  int get timeUnits => 180;
+  int roundUnit = Bosses.values.length;
+  int healthUnit = 60;
+  int timeUnits = 180;
   int roundProgress = -1;
   double healthProgress = 0;
   double timeProgress = 0;
@@ -80,7 +80,7 @@ class BossProvider extends ChangeNotifier {
   ///-----     Mana Bar Values     -----///
   double maxMana = (UserManager.instance.user.level * 27) + 1400 + (UserManager.instance.user.level >= 10 ? 400 : 0);
   double currentMana = 1400 + UserManager.instance.user.level * 27;
-  double baseManaRegen = 3 + UserManager.instance.user.level * 0.27;
+  double baseManaRegen = 3.6 + UserManager.instance.user.level * 0.27;
   double manaRegenMultiplier = 0;
   double get manaRegen => baseManaRegen + (baseManaRegen * manaRegenMultiplier);
   double get manaBarWidthMultiplier => ((currentMana / maxMana) * 100) / 100;
@@ -409,8 +409,20 @@ class BossProvider extends ChangeNotifier {
 
   //-----     Game Functions    -----//
 
-  void _calcDPS(double val) {
-    last5AttackDamage.insert(0, val);
+  ///Bu fonksiyon, karakter seviyesi arttığında baz hasar değerini ve manasını günceller.
+  void _updateManaAndBaseDamage({bool updateUI = true}) {
+    baseDamage = (30 + (UserManager.instance.user.level * 4)) * (UserManager.instance.user.level >= 30 ? 2 : 1);
+    maxMana = (UserManager.instance.user.level * 27) + 1400 + (UserManager.instance.user.level >= 10 ? 400 : 0);
+    currentMana = maxMana;
+    baseManaRegen = 3.6 + UserManager.instance.user.level * 0.27;
+    if (updateUI) {
+      updateView();
+    }
+  }
+
+  void _calcDPS() {
+    var lastHit = dps;
+    last5AttackDamage.insert(0, lastHit);
     if (last5AttackDamage.length > 5) {
       last5AttackDamage.removeLast();
     }
@@ -443,7 +455,7 @@ class BossProvider extends ChangeNotifier {
   /// 
   /// this function is called inside the [_timer] object
   void _autoHit(){
-    double fullDamage = (baseDamage+bonusDamage) + (damageMultiplier * (baseDamage+bonusDamage));
+    double fullDamage = (baseDamage+bonusDamage) + (damageMultiplier * (baseDamage+bonusDamage)) + rng.nextInt(16);
     double health = currentBoss.getHp / healthUnit;
     double totalDamage = fullDamage /health;
     healthProgress += totalDamage;
@@ -470,12 +482,13 @@ class BossProvider extends ChangeNotifier {
   /// [currentBossHp] is updated as the boss's new health value.
   /// 
   ///this function is called inside the [_timer] object
-  void _hitWithSpell(double damage) {
-    double health = currentBoss.getHp / healthUnit;
-    double totalDamage = damage/health;
-    healthProgress += totalDamage;
+  void _hitWithSpell() {
+    double damage = spellDamage + (spellDamage * spellAmp); //
     dps += damage;
     magicalDamage += damage;
+
+    double health = currentBoss.getHp / healthUnit;
+    healthProgress += (damage/health);
     currentBossHp = currentBoss.getHp - (healthProgress * health);
   }
 
@@ -484,6 +497,7 @@ class BossProvider extends ChangeNotifier {
   ///this function is called inside the [_timer] object
   void _increaseTime() {
     timeProgress++;
+    elapsedTime++;
   }
 
   ///This function prepares the game for the next round by setting various variables.
@@ -497,9 +511,7 @@ class BossProvider extends ChangeNotifier {
       hasHornSoundStopped = true;
       isHornSoundPlaying = false;
     }
-    if (hasHornSoundStopped == false) {
-      return;
-    }
+    if (hasHornSoundStopped == false) return;
     started = true;
     currentBossAlive = true;
     snappableKey.currentState?.reset();
@@ -507,7 +519,6 @@ class BossProvider extends ChangeNotifier {
     currentBoss = bossList[roundProgress];
     currentBossHp = currentBoss.getHp;
     SoundManager.instance.playBossEnteringSound(currentBoss);
-    currentMana = maxMana;
     healthProgress = 0;
     timeProgress = 0;
     elapsedTime = 0;
@@ -575,6 +586,7 @@ class BossProvider extends ChangeNotifier {
 
     int expGain = ((roundProgress+1) * 5) + (getRemainingTime ~/ 10);
     UserManager.instance.addExp(expGain);
+    _updateManaAndBaseDamage();
 
     String lastBossText = roundProgress+1 == Bosses.values.length ? AppStrings.last : "";
 
@@ -606,11 +618,10 @@ class BossProvider extends ChangeNotifier {
     if (_timer != null) return;
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       dps = 0;
-      elapsedTime++;
       _increaseTime();
       _autoHit();
-      _hitWithSpell(spellDamage + (spellDamage * spellAmp));
-      _calcDPS(dps);
+      _hitWithSpell();
+      _calcDPS();
       _manaRegenFn();
       _isGameFinished();
       //if (!started) timer.cancel();
@@ -651,9 +662,7 @@ class BossProvider extends ChangeNotifier {
     currentBoss = Bosses.values.first;
     bonusDamage = 0;
     damageMultiplier = 0;
-    maxMana = (UserManager.instance.user.level * 27) + 1400 + (UserManager.instance.user.level >= 10 ? 400 : 0);
-    currentMana = maxMana;
-    baseManaRegen = 3 + UserManager.instance.user.level * 0.27;
+    _updateManaAndBaseDamage(updateUI: false);
     manaRegenMultiplier = 0;
     spellAmp = 0;
     _isActiveMidas = false;

@@ -1,3 +1,7 @@
+import 'package:dota2_invoker_game/services/sound_manager.dart';
+import 'package:provider/provider.dart';
+
+import '../../../../providers/boss_provider.dart';
 import 'shop_view.dart';
 import 'package:flutter/material.dart';
 
@@ -53,7 +57,11 @@ class ShopButton extends StatelessWidget {
         ],
       ),
       onPressed: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => ShopView(),));
+        if(!context.read<BossProvider>().started && context.read<BossProvider>().snapIsDone && !context.read<BossProvider>().isHornSoundPlaying)
+          Navigator.push(context, MaterialPageRoute(builder: (context) => ShopView(),));
+        else {
+          SoundManager.instance.playMeepMerp();
+        }
       },
     );
   }

@@ -23,6 +23,7 @@ class FirestoreService implements IDatabaseService {
   final _collectionRefTimer = FirebaseFirestore.instance.collection(DatabaseTable.timer.name);
   final _collectionRefChallanger = FirebaseFirestore.instance.collection(DatabaseTable.challenger.name);
   final int _fetchLimit = 10;
+  final int _fetchLimitBoss = 5;
   String orderByField = 'score';
   String orderByTime = 'time';
   DocumentSnapshot? _lastDocument;
@@ -110,11 +111,11 @@ class FirestoreService implements IDatabaseService {
     QuerySnapshot<Map<String,dynamic>> snapshot;
     try {
       if (_lastDocument == null) {
-        snapshot = await collection.orderBy(orderByTime).limit(_fetchLimit).get();
+        snapshot = await collection.orderBy(orderByTime).limit(_fetchLimitBoss).get();
       } else {
         snapshot = await collection.
           orderBy(orderByTime)
-          .limit(_fetchLimit)
+          .limit(_fetchLimitBoss)
           .startAfterDocument(_lastDocument!)
           .get();
       }
@@ -123,7 +124,7 @@ class FirestoreService implements IDatabaseService {
         _lastDocument = snapshot.docs.last;
       }
 
-      if (snapshot.docs.length < _fetchLimit) {
+      if (snapshot.docs.length < _fetchLimitBoss) {
         _hasMoreData = false;
       }
 

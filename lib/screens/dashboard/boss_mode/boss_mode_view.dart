@@ -52,7 +52,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
   @override
   void initState() {
     provider = context.read<BossProvider>();
-    //provider.disposeGame();
+    provider.disposeGame();
     super.initState();
   }
 
@@ -71,9 +71,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
             if (backButtonFn()) Navigator.pop(context);
           },
         ),
-        actions: [
-          if(!context.watch<BossProvider>().started && context.watch<BossProvider>().snapIsDone && !context.watch<BossProvider>().isHornSoundPlaying) ShopButton(),
-        ],
+        actions: [ShopButton(),],
       ),
       body: WillPopScope(
         child: bodyView(),
@@ -110,6 +108,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
             Weather(weatherType: weatherType),
             dpsText(),
             dpsStick(),
+            attackDamage(),
             startBtn(),
           ],
         ).wrapExpanded(),
@@ -164,6 +163,25 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
       child: Row(
         children: [
           Text("Dps : " + priceString(context.watch<BossProvider>().dps)),
+        ],
+      )
+    );
+  }
+  
+  Positioned attackDamage() {
+    var baseDmg = context.watch<BossProvider>().baseDamage;
+    var multiplier = context.watch<BossProvider>().damageMultiplier;
+    var bonusDmg = context.watch<BossProvider>().bonusDamage;
+    return Positioned(
+      top: 8,
+      right: 8,
+      child: Row(
+        children: [
+          Text(priceString((baseDmg + (baseDmg * multiplier)).toDouble())),
+          if (context.watch<BossProvider>().bonusDamage > 0)
+            Text("+${priceString((bonusDmg + (bonusDmg * multiplier)))}", style: TextStyle(color: AppColors.green),),
+          EmptyBox.w4(),
+          Image.asset(ImagePaths.icSword),
         ],
       )
     );

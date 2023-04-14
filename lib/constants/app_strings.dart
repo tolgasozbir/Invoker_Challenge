@@ -159,6 +159,7 @@ class ImagePaths {
   static const String icInvokerHead = '$_misc/ic_invoker_head.png';
   static const String icInvokeLine = '$_misc/ic_invoke_line.png';
   static const String gold = '$_misc/gold.png';
+  static const String icSword = '$_misc/ic_sword.png';
 
   static const String icAchievements = '$_root/achievements/ic_achievements.png';
 
