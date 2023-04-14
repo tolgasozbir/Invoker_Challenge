@@ -14,6 +14,7 @@ class AppStrings {
   static const String profile = 'Profile';
   static const String achievements = 'Achievements';
   static const String bossGallery = ' Boss Gallery ';
+  static const String level = 'Level';
 
   //Common
   static const String leaderboard = 'Leaderboard';

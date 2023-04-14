@@ -33,7 +33,7 @@ class _UserStatusState extends State<UserStatus> {
     final username = widget.user.username;
     final currentExp = widget.user.exp;
     final nextLevelExp = UserManager.instance.getNextLevelExp;
-    final level = 'Level ${widget.user.level}';
+    final level = '${AppStrings.level} ${widget.user.level}';
     var isLoggedIn = UserManager.instance.isLoggedIn();
     return InkWell(
       splashColor: AppColors.transparent,
@@ -77,9 +77,9 @@ class _UserStatusState extends State<UserStatus> {
               ).wrapPadding(const EdgeInsets.symmetric(vertical: 8)),
               Row(
                 children: [
-                  Text(level),
+                  Text(level).wrapFittedBox(),
                   Spacer(),
-                  Text(currentExp.toStringAsFixed(0) + '/' + nextLevelExp.toStringAsFixed(0))
+                  Text(currentExp.toStringAsFixed(0) + '/' + nextLevelExp.toStringAsFixed(0)).wrapFittedBox()
                 ],
               )
             ],

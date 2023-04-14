@@ -77,7 +77,7 @@ class _ResultDialogContentState extends State<ResultDialogContent> {
         children: [
           Icon(Icons.slow_motion_video, size: 26,),
           EmptyBox.w4(),
-          Text( //TODO: ADS
+          Text(
             widget.gameType == GameType.Challanger ? "Continue" : "+30 Sec",
             style: TextStyle(
               fontSize: context.sp(13),

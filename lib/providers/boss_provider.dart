@@ -30,7 +30,7 @@ class BossProvider extends ChangeNotifier {
   bool isHornSoundPlaying = false;
   bool hornSoundPlayed = false;
   bool hasHornSoundStopped = false;
-  double get baseDamage => (UserManager.instance.user.level * 5) * (UserManager.instance.user.level >= 30 ? 2 : 1) + rng.nextDouble() * 16;
+  int get baseDamage => (UserManager.instance.user.level * 5) * (UserManager.instance.user.level >= 30 ? 2 : 1) + rng.nextInt(16);
   double bonusDamage = 0;
   double damageMultiplier = 0;
   double spellDamage = 0; //Ability Damage
@@ -402,9 +402,7 @@ class BossProvider extends ChangeNotifier {
       double fullDamage = spell.damage + abilityDamageMultiplier;
       spellDamage += fullDamage; // Adds the spell damage to the spellDamage variable.
       updateView(); // Update the player's view.
-      spell.duration == 0 // If the spell has no effect;
-        ? await Future.delayed(Duration(seconds: 1), () => spellDamage -= fullDamage) // Wait for a second and subtract the spell damage from the spellDamage variable.
-        : await Future.delayed(Duration(seconds: spell.duration), () => spellDamage -= fullDamage); // Wait for the spell's duration and subtract the spell damage from the spellDamage variable.
+      await Future.delayed(Duration(seconds: spell.duration), () => spellDamage -= fullDamage); // Wait for the spell's duration and subtract the spell damage from the spellDamage variable.
     }
   }
   //

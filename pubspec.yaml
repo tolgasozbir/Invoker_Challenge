@@ -24,7 +24,6 @@ dependencies:
   audioplayers: ^0.20.0
   internet_connection_checker: ^1.0.0+1
   url_launcher: ^6.1.10
-  store_redirect: ^2.0.1
   flutter_config: ^2.0.0
 
   #Local Storage
