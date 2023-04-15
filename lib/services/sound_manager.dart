@@ -51,13 +51,38 @@ class SoundManager {
       case Bosses.warlock:
       case Bosses.omniknight:
       case Bosses.riki: 
+      case Bosses.juggernaut:
+      case Bosses.blood_seeker:
       case Bosses.huskar: soundCount = 2; break;
       case Bosses.anti_mage:
       case Bosses.templar: soundCount = 1; break;
     }
+
     int num = _rnd.nextInt(soundCount) + 1;
     String sound = SoundPaths.bossSounds+"/${boss.name}/entering$num.mpeg";
-    _playSound(fileName: sound);
+    double volume = 0.35;
+    Duration duration =  Duration.zero;
+
+    if (boss == Bosses.templar) {
+      volume = 0.50;
+    }
+
+    if (boss == Bosses.juggernaut) {
+      duration = Duration(milliseconds: 600);
+      String omnislash = SoundPaths.bossSounds+"/${boss.name}/omnislash";
+      await Future.delayed(Duration(milliseconds: 0), () => _playSound(fileName: omnislash+"1.mpeg"),);
+      await Future.delayed(Duration(milliseconds: 200), () => _playSound(fileName: omnislash+"2.mpeg"),);
+      await Future.delayed(Duration(milliseconds: 350), () => _playSound(fileName: omnislash+"3.mpeg"),);
+    }  
+
+    if (boss == Bosses.blood_seeker) {
+      volume = 0.60;
+      duration = Duration(milliseconds: 400);
+      String rupture = SoundPaths.bossSounds+"/${boss.name}/rupture.mpeg";
+      await Future.delayed(Duration.zero, () => _playSound(fileName: rupture, volume: 0.10),);
+    }
+
+    await Future.delayed(duration, () => _playSound(fileName: sound, volume: volume),);
     //Boss specific sounds
     if (boss == Bosses.riki) {
       String smoke = SoundPaths.bossSounds+"/${boss.name}/smoke.mpeg";
@@ -75,13 +100,25 @@ class SoundManager {
       case Bosses.warlock:
       case Bosses.omniknight:
       case Bosses.riki:
+      case Bosses.juggernaut:
+      case Bosses.blood_seeker:
       case Bosses.huskar: soundCount = 2; break;
       case Bosses.anti_mage:
       case Bosses.templar: soundCount = 1; break;
     }
     int num = _rnd.nextInt(soundCount) + 1;
     String sound = SoundPaths.bossSounds+"/${boss.name}/dying$num.mpeg";
-    _playSound(fileName: sound);
+    double volume = 0.35;
+    if (boss == Bosses.templar) {
+      volume = 1.0;
+    }
+    if (boss == Bosses.juggernaut) {
+      volume = 0.50;
+    }
+    if (boss == Bosses.blood_seeker) {
+      volume = 0.50;
+    }
+    _playSound(fileName: sound, volume: volume);
   }  
   
   void playBossTauntSound(Bosses boss) {
@@ -90,17 +127,24 @@ class SoundManager {
       case Bosses.warlock:
       case Bosses.omniknight:
       case Bosses.templar:
+      case Bosses.juggernaut:
+      case Bosses.blood_seeker:
       case Bosses.riki: soundCount = 2; break;
       case Bosses.anti_mage:
       case Bosses.huskar: soundCount = 1; break;
     }
     int num = _rnd.nextInt(soundCount) + 1;
     String sound = SoundPaths.bossSounds+"/${boss.name}/taunt$num.mpeg";
-    _playSound(fileName: sound);
+    double volume = boss == Bosses.templar ? 1.0 : 0.35;
+    _playSound(fileName: sound, volume: volume);
     //Boss specific sounds
     if (boss == Bosses.anti_mage) {
       String manaVoid = SoundPaths.bossSounds+"/${boss.name}/mana_void.mpeg";
       Future.delayed(Duration.zero, () => _playSound(fileName: manaVoid),);
+    }
+    if (boss == Bosses.blood_seeker) {
+      String laugh = SoundPaths.bossSounds+"/${boss.name}/laugh.mpeg";
+      Future.delayed(Duration(milliseconds: 1650), () => _playSound(fileName: laugh),);
     }
   }
 

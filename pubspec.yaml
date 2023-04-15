@@ -86,6 +86,8 @@ flutter:
     - assets/sounds/boss_sounds/huskar/
     - assets/sounds/boss_sounds/templar/
     - assets/sounds/boss_sounds/anti_mage/
+    - assets/sounds/boss_sounds/juggernaut/
+    - assets/sounds/boss_sounds/blood_seeker/
 
     - assets/lottie/
     - assets/svg/

@@ -39,7 +39,7 @@ class AppStrings {
   static const String score = 'Score';
   static const String bestScore = 'Best Score';
   static const String exp = 'Experience';
-  static const String syncData = 'Synchronize and store the data.';
+  static const String syncData = 'Synchronize and store the data';
   
  
   //Form-Dialog
