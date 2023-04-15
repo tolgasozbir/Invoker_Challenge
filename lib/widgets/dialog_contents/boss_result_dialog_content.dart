@@ -24,6 +24,7 @@ class BossResultRoundDialogContent extends StatelessWidget {
   final double earnedExp;
   final bool timeUp;
   final bool isLast;
+  final double bossHpLeft;
 
   const BossResultRoundDialogContent({
     super.key, 
@@ -31,7 +32,8 @@ class BossResultRoundDialogContent extends StatelessWidget {
     required this.earnedGold, 
     required this.earnedExp,
     required this.timeUp,
-    required this.isLast
+    required this.isLast, 
+    required this.bossHpLeft
   });
 
   int get goldAmount => model.round * 100;
@@ -45,6 +47,7 @@ class BossResultRoundDialogContent extends StatelessWidget {
         _victoryDefeatText(),
         _resultField("Boss", model.boss.capitalize()),
         _resultField("Elapsed Time", "${model.time} Sec"),
+        if(timeUp) _resultField("Remaining HP", priceString(bossHpLeft)),
         _resultField("Average DPS", priceString(model.averageDps)),
         _resultField("Max DPS (All Round)", priceString(model.maxDps)),
         _resultField("Physical Damage", priceString(model.physicalDamage)),
@@ -55,7 +58,7 @@ class BossResultRoundDialogContent extends StatelessWidget {
           EmptyBox.h4(),
           watchAdButton(context),
         ],
-        !timeUp ? EmptyBox() : EmptyBox.h16(),
+        EmptyBox(),
         Divider(),
         FittedBox(
           child: Row(

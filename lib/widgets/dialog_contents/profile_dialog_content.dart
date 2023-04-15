@@ -1,4 +1,8 @@
+import 'package:dota2_invoker_game/widgets/app_snackbar.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+
 import '../../providers/boss_provider.dart';
+import '../../providers/user_manager.dart';
 import '../../screens/profile/boss_gallery/boss_gallery_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -7,7 +11,6 @@ import '../../constants/app_colors.dart';
 import '../../constants/app_strings.dart';
 import '../../extensions/context_extension.dart';
 import '../../extensions/widget_extension.dart';
-import '../../providers/user_manager.dart';
 import '../../screens/profile/achievements/achievement_manager.dart';
 import '../../screens/profile/achievements/achievements_view.dart';
 import '../../services/app_services.dart';
@@ -27,6 +30,8 @@ class ProfileDialogContent extends StatelessWidget {
           bossGallery(context),
           Divider(color: AppColors.amber),
           Spacer(),
+          syncDataBtn(context),
+          EmptyBox.h8(),
           logoutbtn(context),
         ],
       ),
@@ -80,9 +85,31 @@ class ProfileDialogContent extends StatelessWidget {
     );
   }
 
+  Widget syncDataBtn(BuildContext context) {
+    return AppOutlinedButton(
+      width: double.infinity,
+      onPressed: () async {
+        var hasConnection = await InternetConnectionChecker().hasConnection;
+        if (!hasConnection) {
+          AppSnackBar.showSnackBarMessage(text: AppStrings.errorConnection, snackBartype: SnackBarType.error);
+          return;
+        }
+        
+        if (DateTime.now().difference(UserManager.instance.lastSyncedDate) < UserManager.instance.waitSyncDuration) {
+          AppSnackBar.showSnackBarMessage(text: AppStrings.syncDataWait, snackBartype: SnackBarType.info);
+          return;
+        }
+
+        UserManager.instance.updateSyncedDate();
+        await AppServices.instance.databaseService.createOrUpdateUser(UserManager.instance.user);
+        AppSnackBar.showSnackBarMessage(text: AppStrings.syncDataSuccess, snackBartype: SnackBarType.success);
+        if (context.mounted) Navigator.pop(context);
+      }, 
+      title: AppStrings.syncData
+    );
+  }
+  
   Widget logoutbtn(BuildContext context) {
-    var isLoggedIn = UserManager.instance.isLoggedIn();
-    if (!isLoggedIn) return EmptyBox();
     return AppOutlinedButton(
       width: double.infinity,
       onPressed: () async {

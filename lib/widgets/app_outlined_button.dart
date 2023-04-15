@@ -34,7 +34,7 @@ class AppOutlinedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedButton(
       onPressed: isButtonActive ? onPressed : () => SoundManager.instance.playMeepMerp(), 
-      child: Text(title, style: textStyle ?? TextStyle(fontSize: context.sp(12))),
+      child: FittedBox(child: Text(title, style: textStyle ?? TextStyle(fontSize: context.sp(12)))),
       style: OutlinedButton.styleFrom(
         splashFactory: WaveSplash.splashFactory,
         minimumSize: Size(

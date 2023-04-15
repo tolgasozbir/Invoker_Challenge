@@ -162,4 +162,11 @@ class UserManager extends ChangeNotifier {
     user.talentTree?['$level'] = true;
   }
 
+  //Sync Data
+  DateTime lastSyncedDate = DateTime.now();
+  final waitSyncDuration = Duration(minutes: 5);
+  void updateSyncedDate () {
+    lastSyncedDate = DateTime.now();
+  }
+
 }

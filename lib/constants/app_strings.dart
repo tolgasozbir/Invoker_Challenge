@@ -16,6 +16,12 @@ class AppStrings {
   static const String bossGallery = ' Boss Gallery ';
   static const String level = 'Level';
 
+  //Loading
+  static const List<String> MessageList = [
+    "Remember, as you level up, your damage, spell damage, mana, and mana regeneration also increase, making it easier for you to defeat bosses. To level up, you can play timer, challenger, and boss modes.",
+    "Your data is saved on your device, don't forget to synchronize it from the profile menu to avoid losing your data.",
+  ];
+
   //Common
   static const String leaderboard = 'Leaderboard';
   static const String showMore = 'Show more';
@@ -33,6 +39,8 @@ class AppStrings {
   static const String score = 'Score';
   static const String bestScore = 'Best Score';
   static const String exp = 'Experience';
+  static const String syncData = 'Synchronize and store the data.';
+  
  
   //Form-Dialog
   static const String guest = 'Guest';
@@ -61,6 +69,8 @@ class AppStrings {
   static const String feedbackSuccessMessage = 'Thank you! your feedback will help me improve your experience.';
   static const String qwerHudInfoMessage1 = 'Adjusts the height of the quas, wex, exort, and invoke buttons.';
   static const String qwerHudInfoMessage2 = 'The higher it is, the closer it is to the bottom.';
+  static const String syncDataSuccess = 'Your data has been successfully saved.';
+  static const String syncDataWait = 'You can perform synchronization every 5 minutes.';
   static const String sbInfo = 'Info';
   static const String sbSuccess = 'Success';
   static const String sbError = 'Error';

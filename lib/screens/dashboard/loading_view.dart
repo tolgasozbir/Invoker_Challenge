@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:dota2_invoker_game/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/app_strings.dart';
@@ -14,7 +17,9 @@ class LoadingView extends StatefulWidget {
 
 class _LoadingViewState extends State<LoadingView> {
 
-  final Duration _loadingDuration = const Duration(milliseconds: 3000);
+  final Duration _loadingDuration = const Duration(milliseconds: 5000);
+  final rng = Random();
+  String get message => AppStrings.MessageList[rng.nextInt(AppStrings.MessageList.length)];
 
   @override
   void initState() {
@@ -36,15 +41,29 @@ class _LoadingViewState extends State<LoadingView> {
   }
 
   Widget _bodyView() {
-    return const SizedBox.expand(
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(ImagePaths.loadingGif),
-            fit: BoxFit.cover,
+    return Stack(
+      fit: StackFit.expand,
+      alignment: Alignment.center,
+      children: [
+        DecoratedBox(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(ImagePaths.loadingGif),
+              fit: BoxFit.cover,
+            ),
           ),
         ),
-      ),
+        Positioned(
+          bottom: 32,
+          left: 32,
+          right: 32,
+          child: Text(
+            message,
+            style: TextStyle(fontSize: context.sp(12), fontWeight: FontWeight.w500),
+            textAlign: TextAlign.center,
+          )
+        ),
+      ],
     );
   }
 }

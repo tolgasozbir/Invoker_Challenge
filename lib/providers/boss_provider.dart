@@ -601,6 +601,7 @@ class BossProvider extends ChangeNotifier {
         earnedExp: UserManager.instance.expCalc(expGain),
         timeUp: timeUp,
         isLast: model.round != Bosses.values.length,
+        bossHpLeft: currentBossHp,
       ),
       action: BossResultRoundDialogAction(model: model,)
     );
