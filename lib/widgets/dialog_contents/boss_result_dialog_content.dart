@@ -2,21 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 
-import '../../extensions/context_extension.dart';
-import '../../extensions/string_extension.dart';
-import '../../mixins/loading_state_mixin.dart';
-import '../../providers/boss_provider.dart';
-import '../../utils/number_formatter.dart';
-import '../watch_ad_button.dart';
-
 import '../../constants/app_colors.dart';
 import '../../constants/app_strings.dart';
+import '../../extensions/context_extension.dart';
+import '../../extensions/string_extension.dart';
 import '../../extensions/widget_extension.dart';
+import '../../mixins/loading_state_mixin.dart';
 import '../../models/boss_round_result_model.dart';
+import '../../providers/boss_provider.dart';
 import '../../providers/user_manager.dart';
 import '../../services/app_services.dart';
+import '../../utils/number_formatter.dart';
 import '../app_outlined_button.dart';
 import '../app_snackbar.dart';
+import '../watch_ad_button.dart';
 
 class BossResultRoundDialogContent extends StatelessWidget {
   final BossRoundResultModel model;

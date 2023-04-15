@@ -1,9 +1,9 @@
 import 'dart:math';
 
-import 'package:dota2_invoker_game/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/app_strings.dart';
+import '../../extensions/context_extension.dart';
 import '../../utils/fade_in_page_animation.dart';
 
 class LoadingView extends StatefulWidget {

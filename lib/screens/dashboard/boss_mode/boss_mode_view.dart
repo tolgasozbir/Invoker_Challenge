@@ -1,31 +1,30 @@
 import 'dart:math';
-import '../../../constants/app_strings.dart';
-import '../../../enums/Bosses.dart';
-import '../../../enums/spells.dart';
-import 'widgets/inventory_hud.dart';
-import 'widgets/mana_bar.dart';
-import '../../../utils/number_formatter.dart';
-import '../../../widgets/app_snackbar.dart';
-import 'package:snappable_thanos/snappable_thanos.dart';
 
-import '../../../models/ability_cooldown.dart';
-import '../../../widgets/cooldown_animation.dart';
-import 'widgets/shop_button.dart';
-import 'widgets/weather/weather.dart';
-
-import '../../../constants/app_colors.dart';
-import '../../../extensions/context_extension.dart';
-import '../../../extensions/widget_extension.dart';
-import '../../../providers/boss_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:snappable_thanos/snappable_thanos.dart';
 import 'package:splash/splash.dart';
 
+import '../../../constants/app_colors.dart';
+import '../../../constants/app_strings.dart';
+import '../../../enums/Bosses.dart';
 import '../../../enums/elements.dart';
+import '../../../enums/spells.dart';
+import '../../../extensions/context_extension.dart';
+import '../../../extensions/widget_extension.dart';
 import '../../../mixins/orb_mixin.dart';
+import '../../../models/ability_cooldown.dart';
+import '../../../providers/boss_provider.dart';
 import '../../../services/sound_manager.dart';
+import '../../../utils/number_formatter.dart';
+import '../../../widgets/app_snackbar.dart';
 import '../../../widgets/bouncing_button.dart';
+import '../../../widgets/cooldown_animation.dart';
+import 'widgets/inventory_hud.dart';
+import 'widgets/mana_bar.dart';
+import 'widgets/shop_button.dart';
 import 'widgets/sky/sky.dart';
+import 'widgets/weather/weather.dart';
 
 class BossModeView extends StatefulWidget {
   const BossModeView({super.key});

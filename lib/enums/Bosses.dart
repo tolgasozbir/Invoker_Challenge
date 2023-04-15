@@ -1,5 +1,5 @@
-import '../extensions/string_extension.dart';
 import '../constants/app_strings.dart';
+import '../extensions/string_extension.dart';
 
 enum Bosses {
   warlock(12000),

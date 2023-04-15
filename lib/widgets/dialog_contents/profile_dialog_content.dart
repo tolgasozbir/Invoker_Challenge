@@ -1,20 +1,19 @@
-import 'package:dota2_invoker_game/widgets/app_snackbar.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
-
-import '../../providers/boss_provider.dart';
-import '../../providers/user_manager.dart';
-import '../../screens/profile/boss_gallery/boss_gallery_view.dart';
 import 'package:flutter/material.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/app_colors.dart';
 import '../../constants/app_strings.dart';
 import '../../extensions/context_extension.dart';
 import '../../extensions/widget_extension.dart';
+import '../../providers/boss_provider.dart';
+import '../../providers/user_manager.dart';
 import '../../screens/profile/achievements/achievement_manager.dart';
 import '../../screens/profile/achievements/achievements_view.dart';
+import '../../screens/profile/boss_gallery/boss_gallery_view.dart';
 import '../../services/app_services.dart';
 import '../app_outlined_button.dart';
+import '../app_snackbar.dart';
 
 class ProfileDialogContent extends StatelessWidget {
   const ProfileDialogContent({super.key});

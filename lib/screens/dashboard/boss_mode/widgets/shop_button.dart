@@ -1,11 +1,10 @@
-import 'package:dota2_invoker_game/services/sound_manager.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../providers/boss_provider.dart';
-import 'shop_view.dart';
-import 'package:flutter/material.dart';
-
+import '../../../../services/sound_manager.dart';
 import '../../../../widgets/bouncing_button.dart';
+import 'shop_view.dart';
 
 
 class ShopButton extends StatelessWidget {

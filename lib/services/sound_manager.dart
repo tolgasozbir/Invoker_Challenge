@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:audioplayers/audioplayers.dart';
-import '../enums/Bosses.dart';
 
 import '../constants/app_strings.dart';
+import '../enums/Bosses.dart';
 
 class SoundManager {
 

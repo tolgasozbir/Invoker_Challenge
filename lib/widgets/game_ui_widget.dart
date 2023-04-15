@@ -1,13 +1,3 @@
-import '../screens/profile/achievements/achievement_manager.dart';
-
-import '../enums/local_storage_keys.dart';
-import 'bouncing_button.dart';
-import 'timer_hud.dart';
-import '../extensions/widget_extension.dart';
-import '../mixins/loading_state_mixin.dart';
-import '../services/app_services.dart';
-import '../providers/user_manager.dart';
-import 'app_outlined_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,11 +5,20 @@ import '../constants/app_colors.dart';
 import '../constants/app_strings.dart';
 import '../enums/database_table.dart';
 import '../enums/elements.dart';
+import '../enums/local_storage_keys.dart';
 import '../extensions/context_extension.dart';
+import '../extensions/widget_extension.dart';
+import '../mixins/loading_state_mixin.dart';
 import '../mixins/orb_mixin.dart';
 import '../providers/game_provider.dart';
 import '../providers/spell_provider.dart';
+import '../providers/user_manager.dart';
+import '../screens/profile/achievements/achievement_manager.dart';
+import '../services/app_services.dart';
 import '../services/sound_manager.dart';
+import 'app_outlined_button.dart';
+import 'bouncing_button.dart';
+import 'timer_hud.dart';
 import 'true_false_icon_widget.dart';
 
 enum GameType { Training, Challanger, Timer }

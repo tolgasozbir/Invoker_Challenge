@@ -1,8 +1,8 @@
-import '../../../../extensions/context_extension.dart';
-import '../../../../extensions/widget_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../extensions/context_extension.dart';
+import '../../../../extensions/widget_extension.dart';
 import '../../../../providers/boss_provider.dart';
 
 class ManaBar extends StatefulWidget {

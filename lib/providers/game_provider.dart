@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'user_manager.dart';
-import '../widgets/game_ui_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/app_strings.dart';
@@ -9,6 +7,8 @@ import '../enums/database_table.dart';
 import '../screens/profile/achievements/achievement_manager.dart';
 import '../widgets/app_dialogs.dart';
 import '../widgets/dialog_contents/result_dialog_content.dart';
+import '../widgets/game_ui_widget.dart';
+import 'user_manager.dart';
 
 typedef ResultDialogVoidFunc = void Function(DatabaseTable);
 

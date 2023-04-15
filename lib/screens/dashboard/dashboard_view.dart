@@ -1,4 +1,3 @@
-import '../../utils/ads_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
@@ -8,6 +7,7 @@ import '../../constants/app_strings.dart';
 import '../../enums/elements.dart';
 import '../../extensions/widget_extension.dart';
 import '../../providers/user_manager.dart';
+import '../../utils/ads_helper.dart';
 import '../../widgets/menu_button.dart';
 import '../../widgets/settings_button.dart';
 import '../../widgets/talent_tree.dart';

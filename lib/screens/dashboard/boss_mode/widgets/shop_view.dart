@@ -1,5 +1,6 @@
-import 'package:dota2_invoker_game/utils/ads_helper.dart';
+import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../constants/app_colors.dart';
 import '../../../../constants/app_strings.dart';
@@ -8,12 +9,10 @@ import '../../../../extensions/context_extension.dart';
 import '../../../../extensions/widget_extension.dart';
 import '../../../../models/Item.dart';
 import '../../../../providers/boss_provider.dart';
-import 'inventory_hud.dart';
 import '../../../../services/sound_manager.dart';
+import '../../../../utils/ads_helper.dart';
 import '../../../../widgets/app_dialogs.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
+import 'inventory_hud.dart';
 import 'item_description_widget.dart';
 
 class ShopView extends StatefulWidget {

@@ -1,6 +1,3 @@
-import '../../mixins/loading_state_mixin.dart';
-import '../../providers/game_provider.dart';
-import '../watch_ad_button.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
@@ -10,14 +7,17 @@ import '../../constants/app_strings.dart';
 import '../../enums/database_table.dart';
 import '../../extensions/context_extension.dart';
 import '../../extensions/widget_extension.dart';
+import '../../mixins/loading_state_mixin.dart';
 import '../../models/challenger_result.dart';
 import '../../models/timer_result.dart';
+import '../../providers/game_provider.dart';
 import '../../providers/user_manager.dart';
 import '../../services/app_services.dart';
 import '../../utils/ads_helper.dart';
 import '../app_outlined_button.dart';
 import '../app_snackbar.dart';
 import '../game_ui_widget.dart';
+import '../watch_ad_button.dart';
 
 class ResultDialogContent extends StatefulWidget {
   const ResultDialogContent({super.key, required this.correctCount, required this.time, required this.gameType});

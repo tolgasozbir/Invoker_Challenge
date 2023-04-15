@@ -1,16 +1,16 @@
-import '../../../../extensions/context_extension.dart';
-import '../../../../models/Item.dart';
-import 'shop_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../constants/app_colors.dart';
 import '../../../../constants/app_strings.dart';
 import '../../../../enums/items.dart';
+import '../../../../extensions/context_extension.dart';
 import '../../../../extensions/widget_extension.dart';
+import '../../../../models/Item.dart';
 import '../../../../providers/boss_provider.dart';
 import '../../../../services/sound_manager.dart';
 import '../../../../widgets/app_snackbar.dart';
+import 'shop_view.dart';
 
 class ItemDescriptionWidget extends StatelessWidget {
   const ItemDescriptionWidget({super.key, required this.item, this.isItemSellable = false});
