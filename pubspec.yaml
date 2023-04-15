@@ -88,6 +88,8 @@ flutter:
     - assets/sounds/boss_sounds/anti_mage/
     - assets/sounds/boss_sounds/juggernaut/
     - assets/sounds/boss_sounds/blood_seeker/
+    - assets/sounds/boss_sounds/blood_seeker/
+    - assets/sounds/boss_sounds/drow_ranger/
 
     - assets/lottie/
     - assets/svg/

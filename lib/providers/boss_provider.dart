@@ -503,11 +503,11 @@ class BossProvider extends ChangeNotifier {
   ///This function prepares the game for the next round by setting various variables.
   Future<void> nextRound() async {
     if (!hornSoundPlayed) {
-      SoundManager.instance.playHorn();
+      //SoundManager.instance.playHorn();
       isHornSoundPlaying = true;
       hornSoundPlayed = true;
       updateView();
-      await Future.delayed(Duration(seconds: 8));
+      await Future.delayed(Duration(seconds: 1));
       hasHornSoundStopped = true;
       isHornSoundPlaying = false;
     }
@@ -515,12 +515,12 @@ class BossProvider extends ChangeNotifier {
     started = true;
     currentBossAlive = true;
     snappableKey.currentState?.reset();
-    roundProgress++;
+    roundProgress=2;
     currentBoss = bossList[roundProgress];
     currentBossHp = currentBoss.getHp;
     SoundManager.instance.playBossEnteringSound(currentBoss);
     healthProgress = 0;
-    timeProgress = 0;
+    timeProgress = 176;
     elapsedTime = 0;
     last5AttackDamage.clear();
     physicalDamage = 0;

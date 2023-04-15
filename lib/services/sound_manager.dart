@@ -55,6 +55,7 @@ class SoundManager {
       case Bosses.blood_seeker:
       case Bosses.huskar: soundCount = 2; break;
       case Bosses.anti_mage:
+      case Bosses.drow_ranger:
       case Bosses.templar: soundCount = 1; break;
     }
 
@@ -82,15 +83,22 @@ class SoundManager {
       await Future.delayed(Duration.zero, () => _playSound(fileName: rupture, volume: 0.10),);
     }
 
+    if (boss == Bosses.drow_ranger) {
+      volume = 0.50;
+      duration = Duration(milliseconds: 600);
+      String shh = SoundPaths.bossSounds+"/${boss.name}/shh.mpeg";
+      await Future.delayed(Duration.zero, () => _playSound(fileName: shh),);
+    }
+
     await Future.delayed(duration, () => _playSound(fileName: sound, volume: volume),);
     //Boss specific sounds
     if (boss == Bosses.riki) {
       String smoke = SoundPaths.bossSounds+"/${boss.name}/smoke.mpeg";
-      Future.delayed(Duration(seconds: 1), () => _playSound(fileName: smoke, volume: 0.16),);
+      await Future.delayed(Duration(seconds: 1), () => _playSound(fileName: smoke, volume: 0.16),);
     }    
     if (boss == Bosses.anti_mage) {
       String blink = SoundPaths.bossSounds+"/${boss.name}/blink.mpeg";
-      Future.delayed(Duration.zero, () => _playSound(fileName: blink),);
+      await Future.delayed(Duration.zero, () => _playSound(fileName: blink),);
     }
   }  
   
@@ -102,6 +110,7 @@ class SoundManager {
       case Bosses.riki:
       case Bosses.juggernaut:
       case Bosses.blood_seeker:
+      case Bosses.drow_ranger:
       case Bosses.huskar: soundCount = 2; break;
       case Bosses.anti_mage:
       case Bosses.templar: soundCount = 1; break;
@@ -121,7 +130,7 @@ class SoundManager {
     _playSound(fileName: sound, volume: volume);
   }  
   
-  void playBossTauntSound(Bosses boss) {
+  void playBossTauntSound(Bosses boss) async {
     int soundCount = 0;
     switch (boss) {
       case Bosses.warlock:
@@ -129,6 +138,7 @@ class SoundManager {
       case Bosses.templar:
       case Bosses.juggernaut:
       case Bosses.blood_seeker:
+      case Bosses.drow_ranger:
       case Bosses.riki: soundCount = 2; break;
       case Bosses.anti_mage:
       case Bosses.huskar: soundCount = 1; break;
@@ -140,11 +150,11 @@ class SoundManager {
     //Boss specific sounds
     if (boss == Bosses.anti_mage) {
       String manaVoid = SoundPaths.bossSounds+"/${boss.name}/mana_void.mpeg";
-      Future.delayed(Duration.zero, () => _playSound(fileName: manaVoid),);
+      await Future.delayed(Duration.zero, () => _playSound(fileName: manaVoid),);
     }
     if (boss == Bosses.blood_seeker) {
       String laugh = SoundPaths.bossSounds+"/${boss.name}/laugh.mpeg";
-      Future.delayed(Duration(milliseconds: 1650), () => _playSound(fileName: laugh),);
+      await Future.delayed(Duration(milliseconds: 1850), () => _playSound(fileName: laugh),);
     }
   }
 
