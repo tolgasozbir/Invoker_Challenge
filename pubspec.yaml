@@ -92,6 +92,7 @@ flutter:
     - assets/sounds/boss_sounds/drow_ranger/
     - assets/sounds/boss_sounds/axe/
     - assets/sounds/boss_sounds/pudge/
+    - assets/sounds/boss_sounds/wraith_king/
 
     - assets/lottie/
     - assets/svg/

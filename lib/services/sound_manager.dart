@@ -55,6 +55,7 @@ class SoundManager {
       case Bosses.blood_seeker:
       case Bosses.axe:
       case Bosses.pudge:
+      case Bosses.wraith_king:
       case Bosses.huskar: soundCount = 2; break;
       case Bosses.anti_mage:
       case Bosses.drow_ranger:
@@ -104,7 +105,7 @@ class SoundManager {
     }
   }  
   
-  void playBossDyingSound(Bosses boss) {
+  void playBossDyingSound(Bosses boss) async {
     int soundCount = 0;
     switch (boss) {
       case Bosses.warlock:
@@ -115,6 +116,7 @@ class SoundManager {
       case Bosses.drow_ranger:
       case Bosses.axe:
       case Bosses.pudge:
+      case Bosses.wraith_king:
       case Bosses.huskar: soundCount = 2; break;
       case Bosses.anti_mage:
       case Bosses.templar: soundCount = 1; break;
@@ -134,6 +136,22 @@ class SoundManager {
     if (boss == Bosses.pudge && num == 1) {
       volume = 1.0;
     }
+    if (boss == Bosses.wraith_king) {
+      num = 2;
+      if (num == 1) {
+        String death1 = SoundPaths.bossSounds+"/${boss.name}/death1.mpeg";
+        String death2 = SoundPaths.bossSounds+"/${boss.name}/death2.mpeg";
+        await Future.delayed(Duration(milliseconds: 400), () => _playSound(fileName: death1));
+        await Future.delayed(Duration(milliseconds: 2000), () => _playSound(fileName: death2));
+      }
+      else {
+        String death3 = SoundPaths.bossSounds+"/${boss.name}/death3.mpeg";
+        String death4 = SoundPaths.bossSounds+"/${boss.name}/death4.mpeg";
+        await Future.delayed(Duration.zero, () => _playSound(fileName: death3));
+        await Future.delayed(Duration(milliseconds: 1400), () => _playSound(fileName: death4));
+      }
+      return;
+    }
     _playSound(fileName: sound, volume: volume);
   }  
   
@@ -148,9 +166,15 @@ class SoundManager {
       case Bosses.drow_ranger:
       case Bosses.axe:
       case Bosses.pudge:
+      case Bosses.wraith_king:
       case Bosses.riki: soundCount = 2; break;
       case Bosses.anti_mage:
       case Bosses.huskar: soundCount = 1; break;
+    }
+    if (boss == Bosses.wraith_king) {
+      String laugh = SoundPaths.bossSounds+"/${boss.name}/laugh.mpeg";
+      await Future.delayed(Duration.zero, () => _playSound(fileName: laugh),);
+      await Future.delayed(Duration(milliseconds: 2600));
     }
     int num = _rnd.nextInt(soundCount) + 1;
     String sound = SoundPaths.bossSounds+"/${boss.name}/taunt$num.mpeg";
@@ -169,6 +193,18 @@ class SoundManager {
       String cullingBlade = SoundPaths.bossSounds+"/${boss.name}/culling_blade.mpeg";
       await Future.delayed(Duration.zero, () => _playSound(fileName: cullingBlade, volume: 0.20),);
     }
+  }
+
+  void playWkReincarnation() async {
+    String reincarnation = SoundPaths.bossSounds+"/wraith_king/reincarnation.mp3";
+    String suprise = SoundPaths.bossSounds+"/wraith_king/suprise.mp3";
+    String laugh = SoundPaths.bossSounds+"/wraith_king/laugh.mpeg";
+    await Future.delayed(Duration(milliseconds: 600));
+    _playSound(fileName: laugh);
+    await Future.delayed(Duration(milliseconds: 1000));
+    _playSound(fileName: reincarnation);
+    await Future.delayed(Duration(milliseconds: 3600));
+    _playSound(fileName: suprise);
   }
 
   void playMeepMerp() {

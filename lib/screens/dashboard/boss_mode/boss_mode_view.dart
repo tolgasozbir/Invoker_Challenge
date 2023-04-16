@@ -190,7 +190,8 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
     bool isStarted = context.watch<BossProvider>().started;
     bool snapIsDone = context.watch<BossProvider>().snapIsDone;
     bool isHornPlaying = context.watch<BossProvider>().isHornSoundPlaying;
-    bool status = isStarted || !snapIsDone;
+    bool IsWkReincarnated = context.watch<BossProvider>().IsWraithKingReincarnated;
+    bool status = isStarted || !snapIsDone || IsWkReincarnated;
     return InkWell(
       splashFactory: WaveSplash.splashFactory,
       highlightColor: Colors.transparent,

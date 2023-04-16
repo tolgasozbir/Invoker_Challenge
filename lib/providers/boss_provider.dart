@@ -29,7 +29,7 @@ class BossProvider extends ChangeNotifier {
   bool isHornSoundPlaying = false;
   bool hornSoundPlayed = false;
   bool hasHornSoundStopped = false;
-  int baseDamage = (30 + (UserManager.instance.user.level * 4)) * (UserManager.instance.user.level >= 30 ? 2 : 1);
+  int baseDamage = (30 + (UserManager.instance.user.level * 4)) * (UserManager.instance.user.level >= 25 ? 2 : 1);
   double bonusDamage = 0;
   double damageMultiplier = 0;
   double spellDamage = 0; //Ability Damage
@@ -58,6 +58,7 @@ class BossProvider extends ChangeNotifier {
   var currentBoss = Bosses.values.first;
   bool currentBossAlive = false;
   double currentBossHp = 0;
+  bool IsWraithKingReincarnated = false;
 
   ///--- Snap Boss ---///
   ///Boss shattering effect upon boss's death
@@ -410,10 +411,19 @@ class BossProvider extends ChangeNotifier {
 
   ///Bu fonksiyon, karakter seviyesi arttığında baz hasar değerini ve manasını günceller.
   void _updateManaAndBaseDamage({bool updateUI = true}) {
-    baseDamage = (30 + (UserManager.instance.user.level * 4)) * (UserManager.instance.user.level >= 30 ? 2 : 1);
+    //Reset Values
+    bonusDamage = 0;
+    damageMultiplier = 0;
+    manaRegenMultiplier = 0;
+    spellAmp = 0;
+    baseDamage = (30 + (UserManager.instance.user.level * 4)) * (UserManager.instance.user.level >= 25 ? 2 : 1);
     maxMana = (UserManager.instance.user.level * 27) + 1400 + (UserManager.instance.user.level >= 10 ? 400 : 0);
-    currentMana = maxMana;
     baseManaRegen = 3.6 + UserManager.instance.user.level * 0.27;
+    //Re-added item buffs
+    for (var item in inventory) {
+      _buyItem(item);
+    }
+    currentMana = maxMana;
     if (updateUI) {
       updateView();
     }
@@ -540,6 +550,10 @@ class BossProvider extends ChangeNotifier {
   ///this function is called inside the [_timer] object
   void _isGameFinished() async {
     if (healthProgress >= healthUnit) {
+      if (currentBoss == Bosses.wraith_king && !IsWraithKingReincarnated) {
+        await wraithKingReincarnation();
+        return;
+      }
       log("Boss down");
       _timer?.cancel();
       _timer = null;
@@ -565,6 +579,20 @@ class BossProvider extends ChangeNotifier {
       _reset();
       return;
     }
+  }
+
+  Future<void> wraithKingReincarnation() async {
+    currentBossHp = 0;
+    SoundManager.instance.playWkReincarnation();
+    IsWraithKingReincarnated = true;
+    _timer?.cancel();
+    _timer = null;
+    started = false;
+    await Future.delayed(Duration(seconds: 3),() {
+      healthProgress = 30;
+      started = true;
+      timerFn();
+    });
   }
 
   void _showRoundResultDialog({bool timeUp = false}) {
@@ -615,6 +643,10 @@ class BossProvider extends ChangeNotifier {
   void startGame() async {
     await nextRound();
     if (!hasHornSoundStopped) return;
+    timerFn();
+  }
+
+  void timerFn() {
     if (_timer != null) return;
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       dps = 0;
@@ -660,17 +692,14 @@ class BossProvider extends ChangeNotifier {
     snapIsDone = true;
     currentBossAlive = false;
     currentBoss = Bosses.values.first;
-    bonusDamage = 0;
-    damageMultiplier = 0;
+    IsWraithKingReincarnated = false;
     _updateManaAndBaseDamage(updateUI: false);
-    manaRegenMultiplier = 0;
-    spellAmp = 0;
     _isActiveMidas = false;
     _userGold = 1000;
   }
 
   void _resetCooldowns({bool withRefresherOrb = true}) {
-    castedAbility.forEach((element) {
+    SpellCooldowns.forEach((element) {
       element.resetCooldown();
     });
     if (withRefresherOrb) {

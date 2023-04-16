@@ -12,7 +12,8 @@ enum Bosses {
   blood_seeker(48000),
   drow_ranger(54000),
   axe(60000),
-  pudge(70000);
+  pudge(70000),
+  wraith_king(85000);
 
   const Bosses(this._health);
 
