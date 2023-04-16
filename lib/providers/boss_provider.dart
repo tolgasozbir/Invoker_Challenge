@@ -74,6 +74,7 @@ class BossProvider extends ChangeNotifier {
     await snappableKey.currentState?.snap();
     await Future.delayed(Duration(milliseconds: 3000));
     changeSnapStatus();
+    snappableKey.currentState?.reset();
   }
   //
 
@@ -523,7 +524,6 @@ class BossProvider extends ChangeNotifier {
     if (hasHornSoundStopped == false) return;
     started = true;
     currentBossAlive = true;
-    snappableKey.currentState?.reset();
     roundProgress++;
     currentBoss = bossList[roundProgress];
     currentBossHp = currentBoss.getHp;

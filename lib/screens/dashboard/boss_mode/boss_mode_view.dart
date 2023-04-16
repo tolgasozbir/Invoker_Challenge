@@ -209,27 +209,30 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
   }
 
   Widget bossHeads() {
-    var provider = context.watch<BossProvider>();
-    return Snappable(
-      key: provider.snappableKey,
-      onSnapped: () => null,
-      duration: Duration(milliseconds: 3000),
-      child: Opacity(
-        opacity: provider.currentBossAlive ? 1 : 0,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            AnimatedScale(
-              scale: provider.currentBossAlive ? 1 : 2,
-              curve: Curves.bounceOut,
-              duration: Duration(milliseconds: 1600),
-              child: Image.asset(provider.currentBoss.getImage, height: context.dynamicHeight(0.18),)
-            ),
-            Text(priceString(provider.currentBossHp)),
-            Text(provider.currentBoss.getName),
-          ],
-        ).wrapCenter(),
-      ),
+    return Consumer<BossProvider>(
+      builder: (context, provider, child) {
+        return Snappable(
+        key: provider.snappableKey,
+        onSnapped: () => null,
+        duration: Duration(milliseconds: 3000),
+        child: Opacity(
+          opacity: provider.currentBossAlive ? 1 : 0,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              AnimatedScale(
+                scale: provider.currentBossAlive ? 1 : 2,
+                curve: Curves.bounceOut,
+                duration: Duration(milliseconds: 1600),
+                child: Image.asset(provider.currentBoss.getImage, height: context.dynamicHeight(0.18),)
+              ),
+              Text(priceString(provider.currentBossHp)),
+              Text(provider.currentBoss.getName),
+            ],
+          ).wrapCenter(),
+        ),
+      );
+      },
     );
   }
 
