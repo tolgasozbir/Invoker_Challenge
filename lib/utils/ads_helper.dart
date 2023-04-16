@@ -139,7 +139,7 @@ class _AdBannerState extends State<AdBanner> {
   }
 
   SizedBox bannerBox({Widget? child}) => SizedBox(
-    height: _bannerAd?.size.height.toDouble(), 
-    child: child
+    height: _bannerAd?.size.height.toDouble() ?? 50,
+    child: child,
   );
 }

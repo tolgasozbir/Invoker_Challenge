@@ -53,6 +53,8 @@ class SoundManager {
       case Bosses.riki: 
       case Bosses.juggernaut:
       case Bosses.blood_seeker:
+      case Bosses.axe:
+      case Bosses.pudge:
       case Bosses.huskar: soundCount = 2; break;
       case Bosses.anti_mage:
       case Bosses.drow_ranger:
@@ -111,12 +113,14 @@ class SoundManager {
       case Bosses.juggernaut:
       case Bosses.blood_seeker:
       case Bosses.drow_ranger:
+      case Bosses.axe:
+      case Bosses.pudge:
       case Bosses.huskar: soundCount = 2; break;
       case Bosses.anti_mage:
       case Bosses.templar: soundCount = 1; break;
     }
     int num = _rnd.nextInt(soundCount) + 1;
-    String sound = SoundPaths.bossSounds+"/${boss.name}/dying$num.mpeg";
+    String sound = SoundPaths.bossSounds+"/${boss.name}/dying1.mpeg";
     double volume = 0.35;
     if (boss == Bosses.templar) {
       volume = 1.0;
@@ -126,6 +130,9 @@ class SoundManager {
     }
     if (boss == Bosses.blood_seeker) {
       volume = 0.50;
+    }
+    if (boss == Bosses.pudge && num == 1) {
+      volume = 1.0;
     }
     _playSound(fileName: sound, volume: volume);
   }  
@@ -139,6 +146,8 @@ class SoundManager {
       case Bosses.juggernaut:
       case Bosses.blood_seeker:
       case Bosses.drow_ranger:
+      case Bosses.axe:
+      case Bosses.pudge:
       case Bosses.riki: soundCount = 2; break;
       case Bosses.anti_mage:
       case Bosses.huskar: soundCount = 1; break;
@@ -155,6 +164,10 @@ class SoundManager {
     if (boss == Bosses.blood_seeker) {
       String laugh = SoundPaths.bossSounds+"/${boss.name}/laugh.mpeg";
       await Future.delayed(Duration(milliseconds: 1850), () => _playSound(fileName: laugh),);
+    }
+    if (boss == Bosses.axe) {
+      String cullingBlade = SoundPaths.bossSounds+"/${boss.name}/culling_blade.mpeg";
+      await Future.delayed(Duration.zero, () => _playSound(fileName: cullingBlade, volume: 0.20),);
     }
   }
 

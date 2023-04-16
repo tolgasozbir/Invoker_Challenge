@@ -90,6 +90,8 @@ flutter:
     - assets/sounds/boss_sounds/blood_seeker/
     - assets/sounds/boss_sounds/blood_seeker/
     - assets/sounds/boss_sounds/drow_ranger/
+    - assets/sounds/boss_sounds/axe/
+    - assets/sounds/boss_sounds/pudge/
 
     - assets/lottie/
     - assets/svg/

@@ -10,7 +10,9 @@ enum Bosses {
   anti_mage(36000),
   juggernaut(42000),
   blood_seeker(48000),
-  drow_ranger(54000);
+  drow_ranger(54000),
+  axe(60000),
+  pudge(70000);
 
   const Bosses(this._health);
 
