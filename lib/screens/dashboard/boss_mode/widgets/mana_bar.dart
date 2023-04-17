@@ -13,14 +13,12 @@ class ManaBar extends StatefulWidget {
 }
 
 class _ManaBarState extends State<ManaBar> {
-  final margin = EdgeInsets.symmetric(horizontal: 24);
-  TextStyle get textStyle => TextStyle(fontSize: context.sp(12), fontWeight: FontWeight.bold);
-  double get height => context.dynamicHeight(0.048);
-  double get width => context.width;
-  double get manaBarWidth => context.dynamicWidth(0.88) * context.watch<BossProvider>().manaBarWidthMultiplier;
-
   @override
   Widget build(BuildContext context) {
+    final margin = EdgeInsets.symmetric(horizontal: 24);
+    TextStyle textStyle = TextStyle(fontSize: context.sp(12), fontWeight: FontWeight.bold);
+    double height = context.dynamicHeight(0.048);
+    double width = context.width;
     return Stack(
       children: [
         Container(
@@ -32,23 +30,28 @@ class _ManaBarState extends State<ManaBar> {
             color: Color(0xFF20385C),
           ),
         ),
-        AnimatedContainer(
-          duration: Duration(seconds: 1),
-          margin: margin,
-          width: manaBarWidth < 0 ? 0 : manaBarWidth,
-          height: height,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(6),
-            gradient: LinearGradient(
-              colors: [
-                Color(0xFF385AB4),
-                Color(0xFF4870E0),
-                Color(0xFF385AB4),
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
-          ),
+        Consumer<BossProvider>(
+          builder: (context, provider, child) {
+            double manaBarWidth = context.dynamicWidth(0.88) * provider.manaBarWidthMultiplier;
+            return AnimatedContainer(
+              duration: Duration(seconds: 1),
+              margin: margin,
+              width: manaBarWidth < 0 ? 0 : manaBarWidth,
+              height: height,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                gradient: LinearGradient(
+                  colors: [
+                    Color(0xFF385AB4),
+                    Color(0xFF4870E0),
+                    Color(0xFF385AB4),
+                  ],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
+            );
+          },
         ),
         Container(
           margin: margin,
@@ -59,24 +62,26 @@ class _ManaBarState extends State<ManaBar> {
             borderRadius: BorderRadius.circular(6),
             border: Border.all(width: 1.2)
           ),
-          child: Row(
-            children: [
-              Spacer(),
-              Row(
-                children: [
-                  NumberAnimation(
-                    key: ObjectKey(context.watch<BossProvider>().currentMana),
-                    initialValue: context.watch<BossProvider>().currentMana, 
-                    increment: context.watch<BossProvider>().manaRegen,
-                    maxValue: context.watch<BossProvider>().maxMana,
-                    textStyle: textStyle,
-                  ),
-                  Text("/", style: textStyle),
-                  Text(context.watch<BossProvider>().maxMana.toStringAsFixed(0), style: textStyle),
-                ],
-              ),
-              Text("+"+context.watch<BossProvider>().manaRegen.toStringAsFixed(1), style: textStyle).wrapAlign(Alignment.centerRight).wrapExpanded(),
-            ],
+          child: Consumer<BossProvider>(
+            builder: (context, provider, child) => Row(
+              children: [
+                Spacer(),
+                Row(
+                  children: [
+                    NumberAnimation(
+                      key: ObjectKey(provider.currentMana),
+                      initialValue: provider.currentMana, 
+                      increment: provider.manaRegen,
+                      maxValue: provider.maxMana,
+                      textStyle: textStyle,
+                    ),
+                    Text("/", style: textStyle),
+                    Text(provider.maxMana.toStringAsFixed(0), style: textStyle),
+                  ],
+                ),
+                Text("+"+provider.manaRegen.toStringAsFixed(1), style: textStyle).wrapAlign(Alignment.centerRight).wrapExpanded(),
+              ],
+            ),
           ),
         ),
       ],

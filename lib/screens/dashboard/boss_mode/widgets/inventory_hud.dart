@@ -23,7 +23,6 @@ class InventoryHud extends StatefulWidget {
 class _InventoryHudState extends State<InventoryHud> {
   @override
   Widget build(BuildContext context) {
-    var items = context.watch<BossProvider>().inventory;
     return Container(
       margin: EdgeInsets.only(left: 24),
       padding: EdgeInsets.all(2),
@@ -35,18 +34,23 @@ class _InventoryHudState extends State<InventoryHud> {
           end: Alignment.bottomRight,
         ),
       ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: _buildRowWidgets(items, 0, 3),
-          ),
-          //EmptyBox.h4(),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: _buildRowWidgets(items, 3, 6),
-          ),
-        ],
+      child: Consumer<BossProvider>(
+        builder: (context, provider, child) {
+          var items = context.watch<BossProvider>().inventory;
+          return Column(
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: _buildRowWidgets(items, 0, 3),
+              ),
+              //EmptyBox.h4(),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: _buildRowWidgets(items, 3, 6),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
