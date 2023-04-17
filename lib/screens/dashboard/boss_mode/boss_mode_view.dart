@@ -96,9 +96,9 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
       children: [
         Consumer<BossProvider>(
           builder: (context, provider, child) {
-            var skyLight = provider.currentBossAlive ? SkyLight.dark : SkyLight.light;
-            var skyType = SkyType.normal; // normal ile başlıcak sunny olcak sonlara doğru thunder
-            var weatherType = WeatherType.normal; // son 2 3 round rainy olcak
+            var skyLight =  provider.currentBossAlive ? SkyLight.dark : SkyLight.light;
+            var skyType = provider.roundProgress >= 6 ? SkyType.thunderstorm : SkyType.normal;
+            var weatherType = provider.roundProgress >= 10 ? WeatherType.rainy : WeatherType.normal;
             return Stack(
             alignment: Alignment.center,
             fit: StackFit.expand,
