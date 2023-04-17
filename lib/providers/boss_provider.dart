@@ -13,6 +13,7 @@ import '../extensions/number_extension.dart';
 import '../models/Item.dart';
 import '../models/ability_cooldown.dart';
 import '../models/boss_round_result_model.dart';
+import '../screens/profile/achievements/achievement_manager.dart';
 import '../services/sound_manager.dart';
 import '../widgets/app_dialogs.dart';
 import '../widgets/dialog_contents/boss_result_dialog_content.dart';
@@ -610,6 +611,7 @@ class BossProvider extends ChangeNotifier {
     );
 
     UserManager.instance.updateBestBossTimeScore(currentBoss.name, elapsedTime, model);
+    AchievementManager.instance.updatePlayedGame();
 
     int expGain = ((roundProgress+1) * 5) + (getRemainingTime ~/ 10);
     UserManager.instance.addExp(expGain);

@@ -147,8 +147,9 @@ class UserManager extends ChangeNotifier {
 
     //Return true if user level is in skill tree level array and talent is not active
     user.talentTree ??= {};
-    var reachedTalent = !(user.talentTree?['$level'] ?? true) && treeLevels.contains(level);
-    if (!reachedTalent) return;
+    if (!treeLevels.contains(level)) return;
+    user.talentTree?.putIfAbsent(level.toString(), () => false);
+    if (user.talentTree?['$level'] == true) return;
 
     switch (level) {
       case 10: break; ///[maxMana += UserManager.instance.user.level >= 10 ? 400] in BossProvider

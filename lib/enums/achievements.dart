@@ -9,12 +9,12 @@ enum Achievements {
   played_games3(title: "We're Just Getting Started",  description: "Play Any Mode 50 times.",   maxProgress: 50),
   played_games4(title: "Almost Pro",                  description: "Play Any Mode 100 times.",  maxProgress: 100),
   played_games5(title: "Invoker GOD!",                description: "Play Any Mode 200 times.",  maxProgress: 200),
-  timer1(title: "Always Hard",      description: "Reach 40 Score before time runs out in Timer mode.",  maxProgress: 40),
-  timer2(title: "Speed Freak",      description: "Reach 50 Score before time runs out in Timer mode.",  maxProgress: 50),
-  timer3(title: "OUT OF CONTROL!",  description: "Reach 60 Score before time runs out in Timer mode.",  maxProgress: 60),
+  timer1(title: "Always Hard",      description: "Reach 45 Score before time runs out in Timer mode.",  maxProgress: 45),
+  timer2(title: "Speed Freak",      description: "Reach 60 Score before time runs out in Timer mode.",  maxProgress: 60),
+  timer3(title: "OUT OF CONTROL!",  description: "Reach 75 Score before time runs out in Timer mode.",  maxProgress: 75),
   challenger1(title: "Streaker",              description: "Reach 100 points in under 3 minutes in Challenger mode.",   maxProgress: 100),
-  challenger2(title: "Must Try Harder",       description: "Reach 125 points in under 3 minutes in Challenger mode.",   maxProgress: 125),
-  challenger3(title: "The Real CHALLENGER!",  description: "Reach 150 points in under 3 minutes in Challenger mode.",   maxProgress: 150);
+  challenger2(title: "Must Try Harder",       description: "Reach 120 points in under 3 minutes in Challenger mode.",   maxProgress: 120),
+  challenger3(title: "The Real CHALLENGER!",  description: "Reach 140 points in under 3 minutes in Challenger mode.",   maxProgress: 140);
 
   const Achievements({required this.title, required this.description, required this.maxProgress});
 
