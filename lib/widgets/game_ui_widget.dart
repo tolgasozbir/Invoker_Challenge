@@ -52,7 +52,10 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
           ],
         ),
         if (widget.gameType == GameType.Training)
-          SizedBox(height: context.dynamicHeight(0.16) + (context.watch<GameProvider>().spellHelperIsOpen ? -context.dynamicHeight(0.12) : 0))
+          AnimatedContainer(
+            duration: Duration(milliseconds: 400),
+            height: context.dynamicHeight(0.16) + (context.watch<GameProvider>().spellHelperIsOpen ? -context.dynamicHeight(0.12) : 0)
+          )
         else
           SizedBox(height: context.dynamicHeight(0.20)),
         TrueFalseIconWidget(key: _animKey),

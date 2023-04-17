@@ -33,10 +33,16 @@ abstract class SplashViewModel extends State<SplashView> {
   }
 
   Future<void> init() async {
-    await AdsHelper.instance.rewardedInterstitialAdLoad(); //load rewarded ad
+    await loadAds();
     await getUserRecords();
     getSettingsValues();
     await goToMainMenu();
+  }
+
+  Future<void> loadAds() async {
+    await AdsHelper.instance.rewardedInterstitialAdLoad();
+    await AdsHelper.instance.interstitialAdLoad();
+    await AdsHelper.instance.AppOpenAdLoad();
   }
 
   Future<void> getUserRecords() async {
@@ -61,7 +67,6 @@ abstract class SplashViewModel extends State<SplashView> {
   }
 
   Future<void> goToMainMenu() async {
-    await AdsHelper.instance.AppOpenAdLoad();
     await Future.delayed(_duration, (){
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const DashboardView()));
     });

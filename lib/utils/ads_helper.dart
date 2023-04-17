@@ -11,6 +11,8 @@ class AdsHelper {
   static AdsHelper _instance = AdsHelper._();
   static AdsHelper get instance => _instance;
 
+  int adCounter = 0;
+
   bool enableAndroidTestIds = kDebugMode;
 
   //Ads Id's
@@ -26,7 +28,7 @@ class AdsHelper {
       return FlutterConfig.get("BANNER_AD_UNIT_ID_IOS");
     }
 
-    throw new UnsupportedError("Unsupported platform");
+    throw UnsupportedError("Unsupported platform");
   }
   
   String get appOpenAdUnitId {
@@ -40,7 +42,7 @@ class AdsHelper {
       return FlutterConfig.get("APP_OPEN_AD_IOS");
     }
 
-    throw new UnsupportedError("Unsupported platform");
+    throw UnsupportedError("Unsupported platform");
   }
   
   String get rewardedInterstitialAdUnitId {
@@ -54,7 +56,21 @@ class AdsHelper {
       return FlutterConfig.get("REWARDED_INTERSTITIAL_AD_IOS");
     }
 
-    throw new UnsupportedError("Unsupported platform");
+    throw UnsupportedError("Unsupported platform");
+  }
+
+  String get interstitialAdUnitId {
+    if (enableAndroidTestIds) return 'ca-app-pub-3940256099942544/8691691433';
+
+    if (Platform.isAndroid) {
+      return FlutterConfig.get("INTERSTITIAL_AD_ANDROID");
+    }
+
+    if (Platform.isIOS) {
+      return FlutterConfig.get("INTERSTITIAL_AD_IOS");
+    }
+
+    throw UnsupportedError("Unsupported platform");
   }
 
   //AppOpenAd
@@ -82,6 +98,35 @@ class AdsHelper {
       request: const AdRequest(),
       rewardedInterstitialAdLoadCallback: RewardedInterstitialAdLoadCallback(
         onAdLoaded: (ad) => rewardedInterstitialAd = ad,
+        onAdFailedToLoad: (error) => log('Ad failed to load: ' + error.message),
+      ),
+    );
+  }
+
+  //InterstitialAd
+  InterstitialAd? interstitialAd;
+  Future<void> interstitialAdLoad() async {
+    await InterstitialAd.load(
+      adUnitId: AdsHelper.instance.interstitialAdUnitId,
+      request: AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (ad) {
+          interstitialAd = ad;
+          ad.fullScreenContentCallback = FullScreenContentCallback(
+            onAdShowedFullScreenContent: (ad) {
+              print("watched");
+              interstitialAdLoad();
+            },
+            onAdDismissedFullScreenContent: (ad) {
+              ad.dispose();
+              interstitialAdLoad();
+            },
+            onAdFailedToShowFullScreenContent: (ad, error) {
+              ad.dispose();
+              interstitialAdLoad();
+            },
+          );
+        },
         onAdFailedToLoad: (error) => log('Ad failed to load: ' + error.message),
       ),
     );
