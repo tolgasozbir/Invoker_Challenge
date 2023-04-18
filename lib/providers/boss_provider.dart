@@ -612,6 +612,11 @@ class BossProvider extends ChangeNotifier {
 
     UserManager.instance.updateBestBossTimeScore(currentBoss.name, elapsedTime, model);
     AchievementManager.instance.updatePlayedGame();
+    AchievementManager.instance.updateBoss();
+    AchievementManager.instance.updateMiscGold(userGold);
+    if (currentBoss == Bosses.wraith_king && currentBossHp <= 0) {
+      AchievementManager.instance.updateMiscKillWk();
+    }
 
     int expGain = ((roundProgress+1) * 5) + (getRemainingTime ~/ 10);
     UserManager.instance.addExp(expGain);

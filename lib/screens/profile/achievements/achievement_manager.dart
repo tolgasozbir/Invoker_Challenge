@@ -22,6 +22,8 @@ class AchievementManager {
     _achievements.addAll(_playedGamesAchievements);
     _achievements.addAll(_timerModeAchievements);
     _achievements.addAll(_challengerModeAchievements);
+    _achievements.addAll(_bossModeAchievements);
+    _achievements.addAll(_miscAchievements);
     _achievements.insert(0, achieveAll);
   }
 
@@ -30,6 +32,7 @@ class AchievementManager {
     //updatePlayedGame();
     updateChallenger(0, 0);
     updateTimer(0);
+    updateMiscGold(0);
     initAchievements();
     UserManager.instance.setAndSaveUserToLocale(UserManager.instance.user);
   }
@@ -67,6 +70,24 @@ class AchievementManager {
     if (score <= currentRecord) return;
     UserManager.instance.user.achievements?["timer"] = score;
     //print("Timer Score : ${UserManager.instance.user.achievements?["timer"]}");
+  }
+  
+  void updateBoss() {
+    UserManager.instance.user.achievements?.putIfAbsent("boss", () => 0);
+    UserManager.instance.user.achievements?["boss"]++;
+    //print("Killed Boss Progress : ${UserManager.instance.user.achievements?["boss"]}");
+  }
+
+  void updateMiscKillWk() {
+    UserManager.instance.user.achievements?.putIfAbsent(Achievements.misc_kill_wk.name, () => 1);
+  }
+
+  void updateMiscGold(int progress) {
+    var achievementName = Achievements.misc_gold.name;
+    UserManager.instance.user.achievements?.putIfAbsent(achievementName, () => 0);
+    var currentRecord = _userRecords[achievementName] ?? 0;
+    if (progress <= currentRecord) return;
+    UserManager.instance.user.achievements?[achievementName] = progress;
   }
 
   //First Achievement total progress
@@ -155,6 +176,41 @@ class AchievementManager {
       description: e.getDescription, 
       isDone: (_userRecords["challenger"] ?? 0) >= e.getMaxProgress,
       currentProgress: _userRecords["challenger"] ?? 0, 
+      maxProgress: e.getMaxProgress
+    )).toList();
+  }
+  
+  List<AchievementWidgetModel> get _bossModeAchievements {
+    final challengerModeAchievements = const [
+      Achievements.boss1,
+      Achievements.boss2,
+      Achievements.boss3,
+    ];
+
+    return challengerModeAchievements.map((e) => AchievementWidgetModel(
+      id: e.getId, 
+      iconPath: e.getIconPath, 
+      title: e.getTitle, 
+      description: e.getDescription, 
+      isDone: (_userRecords["boss"] ?? 0) >= e.getMaxProgress,
+      currentProgress: _userRecords["boss"] ?? 0, 
+      maxProgress: e.getMaxProgress
+    )).toList();
+  }
+
+  List<AchievementWidgetModel> get _miscAchievements {
+    final challengerModeAchievements = const [
+      Achievements.misc_kill_wk,
+      Achievements.misc_gold,
+    ];
+
+    return challengerModeAchievements.map((e) => AchievementWidgetModel(
+      id: e.getId, 
+      iconPath: e.getIconPath, 
+      title: e.getTitle, 
+      description: e.getDescription, 
+      isDone: (_userRecords[e.name] ?? 0) >= e.getMaxProgress,
+      currentProgress: _userRecords[e.name] ?? 0,
       maxProgress: e.getMaxProgress
     )).toList();
   }
