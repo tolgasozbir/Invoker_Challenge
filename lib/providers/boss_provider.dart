@@ -120,7 +120,7 @@ class BossProvider extends ChangeNotifier {
   
   int _userGold = 1000;
   int get userGold => _userGold;
-  int get gainedGold => (getRemainingTime * (roundProgress+1)) + ((roundProgress+1) * 400) + 400;
+  int get gainedGold => ((getRemainingTime ~/ 8) * (roundProgress+1)) + ((roundProgress+1) * 360) + 400;
 
   bool isAdWatched = false;
   void addGoldAfterWatchingAd(int goldAmount) {
@@ -170,7 +170,7 @@ class BossProvider extends ChangeNotifier {
   void _buyItem(Item item) {
     switch (item.item) {
       case Items.Null_talisman:
-        baseManaRegen += 0.75;
+        baseManaRegen += 0.80;
         maxMana += 60;
         break;
       case Items.Void_stone:
@@ -192,11 +192,11 @@ class BossProvider extends ChangeNotifier {
         manaRegenMultiplier += 0.24;
         break;
       case Items.Aether_lens:
-        baseManaRegen += 2.5;
+        baseManaRegen += 3;
         maxMana += 300;
         break;
       case Items.Meteor_hammer:
-        baseManaRegen += 2.5;
+        baseManaRegen += 2.75;
         break;
       case Items.Hand_of_midas:
         _isActiveMidas = true;
@@ -208,8 +208,8 @@ class BossProvider extends ChangeNotifier {
         var len = _inventory.where((element) => element.item == Items.Ethereal_blade).toList().length;
         if (len < 2){
           spellAmp += 0.16;
-          manaRegenMultiplier += 0.75;
-          maxMana += 500;
+          manaRegenMultiplier += 0.72;
+          maxMana += 400;
         }
         break;
       case Items.Monkey_king_bar:
@@ -222,12 +222,12 @@ class BossProvider extends ChangeNotifier {
         bonusDamage += 56;
         break;
       case Items.Eye_of_skadi:
-        maxMana += 1500;
+        maxMana += 1600;
         break;
       case Items.Bloodthorn:
-        bonusDamage += 50;
+        bonusDamage += 40;
         maxMana += 400;
-        baseManaRegen += 5;
+        baseManaRegen += 4;
         break;
       case Items.Dagon: break;
       case Items.Divine_rapier:
@@ -239,7 +239,7 @@ class BossProvider extends ChangeNotifier {
   void _sellItem(Item item) {
     switch (item.item) {
       case Items.Null_talisman:
-        baseManaRegen -= 0.75;
+        baseManaRegen -= 0.80;
         maxMana -= 60;
         break;
       case Items.Void_stone:
@@ -261,11 +261,11 @@ class BossProvider extends ChangeNotifier {
         manaRegenMultiplier -= 0.24;
         break;
       case Items.Aether_lens:
-        baseManaRegen -= 2.5;
+        baseManaRegen -= 3;
         maxMana -= 300;
         break;
       case Items.Meteor_hammer:
-        baseManaRegen -= 2.5;
+        baseManaRegen -= 2.75;
         break;
       case Items.Hand_of_midas:
         bool itemHasInventory = (_inventory.any((element) => element.item == Items.Hand_of_midas));
@@ -280,8 +280,8 @@ class BossProvider extends ChangeNotifier {
         bool itemHasInventory = (_inventory.any((element) => element.item == Items.Ethereal_blade));
         if (!itemHasInventory){
           spellAmp -= 0.16;
-          manaRegenMultiplier -= 0.75;
-          maxMana -= 500;
+          manaRegenMultiplier -= 0.72;
+          maxMana -= 400;
         }
         break;
       case Items.Monkey_king_bar:
@@ -294,12 +294,12 @@ class BossProvider extends ChangeNotifier {
         bonusDamage -= 56;
         break;
       case Items.Eye_of_skadi:
-        maxMana -= 1500;
+        maxMana -= 1600;
         break;
       case Items.Bloodthorn:
-        bonusDamage -= 50;
+        bonusDamage -= 40;
         maxMana -= 400;
-        baseManaRegen -= 5;
+        baseManaRegen -= 4;
         break;
       case Items.Dagon: break;
       case Items.Divine_rapier:
@@ -339,8 +339,8 @@ class BossProvider extends ChangeNotifier {
           _addMana(175);
           break;
         case Items.Veil_of_discord:
-          spellAmp += 0.18;
-          await Future.delayed(Duration(seconds: item.item.duration?.toInt() ?? 0), () => spellAmp -= 0.18,);
+          spellAmp += 0.20;
+          await Future.delayed(Duration(seconds: item.item.duration?.toInt() ?? 0), () => spellAmp -= 0.20,);
           break;
         case Items.Meteor_hammer:
           spellDamage += 100;
@@ -538,7 +538,6 @@ class BossProvider extends ChangeNotifier {
     magicalDamage = 0;
     magicalPercentage = 0;
     isAdWatched = false;
-    _resetCooldowns();
     updateView();
   }
 
@@ -611,16 +610,19 @@ class BossProvider extends ChangeNotifier {
     );
 
     UserManager.instance.updateBestBossTimeScore(currentBoss.name, elapsedTime, model);
-    AchievementManager.instance.updatePlayedGame();
     AchievementManager.instance.updateBoss();
     AchievementManager.instance.updateMiscGold(userGold);
     if (currentBoss == Bosses.wraith_king && currentBossHp <= 0) {
       AchievementManager.instance.updateMiscKillWk();
     }
+    if (currentBoss == Bosses.wraith_king || timeProgress >= timeUnits) {
+      AchievementManager.instance.updatePlayedGame();
+    }
 
-    int expGain = ((roundProgress+1) * 5) + (getRemainingTime ~/ 10);
+    int expGain = ((roundProgress+1) * 5) + (getRemainingTime ~/ 8);
     UserManager.instance.addExp(expGain);
     _updateManaAndBaseDamage();
+    _resetCooldowns();
 
     String lastBossText = roundProgress+1 == Bosses.values.length ? AppStrings.last : "";
 

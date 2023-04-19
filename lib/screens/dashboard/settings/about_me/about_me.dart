@@ -163,7 +163,10 @@ class AboutMeView extends StatelessWidget {
             style: TextStyle(fontSize: context.sp(12), fontWeight: FontWeight.bold),
           ),
           const EmptyBox.h4(),
-          Text(AppStrings.bio,style: TextStyle(fontSize: context.sp(12))),
+          Text(
+            AppStrings.bio,
+            style: TextStyle(fontSize: context.sp(12)),
+          ),
         ],
       ),
     );

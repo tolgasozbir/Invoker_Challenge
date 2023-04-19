@@ -16,10 +16,10 @@ enum Achievements {
   challenger2(title: "Must Try Harder",       description: "Reach 120 points in under 3 minutes in Challenger mode.",   maxProgress: 120),
   challenger3(title: "The Real CHALLENGER!",  description: "Reach 140 points in under 3 minutes in Challenger mode.",   maxProgress: 140),
   boss1(title: "Power of the elements", description: "Kill 100 boss in Boss mode.", maxProgress: 100),
-  boss2(title: "Feel the power.", description: "Kill 200 boss in Boss mode.", maxProgress: 200),
-  boss3(title: "What's next?.", description: "Kill 300 boss in Boss mode.", maxProgress: 300),
-  misc_kill_wk(title: "King's Bane", description: "Put an end to the Wraith King's reign", maxProgress: 1),
-  misc_gold(title: "Barely Touched", description: "Economize your gold and amass 5,000 gold.", maxProgress: 5000);
+  boss2(title: "Feel the power.",       description: "Kill 200 boss in Boss mode.", maxProgress: 200),
+  boss3(title: "What's next?.",         description: "Kill 300 boss in Boss mode.", maxProgress: 300),
+  misc_kill_wk(title: "King's Bane", description: "Put an end to the Wraith King's reign",      maxProgress: 1),
+  misc_gold(title: "Barely Touched", description: "Economize your gold and amass 7,500 gold.",  maxProgress: 7500);
 
 
   const Achievements({required this.title, required this.description, required this.maxProgress});

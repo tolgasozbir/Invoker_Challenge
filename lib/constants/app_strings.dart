@@ -6,9 +6,9 @@ class AppStrings {
 
   //Main menu
   static const String titleTraining = 'Training';
-  static const String titleWithTimer = 'With Timer';
+  static const String titleWithTimer = 'Time Trial';
   static const String titleChallanger = 'Challanger';
-  static const String titleBossMode = 'Boss Mode';
+  static const String titleBossMode = 'Boss Battle';
   static const String quitGame = 'Quit Game';
   static const String settings = 'Settings';
   static const String profile = 'Profile';
@@ -82,7 +82,7 @@ class AppStrings {
   //Talent tree
   static const String talentTree = 'Talent Tree';
   static const talents = const [
-    '+400 Mana in Boss Mode',
+    '+400 Mana in Boss Battle',
     '+1 Challenger Life',
     '+2 Exp Multiplier',
     'D. Dmg to Bosses',
@@ -95,7 +95,7 @@ class AppStrings {
   static const String volume = 'Volume';
 
   //About me
-  static const String bio = "Heyy, I'm Tolga Sözbir from Turkey. I'm a Freelance mobile developer. If you wants to contact me to build your product leave message.";
+  static const String bio = "Heyy, I'm Tolga Sözbir, a freelance mobile app developer from Turkey. If you have a mobile app project or idea, please feel free to contact me. Let's work together to create the best app!";
   static const String langsAndTools = 'Languages and Tools:';
 
   //Feedback

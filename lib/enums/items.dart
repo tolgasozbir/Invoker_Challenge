@@ -2,7 +2,7 @@ import '../constants/app_strings.dart';
 
 enum Items {
   Null_talisman(
-    bonus: "Increases mana by +60 and +0.75 mana regeneration", 
+    bonus: "Increases mana by +60 and +0.8 mana regeneration", 
     cost: 500
   ),
 
@@ -34,7 +34,7 @@ enum Items {
     bonus: "Increases magic damage taken by bosses."
     +"\nDuration: 16 seconds", 
     cost: 1525, 
-    active: "Spell amplification +18%", 
+    active: "Spell amplification +20%", 
     cooldown: 30, 
     mana: 50, 
     duration: 16,
@@ -53,12 +53,12 @@ enum Items {
   ),
 
   Aether_lens(
-    bonus: "+300 mana and +2.5 mana regeneration", 
+    bonus: "+300 mana and +3 mana regeneration", 
     cost: 2275
   ),
 
   Meteor_hammer(
-    bonus: "+2.5 mana regeneration"
+    bonus: "+2.75 mana regeneration"
     +"\nDuration: 6 seconds. Deals damage to bosses over time.", 
     cost: 2300, 
     active: "Damage Per Second: 100", 
@@ -74,12 +74,12 @@ enum Items {
   ),
 
   Ethereal_blade(
-    bonus: "+500 Mana with mana regen amp +75% and spell amp +16%"
-    +"\nDuration: 10 Seconds"
+    bonus: "+400 Mana with mana regen amp +72% and spell amp +16%"
+    +"\nDuration: 8 Seconds"
     +"\n(Multiple item stats won't stacks!)", 
     cost: 4650, 
     active: "Magic Amplification +40%", 
-    cooldown: 20, 
+    cooldown: 36, 
     mana: 200, 
     duration: 8,
     hasSound: true,
@@ -106,14 +106,14 @@ enum Items {
   ),
   
   Eye_of_skadi(
-    bonus: "Increases mana by +1500", 
+    bonus: "Increases mana by +1600", 
     cost: 5300
   ),
   
   Bloodthorn(
-    bonus: "+50 Attack Damage"
+    bonus: "+40 Attack Damage"
     "\n+400 Mana"
-    "\n+5.0 Mana Regeneration", 
+    "\n+4.0 Mana Regeneration", 
     cost: 6800
   ),
   

@@ -112,7 +112,7 @@ class UserManager extends ChangeNotifier {
   double get getNextLevelExp => user.level * 25;
   double get _getCurrentExp   => user.exp;
   double get _expMultiplier   => user.expMultiplier;
-  double expCalc(int exp) => (exp * _expMultiplier) + exp;
+  double expCalc(int exp) => (exp * _expMultiplier);
   int _maxLevel = 30;
 
   void addExp(int exp) async {

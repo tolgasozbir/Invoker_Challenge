@@ -35,7 +35,7 @@ class BossModeView extends StatefulWidget {
 
 class _BossModeViewState extends State<BossModeView> with OrbMixin {
   late BossProvider provider;
-  var gradient2 = [const Color(0xFFE20D17), const Color(0xFFB50DE2)];
+  final circleColor = const Color(0xFFB50DE2);
 
   final boxDecoration = BoxDecoration(
     borderRadius: BorderRadius.circular(8),
@@ -141,7 +141,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
           units: provider.healthUnit,
           radius: context.dynamicHeight(0.19),
           gap: 0.22,
-          gradient: gradient2,
+          color: circleColor,
           reversedColor: true,
         ),
       ),
@@ -152,7 +152,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
           units: provider.roundUnit,
           radius: context.dynamicHeight(0.16),
           gap: 0.24,
-          gradient: gradient2,
+          color: circleColor,
         ),
       ),
       //inner
@@ -162,7 +162,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
           units: provider.timeUnits,
           radius: context.dynamicHeight(0.13),
           gap: 0.2,
-          gradient: gradient2,
+          color: circleColor,
         ),
       ),
     ];
@@ -434,7 +434,7 @@ class ArcPainter extends CustomPainter {
   final double progress;
   final int units;
   final double gap;
-  final List<Color> gradient;
+  final Color color;
   final double radius;
   final bool reversedColor;
 
@@ -443,7 +443,7 @@ class ArcPainter extends CustomPainter {
     required this.units,
     required this.radius,
     required this.gap,
-    required this.gradient,
+    required this.color,
     this.reversedColor = false
   });
 
@@ -465,7 +465,7 @@ class ArcPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 4
       ..maskFilter = maskFiler
-      ..color = reversedColor ? gradient.last.withOpacity(0.2) : gradient.last;
+      ..color = reversedColor ? color.withOpacity(0.2) : color;
     //..shader = gradient.createShader(rect);
 
     final paintEmpty = Paint()
@@ -473,7 +473,7 @@ class ArcPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 4
       ..maskFilter = maskFiler
-      ..color = reversedColor ? gradient.last : gradient.last.withOpacity(0.2);
+      ..color = reversedColor ? color : color.withOpacity(0.2);
 
     for (var i = 0; i < units; i++) {
       final double unit = 2 * pi / units;

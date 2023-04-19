@@ -2,18 +2,18 @@ import '../constants/app_strings.dart';
 import '../extensions/string_extension.dart';
 
 enum Bosses {
-  warlock(12000),
-  omniknight(16000),
-  riki(20000),
-  huskar(24000),
-  templar(30000),
-  anti_mage(36000),
-  juggernaut(42000),
-  blood_seeker(48000),
-  drow_ranger(54000),
-  axe(60000),
-  pudge(70000),
-  wraith_king(85000);
+  warlock(16000),
+  omniknight(20000),
+  riki(25000),
+  huskar(32000),
+  templar(40000),
+  anti_mage(48000),
+  juggernaut(56000),
+  blood_seeker(64000),
+  drow_ranger(72000),
+  axe(80000),
+  pudge(90000),
+  wraith_king(100000);
 
   const Bosses(this._health);
 
