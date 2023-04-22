@@ -9,6 +9,7 @@ import '../../../mixins/loading_state_mixin.dart';
 import '../../../models/timer_result.dart';
 import '../../../services/app_services.dart';
 import '../../app_outlined_button.dart';
+import '../../app_snackbar.dart';
 
 class LeaderboardWithTimer extends StatefulWidget {
   const LeaderboardWithTimer({super.key,});
@@ -61,8 +62,15 @@ class _LeaderboardWithTimerState extends State<LeaderboardWithTimer> with Loadin
       title: AppStrings.showMore,
       isButtonActive: !isLoading,
       onPressed: () async {
-        changeLoadingState();
         ScaffoldMessenger.of(context).removeCurrentSnackBar();
+        if ((results?.length ?? 0) >= 100) {
+          AppSnackBar.showSnackBarMessage(
+            text: AppStrings.sbCannotFetchMore, 
+            snackBartype: SnackBarType.info
+          );
+          return;
+        }
+        changeLoadingState();
         await Future.delayed(const Duration(seconds: 1));
         results?.addAll(await AppServices.instance.databaseService.getTimerScores());
         changeLoadingState();

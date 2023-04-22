@@ -9,6 +9,8 @@
 .history
 .svn/
 
+#sign
+*.jks
 #environment variables
 .env
 #firebase

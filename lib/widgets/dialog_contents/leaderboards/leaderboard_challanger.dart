@@ -1,3 +1,4 @@
+import 'package:dota2_invoker_game/widgets/app_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -72,8 +73,15 @@ class _LeaderboardChallangerState extends State<LeaderboardChallanger> with Load
       title: AppStrings.showMore,
       isButtonActive: !isLoading,
       onPressed: () async {
-        changeLoadingState();
         ScaffoldMessenger.of(context).removeCurrentSnackBar();
+        if ((results?.length ?? 0) >= 100) {
+          AppSnackBar.showSnackBarMessage(
+            text: AppStrings.sbCannotFetchMore, 
+            snackBartype: SnackBarType.info
+          );
+          return;
+        }
+        changeLoadingState();
         await Future.delayed(const Duration(seconds: 1));
         results?.addAll((await AppServices.instance.databaseService.getChallangerScores()));
         changeLoadingState();

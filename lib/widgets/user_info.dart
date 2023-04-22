@@ -44,6 +44,7 @@ class _UserStatusState extends State<UserStatus> {
           showBackButton: true,
           height: isLoggedIn ? context.dynamicHeight(0.64) : 460,
           title:  isLoggedIn ? AppStrings.profile : "${AppStrings.login}&${AppStrings.register}",
+          uid: UserManager.instance.user.uid,
           content: isLoggedIn
             ? ProfileDialogContent()
             : LoginRegisterDialogContent(),

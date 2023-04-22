@@ -10,7 +10,8 @@ class AppDialogs {
   static final navigatorKey = GlobalKey<NavigatorState>();
 
   static Future<T?> showSlidingDialog<T extends Object>({
-    String? title, 
+    String? title,
+    String? uid, 
     required Widget content, 
     Widget? action, 
     double? height,
@@ -60,9 +61,28 @@ class AppDialogs {
                             children: [
                               if (showBackButton) BackButton(),
                               if (title != null)
-                                Padding(
-                                  padding: showBackButton ? EdgeInsets.zero : const EdgeInsets.fromLTRB(24, 20, 0, 0),
-                                  child: Text(title, style: TextStyle(fontSize: context.sp(16), fontWeight: FontWeight.w500)),
+                                Expanded(
+                                  child: Padding(
+                                    padding: showBackButton ? EdgeInsets.zero : const EdgeInsets.fromLTRB(24, 20, 0, 0),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(title, style: TextStyle(fontSize: context.sp(16), fontWeight: FontWeight.w500)),
+                                        if (uid != null) 
+                                          Padding(
+                                            padding: const EdgeInsets.only(right: 8),
+                                            child: Text(
+                                              uid.substring(20), 
+                                              style: TextStyle(
+                                                fontSize: context.sp(16), 
+                                                color: Colors.grey,
+                                                fontWeight: FontWeight.w500
+                                              ),
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                             ],
                           ),

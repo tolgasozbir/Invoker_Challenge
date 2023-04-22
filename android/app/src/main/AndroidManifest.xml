@@ -18,7 +18,7 @@
     </queries>
 
     <application
-        android:label="Dota2 Invoker Game"
+        android:label="Invoker's Challenge"
         android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
         <activity

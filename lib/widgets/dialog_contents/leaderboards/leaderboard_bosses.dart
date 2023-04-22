@@ -11,6 +11,7 @@ import '../../../services/app_services.dart';
 import '../../../utils/number_formatter.dart';
 import '../../app_dialogs.dart';
 import '../../app_outlined_button.dart';
+import '../../app_snackbar.dart';
 
 class LeaderboardBosses extends StatefulWidget {
   const LeaderboardBosses({super.key, required this.bossName,});
@@ -65,8 +66,15 @@ class _LeaderboardBossesState extends State<LeaderboardBosses> with LoadingState
       title: AppStrings.showMore,
       isButtonActive: !isLoading,
       onPressed: () async {
-        changeLoadingState();
         ScaffoldMessenger.of(context).removeCurrentSnackBar();
+        if ((results?.length ?? 0) >= 20) {
+          AppSnackBar.showSnackBarMessage(
+            text: AppStrings.sbCannotFetchMore, 
+            snackBartype: SnackBarType.info
+          );
+          return;
+        }
+        changeLoadingState();
         await Future.delayed(const Duration(seconds: 1));
         results?.addAll((await AppServices.instance.databaseService.getBossScores(widget.bossName)));
         changeLoadingState();
