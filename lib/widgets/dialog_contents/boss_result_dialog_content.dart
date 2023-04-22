@@ -47,8 +47,8 @@ class BossResultRoundDialogContent extends StatelessWidget {
         _resultField("Boss", model.boss.capitalize()),
         _resultField("Elapsed Time", "${model.time} Sec"),
         if(timeUp) _resultField("Remaining HP", priceString(bossHpLeft)),
-        _resultField("Average DPS", priceString(model.averageDps)),
-        _resultField("Max DPS (All Round)", priceString(model.maxDps)),
+        _resultField("Average DPS (Last 5 Sec)", priceString(model.averageDps)),
+        _resultField("Max DPS", priceString(model.maxDps)),
         _resultField("Physical Damage", priceString(model.physicalDamage)),
         _resultField("Magical Damage", priceString(model.magicalDamage)),
         _resultField("Earned Exp", priceString(earnedExp)),
@@ -57,30 +57,32 @@ class BossResultRoundDialogContent extends StatelessWidget {
           EmptyBox.h4(),
           watchAdButton(context),
         ],
-        EmptyBox(),
         Divider(),
-        FittedBox(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Your best score by kill time ",//AppStrings.bestScore,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.w500, 
-                  fontSize: context.sp(13),
+        if (bestScore.isNotEmpty) ...[
+          FittedBox(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  AppStrings.bestScoreByKill,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500, 
+                    fontSize: context.sp(13),
+                  ),
                 ),
-              ),
-              Icon(Icons.swipe_down)
-            ],
+                EmptyBox.w4(),
+                Icon(Icons.swipe_down)
+              ],
+            ),
           ),
-        ),
-        if (timeUp) EmptyBox.h8(),
-        _resultField("Elapsed Time", "${bestScore["time"]} Sec"),
-        _resultField("Average DPS", priceString(bestScore["averageDps"])),
-        _resultField("Max DPS", priceString(bestScore["maxDps"])),
-        _resultField("Physical Damage", priceString(bestScore["physicalDamage"])),
-        _resultField("Magical Damage", priceString(bestScore["magicalDamage"])),
+          if (timeUp) EmptyBox.h8(),
+          _resultField("Elapsed Time", "${bestScore["time"]} Sec"),
+          _resultField("Average DPS", priceString(bestScore["averageDps"])),
+          _resultField("Max DPS", priceString(bestScore["maxDps"])),
+          _resultField("Physical Damage", priceString(bestScore["physicalDamage"])),
+          _resultField("Magical Damage", priceString(bestScore["magicalDamage"])),
+        ]
       ],
     );
   }
@@ -168,7 +170,7 @@ class BossResultRoundDialogAction extends StatefulWidget {
 
 class _BossResultRoundDialogActionState extends State<BossResultRoundDialogAction> with LoadingState {
 
-  bool get isNewScore => widget.model.time <= UserManager.instance.getBestBossScore(widget.model.boss)["time"];
+  bool get isNewScore => widget.model.time <= (UserManager.instance.getBestBossScore(widget.model.boss)["time"] ?? 0);
 
   @override
   Widget build(BuildContext context) {

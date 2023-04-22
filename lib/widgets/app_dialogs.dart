@@ -72,10 +72,10 @@ class AppDialogs {
                                           Padding(
                                             padding: const EdgeInsets.only(right: 8),
                                             child: Text(
-                                              uid.substring(20), 
+                                              uid.substring(0, 8), 
                                               style: TextStyle(
                                                 fontSize: context.sp(16), 
-                                                color: Colors.grey,
+                                                color: Colors.grey.withOpacity(0.6),
                                                 fontWeight: FontWeight.w500
                                               ),
                                             ),

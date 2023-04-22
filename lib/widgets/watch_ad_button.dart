@@ -43,11 +43,13 @@ class WatchAdButton extends StatelessWidget {
     if (AdsHelper.instance.rewardedInterstitialAd == null) {
       await AdsHelper.instance.rewardedInterstitialAdLoad();
     }
-    await AdsHelper.instance.rewardedInterstitialAd?.show(
-      onUserEarnedReward: (ad, reward) async {
-        afterWatchingAdFn.call();
-        await AdsHelper.instance.rewardedInterstitialAdLoad();
-      }
-    );
+    if (AdsHelper.instance.rewardedInterstitialAd != null) {
+      await AdsHelper.instance.rewardedInterstitialAd?.show(
+        onUserEarnedReward: (ad, reward) async {
+          afterWatchingAdFn.call();
+          await AdsHelper.instance.rewardedInterstitialAdLoad();
+        }
+      );
+    }
   }
 }

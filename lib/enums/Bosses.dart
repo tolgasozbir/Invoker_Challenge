@@ -7,13 +7,13 @@ enum Bosses {
   riki(25000),
   huskar(32000),
   templar(40000),
-  anti_mage(48000),
-  juggernaut(56000),
-  blood_seeker(64000),
-  drow_ranger(72000),
-  axe(80000),
-  pudge(90000),
-  wraith_king(100000);
+  anti_mage(50000),
+  juggernaut(60000),
+  blood_seeker(72000),
+  drow_ranger(84000),
+  axe(100000),
+  pudge(110000),
+  wraith_king(120000);
 
   const Bosses(this._health);
 

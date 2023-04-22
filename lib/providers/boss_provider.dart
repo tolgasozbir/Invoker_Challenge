@@ -120,7 +120,7 @@ class BossProvider extends ChangeNotifier {
   
   int _userGold = 1000;
   int get userGold => _userGold;
-  int get gainedGold => ((getRemainingTime ~/ 8) * (roundProgress+1)) + ((roundProgress+1) * 460) + 360;
+  int get gainedGold => ((getRemainingTime ~/ 8) * (roundProgress+1)) + ((roundProgress+1) * 460) + 400;
 
   bool isAdWatched = false;
   void addGoldAfterWatchingAd(int goldAmount) {
@@ -533,6 +533,7 @@ class BossProvider extends ChangeNotifier {
     timeProgress = 0;
     elapsedTime = 0;
     last5AttackDamage.clear();
+    maxDps = 0;
     physicalDamage = 0;
     physicalPercentage = 0;
     magicalDamage = 0;
@@ -609,7 +610,9 @@ class BossProvider extends ChangeNotifier {
       items: inventory.map((e) => e.item.getName).toList(),
     );
 
-    UserManager.instance.updateBestBossTimeScore(currentBoss.name, elapsedTime, model);
+    if (currentBossHp <= 0) {
+      UserManager.instance.updateBestBossTimeScore(currentBoss.name, elapsedTime, model);
+    }
     AchievementManager.instance.updateBoss();
     AchievementManager.instance.updateMiscGold(userGold);
     if (currentBoss == Bosses.wraith_king && currentBossHp <= 0) {

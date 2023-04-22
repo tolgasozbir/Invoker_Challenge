@@ -38,6 +38,7 @@ class AppStrings {
   static const String time = 'Time';
   static const String score = 'Score';
   static const String bestScore = 'Best Score';
+  static const String bestScoreByKill = 'Your best score by kill time';
   static const String exp = 'Experience';
   static const String syncData = 'Synchronize and store the data';
   
