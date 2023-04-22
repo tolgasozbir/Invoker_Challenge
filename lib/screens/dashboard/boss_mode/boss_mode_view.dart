@@ -1,6 +1,8 @@
 import 'dart:math';
 
+import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/info_view.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:snappable_thanos/snappable_thanos.dart';
 import 'package:splash/splash.dart';
@@ -70,7 +72,11 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
             if (backButtonFn()) Navigator.pop(context);
           },
         ),
-        actions: [ShopButton(),],
+        actions: [
+          infoIcon(),
+          EmptyBox.w4(),
+          ShopButton(),
+        ],
       ),
       body: WillPopScope(
         child: bodyView(),
@@ -89,6 +95,22 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
       );
     }
     return canPop;
+  }
+
+  Widget infoIcon() {
+    return IconButton(
+      onPressed: () {
+        bool canClick = !context.read<BossProvider>().started && 
+                         context.read<BossProvider>().snapIsDone && 
+                        !context.read<BossProvider>().isHornSoundPlaying;
+        if(canClick)
+          Navigator.push(context, MaterialPageRoute(builder: (context) => InfoView(),));
+        else {
+          SoundManager.instance.playMeepMerp();
+        }
+      },
+      icon: const Icon(FontAwesomeIcons.questionCircle),
+    );
   }
 
   Widget bodyView() {

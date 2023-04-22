@@ -2,7 +2,7 @@ import '../constants/app_strings.dart';
 
 enum Spells {
   cold_snap       (combine: 'qqq', cooldown: 20, mana: 125, damage: 72,  duration: 6),  //432
-  ghost_walk      (combine: 'qqw', cooldown: 20, mana: 150, damage: 80,  duration: 6),  //400
+  ghost_walk      (combine: 'qqw', cooldown: 20, mana: 100, damage: 50,  duration: 8),  //400
   ice_wall        (combine: 'qqe', cooldown: 24, mana: 125, damage: 36,  duration: 12), //432
   emp             (combine: 'www', cooldown: 20, mana: 125, damage: 400, duration: 1),  //400
   tornado         (combine: 'wwq', cooldown: 22, mana: 150, damage: 380, duration: 1),  //380

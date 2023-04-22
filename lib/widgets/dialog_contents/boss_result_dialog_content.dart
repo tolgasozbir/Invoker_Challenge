@@ -51,7 +51,7 @@ class BossResultRoundDialogContent extends StatelessWidget {
         _resultField("Max DPS (All Round)", priceString(model.maxDps)),
         _resultField("Physical Damage", priceString(model.physicalDamage)),
         _resultField("Magical Damage", priceString(model.magicalDamage)),
-        if(!timeUp) _resultField("Earned Exp", priceString(earnedExp)),
+        _resultField("Earned Exp", priceString(earnedExp)),
         if (!timeUp && isLast) ...[
           _resultField("Earned Gold", priceString(earnedGold.toDouble())),
           EmptyBox.h4(),

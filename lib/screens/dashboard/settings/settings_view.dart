@@ -39,13 +39,13 @@ class SettingsView extends StatelessWidget {
             onTap: () => Navigator.push(context, fadeInPageRoute(FeedbackView())),
           ),
           divider(),
-          menuItem(
-            context: context,
-            leading: FontAwesomeIcons.starHalfAlt,
-            text: AppStrings.rateApp,
-            //onTap: () => StoreRedirect.redirect(androidAppId: ''), //TODO:
-          ),
-          divider(),
+          // menuItem(
+          //   context: context,
+          //   leading: FontAwesomeIcons.starHalfAlt,
+          //   text: AppStrings.rateApp,
+          //   //onTap: () => StoreRedirect.redirect(androidAppId: ''), //TODO: RATE APP
+          // ),
+          // divider(),
         ],
       ),
     );
