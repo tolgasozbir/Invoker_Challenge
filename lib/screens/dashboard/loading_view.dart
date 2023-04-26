@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:dota2_invoker_game/utils/ads_helper.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/app_strings.dart';
@@ -31,10 +30,6 @@ class _LoadingViewState extends State<LoadingView> {
   Future<void> _navigateToPage() async {
     await Future.delayed(_loadingDuration, () {
       if (mounted) Navigator.pushReplacement(context, fadeInPageRoute(widget.page));
-      AdsHelper.instance.adCounter++;
-      if (AdsHelper.instance.interstitialAd != null && AdsHelper.instance.adCounter.isOdd) {
-        AdsHelper.instance.interstitialAd!.show();
-      }
     });
   }
 

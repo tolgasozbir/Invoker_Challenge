@@ -11,6 +11,7 @@ import '../extensions/widget_extension.dart';
 import '../providers/game_provider.dart';
 import '../screens/dashboard/loading_view.dart';
 import '../services/sound_manager.dart';
+import '../utils/ads_helper.dart';
 import '../utils/fade_in_page_animation.dart';
 
 class MenuButton extends StatefulWidget {
@@ -87,8 +88,14 @@ class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateM
     }
   }
 
-  void _goToGameScreen() {
+  void _goToGameScreen() async {
     if (widget.navigatePage == null) return;
+    AdsHelper.instance.adCounter++;
+    if (AdsHelper.instance.interstitialAd != null && AdsHelper.instance.adCounter.isOdd) {
+      await AdsHelper.instance.interstitialAd!.show();
+      Navigator.push(context, fadeInPageRoute(widget.navigatePage!));
+      return;
+    }
     SoundManager.instance.playLoadingSound();
     context.read<GameProvider>().resetTimer();
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
