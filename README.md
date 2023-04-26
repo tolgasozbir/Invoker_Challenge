@@ -44,11 +44,11 @@ To try the app you can download it from:
 If you would like to contribute to this project, you can follow these steps:
 
 1. Fork the repository
-2. Clone your fork: `git clone https://github.com/tolgasozbir/Dota2_Invoker_Game`
-3. Navigate to the project directory: `cd Dota2_Invoker_Game`
+2. Clone your fork: `git clone https://github.com/tolgasozbir/Invokers_Challenge`
+3. Navigate to the project directory: `cd Invokers_Challenge`
 4. Run flutter `pub get` to install the dependencies
 5. Create a new branch for your feature: `git checkout -b new-feature`
-6. Make your changes and commit them: `git commit -am 'Add new feature'`
+6. Make your changes and commit them: `git commit -m 'Add new feature'`
 7. Push your changes to your fork: `git push origin new-feature`
 8. Create a pull request to the original repository
 
