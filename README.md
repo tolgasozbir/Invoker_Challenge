@@ -1,5 +1,8 @@
 # Invoker Challenge
 
+<img src="https://raw.githubusercontent.com/tolgasozbir/Invoker_Challenge/main/assets/images/misc/logo.png" width=320>
+
+
 This project is a mobile game developed using Flutter, based on the abilities of the Dota 2 character Invoker.
 
 ## Game Modes
