@@ -9,6 +9,7 @@ class AppTextFormField extends StatelessWidget {
   final String? hintText;
   final String? errorText;
   final Widget? prefixIcon;
+  final Widget? suffixIcon;
   final String topLabel;
   final bool obscureText;
   final bool isExpand;
@@ -30,6 +31,7 @@ class AppTextFormField extends StatelessWidget {
     this.key,
     this.hintText,
     this.prefixIcon,
+    this.suffixIcon,
     this.topLabel = '',
     this.obscureText = false,
     this.isExpand = false,
@@ -78,6 +80,7 @@ class AppTextFormField extends StatelessWidget {
             fillColor: bgColor ?? AppColors.textFormFieldBg,
             filled: true,
             prefixIcon: this.prefixIcon,
+            suffixIcon: this.suffixIcon,
             enabledBorder: _inputBorderSide(color: borderColor ?? AppColors.white, width: 1),
             focusedBorder: _inputBorderSide(color: focusedBorderColor ?? Theme.of(context).colorScheme.primary),
             errorBorder: _inputBorderSide(color: errorBorderColor ?? Theme.of(context).colorScheme.error),

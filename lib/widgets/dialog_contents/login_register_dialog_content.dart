@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -27,6 +28,7 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
   final usernameController = TextEditingController();
   TextStyle get textStyle => TextStyle(fontSize: context.sp(12));
   bool isLoginCheckboxSelected = true;
+  bool showPassword = false;
 
   @override
   Widget build(BuildContext context) {
@@ -46,11 +48,17 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
           const EmptyBox.h16(),
           AppTextFormField(
             topLabel: AppStrings.password,
-            obscureText: true,
+            obscureText: showPassword,
             controller: passwordController,
             keyboardType: TextInputType.visiblePassword,
             textInputAction: TextInputAction.done,
             validator: isValidPassword,
+            suffixIcon: IconButton(
+              onPressed: () {
+                setState(() => showPassword = !showPassword);
+              },
+              icon: Icon(showPassword ? CupertinoIcons.eye_slash : CupertinoIcons.eye)
+            ),
           ),
           const EmptyBox.h12(),
           Row(
