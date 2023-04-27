@@ -1,4 +1,4 @@
-# Invoker's Challenge
+# Invoker Challenge
 
 This project is a mobile game developed using Flutter, based on the abilities of the Dota 2 character Invoker.
 
@@ -44,8 +44,8 @@ To try the app you can download it from:
 If you would like to contribute to this project, you can follow these steps:
 
 1. Fork the repository
-2. Clone your fork: `git clone https://github.com/tolgasozbir/Invokers_Challenge`
-3. Navigate to the project directory: `cd Invokers_Challenge`
+2. Clone your fork: `git clone https://github.com/tolgasozbir/Invoker_Challenge`
+3. Navigate to the project directory: `cd Invoker_Challenge`
 4. Run flutter `pub get` to install the dependencies
 5. Create a new branch for your feature: `git checkout -b new-feature`
 6. Make your changes and commit them: `git commit -m 'Add new feature'`
@@ -54,3 +54,5 @@ If you would like to contribute to this project, you can follow these steps:
 
 ## Credits
 This project was developed by [Tolga Sözbir](https://github.com/tolgasozbir)
+
+Check [Release Notes](https://github.com/tolgasozbir/Invoker_Challenge/blob/main/release_notes.txt) for the latest updates and changes.
