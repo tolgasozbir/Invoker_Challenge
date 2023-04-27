@@ -1,0 +1,5 @@
+# 0.0.2+1
+- Fixed the positions of related elements to match the desired skills. QQW and QWQ (Ghost Walk) now correspond to the same spell.
+- Added 'Rate on Store' button to settings menu. 
+- Added show password toggle button to password input field.
+- Changed app display name to Invoker Challenge

@@ -18,7 +18,7 @@
     </queries>
 
     <application
-        android:label="Invoker's Challenge"
+        android:label="Invoker Challenge"
         android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
         <activity
