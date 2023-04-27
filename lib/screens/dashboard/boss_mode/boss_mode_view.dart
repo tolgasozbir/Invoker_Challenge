@@ -19,6 +19,7 @@ import '../../../models/ability_cooldown.dart';
 import '../../../providers/boss_provider.dart';
 import '../../../services/sound_manager.dart';
 import '../../../utils/number_formatter.dart';
+import '../../../utils/spell_combination_checker.dart';
 import '../../../widgets/app_snackbar.dart';
 import '../../../widgets/bouncing_button.dart';
 import '../../../widgets/cooldown_animation.dart';
@@ -353,7 +354,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
             SoundManager.instance.playInvoke();
             var castedSpell = null;
             for(Spells spell in Spells.values) {
-              if (spell.combine == currentCombination) {
+              if (SpellCombinationChecker.checkEquality(spell.combine, currentCombination)) {
                 castedSpell = spell;
                 break;
               }

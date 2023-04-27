@@ -264,7 +264,8 @@ class SoundManager {
     );
   }
 
-  void failCombinationSound(){
+  void failCombinationSound() {
+    //if (_player?.state == PlayerState.PLAYING) return;
     _playSound(fileName: _failSound[_rnd.nextInt(_failSound.length)],);
   }
 
@@ -272,7 +273,8 @@ class SoundManager {
     _playSound(fileName: _ggSound[_rnd.nextInt(_ggSound.length)],);
   }
 
-  void trueCombinationSound(String combination){
+  void trueCombinationSound(String combination) {
+    //if (_player?.state == PlayerState.PLAYING) return;
     switch (combination) {
       case 'qqq': _playSound(fileName: _coldSnapSound[_rnd.nextInt(_coldSnapSound.length)],); break;
       case 'qqw': _playSound(fileName: _ghostWalkSound[_rnd.nextInt(_ghostWalkSound.length)],); break;

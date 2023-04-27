@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../constants/app_colors.dart';
 import '../constants/app_strings.dart';
 import '../enums/database_table.dart';
@@ -16,6 +15,7 @@ import '../providers/user_manager.dart';
 import '../screens/profile/achievements/achievement_manager.dart';
 import '../services/app_services.dart';
 import '../services/sound_manager.dart';
+import '../utils/spell_combination_checker.dart';
 import 'app_outlined_button.dart';
 import 'bouncing_button.dart';
 import 'timer_hud.dart';
@@ -174,12 +174,13 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
       case Elements.exort:
         return switchOrb(element);
       case Elements.invoke:
-        if(!timerProvider.isStart) return;
-        if (currentCombination == spellProvider.getNextCombination) {
+        if (!timerProvider.isStart) return;
+        if (SpellCombinationChecker.checkEquality(spellProvider.getNextCombination, currentCombination)) {
           timerProvider.increaseCorrectCounter();
           SoundManager.instance.trueCombinationSound(spellProvider.getNextCombination);
           _animKey.currentState?.playAnimation(IconType.True);
-        }else{
+        }
+        else {
           SoundManager.instance.failCombinationSound();
           _animKey.currentState?.playAnimation(IconType.False);
         }
@@ -196,15 +197,16 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
       case Elements.exort:
         return switchOrb(element);
       case Elements.invoke:
-        if(!timerProvider.isStart) return;
-        if (currentCombination == spellProvider.getNextCombination) {
+        if (!timerProvider.isStart) return;
+        if (SpellCombinationChecker.checkEquality(spellProvider.getNextCombination, currentCombination)) {
           timerProvider.increaseCorrectCounter();
           SoundManager.instance.trueCombinationSound(spellProvider.getNextCombination);
           _animKey.currentState?.playAnimation(IconType.True);
 
           final score = context.read<GameProvider>().getCorrectCombinationCount;
           AchievementManager.instance.updateTimer(score);
-        }else{
+        } 
+        else {
           SoundManager.instance.failCombinationSound();
           _animKey.currentState?.playAnimation(IconType.False);
         }
@@ -222,7 +224,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
         return switchOrb(element);
       case Elements.invoke:
         if (!timerProvider.isStart) return;
-        if (currentCombination == spellProvider.getNextCombination) {
+        if (SpellCombinationChecker.checkEquality(spellProvider.getNextCombination, currentCombination)) {
           timerProvider.increaseCorrectCounter();
           SoundManager.instance.trueCombinationSound(spellProvider.getNextCombination);
           _animKey.currentState?.playAnimation(IconType.True);
@@ -231,7 +233,8 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
           final time = context.read<GameProvider>().getTimeValue;
           final score = context.read<GameProvider>().getCorrectCombinationCount;
           AchievementManager.instance.updateChallenger(score, time);
-        } else {
+        } 
+        else {
           if (challangerLife > 0) {
             SoundManager.instance.failCombinationSound();
             _animKey.currentState?.playAnimation(IconType.False);

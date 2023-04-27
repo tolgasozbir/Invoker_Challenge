@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../constants/app_colors.dart';
 import '../../../constants/app_strings.dart';
@@ -8,6 +9,7 @@ import '../../../extensions/context_extension.dart';
 import '../../../extensions/widget_extension.dart';
 import '../../../utils/circular_reveal_page_route.dart';
 import '../../../utils/fade_in_page_animation.dart';
+import '../../../widgets/app_snackbar.dart';
 import '../../../widgets/sliders/qwer_hud_height_slider.dart';
 import '../../../widgets/sliders/volume_slider.dart';
 import 'about_me/about_me.dart';
@@ -39,16 +41,29 @@ class SettingsView extends StatelessWidget {
             onTap: () => Navigator.push(context, fadeInPageRoute(FeedbackView())),
           ),
           divider(),
-          // menuItem(
-          //   context: context,
-          //   leading: FontAwesomeIcons.starHalfAlt,
-          //   text: AppStrings.rateApp,
-          //   //onTap: () => StoreRedirect.redirect(androidAppId: ''), //TODO: RATE APP
-          // ),
-          // divider(),
+          menuItem(
+            context: context,
+            leading: FontAwesomeIcons.starHalfAlt,
+            text: AppStrings.rateApp,
+            onTap: storeRedirect
+          ),
+          divider(),
         ],
       ),
     );
+  }
+
+  Future<void> storeRedirect() async {
+    final String googlePlayStoreUrl = "https://play.google.com/store/apps/details?id=com.dota2.invoker.game";
+    try{
+      await launchUrl(
+        Uri.parse(googlePlayStoreUrl),
+        mode: LaunchMode.externalApplication
+      );
+    }
+    catch(e) {
+      AppSnackBar.showSnackBarMessage(text: AppStrings.errorMessage, snackBartype: SnackBarType.error);
+    }
   }
 
   Divider divider() => const Divider(color: AppColors.amber, height: 28);
