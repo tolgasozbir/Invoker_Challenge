@@ -10,7 +10,7 @@ class FeedbackModel {
     required this.sender,
     required this.ratePoint,
     required this.message,
-    required this.createdAt
+    required this.createdAt,
   });
 
   Map<String, dynamic> toMap() {

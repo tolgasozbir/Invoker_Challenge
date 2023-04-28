@@ -28,11 +28,11 @@ class _WeatherState extends State<Weather> {
         case WeatherType.rainy:
           weather = Rain(
             width: constraints.maxWidth, 
-            height: constraints.maxHeight
+            height: constraints.maxHeight,
           );
           break;
       }
       return ClipRect(child: this.weather);
-    });
+    },);
   }
 }

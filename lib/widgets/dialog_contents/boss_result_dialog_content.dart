@@ -32,32 +32,32 @@ class BossResultRoundDialogContent extends StatelessWidget {
     required this.earnedExp,
     required this.timeUp,
     required this.isLast, 
-    required this.bossHpLeft
+    required this.bossHpLeft,
   });
 
   int get goldAmount => model.round * 100;
 
   @override
   Widget build(BuildContext context) {
-    var bestScore = UserManager.instance.getBestBossScore(model.boss);
+    final bestScore = UserManager.instance.getBestBossScore(model.boss);
 
     return  Column(
       children: [
         _victoryDefeatText(),
-        _resultField("Boss", model.boss.capitalize()),
-        _resultField("Elapsed Time", "${model.time} Sec"),
-        if(timeUp) _resultField("Remaining HP", priceString(bossHpLeft)),
-        _resultField("Average DPS (Last 5 Sec)", priceString(model.averageDps)),
-        _resultField("Max DPS", priceString(model.maxDps)),
-        _resultField("Physical Damage", priceString(model.physicalDamage)),
-        _resultField("Magical Damage", priceString(model.magicalDamage)),
-        _resultField("Earned Exp", priceString(earnedExp)),
+        _resultField('Boss', model.boss.replaceAll('_', ' ').capitalize()),
+        _resultField('Elapsed Time', '${model.time} Sec'),
+        if(timeUp) _resultField('Remaining HP', priceString(bossHpLeft)),
+        _resultField('Average DPS (Last 5 Sec)', priceString(model.averageDps)),
+        _resultField('Max DPS', priceString(model.maxDps)),
+        _resultField('Physical Damage', priceString(model.physicalDamage)),
+        _resultField('Magical Damage', priceString(model.magicalDamage)),
+        _resultField('Earned Exp', priceString(earnedExp)),
         if (!timeUp && isLast) ...[
-          _resultField("Earned Gold", priceString(earnedGold.toDouble())),
-          EmptyBox.h4(),
+          _resultField('Earned Gold', priceString(earnedGold.toDouble())),
+          const EmptyBox.h4(),
           watchAdButton(context),
         ],
-        Divider(),
+        const Divider(),
         if (bestScore.isNotEmpty) ...[
           FittedBox(
             child: Row(
@@ -71,17 +71,17 @@ class BossResultRoundDialogContent extends StatelessWidget {
                     fontSize: context.sp(13),
                   ),
                 ),
-                EmptyBox.w4(),
-                Icon(Icons.swipe_down)
+                const EmptyBox.w4(),
+                const Icon(Icons.swipe_down)
               ],
             ),
           ),
-          if (timeUp) EmptyBox.h8(),
-          _resultField("Elapsed Time", "${bestScore["time"]} Sec"),
-          _resultField("Average DPS", priceString(bestScore["averageDps"])),
-          _resultField("Max DPS", priceString(bestScore["maxDps"])),
-          _resultField("Physical Damage", priceString(bestScore["physicalDamage"])),
-          _resultField("Magical Damage", priceString(bestScore["magicalDamage"])),
+          if (timeUp) const EmptyBox.h8(),
+          _resultField('Elapsed Time', "${bestScore["time"]} Sec"),
+          _resultField('Average DPS', priceString(bestScore['averageDps'])),
+          _resultField('Max DPS', priceString(bestScore['maxDps'])),
+          _resultField('Physical Damage', priceString(bestScore['physicalDamage'])),
+          _resultField('Magical Damage', priceString(bestScore['magicalDamage'])),
         ]
       ],
     );
@@ -101,9 +101,9 @@ class BossResultRoundDialogContent extends StatelessWidget {
           style: TextStyle(
             fontSize: 18, 
             fontWeight: FontWeight.bold,
-            color: timeUp ? AppColors.red : AppColors.amber
+            color: timeUp ? AppColors.red : AppColors.amber,
           ), 
-          textAlign: TextAlign.center
+          textAlign: TextAlign.center,
         ),
       );
   }
@@ -115,14 +115,14 @@ class BossResultRoundDialogContent extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.slow_motion_video, size: 26,),
-          EmptyBox.w4(),
+          const Icon(Icons.slow_motion_video, size: 26,),
+          const EmptyBox.w4(),
           Text(
             goldAmount.toString(),
             style: TextStyle(
               fontSize: context.sp(13),
               fontWeight: FontWeight.bold,
-              shadows: List.generate(2, (index) => Shadow(blurRadius: 2)),
+              shadows: List.generate(2, (index) => const Shadow(blurRadius: 2)),
             ),
           ),
           Image.asset(ImagePaths.gold, height: 28),
@@ -143,13 +143,13 @@ class BossResultRoundDialogContent extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(fontWeight: FontWeight.w500),
+            style: const TextStyle(fontWeight: FontWeight.w500),
             textAlign: TextAlign.center,
           ),
-          Spacer(),
+          const Spacer(),
           Text(
             value,
-            style: TextStyle(fontWeight: FontWeight.w500),
+            style: const TextStyle(fontWeight: FontWeight.w500),
             textAlign: TextAlign.center,
           ),
         ],
@@ -170,7 +170,7 @@ class BossResultRoundDialogAction extends StatefulWidget {
 
 class _BossResultRoundDialogActionState extends State<BossResultRoundDialogAction> with LoadingState {
 
-  bool get isNewScore => widget.model.time <= (UserManager.instance.getBestBossScore(widget.model.boss)["time"] ?? 0);
+  bool get isNewScore => widget.model.time <= (UserManager.instance.getBestBossScore(widget.model.boss)['time'] ?? 0);
 
   @override
   Widget build(BuildContext context) {
@@ -180,9 +180,9 @@ class _BossResultRoundDialogActionState extends State<BossResultRoundDialogActio
           bgColor: isNewScore ? AppColors.green.withOpacity(0.24) : AppColors.red.withOpacity(0.24),
           title: AppStrings.send,
           isButtonActive: !isLoading,
-          onPressed: () async => await submitScoreFn(),
+          onPressed: () async => submitScoreFn(),
         ).wrapExpanded(),
-        EmptyBox.w8(),
+        const EmptyBox.w8(),
         AppOutlinedButton(
           title: AppStrings.back,
           isButtonActive: !isLoading,
@@ -197,7 +197,7 @@ class _BossResultRoundDialogActionState extends State<BossResultRoundDialogActio
     final user = UserManager.instance.user;
     final uid = user.uid;
     final db = AppServices.instance.databaseService;
-    final bestTime = UserManager.instance.getBestBossScore(widget.model.boss)["time"];
+    final bestTime = UserManager.instance.getBestBossScore(widget.model.boss)['time'];
     final score = widget.model;
 
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
@@ -217,7 +217,7 @@ class _BossResultRoundDialogActionState extends State<BossResultRoundDialogActio
       return;
     }
 
-    var hasConnection = await InternetConnectionChecker().hasConnection;
+    final hasConnection = await InternetConnectionChecker().hasConnection;
     if (!hasConnection) {
       AppSnackBar.showSnackBarMessage(
         text: AppStrings.errorConnection, 
@@ -226,7 +226,7 @@ class _BossResultRoundDialogActionState extends State<BossResultRoundDialogActio
       return;
     }
 
-    db.createOrUpdateUser(user); // update db user model
+    await db.createOrUpdateUser(user); // update db user model
 
     changeLoadingState();
 
@@ -236,12 +236,12 @@ class _BossResultRoundDialogActionState extends State<BossResultRoundDialogActio
     if (isOk) {
       AppSnackBar.showSnackBarMessage(
         text: AppStrings.succesSubmitScore, 
-        snackBartype: SnackBarType.success
+        snackBartype: SnackBarType.success,
       );
     } else {
       AppSnackBar.showSnackBarMessage(
         text: AppStrings.errorMessage, 
-        snackBartype: SnackBarType.error
+        snackBartype: SnackBarType.error,
       );
     }
 

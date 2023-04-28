@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_null_comparison
+// ignore_for_file: unnecessary_null_comparison, avoid_redundant_argument_values
 
 import 'dart:math' as math;
 import 'dart:ui' as ui;
@@ -46,8 +46,8 @@ Rect _getRect(GlobalKey globalKey) {
   return Rect.fromPoints(renderBoxContainer.localToGlobal(
     renderBoxContainer.paintBounds.topLeft,
   ), renderBoxContainer.localToGlobal(
-    renderBoxContainer.paintBounds.bottomRight
-  ));
+    renderBoxContainer.paintBounds.bottomRight,
+  ),);
 }
 
 // The context menu arranges itself slightly differently based on the location
@@ -536,7 +536,7 @@ class _ContextMenuRoute<T> extends PopupRoute<T> {
     _sheetOpacity = _opacityTween.animate(CurvedAnimation(
       parent: animation!,
       curve: const Interval(0.9, 1.0),
-    ));
+    ),);
     Navigator.of(context).pop();
   }
 
@@ -614,7 +614,7 @@ class _ContextMenuRoute<T> extends PopupRoute<T> {
     _sheetOpacity = _opacityTween.animate(CurvedAnimation(
       parent: animation,
       curve: Curves.linear,
-    ));
+    ),);
     return animation;
   }
 
@@ -1044,7 +1044,7 @@ class _ContextMenuSheet extends StatelessWidget {
                     border: Border(
                       top: BorderSide(
                         color: CupertinoDynamicColor.resolve(_borderColor, context),
-                      )
+                      ),
                     ),
                   ),
                   position: DecorationPosition.foreground,

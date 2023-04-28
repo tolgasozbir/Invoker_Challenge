@@ -5,10 +5,10 @@ import '../constants/app_strings.dart';
 
 enum Elements {quas, wex, exort, invoke}
 
-extension elementsExtension on Elements {
+extension ElementsExtension on Elements {
   String get getImage => '${ImagePaths.elements}$name.png';
   String get getKey {
-    if (this.name == "invoke") return "r";
+    if (this.name == 'invoke') return 'r';
     return name[0];
   }
   Color get getColor {

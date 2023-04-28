@@ -53,7 +53,7 @@ class _ChallangerViewState extends State<ChallangerView> {
       top: kToolbarHeight,
       child: Snappable(
         key: UserManager.instance.snappableKey,
-        duration: Duration(milliseconds: 1600),
+        duration: const Duration(milliseconds: 1600),
         onSnapped: () => null,
         child: Image.asset(ImagePaths.icInvokerHead, height: 80),
       ),
@@ -62,7 +62,7 @@ class _ChallangerViewState extends State<ChallangerView> {
 
   Widget showLeaderBoardButton() {
     final isStart = context.watch<GameProvider>().isStart;
-    if (isStart) return EmptyBox();
+    if (isStart) return const EmptyBox();
     return AppOutlinedButton(
       title: AppStrings.leaderboard,
       width: context.dynamicWidth(0.4),

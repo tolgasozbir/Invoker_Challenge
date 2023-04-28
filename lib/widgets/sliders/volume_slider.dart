@@ -21,7 +21,7 @@ class VolumeSlider extends StatelessWidget {
         SoundManager.instance.setVolume(value);
         await AppServices.instance.localStorageService.setIntValue(
           LocalStorageKey.volume, 
-          value.ceil().toInt()
+          value.ceil(),
         );
       },
       appearance: CircularSliderAppearance(

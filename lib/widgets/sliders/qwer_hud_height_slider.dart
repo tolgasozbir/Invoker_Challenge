@@ -13,19 +13,19 @@ class QWERHudHeightSlider extends StatefulWidget {
   final int max;
   final bool fullWidth;
 
-  QWERHudHeightSlider({
+  const QWERHudHeightSlider({
     this.sliderHeight = 48,
     this.min = 0,
     this.max = 100,
-    this.fullWidth = true
+    this.fullWidth = true,
   });
 
   @override
-  _SliderWidgetState createState() => _SliderWidgetState();
+  State<QWERHudHeightSlider> createState() => _QWERHudHeightSliderState();
 }
 
-class _SliderWidgetState extends State<QWERHudHeightSlider> {
-  double _value = 0;
+class _QWERHudHeightSliderState extends State<QWERHudHeightSlider> {
+ double _value = 0;
 
   @override
   void initState() {
@@ -61,7 +61,7 @@ class _SliderWidgetState extends State<QWERHudHeightSlider> {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(widget.sliderHeight * 0.2),
             border: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
-            gradient: LinearGradient(colors: AppColors.qwerHudSliderGradient),
+            gradient: const LinearGradient(colors: AppColors.qwerHudSliderGradient),
           ),
           child: Row(
             children: [
@@ -76,10 +76,10 @@ class _SliderWidgetState extends State<QWERHudHeightSlider> {
                 onChangeEnd: (value) async {
                   await AppServices.instance.localStorageService.setIntValue(
                     LocalStorageKey.qwerHudHeight, 
-                    value.truncate()
+                    value.truncate(),
                   );
                 },
-              )).wrapCenter().wrapExpanded(),
+              ),).wrapCenter().wrapExpanded(),
               valueText(widget.max.toString())
             ],
           ).wrapPadding(EdgeInsets.symmetric(horizontal: widget.sliderHeight * paddingFactor)),
@@ -91,9 +91,9 @@ class _SliderWidgetState extends State<QWERHudHeightSlider> {
 
   IconButton infoQuestionMark() {
     return IconButton(
-      padding: EdgeInsets.only(left: 4),
-      constraints: BoxConstraints(),
-      icon: Icon(Icons.question_mark),
+      padding: const EdgeInsets.only(left: 4),
+      constraints: const BoxConstraints(),
+      icon: const Icon(Icons.question_mark),
       onPressed: () {
         AppSnackBar.showSnackBarMessage(
           text: AppStrings.qwerHudInfoMessage1, 
@@ -132,7 +132,7 @@ class _CustomSliderThumbCircle extends SliderComponentShape {
     required this.thumbRadius,
     required this.min,
     required this.max,
-    required this.thumbColor
+    required this.thumbColor,
   });
 
   @override
@@ -171,7 +171,7 @@ class _CustomSliderThumbCircle extends SliderComponentShape {
     final tp = TextPainter(
       text: span,
       textAlign: TextAlign.center,
-      textDirection: TextDirection.ltr
+      textDirection: TextDirection.ltr,
     );
     tp.layout();
     final textCenter = Offset(center.dx - (tp.width / 2), center.dy - (tp.height / 2));

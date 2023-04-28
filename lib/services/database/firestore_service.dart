@@ -43,9 +43,9 @@ class FirestoreService implements IDatabaseService {
   Future<void> createOrUpdateUser(UserModel userModel) async {
     //if not exist create if exist update
     try {
-      if (userModel.uid == null) throw Exception("uuid cant be null");
-      await _collectionRefUsers.doc(userModel.uid).set((userModel.toMap()))
-        .timeout(Duration(milliseconds: 5000), onTimeout: () { return; });
+      if (userModel.uid == null) throw Exception('uuid cant be null');
+      await _collectionRefUsers.doc(userModel.uid).set(userModel.toMap())
+        .timeout(const Duration(milliseconds: 5000), onTimeout: () { return; });
     } catch (e) {
       log(e.toString());
     }
@@ -54,11 +54,11 @@ class FirestoreService implements IDatabaseService {
   @override
   Future<UserModel?> getUserRecords(String uid) async {
     try {
-      var response = await _collectionRefUsers.doc(uid).get(GetOptions(source: Source.server));
+      final response = await _collectionRefUsers.doc(uid).get(const GetOptions(source: Source.server));
       if (response.data() != null) {
         return UserModel.fromMap(response.data()!);
       }
-      throw Exception("data is null");
+      throw Exception('data is null');
     } catch (e) {
       log(e.toString());
       return null;
@@ -89,8 +89,8 @@ class FirestoreService implements IDatabaseService {
 
   @override
   Future<bool> addBossScore(BossRoundResultModel score) async {
-    var collectionPathName = "Boss_" + score.boss.capitalize();
-    var collection = FirebaseFirestore.instance.collection(collectionPathName);
+    final collectionPathName = 'Boss_${score.boss.capitalize()}';
+    final collection = FirebaseFirestore.instance.collection(collectionPathName);
     try {
       await collection.doc(score.uid).set(score.toMap());
       return true;
@@ -106,8 +106,8 @@ class FirestoreService implements IDatabaseService {
       _noMoreSnackbar();
       return [];
     }
-    var collectionPathName = "Boss_" + bossName.capitalize();
-    var collection = FirebaseFirestore.instance.collection(collectionPathName);
+    final collectionPathName = 'Boss_${bossName.capitalize()}';
+    final collection = FirebaseFirestore.instance.collection(collectionPathName);
     QuerySnapshot<Map<String,dynamic>> snapshot;
     try {
       if (_lastDocument == null) {
@@ -128,7 +128,7 @@ class FirestoreService implements IDatabaseService {
         _hasMoreData = false;
       }
 
-      var data =  snapshot.docs.map((e) => BossRoundResultModel.fromMap(e.data())).toList();
+      final data =  snapshot.docs.map((e) => BossRoundResultModel.fromMap(e.data())).toList();
       return data;
     } 
     catch (e) {

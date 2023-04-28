@@ -18,15 +18,15 @@ class SocialIcon extends StatefulWidget {
 class _SocialIconState extends State<SocialIcon> with SingleTickerProviderStateMixin {
   late final AnimationController _animationController;
   late final Animation<double> _animation;
-  final _duration = Duration(milliseconds: 1000);
-  double _size = 40;
+  final _duration = const Duration(milliseconds: 1000);
+  final double _size = 40;
 
   @override
   void initState() {
     _animationController = AnimationController(
       vsync: this, 
       duration: _duration, 
-      reverseDuration: _duration
+      reverseDuration: _duration,
     )..repeat(reverse: true);
     _animation = Tween<double>(begin: 4, end: 12).animate(_animationController);
     _animationController.addListener(() => setState(() { }));
@@ -63,6 +63,7 @@ class _SocialIconState extends State<SocialIcon> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onTap: widget.onTap,
       child: Container(
         width: _size,
         height: _size,
@@ -73,18 +74,17 @@ class _SocialIconState extends State<SocialIcon> with SingleTickerProviderStateM
           gradient: const LinearGradient(
             colors: AppColors.aboutMeGradient,
             begin: Alignment.topLeft,
-            end: Alignment.bottomRight
+            end: Alignment.bottomRight,
           ),
           boxShadow: [
             BoxShadow(
               blurRadius: _animation.value,
-              color: AppColors.white
+              color: AppColors.white,
             ),
           ],
         ),
         child: Icon(widget.icon),
       ),
-      onTap: widget.onTap,
     );
   }
 }

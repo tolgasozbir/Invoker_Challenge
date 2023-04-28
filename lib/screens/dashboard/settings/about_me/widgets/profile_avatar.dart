@@ -12,7 +12,7 @@ import '../../../../../widgets/context_menu.dart';
 class ProfileAvatar extends StatelessWidget {
   const ProfileAvatar({super.key});
 
-  final name = "Tolga Sözbir";
+  String get name => 'Tolga Sözbir';
 
   @override
   Widget build(BuildContext context) {
@@ -34,19 +34,19 @@ class ProfileAvatar extends StatelessWidget {
       top: context.dynamicHeight(0.08),
       child: ContextMenu(
         previewBuilder: (context, animation, child) => previewImage(),
-        child: CircleImage(context),
+        child: circleImage(context),
       ),
     );
   }
 
   Image previewImage() => Image.asset(ImagePaths.profilePic);
 
-  CircleAvatar CircleImage(BuildContext context) {
+  CircleAvatar circleImage(BuildContext context) {
     return CircleAvatar(
       backgroundColor: Colors.white,
       radius: context.dynamicHeight(0.086),
       child: CircleAvatar(
-        backgroundImage: AssetImage(ImagePaths.profilePic),
+        backgroundImage: const AssetImage(ImagePaths.profilePic),
         radius: context.dynamicHeight(0.08),
         child: smallCircleIcon(context),
       ),
@@ -86,7 +86,7 @@ class ProfileAvatar extends StatelessWidget {
         textStyle: TextStyle(
           fontSize: context.sp(20),
           fontWeight: FontWeight.w500, 
-          shadows: [Shadow(blurRadius: 8,),],
+          shadows: const [Shadow(blurRadius: 8,),],
         ),
         direction: Direction.counterClockwise,
         startAngleAlignment: StartAngleAlignment.center,

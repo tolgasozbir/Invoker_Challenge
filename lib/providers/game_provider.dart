@@ -42,9 +42,9 @@ class GameProvider extends ChangeNotifier {
   }
 
   void showResultDialog(GameType gameType, DatabaseTable databaseTable) {
-    var score = getCorrectCombinationCount;
-    var challangerTime = getTimeValue;
-    var withTimerTime = 60 + (isAdWatched ? 30 : 0);
+    final int score = getCorrectCombinationCount;
+    final int challangerTime = getTimeValue;
+    final int withTimerTime = 60 + (isAdWatched ? 30 : 0);
     AchievementManager.instance.updatePlayedGame();
     UserManager.instance.addExp(score);
     AchievementManager.instance.updateLevel();

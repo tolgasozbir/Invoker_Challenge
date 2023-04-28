@@ -24,7 +24,7 @@ class LeaderboardBosses extends StatefulWidget {
 
 class _LeaderboardBossesState extends State<LeaderboardBosses> with LoadingState {
 
-  List<BossRoundResultModel>? results = null;
+  List<BossRoundResultModel>? results;
 
   @override
   void initState() {
@@ -48,9 +48,8 @@ class _LeaderboardBossesState extends State<LeaderboardBosses> with LoadingState
       color: AppColors.resultsCardBg, 
       child: Column(
         children: [
-          results == null
-            ? const CircularProgressIndicator.adaptive().wrapCenter()
-            : results!.isEmpty
+          if (results == null) const CircularProgressIndicator.adaptive().wrapCenter() 
+          else results!.isEmpty
               ? Lottie.asset(LottiePaths.lottieNoData, height: context.dynamicHeight(0.32))
               : resultListView(results!),
           if (results!= null && results!.isNotEmpty)
@@ -70,13 +69,13 @@ class _LeaderboardBossesState extends State<LeaderboardBosses> with LoadingState
         if ((results?.length ?? 0) >= 20) {
           AppSnackBar.showSnackBarMessage(
             text: AppStrings.sbCannotFetchMore, 
-            snackBartype: SnackBarType.info
+            snackBartype: SnackBarType.info,
           );
           return;
         }
         changeLoadingState();
         await Future.delayed(const Duration(seconds: 1));
-        results?.addAll((await AppServices.instance.databaseService.getBossScores(widget.bossName)));
+        results?.addAll(await AppServices.instance.databaseService.getBossScores(widget.bossName));
         changeLoadingState();
       },
     );
@@ -92,7 +91,7 @@ class _LeaderboardBossesState extends State<LeaderboardBosses> with LoadingState
         return GestureDetector(
           onTap: () => showDetailsDialog(data),
           child: Card(
-            margin: EdgeInsets.all(8),
+            margin: const EdgeInsets.all(8),
             color: AppColors.dialogBgColor,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -104,9 +103,9 @@ class _LeaderboardBossesState extends State<LeaderboardBosses> with LoadingState
                   softWrap: false,
                   overflow: TextOverflow.fade,
                 ),
-                Icon(Icons.arrow_drop_down_circle_outlined)
+                const Icon(Icons.arrow_drop_down_circle_outlined)
               ],
-            ).wrapPadding(EdgeInsets.all(8)),
+            ).wrapPadding(const EdgeInsets.all(8)),
           ),
         );
       },
@@ -114,17 +113,17 @@ class _LeaderboardBossesState extends State<LeaderboardBosses> with LoadingState
   }
 
   void showDetailsDialog(BossRoundResultModel model) {
-    var itemWidgets = model.items.map((e) => Image.asset((ImagePaths.items+e+'.png').replaceAll(" ", "_"),),).toList();
+    final itemWidgets = model.items.map((e) => Image.asset('${ImagePaths.items}$e.png'.replaceAll(' ', '_'),),).toList();
     AppDialogs.showSlidingDialog(
       dismissible: true,
       title: model.name,
       content: Column(
         children: [
-          _resultField("Elapsed Time", "${model.time} Sec"),
-          _resultField("Max DPS", priceString(model.maxDps)),
-          _resultField("Average DPS", priceString(model.averageDps)),
-          _resultField("Physical Damage", priceString(model.physicalDamage)),
-          _resultField("Magical Damage", priceString(model.magicalDamage)),
+          _resultField('Elapsed Time', '${model.time} Sec'),
+          _resultField('Max DPS', priceString(model.maxDps)),
+          _resultField('Average DPS', priceString(model.averageDps)),
+          _resultField('Physical Damage', priceString(model.physicalDamage)),
+          _resultField('Magical Damage', priceString(model.magicalDamage)),
           Container(
             padding: const EdgeInsets.all(8),
             margin: const EdgeInsets.symmetric(vertical: 2),
@@ -134,9 +133,9 @@ class _LeaderboardBossesState extends State<LeaderboardBosses> with LoadingState
             ),
             child: Row(
               children: [
-                Text("Items : ", style: TextStyle(fontWeight: FontWeight.w500),),
+                const Text('Items : ', style: TextStyle(fontWeight: FontWeight.w500),),
                 for (var i = 0; i < 6; i++)
-                  i < itemWidgets.length ? itemWidgets[i].wrapExpanded() : EmptyBox().wrapExpanded(),
+                  i < itemWidgets.length ? itemWidgets[i].wrapExpanded() : const EmptyBox().wrapExpanded(),
               ],
             ),
           ),
@@ -163,13 +162,13 @@ class _LeaderboardBossesState extends State<LeaderboardBosses> with LoadingState
         children: [
           Text(
             title,
-            style: TextStyle(fontWeight: FontWeight.w500),
+            style: const TextStyle(fontWeight: FontWeight.w500),
             textAlign: TextAlign.center,
           ),
-          Spacer(),
+          const Spacer(),
           Text(
             value,
-            style: TextStyle(fontWeight: FontWeight.w500),
+            style: const TextStyle(fontWeight: FontWeight.w500),
             textAlign: TextAlign.center,
           ),
         ],

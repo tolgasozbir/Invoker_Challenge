@@ -8,8 +8,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class AdsHelper {
   AdsHelper._();
-  static AdsHelper _instance = AdsHelper._();
-  static AdsHelper get instance => _instance;
+  static final AdsHelper instance = AdsHelper._();
 
   int adCounter = 0;
 
@@ -21,60 +20,60 @@ class AdsHelper {
     if (enableAndroidTestIds) return 'ca-app-pub-3940256099942544/6300978111';
 
     if (Platform.isAndroid) {
-      return FlutterConfig.get("BANNER_AD_UNIT_ID_ANDROID");
+      return FlutterConfig.get('BANNER_AD_UNIT_ID_ANDROID') as String;
     }
 
     if (Platform.isIOS) {
-      return FlutterConfig.get("BANNER_AD_UNIT_ID_IOS");
+      return FlutterConfig.get('BANNER_AD_UNIT_ID_IOS') as String;
     }
 
-    throw UnsupportedError("Unsupported platform");
+    throw UnsupportedError('Unsupported platform');
   }
   
   String get appOpenAdUnitId {
     if (enableAndroidTestIds) return 'ca-app-pub-3940256099942544/3419835294';
 
     if (Platform.isAndroid) {
-      return FlutterConfig.get("APP_OPEN_AD_ANDROID");
+      return FlutterConfig.get('APP_OPEN_AD_ANDROID') as String;
     }
 
     if (Platform.isIOS) {
-      return FlutterConfig.get("APP_OPEN_AD_IOS");
+      return FlutterConfig.get('APP_OPEN_AD_IOS') as String;
     }
 
-    throw UnsupportedError("Unsupported platform");
+    throw UnsupportedError('Unsupported platform');
   }
   
   String get rewardedInterstitialAdUnitId {
     if (enableAndroidTestIds) return 'ca-app-pub-3940256099942544/5354046379';
 
     if (Platform.isAndroid) {
-      return FlutterConfig.get("REWARDED_INTERSTITIAL_AD_ANDROID");
+      return FlutterConfig.get('REWARDED_INTERSTITIAL_AD_ANDROID') as String;
     }
 
     if (Platform.isIOS) {
-      return FlutterConfig.get("REWARDED_INTERSTITIAL_AD_IOS");
+      return FlutterConfig.get('REWARDED_INTERSTITIAL_AD_IOS') as String;
     }
 
-    throw UnsupportedError("Unsupported platform");
+    throw UnsupportedError('Unsupported platform');
   }
 
   String get interstitialAdUnitId {
     if (enableAndroidTestIds) return 'ca-app-pub-3940256099942544/8691691433';
 
     if (Platform.isAndroid) {
-      return FlutterConfig.get("INTERSTITIAL_AD_ANDROID");
+      return FlutterConfig.get('INTERSTITIAL_AD_ANDROID') as String;
     }
 
     if (Platform.isIOS) {
-      return FlutterConfig.get("INTERSTITIAL_AD_IOS");
+      return FlutterConfig.get('INTERSTITIAL_AD_IOS') as String;
     }
 
-    throw UnsupportedError("Unsupported platform");
+    throw UnsupportedError('Unsupported platform');
   }
 
   //AppOpenAd
-  Future<void> AppOpenAdLoad() async {
+  Future<void> appOpenAdLoad() async {
     AppOpenAd? appOpenAd;
     await AppOpenAd.load(
       adUnitId: appOpenAdUnitId, 
@@ -84,9 +83,9 @@ class AdsHelper {
           appOpenAd = ad;
           appOpenAd!.show();
         }, 
-        onAdFailedToLoad: (error) => log('Ad failed to load: ' + error.message),
+        onAdFailedToLoad: (error) => log('Ad failed to load: ${error.message}'),
       ), 
-      orientation: AppOpenAd.orientationPortrait
+      orientation: AppOpenAd.orientationPortrait,
     );
   }
 
@@ -98,7 +97,7 @@ class AdsHelper {
       request: const AdRequest(),
       rewardedInterstitialAdLoadCallback: RewardedInterstitialAdLoadCallback(
         onAdLoaded: (ad) => rewardedInterstitialAd = ad,
-        onAdFailedToLoad: (error) => log('Ad failed to load: ' + error.message),
+        onAdFailedToLoad: (error) => log('Ad failed to load: ${error.message}'),
       ),
     );
   }
@@ -108,13 +107,12 @@ class AdsHelper {
   Future<void> interstitialAdLoad() async {
     await InterstitialAd.load(
       adUnitId: AdsHelper.instance.interstitialAdUnitId,
-      request: AdRequest(),
+      request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (ad) {
           interstitialAd = ad;
           ad.fullScreenContentCallback = FullScreenContentCallback(
             onAdShowedFullScreenContent: (ad) {
-              print("watched");
               interstitialAdLoad();
             },
             onAdDismissedFullScreenContent: (ad) {
@@ -127,7 +125,7 @@ class AdsHelper {
             },
           );
         },
-        onAdFailedToLoad: (error) => log('Ad failed to load: ' + error.message),
+        onAdFailedToLoad: (error) => log('Ad failed to load: ${error.message}'),
       ),
     );
   }
@@ -157,17 +155,17 @@ class _AdBannerState extends State<AdBanner> {
         onAdLoaded: (ad) => setState(() => _isAdLoaded = true),
         onAdFailedToLoad: (ad, error) {
           ad.dispose();
-          log('Ad failed to load: ' + error.message);
+          log('Ad failed to load: ${error.message}');
         },
       ), 
-      request: const AdRequest(httpTimeoutMillis: 5000)
+      request: const AdRequest(httpTimeoutMillis: 5000),
     )..load();
   }
 
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => _initBannerAd());
+    Future.microtask(_initBannerAd);
   }
 
   @override

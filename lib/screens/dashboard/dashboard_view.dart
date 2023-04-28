@@ -25,12 +25,12 @@ class DashboardView extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: _bodyView(context),
-      bottomNavigationBar: AdBanner()
+      bottomNavigationBar: const AdBanner(),
     );
   }
 
   Widget _bodyView(BuildContext context) {
-    var user = context.watch<UserManager>().user;
+    final user = context.watch<UserManager>().user;
     return SafeArea(
       child: SizedBox.expand(
         child: Column(
@@ -48,7 +48,7 @@ class DashboardView extends StatelessWidget {
                   position: index, 
                   child: SlideAnimation(
                     verticalOffset: -100,
-                    child: FadeInAnimation(child: menuBtns[index])
+                    child: FadeInAnimation(child: menuBtns[index]),
                   ),
                 ),
               ),
@@ -56,7 +56,7 @@ class DashboardView extends StatelessWidget {
             const Spacer(),
             SizedBox(
               width: double.infinity,
-              child: Text(AppStrings.appVersion).wrapPadding(EdgeInsets.all(8))
+              child: const Text(AppStrings.appVersion).wrapPadding(const EdgeInsets.all(8)),
             ),
           ],
         ),
@@ -87,9 +87,9 @@ class DashboardView extends StatelessWidget {
       color: AppColors.white,
       imagePath: Elements.invoke.getImage, 
       title: AppStrings.titleBossMode,
-      navigatePage: BossModeView(),
+      navigatePage: const BossModeView(),
     ),
-    MenuButton.exit(
+    const MenuButton.exit(
       backgroundColor: AppColors.exitBtnBgColor,
       color: AppColors.exitBtnColor,
       imagePath: ImagePaths.icInvokeLine, 

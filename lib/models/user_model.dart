@@ -16,7 +16,7 @@ class UserModel {
   });
 
   UserModel.guest({
-    this.uid = null,
+    this.uid,
     required this.username,
     this.challangerLife = 0,
     this.bestChallengerScore = 0,
@@ -67,9 +67,9 @@ class UserModel {
       level: map['level'] as int,
       exp: double.tryParse(map['exp'].toString()) ?? 0, 
       expMultiplier: double.tryParse(map['expMultiplier'].toString()) ?? 0,
-      talentTree: map['talentTree'] != null ? Map<String,dynamic>.from((map['talentTree'] as Map<String,dynamic>)) : null,
-      achievements: map['achievements'] != null ? Map<String,dynamic>.from((map['achievements'] as Map<String,dynamic>)) : null,
-      bestBossScores: map['bestBossScores'] != null ? Map<String,dynamic>.from((map['bestBossScores'] as Map<String,dynamic>)) : null,
+      talentTree: map['talentTree'] != null ? Map<String,dynamic>.from(map['talentTree'] as Map<String,dynamic>) : null,
+      achievements: map['achievements'] != null ? Map<String,dynamic>.from(map['achievements'] as Map<String,dynamic>) : null,
+      bestBossScores: map['bestBossScores'] != null ? Map<String,dynamic>.from(map['bestBossScores'] as Map<String,dynamic>) : null,
     );
   }
 

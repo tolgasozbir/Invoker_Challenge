@@ -25,12 +25,12 @@ class ProfileDialogContent extends StatelessWidget {
       child: Column(
         children: [
           achievements(context),
-          Divider(color: AppColors.amber),
+          const Divider(color: AppColors.amber),
           bossGallery(context),
-          Divider(color: AppColors.amber),
-          Spacer(),
+          const Divider(color: AppColors.amber),
+          const Spacer(),
           syncDataBtn(context),
-          EmptyBox.h8(),
+          const EmptyBox.h8(),
           logoutbtn(context),
         ],
       ),
@@ -39,8 +39,8 @@ class ProfileDialogContent extends StatelessWidget {
 
   InkWell achievements(BuildContext context) {
     AchievementManager.instance.updateAchievements();
-    var totalCount = AchievementManager.instance.achievements.length;
-    var current = AchievementManager.instance.achievements.where((e) => e.isDone == true).toList().length;
+    final totalCount = AchievementManager.instance.achievements.length;
+    final current = AchievementManager.instance.achievements.where((e) => e.isDone == true).toList().length;
     return InkWell(
       child: SizedBox(
         height: context.dynamicHeight(0.14),
@@ -50,20 +50,20 @@ class ProfileDialogContent extends StatelessWidget {
             Image.asset(ImagePaths.icAchievements),
             Column(
               children: [
-                Text(AppStrings.achievements)
+                const Text(AppStrings.achievements)
                   .wrapFittedBox()
                   .wrapExpanded(flex: 2),
                 Text('$current/$totalCount',)
                   .wrapFittedBox()
                   .wrapExpanded(flex: 1),
-                Spacer(),
+                const Spacer(),
               ],
             ).wrapExpanded(flex: 2),
-            Icon(Icons.chevron_right, color: AppColors.amber).wrapCenter()
+            const Icon(Icons.chevron_right, color: AppColors.amber).wrapCenter()
           ],
         ),
       ),
-      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => AchievementsView(),)),
+      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const AchievementsView(),)),
     );
   }
   
@@ -72,15 +72,14 @@ class ProfileDialogContent extends StatelessWidget {
       child: SizedBox(
         height: context.dynamicHeight(0.14),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image.asset(ImagePaths.icInvokerHead).wrapExpanded(flex: 2),
-            FittedBox(child: Text(AppStrings.bossGallery)).wrapExpanded(flex: 3),
-            Icon(Icons.chevron_right, color: AppColors.amber),
+            const FittedBox(child: Text(AppStrings.bossGallery)).wrapExpanded(flex: 3),
+            const Icon(Icons.chevron_right, color: AppColors.amber),
           ],
         ),
       ),
-      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => BossGalleryView(),)),
+      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const BossGalleryView(),)),
     );
   }
 
@@ -88,7 +87,7 @@ class ProfileDialogContent extends StatelessWidget {
     return AppOutlinedButton(
       width: double.infinity,
       onPressed: () async {
-        var hasConnection = await InternetConnectionChecker().hasConnection;
+        final hasConnection = await InternetConnectionChecker().hasConnection;
         if (!hasConnection) {
           AppSnackBar.showSnackBarMessage(text: AppStrings.errorConnection, snackBartype: SnackBarType.error);
           return;
@@ -104,7 +103,7 @@ class ProfileDialogContent extends StatelessWidget {
         AppSnackBar.showSnackBarMessage(text: AppStrings.syncDataSuccess, snackBartype: SnackBarType.success);
         if (context.mounted) Navigator.pop(context);
       }, 
-      title: AppStrings.syncData
+      title: AppStrings.syncData,
     );
   }
   
@@ -117,7 +116,7 @@ class ProfileDialogContent extends StatelessWidget {
         AchievementManager.instance.reset(); //Reset achievements
         if (context.mounted) Navigator.pop(context);
       }, 
-      title: AppStrings.logout
+      title: AppStrings.logout,
     );
   }
 

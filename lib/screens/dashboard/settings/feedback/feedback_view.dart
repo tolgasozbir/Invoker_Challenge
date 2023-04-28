@@ -56,37 +56,37 @@ class _FeedbackViewState extends State<FeedbackView> with SingleTickerProviderSt
       highlightColor: AppColors.transparent,
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         child: SizedBox(
           height: context.height,
           width: context.width,
           child: Column(
             children: [
-              EmptyBox.h8(),
+              const EmptyBox.h8(),
               LottieBuilder.asset(LottiePaths.lottieFeedback, width: double.infinity,).wrapExpanded(flex: 4),
-              EmptyBox.h8(),
+              const EmptyBox.h8(),
               Container(
                 width: context.dynamicWidth(0.9),
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: context.theme.cardColor,
                   borderRadius: const BorderRadius.all(Radius.circular(8)),
-                  border: Border.all()
+                  border: Border.all(),
                 ),
                 child: Column(
                   children: [
-                    EmptyBox.h16(),
+                    const EmptyBox.h16(),
                     titleText(),
-                    EmptyBox.h16(),
+                    const EmptyBox.h16(),
                     middleText(),
-                    EmptyBox.h8(),
+                    const EmptyBox.h8(),
                     RatingFaces(onSelected: (value) => _ratingValue = value).wrapExpanded(),
                     feedbackTextField().wrapExpanded(flex: 3),
                   ],
                 ),
               ).wrapExpanded(flex: 10),
               sendButton(),
-              Spacer(),
+              const Spacer(),
             ],
           ),
         ),
@@ -95,13 +95,13 @@ class _FeedbackViewState extends State<FeedbackView> with SingleTickerProviderSt
   }
 
   Row titleText() {
-    var textStyle = TextStyle(fontSize: context.sp(16), fontWeight: FontWeight.bold);
+    final textStyle = TextStyle(fontSize: context.sp(16), fontWeight: FontWeight.bold);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(AppStrings.fbTitleFirst, style: textStyle.copyWith(color: Color(0xFF4295F9)),),
-        EmptyBox.w4(),
-        Text(AppStrings.fbTitleSecond, style: textStyle.copyWith(color: Color(0xFF29C594))),
+        Text(AppStrings.fbTitleFirst, style: textStyle.copyWith(color: const Color(0xFF4295F9)),),
+        const EmptyBox.w4(),
+        Text(AppStrings.fbTitleSecond, style: textStyle.copyWith(color: const Color(0xFF29C594))),
       ],
     );
   }
@@ -132,7 +132,7 @@ class _FeedbackViewState extends State<FeedbackView> with SingleTickerProviderSt
           title: AppStrings.fbSendBtn,
           width: context.dynamicWidth(0.9),
           bgColor: AppColors.fbSendBtn,
-          padding: EdgeInsets.only(top: 16),
+          padding: const EdgeInsets.only(top: 16),
           isButtonActive: !isLoading,
           onPressed: sendBtnFn,
         ),
@@ -158,34 +158,34 @@ class _FeedbackViewState extends State<FeedbackView> with SingleTickerProviderSt
       return;
     }
 
-    var hasConnection = await InternetConnectionChecker().hasConnection;
+    final hasConnection = await InternetConnectionChecker().hasConnection;
     if (!hasConnection) {
       AppSnackBar.showSnackBarMessage(text: AppStrings.errorConnection, snackBartype: SnackBarType.info);
       return;
     }
 
     changeLoadingState();
-    var feedback = FeedbackModel(
+    final feedback = FeedbackModel(
       senderId: UserManager.instance.user.uid,
       sender: UserManager.instance.user.username, 
       ratePoint: _ratingValue, 
       message: _feedbackController.text,
-      createdAt: getFormattedDate
+      createdAt: getFormattedDate,
     );
 
-    var success = await AppServices.instance.databaseService.sendFeedback(feedback);
-    final duration = const Duration(milliseconds: 3000);
+    final success = await AppServices.instance.databaseService.sendFeedback(feedback);
+    const duration = Duration(milliseconds: 3000);
     if (success) {
       await _lottieController.animateTo(1);
       _feedbackController.clear();
       AppSnackBar.showSnackBarMessage(
         text: AppStrings.feedbackSuccessMessage, 
         snackBartype: SnackBarType.success,
-        duration: duration
+        duration: duration,
       );
     }else {
       AppSnackBar.showSnackBarMessage(
-        text: AppStrings.errorMessage + " " +  AppStrings.errorConnection, 
+        text: '${AppStrings.errorMessage} ${AppStrings.errorConnection}', 
         snackBartype: SnackBarType.error,
         duration: duration,
       );

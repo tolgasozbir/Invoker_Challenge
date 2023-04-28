@@ -22,8 +22,8 @@ class _RatingFacesState extends State<RatingFaces> {
   Widget build(BuildContext context) {
     return Row(
       children: List.generate(ImagePaths.ratingFaces.length, (index) {
-        var svg = ImagePaths.ratingFaces[index];
-        var isSelected = selectedIndex == index+1;
+        final svg = ImagePaths.ratingFaces[index];
+        final isSelected = selectedIndex == index+1;
         flex = isSelected ? 6 : 5;
         return InkWell(
           child: SvgPicture.asset(svg, color: isSelected ? AppColors.amber : AppColors.white30),
@@ -32,7 +32,7 @@ class _RatingFacesState extends State<RatingFaces> {
             setState(() => selectedIndex = index+1);
             widget.onSelected.call(selectedIndex);
           },
-        ).wrapPadding(EdgeInsets.symmetric(horizontal: 4)).wrapExpanded(flex: flex);
+        ).wrapPadding(const EdgeInsets.symmetric(horizontal: 4)).wrapExpanded(flex: flex);
       }),
     );
   }

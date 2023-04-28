@@ -9,7 +9,7 @@ import '../providers/game_provider.dart';
 
 mixin OrbMixin<T extends StatefulWidget> on State<T> {
 
-  List<String> _currentCombination=['q','w','e'];
+  final List<String> _currentCombination = ['q','w','e'];
   String get currentCombination => _currentCombination.join();
 
   BoxDecoration qwerAbilityDecoration(Color color) => BoxDecoration(
@@ -19,7 +19,7 @@ mixin OrbMixin<T extends StatefulWidget> on State<T> {
       BoxShadow(
         color: color, 
         blurRadius: 16,
-        offset: Offset(2, 2)
+        offset: const Offset(2, 2),
       ),
     ],
   );
@@ -28,14 +28,14 @@ mixin OrbMixin<T extends StatefulWidget> on State<T> {
     borderRadius: BorderRadius.circular(2),
     border: Border.all(
       width: 1.6, 
-      strokeAlign: BorderSide.strokeAlignOutside
+      strokeAlign: BorderSide.strokeAlignOutside,
     ),
-    boxShadow: [
+    boxShadow: const [
       BoxShadow(
         color: AppColors.orbsShadow, 
         blurRadius: 4, 
         spreadRadius: 2,
-        offset: Offset(2, 2)
+        offset: Offset(2, 2),
       ),
     ],
   );  

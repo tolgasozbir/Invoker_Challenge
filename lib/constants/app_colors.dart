@@ -15,8 +15,8 @@ class AppColors {
   static const Color infoColor    = Color(0xFF0070E0);
   
   //True false icon colors
-  static const Color correctIconColor  = const Color(0xFF33CC33);
-  static const Color wrongIconColor = const Color(0xFFCC3333);
+  static const Color correctIconColor  = Color(0xFF33CC33);
+  static const Color wrongIconColor = Color(0xFFCC3333);
 
   //Button colors
   static const Color outlinedBorder    = Color(0xFF9BBED7); //app outlined button
@@ -40,13 +40,13 @@ class AppColors {
 
   //About me
   static const Color aboutMeSmallCircle = Colors.deepPurple;
-  static const aboutMeGradient = const [
+  static const aboutMeGradient = [
     Colors.purple, 
     Colors.deepPurpleAccent
   ];
 
   //hud slider
-  static const qwerHudSliderGradient = const [
+  static const qwerHudSliderGradient = [
     Color(0xFF5C5C5C),
     Color(0xFF757575),
     Color(0xFF5C5C5C),

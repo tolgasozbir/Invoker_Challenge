@@ -42,27 +42,27 @@ abstract class SplashViewModel extends State<SplashView> {
   Future<void> loadAds() async {
     await AdsHelper.instance.rewardedInterstitialAdLoad();
     await AdsHelper.instance.interstitialAdLoad();
-    await AdsHelper.instance.AppOpenAdLoad();
+    await AdsHelper.instance.appOpenAdLoad();
   }
 
   Future<void> getUserRecords() async {
     // await AppServices.instance.localStorageService.removeValue(LocalStorageKey.userRecords);
     // await AppServices.instance.firebaseAuthService.signOut();
-    var isLoggedIn = UserManager.instance.isLoggedIn();
-    var hasConnection = await InternetConnectionChecker().hasConnection;
+    final isLoggedIn = UserManager.instance.isLoggedIn();
+    final hasConnection = await InternetConnectionChecker().hasConnection;
     //fetch or create user record and set data
     UserManager.instance.setUser(await UserManager.instance.fetchOrCreateUser());
     //Saving local data to db if user is logged in and has internet connection
     if (isLoggedIn && hasConnection) {
       await AppServices.instance.databaseService.createOrUpdateUser(UserManager.instance.user);
     } 
-    log(UserManager.instance.user.uid ?? "uid: null");
+    log(UserManager.instance.user.uid ?? 'uid: null');
     log(UserManager.instance.user.username);
   }
 
   void getSettingsValues() {
     SoundManager.instance.setVolume(
-      AppServices.instance.localStorageService.getIntValue(LocalStorageKey.volume)?.toDouble() ?? 80
+      AppServices.instance.localStorageService.getIntValue(LocalStorageKey.volume)?.toDouble() ?? 80,
     );
   }
 

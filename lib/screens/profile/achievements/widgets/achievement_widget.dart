@@ -11,14 +11,14 @@ class AchievementWidget extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    var currentProgress = achievement.currentProgress.toDouble();
-    var max = achievement.maxProgress.toDouble();
-    var current = currentProgress >= max ? max : currentProgress;
+    final currentProgress = achievement.currentProgress.toDouble();
+    final max = achievement.maxProgress.toDouble();
+    final current = currentProgress >= max ? max : currentProgress;
     return Container(
       color: Colors.grey.withOpacity(0.2),
       height: context.dynamicHeight(0.12),
-      margin: EdgeInsets.only(bottom: 8),
-      padding: EdgeInsets.only(right: 8),
+      margin: const EdgeInsets.only(bottom: 8),
+      padding: const EdgeInsets.only(right: 8),
       child: Row(
         children: [
           Image.asset(
@@ -27,28 +27,27 @@ class AchievementWidget extends StatelessWidget {
           ).wrapExpanded(),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
                 achievement.title, 
-                style: TextStyle(fontSize: context.sp(16))
+                style: TextStyle(fontSize: context.sp(16)),
               ).wrapFittedBox(),
               Text(
                 achievement.description, 
-                style: TextStyle(fontSize: context.sp(10))
+                style: TextStyle(fontSize: context.sp(10)),
               ).wrapFittedBox(),
               Row(
                 children: [
                   Text(current.toStringAsFixed(0)),
-                  EmptyBox.w8(),
+                  const EmptyBox.w8(),
                   ProgressSlider(
                     trackHeight: 6,
                     current: current,  
                     max: max,
                   ).wrapExpanded(),
-                  EmptyBox.w8(),
+                  const EmptyBox.w8(),
                   Text(max.toStringAsFixed(0)),
-                  EmptyBox.w12(),
+                  const EmptyBox.w12(),
                 ],
               ),
             ],

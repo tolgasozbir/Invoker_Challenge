@@ -20,8 +20,8 @@ enum Bosses {
   final double _health;
 }
 
-extension bossExtension on Bosses {
+extension BossExtension on Bosses {
   double get getHp => _health;
   String get getImage => '${ImagePaths.bosses}boss_$name.png';
-  String get getName => name.replaceAll("_", " ").capitalize();
+  String get getName => name.replaceAll('_', ' ').capitalize();
 }

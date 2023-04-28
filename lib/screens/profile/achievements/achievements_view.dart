@@ -15,24 +15,24 @@ class AchievementsView extends StatelessWidget {
       extendBodyBehindAppBar: false,
       appbar: AppBar(
         centerTitle: true,
-        title: Text(AppStrings.achievements),
+        title: const Text(AppStrings.achievements),
       ),
-      body: _bodyView()
+      body: _bodyView(),
     );
   }
 
   Widget _bodyView() {
     AchievementManager.instance.initAchievements();
-    var achievements = AchievementManager.instance.achievements;
+    final achievements = AchievementManager.instance.achievements;
     return AnimationLimiter(
       child: ListView.builder(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         itemCount: achievements.length,
         itemBuilder: (BuildContext context, int index) {
-          var achievement = achievements[index];
+          final achievement = achievements[index];
           return AnimationConfiguration.staggeredList(
             position: index,
-            duration: Duration(milliseconds: 1200),
+            duration: const Duration(milliseconds: 1200),
             child: SlideAnimation(
               horizontalOffset: 300,//index.isEven ? 300 : -300,
                 child: FadeInAnimation(

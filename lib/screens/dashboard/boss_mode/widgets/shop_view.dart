@@ -51,7 +51,7 @@ class _ShopViewState extends State<ShopView> {
   Widget _bodyView() {
     return Column(
       children: [
-        AdBanner(adSize: AdSize.fullBanner),
+        const AdBanner(adSize: AdSize.fullBanner),
         GridView.builder(
           shrinkWrap: true,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -59,35 +59,35 @@ class _ShopViewState extends State<ShopView> {
           ),
           itemCount: Items.values.length,
           itemBuilder: (BuildContext context, int index) {
-            var item = Items.values[index];
+            final item = Items.values[index];
             return InkWell(
               child: Container(
-                margin: EdgeInsets.all(4),
+                margin: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
                   color: Colors.black.withOpacity(0.32),
                   border: Border.all(color: AppColors.amber.withOpacity(0.72)),
-                  borderRadius: BorderRadius.all(Radius.circular(6))
+                  borderRadius: const BorderRadius.all(Radius.circular(6)),
                 ),
-                child: Image.asset(item.image)
+                child: Image.asset(item.image),
               ),
               onTap: () {
                 AppDialogs.showScaleDialog(
-                  dialogBgColor: Color(0xFF1C2834),
+                  dialogBgColor: const Color(0xFF1C2834),
                   content: ItemDescriptionWidget(item: Item(item: item)),
                 );
               },
             );
           },
-        ).wrapPadding(EdgeInsets.all(8)),
-        Spacer(),
+        ).wrapPadding(const EdgeInsets.all(8)),
+        const Spacer(),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            InventoryHud(isItemsSellable: true),
-            EmptyBox().wrapExpanded(),
+            const InventoryHud(isItemsSellable: true),
+            const EmptyBox().wrapExpanded(),
           ],
         ),
-        EmptyBox.h16(),
+        const EmptyBox.h16(),
       ],
     );
   }
@@ -109,10 +109,10 @@ class GoldWidget extends StatelessWidget {
             fontSize: context.sp(14), 
             fontWeight: FontWeight.bold,
             color: AppColors.goldColor,
-            shadows: [
+            shadows: const [
               BoxShadow(color: AppColors.goldColor, blurRadius: 12),
-              BoxShadow(color: AppColors.black, blurRadius: 8),
-            ]
+              BoxShadow(blurRadius: 8),
+            ],
           ),
         ),
         Image.asset(ImagePaths.gold, height: iconHeight),

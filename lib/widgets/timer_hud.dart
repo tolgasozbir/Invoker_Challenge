@@ -14,7 +14,7 @@ class TimerHud extends StatelessWidget {
   final GameType gameType;
 
   String getTimerValue(BuildContext context) {
-    var gameProvider = context.watch<GameProvider>();
+    final gameProvider = context.watch<GameProvider>();
     switch (gameType) {
       case GameType.Training:
       case GameType.Challanger:
@@ -29,7 +29,7 @@ class TimerHud extends StatelessWidget {
     return PhysicalModel(
       color: AppColors.transparent,
       elevation: 16, //24
-      borderRadius: BorderRadius.vertical(bottom: Radius.circular(50)),
+      borderRadius: const BorderRadius.vertical(bottom: Radius.circular(50)),
       child: Stack(
         alignment: Alignment.topCenter,
         children: [
@@ -39,9 +39,9 @@ class TimerHud extends StatelessWidget {
             style: TextStyle(
               fontSize: context.dynamicHeight(0.032), //0.4
               color: AppColors.white,
-              shadows: List.generate(2, (index) => Shadow(blurRadius: 8,)),
+              shadows: List.generate(2, (index) => const Shadow(blurRadius: 8,)),
             ),
-          ).wrapPadding(EdgeInsets.only(top: 4)),
+          ).wrapPadding(const EdgeInsets.only(top: 4)),
         ],
       ),
     );

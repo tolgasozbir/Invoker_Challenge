@@ -22,6 +22,6 @@ enum Spells {
 
 }
 
-extension spellsExtension on Spells {
+extension SpellsExtension on Spells {
   String get image => '${ImagePaths.spells}$name.png';
 }

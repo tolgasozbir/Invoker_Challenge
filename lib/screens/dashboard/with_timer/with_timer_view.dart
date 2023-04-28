@@ -42,14 +42,14 @@ class _WithTimerViewState extends State<WithTimerView> {
 
   Widget showLeaderBoardButton() {
     final isStart = context.watch<GameProvider>().isStart;
-    if (isStart) return EmptyBox();
+    if (isStart) return const EmptyBox();
     return AppOutlinedButton(
       title: AppStrings.leaderboard, 
       width: context.dynamicWidth(0.4),
       padding: EdgeInsets.only(top: context.dynamicHeight(0.02)),
       onPressed: () => AppDialogs.showScaleDialog(
         title: AppStrings.leaderboard,
-        content: LeaderboardWithTimer(),
+        content: const LeaderboardWithTimer(),
         action: AppOutlinedButton(
           title: AppStrings.back,
           onPressed: (){

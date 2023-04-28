@@ -16,7 +16,7 @@ class UserManager extends ChangeNotifier {
 
   final snappableKey = GlobalKey<SnappableState>();
 
-  UserModel? _userModel;
+  late UserModel? _userModel;
   UserModel get user => _userModel!;
 
   void setUser(UserModel user){
@@ -24,12 +24,12 @@ class UserManager extends ChangeNotifier {
   }
 
   bool isLoggedIn() {
-    var user = AppServices.instance.firebaseAuthService.getCurrentUser;
+    final user = AppServices.instance.firebaseAuthService.getCurrentUser;
     return user == null ? false : true;
   }
 
   UserModel createUser() {
-    var guest = UserModel.guest(username: AppStrings.guest+idGenerator());
+    final guest = UserModel.guest(username: AppStrings.guest+idGenerator());
     return guest;
   }
 
@@ -38,7 +38,7 @@ class UserManager extends ChangeNotifier {
   }
 
   Future<UserModel?> getUserFromDb(String uid) async {
-    return await AppServices.instance.databaseService.getUserRecords(uid);
+    return AppServices.instance.databaseService.getUserRecords(uid);
   }
 
   Future<void> setAndSaveUserToLocale(UserModel user) async {
@@ -54,30 +54,30 @@ class UserManager extends ChangeNotifier {
     final localData = getUserFromLocal();
     if (localData != null) {
       setUser(UserModel.fromJson(localData));
-      return this.user;
+      return user;
     } 
     else {
       //create new userModel and save to locale
-      var createdUser = createUser();
+      final createdUser = createUser();
       await setAndSaveUserToLocale(createdUser);
       //I can't change the initial const values (achievement & talentTree) ​​so I create the User model from scratch
-      var savedUser = UserModel.fromJson(getUserFromLocal()!);
+      final savedUser = UserModel.fromJson(getUserFromLocal()!);
       await setAndSaveUserToLocale(savedUser);
       return savedUser;
     }
   }
 
   Map<String, dynamic> getBestBossScore(String bossName) {
-    return user.bestBossScores?[bossName] ?? {};
+    return user.bestBossScores?[bossName] as Map<String, dynamic>? ?? {};
   }
 
   void updateBestBossTimeScore(String bossName, int value, BossRoundResultModel model) async {
     user.bestBossScores ??= {}; // null check
     user.bestBossScores?.putIfAbsent(bossName, () => model.toMap());
-    if (isLoggedIn() && user.bestBossScores![bossName]["name"].toString().startsWith("Guest")) {
-      user.bestBossScores![bossName]["name"] = user.username;
+    if (isLoggedIn() && user.bestBossScores![bossName]['name'].toString().startsWith('Guest')) {
+      user.bestBossScores![bossName]['name'] = user.username;
     }
-    if ((user.bestBossScores?[bossName]["time"] ?? 0) < value) return;
+    if ((user.bestBossScores?[bossName]['time'] as int? ?? 0) < value) return;
     if (user.bestBossScores!.containsKey(bossName)) {
       user.bestBossScores?[bossName] = model.toMap();
     }
@@ -112,11 +112,11 @@ class UserManager extends ChangeNotifier {
   double get getNextLevelExp => user.level * 25;
   double get _getCurrentExp   => user.exp;
   double get _expMultiplier   => user.expMultiplier;
-  double expCalc(int exp) => (exp * _expMultiplier);
-  int _maxLevel = 30;
+  double expCalc(int exp) => exp * _expMultiplier;
+  final int _maxLevel = 30;
 
   void addExp(int exp) async {
-    var currExp = _getCurrentExp + expCalc(exp);
+    final currExp = _getCurrentExp + expCalc(exp);
     _levelUp(currExp);
     await setAndSaveUserToLocale(user);
   }
@@ -143,7 +143,7 @@ class UserManager extends ChangeNotifier {
   List<int> get treeLevels => _treeLevels;
 
   void enableTalents() {
-    var level = user.level;
+    final level = user.level;
 
     //Return true if user level is in skill tree level array and talent is not active
     user.talentTree ??= {};
@@ -165,7 +165,7 @@ class UserManager extends ChangeNotifier {
 
   //Sync Data
   DateTime lastSyncedDate = DateTime.now();
-  final waitSyncDuration = Duration(minutes: 5);
+  final waitSyncDuration = const Duration(minutes: 5);
   void updateSyncedDate () {
     lastSyncedDate = DateTime.now();
   }

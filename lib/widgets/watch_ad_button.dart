@@ -14,7 +14,7 @@ class WatchAdButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: isAdWatched ? meepMerp : () async => await watchAdFn(context),
+      onTap: isAdWatched ? meepMerp : () async => watchAdFn(context),
       child: Container(
         width: context.dynamicWidth(0.36),
         height: 48,
@@ -27,9 +27,9 @@ class WatchAdButton extends StatelessWidget {
             ],
           ),
           borderRadius: BorderRadius.circular(4),
-          border: Border.all()
+          border: Border.all(),
         ),
-        child: child
+        child: child,
       ),
     );
   }
@@ -48,7 +48,7 @@ class WatchAdButton extends StatelessWidget {
         onUserEarnedReward: (ad, reward) async {
           afterWatchingAdFn.call();
           await AdsHelper.instance.rewardedInterstitialAdLoad();
-        }
+        },
       );
     }
   }

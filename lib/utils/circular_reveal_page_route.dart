@@ -1,30 +1,29 @@
 import 'package:flutter/material.dart';
 
-Route circularRevealPageRoute(Widget routePage) {
+Route<dynamic> circularRevealPageRoute(Widget routePage) {
   return PageRouteBuilder(
     transitionDuration: const Duration(milliseconds: 1200),
     reverseTransitionDuration: const Duration(milliseconds: 1200),
     opaque: false,
-    barrierDismissible: false,
     pageBuilder: (context, animation, secondaryAnimation) => routePage,
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       final screenSize = MediaQuery.of(context).size;
       final center = Offset(screenSize.width/2, screenSize.height/2);
-      final beginRadius = 0.0;
+      const beginRadius = 0.0;
       final endRadius = screenSize.height * 0.8;
-      final borderWidth = 16.0;
+      const borderWidth = 16.0;
 
       final tween = Tween(begin: beginRadius, end: endRadius);
       final radiusTweenAnimation = animation.drive(tween);
 
       final borderRect = Rect.fromCircle(
         radius: radiusTweenAnimation.value + borderWidth, 
-        center: center
+        center: center,
       );
 
       final clipRect = Rect.fromCircle(
         radius: radiusTweenAnimation.value, 
-        center: center
+        center: center,
       );
 
       return CustomPaint(
@@ -49,7 +48,7 @@ class _BorderPainter extends CustomPainter {
 
     final border = Paint();
     border.color = color;
-    border.maskFilter = MaskFilter.blur(BlurStyle.normal, 8);
+    border.maskFilter = const MaskFilter.blur(BlurStyle.normal, 8);
 
     canvas.drawOval(rect, border);
   }

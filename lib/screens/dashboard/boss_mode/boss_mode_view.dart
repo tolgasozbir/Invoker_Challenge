@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/info_view.dart';
+import 'widgets/info_view.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -43,12 +43,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
   final boxDecoration = BoxDecoration(
     borderRadius: BorderRadius.circular(8),
     border: Border.all(strokeAlign: BorderSide.strokeAlignOutside),
-    boxShadow: [
-      BoxShadow(
-        color: AppColors.black,
-        blurRadius: 8,
-      ),
-    ],
+    boxShadow: const [BoxShadow(blurRadius: 8)],
   );
 
   @override
@@ -75,8 +70,8 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
         ),
         actions: [
           infoIcon(),
-          EmptyBox.w4(),
-          ShopButton(),
+          const EmptyBox.w4(),
+          const ShopButton(),
         ],
       ),
       body: WillPopScope(
@@ -87,12 +82,12 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
   }
 
   bool backButtonFn() {
-    var canPop = context.read<BossProvider>().snapIsDone && !context.read<BossProvider>().isHornSoundPlaying;
+    final canPop = context.read<BossProvider>().snapIsDone && !context.read<BossProvider>().isHornSoundPlaying;
     if (!canPop) {
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
       AppSnackBar.showSnackBarMessage(
         text: AppStrings.sbWaitAnimation, 
-        snackBartype: SnackBarType.info
+        snackBartype: SnackBarType.info,
       );
     }
     return canPop;
@@ -101,11 +96,11 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
   Widget infoIcon() {
     return IconButton(
       onPressed: () {
-        bool canClick = !context.read<BossProvider>().started && 
+        final canClick = !context.read<BossProvider>().started && 
                          context.read<BossProvider>().snapIsDone && 
                         !context.read<BossProvider>().isHornSoundPlaying;
         if(canClick)
-          Navigator.push(context, MaterialPageRoute(builder: (context) => InfoView(),));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const InfoView(),));
         else {
           SoundManager.instance.playMeepMerp();
         }
@@ -119,9 +114,9 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
       children: [
         Consumer<BossProvider>(
           builder: (context, provider, child) {
-            var skyLight =  provider.currentBossAlive ? SkyLight.dark : SkyLight.light;
-            var skyType = provider.roundProgress >= 6 ? SkyType.thunderstorm : SkyType.normal;
-            var weatherType = provider.roundProgress >= 10 ? WeatherType.rainy : WeatherType.normal;
+            final skyLight =  provider.currentBossAlive ? SkyLight.dark : SkyLight.light;
+            final skyType = provider.roundProgress >= 6 ? SkyType.thunderstorm : SkyType.normal;
+            final weatherType = provider.roundProgress >= 10 ? WeatherType.rainy : WeatherType.normal;
             return Stack(
             alignment: Alignment.center,
             fit: StackFit.expand,
@@ -140,17 +135,17 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
         ),
         selectedElementOrbs(),
         skills(),
-        EmptyBox.h12(),
-        ManaBar(),
-        EmptyBox.h8(),
+        const EmptyBox.h12(),
+        const ManaBar(),
+        const EmptyBox.h8(),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            InventoryHud(),
+            const InventoryHud(),
             abilitySlot().wrapExpanded(),
           ],
         ),
-        EmptyBox.h16(),
+        const EmptyBox.h16(),
       ],
     );
   }
@@ -195,7 +190,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
     return Snappable(
       key: provider.snappableKey,
       onSnapped: () => null,
-      duration: Duration(milliseconds: 3000),
+      duration: const Duration(milliseconds: 3000),
       child: Opacity(
         opacity: provider.currentBossAlive ? 1 : 0,
         child: Column(
@@ -204,8 +199,8 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
             AnimatedScale(
               scale: provider.currentBossAlive ? 1 : 2,
               curve: Curves.bounceOut,
-              duration: Duration(milliseconds: 1600),
-              child: Image.asset(provider.currentBoss.getImage, height: context.dynamicHeight(0.18),)
+              duration: const Duration(milliseconds: 1600),
+              child: Image.asset(provider.currentBoss.getImage, height: context.dynamicHeight(0.18),),
             ),
             Text(priceString(provider.currentBossHp)),
             Text(provider.currentBoss.getName),
@@ -225,15 +220,15 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
         child: Row(
           children: [
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: AppColors.red,
-                borderRadius: BorderRadius.horizontal(left: Radius.circular(2))
+                borderRadius: BorderRadius.horizontal(left: Radius.circular(2)),
               ),
             ).wrapExpanded(flex: provider.physicalPercentage.round()),
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: AppColors.blue,
-                borderRadius: BorderRadius.horizontal(right: Radius.circular(2))
+                borderRadius: BorderRadius.horizontal(right: Radius.circular(2)),
               ),
             ).wrapExpanded(flex: provider.magicalPercentage.round()),
           ],
@@ -248,40 +243,40 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
       left: 8,
       child: Row(
         children: [
-          Text("Dps : " + priceString(provider.dps)),
+          Text('Dps : ${priceString(provider.dps)}'),
         ],
-      )
+      ),
     );
   }
   
   Positioned attackDamage(BossProvider provider) {
-    var baseDmg = provider.baseDamage;
-    var multiplier = provider.damageMultiplier;
-    var bonusDmg = provider.bonusDamage;
+    final baseDmg = provider.baseDamage;
+    final multiplier = provider.damageMultiplier;
+    final bonusDmg = provider.bonusDamage;
     return Positioned(
       top: 8,
       right: 8,
       child: Row(
         children: [
-          Text(priceString((baseDmg + (baseDmg * multiplier)).toDouble())),
+          Text(priceString(baseDmg + (baseDmg * multiplier))),
           if (provider.bonusDamage > 0)
             Text(
-              "+${priceString((bonusDmg + (bonusDmg * multiplier)))}", 
-              style: TextStyle(color: AppColors.green),
+              '+${priceString(bonusDmg + (bonusDmg * multiplier))}', 
+              style: const TextStyle(color: AppColors.green),
             ),
-          EmptyBox.w4(),
+          const EmptyBox.w4(),
           Image.asset(ImagePaths.icSword),
         ],
-      )
+      ),
     );
   }
 
   InkWell startBtn(BossProvider provider) {
-    bool isStarted = provider.started;
-    bool snapIsDone = provider.snapIsDone;
-    bool isHornPlaying = provider.isHornSoundPlaying;
-    bool IsWkReincarnated = provider.IsWraithKingReincarnated;
-    bool status = isStarted || !snapIsDone || IsWkReincarnated;
+    final bool isStarted = provider.started;
+    final bool snapIsDone = provider.snapIsDone;
+    final bool isHornPlaying = provider.isHornSoundPlaying;
+    final bool isWkReincarnated = provider.isWraithKingReincarnated;
+    final bool status = isStarted || !snapIsDone || isWkReincarnated;
     return InkWell(
       splashFactory: WaveSplash.splashFactory,
       highlightColor: Colors.transparent,
@@ -291,8 +286,8 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
       },
       child: SizedBox.expand(
         child: AnimatedSwitcher(
-          duration: Duration(seconds: 1),
-          child: status ? EmptyBox() : isHornPlaying ? Text("Starting") : Text("Start"),
+          duration: const Duration(seconds: 1),
+          child: status ? const EmptyBox() : isHornPlaying ? const Text('Starting') : const Text('Start'),
         ),
       ),
     );
@@ -317,7 +312,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(
         Elements.values.length, 
-        (index) => skill(Elements.values[index]).wrapPadding(EdgeInsets.symmetric(horizontal: 8)),
+        (index) => skill(Elements.values[index]).wrapPadding(const EdgeInsets.symmetric(horizontal: 8)),
       ),
     );
   }
@@ -339,9 +334,9 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
               color: element.getColor,
               fontSize: context.sp(16),
               fontWeight: FontWeight.w500,
-              shadows: List.generate(3, (index) => Shadow(blurRadius: 8)),
+              shadows: List.generate(3, (index) => const Shadow(blurRadius: 8)),
             ),
-          ).wrapPadding(EdgeInsets.only(left: 2)),
+          ).wrapPadding(const EdgeInsets.only(left: 2)),
         ],
       ),
       onPressed: () {
@@ -352,8 +347,8 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
             return switchOrb(element);
           case Elements.invoke:
             SoundManager.instance.playInvoke();
-            var castedSpell = null;
-            for(Spells spell in Spells.values) {
+            Spells? castedSpell;
+            for(final spell in Spells.values) {
               if (SpellCombinationChecker.checkEquality(spell.combine, currentCombination)) {
                 castedSpell = spell;
                 break;
@@ -363,8 +358,8 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
               SoundManager.instance.failCombinationSound();
               return;
             }
-            var index = Spells.values.indexOf(castedSpell);
-            var spell = context.read<BossProvider>().SpellCooldowns[index];
+            final index = Spells.values.indexOf(castedSpell);
+            final spell = context.read<BossProvider>().spellCooldowns[index];
             context.read<BossProvider>().switchAbility(spell);
         }
       },
@@ -374,7 +369,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
   Widget abilitySlot() {
     return Consumer<BossProvider>(
       builder: (context, provider, child) {
-        var castedAbilities = provider.castedAbility;
+        final castedAbilities = provider.castedAbility;
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: List.generate(2, (index) => castedAbilities.length < index + 1 ? emptyAbilitySlot() : DecoratedBox(
@@ -398,7 +393,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
           children: [
             Image.asset(
               abilityCooldown.spell.image, 
-              width: context.dynamicWidth(0.2)
+              width: context.dynamicWidth(0.2),
             ).wrapClipRRect(BorderRadius.circular(8)),
             Positioned(
               bottom: 0,
@@ -409,15 +404,15 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
                   color: Colors.blue,
                   fontSize: context.sp(16),
                   fontWeight: FontWeight.w500,
-                  shadows: List.generate(6, (index) => Shadow(blurRadius: 8)),
+                  shadows: List.generate(6, (index) => const Shadow(blurRadius: 8)),
                 ),
-              ).wrapPadding(EdgeInsets.only(right: 4)),
+              ).wrapPadding(const EdgeInsets.only(right: 4)),
             ),
           ],
         ),
       ),
       onPressed: () {
-        var provider = context.read<BossProvider>();
+        final provider = context.read<BossProvider>();
         provider.onPressedAbility(abilityCooldown.spell);
       },
     );
@@ -437,8 +432,8 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
       child: SizedBox(
         width: context.dynamicWidth(0.2),
         height: context.dynamicWidth(0.2),
-        child: DecoratedBox(
-          decoration: const BoxDecoration(
+        child: const DecoratedBox(
+          decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(4)),
             gradient: LinearGradient(
               colors: [Color(0xFF1A222B), Color(0xFF1F2B37)],
@@ -467,14 +462,14 @@ class ArcPainter extends CustomPainter {
     required this.radius,
     required this.gap,
     required this.color,
-    this.reversedColor = false
+    this.reversedColor = false,
   });
 
   @override
   void paint(Canvas canvas, Size size) {
-    var center = Offset(size.width / 2, size.height / 2);
-    var rect = Rect.fromCircle(center: center, radius: radius);
-    final maskFiler = MaskFilter.blur(BlurStyle.solid, 2);
+    final center = Offset(size.width / 2, size.height / 2);
+    final rect = Rect.fromCircle(center: center, radius: radius);
+    const maskFiler = MaskFilter.blur(BlurStyle.solid, 2);
 
     // final gradient = new SweepGradient(
     //   startAngle: -pi / 2,
@@ -499,15 +494,15 @@ class ArcPainter extends CustomPainter {
       ..color = reversedColor ? color : color.withOpacity(0.2);
 
     for (var i = 0; i < units; i++) {
-      final double unit = 2 * pi / units;
-      double start = unit * i;
-      double to = (((2 * pi) / units) + unit);
+      final unit = 2 * pi / units;
+      final start = unit * i;
+      final to = ((2 * pi) / units) + unit;
       canvas.drawArc(
         rect, 
-        (-pi / 2 + start), 
-        (to * 2 * gap), 
+        -pi / 2 + start, 
+        to * 2 * gap, 
         false,
-        i < progress ? paintFilled : paintEmpty
+        i < progress ? paintFilled : paintEmpty,
       );
     }
   }

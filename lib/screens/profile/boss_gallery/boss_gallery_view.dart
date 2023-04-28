@@ -24,9 +24,9 @@ class _BossGalleryViewState extends State<BossGalleryView> {
       extendBodyBehindAppBar: false,
       appbar: AppBar(
         centerTitle: true,
-        title: Text(AppStrings.bossGallery),
+        title: const Text(AppStrings.bossGallery),
       ),
-      body: _bodyView()
+      body: _bodyView(),
     );
   }
 
@@ -37,14 +37,14 @@ class _BossGalleryViewState extends State<BossGalleryView> {
           crossAxisCount: 3,
           childAspectRatio: 2/3,
         ),
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         itemCount: Bosses.values.length,
         itemBuilder: (BuildContext context, int index) {
-          var boss = Bosses.values[index];
+          final boss = Bosses.values[index];
           return AnimationConfiguration.staggeredGrid(
             columnCount: 3,
             position: index,
-            duration: Duration(milliseconds: 1200),
+            duration: const Duration(milliseconds: 1200),
             child: SlideAnimation(
               child: FadeInAnimation(
                 child: _bossCard(boss),
@@ -68,13 +68,13 @@ class _BossGalleryViewState extends State<BossGalleryView> {
               boss.getName, 
               style: TextStyle(
                 fontWeight: FontWeight.w600,
-                shadows: List.generate(2, (index) => Shadow(color: Colors.red, blurRadius: 4))
+                shadows: List.generate(2, (index) => const Shadow(color: Colors.red, blurRadius: 4)),
               ),
             ).wrapFittedBox(),
             Text(
-              "HP "+priceString(boss.getHp),
+              'HP ${priceString(boss.getHp)}',
               style: TextStyle(
-                shadows: List.generate(2, (index) => Shadow(color: Colors.deepPurple, blurRadius: 4))
+                shadows: List.generate(2, (index) => const Shadow(color: Colors.deepPurple, blurRadius: 4)),
               ),
             ).wrapFittedBox(),
           ],
@@ -85,7 +85,7 @@ class _BossGalleryViewState extends State<BossGalleryView> {
 
   void cardOnTapFn(Bosses boss) {
     AppDialogs.showScaleDialog(
-      title: AppStrings.leaderboard + " " +boss.getName,
+      title: '${AppStrings.leaderboard} ${boss.getName}',
       content: LeaderboardBosses(bossName: boss.getName),
       action: AppOutlinedButton(
         title: AppStrings.back,

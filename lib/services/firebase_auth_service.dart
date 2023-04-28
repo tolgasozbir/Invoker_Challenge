@@ -26,7 +26,7 @@ class FirebaseAuthService {
       final userCredential = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
       if (userCredential.user != null) {
         //fetch records from firebase
-        var user = await UserManager.instance.getUserFromDb(userCredential.user!.uid);
+        final user = await UserManager.instance.getUserFromDb(userCredential.user!.uid);
         //set locale
         await UserManager.instance.setAndSaveUserToLocale(user!);
         return true;
@@ -45,7 +45,7 @@ class FirebaseAuthService {
 
   Future<bool> signUp({required String email, required String password, required String username}) async {
     try {
-      var user = UserManager.instance.user;
+      final user = UserManager.instance.user;
       final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
       if (userCredential.user != null) {
         user.uid = userCredential.user!.uid; //set uid
@@ -86,7 +86,7 @@ class FirebaseAuthService {
       //delete locale records
       await AppServices.instance.localStorageService.deleteAllValues();
       //create new guest user
-      var newGuestUser = UserManager.instance.createUser();
+      final newGuestUser = UserManager.instance.createUser();
       //create new guest user and set locale
       await UserManager.instance.setAndSaveUserToLocale(newGuestUser);
     } on FirebaseAuthException catch (error) {

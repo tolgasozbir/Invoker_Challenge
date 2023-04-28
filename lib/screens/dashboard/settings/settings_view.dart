@@ -24,28 +24,28 @@ class SettingsView extends StatelessWidget {
       child: Column(
         children: [
           VolumeSlider(size: context.dynamicHeight(0.24)),
-          QWERHudHeightSlider(),
-          EmptyBox.h8(),
+          const QWERHudHeightSlider(),
+          const EmptyBox.h8(),
           divider(),
           menuItem(
             context: context,
             leading: FontAwesomeIcons.questionCircle,
             text: AppStrings.aboutMe,
-            onTap: () => Navigator.push(context, circularRevealPageRoute(AboutMeView())),
+            onTap: () => Navigator.push(context, circularRevealPageRoute(const AboutMeView())),
           ),
           divider(),
           menuItem(
             context: context,
             leading: FontAwesomeIcons.commentDots,
             text: AppStrings.feedback,
-            onTap: () => Navigator.push(context, fadeInPageRoute(FeedbackView())),
+            onTap: () => Navigator.push(context, fadeInPageRoute(const FeedbackView())),
           ),
           divider(),
           menuItem(
             context: context,
             leading: FontAwesomeIcons.starHalfAlt,
             text: AppStrings.rateApp,
-            onTap: storeRedirect
+            onTap: storeRedirect,
           ),
           divider(),
         ],
@@ -54,11 +54,11 @@ class SettingsView extends StatelessWidget {
   }
 
   Future<void> storeRedirect() async {
-    final String googlePlayStoreUrl = "https://play.google.com/store/apps/details?id=com.dota2.invoker.game";
+    const String googlePlayStoreUrl = 'https://play.google.com/store/apps/details?id=com.dota2.invoker.game';
     try{
       await launchUrl(
         Uri.parse(googlePlayStoreUrl),
-        mode: LaunchMode.externalApplication
+        mode: LaunchMode.externalApplication,
       );
     }
     catch(e) {
@@ -70,6 +70,7 @@ class SettingsView extends StatelessWidget {
 
   Widget menuItem({required BuildContext context, required IconData leading, required String text, VoidCallback? onTap}){
     return InkWell(
+      onTap: onTap,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -80,7 +81,6 @@ class SettingsView extends StatelessWidget {
           const Icon(CupertinoIcons.chevron_forward)
         ],
       ),
-      onTap: onTap,
     );
   }
 

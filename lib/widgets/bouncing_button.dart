@@ -7,12 +7,12 @@ class BouncingButton extends StatefulWidget {
   final VoidCallback onPressed;
 
   @override
-  _BouncingButtonState createState() => _BouncingButtonState();
+  State<BouncingButton> createState() => _BouncingButtonState();
 }
 
 class _BouncingButtonState extends State<BouncingButton> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  double _scale = 1;
+  final double _scale = 1;
 
   @override
   void initState() {

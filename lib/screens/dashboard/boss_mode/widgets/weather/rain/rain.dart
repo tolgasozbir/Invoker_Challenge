@@ -16,8 +16,8 @@ class Rain extends StatefulWidget {
 }
 
 class RainState extends State<Rain> with TickerProviderStateMixin {
-  List<Widget> _dropPainters = [];
-  List<Drop> _drops = [];
+  final List<Widget> _dropPainters = [];
+  final List<Drop> _drops = [];
   late AnimationController rainAnimationController;
 
   @override
@@ -34,33 +34,33 @@ class RainState extends State<Rain> with TickerProviderStateMixin {
   }
 
   void _createDrops() {
-    var rng = Random();
+    final rng = Random();
     for (var i = 0; i < 150; i += 1) {
       final drop = Drop(
         x:        rng.nextDouble() * widget.width,
         y:        rng.nextDouble() * widget.height,
         length:   rng.nextDouble() * 20 + 2,
         speed:    rng.nextDouble() * 10 + 10,
-        opacity:  rng.nextDouble() * 0.5
+        opacity:  rng.nextDouble() * 0.5,
       );
-      var painter = CustomPaint(painter: DropPainter(drop));
+      final painter = CustomPaint(painter: DropPainter(drop));
       _drops.add(drop);
       _dropPainters.add(painter);
     }
   }
 
   void _startAnimation() {
-    rainAnimationController = AnimationController(duration: Duration(milliseconds: 15000), vsync: this);
-    Tween(begin: 0.0, end: 1.0).animate(rainAnimationController)..addListener(() {
+    rainAnimationController = AnimationController(duration: const Duration(milliseconds: 15000), vsync: this);
+    Tween(begin: 0.0, end: 1.0).animate(rainAnimationController).addListener(() {
       _dropPainters.clear();
-      _drops.forEach((drop) {
+      for (final drop in _drops) {
         drop.y = drop.y += drop.speed;
 
         if (drop.y > widget.height) drop.y = 0;
 
-        var painter = CustomPaint(painter:DropPainter(drop));
+        final painter = CustomPaint(painter:DropPainter(drop));
         _dropPainters.add(painter);
-      });
+      }
       setState(() { });
     });
     rainAnimationController.repeat();
@@ -71,7 +71,7 @@ class RainState extends State<Rain> with TickerProviderStateMixin {
     return Stack(
       alignment: Alignment.center,
       fit: StackFit.expand,
-      children: _dropPainters
+      children: _dropPainters,
     );
   }
 }

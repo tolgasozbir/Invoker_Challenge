@@ -1,4 +1,3 @@
-import 'package:dota2_invoker_game/utils/ads_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -7,6 +6,7 @@ import '../../../constants/app_colors.dart';
 import '../../../extensions/context_extension.dart';
 import '../../../extensions/widget_extension.dart';
 import '../../../providers/game_provider.dart';
+import '../../../utils/ads_helper.dart';
 import '../../../widgets/app_scaffold.dart';
 import '../../../widgets/game_ui_widget.dart';
 import '../../../widgets/spells_helper_widget.dart';
@@ -23,7 +23,6 @@ class _TrainingViewState extends State<TrainingView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: AppScaffold(
-        extendBodyBehindAppBar: true,
         body: _bodyView(),
       ),
     );
@@ -36,15 +35,15 @@ class _TrainingViewState extends State<TrainingView> {
         children: [
           adBannerWidget(),
           ListView(
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             padding: EdgeInsets.zero,
             children: [
               Consumer<GameProvider>(
                 builder: (context, provider, child) => AnimatedCrossFade(
-                  duration: Duration(milliseconds: 400),
-                  firstChild: EmptyBox(),
-                  secondChild: SpellsHelperWidget(),
+                  duration: const Duration(milliseconds: 400),
+                  firstChild: const EmptyBox(),
+                  secondChild: const SpellsHelperWidget(),
                   crossFadeState: provider.spellHelperIsOpen ? CrossFadeState.showSecond : CrossFadeState.showFirst,
                 ),
               ),
@@ -60,7 +59,7 @@ class _TrainingViewState extends State<TrainingView> {
   Widget showSpells() {
     return Consumer<GameProvider>(
       builder: (context, provider, child) => AnimatedPositioned(
-        duration: Duration(milliseconds: 400),
+        duration: const Duration(milliseconds: 400),
         right: context.dynamicWidth(0.02), 
         top: kToolbarHeight + (provider.spellHelperIsOpen ? context.dynamicHeight(0.24) : 0),
         child: InkWell(
@@ -81,7 +80,7 @@ class _TrainingViewState extends State<TrainingView> {
       top: context.height - MediaQuery.of(context).padding.top - 50,
       left: 0,
       right: 0,
-      child: AdBanner()
+      child: const AdBanner(),
     );
   }
 

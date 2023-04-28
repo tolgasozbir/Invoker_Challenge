@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 class AppScaffold extends Scaffold {
+  @override
   final Widget body;
+  @override
   final bool resizeToAvoidBottomInset;
+  @override
   final bool extendBodyBehindAppBar;
   final AppBar? appbar;
 

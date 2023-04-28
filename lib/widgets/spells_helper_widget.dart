@@ -6,23 +6,23 @@ import '../extensions/context_extension.dart';
 
 enum QWEKey { Q, W, E, }
 
-extension qweExtension on QWEKey {
+extension KeyExtension on QWEKey {
   Widget getSpellKey(String combineKey){
     switch (this) {
       case QWEKey.Q:
         return Card(
           color: const Color(0x703DA5FF), 
-          child: Text(' $name ', style: const TextStyle(fontSize: 17))
+          child: Text(' $name ', style: const TextStyle(fontSize: 17)),
         );
       case QWEKey.W:
         return Card(
           color: const Color(0x70EC3DFF), 
-          child: Text(' $name ', style: const TextStyle(fontSize: 17))
+          child: Text(' $name ', style: const TextStyle(fontSize: 17)),
         );
       case QWEKey.E:
         return Card(
           color: const Color(0x70FFAA00), 
-          child: Text(' $name ', style: const TextStyle(fontSize: 17))
+          child: Text(' $name ', style: const TextStyle(fontSize: 17)),
         );
     }
   }

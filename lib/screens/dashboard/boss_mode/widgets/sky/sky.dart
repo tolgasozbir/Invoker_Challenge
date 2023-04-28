@@ -36,15 +36,15 @@ class SkyState extends State<Sky> with TickerProviderStateMixin {
 
   Paint haloOuter = Paint()
     ..strokeWidth = 4.0
-    ..maskFilter = MaskFilter.blur(BlurStyle.outer, 400);
+    ..maskFilter = const MaskFilter.blur(BlurStyle.outer, 400);
 
   Paint haloInner = Paint()
     ..strokeWidth = 4.0
-    ..maskFilter = MaskFilter.blur(BlurStyle.inner, 200);
+    ..maskFilter = const MaskFilter.blur(BlurStyle.inner, 200);
 
   Paint thunder = Paint()
     ..color = Colors.white.withOpacity(1)
-    ..maskFilter = MaskFilter.blur(BlurStyle.normal, 20);
+    ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 20);
 
   @override
   void initState() {
@@ -149,7 +149,7 @@ class SkyState extends State<Sky> with TickerProviderStateMixin {
   }
 
   void setThunder() {
-    thunderAnimationController = AnimationController(duration: Duration(milliseconds: 5000), vsync: this);
+    thunderAnimationController = AnimationController(duration: const Duration(milliseconds: 5000), vsync: this);
     thunderAnimation = Tween(begin: 0.0, end: 1.0).animate(thunderAnimationController!)..addListener(() {
       setState(() {
         if ((thunderAnimation!.value > 0.9 && thunderAnimation!.value < 0.91) ||
@@ -178,6 +178,6 @@ class SkyState extends State<Sky> with TickerProviderStateMixin {
             CustomPaint(painter: SkyPainter(constraints.maxHeight * 0.4, _brightness, haloInner)),
           ],
         );
-    });
+    },);
   }
 }

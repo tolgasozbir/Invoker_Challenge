@@ -13,7 +13,7 @@ import 'dialog_contents/profile_dialog_content.dart';
 import 'sliders/progress_slider.dart';
 
 class UserStatus extends StatefulWidget {
-  UserStatus({super.key, required this.user});
+  const UserStatus({super.key, required this.user});
 
   final UserModel user;
 
@@ -34,7 +34,7 @@ class _UserStatusState extends State<UserStatus> {
     final currentExp = widget.user.exp;
     final nextLevelExp = UserManager.instance.getNextLevelExp;
     final level = '${AppStrings.level} ${widget.user.level}';
-    var isLoggedIn = UserManager.instance.isLoggedIn();
+    final isLoggedIn = UserManager.instance.isLoggedIn();
     return InkWell(
       splashColor: AppColors.transparent,
       highlightColor: AppColors.transparent,
@@ -43,11 +43,11 @@ class _UserStatusState extends State<UserStatus> {
           dismissible: true,
           showBackButton: true,
           height: isLoggedIn ? context.dynamicHeight(0.64) : 460,
-          title:  isLoggedIn ? AppStrings.profile : "${AppStrings.login}&${AppStrings.register}",
+          title:  isLoggedIn ? AppStrings.profile : '${AppStrings.login}&${AppStrings.register}',
           uid: UserManager.instance.user.uid,
           content: isLoggedIn
-            ? ProfileDialogContent()
-            : LoginRegisterDialogContent(),
+            ? const ProfileDialogContent()
+            : const LoginRegisterDialogContent(),
         );
         if (mounted) setState(() { });
       },
@@ -79,8 +79,8 @@ class _UserStatusState extends State<UserStatus> {
               Row(
                 children: [
                   Text(level).wrapFittedBox(),
-                  Spacer(),
-                  Text(currentExp.toStringAsFixed(0) + '/' + nextLevelExp.toStringAsFixed(0)).wrapFittedBox()
+                  const Spacer(),
+                  Text('${currentExp.toStringAsFixed(0)}/${nextLevelExp.toStringAsFixed(0)}').wrapFittedBox()
                 ],
               )
             ],

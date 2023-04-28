@@ -16,7 +16,7 @@ import '../app_snackbar.dart';
 import '../app_text_from_field.dart';
 
 class LoginRegisterDialogContent extends StatefulWidget {
-  const LoginRegisterDialogContent({Key? key}) : super(key: key);
+  const LoginRegisterDialogContent({super.key});
 
   @override
   State<LoginRegisterDialogContent> createState() => _LoginRegisterDialogContentState();
@@ -28,7 +28,7 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
   final usernameController = TextEditingController();
   TextStyle get textStyle => TextStyle(fontSize: context.sp(12));
   bool isLoginCheckboxSelected = true;
-  bool showPassword = false;
+  bool showPassword = true;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,7 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
               onPressed: () {
                 setState(() => showPassword = !showPassword);
               },
-              icon: Icon(showPassword ? CupertinoIcons.eye_slash : CupertinoIcons.eye)
+              icon: Icon(showPassword ? CupertinoIcons.eye : CupertinoIcons.eye_slash),
             ),
           ),
           const EmptyBox.h12(),
@@ -86,7 +86,7 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
 
   Widget usernameFieldAnimated() {
     return AnimatedCrossFade(
-      firstChild: SizedBox(height: 16, width: double.infinity,),
+      firstChild: const SizedBox(height: 16, width: double.infinity,),
       secondChild: AppTextFormField(
         topLabel: AppStrings.username,
         hintText: AppStrings.usernameHint,
@@ -94,9 +94,9 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
         textInputAction: TextInputAction.next,
         maxLength: isLoginCheckboxSelected ? null : 16,
         validator: isLoginCheckboxSelected ? null : isValid,
-      ).wrapPadding(EdgeInsets.only(top: 16)),
+      ).wrapPadding(const EdgeInsets.only(top: 16)),
       crossFadeState: isLoginCheckboxSelected ? CrossFadeState.showFirst : CrossFadeState.showSecond, 
-      duration: Duration(milliseconds: 400),
+      duration: const Duration(milliseconds: 400),
       sizeCurve: Curves.decelerate,
     );
   }
@@ -106,7 +106,7 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
       firstChild: const EmptyBox(),
       secondChild: invokerOrbs,
       crossFadeState: !isLoginCheckboxSelected ? CrossFadeState.showFirst : CrossFadeState.showSecond, 
-      duration: Duration(milliseconds: 400),
+      duration: const Duration(milliseconds: 400),
       sizeCurve: Curves.decelerate,
     );
   }
@@ -130,11 +130,11 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
         width: 48,
       ),
     ],
-  ).wrapPadding(EdgeInsets.only(bottom: 32, top: 8));
+  ).wrapPadding(const EdgeInsets.only(bottom: 32, top: 8));
 
   List<Widget> checkboxWithTitle({required String title, bool isSelected = false}) {
     return [
-      Spacer(),
+      const Spacer(),
       Text(title, style: textStyle),
       Checkbox(
         value: isSelected, 
@@ -144,7 +144,7 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
         activeColor: AppColors.white30,
         checkColor: AppColors.amber,
       ).scaleWidget(1.2),
-      Spacer(),
+      const Spacer(),
     ];
   }
 
@@ -155,7 +155,7 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
       isButtonActive: !isLoading,
       title: isLoginCheckboxSelected ? AppStrings.login : AppStrings.register,
       textStyle: textStyle,
-    ).wrapPadding(EdgeInsets.symmetric(horizontal: 4));
+    ).wrapPadding(const EdgeInsets.symmetric(horizontal: 4));
   }
 
   void onTapFn() async {
@@ -167,7 +167,7 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
       return;
     }
 
-    bool hasConnection = await InternetConnectionChecker().hasConnection;
+    final bool hasConnection = await InternetConnectionChecker().hasConnection;
     if (!hasConnection) {
       ScaffoldMessenger.of(context).removeCurrentSnackBar();
       AppSnackBar.showSnackBarMessage(text: AppStrings.errorConnection, snackBartype: SnackBarType.info);
@@ -180,7 +180,7 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
     if (isLoginCheckboxSelected) {
       isOk = await auth.signIn(
         email: eMailController.text.trim(), 
-        password: passwordController.text.trim()
+        password: passwordController.text.trim(),
       );
     } 
     else {

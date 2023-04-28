@@ -20,7 +20,7 @@ class LeaderboardWithTimer extends StatefulWidget {
 
 class _LeaderboardWithTimerState extends State<LeaderboardWithTimer> with LoadingState {
 
-  List<TimerResult>? results = null;
+  List<TimerResult>? results;
 
   @override
   void initState() {
@@ -44,9 +44,8 @@ class _LeaderboardWithTimerState extends State<LeaderboardWithTimer> with Loadin
       color: AppColors.resultsCardBg,
       child: Column(
         children: [
-          results == null 
-            ? const CircularProgressIndicator.adaptive().wrapCenter()
-            : results!.isEmpty 
+          if (results == null) const CircularProgressIndicator.adaptive().wrapCenter() 
+          else results!.isEmpty 
               ? Lottie.asset(LottiePaths.lottieNoData, height: context.dynamicHeight(0.32))
               : resultListView(results!),
           if (results!= null && results!.isNotEmpty)
@@ -66,7 +65,7 @@ class _LeaderboardWithTimerState extends State<LeaderboardWithTimer> with Loadin
         if ((results?.length ?? 0) >= 100) {
           AppSnackBar.showSnackBarMessage(
             text: AppStrings.sbCannotFetchMore, 
-            snackBartype: SnackBarType.info
+            snackBartype: SnackBarType.info,
           );
           return;
         }

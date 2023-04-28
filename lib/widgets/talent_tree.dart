@@ -10,16 +10,16 @@ import 'context_menu.dart';
 
 class TalentTree extends StatelessWidget {
   const TalentTree({
-    Key? key, required this.user,
-  }) : super(key: key);
+    super.key, required this.user,
+  });
 
   final UserModel user;
 
-  final double offStateIconSize = 64;
-  final double previewIconSize = 256;
+  double get offStateIconSize => 64;
+  double get previewIconSize => 256;
   List<double> get treeHeightFactors => const [0.64, 0.48, 0.32, 0.0];
   double get getTreeHeightFactor {
-    var treeLevels = UserManager.instance.treeLevels.reversed.toList(); //25 20 15 10
+    final treeLevels = UserManager.instance.treeLevels.reversed.toList(); //25 20 15 10
     for (var i = 0; i < treeHeightFactors.length; i++) {
       if (user.level >= treeLevels[i]) {
         return treeHeightFactors[treeHeightFactors.length-1-i];
@@ -42,14 +42,14 @@ class TalentTree extends StatelessWidget {
       ...List.generate(UserManager.instance.treeLevels.length, (index) => 
         menuActionBtn(
           context: context, 
-          title: UserManager.instance.treeLevels[index].toString() + ") " + AppStrings.talents[index] + " ", 
-          talentLevel: UserManager.instance.treeLevels[index]
+          title: '${UserManager.instance.treeLevels[index]}) ${AppStrings.talents[index]} ', 
+          talentLevel: UserManager.instance.treeLevels[index],
         ),
-      ).reversed.toList(),
+      ).reversed,
       //Back Button
       CupertinoContextMenuAction(
         onPressed: () => Navigator.pop(context),
-        child: Center(
+        child: const Center(
           child: Text(
             AppStrings.close,
             textAlign: TextAlign.center,
@@ -62,15 +62,15 @@ class TalentTree extends StatelessWidget {
   CupertinoContextMenuAction menuActionBtn({
     required BuildContext context, 
     required String title, 
-    required int talentLevel
+    required int talentLevel,
   }) => CupertinoContextMenuAction(
     trailingIcon: user.level < talentLevel 
       ? CupertinoIcons.xmark_circle
       : CupertinoIcons.check_mark_circled,
     isDestructiveAction: user.level < talentLevel,
     child: FittedBox(
-      child: Text(title)
-    )
+      child: Text(title),
+    ),
   );
 
   SingleChildScrollView previewWidget() {
@@ -79,11 +79,11 @@ class TalentTree extends StatelessWidget {
         children: [
           offStateWidget(
             alignment: Alignment.topCenter,
-            size: previewIconSize
+            size: previewIconSize,
           ),
-          DefaultTextStyle(
+          const DefaultTextStyle(
             style: TextStyle(fontSize: 32), 
-            child: Text(AppStrings.talentTree)
+            child: Text(AppStrings.talentTree),
           ),
         ],
       ),
@@ -109,7 +109,7 @@ class TalentTree extends StatelessWidget {
     return SvgPicture.asset(
       ImagePaths.svgTalentTree, 
       height: size, 
-      color: color
+      color: color,
     );
   }
 

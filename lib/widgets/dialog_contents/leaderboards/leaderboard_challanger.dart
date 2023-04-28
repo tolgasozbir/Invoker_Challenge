@@ -1,4 +1,3 @@
-import 'package:dota2_invoker_game/widgets/app_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -10,6 +9,7 @@ import '../../../mixins/loading_state_mixin.dart';
 import '../../../models/challenger_result.dart';
 import '../../../services/app_services.dart';
 import '../../app_outlined_button.dart';
+import '../../app_snackbar.dart';
 
 class LeaderboardChallanger extends StatefulWidget {
   const LeaderboardChallanger({super.key,});
@@ -20,7 +20,7 @@ class LeaderboardChallanger extends StatefulWidget {
 
 class _LeaderboardChallangerState extends State<LeaderboardChallanger> with LoadingState {
 
-  List<ChallengerResult>? results = null;
+  List<ChallengerResult>? results;
 
   @override
   void initState() {
@@ -55,9 +55,8 @@ class _LeaderboardChallangerState extends State<LeaderboardChallanger> with Load
               ],
             ),
           ),
-          results == null
-            ? const CircularProgressIndicator.adaptive().wrapCenter()
-            : results!.isEmpty
+          if (results == null) const CircularProgressIndicator.adaptive().wrapCenter() 
+          else results!.isEmpty
               ? Lottie.asset(LottiePaths.lottieNoData, height: context.dynamicHeight(0.32))
               : resultListView(results!),
           if (results!= null && results!.isNotEmpty)
@@ -77,13 +76,13 @@ class _LeaderboardChallangerState extends State<LeaderboardChallanger> with Load
         if ((results?.length ?? 0) >= 100) {
           AppSnackBar.showSnackBarMessage(
             text: AppStrings.sbCannotFetchMore, 
-            snackBartype: SnackBarType.info
+            snackBartype: SnackBarType.info,
           );
           return;
         }
         changeLoadingState();
         await Future.delayed(const Duration(seconds: 1));
-        results?.addAll((await AppServices.instance.databaseService.getChallangerScores()));
+        results?.addAll(await AppServices.instance.databaseService.getChallangerScores());
         changeLoadingState();
       },
     );

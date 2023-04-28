@@ -33,18 +33,23 @@ class AppOutlinedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
-      onPressed: isButtonActive ? onPressed : () => SoundManager.instance.playMeepMerp(), 
-      child: FittedBox(child: Text(title, style: textStyle ?? TextStyle(fontSize: context.sp(12)))),
+      onPressed: isButtonActive ? onPressed : () => SoundManager.instance.playMeepMerp(),
       style: OutlinedButton.styleFrom(
         splashFactory: WaveSplash.splashFactory,
         minimumSize: Size(
           width ?? 0, 
-          height ?? 48
+          height ?? 48,
         ),
         //textStyle: TextStyle(fontSize: context.sp(12)),
         side: BorderSide(color: _buttonStateColor(AppColors.outlinedBorder)),
         foregroundColor: _buttonStateColor(AppColors.outlinedSurface),
         backgroundColor: _buttonStateColor(bgColor ?? AppColors.buttonBgColor),
+      ), 
+      child: FittedBox(
+        child: Text(
+          title, 
+          style: textStyle ?? TextStyle(fontSize: context.sp(12)),
+        ),
       ),
     ).wrapPadding(padding ?? EdgeInsets.zero);
   }

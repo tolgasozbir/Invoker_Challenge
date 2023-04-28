@@ -24,11 +24,11 @@ class _InventoryHudState extends State<InventoryHud> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 24),
-      padding: EdgeInsets.all(2),
+      margin: const EdgeInsets.only(left: 24),
+      padding: const EdgeInsets.all(2),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
           colors: [Color(0xFF37596D), Color(0xFF244048), Color(0xFF2B5167)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -36,7 +36,7 @@ class _InventoryHudState extends State<InventoryHud> {
       ),
       child: Consumer<BossProvider>(
         builder: (context, provider, child) {
-          var items = context.watch<BossProvider>().inventory;
+          final items = context.watch<BossProvider>().inventory;
           return Column(
             children: [
               Row(
@@ -55,8 +55,8 @@ class _InventoryHudState extends State<InventoryHud> {
     );
   }
 
-  List<Widget> _buildRowWidgets(List myList, int start, int end) {
-    List<Widget> rowWidgets = [];
+  List<Widget> _buildRowWidgets(List<Item> myList, int start, int end) {
+    final List<Widget> rowWidgets = [];
     for (int i = start; i < end; i++) {
       if (i < myList.length) {
         rowWidgets.add(itemSlot(myList[i]));
@@ -71,10 +71,10 @@ class _InventoryHudState extends State<InventoryHud> {
     return Container(
       width: context.dynamicWidth(0.12),
       height: context.dynamicWidth(0.12),
-      margin: EdgeInsets.all(2),
+      margin: const EdgeInsets.all(2),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4),
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
           colors: [Color(0xFF1A222B), Color(0xFF1F2B37)],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
@@ -93,32 +93,32 @@ class _InventoryHudState extends State<InventoryHud> {
         child: Container(
           width: context.dynamicWidth(0.12),
           height: context.dynamicWidth(0.12),
-          margin: EdgeInsets.all(2),
+          margin: const EdgeInsets.all(2),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4),
             color: Colors.black.withOpacity(0.64),
-            image: DecorationImage(image: AssetImage(item.item.image))
+            image: DecorationImage(image: AssetImage(item.item.image)),
           ),
           child: Text(
             widget.isItemsSellable 
-              ? "" 
-              : (item.item.mana?.toStringAsFixed(0) ?? ""), 
+              ? '' 
+              : (item.item.mana?.toStringAsFixed(0) ?? ''), 
             style: TextStyle(
               fontSize: context.sp(10), 
               fontWeight: FontWeight.bold,
-              shadows: [
+              shadows: const [
                 BoxShadow(blurRadius: 4),
                 BoxShadow(blurRadius: 4),
                 BoxShadow(blurRadius: 4),
-              ]
+              ],
             ),
-          ).wrapPadding(EdgeInsets.all(2)).wrapAlign(Alignment.bottomRight),
+          ).wrapPadding(const EdgeInsets.all(2)).wrapAlign(Alignment.bottomRight),
         ),
       ),
       onTap: () {
         if (widget.isItemsSellable) {
           AppDialogs.showScaleDialog(
-            dialogBgColor: Color(0xFF1C2834),
+            dialogBgColor: const Color(0xFF1C2834),
             content: ItemDescriptionWidget(item: item, isItemSellable: true),
           );
         } else {

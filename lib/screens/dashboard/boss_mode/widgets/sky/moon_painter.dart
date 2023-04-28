@@ -10,16 +10,16 @@ class MoonPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    Offset center = Offset(size.width / 2, size.height / 2);
+    final center = Offset(size.width / 2, size.height / 2);
 
-    Paint paint = Paint()
+    final paint = Paint()
       ..strokeWidth = 4.0
       ..color = Colors.white.withOpacity(fraction)
-      ..maskFilter = MaskFilter.blur(BlurStyle.solid, 5);
+      ..maskFilter = const MaskFilter.blur(BlurStyle.solid, 5);
 
-    var rect = Rect.fromCircle(center: center, radius: radius);
+    final rect = Rect.fromCircle(center: center, radius: radius);
 
-    Path path = Path()
+    final path = Path()
       ..arcTo(rect, pi / 2, pi, false)
       ..cubicTo(center.dx - 18, center.dy - 10, center.dx - 18, center.dy + 12, center.dx, center.dy + radius)
       ..close();

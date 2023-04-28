@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import '../constants/app_colors.dart';
 import '../constants/app_strings.dart';
 import '../enums/database_table.dart';
@@ -35,7 +36,7 @@ class GameUIWidget extends StatefulWidget {
 class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState {
 
   final _animKey = GlobalKey<TrueFalseWidgetState>();
-  var challangerLife = UserManager.instance.user.challangerLife;
+  int challangerLife = UserManager.instance.user.challangerLife;
 
   @override
   Widget build(BuildContext context) => _bodyView();
@@ -46,15 +47,15 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Spacer(),
+            const Spacer(),
             TimerHud(gameType: widget.gameType).wrapExpanded(),
             trueCounter().wrapExpanded(),
           ],
         ),
         if (widget.gameType == GameType.Training)
           AnimatedContainer(
-            duration: Duration(milliseconds: 400),
-            height: context.dynamicHeight(0.16) + (context.watch<GameProvider>().spellHelperIsOpen ? -context.dynamicHeight(0.12) : 0)
+            duration: const Duration(milliseconds: 400),
+            height: context.dynamicHeight(0.16) + (context.watch<GameProvider>().spellHelperIsOpen ? -context.dynamicHeight(0.12) : 0),
           )
         else
           SizedBox(height: context.dynamicHeight(0.20)),
@@ -68,15 +69,15 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
   }
 
   Widget trueCounter(){
-    var score = context.watch<GameProvider>().getCorrectCombinationCount.toString();
+    final score = context.watch<GameProvider>().getCorrectCombinationCount.toString();
     return Text(
-      AppStrings.score + ": " + score,
+      '${AppStrings.score}: $score',
       textAlign: TextAlign.right,
       style: TextStyle(
         fontSize: context.sp(18), 
-        color: AppColors.green
+        color: AppColors.green,
       ),
-    ).wrapPadding(EdgeInsets.only(top: 4, right: 8));
+    ).wrapPadding(const EdgeInsets.only(top: 4, right: 8));
   }
 
   Widget bigSpellPicture(){
@@ -85,12 +86,12 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
       height: context.dynamicWidth(0.28),
       decoration: BoxDecoration(
         color: AppColors.svgGrey,
-        borderRadius: BorderRadius.all(Radius.circular(4)),
+        borderRadius: const BorderRadius.all(Radius.circular(4)),
         border: Border.all(
           width: 1.6,
           color: AppColors.white30,
         ),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: AppColors.white30, 
             blurRadius: 12, 
@@ -121,7 +122,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
   //QWER Ability Hud
   AnimatedPadding skills() {
     return AnimatedPadding(
-      duration: Duration(milliseconds: 400),
+      duration: const Duration(milliseconds: 400),
       padding: EdgeInsets.only(top: qwerHudHeight),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -144,9 +145,9 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
               color: element.getColor, 
               fontSize: context.sp(16),
               fontWeight: FontWeight.w500,
-              shadows: List.generate(3, (index) => Shadow(blurRadius: 8)),
+              shadows: List.generate(3, (index) => const Shadow(blurRadius: 8)),
             ),
-          ).wrapPadding(EdgeInsets.only(left: 2)),
+          ).wrapPadding(const EdgeInsets.only(left: 2)),
         ],
       ),
       onPressed: () {
@@ -254,7 +255,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
 
   Widget startButton() {
     final isStart = context.read<GameProvider>().isStart;
-    if (isStart) return EmptyBox();
+    if (isStart) return const EmptyBox();
     return AppOutlinedButton(
       title: AppStrings.start, 
       width: context.dynamicWidth(0.4),
@@ -280,13 +281,13 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
   }
   
   double get qwerHudHeight {
-    var isStart = context.read<GameProvider>().isStart;
-    final totalButtonHeight = 96;
-    double max = context.dynamicHeight(0.12);
-    double sliderVal = AppServices.instance.localStorageService.
+    final isStart = context.read<GameProvider>().isStart;
+    const totalButtonHeight = 96;
+    final double max = context.dynamicHeight(0.12);
+    final double sliderVal = AppServices.instance.localStorageService.
       getIntValue(LocalStorageKey.qwerHudHeight)?.toDouble() ?? 20;
 
-    var calculatedVal =  (sliderVal / 100 * max) + (isStart ? (sliderVal / 100 * totalButtonHeight) : 0);
+    final calculatedVal =  (sliderVal / 100 * max) + (isStart ? (sliderVal / 100 * totalButtonHeight) : 0);
 
     return calculatedVal;
   }

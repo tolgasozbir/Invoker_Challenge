@@ -19,7 +19,7 @@ class _LoadingViewState extends State<LoadingView> {
 
   final Duration _loadingDuration = const Duration(milliseconds: 5000);
   final rng = Random();
-  String get message => AppStrings.MessageList[rng.nextInt(AppStrings.MessageList.length)];
+  String get message => AppStrings.messageList[rng.nextInt(AppStrings.messageList.length)];
 
   @override
   void initState() {
@@ -45,7 +45,7 @@ class _LoadingViewState extends State<LoadingView> {
       fit: StackFit.expand,
       alignment: Alignment.center,
       children: [
-        DecoratedBox(
+        const DecoratedBox(
           decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage(ImagePaths.loadingGif),
@@ -61,7 +61,7 @@ class _LoadingViewState extends State<LoadingView> {
             message,
             style: TextStyle(fontSize: context.sp(12), fontWeight: FontWeight.w500),
             textAlign: TextAlign.center,
-          )
+          ),
         ),
       ],
     );

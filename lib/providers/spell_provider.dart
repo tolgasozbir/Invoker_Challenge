@@ -14,7 +14,7 @@ class SpellProvider extends ChangeNotifier {
   String get getNextSpellImage => _spellImage;
   String get getNextCombination => _trueCombination;
 
-  List<Spells> _tempSpells = [];
+  final List<Spells> _tempSpells = [];
   final _rng  = math.Random();
 
   void getRandomSpell() {

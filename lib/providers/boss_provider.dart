@@ -56,10 +56,10 @@ class BossProvider extends ChangeNotifier {
 
   //Boss Values
   final bossList = Bosses.values;
-  var currentBoss = Bosses.values.first;
+  Bosses currentBoss = Bosses.values.first;
   bool currentBossAlive = false;
   double currentBossHp = 0;
-  bool IsWraithKingReincarnated = false;
+  bool isWraithKingReincarnated = false;
 
   ///--- Snap Boss ---///
   ///Boss shattering effect upon boss's death
@@ -73,7 +73,7 @@ class BossProvider extends ChangeNotifier {
   Future<void> snapBoss() async {
     changeSnapStatus();
     await snappableKey.currentState?.snap();
-    await Future.delayed(Duration(milliseconds: 3000));
+    await Future.delayed(const Duration(milliseconds: 3000));
     changeSnapStatus();
     snappableKey.currentState?.reset();
   }
@@ -104,11 +104,11 @@ class BossProvider extends ChangeNotifier {
   ///Decreases the player's current mana by the specified amount.
   ///
   ///[val] The amount of mana to be spent.
-  _spendMana(double val) {
+  void _spendMana(double val) {
     currentMana -= val;
   }
   
-  _addMana(double val) {
+  void _addMana(double val) {
     currentMana += val;
     if (currentMana > maxMana) {
       currentMana = maxMana;
@@ -139,7 +139,7 @@ class BossProvider extends ChangeNotifier {
     SoundManager.instance.playItemBuyingSound();
   }
 
-  List<Item> _inventory = [];
+  final List<Item> _inventory = [];
   List<Item> get inventory => _inventory;
 
   bool _isActiveMidas = false;
@@ -205,7 +205,7 @@ class BossProvider extends ChangeNotifier {
         damageMultiplier += 0.24;
         break;
       case Items.Ethereal_blade:
-        var len = _inventory.where((element) => element.item == Items.Ethereal_blade).toList().length;
+        final len = _inventory.where((element) => element.item == Items.Ethereal_blade).toList().length;
         if (len < 2){
           spellAmp += 0.16;
           manaRegenMultiplier += 0.72;
@@ -268,7 +268,7 @@ class BossProvider extends ChangeNotifier {
         baseManaRegen -= 2.75;
         break;
       case Items.Hand_of_midas:
-        bool itemHasInventory = (_inventory.any((element) => element.item == Items.Hand_of_midas));
+        final bool itemHasInventory = _inventory.any((element) => element.item == Items.Hand_of_midas);
         if (!itemHasInventory) {
           _isActiveMidas = false;
         }
@@ -277,7 +277,7 @@ class BossProvider extends ChangeNotifier {
         damageMultiplier -= 0.24;
         break;
       case Items.Ethereal_blade:
-        bool itemHasInventory = (_inventory.any((element) => element.item == Items.Ethereal_blade));
+        final bool itemHasInventory = _inventory.any((element) => element.item == Items.Ethereal_blade);
         if (!itemHasInventory){
           spellAmp -= 0.16;
           manaRegenMultiplier -= 0.72;
@@ -308,12 +308,12 @@ class BossProvider extends ChangeNotifier {
     }
   }
 
-  onPressedItem(Item item) async {
+  void onPressedItem(Item item) async {
     if (!started) { // If the started variable is false, play a meep merp sound and return from the function.
       SoundManager.instance.playMeepMerp();
       return;
     }
-    var isItemUsed = item.onPressedItem(currentMana);
+    final bool isItemUsed = item.onPressedItem(currentMana);
     if (isItemUsed) {
       _spendMana(item.item.mana ?? 0);
       if (item.item.hasSound) {
@@ -369,7 +369,7 @@ class BossProvider extends ChangeNotifier {
 
   //F-D Keys Casted Abilities
   //Creates a list of AbilityCooldown objects to hold the abilities casted with the F and D keys.
-  List<AbilityCooldown> _castedAbility = [];
+  final List<AbilityCooldown> _castedAbility = [];
   List<AbilityCooldown> get castedAbility => _castedAbility;
 
   ///Adds the selected ability to the castedAbility list and removes the old ability if it exists.
@@ -378,7 +378,7 @@ class BossProvider extends ChangeNotifier {
   ///
   ///[abilityCooldown] An AbilityCooldown object representing the used ability.
   void switchAbility(AbilityCooldown abilityCooldown) {
-    if (_castedAbility.length >= 1 && abilityCooldown.spell.combine == _castedAbility.first.spell.combine) return;
+    if (_castedAbility.isNotEmpty && abilityCooldown.spell.combine == _castedAbility.first.spell.combine) return;
     _castedAbility.insert(0, abilityCooldown);
     while (_castedAbility.length > 2) {
       _castedAbility.removeLast();
@@ -388,7 +388,7 @@ class BossProvider extends ChangeNotifier {
 
   //Creates a list of AbilityCooldown objects, each corresponding to a spell in the Spells enum.
   //Return A list of AbilityCooldown objects representing spell cooldowns.
-  List<AbilityCooldown> SpellCooldowns = Spells.values.map((e) => AbilityCooldown(spell: e)).toList();
+  List<AbilityCooldown> spellCooldowns = Spells.values.map((e) => AbilityCooldown(spell: e)).toList();
 
   //Executed when a spell button is pressed.
   void onPressedAbility(Spells spell) async {
@@ -396,12 +396,12 @@ class BossProvider extends ChangeNotifier {
       SoundManager.instance.playMeepMerp();
       return;
     }
-    var index = Spells.values.indexOf(spell); // Gets the index number of the selected spell.
-    var spellUsed = SpellCooldowns[index].onPressedAbility(currentMana); // Checks if the selected spell can be used, and assigns true to the spellUsed variable if it can.
+    final index = Spells.values.indexOf(spell); // Gets the index number of the selected spell.
+    final bool spellUsed = spellCooldowns[index].onPressedAbility(currentMana); // Checks if the selected spell can be used, and assigns true to the spellUsed variable if it can.
     if (spellUsed) { // If the selected spell was used
       _spendMana(spell.mana); // Mana is spent equal to the mana value of the chosen spell.
-      double abilityDamageMultiplier = spell.damage * (UserManager.instance.user.level * 0.02); //max level 0.6 - %60
-      double fullDamage = spell.damage + abilityDamageMultiplier;
+      final double abilityDamageMultiplier = spell.damage * (UserManager.instance.user.level * 0.02); //max level 0.6 - %60
+      final double fullDamage = spell.damage + abilityDamageMultiplier;
       spellDamage += fullDamage; // Adds the spell damage to the spellDamage variable.
       updateView(); // Update the player's view.
       await Future.delayed(Duration(seconds: spell.duration), () => spellDamage -= fullDamage); // Wait for the spell's duration and subtract the spell damage from the spellDamage variable.
@@ -422,7 +422,7 @@ class BossProvider extends ChangeNotifier {
     maxMana = (UserManager.instance.user.level * 27) + 1400 + (UserManager.instance.user.level >= 10 ? 400 : 0);
     baseManaRegen = 3.6 + UserManager.instance.user.level * 0.27;
     //Re-added item buffs
-    for (var item in inventory) {
+    for (final item in inventory) {
       _buyItem(item);
     }
     currentMana = maxMana;
@@ -432,7 +432,7 @@ class BossProvider extends ChangeNotifier {
   }
 
   void _calcDPS() {
-    var lastHit = dps;
+    final lastHit = dps;
     last5AttackDamage.insert(0, lastHit);
     if (last5AttackDamage.length > 5) {
       last5AttackDamage.removeLast();
@@ -445,7 +445,7 @@ class BossProvider extends ChangeNotifier {
   }
 
   void _calcDamagePercentage() {
-    double totalDamage = physicalDamage + magicalDamage;
+    final double totalDamage = physicalDamage + magicalDamage;
     physicalPercentage = (physicalDamage / totalDamage) * 100;
     magicalPercentage = (magicalDamage / totalDamage) * 100;
   }
@@ -466,9 +466,9 @@ class BossProvider extends ChangeNotifier {
   /// 
   /// this function is called inside the [_timer] object
   void _autoHit(){
-    double fullDamage = (baseDamage+bonusDamage) + (damageMultiplier * (baseDamage+bonusDamage)) + rng.nextInt(16);
-    double health = currentBoss.getHp / healthUnit;
-    double totalDamage = fullDamage /health;
+    final double fullDamage = (baseDamage+bonusDamage) + (damageMultiplier * (baseDamage+bonusDamage)) + rng.nextInt(16);
+    final double health = currentBoss.getHp / healthUnit;
+    final double totalDamage = fullDamage /health;
     healthProgress += totalDamage;
     physicalDamage += fullDamage;
     dps += fullDamage;
@@ -494,12 +494,12 @@ class BossProvider extends ChangeNotifier {
   /// 
   ///this function is called inside the [_timer] object
   void _hitWithSpell() {
-    double damage = spellDamage + (spellDamage * spellAmp); //
+    final double damage = spellDamage + (spellDamage * spellAmp); //
     dps += damage;
     magicalDamage += damage;
 
-    double health = currentBoss.getHp / healthUnit;
-    healthProgress += (damage/health);
+    final double health = currentBoss.getHp / healthUnit;
+    healthProgress += damage/health;
     currentBossHp = currentBoss.getHp - (healthProgress * health);
   }
 
@@ -518,7 +518,7 @@ class BossProvider extends ChangeNotifier {
       isHornSoundPlaying = true;
       hornSoundPlayed = true;
       updateView();
-      await Future.delayed(Duration(seconds: 8));
+      await Future.delayed(const Duration(seconds: 8));
       hasHornSoundStopped = true;
       isHornSoundPlaying = false;
     }
@@ -551,18 +551,18 @@ class BossProvider extends ChangeNotifier {
   ///this function is called inside the [_timer] object
   void _isGameFinished() async {
     if (healthProgress >= healthUnit) {
-      if (currentBoss == Bosses.wraith_king && !IsWraithKingReincarnated) {
+      if (currentBoss == Bosses.wraith_king && !isWraithKingReincarnated) {
         await wraithKingReincarnation();
         return;
       }
-      log("Boss down");
+      log('Boss down');
       _timer?.cancel();
       _timer = null;
       started = false;
       currentBossHp = 0; // eksi değer göstermemesi için
       dps = 0;
       _addGold(gainedGold);
-      await Future.delayed(Duration(milliseconds: 100)); //snap işleminde 100 ms sonrasını baz almak için
+      await Future.delayed(const Duration(milliseconds: 100)); //snap işleminde 100 ms sonrasını baz almak için
       SoundManager.instance.playBossDyingSound(currentBoss);
       await snapBoss();
       currentBossAlive = false;
@@ -574,7 +574,7 @@ class BossProvider extends ChangeNotifier {
     }
 
     if (timeProgress >= timeUnits) {
-      log("Time out");
+      log('Time out');
       SoundManager.instance.playBossTauntSound(currentBoss);
       _showRoundResultDialog(timeUp: true);
       _reset();
@@ -585,11 +585,11 @@ class BossProvider extends ChangeNotifier {
   Future<void> wraithKingReincarnation() async {
     currentBossHp = 0;
     SoundManager.instance.playWkReincarnation();
-    IsWraithKingReincarnated = true;
+    isWraithKingReincarnated = true;
     _timer?.cancel();
     _timer = null;
     started = false;
-    await Future.delayed(Duration(seconds: 3),() {
+    await Future.delayed(const Duration(seconds: 3),() {
       healthProgress = 30;
       started = true;
       timerFn();
@@ -597,8 +597,8 @@ class BossProvider extends ChangeNotifier {
   }
 
   void _showRoundResultDialog({bool timeUp = false}) {
-    var model = BossRoundResultModel(
-      uid: UserManager.instance.user.uid ?? "null",
+    final model = BossRoundResultModel(
+      uid: UserManager.instance.user.uid ?? 'null',
       name: UserManager.instance.user.username,
       round: roundProgress+1, 
       boss: currentBoss.name, 
@@ -622,18 +622,18 @@ class BossProvider extends ChangeNotifier {
       AchievementManager.instance.updatePlayedGame();
     }
 
-    int expGain = ((roundProgress+1) * 6) + (getRemainingTime ~/ 8);
+    final int expGain = ((roundProgress+1) * 6) + (getRemainingTime ~/ 8);
     UserManager.instance.addExp(expGain);
     _updateManaAndBaseDamage();
     _resetCooldowns();
 
-    String lastBossText = roundProgress+1 == Bosses.values.length ? AppStrings.last : "";
+    final String lastBossText = roundProgress+1 == Bosses.values.length ? AppStrings.last : '';
 
     AppDialogs.showSlidingDialog(
       dismissible: false,
       showBackButton: false,
       height: 540,
-      title: "${(roundProgress+1).getOrdinal()} $lastBossText" + AppStrings.stageResults,
+      title: '${(roundProgress+1).getOrdinal()} $lastBossText${AppStrings.stageResults}',
       content: BossResultRoundDialogContent(
         model: model, 
         earnedGold: gainedGold + (_isActiveMidas ? midasGold : 0), 
@@ -642,7 +642,7 @@ class BossProvider extends ChangeNotifier {
         isLast: model.round != Bosses.values.length,
         bossHpLeft: currentBossHp,
       ),
-      action: BossResultRoundDialogAction(model: model,)
+      action: BossResultRoundDialogAction(model: model),
     );
   }
 
@@ -660,7 +660,7 @@ class BossProvider extends ChangeNotifier {
 
   void timerFn() {
     if (_timer != null) return;
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       dps = 0;
       _increaseTime();
       _autoHit();
@@ -704,27 +704,28 @@ class BossProvider extends ChangeNotifier {
     snapIsDone = true;
     currentBossAlive = false;
     currentBoss = Bosses.values.first;
-    IsWraithKingReincarnated = false;
+    isWraithKingReincarnated = false;
     _updateManaAndBaseDamage(updateUI: false);
     _isActiveMidas = false;
     _userGold = 1000;
   }
 
   void _resetCooldowns({bool withRefresherOrb = true}) {
-    SpellCooldowns.forEach((element) {
+    for (final element in spellCooldowns) {
       element.resetCooldown();
-    });
+    }
     if (withRefresherOrb) {
-      inventory.forEach((element) => element.resetCooldown());
+      for (final element in inventory) {
+        element.resetCooldown();
+      }
       return;
     }
     //refresher orb dışındaki bütün eşyaların cooldown'larını sıfırla
-    inventory.forEach((element) {
-      bool isItemRefresherOrb = element.item == Items.Refresher_orb;
+    for (final element in inventory) {
+      final bool isItemRefresherOrb = element.item == Items.Refresher_orb;
       if (!isItemRefresherOrb) element.resetCooldown(); 
       else element.onPressedItem(currentMana); //fazladan refresher orb alınmışsa tıklanma fonksiyonunu çağırarak hepsini cooldown'a sok
-    });
-  }
+    }}
 
   ///Resets the game values and stops the timer object. 
   ///Otherwise, when re-entering the mode, 

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import 'ads_helper.dart';
@@ -10,20 +12,20 @@ class MyAppLifecycleObserver with WidgetsBindingObserver {
     switch (state) {
       case AppLifecycleState.resumed:
         // Uygulama tekrar ön planda
-        print("Uygulama tekrar ön planda");
+        log('Uygulama tekrar ön planda');
         break;
       case AppLifecycleState.inactive:
         // Uygulama durdu
-        print("Uygulama durdu");
+        log('Uygulama durdu');
         break;
       case AppLifecycleState.paused:
         // Uygulama arka planda alındı
-        print("Uygulama arka planda alındı");
-        await AdsHelper.instance.AppOpenAdLoad();
+        log('Uygulama arka planda alındı');
+        await AdsHelper.instance.appOpenAdLoad();
         break;
       case AppLifecycleState.detached:
         // Uygulama tamamen durduruldu
-        print("Uygulama tamamen durduruldu");
+        log('Uygulama tamamen durduruldu');
         break;
     }
   }

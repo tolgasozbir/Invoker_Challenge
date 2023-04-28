@@ -34,7 +34,7 @@ class _ResultDialogContentState extends State<ResultDialogContent> {
 
   @override
   void initState() {
-    Future.microtask(() async => await AdsHelper.instance.rewardedInterstitialAdLoad());
+    Future.microtask(() async => AdsHelper.instance.rewardedInterstitialAdLoad());
     super.initState();
   }
 
@@ -44,10 +44,10 @@ class _ResultDialogContentState extends State<ResultDialogContent> {
     children: [
       resultField(context, AppStrings.score, widget.correctCount.toString()),
       resultField(context, AppStrings.time, widget.time.toString()),
-      resultField(context, AppStrings.exp, "+"+UserManager.instance.expCalc(widget.correctCount).toStringAsFixed(0)),
-      EmptyBox.h16(),
+      resultField(context, AppStrings.exp, '+${UserManager.instance.expCalc(widget.correctCount).toStringAsFixed(0)}'),
+      const EmptyBox.h16(),
       if(!context.watch<GameProvider>().isAdWatched) watchAdButton(context),
-      EmptyBox.h8(),
+      const EmptyBox.h8(),
       Text(
         AppStrings.bestScore,
         textAlign: TextAlign.center,
@@ -75,14 +75,14 @@ class _ResultDialogContentState extends State<ResultDialogContent> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.slow_motion_video, size: 26,),
-          EmptyBox.w4(),
+          const Icon(Icons.slow_motion_video, size: 26,),
+          const EmptyBox.w4(),
           Text(
-            widget.gameType == GameType.Challanger ? "Continue" : "+30 Sec",
+            widget.gameType == GameType.Challanger ? 'Continue' : '+30 Sec',
             style: TextStyle(
               fontSize: context.sp(13),
               fontWeight: FontWeight.bold,
-              shadows: List.generate(2, (index) => Shadow(blurRadius: 2)),
+              shadows: List.generate(2, (index) => const Shadow(blurRadius: 2)),
             ),
           ),
         ],
@@ -108,7 +108,7 @@ class _ResultDialogContentState extends State<ResultDialogContent> {
               fontSize: context.sp(13),
             ),
           ),
-          Spacer(),
+          const Spacer(),
           Text(
             value,
             textAlign: TextAlign.center,
@@ -118,7 +118,7 @@ class _ResultDialogContentState extends State<ResultDialogContent> {
             ),
           ),
         ],
-      ).wrapPadding(EdgeInsets.all(4)),
+      ).wrapPadding(const EdgeInsets.all(4)),
     );
   }
 }
@@ -142,9 +142,9 @@ class _ResultDialogActionState extends State<ResultDialogAction> with LoadingSta
         AppOutlinedButton(
           title: AppStrings.send,
           isButtonActive: !isLoading,
-          onPressed: () async => await submitScoreFn(widget.databaseTable),
+          onPressed: () async => submitScoreFn(widget.databaseTable),
         ).wrapExpanded(),
-        EmptyBox.w8(),
+        const EmptyBox.w8(),
         AppOutlinedButton(
           title: AppStrings.back,
           isButtonActive: !isLoading,
@@ -180,7 +180,7 @@ class _ResultDialogActionState extends State<ResultDialogAction> with LoadingSta
       return;
     }
 
-    var hasConnection = await InternetConnectionChecker().hasConnection;
+    final hasConnection = await InternetConnectionChecker().hasConnection;
     if (!hasConnection) {
       AppSnackBar.showSnackBarMessage(
         text: AppStrings.errorConnection, 
@@ -217,12 +217,12 @@ class _ResultDialogActionState extends State<ResultDialogAction> with LoadingSta
     if (isOk) {
       AppSnackBar.showSnackBarMessage(
         text: AppStrings.succesSubmitScore, 
-        snackBartype: SnackBarType.success
+        snackBartype: SnackBarType.success,
       );
     } else {
       AppSnackBar.showSnackBarMessage(
         text: AppStrings.errorMessage, 
-        snackBartype: SnackBarType.error
+        snackBartype: SnackBarType.error,
       );
     }
 

@@ -31,17 +31,17 @@ class SoundManager {
 
   void _playSound({required String fileName, double volume = 0.35, bool nonstop = true}) async {
     if (!nonstop) {
-      _player?.stop();
+      await _player?.stop();
     }
     _player = await _cache.play(fileName, volume: volume * getVolume/100);
   }
 
   void playHorn() {
-    var horns = [
+    final horns = [
       SoundPaths.horn_dire,
       SoundPaths.horn_radiant,
     ];
-    var sound = horns[_rnd.nextInt(horns.length)];
+    final sound = horns[_rnd.nextInt(horns.length)];
     _playSound(fileName: sound);
   }
 
@@ -62,8 +62,8 @@ class SoundManager {
       case Bosses.templar: soundCount = 1; break;
     }
 
-    int num = _rnd.nextInt(soundCount) + 1;
-    String sound = SoundPaths.bossSounds+"/${boss.name}/entering$num.mpeg";
+    final int num = _rnd.nextInt(soundCount) + 1;
+    final String sound = '${SoundPaths.bossSounds}/${boss.name}/entering$num.mpeg';
     double volume = 0.35;
     Duration duration =  Duration.zero;
 
@@ -72,35 +72,35 @@ class SoundManager {
     }
 
     if (boss == Bosses.juggernaut) {
-      duration = Duration(milliseconds: 600);
-      String omnislash = SoundPaths.bossSounds+"/${boss.name}/omnislash";
-      await Future.delayed(Duration(milliseconds: 0), () => _playSound(fileName: omnislash+"1.mpeg"),);
-      await Future.delayed(Duration(milliseconds: 200), () => _playSound(fileName: omnislash+"2.mpeg"),);
-      await Future.delayed(Duration(milliseconds: 350), () => _playSound(fileName: omnislash+"3.mpeg"),);
+      duration = const Duration(milliseconds: 600);
+      final String omnislash = '${SoundPaths.bossSounds}/${boss.name}/omnislash';
+      await Future.delayed(Duration.zero, () => _playSound(fileName: '${omnislash}1.mpeg'),);
+      await Future.delayed(const Duration(milliseconds: 200), () => _playSound(fileName: '${omnislash}2.mpeg'),);
+      await Future.delayed(const Duration(milliseconds: 350), () => _playSound(fileName: '${omnislash}3.mpeg'),);
     }  
 
     if (boss == Bosses.blood_seeker) {
       volume = 0.60;
-      duration = Duration(milliseconds: 400);
-      String rupture = SoundPaths.bossSounds+"/${boss.name}/rupture.mpeg";
+      duration = const Duration(milliseconds: 400);
+      final String rupture = '${SoundPaths.bossSounds}/${boss.name}/rupture.mpeg';
       await Future.delayed(Duration.zero, () => _playSound(fileName: rupture, volume: 0.10),);
     }
 
     if (boss == Bosses.drow_ranger) {
       volume = 0.50;
-      duration = Duration(milliseconds: 600);
-      String shh = SoundPaths.bossSounds+"/${boss.name}/shh.mpeg";
+      duration = const Duration(milliseconds: 600);
+      final String shh = '${SoundPaths.bossSounds}/${boss.name}/shh.mpeg';
       await Future.delayed(Duration.zero, () => _playSound(fileName: shh),);
     }
 
     await Future.delayed(duration, () => _playSound(fileName: sound, volume: volume),);
     //Boss specific sounds
     if (boss == Bosses.riki) {
-      String smoke = SoundPaths.bossSounds+"/${boss.name}/smoke.mpeg";
-      await Future.delayed(Duration(seconds: 1), () => _playSound(fileName: smoke, volume: 0.16),);
+      final String smoke = '${SoundPaths.bossSounds}/${boss.name}/smoke.mpeg';
+      await Future.delayed(const Duration(seconds: 1), () => _playSound(fileName: smoke, volume: 0.16),);
     }    
     if (boss == Bosses.anti_mage) {
-      String blink = SoundPaths.bossSounds+"/${boss.name}/blink.mpeg";
+      final String blink = '${SoundPaths.bossSounds}/${boss.name}/blink.mpeg';
       await Future.delayed(Duration.zero, () => _playSound(fileName: blink),);
     }
   }  
@@ -122,7 +122,7 @@ class SoundManager {
       case Bosses.templar: soundCount = 1; break;
     }
     int num = _rnd.nextInt(soundCount) + 1;
-    String sound = SoundPaths.bossSounds+"/${boss.name}/dying1.mpeg";
+    final String sound = '${SoundPaths.bossSounds}/${boss.name}/dying1.mpeg';
     double volume = 0.35;
     if (boss == Bosses.templar) {
       volume = 1.0;
@@ -139,16 +139,16 @@ class SoundManager {
     if (boss == Bosses.wraith_king) {
       num = 2;
       if (num == 1) {
-        String death1 = SoundPaths.bossSounds+"/${boss.name}/death1.mpeg";
-        String death2 = SoundPaths.bossSounds+"/${boss.name}/death2.mpeg";
-        await Future.delayed(Duration(milliseconds: 400), () => _playSound(fileName: death1));
-        await Future.delayed(Duration(milliseconds: 2000), () => _playSound(fileName: death2));
+        final String death1 = '${SoundPaths.bossSounds}/${boss.name}/death1.mpeg';
+        final String death2 = '${SoundPaths.bossSounds}/${boss.name}/death2.mpeg';
+        await Future.delayed(const Duration(milliseconds: 400), () => _playSound(fileName: death1));
+        await Future.delayed(const Duration(milliseconds: 2000), () => _playSound(fileName: death2));
       }
       else {
-        String death3 = SoundPaths.bossSounds+"/${boss.name}/death3.mpeg";
-        String death4 = SoundPaths.bossSounds+"/${boss.name}/death4.mpeg";
+        final String death3 = '${SoundPaths.bossSounds}/${boss.name}/death3.mpeg';
+        final String death4 = '${SoundPaths.bossSounds}/${boss.name}/death4.mpeg';
         await Future.delayed(Duration.zero, () => _playSound(fileName: death3));
-        await Future.delayed(Duration(milliseconds: 1400), () => _playSound(fileName: death4));
+        await Future.delayed(const Duration(milliseconds: 1400), () => _playSound(fileName: death4));
       }
       return;
     }
@@ -172,38 +172,38 @@ class SoundManager {
       case Bosses.huskar: soundCount = 1; break;
     }
     if (boss == Bosses.wraith_king) {
-      String laugh = SoundPaths.bossSounds+"/${boss.name}/laugh.mpeg";
+      final String laugh = '${SoundPaths.bossSounds}/${boss.name}/laugh.mpeg';
       await Future.delayed(Duration.zero, () => _playSound(fileName: laugh),);
-      await Future.delayed(Duration(milliseconds: 2600));
+      await Future.delayed(const Duration(milliseconds: 2600));
     }
-    int num = _rnd.nextInt(soundCount) + 1;
-    String sound = SoundPaths.bossSounds+"/${boss.name}/taunt$num.mpeg";
-    double volume = boss == Bosses.templar ? 1.0 : 0.35;
+    final int num = _rnd.nextInt(soundCount) + 1;
+    final String sound = '${SoundPaths.bossSounds}/${boss.name}/taunt$num.mpeg';
+    final double volume = boss == Bosses.templar ? 1.0 : 0.35;
     _playSound(fileName: sound, volume: volume);
     //Boss specific sounds
     if (boss == Bosses.anti_mage) {
-      String manaVoid = SoundPaths.bossSounds+"/${boss.name}/mana_void.mpeg";
+      final String manaVoid = '${SoundPaths.bossSounds}/${boss.name}/mana_void.mpeg';
       await Future.delayed(Duration.zero, () => _playSound(fileName: manaVoid),);
     }
     if (boss == Bosses.blood_seeker) {
-      String laugh = SoundPaths.bossSounds+"/${boss.name}/laugh.mpeg";
-      await Future.delayed(Duration(milliseconds: 1850), () => _playSound(fileName: laugh),);
+      final String laugh = '${SoundPaths.bossSounds}/${boss.name}/laugh.mpeg';
+      await Future.delayed(const Duration(milliseconds: 1850), () => _playSound(fileName: laugh),);
     }
     if (boss == Bosses.axe) {
-      String cullingBlade = SoundPaths.bossSounds+"/${boss.name}/culling_blade.mpeg";
+      final String cullingBlade = '${SoundPaths.bossSounds}/${boss.name}/culling_blade.mpeg';
       await Future.delayed(Duration.zero, () => _playSound(fileName: cullingBlade, volume: 0.20),);
     }
   }
 
   void playWkReincarnation() async {
-    String reincarnation = SoundPaths.bossSounds+"/wraith_king/reincarnation.mp3";
-    String suprise = SoundPaths.bossSounds+"/wraith_king/suprise.mp3";
-    String laugh = SoundPaths.bossSounds+"/wraith_king/laugh.mpeg";
-    await Future.delayed(Duration(milliseconds: 600));
+    const String reincarnation = '${SoundPaths.bossSounds}/wraith_king/reincarnation.mp3';
+    const String suprise = '${SoundPaths.bossSounds}/wraith_king/suprise.mp3';
+    const String laugh = '${SoundPaths.bossSounds}/wraith_king/laugh.mpeg';
+    await Future.delayed(const Duration(milliseconds: 600));
     _playSound(fileName: laugh);
-    await Future.delayed(Duration(milliseconds: 1000));
+    await Future.delayed(const Duration(milliseconds: 1000));
     _playSound(fileName: reincarnation);
-    await Future.delayed(Duration(milliseconds: 3600));
+    await Future.delayed(const Duration(milliseconds: 3600));
     _playSound(fileName: suprise);
   }
 
@@ -216,7 +216,7 @@ class SoundManager {
   }
 
   void playItemSound(String itemName) {
-    _playSound(fileName: SoundPaths.itemSounds+"/$itemName.mpeg");
+    _playSound(fileName: '${SoundPaths.itemSounds}/$itemName.mpeg');
   }
 
   void playItemBuyingSound() {
@@ -228,32 +228,32 @@ class SoundManager {
   }
   
   void playWelcomeShopSound() {
-    int soundNum = _rnd.nextInt(6) + 1;
-    String sound = SoundPaths.shopWelcome+"$soundNum.mpeg";
+    final int soundNum = _rnd.nextInt(6) + 1;
+    final String sound = '${SoundPaths.shopWelcome}$soundNum.mpeg';
     _playSound(fileName: sound);
   }  
   
   void playLeaveShopSound() {
-    int soundNum = _rnd.nextInt(5) + 1;
-    String sound = SoundPaths.shopLeave+"$soundNum.mpeg";
+    final int soundNum = _rnd.nextInt(5) + 1;
+    final String sound = '${SoundPaths.shopLeave}$soundNum.mpeg';
     _playSound(fileName: sound);
   }
 
   DateTime lastPlayedCdTime = DateTime.now();
   void playAbilityOnCooldownSound() {
-    if (!(DateTime.now().difference(lastPlayedCdTime) > Duration(seconds: 1))) return;
+    if (!(DateTime.now().difference(lastPlayedCdTime) > const Duration(seconds: 1))) return;
     lastPlayedCdTime = DateTime.now();
-    int soundNum = _rnd.nextInt(9) + 1;
-    String sound = SoundPaths.abilityOnCooldown+"$soundNum.mpeg";
+    final int soundNum = _rnd.nextInt(9) + 1;
+    final String sound = '${SoundPaths.abilityOnCooldown}$soundNum.mpeg';
     _playSound(fileName: sound);
   }  
   
   DateTime lastPlayedNoManaTime = DateTime.now();
   void playNoManaSound() {
-    if (!(DateTime.now().difference(lastPlayedNoManaTime) > Duration(seconds: 1))) return;
+    if (!(DateTime.now().difference(lastPlayedNoManaTime) > const Duration(seconds: 1))) return;
     lastPlayedNoManaTime = DateTime.now();
-    int soundNum = _rnd.nextInt(9) + 1;
-    String sound = SoundPaths.notEnoughMana+"$soundNum.mpeg";
+    final int soundNum = _rnd.nextInt(9) + 1;
+    final String sound = '${SoundPaths.notEnoughMana}$soundNum.mpeg';
     _playSound(fileName: sound);
   }
 
@@ -310,9 +310,9 @@ class SoundManager {
   void _coldSnapCastAndTrigger() {
     var counter = 0;
     _playSound(volume: 0.15, fileName: SoundPaths.coldSnapCast);
-    Timer.periodic(Duration(seconds: 1), (timer) {
+    Timer.periodic(const Duration(seconds: 1), (timer) {
       counter++;
-      _playSound(volume: (0.15 - ((counter/100)*1.5)), fileName: SoundPaths.coldSnapTrigger);
+      _playSound(volume: 0.15 - ((counter/100)*1.5), fileName: SoundPaths.coldSnapTrigger);
       if (counter==5) timer.cancel();
     });
   }

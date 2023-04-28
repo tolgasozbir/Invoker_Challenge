@@ -8,12 +8,12 @@ class SunPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    Offset center = Offset(size.width / 2, size.height / 2);
+    final center = Offset(size.width / 2, size.height / 2);
 
-    Paint paint = Paint()
+    final paint = Paint()
       ..strokeWidth = 4.0
       ..color = Colors.white.withOpacity(fraction)
-      ..maskFilter = MaskFilter.blur(BlurStyle.solid, 20);
+      ..maskFilter = const MaskFilter.blur(BlurStyle.solid, 20);
 
     canvas.drawCircle(center, radius, paint);
   }

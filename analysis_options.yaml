@@ -1,16 +1,41 @@
-#include: package:very_good_analysis/analysis_options.yaml
+include: package:very_good_analysis/analysis_options.yaml
 
 linter:
   rules:
-    # public_member_api_docs: false
-    # constant_identifier_names: false
-    # lines_longer_than_80_chars: false
-    # always_use_package_imports: false
-    # camel_case_extensions: false
-    # directives_ordering: false
-    # sort_constructors_first: false
-    # avoid_equals_and_hash_code_on_mutable_classes: false
-    # use_build_context_synchronously: false
-    # cascade_invocations: false
-    # prefer_asserts_with_message: false
-    # avoid_redundant_argument_values: false
+    public_member_api_docs: false
+    avoid_redundant_argument_values: false
+    constant_identifier_names: false
+    lines_longer_than_80_chars: false
+    always_use_package_imports: false
+    sort_constructors_first: false
+    cascade_invocations: false
+    directives_ordering: false
+    depend_on_referenced_packages: false
+    prefer_asserts_with_message: false
+    use_build_context_synchronously: false
+    prefer_constructors_over_static_methods: false
+    use_setters_to_change_properties: false
+    avoid_bool_literals_in_conditional_expressions: false
+    avoid_dynamic_calls: false
+    omit_local_variable_types: false
+    curly_braces_in_flow_control_structures: false
+    unnecessary_this: false
+    use_key_in_widget_constructors: false
+    file_names: false
+    no_default_cases: false
+    avoid_returning_null_for_void: false
+    comment_references: false
+    prefer_int_literals: false
+    avoid_void_async: false
+    flutter_style_todos: false
+    unnecessary_lambdas: false
+    avoid_positional_boolean_parameters: false
+    overridden_fields: false
+    avoid_private_typedef_functions: false
+    unawaited_futures: false
+    sort_pub_dependencies: false
+
+analyzer:
+  errors:
+    argument_type_not_assignable: ignore
+    inference_failure_on_instance_creation: ignore

@@ -9,7 +9,7 @@ class CooldownAnimation extends StatefulWidget {
   const CooldownAnimation({super.key, required this.child, required this.duration, required this.remainingCd, required this.size});
 
   @override
-  _CooldownAnimationState createState() => _CooldownAnimationState();
+  State<CooldownAnimation> createState() => _CooldownAnimationState();
 }
 
 class _CooldownAnimationState extends State<CooldownAnimation> with SingleTickerProviderStateMixin {
@@ -19,14 +19,14 @@ class _CooldownAnimationState extends State<CooldownAnimation> with SingleTicker
   late Animation<double> _durationText;
 
   double normalize(double a, double b) {
-    var sum = a+b;
-    var res = (sum-a) / sum;
+    final sum = a+b;
+    final res = (sum-a) / sum;
     return res;
   }
 
   double calculateCooldown(double cooldownDuration, double remainingCd) {
     if (remainingCd <= 0) return 1.0;
-    double result = 1 - (((remainingCd * 100) / cooldownDuration) / 100);
+    final result = 1 - (((remainingCd * 100) / cooldownDuration) / 100);
     return result;
   }
 
@@ -39,7 +39,7 @@ class _CooldownAnimationState extends State<CooldownAnimation> with SingleTicker
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: widget.duration
+      duration: widget.duration,
     );
 
     _animation = Tween<double>(
@@ -98,7 +98,7 @@ class _CooldownAnimationState extends State<CooldownAnimation> with SingleTicker
                   sizeCurve: Curves.decelerate,
                   alignment: Alignment.center,
                   crossFadeState: _durationText.value != 0 ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-                  duration: Duration(milliseconds: 400), 
+                  duration: const Duration(milliseconds: 400), 
                   firstChild: SizedBox.square(
                     dimension: widget.size,
                     child: Center(
@@ -107,7 +107,7 @@ class _CooldownAnimationState extends State<CooldownAnimation> with SingleTicker
                         style: TextStyle(
                           fontSize: 24,
                           color: Colors.white,
-                          shadows: List.generate(6, (index) => Shadow(blurRadius: 8)),
+                          shadows: List.generate(6, (index) => const Shadow(blurRadius: 8)),
                         ),
                       ),
                     ),

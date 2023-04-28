@@ -8,9 +8,9 @@ class AppServices {
   static AppServices? _instance;
   static AppServices get instance => _instance ??= AppServices._();
 
-  IDatabaseService? _databaseService;
-  ILocalStorageService? _localStorageService;
-  FirebaseAuthService? _firebaseAuthService;
+  late IDatabaseService? _databaseService;
+  late ILocalStorageService? _localStorageService;
+  late FirebaseAuthService? _firebaseAuthService;
 
   IDatabaseService get databaseService => _databaseService!;
   ILocalStorageService get localStorageService => _localStorageService!;
@@ -19,12 +19,12 @@ class AppServices {
   Future<void> initServices({
     required IDatabaseService databaseService, 
     required ILocalStorageService localStorageService,
-    required FirebaseAuthService firebaseAuthService
+    required FirebaseAuthService firebaseAuthService,
   }) async {
     this._databaseService = databaseService;
     this._localStorageService = localStorageService;
     this._firebaseAuthService = firebaseAuthService;
 
-    _localStorageService!.init();
+    await _localStorageService!.init();
   }
 }

@@ -15,10 +15,10 @@ class ManaBar extends StatefulWidget {
 class _ManaBarState extends State<ManaBar> {
   @override
   Widget build(BuildContext context) {
-    final margin = EdgeInsets.symmetric(horizontal: 24);
-    TextStyle textStyle = TextStyle(fontSize: context.sp(12), fontWeight: FontWeight.bold);
-    double height = context.dynamicHeight(0.048);
-    double width = context.width;
+    const margin = EdgeInsets.symmetric(horizontal: 24);
+    final TextStyle textStyle = TextStyle(fontSize: context.sp(12), fontWeight: FontWeight.bold);
+    final double height = context.dynamicHeight(0.048);
+    final double width = context.width;
     return Stack(
       children: [
         Container(
@@ -27,20 +27,20 @@ class _ManaBarState extends State<ManaBar> {
           height: height,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(6),
-            color: Color(0xFF20385C),
+            color: const Color(0xFF20385C),
           ),
         ),
         Consumer<BossProvider>(
           builder: (context, provider, child) {
-            double manaBarWidth = context.dynamicWidth(0.88) * provider.manaBarWidthMultiplier;
+            final double manaBarWidth = context.dynamicWidth(0.88) * provider.manaBarWidthMultiplier;
             return AnimatedContainer(
-              duration: Duration(seconds: 1),
+              duration: const Duration(seconds: 1),
               margin: margin,
               width: manaBarWidth < 0 ? 0 : manaBarWidth,
               height: height,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(6),
-                gradient: LinearGradient(
+                gradient: const LinearGradient(
                   colors: [
                     Color(0xFF385AB4),
                     Color(0xFF4870E0),
@@ -55,17 +55,17 @@ class _ManaBarState extends State<ManaBar> {
         ),
         Container(
           margin: margin,
-          padding: EdgeInsets.symmetric(horizontal: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 8),
           width: width,
           height: height,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(6),
-            border: Border.all(width: 1.2)
+            border: Border.all(width: 1.2),
           ),
           child: Consumer<BossProvider>(
             builder: (context, provider, child) => Row(
               children: [
-                Spacer(),
+                const Spacer(),
                 Row(
                   children: [
                     NumberAnimation(
@@ -75,11 +75,11 @@ class _ManaBarState extends State<ManaBar> {
                       maxValue: provider.maxMana,
                       textStyle: textStyle,
                     ),
-                    Text("/", style: textStyle),
+                    Text('/', style: textStyle),
                     Text(provider.maxMana.toStringAsFixed(0), style: textStyle),
                   ],
                 ),
-                Text("+"+provider.manaRegen.toStringAsFixed(1), style: textStyle).wrapAlign(Alignment.centerRight).wrapExpanded(),
+                Text('+${provider.manaRegen.toStringAsFixed(1)}', style: textStyle).wrapAlign(Alignment.centerRight).wrapExpanded(),
               ],
             ),
           ),
@@ -95,10 +95,10 @@ class NumberAnimation extends StatefulWidget {
   final double maxValue;
   final TextStyle textStyle;
 
-  NumberAnimation({super.key, required this.initialValue, required this.increment, required this.textStyle, required this.maxValue});
+  const NumberAnimation({super.key, required this.initialValue, required this.increment, required this.textStyle, required this.maxValue});
 
   @override
-  _NumberAnimationState createState() => _NumberAnimationState();
+  State<NumberAnimation> createState() => _NumberAnimationState();
 }
 
 class _NumberAnimationState extends State<NumberAnimation> with SingleTickerProviderStateMixin {
@@ -112,7 +112,7 @@ class _NumberAnimationState extends State<NumberAnimation> with SingleTickerProv
 
     _currentValue = widget.initialValue;
 
-    _controller = AnimationController(duration: Duration(seconds: 1), vsync: this);
+    _controller = AnimationController(duration: const Duration(seconds: 1), vsync: this);
 
     _animation = Tween(begin: _currentValue, end: _currentValue + widget.increment)
         .animate(_controller)..addListener(() { 
@@ -140,18 +140,4 @@ class _NumberAnimationState extends State<NumberAnimation> with SingleTickerProv
       ),
     );
   }
-
-  // void update({required double initialValue, required double increment}) {
-  //   setState(() {
-  //     _currentValue = initialValue;
-  //     _animation = Tween(begin: _currentValue, end: _currentValue + increment)
-  //         .animate(_controller)
-  //           ..addListener(() {
-  //             setState(() {});
-  //           });
-  //   });
-
-  //   _controller.reset();
-  //   _controller.forward();
-  // }
 }

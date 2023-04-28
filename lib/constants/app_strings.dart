@@ -1,7 +1,7 @@
 class AppStrings {
   AppStrings._();
   
-  static const String appName = "Invoker Challenge";
+  static const String appName = 'Invoker Challenge';
   static const String appVersion = 'Beta 0.0.2';
 
   //Main menu
@@ -17,8 +17,8 @@ class AppStrings {
   static const String level = 'Level';
 
   //Loading
-  static const List<String> MessageList = [
-    "Remember, as you level up, your damage, spell damage, mana, and mana regeneration also increase, making it easier for you to defeat bosses. To level up, you can play timer, challenger, and boss modes.",
+  static const List<String> messageList = [
+    'Remember, as you level up, your damage, spell damage, mana, and mana regeneration also increase, making it easier for you to defeat bosses. To level up, you can play timer, challenger, and boss modes.',
     "Your data is saved on your device, don't forget to synchronize it from the profile menu to avoid losing your data.",
   ];
 
@@ -32,9 +32,9 @@ class AppStrings {
   static const String close = 'Close';
   static const String back = 'Back';
   static const String logout = 'Logout';
-  static const String victory = "Victory";
-  static const String defeated = "Defeated";
-  static const String last = "(Last) ";
+  static const String victory = 'Victory';
+  static const String defeated = 'Defeated';
+  static const String last = '(Last) ';
   static const String time = 'Time';
   static const String score = 'Score';
   static const String bestScore = 'Best Score';
@@ -83,7 +83,7 @@ class AppStrings {
 
   //Talent tree
   static const String talentTree = 'Talent Tree';
-  static const talents = const [
+  static const talents = [
     '+400 Mana in Boss Battle',
     '+1 Challenger Life',
     '+2 Exp Multiplier',
@@ -139,12 +139,12 @@ class ImagePaths {
   static const String svgExort = '$_svgRoot/exort.svg';
   static const String svgTalentTree = '$_svgRoot/talent_tree.svg';
   static const String svgDota2Logo = '$_svgRoot/dota2.svg';
-  static const svgInvokerLogo = const [
+  static const svgInvokerLogo = [
     '$_svgRoot/invoker1.svg',
     '$_svgRoot/invoker2.svg',
   ];
 
-  static const ratingFaces = const [
+  static const ratingFaces = [
     '$_svgRoot/rate1.svg',
     '$_svgRoot/rate2.svg',
     '$_svgRoot/rate3.svg',

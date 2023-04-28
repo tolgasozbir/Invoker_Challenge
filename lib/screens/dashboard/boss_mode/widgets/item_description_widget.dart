@@ -21,10 +21,10 @@ class ItemDescriptionWidget extends StatelessWidget {
   ///If the value is "true", the item is sellable, and if the value is "false", the item cannot be sold. 
   final bool isItemSellable;
 
-  final double containerSize = 20;
-  final margin = const EdgeInsets.only(right: 8);
-  final borderRadius = const BorderRadius.all(Radius.circular(4));
-  final manaGradient = const LinearGradient(
+  double get containerSize => 20;
+  EdgeInsets get margin => const EdgeInsets.only(right: 8);
+  BorderRadius get borderRadius => const BorderRadius.all(Radius.circular(4));
+  LinearGradient get manaGradient => const LinearGradient(
     colors: [
       Color(0xFF009BCF), 
       Color(0xFF00688A),
@@ -32,7 +32,7 @@ class ItemDescriptionWidget extends StatelessWidget {
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
   );
-  final cooldownGradient = const SweepGradient(
+  SweepGradient get cooldownGradient => const SweepGradient(
     colors: [
       Colors.grey, 
       Colors.grey, 
@@ -52,7 +52,7 @@ class ItemDescriptionWidget extends StatelessWidget {
           bonusField(context),
           if (item.item.active != null) 
             itemActiveField(context),
-          Spacer(),
+          const Spacer(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -60,7 +60,7 @@ class ItemDescriptionWidget extends StatelessWidget {
               children: [
                 if (item.item.cooldown != null)
                   cooldownfield(context),
-                EmptyBox.w12(),
+                const EmptyBox.w12(),
                 if (item.item.mana != null)
                   manafield(context),
                 ],
@@ -77,9 +77,9 @@ class ItemDescriptionWidget extends StatelessWidget {
     return Row(
       children: [
         Image.asset(item.item.image, height: context.dynamicHeight(0.12)),
-        EmptyBox.w8(),
+        const EmptyBox.w8(),
         Text(item.item.getName, style: TextStyle(fontSize: context.sp(14), fontWeight: FontWeight.bold),),
-        EmptyBox.h12(),
+        const EmptyBox.h12(),
       ],
     );
   }
@@ -88,26 +88,26 @@ class ItemDescriptionWidget extends StatelessWidget {
     return Row(
       children: [
         Text(
-          isItemSellable ? "Selling Price: " : "Cost: ", 
+          isItemSellable ? 'Selling Price: ' : 'Cost: ', 
           style: TextStyle(fontSize: context.sp(13), fontWeight: FontWeight.w500,),
         ),
         GoldWidget(gold: isItemSellable ? (item.item.cost * 0.75).toInt() : item.item.cost),
       ],
-    ).wrapPadding(EdgeInsets.only(bottom: 8));
+    ).wrapPadding(const EdgeInsets.only(bottom: 8));
   }
 
   Text bonusField(BuildContext context) {
     return Text(
-      "Bonus: ${item.item.bonus}", 
+      'Bonus: ${item.item.bonus}', 
       style: TextStyle(fontSize: context.sp(13), fontWeight: FontWeight.w500,),
     );
   }
 
   Widget itemActiveField(BuildContext context) {
     return Text(
-      "Active: ${item.item.active}", 
+      'Active: ${item.item.active}', 
       style: TextStyle(fontSize: context.sp(13), fontWeight: FontWeight.w500,),
-    ).wrapPadding(EdgeInsets.symmetric(vertical: 8));
+    ).wrapPadding(const EdgeInsets.symmetric(vertical: 8));
   }
 
   Row cooldownfield(BuildContext context) {
@@ -156,8 +156,8 @@ class ItemDescriptionWidget extends StatelessWidget {
         backgroundColor: isItemSellable ? AppColors.red : AppColors.amber,
         foregroundColor: AppColors.black,
       ),
-      label: Icon(Icons.sell_outlined), 
-      icon: Text(isItemSellable ? "Sell" : "Buy", style: TextStyle(fontSize: context.sp(14), fontWeight: FontWeight.bold,),),
+      label: const Icon(Icons.sell_outlined), 
+      icon: Text(isItemSellable ? 'Sell' : 'Buy', style: TextStyle(fontSize: context.sp(14), fontWeight: FontWeight.bold,),),
       onPressed: isItemSellable
        ? () => sellFn(context)
        : () => buyFn(context),
@@ -166,7 +166,7 @@ class ItemDescriptionWidget extends StatelessWidget {
 
   void buyFn(BuildContext context) {
     Navigator.pop(context);
-    var provider = context.read<BossProvider>();
+    final provider = context.read<BossProvider>();
     if (item.item.cost > provider.userGold) {
       AppSnackBar.showSnackBarMessage(
         text: AppStrings.sbNotEnoughGold,

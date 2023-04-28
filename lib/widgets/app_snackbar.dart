@@ -18,7 +18,7 @@ class AppSnackBar {
 
   static final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 
-  static showSnackBarMessage({
+  static ScaffoldFeatureController<SnackBar, SnackBarClosedReason>? showSnackBarMessage({
     required String text, 
     Duration duration = const Duration(milliseconds: 2400), 
     required SnackBarType snackBartype,
@@ -54,9 +54,9 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
   late final Animation<Offset> _animation;
   final animOffset = Tween<Offset>(begin: const Offset(0, 10), end: Offset.zero);
 
-  final double SnackBarHeight = 92;
+  final double snackBarHeight = 92;
   final double bgIconSize = 64;
-  double get position => (SnackBarHeight - bgIconSize) / 2;
+  double get position => (snackBarHeight - bgIconSize) / 2;
 
   @override
   void initState() {
@@ -95,7 +95,7 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
       child: SlideTransition(
         position: _animation,
         child: Container(
-          height: SnackBarHeight,
+          height: snackBarHeight,
           decoration: BoxDecoration(
             color: snackBarColor,
             border: Border.all(width: 1.6),
@@ -134,7 +134,7 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
                         overflow: TextOverflow.ellipsis,
                       ),
                     ],
-                  ).wrapPadding(EdgeInsets.only(left: 8)).wrapExpanded(),
+                  ).wrapPadding(const EdgeInsets.only(left: 8)).wrapExpanded(),
                 ],
               ).wrapPadding(const EdgeInsets.all(16)),
             ],
@@ -145,9 +145,9 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
   }
 
   Positioned invokerLogo() {
-    var rnd = Random();
-    var index = rnd.nextInt(ImagePaths.svgInvokerLogo.length);
-    var svg = ImagePaths.svgInvokerLogo[index];
+    final rnd = Random();
+    final index = rnd.nextInt(ImagePaths.svgInvokerLogo.length);
+    final svg = ImagePaths.svgInvokerLogo[index];
     return Positioned(
       right: 0,
       child: SvgPicture.asset(

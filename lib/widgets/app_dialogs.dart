@@ -16,7 +16,7 @@ class AppDialogs {
     Widget? action, 
     double? height,
     bool showBackButton = false, 
-    bool dismissible = false
+    bool dismissible = false,
   }) {
     return showGeneralDialog<T?>(
       context: navigatorKey.currentContext!,
@@ -59,7 +59,7 @@ class AppDialogs {
                         children: [
                           Row(
                             children: [
-                              if (showBackButton) BackButton(),
+                              if (showBackButton) const BackButton(),
                               if (title != null)
                                 Expanded(
                                   child: Padding(
@@ -76,7 +76,7 @@ class AppDialogs {
                                               style: TextStyle(
                                                 fontSize: context.sp(16), 
                                                 color: Colors.grey.withOpacity(0.6),
-                                                fontWeight: FontWeight.w500
+                                                fontWeight: FontWeight.w500,
                                               ),
                                             ),
                                           ),
@@ -91,7 +91,7 @@ class AppDialogs {
                             child: Padding(
                               padding: const EdgeInsets.fromLTRB(24, 8, 24, 4),
                               child: SingleChildScrollView(
-                                physics: BouncingScrollPhysics(),
+                                physics: const BouncingScrollPhysics(),
                                 child: content,
                               ),
                             ),
@@ -197,7 +197,7 @@ class AppDialogs {
           scaleY: anim.value,
           child: Opacity(
             opacity: anim.value,
-            child: child
+            child: child,
           ),
         );
       },

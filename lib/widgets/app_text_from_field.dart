@@ -5,7 +5,6 @@ import '../extensions/context_extension.dart';
 import '../extensions/widget_extension.dart';
 
 class AppTextFormField extends StatelessWidget {
-  final Key? key;
   final String? hintText;
   final String? errorText;
   final Widget? prefixIcon;
@@ -28,7 +27,6 @@ class AppTextFormField extends StatelessWidget {
   final Color? bgColor;
 
   const AppTextFormField({
-    this.key,
     this.hintText,
     this.prefixIcon,
     this.suffixIcon,
@@ -74,7 +72,7 @@ class AppTextFormField extends StatelessWidget {
           textCapitalization: textCapitalization,
           style: TextStyle(fontSize: context.sp(12), fontWeight: FontWeight.w600),
           decoration: InputDecoration(
-            contentPadding: EdgeInsets.fromLTRB(12, 20, 12, 12),
+            contentPadding: const EdgeInsets.fromLTRB(12, 20, 12, 12),
             //labelText: hintText,
             hintMaxLines: 4,
             fillColor: bgColor ?? AppColors.textFormFieldBg,
@@ -86,7 +84,7 @@ class AppTextFormField extends StatelessWidget {
             errorBorder: _inputBorderSide(color: errorBorderColor ?? Theme.of(context).colorScheme.error),
             focusedErrorBorder: _inputBorderSide(color: errorBorderColor ?? Theme.of(context).colorScheme.error),
             hintText: this.hintText,
-            errorText: this.errorText
+            errorText: this.errorText,
           ),
         ).wrapExpanded(flex: isExpand ? 1 : 0)
       ],

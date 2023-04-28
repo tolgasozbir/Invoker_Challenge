@@ -14,25 +14,25 @@ import 'widgets/social_icon.dart';
 class AboutMeView extends StatelessWidget {
   const AboutMeView({super.key});
 
-  final gMail = "tolgasoz1@gmail.com";
-  final urlLinkedIn = "https://www.linkedin.com/in/tolga-sözbir/";
-  final urlGit = "https://github.com/tolgasozbir";
-  final urlInstagram = "https://www.instagram.com/tolga_sozbir/";
-  final List<Map<String, dynamic>> technologyList = const [
+  String get gMail => 'tolgasoz1@gmail.com';
+  String get urlLinkedIn => 'https://www.linkedin.com/in/tolga-sözbir/';
+  String get urlGit => 'https://github.com/tolgasozbir';
+  String get urlInstagram => 'https://www.instagram.com/tolga_sozbir/';
+  List<Map<String, dynamic>> get technologyList => const [
     {
-      "tool" : "Flutter",
-      "icon" : "${ImagePaths.icFlutter}",
-      "color" : Colors.blue,
+      'tool' : 'Flutter',
+      'icon' : ImagePaths.icFlutter,
+      'color' : Colors.blue,
     },
     {
-      "tool" : "C#",
-      "icon" : "${ImagePaths.icCsharp}",
-      "color" : Colors.purpleAccent,
+      'tool' : 'C#',
+      'icon' : ImagePaths.icCsharp,
+      'color' : Colors.purpleAccent,
     },
     {
-      "tool" : "Firebase",
-      "icon" : "${ImagePaths.icFirebase}",
-      "color" : Colors.amber,
+      'tool' : 'Firebase',
+      'icon' : ImagePaths.icFirebase,
+      'color' : Colors.amber,
     },
   ];
 
@@ -53,13 +53,13 @@ class AboutMeView extends StatelessWidget {
   Column _bodyView(BuildContext context) {
     return Column(
       children: [
-        ProfileAvatar(),
-        EmptyBox.h32(),
+        const ProfileAvatar(),
+        const EmptyBox.h32(),
         socialIcons(),
         whiteDivider(context),
-        EmptyBox.h32(),
+        const EmptyBox.h32(),
         technologies(),
-        EmptyBox.h32(),
+        const EmptyBox.h32(),
         aboutMeBio(context)
       ],
     );
@@ -72,26 +72,26 @@ class AboutMeView extends StatelessWidget {
         SocialIcon(
           icon: FontAwesomeIcons.google, 
           corner: Corner.left,
-          onTap: () async => await SocialBtnFn(gMail, sendMail: true)
+          onTap: () => socialBtnFn(gMail, sendMail: true),
         ),
         SocialIcon(
           icon: FontAwesomeIcons.linkedin,
-          onTap: () async => await SocialBtnFn(urlLinkedIn)
+          onTap: () => socialBtnFn(urlLinkedIn),
         ),
         SocialIcon(
           icon: FontAwesomeIcons.github,
-          onTap: () async => await SocialBtnFn(urlGit)
+          onTap: () => socialBtnFn(urlGit),
         ),
         SocialIcon(
           icon: FontAwesomeIcons.instagram, 
           corner: Corner.right,
-          onTap: () async => await SocialBtnFn(urlInstagram)
+          onTap: () => socialBtnFn(urlInstagram),
         ),
       ],
     );
   }
 
-  Future<void> SocialBtnFn(String path, {bool sendMail = false}) async {
+  Future<void> socialBtnFn(String path, {bool sendMail = false}) async {
     try{
       Uri? url;
       if (!sendMail) url = Uri.parse(path);
@@ -121,19 +121,19 @@ class AboutMeView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(AppStrings.langsAndTools, style: TextStyle(fontWeight: FontWeight.bold)),
+        const Text(AppStrings.langsAndTools, style: TextStyle(fontWeight: FontWeight.bold)),
         Wrap(
           children: List.generate(technologyList.length, (index) {
-            var item = technologyList[index];
+            final item = technologyList[index];
             return Chip(
               side: BorderSide(
                 strokeAlign: BorderSide.strokeAlignOutside,
-                color: item["color"],
+                color: item['color'] as Color,
               ),
-              label: Text(item["tool"]), 
-              avatar: Image.asset(item["icon"]),
-              labelPadding: EdgeInsets.only(left: 2, right: 4),
-            ).wrapPadding(EdgeInsets.symmetric(horizontal: 3));
+              label: Text(item['tool'] as String), 
+              avatar: Image.asset(item['icon'] as String ),
+              labelPadding: const EdgeInsets.only(left: 2, right: 4),
+            ).wrapPadding(const EdgeInsets.symmetric(horizontal: 3));
           }),
         ),
       ],
@@ -148,7 +148,7 @@ class AboutMeView extends StatelessWidget {
         bottomLeft: Radius.circular(4),
         bottomRight: Radius.circular(8),
       ),
-      border: Border.all(color: AppColors.white30)
+      border: Border.all(color: AppColors.white30),
     );
 
     return Container(
@@ -181,15 +181,13 @@ class AboutMePainter extends CustomPainter {
     final width = size.width;
     final height = size.height;
 
-    final gradient = LinearGradient(
+    final gradient = const LinearGradient(
       colors: AppColors.aboutMeGradient,
-      begin: Alignment.centerLeft,
-      end: Alignment.centerRight,
     ).createShader(
         Rect.fromCenter(
           center: Offset(width/2, height/2), 
           width: width, 
-          height: height
+          height: height,
         ),
       );
 
