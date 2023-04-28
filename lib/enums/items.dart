@@ -16,7 +16,7 @@ enum Items {
     cost: 1300, 
     active: 'Restore 175 mana', 
     cooldown: 40, 
-    mana: 0,
+    manaCost: 0,
     hasSound: true,
   ),
 
@@ -36,7 +36,7 @@ enum Items {
     cost: 1525, 
     active: 'Spell amplification +20%', 
     cooldown: 30, 
-    mana: 50, 
+    manaCost: 50, 
     duration: 16,
     hasSound: true,
   ),
@@ -63,7 +63,7 @@ enum Items {
     cost: 2300, 
     active: 'Damage Per Second: 100', 
     cooldown: 24, 
-    mana: 100, 
+    manaCost: 100, 
     duration: 6,
     hasSound: true,
   ),
@@ -80,13 +80,13 @@ enum Items {
     cost: 4650, 
     active: 'Magic Amplification +40%', 
     cooldown: 36, 
-    mana: 200, 
+    manaCost: 200, 
     duration: 8,
     hasSound: true,
   ),
 
   Monkey_king_bar(
-    bonus: 'Increases damage by 36', 
+    bonus: 'Increases damage by 48', 
     cost: 4575,
   ),
 
@@ -96,18 +96,18 @@ enum Items {
     active: 'Resets the cooldowns of all your items and abilities.'
     "\n(Multiple items won't stacks)", 
     cooldown: 180, 
-    mana: 350,
+    manaCost: 350,
     hasSound: true,
   ),
 
   Daedalus(
-    bonus: 'Increases damage by 56', 
+    bonus: 'Increases damage by 64', 
     cost: 5650,
   ),
   
   Eye_of_skadi(
     bonus: 'Increases mana by +1600', 
-    cost: 5300,
+    cost: 5200,
   ),
   
   Bloodthorn(
@@ -122,7 +122,7 @@ enum Items {
     cost: 7950,
     active: '+3200 Magic Damage',
     cooldown: 30,
-    mana: 200,
+    manaCost: 200,
     duration: 1,
     hasSound: true,
   ),
@@ -137,13 +137,13 @@ enum Items {
   //   cost: 0,
   // );
 
-  const Items({required this.bonus, required this.cost, this.active, this.cooldown, this.mana, this.duration, this.hasSound = false});
+  const Items({required this.bonus, required this.cost, this.active, this.cooldown, this.manaCost, this.duration, this.hasSound = false});
 
   final String bonus;
   final int cost;
   final String? active;
   final double? cooldown;
-  final double? mana;
+  final double? manaCost;
   final double? duration;
   final bool hasSound;
 }

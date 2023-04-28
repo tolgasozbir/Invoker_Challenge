@@ -61,7 +61,7 @@ class ItemDescriptionWidget extends StatelessWidget {
                 if (item.item.cooldown != null)
                   cooldownfield(context),
                 const EmptyBox.w12(),
-                if (item.item.mana != null)
+                if (item.item.manaCost != null)
                   manafield(context),
                 ],
               ),
@@ -143,7 +143,7 @@ class ItemDescriptionWidget extends StatelessWidget {
           ),
         ),
         Text(
-          item.item.mana!.toStringAsFixed(0),
+          item.item.manaCost!.toStringAsFixed(0),
           style: TextStyle(fontSize: context.sp(13), fontWeight: FontWeight.w500,),
         ),
       ],

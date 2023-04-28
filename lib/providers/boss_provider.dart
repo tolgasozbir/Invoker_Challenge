@@ -213,13 +213,13 @@ class BossProvider extends ChangeNotifier {
         }
         break;
       case Items.Monkey_king_bar:
-        bonusDamage += 36;
+        bonusDamage += 48;
         break;
       case Items.Refresher_orb:
         baseManaRegen += 7;
         break;
       case Items.Daedalus:
-        bonusDamage += 56;
+        bonusDamage += 64;
         break;
       case Items.Eye_of_skadi:
         maxMana += 1600;
@@ -285,13 +285,13 @@ class BossProvider extends ChangeNotifier {
         }
         break;
       case Items.Monkey_king_bar:
-        bonusDamage -= 36;
+        bonusDamage -= 48;
         break;
       case Items.Refresher_orb:
         baseManaRegen -= 7;
         break;
       case Items.Daedalus:
-        bonusDamage -= 56;
+        bonusDamage -= 64;
         break;
       case Items.Eye_of_skadi:
         maxMana -= 1600;
@@ -315,7 +315,7 @@ class BossProvider extends ChangeNotifier {
     }
     final bool isItemUsed = item.onPressedItem(currentMana);
     if (isItemUsed) {
-      _spendMana(item.item.mana ?? 0);
+      _spendMana(item.item.manaCost ?? 0);
       if (item.item.hasSound) {
         SoundManager.instance.playItemSound(item.item.name);
       }

@@ -11,7 +11,7 @@ class Item {
   bool onPressedItem(double currentMana) {
     if (item.cooldown == null) return false;
     if (DateTime.now().difference(_lastPressedAt) > Duration(seconds: item.cooldown!.toInt())) {
-      final bool canUseItem = currentMana >= (item.mana ?? 0);
+      final bool canUseItem = currentMana >= (item.manaCost ?? 0);
       if (canUseItem) {
         _lastPressedAt = DateTime.now();
         //TODO: İTEM SOUND //BOSS PROVİDER'DAN BURAYA TAŞIYABİLİRSİN- SWİTCH-CASE'DE DAHİL

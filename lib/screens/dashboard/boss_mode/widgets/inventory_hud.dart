@@ -102,7 +102,7 @@ class _InventoryHudState extends State<InventoryHud> {
           child: Text(
             widget.isItemsSellable 
               ? '' 
-              : (item.item.mana?.toStringAsFixed(0) ?? ''), 
+              : (item.item.manaCost?.toStringAsFixed(0) ?? ''), 
             style: TextStyle(
               fontSize: context.sp(10), 
               fontWeight: FontWeight.bold,
