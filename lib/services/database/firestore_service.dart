@@ -6,9 +6,9 @@ import '../../constants/app_strings.dart';
 import '../../enums/database_table.dart';
 import '../../extensions/string_extension.dart';
 import '../../models/boss_round_result_model.dart';
-import '../../models/challenger_result.dart';
+import '../../models/challenger.dart';
 import '../../models/feedback_model.dart';
-import '../../models/timer_result.dart';
+import '../../models/time_trial.dart';
 import '../../models/user_model.dart';
 import '../../widgets/app_snackbar.dart';
 import 'IDatabaseService.dart';
@@ -20,11 +20,9 @@ class FirestoreService implements IDatabaseService {
 
   final _collectionRefUsers = FirebaseFirestore.instance.collection('Users');
   final _collectionRefFeedbacks = FirebaseFirestore.instance.collection('Feedbacks');
-  final _collectionRefTimer = FirebaseFirestore.instance.collection(DatabaseTable.timer.name);
-  final _collectionRefChallanger = FirebaseFirestore.instance.collection(DatabaseTable.challenger.name);
-  final int _fetchLimit = 10;
-  final int _fetchLimitBoss = 5;
-  String orderByField = 'score';
+  final _collectionRefTimeTrial = FirebaseFirestore.instance.collection(DatabaseTable.TimeTrial.name);
+  final _collectionRefChallanger = FirebaseFirestore.instance.collection(DatabaseTable.Challenger.name);
+  String orderByScore = 'score';
   String orderByTime = 'time';
   DocumentSnapshot? _lastDocument;
   bool _hasMoreData = true;
@@ -39,26 +37,71 @@ class FirestoreService implements IDatabaseService {
     snackBartype: SnackBarType.info,
   );
 
+  Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> _fetchData(
+    CollectionReference<Map<String, dynamic>> collectionRef, {
+    String? orderByFieldName,
+    bool descending = false,
+    int fetchLimit = 10,
+  }) async {
+
+    if (!_hasMoreData) {
+      _noMoreSnackbar();
+      return [];
+    }
+
+    QuerySnapshot<Map<String,dynamic>> snapshot;
+    try {
+      if (_lastDocument == null) {
+        snapshot = await collectionRef.orderBy(orderByFieldName, descending: descending).limit(fetchLimit).get();
+      } else {
+        snapshot = await collectionRef.
+          orderBy(orderByFieldName, descending: descending)
+          .limit(fetchLimit)
+          .startAfterDocument(_lastDocument!)
+          .get();
+      }
+
+      if (snapshot.docs.isNotEmpty) {
+        _lastDocument = snapshot.docs.last;
+      }
+
+      if (snapshot.docs.length < fetchLimit) {
+        _hasMoreData = false;
+      }
+      
+      return snapshot.docs;
+    } 
+    catch (e) {
+      log('An error occurred: $e');
+      errorSnackbar();
+      return [];
+    }
+  }
+
+  Future<bool> _setData(CollectionReference<Map<String, dynamic>> collectionRef, Map<String, dynamic> data) async {
+    //Create if it does not exist, update if it does exist.
+    if (data['uid'] == null) return false;
+    try {
+      await collectionRef.doc(data['uid']).set(data)
+        .timeout(const Duration(milliseconds: 5000), onTimeout: () => log('Timeout occurred.'));
+      return true;
+    } catch (e) {
+      log('An error occurred: $e');
+      return false;
+    }
+  }
+
   @override
   Future<void> createOrUpdateUser(UserModel userModel) async {
-    //if not exist create if exist update
-    try {
-      if (userModel.uid == null) throw Exception('uuid cant be null');
-      await _collectionRefUsers.doc(userModel.uid).set(userModel.toMap())
-        .timeout(const Duration(milliseconds: 5000), onTimeout: () { return; });
-    } catch (e) {
-      log(e.toString());
-    }
+    await _setData(_collectionRefUsers, userModel.toJson());
   }
   
   @override
   Future<UserModel?> getUserRecords(String uid) async {
     try {
       final response = await _collectionRefUsers.doc(uid).get(const GetOptions(source: Source.server));
-      if (response.data() != null) {
-        return UserModel.fromMap(response.data()!);
-      }
-      throw Exception('data is null');
+      if (response.data() == null) throw Exception('data null');
+      return UserModel.fromJson(response.data());
     } catch (e) {
       log(e.toString());
       return null;
@@ -66,148 +109,55 @@ class FirestoreService implements IDatabaseService {
   }
 
   @override
-  Future<bool> addChallengerScore(ChallengerResult result) async {
-    try {
-      await _collectionRefChallanger.doc(result.uid).set(result.toMap());
-      return true;
-    } catch (e) {
-      log(e.toString());
-      return false;
-    }
+  Future<bool> addChallengerScore(Challenger result) async {
+    final isDataAdded = await _setData(_collectionRefChallanger, result.toJson());
+    return isDataAdded;
   }
 
   @override
-  Future<bool> addTimerScore(TimerResult result) async {
-    try {
-      await _collectionRefTimer.doc(result.uid).set(result.toMap());
-      return true;
-    } catch (e) {
-      log(e.toString());
-      return false;
-    }
+  Future<bool> addTimerScore(TimeTrial result) async {
+    final isDataAdded = await _setData(_collectionRefTimeTrial, result.toJson());
+    return isDataAdded;
   }
 
   @override
-  Future<bool> addBossScore(BossRoundResultModel score) async {
+  Future<bool> addBossScore(BossBattleResult score) async {
     final collectionPathName = 'Boss_${score.boss.capitalize()}';
     final collection = FirebaseFirestore.instance.collection(collectionPathName);
-    try {
-      await collection.doc(score.uid).set(score.toMap());
-      return true;
-    } catch (e) {
-      log(e.toString());
-      return false;
-    }
+    final isDataAdded = await _setData(collection, score.toJson());
+    return isDataAdded;
   }
 
   @override
-  Future<List<BossRoundResultModel>> getBossScores(String bossName) async {
-    if (!_hasMoreData) {
-      _noMoreSnackbar();
-      return [];
-    }
+  Future<List<BossBattleResult>> getBossScores(String bossName) async {
     final collectionPathName = 'Boss_${bossName.capitalize()}';
-    final collection = FirebaseFirestore.instance.collection(collectionPathName);
-    QuerySnapshot<Map<String,dynamic>> snapshot;
-    try {
-      if (_lastDocument == null) {
-        snapshot = await collection.orderBy(orderByTime).limit(_fetchLimitBoss).get();
-      } else {
-        snapshot = await collection.
-          orderBy(orderByTime)
-          .limit(_fetchLimitBoss)
-          .startAfterDocument(_lastDocument!)
-          .get();
-      }
-
-      if (snapshot.docs.isNotEmpty) {
-        _lastDocument = snapshot.docs.last;
-      }
-
-      if (snapshot.docs.length < _fetchLimitBoss) {
-        _hasMoreData = false;
-      }
-
-      final data =  snapshot.docs.map((e) => BossRoundResultModel.fromMap(e.data())).toList();
-      return data;
-    } 
-    catch (e) {
-      log(e.toString());
-      errorSnackbar();
-      return [];
-    }
+    final collectionRef = FirebaseFirestore.instance.collection(collectionPathName);
+    final response = await _fetchData(
+      collectionRef, 
+      orderByFieldName: orderByTime, 
+      fetchLimit: 5,
+    );
+    return response.map((e) => BossBattleResult.fromJson(e.data())).toList();
   }
 
   @override
-  Future<List<ChallengerResult>> getChallangerScores() async {
-    if (!_hasMoreData) {
-      _noMoreSnackbar();
-      return [];
-    }
-    
-    QuerySnapshot<Map<String,dynamic>> snapshot;
-    try {
-      if (_lastDocument == null) {
-        snapshot = await _collectionRefChallanger.orderBy(orderByField, descending: true).limit(_fetchLimit).get();
-      } else {
-        snapshot = await _collectionRefChallanger.
-          orderBy(orderByField, descending: true)
-          .limit(_fetchLimit)
-          .startAfterDocument(_lastDocument!)
-          .get();
-      }
-
-      if (snapshot.docs.isNotEmpty) {
-        _lastDocument = snapshot.docs.last;
-      }
-
-      if (snapshot.docs.length < _fetchLimit) {
-        _hasMoreData = false;
-      }
-      
-      return snapshot.docs.map((e) => ChallengerResult.fromMap(e.data())).toList();
-    } 
-    catch (e) {
-      log(e.toString());
-      errorSnackbar();
-      return [];
-    }
+  Future<List<Challenger>> getChallangerScores() async {
+    final response = await _fetchData(
+      _collectionRefChallanger,
+       orderByFieldName: orderByScore, 
+       descending: true,
+    );
+    return response.map((e) => Challenger.fromJson(e.data())).toList(); 
   }
 
   @override
-  Future<List<TimerResult>> getTimerScores() async {
-    if (!_hasMoreData) {
-      _noMoreSnackbar();
-      return [];
-    }
-    
-    QuerySnapshot<Map<String,dynamic>> snapshot;
-    try {
-      if (_lastDocument == null) {
-        snapshot = await _collectionRefTimer.orderBy(orderByField, descending: true).limit(_fetchLimit).get();
-      } else {
-        snapshot = await _collectionRefTimer.
-          orderBy(orderByField, descending: true)
-          .limit(_fetchLimit)
-          .startAfterDocument(_lastDocument!)
-          .get();
-      }
-
-      if (snapshot.docs.isNotEmpty) {
-        _lastDocument = snapshot.docs.last;
-      }
-
-      if (snapshot.docs.length < _fetchLimit) {
-        _hasMoreData = false;
-      }
-
-      return snapshot.docs.map((e) => TimerResult.fromMap(e.data())).toList();
-    } 
-    catch (e) {
-      log(e.toString());
-      errorSnackbar();
-      return [];
-    }
+  Future<List<TimeTrial>> getTimeTrialScores() async {
+    final response = await _fetchData(
+      _collectionRefTimeTrial, 
+      orderByFieldName: orderByScore, 
+      descending: true,
+    );
+    return response.map((e) => TimeTrial.fromJson(e.data())).toList();
   }
   
   @override

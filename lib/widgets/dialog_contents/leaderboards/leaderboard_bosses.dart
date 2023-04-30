@@ -5,7 +5,7 @@ import '../../../constants/app_colors.dart';
 import '../../../constants/app_strings.dart';
 import '../../../extensions/context_extension.dart';
 import '../../../extensions/widget_extension.dart';
-import '../../../mixins/loading_state_mixin.dart';
+import '../../../mixins/screen_state_mixin.dart';
 import '../../../models/boss_round_result_model.dart';
 import '../../../services/app_services.dart';
 import '../../../utils/number_formatter.dart';
@@ -22,9 +22,9 @@ class LeaderboardBosses extends StatefulWidget {
   State<LeaderboardBosses> createState() => _LeaderboardBossesState();
 }
 
-class _LeaderboardBossesState extends State<LeaderboardBosses> with LoadingState {
+class _LeaderboardBossesState extends State<LeaderboardBosses> with ScreenStateMixin {
 
-  List<BossRoundResultModel>? results;
+  List<BossBattleResult>? results;
 
   @override
   void initState() {
@@ -81,7 +81,7 @@ class _LeaderboardBossesState extends State<LeaderboardBosses> with LoadingState
     );
   }
 
-  ListView resultListView(List<BossRoundResultModel> results) {
+  ListView resultListView(List<BossBattleResult> results) {
     return ListView.builder(
       shrinkWrap: true,
       itemCount:results.length,
@@ -112,7 +112,7 @@ class _LeaderboardBossesState extends State<LeaderboardBosses> with LoadingState
     );
   }
 
-  void showDetailsDialog(BossRoundResultModel model) {
+  void showDetailsDialog(BossBattleResult model) {
     final itemWidgets = model.items.map((e) => Image.asset('${ImagePaths.items}$e.png'.replaceAll(' ', '_'),),).toList();
     AppDialogs.showSlidingDialog(
       dismissible: true,

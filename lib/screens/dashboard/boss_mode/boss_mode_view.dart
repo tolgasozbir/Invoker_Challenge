@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:dota2_invoker_game/models/ability.dart';
+
 import 'widgets/info_view.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -15,7 +17,6 @@ import '../../../enums/spells.dart';
 import '../../../extensions/context_extension.dart';
 import '../../../extensions/widget_extension.dart';
 import '../../../mixins/orb_mixin.dart';
-import '../../../models/ability_cooldown.dart';
 import '../../../providers/boss_provider.dart';
 import '../../../services/sound_manager.dart';
 import '../../../utils/number_formatter.dart';
@@ -382,24 +383,24 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
     );
   }
 
-  BouncingButton abilityButton(AbilityCooldown abilityCooldown) {
+  BouncingButton abilityButton(Ability ability) {
     return BouncingButton(
       child: CooldownAnimation(
-        key: ObjectKey(abilityCooldown.spell),
-        duration: Duration(seconds: abilityCooldown.spell.cooldown.toInt()),
-        remainingCd: abilityCooldown.cooldownLeft,
+        key: ObjectKey(ability.spell),
+        duration: Duration(seconds: ability.spell.cooldown.toInt()),
+        remainingCd: ability.cooldownLeft,
         size: context.dynamicWidth(0.2),
         child: Stack(
           children: [
             Image.asset(
-              abilityCooldown.spell.image, 
+              ability.spell.image, 
               width: context.dynamicWidth(0.2),
             ).wrapClipRRect(BorderRadius.circular(8)),
             Positioned(
               bottom: 0,
               right: 0,
               child: Text(
-                abilityCooldown.spell.mana.toStringAsFixed(0),
+                ability.spell.mana.toStringAsFixed(0),
                 style: TextStyle(
                   color: Colors.blue,
                   fontSize: context.sp(16),
@@ -413,7 +414,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
       ),
       onPressed: () {
         final provider = context.read<BossProvider>();
-        provider.onPressedAbility(abilityCooldown.spell);
+        provider.onPressedAbility(ability.spell);
       },
     );
   }

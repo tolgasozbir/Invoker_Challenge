@@ -7,9 +7,9 @@ import '../../constants/app_strings.dart';
 import '../../enums/database_table.dart';
 import '../../extensions/context_extension.dart';
 import '../../extensions/widget_extension.dart';
-import '../../mixins/loading_state_mixin.dart';
-import '../../models/challenger_result.dart';
-import '../../models/timer_result.dart';
+import '../../mixins/screen_state_mixin.dart';
+import '../../models/challenger.dart';
+import '../../models/time_trial.dart';
 import '../../providers/game_provider.dart';
 import '../../providers/user_manager.dart';
 import '../../services/app_services.dart';
@@ -134,7 +134,7 @@ class ResultDialogAction extends StatefulWidget {
   State<ResultDialogAction> createState() => _ResultDialogActionState();
 }
 
-class _ResultDialogActionState extends State<ResultDialogAction> with LoadingState {
+class _ResultDialogActionState extends State<ResultDialogAction> with ScreenStateMixin {
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -189,21 +189,21 @@ class _ResultDialogActionState extends State<ResultDialogAction> with LoadingSta
       return;
     }
 
-    if (mounted) setState.call(() => changeLoadingState(forceUI: false));
+    changeLoadingState();
     bool isOk = false;
     switch (dbTable) {
-      case DatabaseTable.timer:
+      case DatabaseTable.TimeTrial:
         isOk = await db.addTimerScore(
-          TimerResult(
+          TimeTrial(
             uid: uid, 
             name: name, 
             score: score,
           ),
         );
         break;
-      case DatabaseTable.challenger:
+      case DatabaseTable.Challenger:
         isOk = await db.addChallengerScore(
-          ChallengerResult(
+          Challenger(
             uid: uid, 
             name: name, 
             time: time, 
@@ -211,7 +211,6 @@ class _ResultDialogActionState extends State<ResultDialogAction> with LoadingSta
           ),
         );
         break;
-      case DatabaseTable.boss: break;
     }
 
     if (isOk) {
@@ -227,7 +226,7 @@ class _ResultDialogActionState extends State<ResultDialogAction> with LoadingSta
     }
 
     if (mounted) {
-      setState.call(() => changeLoadingState(forceUI: false));
+      changeLoadingState();
       if (isOk) Navigator.pop(context);
     }
   }

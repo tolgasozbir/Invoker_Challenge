@@ -7,7 +7,7 @@ import '../../../../constants/app_colors.dart';
 import '../../../../constants/app_strings.dart';
 import '../../../../extensions/context_extension.dart';
 import '../../../../extensions/widget_extension.dart';
-import '../../../../mixins/loading_state_mixin.dart';
+import '../../../../mixins/screen_state_mixin.dart';
 import '../../../../models/feedback_model.dart';
 import '../../../../providers/user_manager.dart';
 import '../../../../services/app_services.dart';
@@ -25,7 +25,7 @@ class FeedbackView extends StatefulWidget {
   State<FeedbackView> createState() => _FeedbackViewState();
 }
 
-class _FeedbackViewState extends State<FeedbackView> with SingleTickerProviderStateMixin, LoadingState {
+class _FeedbackViewState extends State<FeedbackView> with SingleTickerProviderStateMixin, ScreenStateMixin {
   late final AnimationController _lottieController;
   final _feedbackController = TextEditingController();
   int _ratingValue = 5;
@@ -192,7 +192,7 @@ class _FeedbackViewState extends State<FeedbackView> with SingleTickerProviderSt
     }
 
     changeLoadingState();
-      await _lottieController.animateBack(0, duration: Duration.zero);
+    await _lottieController.animateBack(0, duration: Duration.zero);
   }
 
 }

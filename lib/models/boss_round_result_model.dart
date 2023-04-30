@@ -1,6 +1,6 @@
-import 'dart:convert';
+import 'package:dota2_invoker_game/models/base_model.dart';
 
-class BossRoundResultModel {
+class BossBattleResult extends IBaseModel<BossBattleResult> {
   final String? uid;
   final String name;
   final int round;
@@ -12,7 +12,7 @@ class BossRoundResultModel {
   final double magicalDamage;
   final List<String> items;
 
-  BossRoundResultModel({
+  BossBattleResult({
     required this.uid,
     required this.name,
     required this.round,
@@ -25,37 +25,38 @@ class BossRoundResultModel {
     required this.items,
   });
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'uid': uid,
-      'name': name,
-      'round': round,
-      'boss': boss,
-      'time': time,
-      'averageDps': averageDps,
-      'maxDps': maxDps,
-      'physicalDamage': physicalDamage,
-      'magicalDamage': magicalDamage,
-      'items': items,
-    };
-  }
-
-  factory BossRoundResultModel.fromMap(Map<String, dynamic> map) {
-    return BossRoundResultModel(
-      uid: map['uid'] as String,
-      name: map['name'] as String,
-      round: map['round'] as int,
-      boss: map['boss'] as String,
-      time: map['time'] as int,
-      averageDps: map['averageDps'] as double,
-      maxDps: map['maxDps'] as double,
-      physicalDamage: map['physicalDamage'] as double,
-      magicalDamage: map['magicalDamage'] as double,
-      items: List<String>.from(map['items'] as List<dynamic>),
+  factory BossBattleResult.fromJson(Map<String, dynamic> json) {
+    return BossBattleResult(
+      uid: json['uid'] as String,
+      name: json['name'] as String,
+      round: json['round'] as int,
+      boss: json['boss'] as String,
+      time: json['time'] as int,
+      averageDps: json['averageDps'] as double,
+      maxDps: json['maxDps'] as double,
+      physicalDamage: json['physicalDamage'] as double,
+      magicalDamage: json['magicalDamage'] as double,
+      items: List<String>.from(json['items'] as List<dynamic>),
     );
   }
 
-  String toJson() => json.encode(toMap());
+  @override
+  BossBattleResult fromJson(Map<String, dynamic> json) {
+    return BossBattleResult.fromJson(json);
+  }
 
-  factory BossRoundResultModel.fromJson(String source) => BossRoundResultModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  @override
+  Map<String, dynamic> toJson() => {
+    'uid': uid,
+    'name': name,
+    'round': round,
+    'boss': boss,
+    'time': time,
+    'averageDps': averageDps,
+    'maxDps': maxDps,
+    'physicalDamage': physicalDamage,
+    'magicalDamage': magicalDamage,
+    'items': items,
+  };
+
 }

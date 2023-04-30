@@ -8,7 +8,7 @@ import '../enums/elements.dart';
 import '../enums/local_storage_keys.dart';
 import '../extensions/context_extension.dart';
 import '../extensions/widget_extension.dart';
-import '../mixins/loading_state_mixin.dart';
+import '../mixins/screen_state_mixin.dart';
 import '../mixins/orb_mixin.dart';
 import '../providers/game_provider.dart';
 import '../providers/spell_provider.dart';
@@ -33,7 +33,7 @@ class GameUIWidget extends StatefulWidget {
   State<GameUIWidget> createState() => _GameUIWidgetState();
 }
 
-class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState {
+class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, ScreenStateMixin {
 
   final _animKey = GlobalKey<TrueFalseWidgetState>();
   int challangerLife = UserManager.instance.user.challangerLife;
@@ -248,7 +248,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, LoadingState
           timerProvider.changeIsStartStatus();
           timerProvider.disposeTimer();
           _animKey.currentState?.playAnimation(IconType.False);
-          context.read<GameProvider>().showResultDialog(GameType.Challanger, DatabaseTable.challenger);
+          context.read<GameProvider>().showResultDialog(GameType.Challanger, DatabaseTable.Challenger);
         }
     }
   }

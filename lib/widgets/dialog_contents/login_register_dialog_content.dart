@@ -8,7 +8,7 @@ import '../../constants/app_strings.dart';
 import '../../extensions/context_extension.dart';
 import '../../extensions/widget_extension.dart';
 import '../../mixins/input_validation_mixin.dart';
-import '../../mixins/loading_state_mixin.dart';
+import '../../mixins/screen_state_mixin.dart';
 import '../../screens/profile/achievements/achievement_manager.dart';
 import '../../services/app_services.dart';
 import '../app_outlined_button.dart';
@@ -22,7 +22,7 @@ class LoginRegisterDialogContent extends StatefulWidget {
   State<LoginRegisterDialogContent> createState() => _LoginRegisterDialogContentState();
 }
 
-class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent> with LoadingState, InputValidationMixin {
+class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent> with ScreenStateMixin, InputValidationMixin {
   final eMailController = TextEditingController();
   final passwordController = TextEditingController();
   final usernameController = TextEditingController();
@@ -55,7 +55,8 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
             validator: isValidPassword,
             suffixIcon: IconButton(
               onPressed: () {
-                setState(() => showPassword = !showPassword);
+                showPassword = !showPassword;
+                updateScreen();
               },
               icon: Icon(showPassword ? CupertinoIcons.eye : CupertinoIcons.eye_slash),
             ),
@@ -139,7 +140,8 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
       Checkbox(
         value: isSelected, 
         onChanged: (value) {
-          setState(() => isLoginCheckboxSelected = !isLoginCheckboxSelected);
+          isLoginCheckboxSelected = !isLoginCheckboxSelected;
+          updateScreen();
         },
         activeColor: AppColors.white30,
         checkColor: AppColors.amber,
@@ -160,7 +162,8 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
 
   void onTapFn() async {
     FocusScope.of(context).unfocus();
-    setState(() => isValidate = formKey.currentState!.validate());
+    isValidate = formKey.currentState!.validate();
+    updateScreen();
     if (!isValidate) {
       ScaffoldMessenger.of(context).removeCurrentSnackBar();
       AppSnackBar.showSnackBarMessage(text: AppStrings.fillFields, snackBartype: SnackBarType.info);

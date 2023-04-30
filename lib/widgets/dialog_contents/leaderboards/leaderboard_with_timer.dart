@@ -5,8 +5,8 @@ import '../../../constants/app_colors.dart';
 import '../../../constants/app_strings.dart';
 import '../../../extensions/context_extension.dart';
 import '../../../extensions/widget_extension.dart';
-import '../../../mixins/loading_state_mixin.dart';
-import '../../../models/timer_result.dart';
+import '../../../mixins/screen_state_mixin.dart';
+import '../../../models/time_trial.dart';
 import '../../../services/app_services.dart';
 import '../../app_outlined_button.dart';
 import '../../app_snackbar.dart';
@@ -18,15 +18,15 @@ class LeaderboardWithTimer extends StatefulWidget {
   State<LeaderboardWithTimer> createState() => _LeaderboardWithTimerState();
 }
 
-class _LeaderboardWithTimerState extends State<LeaderboardWithTimer> with LoadingState {
+class _LeaderboardWithTimerState extends State<LeaderboardWithTimer> with ScreenStateMixin {
 
-  List<TimerResult>? results;
+  List<TimeTrial>? results;
 
   @override
   void initState() {
     Future.microtask(() async {
       changeLoadingState();
-      results = await AppServices.instance.databaseService.getTimerScores();
+      results = await AppServices.instance.databaseService.getTimeTrialScores();
       changeLoadingState();
     });
     super.initState();
@@ -71,13 +71,13 @@ class _LeaderboardWithTimerState extends State<LeaderboardWithTimer> with Loadin
         }
         changeLoadingState();
         await Future.delayed(const Duration(seconds: 1));
-        results?.addAll(await AppServices.instance.databaseService.getTimerScores());
+        results?.addAll(await AppServices.instance.databaseService.getTimeTrialScores());
         changeLoadingState();
       },
     );
   }
 
-  ListView resultListView(List<TimerResult> results) {
+  ListView resultListView(List<TimeTrial> results) {
     return ListView.builder(
       shrinkWrap: true,
       itemCount: results.length,

@@ -71,15 +71,15 @@ class UserManager extends ChangeNotifier {
     return user.bestBossScores?[bossName] as Map<String, dynamic>? ?? {};
   }
 
-  void updateBestBossTimeScore(String bossName, int value, BossRoundResultModel model) async {
+  void updateBestBossTimeScore(String bossName, int value, BossBattleResult model) async {
     user.bestBossScores ??= {}; // null check
-    user.bestBossScores?.putIfAbsent(bossName, () => model.toMap());
+    user.bestBossScores?.putIfAbsent(bossName, () => model.toJson());
     if (isLoggedIn() && user.bestBossScores![bossName]['name'].toString().startsWith('Guest')) {
       user.bestBossScores![bossName]['name'] = user.username;
     }
     if ((user.bestBossScores?[bossName]['time'] as int? ?? 0) < value) return;
     if (user.bestBossScores!.containsKey(bossName)) {
-      user.bestBossScores?[bossName] = model.toMap();
+      user.bestBossScores?[bossName] = model.toJson();
     }
     await setAndSaveUserToLocale(user);
   }

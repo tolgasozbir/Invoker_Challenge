@@ -1,6 +1,18 @@
-import 'dart:convert';
+import 'package:dota2_invoker_game/models/base_model.dart';
 
-class UserModel {
+class UserModel extends IBaseModel<UserModel> {
+  String? uid;
+  String username;
+  int challangerLife;
+  int bestChallengerScore;
+  int bestTimerScore;
+  int level;
+  double exp;
+  double expMultiplier;
+  Map<String,dynamic>? talentTree;
+  Map<String,dynamic>? achievements;
+  Map<String,dynamic>? bestBossScores;
+
   UserModel({
     required this.uid,
     required this.username,
@@ -29,19 +41,29 @@ class UserModel {
     this.bestBossScores,
   });
 
-  String? uid;
-  String username;
-  int challangerLife;
-  int bestChallengerScore;
-  int bestTimerScore;
-  int level;
-  double exp;
-  double expMultiplier;
-  Map<String,dynamic>? talentTree;
-  Map<String,dynamic>? achievements;
-  Map<String,dynamic>? bestBossScores;
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
+      uid: json['uid'] as String?,
+      username: json['username'] as String,
+      challangerLife: json['challangerLife'] as int,
+      bestChallengerScore: json['bestChallengerScore'] as int,
+      bestTimerScore: json['bestTimerScore'] as int,
+      level: json['level'] as int,
+      exp: double.tryParse(json['exp'].toString()) ?? 0, 
+      expMultiplier: double.tryParse(json['expMultiplier'].toString()) ?? 0,
+      talentTree: json['talentTree'] != null ? Map<String,dynamic>.from(json['talentTree'] as Map<String,dynamic>) : null,
+      achievements: json['achievements'] != null ? Map<String,dynamic>.from(json['achievements'] as Map<String,dynamic>) : null,
+      bestBossScores: json['bestBossScores'] != null ? Map<String,dynamic>.from(json['bestBossScores'] as Map<String,dynamic>) : null,
+    );
+  }
 
-  Map<String, dynamic> toMap() {
+  @override
+  UserModel fromJson(Map<String, dynamic> json) {
+    return UserModel.fromJson(json);
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'uid': uid,
       'username': username,
@@ -57,23 +79,4 @@ class UserModel {
     };
   }
 
-  factory UserModel.fromMap(Map<String, dynamic> map) {
-    return UserModel(
-      uid: map['uid'] as String?,
-      username: map['username'] as String,
-      challangerLife: map['challangerLife'] as int,
-      bestChallengerScore: map['bestChallengerScore'] as int,
-      bestTimerScore: map['bestTimerScore'] as int,
-      level: map['level'] as int,
-      exp: double.tryParse(map['exp'].toString()) ?? 0, 
-      expMultiplier: double.tryParse(map['expMultiplier'].toString()) ?? 0,
-      talentTree: map['talentTree'] != null ? Map<String,dynamic>.from(map['talentTree'] as Map<String,dynamic>) : null,
-      achievements: map['achievements'] != null ? Map<String,dynamic>.from(map['achievements'] as Map<String,dynamic>) : null,
-      bestBossScores: map['bestBossScores'] != null ? Map<String,dynamic>.from(map['bestBossScores'] as Map<String,dynamic>) : null,
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory UserModel.fromJson(String source) => UserModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }

@@ -7,7 +7,7 @@ import '../../constants/app_strings.dart';
 import '../../extensions/context_extension.dart';
 import '../../extensions/string_extension.dart';
 import '../../extensions/widget_extension.dart';
-import '../../mixins/loading_state_mixin.dart';
+import '../../mixins/screen_state_mixin.dart';
 import '../../models/boss_round_result_model.dart';
 import '../../providers/boss_provider.dart';
 import '../../providers/user_manager.dart';
@@ -18,7 +18,7 @@ import '../app_snackbar.dart';
 import '../watch_ad_button.dart';
 
 class BossResultRoundDialogContent extends StatelessWidget {
-  final BossRoundResultModel model;
+  final BossBattleResult model;
   final int earnedGold;
   final double earnedExp;
   final bool timeUp;
@@ -162,13 +162,13 @@ class BossResultRoundDialogContent extends StatelessWidget {
 class BossResultRoundDialogAction extends StatefulWidget {
   const BossResultRoundDialogAction({super.key, required this.model});
 
-  final BossRoundResultModel model;
+  final BossBattleResult model;
 
   @override
   State<BossResultRoundDialogAction> createState() => _BossResultRoundDialogActionState();
 }
 
-class _BossResultRoundDialogActionState extends State<BossResultRoundDialogAction> with LoadingState {
+class _BossResultRoundDialogActionState extends State<BossResultRoundDialogAction> with ScreenStateMixin {
 
   bool get isNewScore => widget.model.time <= (UserManager.instance.getBestBossScore(widget.model.boss)['time'] ?? 0);
 

@@ -11,7 +11,7 @@ import '../enums/items.dart';
 import '../enums/spells.dart';
 import '../extensions/number_extension.dart';
 import '../models/Item.dart';
-import '../models/ability_cooldown.dart';
+import '../models/ability.dart';
 import '../models/boss_round_result_model.dart';
 import '../screens/profile/achievements/achievement_manager.dart';
 import '../services/sound_manager.dart';
@@ -368,27 +368,27 @@ class BossProvider extends ChangeNotifier {
 
 
   //F-D Keys Casted Abilities
-  //Creates a list of AbilityCooldown objects to hold the abilities casted with the F and D keys.
-  final List<AbilityCooldown> _castedAbility = [];
-  List<AbilityCooldown> get castedAbility => _castedAbility;
+  //Creates a list of Ability objects to hold the abilities casted with the F and D keys.
+  final List<Ability> _castedAbility = [];
+  List<Ability> get castedAbility => _castedAbility;
 
   ///Adds the selected ability to the castedAbility list and removes the old ability if it exists.
   ///
   ///If two abilities with the same combine property follow each other, the second one is not added.
   ///
-  ///[abilityCooldown] An AbilityCooldown object representing the used ability.
-  void switchAbility(AbilityCooldown abilityCooldown) {
-    if (_castedAbility.isNotEmpty && abilityCooldown.spell.combine == _castedAbility.first.spell.combine) return;
-    _castedAbility.insert(0, abilityCooldown);
+  ///[ability] An Ability object representing the used ability.
+  void switchAbility(Ability ability) {
+    if (_castedAbility.isNotEmpty && ability.spell.combine == _castedAbility.first.spell.combine) return;
+    _castedAbility.insert(0, ability);
     while (_castedAbility.length > 2) {
       _castedAbility.removeLast();
     }
     updateView();
   }
 
-  //Creates a list of AbilityCooldown objects, each corresponding to a spell in the Spells enum.
-  //Return A list of AbilityCooldown objects representing spell cooldowns.
-  List<AbilityCooldown> spellCooldowns = Spells.values.map((e) => AbilityCooldown(spell: e)).toList();
+  //Creates a list of Ability objects, each corresponding to a spell in the Spells enum.
+  //Return A list of Ability objects representing spell cooldowns.
+  List<Ability> spellCooldowns = Spells.values.map((e) => Ability(spell: e)).toList();
 
   //Executed when a spell button is pressed.
   void onPressedAbility(Spells spell) async {
@@ -397,8 +397,8 @@ class BossProvider extends ChangeNotifier {
       return;
     }
     final index = Spells.values.indexOf(spell); // Gets the index number of the selected spell.
-    final bool spellUsed = spellCooldowns[index].onPressedAbility(currentMana); // Checks if the selected spell can be used, and assigns true to the spellUsed variable if it can.
-    if (spellUsed) { // If the selected spell was used
+    final bool isAbilityUsed = spellCooldowns[index].useSpell(currentMana); // Checks if the selected spell can be used, and assigns true to the isAbilityUsed variable if it can.
+    if (isAbilityUsed) { // If the selected spell was used
       _spendMana(spell.mana); // Mana is spent equal to the mana value of the chosen spell.
       final double abilityDamageMultiplier = spell.damage * (UserManager.instance.user.level * 0.02); //max level 0.6 - %60
       final double fullDamage = spell.damage + abilityDamageMultiplier;
@@ -597,7 +597,7 @@ class BossProvider extends ChangeNotifier {
   }
 
   void _showRoundResultDialog({bool timeUp = false}) {
-    final model = BossRoundResultModel(
+    final model = BossBattleResult(
       uid: UserManager.instance.user.uid ?? 'null',
       name: UserManager.instance.user.username,
       round: roundProgress+1, 

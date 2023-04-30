@@ -1,1 +1,1 @@
-enum DatabaseTable { timer, challenger, boss }
+enum DatabaseTable { TimeTrial, Challenger }

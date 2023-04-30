@@ -5,8 +5,8 @@ import '../../../constants/app_colors.dart';
 import '../../../constants/app_strings.dart';
 import '../../../extensions/context_extension.dart';
 import '../../../extensions/widget_extension.dart';
-import '../../../mixins/loading_state_mixin.dart';
-import '../../../models/challenger_result.dart';
+import '../../../mixins/screen_state_mixin.dart';
+import '../../../models/challenger.dart';
 import '../../../services/app_services.dart';
 import '../../app_outlined_button.dart';
 import '../../app_snackbar.dart';
@@ -18,9 +18,9 @@ class LeaderboardChallanger extends StatefulWidget {
   State<LeaderboardChallanger> createState() => _LeaderboardChallangerState();
 }
 
-class _LeaderboardChallangerState extends State<LeaderboardChallanger> with LoadingState {
+class _LeaderboardChallangerState extends State<LeaderboardChallanger> with ScreenStateMixin {
 
-  List<ChallengerResult>? results;
+  List<Challenger>? results;
 
   @override
   void initState() {
@@ -88,7 +88,7 @@ class _LeaderboardChallangerState extends State<LeaderboardChallanger> with Load
     );
   }
 
-  ListView resultListView(List<ChallengerResult> results) {
+  ListView resultListView(List<Challenger> results) {
     return ListView.builder(
       shrinkWrap: true,
       itemCount:results.length,

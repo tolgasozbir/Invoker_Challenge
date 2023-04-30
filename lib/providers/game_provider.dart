@@ -99,7 +99,7 @@ class GameProvider extends ChangeNotifier {
       if (_countdownValue <= 0) {
         disposeTimer();
         changeIsStartStatus();
-        showResultDialog(GameType.Timer, DatabaseTable.timer);
+        showResultDialog(GameType.Timer, DatabaseTable.TimeTrial);
       }
     });
   }
