@@ -25,28 +25,28 @@ class BossBattleResult extends IBaseModel<BossBattleResult> {
     required this.items,
   });
 
-  factory BossBattleResult.fromJson(Map<String, dynamic> json) {
+  factory BossBattleResult.fromMap(Map<String, dynamic> map) {
     return BossBattleResult(
-      uid: json['uid'] as String,
-      name: json['name'] as String,
-      round: json['round'] as int,
-      boss: json['boss'] as String,
-      time: json['time'] as int,
-      averageDps: json['averageDps'] as double,
-      maxDps: json['maxDps'] as double,
-      physicalDamage: json['physicalDamage'] as double,
-      magicalDamage: json['magicalDamage'] as double,
-      items: List<String>.from(json['items'] as List<dynamic>),
+      uid: map['uid'] as String,
+      name: map['name'] as String,
+      round: map['round'] as int,
+      boss: map['boss'] as String,
+      time: map['time'] as int,
+      averageDps: map['averageDps'] as double,
+      maxDps: map['maxDps'] as double,
+      physicalDamage: map['physicalDamage'] as double,
+      magicalDamage: map['magicalDamage'] as double,
+      items: List<String>.from(map['items'] as List<dynamic>),
     );
   }
 
   @override
-  BossBattleResult fromJson(Map<String, dynamic> json) {
-    return BossBattleResult.fromJson(json);
+  BossBattleResult fromMap(Map<String, dynamic> map) {
+    return BossBattleResult.fromMap(map);
   }
 
   @override
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toMap() => {
     'uid': uid,
     'name': name,
     'round': round,

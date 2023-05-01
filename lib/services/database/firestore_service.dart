@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../constants/app_strings.dart';
 import '../../enums/database_table.dart';
 import '../../extensions/string_extension.dart';
-import '../../models/boss_round_result_model.dart';
+import '../../models/boss_battle_result.dart';
 import '../../models/challenger.dart';
 import '../../models/feedback_model.dart';
 import '../../models/time_trial.dart';
@@ -39,7 +39,7 @@ class FirestoreService implements IDatabaseService {
 
   Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> _fetchData(
     CollectionReference<Map<String, dynamic>> collectionRef, {
-    String? orderByFieldName,
+    required String orderByFieldName,
     bool descending = false,
     int fetchLimit = 10,
   }) async {
@@ -93,7 +93,7 @@ class FirestoreService implements IDatabaseService {
 
   @override
   Future<void> createOrUpdateUser(UserModel userModel) async {
-    await _setData(_collectionRefUsers, userModel.toJson());
+    await _setData(_collectionRefUsers, userModel.toMap());
   }
   
   @override
@@ -101,7 +101,7 @@ class FirestoreService implements IDatabaseService {
     try {
       final response = await _collectionRefUsers.doc(uid).get(const GetOptions(source: Source.server));
       if (response.data() == null) throw Exception('data null');
-      return UserModel.fromJson(response.data());
+      return UserModel.fromMap(response.data()!);
     } catch (e) {
       log(e.toString());
       return null;
@@ -110,13 +110,13 @@ class FirestoreService implements IDatabaseService {
 
   @override
   Future<bool> addChallengerScore(Challenger result) async {
-    final isDataAdded = await _setData(_collectionRefChallanger, result.toJson());
+    final isDataAdded = await _setData(_collectionRefChallanger, result.toMap());
     return isDataAdded;
   }
 
   @override
   Future<bool> addTimerScore(TimeTrial result) async {
-    final isDataAdded = await _setData(_collectionRefTimeTrial, result.toJson());
+    final isDataAdded = await _setData(_collectionRefTimeTrial, result.toMap());
     return isDataAdded;
   }
 
@@ -124,7 +124,7 @@ class FirestoreService implements IDatabaseService {
   Future<bool> addBossScore(BossBattleResult score) async {
     final collectionPathName = 'Boss_${score.boss.capitalize()}';
     final collection = FirebaseFirestore.instance.collection(collectionPathName);
-    final isDataAdded = await _setData(collection, score.toJson());
+    final isDataAdded = await _setData(collection, score.toMap());
     return isDataAdded;
   }
 
@@ -137,7 +137,7 @@ class FirestoreService implements IDatabaseService {
       orderByFieldName: orderByTime, 
       fetchLimit: 5,
     );
-    return response.map((e) => BossBattleResult.fromJson(e.data())).toList();
+    return response.map((e) => BossBattleResult.fromMap(e.data())).toList();
   }
 
   @override
@@ -147,7 +147,7 @@ class FirestoreService implements IDatabaseService {
        orderByFieldName: orderByScore, 
        descending: true,
     );
-    return response.map((e) => Challenger.fromJson(e.data())).toList(); 
+    return response.map((e) => Challenger.fromMap(e.data())).toList(); 
   }
 
   @override
@@ -157,7 +157,7 @@ class FirestoreService implements IDatabaseService {
       orderByFieldName: orderByScore, 
       descending: true,
     );
-    return response.map((e) => TimeTrial.fromJson(e.data())).toList();
+    return response.map((e) => TimeTrial.fromMap(e.data())).toList();
   }
   
   @override

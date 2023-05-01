@@ -1,19 +1,21 @@
 import '../enums/spells.dart';
 import '../services/sound_manager.dart';
+import 'base_cooldown_model.dart';
 
-class Ability {
+class Ability extends ICooldownModel {
   Spells spell;
-  DateTime _lastPressedAt = DateTime.now().subtract(const Duration(minutes: 1));
-  double get cooldownLeft => spell.cooldown - (DateTime.now().difference(_lastPressedAt).inSeconds);
-
   Ability({required this.spell});
 
-  bool useSpell(double currentMana) {
+  @override
+  double get getRemainingCooldownTime => spell.cooldown - (DateTime.now().difference(lastPressedAt).inSeconds);
+
+  @override
+  bool onPressed(double currentMana) {
     final cooldown = Duration(seconds: spell.cooldown.toInt());
-    final isCooldownOver = DateTime.now().difference(_lastPressedAt) > cooldown;
+    final isCooldownOver = DateTime.now().difference(lastPressedAt) > cooldown;
 
     if (!isCooldownOver) {
-      SoundManager.instance.playAbilityOnCooldownSound();
+      SoundManager.instance.playCooldownSound();
       return false;
     }
 
@@ -22,13 +24,9 @@ class Ability {
       return false;
     }
 
-    _lastPressedAt = DateTime.now();
+    lastPressedAt = DateTime.now();
     SoundManager.instance.spellCastTriggerSound(spell.combine);
     return true;
-  }
-
-  void resetCooldown() {
-    _lastPressedAt = DateTime.now().subtract(const Duration(minutes: 1));
   }
 
 }

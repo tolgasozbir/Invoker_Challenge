@@ -1,4 +1,4 @@
 abstract class IBaseModel<T> {
-  Map<String, dynamic> toJson();
-  T fromJson(Map<String, dynamic> json);
+  Map<String, dynamic> toMap();
+  T fromMap(Map<String, dynamic> map);
 }

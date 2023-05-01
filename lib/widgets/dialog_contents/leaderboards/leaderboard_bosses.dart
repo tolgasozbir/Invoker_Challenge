@@ -6,7 +6,7 @@ import '../../../constants/app_strings.dart';
 import '../../../extensions/context_extension.dart';
 import '../../../extensions/widget_extension.dart';
 import '../../../mixins/screen_state_mixin.dart';
-import '../../../models/boss_round_result_model.dart';
+import '../../../models/boss_battle_result.dart';
 import '../../../services/app_services.dart';
 import '../../../utils/number_formatter.dart';
 import '../../app_dialogs.dart';

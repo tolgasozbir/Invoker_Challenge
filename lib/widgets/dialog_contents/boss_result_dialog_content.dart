@@ -8,7 +8,7 @@ import '../../extensions/context_extension.dart';
 import '../../extensions/string_extension.dart';
 import '../../extensions/widget_extension.dart';
 import '../../mixins/screen_state_mixin.dart';
-import '../../models/boss_round_result_model.dart';
+import '../../models/boss_battle_result.dart';
 import '../../providers/boss_provider.dart';
 import '../../providers/user_manager.dart';
 import '../../services/app_services.dart';

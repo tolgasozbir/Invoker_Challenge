@@ -3,7 +3,7 @@ import 'package:snappable_thanos/snappable_thanos.dart';
 
 import '../constants/app_strings.dart';
 import '../enums/local_storage_keys.dart';
-import '../models/boss_round_result_model.dart';
+import '../models/boss_battle_result.dart';
 import '../models/user_model.dart';
 import '../services/app_services.dart';
 import '../utils/id_generator.dart';
@@ -73,13 +73,13 @@ class UserManager extends ChangeNotifier {
 
   void updateBestBossTimeScore(String bossName, int value, BossBattleResult model) async {
     user.bestBossScores ??= {}; // null check
-    user.bestBossScores?.putIfAbsent(bossName, () => model.toJson());
+    user.bestBossScores?.putIfAbsent(bossName, () => model.toMap());
     if (isLoggedIn() && user.bestBossScores![bossName]['name'].toString().startsWith('Guest')) {
       user.bestBossScores![bossName]['name'] = user.username;
     }
     if ((user.bestBossScores?[bossName]['time'] as int? ?? 0) < value) return;
     if (user.bestBossScores!.containsKey(bossName)) {
-      user.bestBossScores?[bossName] = model.toJson();
+      user.bestBossScores?[bossName] = model.toMap();
     }
     await setAndSaveUserToLocale(user);
   }

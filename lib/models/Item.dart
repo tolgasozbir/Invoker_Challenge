@@ -1,33 +1,33 @@
 import '../enums/items.dart';
 import '../services/sound_manager.dart';
+import 'base_cooldown_model.dart';
 
-class Item {
+class Item extends ICooldownModel {
   Items item;
-  DateTime _lastPressedAt = DateTime.now().subtract(const Duration(minutes: 3)); //3 minutes because the refresher orb item cooldown is 3 minutes
-  double get cooldownLeft => (item.cooldown ?? 0) - (DateTime.now().difference(_lastPressedAt).inSeconds);
-
   Item({required this.item});
 
-  bool onPressedItem(double currentMana) {
+  @override
+  double get getRemainingCooldownTime => (item.cooldown ?? 0) - (DateTime.now().difference(lastPressedAt).inSeconds);
+
+  @override
+  bool onPressed(double currentMana) {
     if (item.cooldown == null) return false;
-    if (DateTime.now().difference(_lastPressedAt) > Duration(seconds: item.cooldown!.toInt())) {
-      final bool canUseItem = currentMana >= (item.manaCost ?? 0);
-      if (canUseItem) {
-        _lastPressedAt = DateTime.now();
-        //TODO: İTEM SOUND //BOSS PROVİDER'DAN BURAYA TAŞIYABİLİRSİN- SWİTCH-CASE'DE DAHİL
-        return true;
-      } else {
-        SoundManager.instance.playNoManaSound();
-        return false;
-      }
-    } else {
-      SoundManager.instance.playAbilityOnCooldownSound();
+    final cooldown = Duration(seconds: item.cooldown!.toInt());
+    final isCooldownOver = DateTime.now().difference(lastPressedAt) > cooldown;
+
+    if (!isCooldownOver) {
+      SoundManager.instance.playCooldownSound();
       return false;
     }
-  }
 
-  void resetCooldown() {
-    _lastPressedAt = DateTime.now().subtract(const Duration(minutes: 3));
+    if (currentMana < (item.manaCost ?? 0)) {
+      SoundManager.instance.playNoManaSound();
+      return false;
+    }
+
+    lastPressedAt = DateTime.now();
+    return true;
+    //TODO: İTEM SOUND //BOSS PROVİDER'DAN BURAYA TAŞIYABİLİRSİN- SWİTCH-CASE'DE DAHİL
   }
 
 }

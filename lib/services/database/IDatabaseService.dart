@@ -1,4 +1,4 @@
-import '../../models/boss_round_result_model.dart';
+import '../../models/boss_battle_result.dart';
 import '../../models/challenger.dart';
 import '../../models/feedback_model.dart';
 import '../../models/time_trial.dart';

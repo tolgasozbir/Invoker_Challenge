@@ -13,21 +13,21 @@ class TimeTrial extends IBaseModel<TimeTrial> {
     this.score,
   });
 
-  factory TimeTrial.fromJson(Map<String, dynamic> json) {
+  factory TimeTrial.fromMap(Map<String, dynamic> map) {
     return TimeTrial(
-      uid: json['uid'],
-      name: json['name'],
-      score: json['score'],
+      uid: map['uid'],
+      name: map['name'],
+      score: map['score'],
     );
   }
 
   @override
-  TimeTrial fromJson(Map<String, dynamic> json) {
-    return TimeTrial.fromJson(json);
+  TimeTrial fromMap(Map<String, dynamic> map) {
+    return TimeTrial.fromMap(map);
   }
   
   @override
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toMap() => {
     'uid': uid,
     'name': name,
     'score': score,

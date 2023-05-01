@@ -240,7 +240,7 @@ class SoundManager {
   }
 
   DateTime lastPlayedCdTime = DateTime.now();
-  void playAbilityOnCooldownSound() {
+  void playCooldownSound() {
     if (!(DateTime.now().difference(lastPlayedCdTime) > const Duration(seconds: 1))) return;
     lastPlayedCdTime = DateTime.now();
     final int soundNum = _rnd.nextInt(9) + 1;

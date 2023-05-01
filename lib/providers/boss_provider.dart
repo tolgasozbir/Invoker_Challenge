@@ -12,7 +12,7 @@ import '../enums/spells.dart';
 import '../extensions/number_extension.dart';
 import '../models/Item.dart';
 import '../models/ability.dart';
-import '../models/boss_round_result_model.dart';
+import '../models/boss_battle_result.dart';
 import '../screens/profile/achievements/achievement_manager.dart';
 import '../services/sound_manager.dart';
 import '../widgets/app_dialogs.dart';
@@ -313,7 +313,7 @@ class BossProvider extends ChangeNotifier {
       SoundManager.instance.playMeepMerp();
       return;
     }
-    final bool isItemUsed = item.onPressedItem(currentMana);
+    final bool isItemUsed = item.onPressed(currentMana);
     if (isItemUsed) {
       _spendMana(item.item.manaCost ?? 0);
       if (item.item.hasSound) {
@@ -397,7 +397,7 @@ class BossProvider extends ChangeNotifier {
       return;
     }
     final index = Spells.values.indexOf(spell); // Gets the index number of the selected spell.
-    final bool isAbilityUsed = spellCooldowns[index].useSpell(currentMana); // Checks if the selected spell can be used, and assigns true to the isAbilityUsed variable if it can.
+    final bool isAbilityUsed = spellCooldowns[index].onPressed(currentMana); // Checks if the selected spell can be used, and assigns true to the isAbilityUsed variable if it can.
     if (isAbilityUsed) { // If the selected spell was used
       _spendMana(spell.mana); // Mana is spent equal to the mana value of the chosen spell.
       final double abilityDamageMultiplier = spell.damage * (UserManager.instance.user.level * 0.02); //max level 0.6 - %60
@@ -724,7 +724,7 @@ class BossProvider extends ChangeNotifier {
     for (final element in inventory) {
       final bool isItemRefresherOrb = element.item == Items.Refresher_orb;
       if (!isItemRefresherOrb) element.resetCooldown(); 
-      else element.onPressedItem(currentMana); //fazladan refresher orb alınmışsa tıklanma fonksiyonunu çağırarak hepsini cooldown'a sok
+      else element.onPressed(currentMana); //fazladan refresher orb alınmışsa tıklanma fonksiyonunu çağırarak hepsini cooldown'a sokar
     }}
 
   ///Resets the game values and stops the timer object. 

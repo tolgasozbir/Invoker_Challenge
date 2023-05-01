@@ -15,22 +15,22 @@ class Challenger extends IBaseModel<Challenger> {
     required this.score,
   });
 
-  factory Challenger.fromJson(Map<String, dynamic> json) {
+  factory Challenger.fromMap(Map<String, dynamic> map) {
     return Challenger(
-      uid: json['uid'],
-      name: json['name'],
-      time: json['time'],
-      score: json['score'],
+      uid: map['uid'],
+      name: map['name'],
+      time: map['time'],
+      score: map['score'],
     );
   }
 
   @override
-  Challenger fromJson(Map<String, dynamic> json) {
-    return Challenger.fromJson(json);
+  Challenger fromMap(Map<String, dynamic> map) {
+    return Challenger.fromMap(map);
   }
 
   @override
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toMap() => {
     'uid': uid,
     'name': name,
     'time': time,
