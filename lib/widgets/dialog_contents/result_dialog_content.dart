@@ -16,6 +16,7 @@ import '../../services/app_services.dart';
 import '../../utils/ads_helper.dart';
 import '../app_outlined_button.dart';
 import '../app_snackbar.dart';
+import '../empty_box.dart';
 import '../game_ui_widget.dart';
 import '../watch_ad_button.dart';
 

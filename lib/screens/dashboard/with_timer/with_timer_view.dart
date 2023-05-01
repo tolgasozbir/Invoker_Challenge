@@ -3,12 +3,12 @@ import 'package:provider/provider.dart';
 
 import '../../../constants/app_strings.dart';
 import '../../../extensions/context_extension.dart';
-import '../../../extensions/widget_extension.dart';
 import '../../../providers/game_provider.dart';
 import '../../../widgets/app_dialogs.dart';
 import '../../../widgets/app_outlined_button.dart';
 import '../../../widgets/app_scaffold.dart';
 import '../../../widgets/dialog_contents/leaderboards/leaderboard_with_timer.dart';
+import '../../../widgets/empty_box.dart';
 import '../../../widgets/game_ui_widget.dart';
 
 class WithTimerView extends StatefulWidget {

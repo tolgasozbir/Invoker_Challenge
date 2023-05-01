@@ -1,7 +1,9 @@
 import 'dart:math';
 
+import 'package:dota2_invoker_game/extensions/number_extension.dart';
 import 'package:dota2_invoker_game/models/ability.dart';
 
+import '../../../widgets/empty_box.dart';
 import 'widgets/info_view.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -19,7 +21,6 @@ import '../../../extensions/widget_extension.dart';
 import '../../../mixins/orb_mixin.dart';
 import '../../../providers/boss_provider.dart';
 import '../../../services/sound_manager.dart';
-import '../../../utils/number_formatter.dart';
 import '../../../utils/spell_combination_checker.dart';
 import '../../../widgets/app_snackbar.dart';
 import '../../../widgets/bouncing_button.dart';
@@ -203,7 +204,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
               duration: const Duration(milliseconds: 1600),
               child: Image.asset(provider.currentBoss.getImage, height: context.dynamicHeight(0.18),),
             ),
-            Text(priceString(provider.currentBossHp)),
+            Text(provider.currentBossHp.numberFormat),
             Text(provider.currentBoss.getName),
           ],
         ).wrapCenter(),
@@ -244,7 +245,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
       left: 8,
       child: Row(
         children: [
-          Text('Dps : ${priceString(provider.dps)}'),
+          Text('Dps : ${provider.dps.numberFormat}'),
         ],
       ),
     );
@@ -259,10 +260,10 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
       right: 8,
       child: Row(
         children: [
-          Text(priceString(baseDmg + (baseDmg * multiplier))),
+          Text((baseDmg + (baseDmg * multiplier)).numberFormat),
           if (provider.bonusDamage > 0)
             Text(
-              '+${priceString(bonusDmg + (bonusDmg * multiplier))}', 
+              '+${(bonusDmg + (bonusDmg * multiplier)).numberFormat}', 
               style: const TextStyle(color: AppColors.green),
             ),
           const EmptyBox.w4(),

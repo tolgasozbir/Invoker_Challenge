@@ -1,3 +1,4 @@
+import 'package:dota2_invoker_game/extensions/number_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
@@ -12,9 +13,9 @@ import '../../models/boss_battle_result.dart';
 import '../../providers/boss_provider.dart';
 import '../../providers/user_manager.dart';
 import '../../services/app_services.dart';
-import '../../utils/number_formatter.dart';
 import '../app_outlined_button.dart';
 import '../app_snackbar.dart';
+import '../empty_box.dart';
 import '../watch_ad_button.dart';
 
 class BossResultRoundDialogContent extends StatelessWidget {
@@ -44,16 +45,16 @@ class BossResultRoundDialogContent extends StatelessWidget {
     return  Column(
       children: [
         _victoryDefeatText(),
-        _resultField('Boss', model.boss.replaceAll('_', ' ').capitalize()),
-        _resultField('Elapsed Time', '${model.time} Sec'),
-        if(timeUp) _resultField('Remaining HP', priceString(bossHpLeft)),
-        _resultField('Average DPS (Last 5 Sec)', priceString(model.averageDps)),
-        _resultField('Max DPS', priceString(model.maxDps)),
-        _resultField('Physical Damage', priceString(model.physicalDamage)),
-        _resultField('Magical Damage', priceString(model.magicalDamage)),
-        _resultField('Earned Exp', priceString(earnedExp)),
+        _resultField('Boss',                      model.boss.replaceAll('_', ' ').capitalize()),
+        _resultField('Elapsed Time',              '${model.time} Sec'),
+        if(timeUp) _resultField('Remaining HP',   bossHpLeft.numberFormat),
+        _resultField('Average DPS (Last 5 Sec)',  model.averageDps.numberFormat),
+        _resultField('Max DPS',                   model.maxDps.numberFormat),
+        _resultField('Physical Damage',           model.physicalDamage.numberFormat),
+        _resultField('Magical Damage',            model.magicalDamage.numberFormat),
+        _resultField('Earned Exp',                earnedExp.numberFormat),
         if (!timeUp && isLast) ...[
-          _resultField('Earned Gold', priceString(earnedGold.toDouble())),
+          _resultField('Earned Gold', earnedGold.numberFormat),
           const EmptyBox.h4(),
           watchAdButton(context),
         ],
@@ -77,11 +78,11 @@ class BossResultRoundDialogContent extends StatelessWidget {
             ),
           ),
           if (timeUp) const EmptyBox.h8(),
-          _resultField('Elapsed Time', "${bestScore["time"]} Sec"),
-          _resultField('Average DPS', priceString(bestScore['averageDps'])),
-          _resultField('Max DPS', priceString(bestScore['maxDps'])),
-          _resultField('Physical Damage', priceString(bestScore['physicalDamage'])),
-          _resultField('Magical Damage', priceString(bestScore['magicalDamage'])),
+          _resultField('Elapsed Time',    "${bestScore["time"]} Sec"),
+          _resultField('Average DPS',     bestScore['averageDps'].numberFormat),
+          _resultField('Max DPS',         bestScore['maxDps'].numberFormat),
+          _resultField('Physical Damage', bestScore['physicalDamage'].numberFormat),
+          _resultField('Magical Damage',  bestScore['magicalDamage'].numberFormat),
         ]
       ],
     );

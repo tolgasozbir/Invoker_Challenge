@@ -1,3 +1,4 @@
+import 'package:dota2_invoker_game/extensions/number_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -8,10 +9,10 @@ import '../../../extensions/widget_extension.dart';
 import '../../../mixins/screen_state_mixin.dart';
 import '../../../models/boss_battle_result.dart';
 import '../../../services/app_services.dart';
-import '../../../utils/number_formatter.dart';
 import '../../app_dialogs.dart';
 import '../../app_outlined_button.dart';
 import '../../app_snackbar.dart';
+import '../../empty_box.dart';
 
 class LeaderboardBosses extends StatefulWidget {
   const LeaderboardBosses({super.key, required this.bossName,});
@@ -120,10 +121,10 @@ class _LeaderboardBossesState extends State<LeaderboardBosses> with ScreenStateM
       content: Column(
         children: [
           _resultField('Elapsed Time', '${model.time} Sec'),
-          _resultField('Max DPS', priceString(model.maxDps)),
-          _resultField('Average DPS', priceString(model.averageDps)),
-          _resultField('Physical Damage', priceString(model.physicalDamage)),
-          _resultField('Magical Damage', priceString(model.magicalDamage)),
+          _resultField('Max DPS',         model.maxDps.numberFormat),
+          _resultField('Average DPS',     model.averageDps.numberFormat),
+          _resultField('Physical Damage', model.physicalDamage.numberFormat),
+          _resultField('Magical Damage',  model.magicalDamage.numberFormat),
           Container(
             padding: const EdgeInsets.all(8),
             margin: const EdgeInsets.symmetric(vertical: 2),

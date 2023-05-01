@@ -8,6 +8,7 @@ import '../../../../extensions/context_extension.dart';
 import '../../../../extensions/widget_extension.dart';
 import '../../../../widgets/app_scaffold.dart';
 import '../../../../widgets/app_snackbar.dart';
+import '../../../../widgets/empty_box.dart';
 import 'widgets/profile_avatar.dart';
 import 'widgets/social_icon.dart';
 

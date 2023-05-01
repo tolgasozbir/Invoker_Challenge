@@ -633,7 +633,7 @@ class BossProvider extends ChangeNotifier {
       dismissible: false,
       showBackButton: false,
       height: 540,
-      title: '${(roundProgress+1).getOrdinal()} $lastBossText${AppStrings.stageResults}',
+      title: '${(roundProgress+1).getOrdinal} $lastBossText${AppStrings.stageResults}',
       content: BossResultRoundDialogContent(
         model: model, 
         earnedGold: gainedGold + (_isActiveMidas ? midasGold : 0), 

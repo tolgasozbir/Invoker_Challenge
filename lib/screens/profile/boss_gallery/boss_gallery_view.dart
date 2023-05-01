@@ -1,10 +1,10 @@
+import 'package:dota2_invoker_game/extensions/number_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import '../../../constants/app_strings.dart';
 import '../../../enums/Bosses.dart';
 import '../../../extensions/widget_extension.dart';
-import '../../../utils/number_formatter.dart';
 import '../../../widgets/app_dialogs.dart';
 import '../../../widgets/app_outlined_button.dart';
 import '../../../widgets/app_scaffold.dart';
@@ -72,7 +72,7 @@ class _BossGalleryViewState extends State<BossGalleryView> {
               ),
             ).wrapFittedBox(),
             Text(
-              'HP ${priceString(boss.getHp)}',
+              'HP ${boss.getHp.numberFormat}',
               style: TextStyle(
                 shadows: List.generate(2, (index) => const Shadow(color: Colors.deepPurple, blurRadius: 4)),
               ),

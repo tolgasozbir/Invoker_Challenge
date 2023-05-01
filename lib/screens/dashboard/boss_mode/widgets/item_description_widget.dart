@@ -10,6 +10,7 @@ import '../../../../models/Item.dart';
 import '../../../../providers/boss_provider.dart';
 import '../../../../services/sound_manager.dart';
 import '../../../../widgets/app_snackbar.dart';
+import '../../../../widgets/empty_box.dart';
 import 'shop_view.dart';
 
 class ItemDescriptionWidget extends StatelessWidget {

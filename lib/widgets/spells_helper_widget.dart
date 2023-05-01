@@ -78,9 +78,9 @@ class _SpellsHelperWidgetState extends State<SpellsHelperWidget> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: List.generate(3, (i) => Card(
-            color: const Color(0x443DA5FF),
-            child: keyCard(i),
-          ),),
+          color: const Color(0x443DA5FF),
+          child: keyCard(i),
+        ),),
       ),
     );
   }
@@ -91,10 +91,10 @@ class _SpellsHelperWidgetState extends State<SpellsHelperWidget> {
       color: const Color(0x23EC3DFF),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-           children: List.generate(4, (i) => Card(
-              color: const Color(0x34EC3DFF),
-              child: keyCard(i+3),
-            ),),
+        children: List.generate(4, (i) => Card(
+          color: const Color(0x34EC3DFF),
+          child: keyCard(i+3),
+        ),),
       ),
     );
   }
@@ -105,10 +105,10 @@ class _SpellsHelperWidgetState extends State<SpellsHelperWidget> {
       color: const Color(0x33EE9900),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(3, (i) => Card(
-              color: const Color(0x22FFAA11),
-              child: keyCard(i+7),
-            ),),
+        children: List.generate(3, (i) => Card(
+          color: const Color(0x22FFAA11),
+          child: keyCard(i+7),
+        ),),
       ),
     );
   }

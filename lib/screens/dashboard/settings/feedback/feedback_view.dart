@@ -16,6 +16,7 @@ import '../../../../widgets/app_outlined_button.dart';
 import '../../../../widgets/app_scaffold.dart';
 import '../../../../widgets/app_snackbar.dart';
 import '../../../../widgets/app_text_from_field.dart';
+import '../../../../widgets/empty_box.dart';
 import 'widgets/rating_faces.dart';
 
 class FeedbackView extends StatefulWidget {

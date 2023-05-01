@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../extensions/context_extension.dart';
 import '../../../../extensions/widget_extension.dart';
+import '../../../../widgets/empty_box.dart';
 import '../../../../widgets/sliders/progress_slider.dart';
 
 class AchievementWidget extends StatelessWidget {

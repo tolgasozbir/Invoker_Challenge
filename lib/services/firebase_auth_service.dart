@@ -16,89 +16,12 @@ class FirebaseAuthService {
   
   User? get getCurrentUser => _firebaseAuth.currentUser;
 
-  void errorSnackbar(String error) => AppSnackBar.showSnackBarMessage(
+  void _errorSnackbar(String error) => AppSnackBar.showSnackBarMessage(
     text: error, 
     snackBartype: SnackBarType.error,
   );
-  
-  Future<bool> signIn({required String email, required String password}) async {
-    try {
-      final userCredential = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
-      if (userCredential.user != null) {
-        //fetch records from firebase
-        final user = await UserManager.instance.getUserFromDb(userCredential.user!.uid);
-        //set locale
-        await UserManager.instance.setAndSaveUserToLocale(user!);
-        return true;
-      }
-      return false;
-    } on FirebaseAuthException catch (error) {
-      log(getErrorMessage(error.code));
-      errorSnackbar(getErrorMessage(error.code));
-      return false;
-    } catch (error) {
-      log(getErrorMessage(error.toString()));
-      errorSnackbar(getErrorMessage(error.toString()));
-      return false;
-    }
-  }
 
-  Future<bool> signUp({required String email, required String password, required String username}) async {
-    try {
-      final user = UserManager.instance.user;
-      final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
-      if (userCredential.user != null) {
-        user.uid = userCredential.user!.uid; //set uid
-        user.username = username; //set username
-        //set locale
-        await UserManager.instance.setAndSaveUserToLocale(user);
-        //set firebase
-        await AppServices.instance.databaseService.createOrUpdateUser(user);
-        return true;
-      }
-      return false;
-    } on FirebaseAuthException catch (error) {
-      log(getErrorMessage(error.code));
-      errorSnackbar(getErrorMessage(error.code));
-      return false;
-    } catch (error) {
-      log(getErrorMessage(error.toString()));
-      errorSnackbar(getErrorMessage(error.toString()));
-      return false;
-    }
-  }
-
-  Future<void> resetPassword({required String email}) async {
-    try {
-      await _firebaseAuth.sendPasswordResetEmail(email: email);
-    } on FirebaseAuthException catch (error) {
-      log(getErrorMessage(error.code));
-      errorSnackbar(getErrorMessage(error.code));
-    } catch (error) {
-      log(getErrorMessage(error.toString()));
-      errorSnackbar(getErrorMessage(error.toString()));
-    }
-  }  
-  
-  Future<void> signOut() async {
-    try {
-      await _firebaseAuth.signOut();
-      //delete locale records
-      await AppServices.instance.localStorageService.deleteAllValues();
-      //create new guest user
-      final newGuestUser = UserManager.instance.createUser();
-      //create new guest user and set locale
-      await UserManager.instance.setAndSaveUserToLocale(newGuestUser);
-    } on FirebaseAuthException catch (error) {
-      log(getErrorMessage(error.code));
-      errorSnackbar(getErrorMessage(error.code));
-    } catch (error) {
-      log(getErrorMessage(error.toString()));
-      errorSnackbar(getErrorMessage(error.toString()));
-    }
-  }
-
-  String getErrorMessage(String errorCode){
+  String _getErrorMessage(String errorCode){
     switch (errorCode) {
       case 'invalid-email':
         return 'Invalid e-mail address.';
@@ -114,6 +37,74 @@ class FirebaseAuthService {
         return 'Given values is empty';
       default: return 'Something went wrong, try again!';
     }
+  }
+
+  Future<bool> _handleAsyncAuthOperation({required Future<void> Function() operation}) async {
+    try {
+      await operation.call();
+      return true;
+    } on FirebaseAuthException catch (error) {
+      log(_getErrorMessage(error.code));
+      _errorSnackbar(_getErrorMessage(error.code));
+      return false;
+    } catch (error) {
+      log(_getErrorMessage(error.toString()));
+      _errorSnackbar(_getErrorMessage(error.toString()));
+      return false;
+    }
+  }
+
+  Future<bool> signIn({required String email, required String password}) async {
+    final bool isSuccess = await _handleAsyncAuthOperation(
+      operation: () async {
+        final userCredential = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+        if (userCredential.user != null) {
+          //fetch records from firebase
+          final user = await UserManager.instance.getUserFromDb(userCredential.user!.uid);
+          //set locale
+          await UserManager.instance.setAndSaveUserToLocale(user!);
+        }
+      },
+    );
+    return isSuccess;
+  }
+
+  Future<bool> signUp({required String email, required String password, required String username}) async {
+    final bool isSuccess = await _handleAsyncAuthOperation(
+      operation: () async {
+        final user = UserManager.instance.user;
+        final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+        if (userCredential.user != null) {
+          user.uid = userCredential.user!.uid; //set uid
+          user.username = username; //set username
+          //set locale
+          await UserManager.instance.setAndSaveUserToLocale(user);
+          //set firebase
+          await AppServices.instance.databaseService.createOrUpdateUser(user);
+        }
+      },
+    );
+    return isSuccess;
+  }
+
+  Future<void> resetPassword({required String email}) async {
+    await _handleAsyncAuthOperation(
+      operation: () async => _firebaseAuth.sendPasswordResetEmail(email: email),
+    );
+  }  
+  
+  Future<void> signOut() async {
+    await _handleAsyncAuthOperation(
+      operation: () async {
+        await _firebaseAuth.signOut();
+        //delete locale records
+        await AppServices.instance.localStorageService.deleteAllValues();
+        //create new guest user
+        final newGuestUser = UserManager.instance.createUser();
+        //create new guest user and set locale
+        await UserManager.instance.setAndSaveUserToLocale(newGuestUser);
+      },
+    );
   }
 
 }

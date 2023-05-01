@@ -4,6 +4,7 @@ import '../../../../enums/spells.dart';
 import '../../../../extensions/context_extension.dart';
 import '../../../../extensions/widget_extension.dart';
 import '../../../../providers/user_manager.dart';
+import '../../../../widgets/empty_box.dart';
 
 class InfoView extends StatelessWidget {
   const InfoView({super.key});

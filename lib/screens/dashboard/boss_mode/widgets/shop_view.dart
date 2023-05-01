@@ -12,6 +12,7 @@ import '../../../../providers/boss_provider.dart';
 import '../../../../services/sound_manager.dart';
 import '../../../../utils/ads_helper.dart';
 import '../../../../widgets/app_dialogs.dart';
+import '../../../../widgets/empty_box.dart';
 import 'inventory_hud.dart';
 import 'item_description_widget.dart';
 

@@ -14,6 +14,7 @@ import '../../services/app_services.dart';
 import '../app_outlined_button.dart';
 import '../app_snackbar.dart';
 import '../app_text_from_field.dart';
+import '../empty_box.dart';
 
 class LoginRegisterDialogContent extends StatefulWidget {
   const LoginRegisterDialogContent({super.key});

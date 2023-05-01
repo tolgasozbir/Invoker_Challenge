@@ -14,6 +14,7 @@ import '../../screens/profile/boss_gallery/boss_gallery_view.dart';
 import '../../services/app_services.dart';
 import '../app_outlined_button.dart';
 import '../app_snackbar.dart';
+import '../empty_box.dart';
 
 class ProfileDialogContent extends StatelessWidget {
   const ProfileDialogContent({super.key});
