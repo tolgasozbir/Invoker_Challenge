@@ -1,3 +1,11 @@
+# 0.0.3+4
+- Fixed minor bugs.
+- Changed some achievement values.
+- Buffed some items. (Boss Battle Mode)
+- Increased base damage, base mana, and base mana regen. (Boss Battle Mode)
+- Minor code refactoring.
+- Unnecessary files removed.
+
 # 0.0.2+3
 - Fixed the positions of related elements to match the desired skills. QQW and QWQ (Ghost Walk) now correspond to the same spell.
 - Added 'Rate on Store' button to settings menu. 

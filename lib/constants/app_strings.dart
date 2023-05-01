@@ -2,7 +2,7 @@ class AppStrings {
   AppStrings._();
   
   static const String appName = 'Invoker Challenge';
-  static const String appVersion = 'Beta 0.0.2';
+  static const String appVersion = 'Beta 0.0.3+4';
 
   //Main menu
   static const String titleTraining = 'Training';
