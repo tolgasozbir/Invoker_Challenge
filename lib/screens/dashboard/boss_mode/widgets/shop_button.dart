@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../providers/boss_provider.dart';
+import '../../../../providers/boss_battle_provider.dart';
 import '../../../../services/sound_manager.dart';
 import '../../../../widgets/bouncing_button.dart';
 import 'shop_view.dart';
@@ -56,9 +56,9 @@ class ShopButton extends StatelessWidget {
         ],
       ),
       onPressed: () {
-        final bool canClick = !context.read<BossProvider>().started && 
-                         context.read<BossProvider>().snapIsDone && 
-                        !context.read<BossProvider>().isHornSoundPlaying;
+        final bool canClick = !context.read<BossBattleProvider>().started && 
+                         context.read<BossBattleProvider>().snapIsDone && 
+                        !context.read<BossBattleProvider>().isHornSoundPlaying;
         if(canClick)
           Navigator.push(context, MaterialPageRoute(builder: (context) => const ShopView(),));
         else {

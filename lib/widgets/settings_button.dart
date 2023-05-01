@@ -68,7 +68,7 @@ class _SettingsButtonState extends State<SettingsButton> with SingleTickerProvid
   void onTapFn() async {
     _controller.forward();
     await AppDialogs.showSlidingDialog<bool>(
-      height: context.dynamicHeight(0.72),
+      height: context.dynamicHeight(0.64),
       title: AppStrings.settings, 
       content: const SettingsView(),
       showBackButton: true,

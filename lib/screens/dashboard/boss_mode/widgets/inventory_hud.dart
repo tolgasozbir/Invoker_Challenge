@@ -5,7 +5,7 @@ import '../../../../enums/items.dart';
 import '../../../../extensions/context_extension.dart';
 import '../../../../extensions/widget_extension.dart';
 import '../../../../models/Item.dart';
-import '../../../../providers/boss_provider.dart';
+import '../../../../providers/boss_battle_provider.dart';
 import '../../../../widgets/app_dialogs.dart';
 import '../../../../widgets/cooldown_animation.dart';
 import 'item_description_widget.dart';
@@ -34,9 +34,9 @@ class _InventoryHudState extends State<InventoryHud> {
           end: Alignment.bottomRight,
         ),
       ),
-      child: Consumer<BossProvider>(
+      child: Consumer<BossBattleProvider>(
         builder: (context, provider, child) {
-          final items = context.watch<BossProvider>().inventory;
+          final items = context.watch<BossBattleProvider>().inventory;
           return Column(
             children: [
               Row(
@@ -122,7 +122,7 @@ class _InventoryHudState extends State<InventoryHud> {
             content: ItemDescriptionWidget(item: item, isItemSellable: true),
           );
         } else {
-          context.read<BossProvider>().onPressedItem(item);
+          context.read<BossBattleProvider>().onPressedItem(item);
         }
       },
     );

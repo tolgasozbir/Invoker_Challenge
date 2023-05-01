@@ -68,7 +68,7 @@ class _ResultDialogContentState extends State<ResultDialogContent> {
         if (widget.gameType == GameType.Challanger) {
           context.read<GameProvider>().continueChallangerAfterWatchingAd();
         } else {
-          context.read<GameProvider>().continueTimerAfterWatchingAd();
+          context.read<GameProvider>().continueTimeTrialAfterWatchingAd();
         }
         Navigator.pop(context);
       },

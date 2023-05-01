@@ -11,14 +11,14 @@ import '../../../widgets/dialog_contents/leaderboards/leaderboard_with_timer.dar
 import '../../../widgets/empty_box.dart';
 import '../../../widgets/game_ui_widget.dart';
 
-class WithTimerView extends StatefulWidget {
-  const WithTimerView({super.key});
+class TimeTrialView extends StatefulWidget {
+  const TimeTrialView({super.key});
 
   @override
-  State<WithTimerView> createState() => _WithTimerViewState();
+  State<TimeTrialView> createState() => _TimeTrialViewState();
 }
 
-class _WithTimerViewState extends State<WithTimerView> {
+class _TimeTrialViewState extends State<TimeTrialView> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(

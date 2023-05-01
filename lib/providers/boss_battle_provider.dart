@@ -19,7 +19,7 @@ import '../widgets/app_dialogs.dart';
 import '../widgets/dialog_contents/boss_result_dialog_content.dart';
 import 'user_manager.dart';
 
-class BossProvider extends ChangeNotifier {
+class BossBattleProvider extends ChangeNotifier {
   Timer? _timer;
   final rng = math.Random();
 
@@ -30,7 +30,7 @@ class BossProvider extends ChangeNotifier {
   bool isHornSoundPlaying = false;
   bool hornSoundPlayed = false;
   bool hasHornSoundStopped = false;
-  int baseDamage = (30 + (UserManager.instance.user.level * 4)) * (UserManager.instance.user.level >= 25 ? 2 : 1);
+  int baseDamage = (40 + (UserManager.instance.user.level * 4)) * (UserManager.instance.user.level >= 25 ? 2 : 1);
   double bonusDamage = 0;
   double damageMultiplier = 0;
   double spellDamage = 0; //Ability Damage
@@ -80,9 +80,9 @@ class BossProvider extends ChangeNotifier {
   //
 
   ///-----     Mana Bar Values     -----///
-  double maxMana = (UserManager.instance.user.level * 27) + 1400 + (UserManager.instance.user.level >= 10 ? 400 : 0);
-  double currentMana = 1400 + UserManager.instance.user.level * 27;
-  double baseManaRegen = 3.6 + UserManager.instance.user.level * 0.27;
+  double maxMana = (UserManager.instance.user.level * 27) + 1590 + (UserManager.instance.user.level >= 10 ? 400 : 0);
+  double currentMana = 1590 + UserManager.instance.user.level * 27;
+  double baseManaRegen = 3.9 + UserManager.instance.user.level * 0.27;
   double manaRegenMultiplier = 0;
   double get manaRegen => baseManaRegen + (baseManaRegen * manaRegenMultiplier);
   double get manaBarWidthMultiplier => ((currentMana / maxMana) * 100) / 100;
@@ -418,9 +418,9 @@ class BossProvider extends ChangeNotifier {
     damageMultiplier = 0;
     manaRegenMultiplier = 0;
     spellAmp = 0;
-    baseDamage = (30 + (UserManager.instance.user.level * 4)) * (UserManager.instance.user.level >= 25 ? 2 : 1);
-    maxMana = (UserManager.instance.user.level * 27) + 1400 + (UserManager.instance.user.level >= 10 ? 400 : 0);
-    baseManaRegen = 3.6 + UserManager.instance.user.level * 0.27;
+    baseDamage = (40 + (UserManager.instance.user.level * 4)) * (UserManager.instance.user.level >= 25 ? 2 : 1);
+    maxMana = (UserManager.instance.user.level * 27) + 1590 + (UserManager.instance.user.level >= 10 ? 400 : 0);
+    baseManaRegen = 3.9 + UserManager.instance.user.level * 0.27;
     //Re-added item buffs
     for (final item in inventory) {
       _buyItem(item);

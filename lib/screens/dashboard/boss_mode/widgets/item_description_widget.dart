@@ -7,7 +7,7 @@ import '../../../../enums/items.dart';
 import '../../../../extensions/context_extension.dart';
 import '../../../../extensions/widget_extension.dart';
 import '../../../../models/Item.dart';
-import '../../../../providers/boss_provider.dart';
+import '../../../../providers/boss_battle_provider.dart';
 import '../../../../services/sound_manager.dart';
 import '../../../../widgets/app_snackbar.dart';
 import '../../../../widgets/empty_box.dart';
@@ -167,7 +167,7 @@ class ItemDescriptionWidget extends StatelessWidget {
 
   void buyFn(BuildContext context) {
     Navigator.pop(context);
-    final provider = context.read<BossProvider>();
+    final provider = context.read<BossBattleProvider>();
     if (item.item.cost > provider.userGold) {
       AppSnackBar.showSnackBarMessage(
         text: AppStrings.sbNotEnoughGold,
@@ -184,11 +184,11 @@ class ItemDescriptionWidget extends StatelessWidget {
       SoundManager.instance.playMeepMerp();
       return;
     }
-    context.read<BossProvider>().addItemToInventory(item);
+    context.read<BossBattleProvider>().addItemToInventory(item);
   }
 
   void sellFn(BuildContext context) {
-    context.read<BossProvider>().removeItemToInventory(item);
+    context.read<BossBattleProvider>().removeItemToInventory(item);
     Navigator.pop(context);
   }
 

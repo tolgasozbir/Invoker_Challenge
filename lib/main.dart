@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 import 'constants/app_strings.dart';
 import 'firebase_options.dart';
-import 'providers/boss_provider.dart';
+import 'providers/boss_battle_provider.dart';
 import 'providers/game_provider.dart';
 import 'providers/spell_provider.dart';
 import 'providers/user_manager.dart';
@@ -45,7 +45,7 @@ void main() async {
       ChangeNotifierProvider(create: (context) => GameProvider()),
       ChangeNotifierProvider(create: (context) => SpellProvider()),
       ChangeNotifierProvider(create: (context) => UserManager.instance),
-      ChangeNotifierProvider(create: (context) => BossProvider()),
+      ChangeNotifierProvider(create: (context) => BossBattleProvider()),
     ],
     child: const MyApp(),
   ),);

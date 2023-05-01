@@ -91,14 +91,9 @@ class AppStrings {
   ];
 
   //Settings
-  static const String aboutMe = 'About me';
   static const String feedback = 'Feedback';
   static const String rateApp = 'Rate this app';
   static const String volume = 'Volume';
-
-  //About me
-  static const String bio = "Heyy, I'm Tolga Sözbir, a freelance mobile app developer from Turkey. If you have a mobile app project or idea, please feel free to contact me. Let's work together to create the best app!";
-  static const String langsAndTools = 'Languages and Tools:';
 
   //Feedback
   static const String fbTitleFirst = 'Send me your';
@@ -107,7 +102,6 @@ class AppStrings {
   static const String fbHint = 'Drop me any suggestions, questions or complaints to improve :)';
   static const String fbSendBtn = 'Send Feedback';
 
-
 }
 
 //
@@ -115,30 +109,30 @@ class LottiePaths {
   LottiePaths._();
   static const String _root = 'assets/lottie';
 
-  static const String lottieNoData = '$_root/lottie_no_data.json';
-  static const String lottieFeedback = '$_root/lottie_feedback.json';
-  static const String lottieSending = '$_root/lottie_sending.json';
+  static const String lottieNoData    = '$_root/lottie_no_data.json';
+  static const String lottieFeedback  = '$_root/lottie_feedback.json';
+  static const String lottieSending   = '$_root/lottie_sending.json';
 }
 
 class ImagePaths {
   ImagePaths._();
-  static const String _root = 'assets/images';
-  static const String _splash = '$_root/splash_images';
-  static const String _qweGif = '$_root/qwe_gifs';
-  static const String _misc = '$_root/misc';
-  static const String elements = '$_root/elements/';
-  static const String spells = '$_root/spells/';
-  static const String bosses = '$_root/bosses/';
-  static const String items = '$_root/items/';
+  static const String _root     = 'assets/images';
+  static const String _splash   = '$_root/splash_images';
+  static const String _qweGif   = '$_root/qwe_gifs';
+  static const String _misc     = '$_root/misc';
+  static const String elements  = '$_root/elements/';
+  static const String spells    = '$_root/spells/';
+  static const String bosses    = '$_root/bosses/';
+  static const String items     = '$_root/items/';
 
   //svg
   static const String _svgRoot = 'assets/svg';
 
-  static const String svgQuas = '$_svgRoot/quas.svg';
-  static const String svgWex = '$_svgRoot/wex.svg';
-  static const String svgExort = '$_svgRoot/exort.svg';
+  static const String svgQuas       = '$_svgRoot/quas.svg';
+  static const String svgWex        = '$_svgRoot/wex.svg';
+  static const String svgExort      = '$_svgRoot/exort.svg';
   static const String svgTalentTree = '$_svgRoot/talent_tree.svg';
-  static const String svgDota2Logo = '$_svgRoot/dota2.svg';
+  static const String svgDota2Logo  = '$_svgRoot/dota2.svg';
   static const svgInvokerLogo = [
     '$_svgRoot/invoker1.svg',
     '$_svgRoot/invoker2.svg',
@@ -157,21 +151,17 @@ class ImagePaths {
   static const String splashImage2 = '$_splash/2.jpg';
   static const String splashImage3 = '$_splash/3.jpg';
   //main menu element gifs
-  static const String quas = '$_qweGif/quas.gif';
-  static const String wex = '$_qweGif/wex.gif';
+  static const String quas  = '$_qweGif/quas.gif';
+  static const String wex   = '$_qweGif/wex.gif';
   static const String exort = '$_qweGif/exort.gif';  
   //other
-  static const String spellImage = '$_misc/quas-wex-exort.jpg';
-  static const String loadingGif = '$_misc/qweLoading.gif';
-  static const String todClock =   '$_misc/time_of_day_clock.png';
-  static const String profilePic = '$_misc/profile.jpeg';
-  static const String icFlutter =  '$_misc/ic_flutter.png';
-  static const String icCsharp =   '$_misc/ic_csharp.png';
-  static const String icFirebase = '$_misc/ic_firebase.png';
+  static const String spellImage    = '$_misc/quas-wex-exort.jpg';
+  static const String loadingGif    = '$_misc/qweLoading.gif';
+  static const String todClock      = '$_misc/time_of_day_clock.png';
   static const String icInvokerHead = '$_misc/ic_invoker_head.png';
-  static const String icInvokeLine = '$_misc/ic_invoke_line.png';
-  static const String gold = '$_misc/gold.png';
-  static const String icSword = '$_misc/ic_sword.png';
+  static const String icInvokeLine  = '$_misc/ic_invoke_line.png';
+  static const String gold          = '$_misc/gold.png';
+  static const String icSword       = '$_misc/ic_sword.png';
 
   static const String icAchievements = '$_root/achievements/ic_achievements.png';
 
@@ -179,14 +169,14 @@ class ImagePaths {
 
 class SoundPaths {
   SoundPaths._();
-  static const String _root = 'sounds';
-  static const String _failSounds = '$_root/fail_sounds';
-  static const String _ggSounds = '$_root/gg_sounds';
-  static const String _loadingSounds = '$_root/loading_sounds';
-  static const String _spellSounds = '$_root/spell_sounds';
-  static const String _castTriggerSounds = '$_spellSounds/cast_trigger_sounds';
-  static const String _misc = '$_root/misc';
-  static const String _shop = '$_root/shop_sounds';
+  static const String _root               = 'sounds';
+  static const String _failSounds         = '$_root/fail_sounds';
+  static const String _ggSounds           = '$_root/gg_sounds';
+  static const String _loadingSounds      = '$_root/loading_sounds';
+  static const String _spellSounds        = '$_root/spell_sounds';
+  static const String _castTriggerSounds  = '$_spellSounds/cast_trigger_sounds';
+  static const String _misc               = '$_root/misc';
+  static const String _shop               = '$_root/shop_sounds';
 
   static const String itemSounds = '$_root/item_sounds';
 
@@ -198,16 +188,16 @@ class SoundPaths {
   static const String notEnoughMana = '$_root/not_enough_mana/nomana';
 
   //Shop sounds
-  static const String itemBuying = '$_shop/item_buying.mpeg';
+  static const String itemBuying  = '$_shop/item_buying.mpeg';
   static const String itemSelling = '$_shop/Item_selling.mpeg';
   static const String shopWelcome = '$_shop/shop_welcome';
-  static const String shopLeave = '$_shop/shop_leave';
+  static const String shopLeave   = '$_shop/shop_leave';
 
   //misc
-  static const String meepMerp = '$_misc/meep_merp.mp3';
-  static const String invoke = '$_misc/Invoke.mpeg';
-  static const String horn_dire = '$_misc/horn_dire.mpeg';
-  static const String horn_radiant = '$_misc/horn_radiant.mpeg';
+  static const String meepMerp      = '$_misc/meep_merp.mp3';
+  static const String invoke        = '$_misc/Invoke.mpeg';
+  static const String horn_dire     = '$_misc/horn_dire.mpeg';
+  static const String horn_radiant  = '$_misc/horn_radiant.mpeg';
 
   //fail sounds
   static const String fail1 = '$_failSounds/fail1.mp3';
@@ -269,16 +259,16 @@ class SoundPaths {
   static const String tornado3 = '$_spellSounds/tornado3.mp3';
 
   //Spell Cast and Trigger Sounds
-  static const String coldSnapCast = '$_castTriggerSounds/cold_snap_cast.mpeg';
-  static const String coldSnapTrigger = '$_castTriggerSounds/cold_snap_trigger.mpeg';
-  static const String ghostWalkCast = '$_castTriggerSounds/ghost_walk_cast.mpeg';
-  static const String iceWallCast = '$_castTriggerSounds/ice_wall_cast.mpeg';
-  static const String empCast = '$_castTriggerSounds/emp_cast.mpeg';
-  static const String tornadoCast = '$_castTriggerSounds/tornado_cast.mpeg';
-  static const String alacrityCast = '$_castTriggerSounds/alacrity_cast.mpeg';
-  static const String deafeningBlastCast = '$_castTriggerSounds/deafening_blast_cast.mpeg';
-  static const String sunStrikeCast = '$_castTriggerSounds/sun_strike_cast.mpeg';
-  static const String forgeSpiritCast = '$_castTriggerSounds/forge_spirit_cast.mpeg';
-  static const String chaosMeteorCast = '$_castTriggerSounds/chaos_meteor_cast.mpeg';
+  static const String coldSnapCast        = '$_castTriggerSounds/cold_snap_cast.mpeg';
+  static const String coldSnapTrigger     = '$_castTriggerSounds/cold_snap_trigger.mpeg';
+  static const String ghostWalkCast       = '$_castTriggerSounds/ghost_walk_cast.mpeg';
+  static const String iceWallCast         = '$_castTriggerSounds/ice_wall_cast.mpeg';
+  static const String empCast             = '$_castTriggerSounds/emp_cast.mpeg';
+  static const String tornadoCast         = '$_castTriggerSounds/tornado_cast.mpeg';
+  static const String alacrityCast        = '$_castTriggerSounds/alacrity_cast.mpeg';
+  static const String deafeningBlastCast  = '$_castTriggerSounds/deafening_blast_cast.mpeg';
+  static const String sunStrikeCast       = '$_castTriggerSounds/sun_strike_cast.mpeg';
+  static const String forgeSpiritCast     = '$_castTriggerSounds/forge_spirit_cast.mpeg';
+  static const String chaosMeteorCast     = '$_castTriggerSounds/chaos_meteor_cast.mpeg';
 
 }

@@ -19,14 +19,14 @@ class SpellProvider extends ChangeNotifier {
 
   void getRandomSpell() {
     var rndSpell = Spells.values[_rng.nextInt(Spells.values.length)];
+
     do {
       rndSpell = Spells.values[_rng.nextInt(Spells.values.length)];
-    } while (_tempSpells.contains(rndSpell));
+    } 
+    while (_tempSpells.contains(rndSpell));
 
     _tempSpells.insert(0, rndSpell);
-    if (_tempSpells.length > 3) {
-      _tempSpells.removeLast(); 
-    }
+    if (_tempSpells.length > 3) _tempSpells.removeLast();
  
     _spellImage = rndSpell.image;
     _trueCombination = rndSpell.combine;

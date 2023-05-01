@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../constants/app_colors.dart';
 import '../enums/elements.dart';
 import '../extensions/context_extension.dart';
-import '../providers/boss_provider.dart';
+import '../providers/boss_battle_provider.dart';
 import '../providers/game_provider.dart';
 
 mixin OrbMixin<T extends StatefulWidget> on State<T> {
@@ -59,7 +59,7 @@ mixin OrbMixin<T extends StatefulWidget> on State<T> {
     _currentCombination.add(element.getKey);
     selectedOrbs.add(orb(element));
     context.read<GameProvider>().updateView();
-    context.read<BossProvider>().updateView();
+    context.read<BossBattleProvider>().updateView();
   }
   
 }

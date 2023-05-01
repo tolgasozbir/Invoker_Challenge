@@ -6,13 +6,11 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../constants/app_colors.dart';
 import '../../../constants/app_strings.dart';
 import '../../../extensions/context_extension.dart';
-import '../../../utils/circular_reveal_page_route.dart';
 import '../../../utils/fade_in_page_animation.dart';
 import '../../../widgets/app_snackbar.dart';
 import '../../../widgets/empty_box.dart';
 import '../../../widgets/sliders/qwer_hud_height_slider.dart';
 import '../../../widgets/sliders/volume_slider.dart';
-import 'about_me/about_me.dart';
 import 'feedback/feedback_view.dart';
 
 class SettingsView extends StatelessWidget {
@@ -26,13 +24,6 @@ class SettingsView extends StatelessWidget {
           VolumeSlider(size: context.dynamicHeight(0.24)),
           const QWERHudHeightSlider(),
           const EmptyBox.h8(),
-          divider(),
-          menuItem(
-            context: context,
-            leading: FontAwesomeIcons.questionCircle,
-            text: AppStrings.aboutMe,
-            onTap: () => Navigator.push(context, circularRevealPageRoute(const AboutMeView())),
-          ),
           divider(),
           menuItem(
             context: context,

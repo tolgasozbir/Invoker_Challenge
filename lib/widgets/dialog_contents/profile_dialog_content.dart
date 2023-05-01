@@ -6,7 +6,7 @@ import '../../constants/app_colors.dart';
 import '../../constants/app_strings.dart';
 import '../../extensions/context_extension.dart';
 import '../../extensions/widget_extension.dart';
-import '../../providers/boss_provider.dart';
+import '../../providers/boss_battle_provider.dart';
 import '../../providers/user_manager.dart';
 import '../../screens/profile/achievements/achievement_manager.dart';
 import '../../screens/profile/achievements/achievements_view.dart';
@@ -113,7 +113,7 @@ class ProfileDialogContent extends StatelessWidget {
       width: double.infinity,
       onPressed: () async {
         await AppServices.instance.firebaseAuthService.signOut();
-        context.read<BossProvider>().disposeGame(); //Reset Boss Mode Values
+        context.read<BossBattleProvider>().disposeGame(); //Reset Boss Mode Values
         AchievementManager.instance.reset(); //Reset achievements
         if (context.mounted) Navigator.pop(context);
       }, 

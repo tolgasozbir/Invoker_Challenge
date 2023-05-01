@@ -19,7 +19,7 @@ import '../../../enums/spells.dart';
 import '../../../extensions/context_extension.dart';
 import '../../../extensions/widget_extension.dart';
 import '../../../mixins/orb_mixin.dart';
-import '../../../providers/boss_provider.dart';
+import '../../../providers/boss_battle_provider.dart';
 import '../../../services/sound_manager.dart';
 import '../../../utils/spell_combination_checker.dart';
 import '../../../widgets/app_snackbar.dart';
@@ -39,7 +39,7 @@ class BossModeView extends StatefulWidget {
 }
 
 class _BossModeViewState extends State<BossModeView> with OrbMixin {
-  late BossProvider provider;
+  late BossBattleProvider provider;
   final circleColor = const Color(0xFFB50DE2);
 
   final boxDecoration = BoxDecoration(
@@ -50,7 +50,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
 
   @override
   void initState() {
-    provider = context.read<BossProvider>();
+    provider = context.read<BossBattleProvider>();
     provider.disposeGame();
     super.initState();
   }
@@ -84,7 +84,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
   }
 
   bool backButtonFn() {
-    final canPop = context.read<BossProvider>().snapIsDone && !context.read<BossProvider>().isHornSoundPlaying;
+    final canPop = context.read<BossBattleProvider>().snapIsDone && !context.read<BossBattleProvider>().isHornSoundPlaying;
     if (!canPop) {
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
       AppSnackBar.showSnackBarMessage(
@@ -98,9 +98,9 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
   Widget infoIcon() {
     return IconButton(
       onPressed: () {
-        final canClick = !context.read<BossProvider>().started && 
-                         context.read<BossProvider>().snapIsDone && 
-                        !context.read<BossProvider>().isHornSoundPlaying;
+        final canClick = !context.read<BossBattleProvider>().started && 
+                         context.read<BossBattleProvider>().snapIsDone && 
+                        !context.read<BossBattleProvider>().isHornSoundPlaying;
         if(canClick)
           Navigator.push(context, MaterialPageRoute(builder: (context) => const InfoView(),));
         else {
@@ -114,7 +114,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
   Widget bodyView() {
     return Column(
       children: [
-        Consumer<BossProvider>(
+        Consumer<BossBattleProvider>(
           builder: (context, provider, child) {
             final skyLight =  provider.currentBossAlive ? SkyLight.dark : SkyLight.light;
             final skyType = provider.roundProgress >= 6 ? SkyType.thunderstorm : SkyType.normal;
@@ -152,7 +152,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
     );
   }
 
-  List<Widget> circles(BossProvider provider) {
+  List<Widget> circles(BossBattleProvider provider) {
     return [
       //outer
       CustomPaint(
@@ -188,7 +188,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
     ];
   }
 
-  Widget bossHeads(BossProvider provider) {
+  Widget bossHeads(BossBattleProvider provider) {
     return Snappable(
       key: provider.snappableKey,
       onSnapped: () => null,
@@ -212,7 +212,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
     );
   }
 
-  Positioned dpsStick(BossProvider provider) {
+  Positioned dpsStick(BossBattleProvider provider) {
     return Positioned(
       top: 8,
       left: 8,
@@ -239,7 +239,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
     );
   }
 
-  Positioned dpsText(BossProvider provider) {
+  Positioned dpsText(BossBattleProvider provider) {
     return Positioned(
       top: 16,
       left: 8,
@@ -251,7 +251,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
     );
   }
   
-  Positioned attackDamage(BossProvider provider) {
+  Positioned attackDamage(BossBattleProvider provider) {
     final baseDmg = provider.baseDamage;
     final multiplier = provider.damageMultiplier;
     final bonusDmg = provider.bonusDamage;
@@ -273,7 +273,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
     );
   }
 
-  InkWell startBtn(BossProvider provider) {
+  InkWell startBtn(BossBattleProvider provider) {
     final bool isStarted = provider.started;
     final bool snapIsDone = provider.snapIsDone;
     final bool isHornPlaying = provider.isHornSoundPlaying;
@@ -296,7 +296,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
   }
 
   Widget selectedElementOrbs() {
-    return Consumer<BossProvider>(
+    return Consumer<BossBattleProvider>(
       builder: (context, provider, child) => SizedBox(
         width: context.dynamicWidth(0.25),
         height: context.dynamicHeight(0.08),
@@ -361,15 +361,15 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
               return;
             }
             final index = Spells.values.indexOf(castedSpell);
-            final spell = context.read<BossProvider>().spellCooldowns[index];
-            context.read<BossProvider>().switchAbility(spell);
+            final spell = context.read<BossBattleProvider>().spellCooldowns[index];
+            context.read<BossBattleProvider>().switchAbility(spell);
         }
       },
     );
   }
 
   Widget abilitySlot() {
-    return Consumer<BossProvider>(
+    return Consumer<BossBattleProvider>(
       builder: (context, provider, child) {
         final castedAbilities = provider.castedAbility;
         return Row(
@@ -414,7 +414,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
         ),
       ),
       onPressed: () {
-        final provider = context.read<BossProvider>();
+        final provider = context.read<BossBattleProvider>();
         provider.onPressedAbility(ability.spell);
       },
     );

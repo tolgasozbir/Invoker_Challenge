@@ -34,7 +34,7 @@ class GameProvider extends ChangeNotifier {
     notifyListeners();
   }  
   
-  void continueTimerAfterWatchingAd() {
+  void continueTimeTrialAfterWatchingAd() {
     isAdWatched = true;
     _countdownValue += 30;
     startCoundown();

@@ -15,7 +15,7 @@ import '../../widgets/user_info.dart';
 import 'boss_mode/boss_mode_view.dart';
 import 'challanger/challanger_view.dart';
 import 'training/training_view.dart';
-import 'with_timer/with_timer_view.dart';
+import 'time_trial/with_timer_view.dart';
 
 class DashboardView extends StatelessWidget {
   const DashboardView({super.key});
@@ -75,7 +75,7 @@ class DashboardView extends StatelessWidget {
       color: AppColors.wexColor,
       imagePath: ImagePaths.wex, 
       title: AppStrings.titleWithTimer, 
-      navigatePage: WithTimerView(),
+      navigatePage: TimeTrialView(),
     ),
     const MenuButton(
       color: AppColors.exortColor,

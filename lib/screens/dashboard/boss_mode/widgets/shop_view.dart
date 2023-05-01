@@ -8,7 +8,7 @@ import '../../../../enums/items.dart';
 import '../../../../extensions/context_extension.dart';
 import '../../../../extensions/widget_extension.dart';
 import '../../../../models/Item.dart';
-import '../../../../providers/boss_provider.dart';
+import '../../../../providers/boss_battle_provider.dart';
 import '../../../../services/sound_manager.dart';
 import '../../../../utils/ads_helper.dart';
 import '../../../../widgets/app_dialogs.dart';
@@ -42,7 +42,7 @@ class _ShopViewState extends State<ShopView> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          GoldWidget(gold: context.watch<BossProvider>().userGold)
+          GoldWidget(gold: context.watch<BossBattleProvider>().userGold)
         ],
       ),
       body: _bodyView(),

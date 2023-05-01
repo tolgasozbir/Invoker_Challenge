@@ -10,7 +10,7 @@ import '../../extensions/string_extension.dart';
 import '../../extensions/widget_extension.dart';
 import '../../mixins/screen_state_mixin.dart';
 import '../../models/boss_battle_result.dart';
-import '../../providers/boss_provider.dart';
+import '../../providers/boss_battle_provider.dart';
 import '../../providers/user_manager.dart';
 import '../../services/app_services.dart';
 import '../app_outlined_button.dart';
@@ -111,8 +111,8 @@ class BossResultRoundDialogContent extends StatelessWidget {
 
   WatchAdButton watchAdButton(BuildContext context) {
     return WatchAdButton(
-      afterWatchingAdFn: () => context.read<BossProvider>().addGoldAfterWatchingAd(goldAmount), 
-      isAdWatched: context.watch<BossProvider>().isAdWatched, 
+      afterWatchingAdFn: () => context.read<BossBattleProvider>().addGoldAfterWatchingAd(goldAmount), 
+      isAdWatched: context.watch<BossBattleProvider>().isAdWatched, 
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

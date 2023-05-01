@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../extensions/context_extension.dart';
 import '../../../../extensions/widget_extension.dart';
-import '../../../../providers/boss_provider.dart';
+import '../../../../providers/boss_battle_provider.dart';
 
 class ManaBar extends StatefulWidget {
   const ManaBar({super.key});
@@ -30,7 +30,7 @@ class _ManaBarState extends State<ManaBar> {
             color: const Color(0xFF20385C),
           ),
         ),
-        Consumer<BossProvider>(
+        Consumer<BossBattleProvider>(
           builder: (context, provider, child) {
             final double manaBarWidth = context.dynamicWidth(0.88) * provider.manaBarWidthMultiplier;
             return AnimatedContainer(
@@ -62,7 +62,7 @@ class _ManaBarState extends State<ManaBar> {
             borderRadius: BorderRadius.circular(6),
             border: Border.all(width: 1.2),
           ),
-          child: Consumer<BossProvider>(
+          child: Consumer<BossBattleProvider>(
             builder: (context, provider, child) => Row(
               children: [
                 const Spacer(),
