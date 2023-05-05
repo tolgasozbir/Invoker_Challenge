@@ -18,20 +18,10 @@ class _CooldownAnimationState extends State<CooldownAnimation> with SingleTicker
   late Animation<double> _opacity;
   late Animation<double> _durationText;
 
-  double normalize(double a, double b) {
-    final sum = a+b;
-    final res = (sum-a) / sum;
-    return res;
-  }
-
   double calculateCooldown(double cooldownDuration, double remainingCd) {
     if (remainingCd <= 0) return 1.0;
     final result = 1 - (((remainingCd * 100) / cooldownDuration) / 100);
     return result;
-  }
-
-  void restart() {
-    initState();
   }
 
   @override
