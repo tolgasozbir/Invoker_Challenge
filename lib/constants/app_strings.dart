@@ -41,8 +41,12 @@ class AppStrings {
   static const String bestScoreByKill = 'Your best score by kill time';
   static const String exp = 'Experience';
   static const String syncData = 'Synchronize and store the data';
+  static const String save = 'Save';
+  static const String delete = 'Delete';
+  static const String loadGame = 'Load Game';
+  static const String nextBoss = 'Next Boss';
+  static const String items = 'Items';
   
- 
   //Form-Dialog
   static const String guest = 'Guest';
   static const String eMail = 'Email';
@@ -80,6 +84,7 @@ class AppStrings {
   static const String sbInventoryFull = 'Inventory is full!';
   static const String sbNotEnoughGold = 'Not enough gold';
   static const String sbCannotFetchMore = 'Cannot show more data';
+  static const String sbGameSaved = 'Game saved';
 
   //Talent tree
   static const String talentTree = 'Talent Tree';

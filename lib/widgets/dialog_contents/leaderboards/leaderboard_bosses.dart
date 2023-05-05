@@ -120,6 +120,7 @@ class _LeaderboardBossesState extends State<LeaderboardBosses> with ScreenStateM
       title: model.name,
       content: Column(
         children: [
+          //TODO: LANG
           _resultField('Elapsed Time', '${model.time} Sec'),
           _resultField('Max DPS',         model.maxDps.numberFormat),
           _resultField('Average DPS',     model.averageDps.numberFormat),

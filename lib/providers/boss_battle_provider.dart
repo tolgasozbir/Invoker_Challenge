@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_getters_setters
+
 import 'dart:async';
 import 'dart:developer';
 import 'dart:math' as math;
@@ -15,6 +17,7 @@ import '../models/ability.dart';
 import '../models/boss_battle_result.dart';
 import '../screens/profile/achievements/achievement_manager.dart';
 import '../services/sound_manager.dart';
+import '../utils/game_save_handler.dart';
 import '../widgets/app_dialogs.dart';
 import '../widgets/dialog_contents/boss_result_dialog_content.dart';
 import 'user_manager.dart';
@@ -43,6 +46,7 @@ class BossBattleProvider extends ChangeNotifier {
   double magicalDamage = 0;
   double magicalPercentage = 0;
   List<double> last5AttackDamage = [];
+  bool isSavingEnabled = false;
   //
 
   //Circle Values
@@ -120,6 +124,7 @@ class BossBattleProvider extends ChangeNotifier {
   
   int _userGold = 1000;
   int get userGold => _userGold;
+  set userGold(int gold) => _userGold = gold;
   int get gainedGold => ((getRemainingTime ~/ 8) * (roundProgress+1)) + ((roundProgress+1) * 460) + 400;
 
   bool isAdWatched = false;
@@ -569,6 +574,7 @@ class BossBattleProvider extends ChangeNotifier {
       _handOfMidasFn();
       updateView();
       _showRoundResultDialog();
+      isSavingEnabled = true;
       if (roundProgress+1 == Bosses.values.length)  _reset();
       return;
     }
@@ -577,6 +583,7 @@ class BossBattleProvider extends ChangeNotifier {
       log('Time out');
       SoundManager.instance.playBossTauntSound(currentBoss);
       _showRoundResultDialog(timeUp: true);
+      GameSaveHandler.instance.deleteSavedGame();
       _reset();
       return;
     }
@@ -653,6 +660,7 @@ class BossBattleProvider extends ChangeNotifier {
   // Also stops the timer depending on whether the boss is dead or the time is up.
   // Calls the updateView() function to update the display.
   void startGame() async {
+    isSavingEnabled = false;
     await nextRound();
     if (!hasHornSoundStopped) return;
     timerFn();
@@ -707,6 +715,7 @@ class BossBattleProvider extends ChangeNotifier {
     isWraithKingReincarnated = false;
     _updateManaAndBaseDamage(updateUI: false);
     _isActiveMidas = false;
+    isSavingEnabled = false;
     _userGold = 1000;
   }
 

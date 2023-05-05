@@ -56,10 +56,10 @@ class ShopButton extends StatelessWidget {
         ],
       ),
       onPressed: () {
-        final bool canClick = !context.read<BossBattleProvider>().started && 
+        final bool isClickable = !context.read<BossBattleProvider>().started && 
                          context.read<BossBattleProvider>().snapIsDone && 
                         !context.read<BossBattleProvider>().isHornSoundPlaying;
-        if(canClick)
+        if(isClickable)
           Navigator.push(context, MaterialPageRoute(builder: (context) => const ShopView(),));
         else {
           SoundManager.instance.playMeepMerp();

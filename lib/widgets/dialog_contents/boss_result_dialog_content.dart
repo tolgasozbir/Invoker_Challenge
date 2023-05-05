@@ -43,6 +43,7 @@ class BossResultRoundDialogContent extends StatelessWidget {
 
     return  Column(
       children: [
+        //TODO: LANG
         _victoryDefeatText(),
         _resultField('Boss',                      model.boss),
         _resultField('Elapsed Time',              '${model.time} Sec'),

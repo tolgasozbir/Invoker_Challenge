@@ -80,7 +80,7 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
           showHideOrbs(),
           loginOrRegisterBtn(),
           const EmptyBox.h12(),
-          //Text("Reset your password!") //TODO:
+          //Text("Reset your password!") //TODO: RESET PASSWORD
         ],
       ),
     );

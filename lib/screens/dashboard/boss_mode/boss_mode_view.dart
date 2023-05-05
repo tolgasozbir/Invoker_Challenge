@@ -2,11 +2,14 @@ import 'dart:math';
 
 import 'package:dota2_invoker_game/extensions/number_extension.dart';
 import 'package:dota2_invoker_game/models/ability.dart';
+import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/info_button.dart';
+import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/save_button.dart';
+import 'package:dota2_invoker_game/utils/game_save_handler.dart';
+import 'package:dota2_invoker_game/widgets/app_dialogs.dart';
 
+import '../../../widgets/dialog_contents/load_game_dialog_content.dart';
 import '../../../widgets/empty_box.dart';
-import 'widgets/info_view.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:snappable_thanos/snappable_thanos.dart';
 import 'package:splash/splash.dart';
@@ -52,6 +55,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
   void initState() {
     provider = context.read<BossBattleProvider>();
     provider.disposeGame();
+    loadGameDialog();
     super.initState();
   }
 
@@ -59,6 +63,17 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
   void dispose() {
     provider.disposeGame();
     super.dispose();
+  }
+
+  void loadGameDialog() async {
+    await Future.microtask(() {});
+    final savedGame = await GameSaveHandler.instance.loadGame();
+    if (savedGame == null) return;
+    AppDialogs.showSlidingDialog(
+      height: 224,
+      title: '${AppStrings.loadGame}?',
+      content: LoadGameDialogContent(savedGame: savedGame), 
+    );
   }
 
   @override
@@ -70,10 +85,12 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
             if (backButtonFn()) Navigator.pop(context);
           },
         ),
-        actions: [
-          infoIcon(),
-          const EmptyBox.w4(),
-          const ShopButton(),
+        actions: const [
+          SaveButton(),
+          EmptyBox.w4(),
+          InfoButton(),
+          EmptyBox.w4(),
+          ShopButton(),
         ],
       ),
       body: WillPopScope(
@@ -95,21 +112,6 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
     return canPop;
   }
 
-  Widget infoIcon() {
-    return IconButton(
-      onPressed: () {
-        final canClick = !context.read<BossBattleProvider>().started && 
-                         context.read<BossBattleProvider>().snapIsDone && 
-                        !context.read<BossBattleProvider>().isHornSoundPlaying;
-        if(canClick)
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const InfoView(),));
-        else {
-          SoundManager.instance.playMeepMerp();
-        }
-      },
-      icon: const Icon(FontAwesomeIcons.questionCircle),
-    );
-  }
 
   Widget bodyView() {
     return Column(
