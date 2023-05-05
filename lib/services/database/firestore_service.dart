@@ -130,7 +130,7 @@ class FirestoreService implements IDatabaseService {
 
   @override
   Future<List<BossBattleResult>> getBossScores(String bossName) async {
-    final collectionPathName = 'Boss_${bossName.capitalize()}';
+    final collectionPathName = 'Boss_${bossName.replaceAll(" ", "_")}';
     final collectionRef = FirebaseFirestore.instance.collection(collectionPathName);
     final response = await _fetchData(
       collectionRef, 

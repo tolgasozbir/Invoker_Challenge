@@ -1,4 +1,5 @@
 import 'package:dota2_invoker_game/extensions/number_extension.dart';
+import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
@@ -86,7 +87,7 @@ class _BossGalleryViewState extends State<BossGalleryView> {
   void cardOnTapFn(Bosses boss) {
     AppDialogs.showScaleDialog(
       title: '${AppStrings.leaderboard} ${boss.getName}',
-      content: LeaderboardBosses(bossName: boss.getName),
+      content: LeaderboardBosses(bossName: boss.name.capitalize()),
       action: AppOutlinedButton(
         title: AppStrings.back,
         onPressed: (){

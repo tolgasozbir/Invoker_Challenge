@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_strings.dart';
 import '../../extensions/context_extension.dart';
-import '../../extensions/string_extension.dart';
 import '../../extensions/widget_extension.dart';
 import '../../mixins/screen_state_mixin.dart';
 import '../../models/boss_battle_result.dart';
@@ -45,7 +44,7 @@ class BossResultRoundDialogContent extends StatelessWidget {
     return  Column(
       children: [
         _victoryDefeatText(),
-        _resultField('Boss',                      model.boss.replaceAll('_', ' ').capitalize()),
+        _resultField('Boss',                      model.boss),
         _resultField('Elapsed Time',              '${model.time} Sec'),
         if(timeUp) _resultField('Remaining HP',   bossHpLeft.numberFormat),
         _resultField('Average DPS (Last 5 Sec)',  model.averageDps.numberFormat),
@@ -79,10 +78,10 @@ class BossResultRoundDialogContent extends StatelessWidget {
           ),
           if (timeUp) const EmptyBox.h8(),
           _resultField('Elapsed Time',    "${bestScore["time"]} Sec"),
-          _resultField('Average DPS',     bestScore['averageDps'].numberFormat),
-          _resultField('Max DPS',         bestScore['maxDps'].numberFormat),
-          _resultField('Physical Damage', bestScore['physicalDamage'].numberFormat),
-          _resultField('Magical Damage',  bestScore['magicalDamage'].numberFormat),
+          _resultField('Average DPS',     (bestScore['averageDps'] as double).numberFormat),
+          _resultField('Max DPS',         (bestScore['maxDps'] as double).numberFormat),
+          _resultField('Physical Damage', (bestScore['physicalDamage'] as double).numberFormat),
+          _resultField('Magical Damage',  (bestScore['magicalDamage'] as double).numberFormat),
         ]
       ],
     );
@@ -198,7 +197,7 @@ class _BossResultRoundDialogActionState extends State<BossResultRoundDialogActio
     final user = UserManager.instance.user;
     final uid = user.uid;
     final db = AppServices.instance.databaseService;
-    final bestTime = UserManager.instance.getBestBossScore(widget.model.boss)['time'];
+    final bestTime = UserManager.instance.getBestBossScore(widget.model.boss)['time'] ?? 0;
     final score = widget.model;
 
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
