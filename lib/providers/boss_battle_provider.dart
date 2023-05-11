@@ -629,7 +629,7 @@ class BossBattleProvider extends ChangeNotifier {
       AchievementManager.instance.updatePlayedGame();
     }
 
-    final int expGain = ((roundProgress+1) * 6) + (getRemainingTime ~/ 8);
+    final int expGain = ((roundProgress+1) * 5) + (getRemainingTime ~/ 10);
     UserManager.instance.addExp(expGain);
     _updateManaAndBaseDamage();
     _resetCooldowns();

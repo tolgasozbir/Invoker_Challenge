@@ -5,6 +5,7 @@ import '../constants/app_strings.dart';
 import '../enums/local_storage_keys.dart';
 import '../models/boss_battle_result.dart';
 import '../models/user_model.dart';
+import '../screens/profile/achievements/achievement_manager.dart';
 import '../services/app_services.dart';
 import '../utils/id_generator.dart';
 import '../widgets/game_ui_widget.dart';
@@ -135,6 +136,7 @@ class UserManager extends ChangeNotifier {
         return;
       }
     }
+    AchievementManager.instance.updateLevel();
     user.exp = currExp;
   }
 
@@ -164,7 +166,7 @@ class UserManager extends ChangeNotifier {
   }
 
   //Sync Data
-  DateTime lastSyncedDate = DateTime.now();
+  DateTime lastSyncedDate = DateTime.now().subtract(const Duration(minutes: 5));
   final waitSyncDuration = const Duration(minutes: 5);
   void updateSyncedDate () {
     lastSyncedDate = DateTime.now();

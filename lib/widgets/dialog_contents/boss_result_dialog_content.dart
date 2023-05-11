@@ -111,24 +111,10 @@ class BossResultRoundDialogContent extends StatelessWidget {
 
   WatchAdButton watchAdButton(BuildContext context) {
     return WatchAdButton(
+      title: goldAmount.toString(),
+      showGoldIcon: true,
       afterWatchingAdFn: () => context.read<BossBattleProvider>().addGoldAfterWatchingAd(goldAmount), 
       isAdWatched: context.watch<BossBattleProvider>().isAdWatched, 
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Icon(Icons.slow_motion_video, size: 26,),
-          const EmptyBox.w4(),
-          Text(
-            goldAmount.toString(),
-            style: TextStyle(
-              fontSize: context.sp(13),
-              fontWeight: FontWeight.bold,
-              shadows: List.generate(2, (index) => const Shadow(blurRadius: 2)),
-            ),
-          ),
-          Image.asset(ImagePaths.gold, height: 28),
-        ],
-      ),
     );
   }
 

@@ -47,7 +47,6 @@ class GameProvider extends ChangeNotifier {
     final int withTimerTime = 60 + (isAdWatched ? 30 : 0);
     AchievementManager.instance.updatePlayedGame();
     UserManager.instance.addExp(score);
-    AchievementManager.instance.updateLevel();
     UserManager.instance.setBestScore(gameType, score);
     AppDialogs.showSlidingDialog(
       title: AppStrings.result, 

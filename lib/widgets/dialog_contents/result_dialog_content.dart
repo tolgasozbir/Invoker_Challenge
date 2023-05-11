@@ -64,6 +64,8 @@ class _ResultDialogContentState extends State<ResultDialogContent> {
 
   WatchAdButton watchAdButton(BuildContext context) {
     return WatchAdButton(
+      title: widget.gameType == GameType.Challanger ? 'Continue' : '+30 Sec',
+      showGoldIcon: false,
       afterWatchingAdFn: () {
         if (widget.gameType == GameType.Challanger) {
           context.read<GameProvider>().continueChallangerAfterWatchingAd();
@@ -73,21 +75,6 @@ class _ResultDialogContentState extends State<ResultDialogContent> {
         Navigator.pop(context);
       },
       isAdWatched: context.watch<GameProvider>().isAdWatched, 
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Icon(Icons.slow_motion_video, size: 26,),
-          const EmptyBox.w4(),
-          Text(
-            widget.gameType == GameType.Challanger ? 'Continue' : '+30 Sec',
-            style: TextStyle(
-              fontSize: context.sp(13),
-              fontWeight: FontWeight.bold,
-              shadows: List.generate(2, (index) => const Shadow(blurRadius: 2)),
-            ),
-          ),
-        ],
-      ),
     );
   }
 

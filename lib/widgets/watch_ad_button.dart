@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
 
+import '../constants/app_strings.dart';
 import '../extensions/context_extension.dart';
 import '../services/sound_manager.dart';
 import '../utils/ads_helper.dart';
+import 'empty_box.dart';
 
 class WatchAdButton extends StatelessWidget {
-  const WatchAdButton({super.key, required this.afterWatchingAdFn, required this.isAdWatched, required this.child});
+  const WatchAdButton({
+    super.key, 
+    required this.title, 
+    required this.afterWatchingAdFn, 
+    required this.isAdWatched, 
+    required this.showGoldIcon,
+  });
 
-  final Widget child;
+  final String title;
+  final bool showGoldIcon;
   final bool isAdWatched;
   final VoidCallback afterWatchingAdFn;
 
@@ -29,7 +38,22 @@ class WatchAdButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(4),
           border: Border.all(),
         ),
-        child: child,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.slow_motion_video, size: 26,),
+            const EmptyBox.w4(),
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: context.sp(13),
+                fontWeight: FontWeight.bold,
+                shadows: List.generate(2, (index) => const Shadow(blurRadius: 2)),
+              ),
+            ),
+            if(showGoldIcon) Image.asset(ImagePaths.gold, height: 28),
+          ],
+        ),
       ),
     );
   }
