@@ -1,3 +1,10 @@
+# 0.0.5
+- Experience gain reduced in boss battles.
+- Minor bugs fixed.
+- An unnecessary package has been removed.
+- Ads edited.
+- Fixed a typo.
+
 # 0.0.4+5
 - Added functionality to save and resume the game for the boss battle mode.
 - Database display issue fixed due to incorrect table name usage.
