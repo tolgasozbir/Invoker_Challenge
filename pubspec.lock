@@ -190,14 +190,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_arc_text:
-    dependency: "direct main"
-    description:
-      name: flutter_arc_text
-      sha256: "38e9cda592ea61af4c7f2446641416580240da4be8a5427a99bf70045533ad16"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.5.0"
   flutter_config:
     dependency: "direct main"
     description:

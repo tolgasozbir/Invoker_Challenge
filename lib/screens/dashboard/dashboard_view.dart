@@ -66,26 +66,26 @@ class DashboardView extends StatelessWidget {
 
   List<Widget> get menuBtns => [
     const MenuButton( 
-      color: AppColors.quasColor, 
-      imagePath: ImagePaths.quas, 
-      title: AppStrings.titleTraining, 
+      color: AppColors.quasColor,
+      imagePath: ImagePaths.quas,
+      title: AppStrings.titleTraining,
       navigatePage: TrainingView(),
     ),
     const MenuButton(
       color: AppColors.wexColor,
-      imagePath: ImagePaths.wex, 
-      title: AppStrings.titleWithTimer, 
+      imagePath: ImagePaths.wex,
+      title: AppStrings.titleWithTimer,
       navigatePage: TimeTrialView(),
     ),
     const MenuButton(
       color: AppColors.exortColor,
-      imagePath: ImagePaths.exort, 
-      title: AppStrings.titleChallanger, 
+      imagePath: ImagePaths.exort,
+      title: AppStrings.titleChallenger,
       navigatePage: ChallangerView(),
     ),
     MenuButton.bossMode(
       color: AppColors.white,
-      imagePath: Elements.invoke.getImage, 
+      imagePath: Elements.invoke.getImage,
       title: AppStrings.titleBossMode,
       navigatePage: const BossModeView(),
     ),

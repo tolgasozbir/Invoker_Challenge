@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../constants/app_strings.dart';
 import '../enums/database_table.dart';
 import '../screens/profile/achievements/achievement_manager.dart';
+import '../utils/ads_helper.dart';
 import '../widgets/app_dialogs.dart';
 import '../widgets/dialog_contents/result_dialog_content.dart';
 import '../widgets/game_ui_widget.dart';
@@ -41,7 +42,10 @@ class GameProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void showResultDialog(GameType gameType, DatabaseTable databaseTable) {
+  void showResultDialog(GameType gameType, DatabaseTable databaseTable) async {
+    
+    await AdsHelper.instance.showAd();
+
     final int score = getCorrectCombinationCount;
     final int challangerTime = getTimeValue;
     final int withTimerTime = 60 + (isAdWatched ? 30 : 0);

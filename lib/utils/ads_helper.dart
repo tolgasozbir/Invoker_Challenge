@@ -11,6 +11,12 @@ class AdsHelper {
   static final AdsHelper instance = AdsHelper._();
 
   int adCounter = 0;
+  Future<void> showAd() async {
+    adCounter++;
+    if (interstitialAd != null && (adCounter % 4) == 0) {
+      await interstitialAd!.show();
+    }
+  }
 
   bool enableAndroidTestIds = kDebugMode;
 

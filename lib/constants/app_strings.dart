@@ -7,7 +7,7 @@ class AppStrings {
   //Main menu
   static const String titleTraining = 'Training';
   static const String titleWithTimer = 'Time Trial';
-  static const String titleChallanger = 'Challanger';
+  static const String titleChallenger = 'Challenger';
   static const String titleBossMode = 'Boss Battle';
   static const String quitGame = 'Quit Game';
   static const String settings = 'Settings';

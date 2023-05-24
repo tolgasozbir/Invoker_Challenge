@@ -90,9 +90,8 @@ class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateM
 
   void _goToGameScreen() async {
     if (widget.navigatePage == null) return;
-    AdsHelper.instance.adCounter++;
-    if (AdsHelper.instance.interstitialAd != null && (AdsHelper.instance.adCounter % 2) == 0) {
-      await AdsHelper.instance.interstitialAd!.show();
+    await AdsHelper.instance.showAd();
+    if (AdsHelper.instance.adCounter % 4 == 0) {
       Navigator.push(context, fadeInPageRoute(widget.navigatePage!));
       return;
     }
