@@ -1,8 +1,7 @@
-# 0.0.5
+# 0.0.5+8
 - Experience gain reduced in boss battles.
 - Minor bugs fixed.
 - An unnecessary package has been removed.
-- Ads edited.
 - Fixed a typo.
 
 # 0.0.4+5

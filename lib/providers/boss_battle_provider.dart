@@ -17,7 +17,6 @@ import '../models/ability.dart';
 import '../models/boss_battle_result.dart';
 import '../screens/profile/achievements/achievement_manager.dart';
 import '../services/sound_manager.dart';
-import '../utils/ads_helper.dart';
 import '../utils/game_save_handler.dart';
 import '../widgets/app_dialogs.dart';
 import '../widgets/dialog_contents/boss_result_dialog_content.dart';
@@ -604,10 +603,7 @@ class BossBattleProvider extends ChangeNotifier {
     });
   }
 
-  void _showRoundResultDialog({bool timeUp = false}) async {
-
-    await AdsHelper.instance.showAd();
-
+  void _showRoundResultDialog({bool timeUp = false}) {
     final model = BossBattleResult(
       uid: UserManager.instance.user.uid ?? 'null',
       name: UserManager.instance.user.username,

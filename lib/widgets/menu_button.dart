@@ -90,11 +90,14 @@ class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateM
 
   void _goToGameScreen() async {
     if (widget.navigatePage == null) return;
-    await AdsHelper.instance.showAd();
-    if (AdsHelper.instance.adCounter % 4 == 0) {
+    
+    AdsHelper.instance.adCounter++;
+    if (AdsHelper.instance.interstitialAd != null && AdsHelper.instance.adCounter % 3 == 0) {
+      await AdsHelper.instance.interstitialAd!.show();
       Navigator.push(context, fadeInPageRoute(widget.navigatePage!));
       return;
     }
+
     SoundManager.instance.playLoadingSound();
     context.read<GameProvider>().resetTimer();
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
