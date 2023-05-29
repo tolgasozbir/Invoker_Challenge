@@ -18,7 +18,8 @@ class TimerHud extends StatelessWidget {
     switch (gameType) {
       case GameType.Training:
       case GameType.Challanger:
-        return gameProvider.getTimeValue.toString().padLeft(2, '0');
+        return gameProvider.getTimerValue.toString().padLeft(2, '0');
+      case GameType.Combo:
       case GameType.Timer:
         return gameProvider.getCountdownValue.toString().padLeft(2, '0');
     }

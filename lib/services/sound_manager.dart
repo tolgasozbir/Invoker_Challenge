@@ -211,8 +211,8 @@ class SoundManager {
     _playSound(fileName: SoundPaths.meepMerp);
   }  
   
-  void playInvoke() {
-    _playSound(fileName: SoundPaths.invoke);
+  void playInvoke({double volume = 0.35}) {
+    _playSound(fileName: SoundPaths.invoke, volume: volume);
   }
 
   void playItemSound(String itemName) {

@@ -1,60 +1,42 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:splash/splash.dart';
 
 import '../constants/app_colors.dart';
 import '../extensions/context_extension.dart';
-import '../extensions/widget_extension.dart';
 import '../providers/game_provider.dart';
 import '../screens/dashboard/loading_view.dart';
 import '../services/sound_manager.dart';
 import '../utils/ads_helper.dart';
 import '../utils/fade_in_page_animation.dart';
 
+enum AnimType {
+  Rotation,
+  Scale,
+  None,
+}
+
 class MenuButton extends StatefulWidget {
   const MenuButton({
+    super.key, 
     required this.color,
     required this.imagePath,
     required this.title,
     required this.navigatePage,
+    this.bannerTitle,
     this.backgroundColor,
-    this.isBtnBossMode = false,
-    this.isBtnExit = false,
-    super.key, 
-  }) : assert(isBtnBossMode == false), assert(isBtnExit == false);
-
-  const MenuButton.bossMode({
-    super.key, 
-    required this.color, 
-    this.backgroundColor, 
-    required this.imagePath, 
-    required this.title, 
-    this.navigatePage,
-    this.isBtnBossMode = true,
-    this.isBtnExit = false,
-  }) : assert(isBtnBossMode == true), assert(isBtnExit == false) ;  
-  
-  const MenuButton.exit({
-    super.key, 
-    required this.color, 
-    this.backgroundColor, 
-    required this.imagePath, 
-    required this.title, 
-    this.navigatePage,
-    this.isBtnBossMode = false,
-    this.isBtnExit = true,
-  }) : assert(isBtnBossMode == false), assert(isBtnExit == true), assert(navigatePage == null);
+    this.animType = AnimType.None, 
+    this.fit = BoxFit.cover, 
+  });
 
   final Color color;
   final Color? backgroundColor;
   final String imagePath;
+  final BoxFit? fit;
   final String title;
   final Widget? navigatePage;
-  final bool isBtnBossMode;
-  final bool isBtnExit;
+  final AnimType animType;
+  final String? bannerTitle;
 
   @override
   State<MenuButton> createState() => _MenuButtonState();
@@ -64,13 +46,25 @@ class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateM
   AnimationController? controller;
   Animation<double>? animation;
 
+  void _initAnimation() {
+    switch (widget.animType) {
+      case AnimType.Rotation:
+        controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 4000));
+        animation = CurvedAnimation(parent: controller!, curve: Curves.linear);
+        controller!.repeat();
+        return;
+      case AnimType.Scale:
+        controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 1000));
+        animation = Tween(begin: 1.0, end: 0.9).animate(controller!);
+        controller!.repeat(reverse: true);
+        return;
+      case AnimType.None: return;
+    }
+  }
+
   @override
   void initState() {
-    if (widget.isBtnBossMode) {
-      controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 4000));
-      animation = CurvedAnimation(parent: controller!, curve: Curves.linear);
-      controller!.repeat();
-    }
+    _initAnimation();
     super.initState();
   }
 
@@ -80,17 +74,11 @@ class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateM
     super.dispose();
   }
 
-  void _closeApp() {
-    if (Platform.isAndroid) {
-      SystemNavigator.pop();
-    } else if (Platform.isIOS) {
-      exit(0);
-    }
-  }
-
   void _goToGameScreen() async {
     if (widget.navigatePage == null) return;
-    
+    ScaffoldMessenger.of(context).removeCurrentSnackBar();
+    context.read<GameProvider>().resetTimer();
+
     AdsHelper.instance.adCounter++;
     if (AdsHelper.instance.interstitialAd != null && AdsHelper.instance.adCounter % 3 == 0) {
       await AdsHelper.instance.interstitialAd!.show();
@@ -99,8 +87,6 @@ class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateM
     }
 
     SoundManager.instance.playLoadingSound();
-    context.read<GameProvider>().resetTimer();
-    ScaffoldMessenger.of(context).removeCurrentSnackBar();
     Navigator.push(context, fadeInPageRoute(LoadingView(page: widget.navigatePage!)));
   }
 
@@ -108,13 +94,22 @@ class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateM
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10),
-      child: widget.isBtnBossMode 
-        ? Banner(
-            message: 'Beta',
-            location: BannerLocation.bottomEnd,
-            child: button(),
-          )
-        : button(),
+      child: widget.bannerTitle == null
+        ? button()
+        : widget.animType == AnimType.Scale
+          ? ScaleTransition(
+              scale: animation!,
+              child: withBanner(),
+            )
+          : withBanner(),
+    );
+  }
+
+  Banner withBanner() {
+    return Banner(
+      message: widget.bannerTitle!,
+      location: BannerLocation.bottomEnd,
+      child: button(),
     );
   }
 
@@ -135,7 +130,7 @@ class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateM
       width: context.dynamicWidth(0.8),
       child:  ElevatedButton(
         style: buttonStyle,
-        onPressed: widget.isBtnExit ? _closeApp : _goToGameScreen,
+        onPressed: _goToGameScreen,
         child: buttonSurface(),
       ),
     );
@@ -145,15 +140,12 @@ class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateM
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        if (widget.isBtnBossMode) 
+        if (widget.animType == AnimType.Rotation)
           RotationTransition(
             turns: animation!, 
-            child: circleImage(BoxFit.contain),
-          ) 
-        else if (widget.isBtnExit)
-          circleImage(BoxFit.contain).scaleWidget(1.2)
-        else 
-          circleImage(BoxFit.cover),
+            child: circleImage(),
+          )
+        else circleImage(),
         Text(
           '${widget.title}  ',
           style: TextStyle(fontSize: context.sp(16)),
@@ -162,14 +154,15 @@ class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateM
     );
   }
 
-  Container circleImage(BoxFit? fit) {
+  Container circleImage() {
     return Container(
       height: context.dynamicHeight(0.1),
       width: context.dynamicWidth(0.12),
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        image: DecorationImage(image: AssetImage(widget.imagePath),
-        fit: fit,
+        image: DecorationImage(
+          image: AssetImage(widget.imagePath),
+          fit: widget.fit,
         ),
       ),
     );

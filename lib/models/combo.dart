@@ -1,6 +1,6 @@
 import 'base_model.dart';
 
-class TimeTrial extends IBaseModel<TimeTrial> with ICommonProperties {
+class Combo extends IBaseModel<Combo> with ICommonProperties {
   @override
   final String? uid;
   @override
@@ -8,14 +8,14 @@ class TimeTrial extends IBaseModel<TimeTrial> with ICommonProperties {
   @override
   final int? score;
 
-  TimeTrial({
+  Combo({
     this.uid,
     this.name,
     this.score,
   });
 
-  factory TimeTrial.fromMap(Map<String, dynamic> map) {
-    return TimeTrial(
+  factory Combo.fromMap(Map<String, dynamic> map) {
+    return Combo(
       uid: map['uid'],
       name: map['name'],
       score: map['score'],
@@ -23,8 +23,8 @@ class TimeTrial extends IBaseModel<TimeTrial> with ICommonProperties {
   }
 
   @override
-  TimeTrial fromMap(Map<String, dynamic> map) {
-    return TimeTrial.fromMap(map);
+  Combo fromMap(Map<String, dynamic> map) {
+    return Combo.fromMap(map);
   }
   
   @override

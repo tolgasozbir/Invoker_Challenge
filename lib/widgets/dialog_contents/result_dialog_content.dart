@@ -1,3 +1,4 @@
+import 'package:dota2_invoker_game/models/combo.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
@@ -21,10 +22,17 @@ import '../game_ui_widget.dart';
 import '../watch_ad_button.dart';
 
 class ResultDialogContent extends StatefulWidget {
-  const ResultDialogContent({super.key, required this.correctCount, required this.time, required this.gameType});
+  const ResultDialogContent({
+    super.key, 
+    required this.correctCount, 
+    required this.time, 
+    required this.exp,
+    required this.gameType, 
+  });
 
   final int correctCount;
   final int time;
+  final int exp;
   final GameType gameType;
 
   @override
@@ -45,7 +53,7 @@ class _ResultDialogContentState extends State<ResultDialogContent> {
     children: [
       resultField(context, AppStrings.score, widget.correctCount.toString()),
       resultField(context, AppStrings.time, widget.time.toString()),
-      resultField(context, AppStrings.exp, '+${UserManager.instance.expCalc(widget.correctCount).toStringAsFixed(0)}'),
+      resultField(context, AppStrings.exp, '+${UserManager.instance.expCalc(widget.exp).toStringAsFixed(0)}'),
       const EmptyBox.h16(),
       if(!context.watch<GameProvider>().isAdWatched) watchAdButton(context),
       const EmptyBox.h8(),
@@ -63,14 +71,36 @@ class _ResultDialogContentState extends State<ResultDialogContent> {
   }
 
   WatchAdButton watchAdButton(BuildContext context) {
+    String btnTitle = '';
+    switch (widget.gameType) {
+      case GameType.Training:
+        break;
+      case GameType.Challanger:
+        btnTitle = 'Continue';
+        break;
+      case GameType.Timer:
+        btnTitle = '+30 Sec';
+        break;
+      case GameType.Combo:
+        btnTitle = '+10 Sec';
+        break;
+    }
     return WatchAdButton(
-      title: widget.gameType == GameType.Challanger ? 'Continue' : '+30 Sec',
+      title: btnTitle,
       showGoldIcon: false,
       afterWatchingAdFn: () {
-        if (widget.gameType == GameType.Challanger) {
-          context.read<GameProvider>().continueChallangerAfterWatchingAd();
-        } else {
-          context.read<GameProvider>().continueTimeTrialAfterWatchingAd();
+        switch (widget.gameType) {
+          case GameType.Training: 
+            break;
+          case GameType.Challanger:
+            context.read<GameProvider>().continueChallangerAfterWatchingAd();
+            break;
+          case GameType.Timer:
+            context.read<GameProvider>().continueTimeTrialAfterWatchingAd();
+            break;
+          case GameType.Combo:
+            context.read<GameProvider>().continueComboAfterWatchingAd();
+            break;
         }
         Navigator.pop(context);
       },
@@ -148,7 +178,7 @@ class _ResultDialogActionState extends State<ResultDialogAction> with ScreenStat
     final uid = user.uid;
     final name = user.username;
     final score = context.read<GameProvider>().getCorrectCombinationCount;
-    final time = context.read<GameProvider>().getTimeValue;
+    final time = context.read<GameProvider>().getTimerValue;
     final db = AppServices.instance.databaseService;
 
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
@@ -195,6 +225,15 @@ class _ResultDialogActionState extends State<ResultDialogAction> with ScreenStat
             uid: uid, 
             name: name, 
             time: time, 
+            score: score,
+          ),
+        );
+        break;
+      case DatabaseTable.Combo:
+        isOk = await db.addComboScore(
+          Combo(
+            uid: uid, 
+            name: name, 
             score: score,
           ),
         );

@@ -1,3 +1,4 @@
+import 'package:dota2_invoker_game/models/base_model.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -6,27 +7,41 @@ import '../../../constants/app_strings.dart';
 import '../../../extensions/context_extension.dart';
 import '../../../extensions/widget_extension.dart';
 import '../../../mixins/screen_state_mixin.dart';
-import '../../../models/time_trial.dart';
 import '../../../services/app_services.dart';
 import '../../app_outlined_button.dart';
 import '../../app_snackbar.dart';
 
-class LeaderboardWithTimer extends StatefulWidget {
-  const LeaderboardWithTimer({super.key,});
+enum LeaderboardType { TimeTrial, Combo }
+
+class LeaderboardNormal extends StatefulWidget {
+  const LeaderboardNormal({super.key, required this.leaderboardType,});
+
+  final LeaderboardType leaderboardType;
 
   @override
-  State<LeaderboardWithTimer> createState() => _LeaderboardWithTimerState();
+  State<LeaderboardNormal> createState() => _LeaderboardNormalState();
 }
 
-class _LeaderboardWithTimerState extends State<LeaderboardWithTimer> with ScreenStateMixin {
+class _LeaderboardNormalState extends State<LeaderboardNormal> with ScreenStateMixin {
 
-  List<TimeTrial>? results;
+  List<ICommonProperties>? results;
+
+  Future<void> init() async {
+    switch (widget.leaderboardType) {
+      case LeaderboardType.TimeTrial:
+        results = await AppServices.instance.databaseService.getTimeTrialScores();
+        break;
+      case LeaderboardType.Combo:
+        results = await AppServices.instance.databaseService.getComboScores();
+        break;
+    }
+  }
 
   @override
   void initState() {
     Future.microtask(() async {
       changeLoadingState();
-      results = await AppServices.instance.databaseService.getTimeTrialScores();
+      await init();
       changeLoadingState();
     });
     super.initState();
@@ -71,13 +86,20 @@ class _LeaderboardWithTimerState extends State<LeaderboardWithTimer> with Screen
         }
         changeLoadingState();
         await Future.delayed(const Duration(seconds: 1));
-        results?.addAll(await AppServices.instance.databaseService.getTimeTrialScores());
+        switch (widget.leaderboardType) {
+          case LeaderboardType.TimeTrial:
+            results?.addAll(await AppServices.instance.databaseService.getTimeTrialScores());
+            break;
+          case LeaderboardType.Combo:
+            results?.addAll(await AppServices.instance.databaseService.getComboScores());
+            break;
+        }
         changeLoadingState();
       },
     );
   }
 
-  ListView resultListView(List<TimeTrial> results) {
+  ListView resultListView(List<ICommonProperties> results) {
     return ListView.builder(
       shrinkWrap: true,
       itemCount: results.length,

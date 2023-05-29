@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dota2_invoker_game/models/combo.dart';
 
 import '../../constants/app_strings.dart';
 import '../../enums/database_table.dart';
@@ -18,12 +19,14 @@ class FirestoreService implements IDatabaseService {
   static FirestoreService? _instance;
   static FirestoreService get instance => _instance ??= FirestoreService._();
 
-  final _collectionRefUsers = FirebaseFirestore.instance.collection('Users');
-  final _collectionRefFeedbacks = FirebaseFirestore.instance.collection('Feedbacks');
-  final _collectionRefTimeTrial = FirebaseFirestore.instance.collection(DatabaseTable.TimeTrial.name);
-  final _collectionRefChallanger = FirebaseFirestore.instance.collection(DatabaseTable.Challenger.name);
-  String orderByScore = 'score';
-  String orderByTime = 'time';
+  final _collectionRefUsers       = FirebaseFirestore.instance.collection('Users');
+  final _collectionRefFeedbacks   = FirebaseFirestore.instance.collection('Feedbacks');
+  final _collectionRefChallanger  = FirebaseFirestore.instance.collection(DatabaseTable.Challenger.name);
+  final _collectionRefTimeTrial   = FirebaseFirestore.instance.collection(DatabaseTable.TimeTrial.name);
+  final _collectionRefCombo       = FirebaseFirestore.instance.collection(DatabaseTable.Combo.name);
+
+  final String orderByScore = 'score';
+  final String orderByTime  = 'time';
   DocumentSnapshot? _lastDocument;
   bool _hasMoreData = true;
 
@@ -109,14 +112,14 @@ class FirestoreService implements IDatabaseService {
   }
 
   @override
-  Future<bool> addChallengerScore(Challenger result) async {
-    final isDataAdded = await _setData(_collectionRefChallanger, result.toMap());
+  Future<bool> addChallengerScore(Challenger score) async {
+    final isDataAdded = await _setData(_collectionRefChallanger, score.toMap());
     return isDataAdded;
   }
 
   @override
-  Future<bool> addTimerScore(TimeTrial result) async {
-    final isDataAdded = await _setData(_collectionRefTimeTrial, result.toMap());
+  Future<bool> addTimerScore(TimeTrial score) async {
+    final isDataAdded = await _setData(_collectionRefTimeTrial, score.toMap());
     return isDataAdded;
   }
 
@@ -125,6 +128,12 @@ class FirestoreService implements IDatabaseService {
     final collectionPathName = 'Boss_${score.boss.capitalize()}';
     final collection = FirebaseFirestore.instance.collection(collectionPathName);
     final isDataAdded = await _setData(collection, score.toMap());
+    return isDataAdded;
+  }
+
+  @override
+  Future<bool> addComboScore(Combo score) async {
+    final isDataAdded = await _setData(_collectionRefCombo, score.toMap());
     return isDataAdded;
   }
 
@@ -160,6 +169,16 @@ class FirestoreService implements IDatabaseService {
     return response.map((e) => TimeTrial.fromMap(e.data())).toList();
   }
   
+  @override
+  Future<List<Combo>> getComboScores() async {
+    final response = await _fetchData(
+      _collectionRefCombo, 
+      orderByFieldName: orderByScore, 
+      descending: true,
+    );
+    return response.map((e) => Combo.fromMap(e.data())).toList();
+  }
+
   @override
   Future<bool> sendFeedback(FeedbackModel feedbackModel) async {
     try {

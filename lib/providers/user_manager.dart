@@ -1,3 +1,4 @@
+import 'package:dota2_invoker_game/utils/formatted_date.dart';
 import 'package:flutter/material.dart';
 import 'package:snappable_thanos/snappable_thanos.dart';
 
@@ -21,6 +22,7 @@ class UserManager extends ChangeNotifier {
   UserModel get user => _userModel!;
 
   void setUser(UserModel user){
+    user.lastPlayed = getFormattedDate;
     _userModel = user;
   }
 
@@ -90,6 +92,7 @@ class UserManager extends ChangeNotifier {
       case GameType.Training: return 0;
       case GameType.Challanger: return user.bestChallengerScore;
       case GameType.Timer: return user.bestTimerScore;
+      case GameType.Combo: return user.bestComboScore;
     }
   }  
   
@@ -102,6 +105,9 @@ class UserManager extends ChangeNotifier {
         break;
       case GameType.Timer:
         user.bestTimerScore = score;
+        break;
+      case GameType.Combo:
+        user.bestComboScore = score;
         break;
     }
     await setAndSaveUserToLocale(user);

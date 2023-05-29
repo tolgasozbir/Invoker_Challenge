@@ -1,3 +1,4 @@
+import 'package:dota2_invoker_game/screens/dashboard/combo/combo_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
@@ -83,17 +84,22 @@ class DashboardView extends StatelessWidget {
       title: AppStrings.titleChallenger,
       navigatePage: ChallangerView(),
     ),
-    MenuButton.bossMode(
+    const MenuButton(
+      color: AppColors.comboBtnColor,
+      imagePath: ImagePaths.icCombo,
+      title: AppStrings.titleCombo,
+      animType: AnimType.Scale,
+      bannerTitle: 'New',
+      navigatePage: ComboView(),
+    ),
+    MenuButton(
       color: AppColors.white,
       imagePath: Elements.invoke.getImage,
       title: AppStrings.titleBossMode,
+      bannerTitle: 'Beta',
+      animType: AnimType.Rotation,
+      fit: BoxFit.contain,
       navigatePage: const BossModeView(),
-    ),
-    const MenuButton.exit(
-      backgroundColor: AppColors.exitBtnBgColor,
-      color: AppColors.exitBtnColor,
-      imagePath: ImagePaths.icInvokeLine, 
-      title: AppStrings.quitGame,
     ),
   ];
 }

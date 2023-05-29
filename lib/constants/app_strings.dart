@@ -5,9 +5,10 @@ class AppStrings {
   static const String appVersion = 'Beta 0.0.5+8';
 
   //Main menu
-  static const String titleTraining = 'Training';
+  static const String titleTraining = 'Training'; //Endless
   static const String titleWithTimer = 'Time Trial';
   static const String titleChallenger = 'Challenger';
+  static const String titleCombo = 'Combo';
   static const String titleBossMode = 'Boss Battle';
   static const String quitGame = 'Quit Game';
   static const String settings = 'Settings';
@@ -165,6 +166,7 @@ class ImagePaths {
   static const String todClock      = '$_misc/time_of_day_clock.png';
   static const String icInvokerHead = '$_misc/ic_invoker_head.png';
   static const String icInvokeLine  = '$_misc/ic_invoke_line.png';
+  static const String icCombo       = '$_misc/ic_combo.png';
   static const String gold          = '$_misc/gold.png';
   static const String icSword       = '$_misc/ic_sword.png';
 

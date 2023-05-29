@@ -1,8 +1,8 @@
+import 'package:dota2_invoker_game/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants/app_strings.dart';
-import '../../../extensions/context_extension.dart';
 import '../../../providers/game_provider.dart';
 import '../../../widgets/app_dialogs.dart';
 import '../../../widgets/app_outlined_button.dart';
@@ -11,14 +11,14 @@ import '../../../widgets/dialog_contents/leaderboards/leaderboard_normal.dart';
 import '../../../widgets/empty_box.dart';
 import '../../../widgets/game_ui_widget.dart';
 
-class TimeTrialView extends StatefulWidget {
-  const TimeTrialView({super.key});
+class ComboView extends StatefulWidget {
+  const ComboView({super.key});
 
   @override
-  State<TimeTrialView> createState() => _TimeTrialViewState();
+  State<ComboView> createState() => _ComboViewState();
 }
 
-class _TimeTrialViewState extends State<TimeTrialView> {
+class _ComboViewState extends State<ComboView> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -28,12 +28,12 @@ class _TimeTrialViewState extends State<TimeTrialView> {
       ),
     );
   }
-
+  
   Widget _bodyView() {
     return SingleChildScrollView(
       child: Column(
         children: [
-          const GameUIWidget(gameType: GameType.Timer),
+          const GameUIWidget(gameType: GameType.Combo),
           showLeaderBoardButton(),
         ],
       ),
@@ -49,7 +49,7 @@ class _TimeTrialViewState extends State<TimeTrialView> {
       padding: EdgeInsets.only(top: context.dynamicHeight(0.02)),
       onPressed: () => AppDialogs.showScaleDialog(
         title: AppStrings.leaderboard,
-        content: const LeaderboardNormal(leaderboardType: LeaderboardType.TimeTrial),
+        content: const LeaderboardNormal(leaderboardType: LeaderboardType.Combo),
         action: AppOutlinedButton(
           title: AppStrings.back,
           onPressed: (){
@@ -59,5 +59,5 @@ class _TimeTrialViewState extends State<TimeTrialView> {
       ),
     );
   }
-
+  
 }
