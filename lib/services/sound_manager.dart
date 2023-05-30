@@ -47,25 +47,30 @@ class SoundManager {
 
   void playBossEnteringSound(Bosses boss) async {
     int soundCount = 0;
+    double volume = 0.35;
+    Duration duration = Duration.zero;
+
     switch (boss) {
       case Bosses.warlock:
       case Bosses.omniknight:
-      case Bosses.riki: 
+      case Bosses.riki:
       case Bosses.juggernaut:
       case Bosses.blood_seeker:
       case Bosses.axe:
       case Bosses.pudge:
       case Bosses.wraith_king:
-      case Bosses.huskar: soundCount = 2; break;
+      case Bosses.huskar:
+        soundCount = 2;
+        break;
       case Bosses.anti_mage:
       case Bosses.drow_ranger:
-      case Bosses.templar: soundCount = 1; break;
+      case Bosses.templar:
+        soundCount = 1;
+        break;
     }
 
     final int num = _rnd.nextInt(soundCount) + 1;
     final String sound = '${SoundPaths.bossSounds}/${boss.name}/entering$num.mpeg';
-    double volume = 0.35;
-    Duration duration =  Duration.zero;
 
     if (boss == Bosses.templar) {
       volume = 0.50;
@@ -74,36 +79,38 @@ class SoundManager {
     if (boss == Bosses.juggernaut) {
       duration = const Duration(milliseconds: 600);
       final String omnislash = '${SoundPaths.bossSounds}/${boss.name}/omnislash';
-      await Future.delayed(Duration.zero, () => _playSound(fileName: '${omnislash}1.mpeg'),);
-      await Future.delayed(const Duration(milliseconds: 200), () => _playSound(fileName: '${omnislash}2.mpeg'),);
-      await Future.delayed(const Duration(milliseconds: 350), () => _playSound(fileName: '${omnislash}3.mpeg'),);
-    }  
+      await Future.delayed(Duration.zero, () => _playSound(fileName: '${omnislash}1.mpeg'));
+      await Future.delayed(const Duration(milliseconds: 200), () => _playSound(fileName: '${omnislash}2.mpeg'));
+      await Future.delayed(const Duration(milliseconds: 350), () => _playSound(fileName: '${omnislash}3.mpeg'));
+    }
 
     if (boss == Bosses.blood_seeker) {
       volume = 0.60;
       duration = const Duration(milliseconds: 400);
       final String rupture = '${SoundPaths.bossSounds}/${boss.name}/rupture.mpeg';
-      await Future.delayed(Duration.zero, () => _playSound(fileName: rupture, volume: 0.10),);
+      await Future.delayed(Duration.zero, () => _playSound(fileName: rupture, volume: 0.10));
     }
 
     if (boss == Bosses.drow_ranger) {
       volume = 0.50;
       duration = const Duration(milliseconds: 600);
       final String shh = '${SoundPaths.bossSounds}/${boss.name}/shh.mpeg';
-      await Future.delayed(Duration.zero, () => _playSound(fileName: shh),);
+      await Future.delayed(Duration.zero, () => _playSound(fileName: shh));
     }
 
-    await Future.delayed(duration, () => _playSound(fileName: sound, volume: volume),);
-    //Boss specific sounds
+    await Future.delayed(duration, () => _playSound(fileName: sound, volume: volume));
+
+    // Boss specific sounds
     if (boss == Bosses.riki) {
       final String smoke = '${SoundPaths.bossSounds}/${boss.name}/smoke.mpeg';
-      await Future.delayed(const Duration(seconds: 1), () => _playSound(fileName: smoke, volume: 0.16),);
-    }    
+      await Future.delayed(const Duration(seconds: 1), () => _playSound(fileName: smoke, volume: 0.16));
+    }
+
     if (boss == Bosses.anti_mage) {
       final String blink = '${SoundPaths.bossSounds}/${boss.name}/blink.mpeg';
-      await Future.delayed(Duration.zero, () => _playSound(fileName: blink),);
+      await Future.delayed(Duration.zero, () => _playSound(fileName: blink));
     }
-  }  
+  }
   
   void playBossDyingSound(Bosses boss) async {
     int soundCount = 0;
@@ -117,34 +124,42 @@ class SoundManager {
       case Bosses.axe:
       case Bosses.pudge:
       case Bosses.wraith_king:
-      case Bosses.huskar: soundCount = 2; break;
+      case Bosses.huskar:
+        soundCount = 2;
+        break;
       case Bosses.anti_mage:
-      case Bosses.templar: soundCount = 1; break;
+      case Bosses.templar:
+        soundCount = 1;
+        break;
     }
-    int num = _rnd.nextInt(soundCount) + 1;
-    final String sound = '${SoundPaths.bossSounds}/${boss.name}/dying1.mpeg';
+
+    final int num = _rnd.nextInt(soundCount) + 1;
+    final String sound = '${SoundPaths.bossSounds}/${boss.name}/dying$num.mpeg';
     double volume = 0.35;
+
     if (boss == Bosses.templar) {
       volume = 1.0;
     }
+
     if (boss == Bosses.juggernaut) {
       volume = 0.50;
     }
+
     if (boss == Bosses.blood_seeker) {
       volume = 0.50;
     }
+
     if (boss == Bosses.pudge && num == 1) {
       volume = 1.0;
     }
+
     if (boss == Bosses.wraith_king) {
-      num = 2;
       if (num == 1) {
         final String death1 = '${SoundPaths.bossSounds}/${boss.name}/death1.mpeg';
         final String death2 = '${SoundPaths.bossSounds}/${boss.name}/death2.mpeg';
         await Future.delayed(const Duration(milliseconds: 400), () => _playSound(fileName: death1));
         await Future.delayed(const Duration(milliseconds: 2000), () => _playSound(fileName: death2));
-      }
-      else {
+      } else {
         final String death3 = '${SoundPaths.bossSounds}/${boss.name}/death3.mpeg';
         final String death4 = '${SoundPaths.bossSounds}/${boss.name}/death4.mpeg';
         await Future.delayed(Duration.zero, () => _playSound(fileName: death3));
@@ -152,8 +167,9 @@ class SoundManager {
       }
       return;
     }
+
     _playSound(fileName: sound, volume: volume);
-  }  
+  }
   
   void playBossTauntSound(Bosses boss) async {
     int soundCount = 0;
@@ -167,31 +183,40 @@ class SoundManager {
       case Bosses.axe:
       case Bosses.pudge:
       case Bosses.wraith_king:
-      case Bosses.riki: soundCount = 2; break;
+      case Bosses.riki:
+        soundCount = 2;
+        break;
       case Bosses.anti_mage:
-      case Bosses.huskar: soundCount = 1; break;
+      case Bosses.huskar:
+        soundCount = 1;
+        break;
     }
+
     if (boss == Bosses.wraith_king) {
       final String laugh = '${SoundPaths.bossSounds}/${boss.name}/laugh.mpeg';
-      await Future.delayed(Duration.zero, () => _playSound(fileName: laugh),);
+      await Future.delayed(Duration.zero, () => _playSound(fileName: laugh));
       await Future.delayed(const Duration(milliseconds: 2600));
     }
+
     final int num = _rnd.nextInt(soundCount) + 1;
     final String sound = '${SoundPaths.bossSounds}/${boss.name}/taunt$num.mpeg';
     final double volume = boss == Bosses.templar ? 1.0 : 0.35;
     _playSound(fileName: sound, volume: volume);
-    //Boss specific sounds
+
+    // Boss specific sounds
     if (boss == Bosses.anti_mage) {
       final String manaVoid = '${SoundPaths.bossSounds}/${boss.name}/mana_void.mpeg';
-      await Future.delayed(Duration.zero, () => _playSound(fileName: manaVoid),);
+      await Future.delayed(Duration.zero, () => _playSound(fileName: manaVoid));
     }
+
     if (boss == Bosses.blood_seeker) {
       final String laugh = '${SoundPaths.bossSounds}/${boss.name}/laugh.mpeg';
-      await Future.delayed(const Duration(milliseconds: 1850), () => _playSound(fileName: laugh),);
+      await Future.delayed(const Duration(milliseconds: 1850), () => _playSound(fileName: laugh));
     }
+
     if (boss == Bosses.axe) {
       final String cullingBlade = '${SoundPaths.bossSounds}/${boss.name}/culling_blade.mpeg';
-      await Future.delayed(Duration.zero, () => _playSound(fileName: cullingBlade, volume: 0.20),);
+      await Future.delayed(Duration.zero, () => _playSound(fileName: cullingBlade, volume: 0.20));
     }
   }
 
