@@ -37,7 +37,7 @@ class UserManager extends ChangeNotifier {
   }
 
   String? getUserFromLocal() {
-    return AppServices.instance.localStorageService.getStringValue(LocalStorageKey.userRecords);
+    return AppServices.instance.localStorageService.getValue<String>(LocalStorageKey.userRecords);
   }
 
   Future<UserModel?> getUserFromDb(String uid) async {
@@ -45,7 +45,7 @@ class UserManager extends ChangeNotifier {
   }
 
   Future<void> setAndSaveUserToLocale(UserModel user) async {
-    await AppServices.instance.localStorageService.setStringValue(
+    await AppServices.instance.localStorageService.setValue<String>(
       LocalStorageKey.userRecords, 
       user.toJson(),
     );

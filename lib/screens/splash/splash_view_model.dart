@@ -62,7 +62,7 @@ abstract class SplashViewModel extends State<SplashView> {
 
   void getSettingsValues() {
     SoundManager.instance.setVolume(
-      AppServices.instance.localStorageService.getIntValue(LocalStorageKey.volume)?.toDouble() ?? 80,
+      AppServices.instance.localStorageService.getValue<int>(LocalStorageKey.volume)?.toDouble() ?? 80,
     );
   }
 

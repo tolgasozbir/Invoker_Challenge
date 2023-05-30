@@ -28,12 +28,12 @@ class FirestoreService implements IDatabaseService {
   final _collectionRefTimeTrial   = FirebaseFirestore.instance.collection(DatabaseTable.TimeTrial.name);
   final _collectionRefCombo       = FirebaseFirestore.instance.collection(DatabaseTable.Combo.name);
 
-  final String orderByScore = 'score';
-  final String orderByTime  = 'time';
+  final String _orderByScore = 'score';
+  final String _orderByTime  = 'time';
   DocumentSnapshot? _lastDocument;
   bool _hasMoreData = true;
 
-  void errorSnackbar() => AppSnackBar.showSnackBarMessage(
+  void _errorSnackbar() => AppSnackBar.showSnackBarMessage(
     text: AppStrings.errorMessage, 
     snackBartype: SnackBarType.error,
   );
@@ -79,7 +79,7 @@ class FirestoreService implements IDatabaseService {
     } 
     catch (e) {
       log('An error occurred: $e');
-      errorSnackbar();
+      _errorSnackbar();
       return [];
     }
   }
@@ -137,21 +137,21 @@ class FirestoreService implements IDatabaseService {
       case ScoreType.TimeTrial:
         final response = await _fetchData(
           _collectionRefTimeTrial,
-          orderByFieldName: orderByScore,
+          orderByFieldName: _orderByScore,
           descending: true,
         );
         return response.map((e) => TimeTrial.fromMap(e.data()) as T).toList();
       case ScoreType.Challenger:
         final response = await _fetchData(
           _collectionRefChallanger,
-          orderByFieldName: orderByScore,
+          orderByFieldName: _orderByScore,
           descending: true,
         );
         return response.map((e) => Challenger.fromMap(e.data()) as T).toList();
       case ScoreType.Combo:
         final response = await _fetchData(
           _collectionRefCombo,
-          orderByFieldName: orderByScore,
+          orderByFieldName: _orderByScore,
           descending: true,
         );
         return response.map((e) => Combo.fromMap(e.data()) as T).toList();
@@ -163,7 +163,7 @@ class FirestoreService implements IDatabaseService {
         final collectionRef = FirebaseFirestore.instance.collection(collectionPathName);
         final response = await _fetchData(
           collectionRef,
-          orderByFieldName: orderByTime,
+          orderByFieldName: _orderByTime,
           fetchLimit: 5,
         );
         return response.map((e) => BossBattleResult.fromMap(e.data()) as T).toList();

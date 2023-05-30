@@ -9,14 +9,14 @@ class GameSaveHandler {
   static GameSaveHandler get instance => _instance ??= GameSaveHandler._();
 
   Future<void> saveGame(SaveProps props) async {
-    await AppServices.instance.localStorageService.setStringValue(
+    await AppServices.instance.localStorageService.setValue<String>(
       LocalStorageKey.savedGame, 
       props.toJson(),
     );
   }
 
   Future<SaveProps?> loadGame() async {
-    final records = AppServices.instance.localStorageService.getStringValue(LocalStorageKey.savedGame);
+    final records = AppServices.instance.localStorageService.getValue<String>(LocalStorageKey.savedGame);
     if (records == null) {
       return null;
     }

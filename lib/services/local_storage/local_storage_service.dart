@@ -6,58 +6,49 @@ import 'ILocalStorageService.dart';
 class LocalStorageService implements ILocalStorageService {
   LocalStorageService._();
 
-  static LocalStorageService? _instance;
-  static LocalStorageService get instance => _instance ??= LocalStorageService._();
-  SharedPreferences? _prefs;
+  static final LocalStorageService _instance = LocalStorageService._();
+  static LocalStorageService get instance => _instance;
+  
+  late SharedPreferences _prefs;
 
-  ///init SharedPreferences
   @override
   Future<void> init() async {
-    if (_prefs != null) return;  
     _prefs = await SharedPreferences.getInstance();
   }
 
-  //Setters
   @override
-  Future<void> setStringValue(LocalStorageKey key, String value) async {
-    await _prefs?.setString(key.name, value);
+  Future<void> setValue<T>(LocalStorageKey key, T value) async {
+    if (value is String) {
+      await _prefs.setString(key.name, value);
+    } else if (value is int) {
+      await _prefs.setInt(key.name, value);
+    } else if (value is bool) {
+      await _prefs.setBool(key.name, value);
+    } else {
+      throw ArgumentError('Unsupported value type');
+    }
   }
 
   @override
-  Future<void> setIntValue(LocalStorageKey key, int value) async {
-    await _prefs?.setInt(key.name, value);
+  T? getValue<T>(LocalStorageKey key) {
+    if (T == String) {
+      return _prefs.getString(key.name) as T?;
+    } else if (T == int) {
+      return _prefs.getInt(key.name) as T?;
+    } else if (T == bool) {
+      return _prefs.getBool(key.name) as T?;
+    }
+    return null;
   }
 
-  @override
-  Future<void> setBoolValue(LocalStorageKey key, bool value) async {
-    await _prefs?.setBool(key.name, value);
-  }
-
-  //Getters
-  @override
-  String? getStringValue(LocalStorageKey key) {
-    return _prefs?.getString(key.name);
-  }
-
-  @override
-  int? getIntValue(LocalStorageKey key) {
-    return _prefs?.getInt(key.name);
-  }
-
-  @override
-  bool? getBoolValue(LocalStorageKey key) {
-    return _prefs?.getBool(key.name);
-  }
-
-  //Delete values
   @override
   Future<void> removeValue(LocalStorageKey key) async {
-    await _prefs?.remove(key.name);
+    await _prefs.remove(key.name);
   }
-  
-  @override
+
+   @override 
   Future<void> deleteAllValues() async {
-    await _prefs?.clear();
+    await _prefs.clear();
   }
   
 }

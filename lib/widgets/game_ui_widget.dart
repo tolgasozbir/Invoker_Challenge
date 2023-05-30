@@ -402,7 +402,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, ScreenStateM
     const totalButtonHeight = 96;
     final double max = context.dynamicHeight(0.12);
     final double sliderVal = AppServices.instance.localStorageService.
-      getIntValue(LocalStorageKey.qwerHudHeight)?.toDouble() ?? 20;
+      getValue<int>(LocalStorageKey.qwerHudHeight)?.toDouble() ?? 20;
 
     final calculatedVal =  (sliderVal / 100 * max) + (isStart ? (sliderVal / 100 * totalButtonHeight) : 0);
 

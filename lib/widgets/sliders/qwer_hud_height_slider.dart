@@ -29,7 +29,7 @@ class _QWERHudHeightSliderState extends State<QWERHudHeightSlider> {
 
   @override
   void initState() {
-    _value = AppServices.instance.localStorageService.getIntValue(LocalStorageKey.qwerHudHeight)?.toDouble() ?? 20;
+    _value = AppServices.instance.localStorageService.getValue<int>(LocalStorageKey.qwerHudHeight)?.toDouble() ?? 20;
     super.initState();
   }
 
@@ -74,7 +74,7 @@ class _QWERHudHeightSliderState extends State<QWERHudHeightSlider> {
                 max: widget.max.toDouble(),
                 onChanged: (value) => setState(() => _value = value),
                 onChangeEnd: (value) async {
-                  await AppServices.instance.localStorageService.setIntValue(
+                  await AppServices.instance.localStorageService.setValue<int>(
                     LocalStorageKey.qwerHudHeight, 
                     value.truncate(),
                   );

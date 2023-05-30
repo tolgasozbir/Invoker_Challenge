@@ -19,7 +19,7 @@ class VolumeSlider extends StatelessWidget {
       initialValue: SoundManager.instance.getVolume,
       onChangeEnd: (value) async {
         SoundManager.instance.setVolume(value);
-        await AppServices.instance.localStorageService.setIntValue(
+        await AppServices.instance.localStorageService.setValue<int>(
           LocalStorageKey.volume, 
           value.ceil(),
         );
