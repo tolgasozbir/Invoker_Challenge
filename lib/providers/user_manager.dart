@@ -27,7 +27,7 @@ class UserManager extends ChangeNotifier {
   }
 
   bool isLoggedIn() {
-    final user = AppServices.instance.firebaseAuthService.getCurrentUser;
+    final user = AppServices.instance.firebaseAuthService.currentUser;
     return user == null ? false : true;
   }
 
