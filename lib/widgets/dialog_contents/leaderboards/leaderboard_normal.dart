@@ -1,4 +1,7 @@
 import 'package:dota2_invoker_game/models/base_model.dart';
+import 'package:dota2_invoker_game/models/combo.dart';
+import 'package:dota2_invoker_game/models/time_trial.dart';
+import 'package:dota2_invoker_game/services/database/firestore_service.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -29,10 +32,10 @@ class _LeaderboardNormalState extends State<LeaderboardNormal> with ScreenStateM
   Future<void> init() async {
     switch (widget.leaderboardType) {
       case LeaderboardType.TimeTrial:
-        results = await AppServices.instance.databaseService.getTimeTrialScores();
+        results = await AppServices.instance.databaseService.getScores<TimeTrial>(scoreType: ScoreType.TimeTrial);
         break;
       case LeaderboardType.Combo:
-        results = await AppServices.instance.databaseService.getComboScores();
+        results = await AppServices.instance.databaseService.getScores<Combo>(scoreType: ScoreType.Combo);
         break;
     }
   }
@@ -49,7 +52,7 @@ class _LeaderboardNormalState extends State<LeaderboardNormal> with ScreenStateM
 
   @override
   void didChangeDependencies() {
-    AppServices.instance.databaseService.dispose();
+    AppServices.instance.databaseService.resetPagination();
     super.didChangeDependencies();
   }
 
@@ -88,10 +91,10 @@ class _LeaderboardNormalState extends State<LeaderboardNormal> with ScreenStateM
         await Future.delayed(const Duration(seconds: 1));
         switch (widget.leaderboardType) {
           case LeaderboardType.TimeTrial:
-            results?.addAll(await AppServices.instance.databaseService.getTimeTrialScores());
+            results?.addAll(await AppServices.instance.databaseService.getScores<TimeTrial>(scoreType: ScoreType.TimeTrial));
             break;
           case LeaderboardType.Combo:
-            results?.addAll(await AppServices.instance.databaseService.getComboScores());
+            results?.addAll(await AppServices.instance.databaseService.getScores<Combo>(scoreType: ScoreType.Combo));
             break;
         }
         changeLoadingState();

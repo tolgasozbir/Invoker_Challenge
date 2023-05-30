@@ -1,4 +1,5 @@
 import 'package:dota2_invoker_game/models/combo.dart';
+import 'package:dota2_invoker_game/services/database/firestore_service.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
@@ -211,8 +212,9 @@ class _ResultDialogActionState extends State<ResultDialogAction> with ScreenStat
     bool isOk = false;
     switch (dbTable) {
       case DatabaseTable.TimeTrial:
-        isOk = await db.addTimerScore(
-          TimeTrial(
+        isOk = await db.addScore<TimeTrial>(
+          scoreType: ScoreType.TimeTrial, 
+          score: TimeTrial(
             uid: uid, 
             name: name, 
             score: score,
@@ -220,18 +222,20 @@ class _ResultDialogActionState extends State<ResultDialogAction> with ScreenStat
         );
         break;
       case DatabaseTable.Challenger:
-        isOk = await db.addChallengerScore(
-          Challenger(
+        isOk = await db.addScore<Challenger>(
+          scoreType: ScoreType.Challenger, 
+          score: Challenger(
             uid: uid, 
-            name: name, 
+            name: name,
             time: time, 
             score: score,
           ),
         );
         break;
       case DatabaseTable.Combo:
-        isOk = await db.addComboScore(
-          Combo(
+        isOk = await db.addScore<Combo>(
+          scoreType: ScoreType.Combo, 
+          score: Combo(
             uid: uid, 
             name: name, 
             score: score,

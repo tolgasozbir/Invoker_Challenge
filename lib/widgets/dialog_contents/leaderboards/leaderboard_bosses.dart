@@ -1,4 +1,5 @@
 import 'package:dota2_invoker_game/extensions/number_extension.dart';
+import 'package:dota2_invoker_game/services/database/firestore_service.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -31,7 +32,10 @@ class _LeaderboardBossesState extends State<LeaderboardBosses> with ScreenStateM
   void initState() {
     Future.microtask(() async {
       changeLoadingState();
-      results = await AppServices.instance.databaseService.getBossScores(widget.bossName);
+      results = await AppServices.instance.databaseService.getScores<BossBattleResult>(
+        scoreType: ScoreType.Boss, 
+        bossName: widget.bossName,
+      );
       changeLoadingState();
     });
     super.initState();
@@ -39,7 +43,7 @@ class _LeaderboardBossesState extends State<LeaderboardBosses> with ScreenStateM
 
   @override
   void didChangeDependencies() {
-    AppServices.instance.databaseService.dispose();
+    AppServices.instance.databaseService.resetPagination();
     super.didChangeDependencies();
   }
 
@@ -54,7 +58,7 @@ class _LeaderboardBossesState extends State<LeaderboardBosses> with ScreenStateM
               ? Lottie.asset(LottiePaths.lottieNoData, height: context.dynamicHeight(0.32))
               : resultListView(results!),
           if (results!= null && results!.isNotEmpty)
-            showMoreBtn().wrapPadding(const EdgeInsets.all(8))
+            showMoreBtn().wrapPadding(const EdgeInsets.symmetric(horizontal: 8, vertical: 4))
         ],
       ),
     );
@@ -76,7 +80,11 @@ class _LeaderboardBossesState extends State<LeaderboardBosses> with ScreenStateM
         }
         changeLoadingState();
         await Future.delayed(const Duration(seconds: 1));
-        results?.addAll(await AppServices.instance.databaseService.getBossScores(widget.bossName));
+        final moreResults = await AppServices.instance.databaseService.getScores<BossBattleResult>(
+          scoreType: ScoreType.Boss, 
+          bossName: widget.bossName,
+        );
+        results?.addAll(moreResults);
         changeLoadingState();
       },
     );
@@ -84,6 +92,7 @@ class _LeaderboardBossesState extends State<LeaderboardBosses> with ScreenStateM
 
   ListView resultListView(List<BossBattleResult> results) {
     return ListView.builder(
+      padding: const EdgeInsets.only(top: 4),
       shrinkWrap: true,
       itemCount:results.length,
       physics: const NeverScrollableScrollPhysics(),
@@ -92,7 +101,7 @@ class _LeaderboardBossesState extends State<LeaderboardBosses> with ScreenStateM
         return GestureDetector(
           onTap: () => showDetailsDialog(data),
           child: Card(
-            margin: const EdgeInsets.all(8),
+            margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             color: AppColors.dialogBgColor,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

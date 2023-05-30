@@ -6,6 +6,7 @@ import 'package:dota2_invoker_game/models/combo.dart';
 import '../../constants/app_strings.dart';
 import '../../enums/database_table.dart';
 import '../../extensions/string_extension.dart';
+import '../../models/base_model.dart';
 import '../../models/boss_battle_result.dart';
 import '../../models/challenger.dart';
 import '../../models/feedback_model.dart';
@@ -13,6 +14,8 @@ import '../../models/time_trial.dart';
 import '../../models/user_model.dart';
 import '../../widgets/app_snackbar.dart';
 import 'IDatabaseService.dart';
+
+enum ScoreType { TimeTrial, Challenger, Combo, Boss }
 
 class FirestoreService implements IDatabaseService {
   FirestoreService._();
@@ -112,71 +115,59 @@ class FirestoreService implements IDatabaseService {
   }
 
   @override
-  Future<bool> addChallengerScore(Challenger score) async {
-    final isDataAdded = await _setData(_collectionRefChallanger, score.toMap());
-    return isDataAdded;
+  Future<bool> addScore<T extends IBaseModel<T>>({required ScoreType scoreType, required T score}) async {
+    switch (scoreType) {
+      case ScoreType.TimeTrial:
+        return _setData(_collectionRefTimeTrial, score.toMap());
+      case ScoreType.Challenger:
+        return _setData(_collectionRefChallanger, score.toMap());
+      case ScoreType.Combo:
+        return _setData(_collectionRefCombo, score.toMap());
+      case ScoreType.Boss:
+        final bossScore = score as BossBattleResult;
+        final collectionPathName = 'Boss_${bossScore.boss.capitalize()}';
+        final collection = FirebaseFirestore.instance.collection(collectionPathName);
+        return _setData(collection, score.toMap());
+    }
   }
 
   @override
-  Future<bool> addTimerScore(TimeTrial score) async {
-    final isDataAdded = await _setData(_collectionRefTimeTrial, score.toMap());
-    return isDataAdded;
-  }
+  Future<List<T>> getScores<T extends IBaseModel<T>>({required ScoreType scoreType, String? bossName}) async {
+    switch (scoreType) {
+      case ScoreType.TimeTrial:
+        final response = await _fetchData(
+          _collectionRefTimeTrial,
+          orderByFieldName: orderByScore,
+          descending: true,
+        );
+        return response.map((e) => TimeTrial.fromMap(e.data()) as T).toList();
+      case ScoreType.Challenger:
+        final response = await _fetchData(
+          _collectionRefChallanger,
+          orderByFieldName: orderByScore,
+          descending: true,
+        );
+        return response.map((e) => Challenger.fromMap(e.data()) as T).toList();
+      case ScoreType.Combo:
+        final response = await _fetchData(
+          _collectionRefCombo,
+          orderByFieldName: orderByScore,
+          descending: true,
+        );
+        return response.map((e) => Combo.fromMap(e.data()) as T).toList();
+      case ScoreType.Boss:
+        if (bossName == null) 
+          throw ArgumentError('Boss name must be provided for fetching boss scores.');
 
-  @override
-  Future<bool> addBossScore(BossBattleResult score) async {
-    final collectionPathName = 'Boss_${score.boss.capitalize()}';
-    final collection = FirebaseFirestore.instance.collection(collectionPathName);
-    final isDataAdded = await _setData(collection, score.toMap());
-    return isDataAdded;
-  }
-
-  @override
-  Future<bool> addComboScore(Combo score) async {
-    final isDataAdded = await _setData(_collectionRefCombo, score.toMap());
-    return isDataAdded;
-  }
-
-  @override
-  Future<List<BossBattleResult>> getBossScores(String bossName) async {
-    final collectionPathName = 'Boss_${bossName.replaceAll(" ", "_")}';
-    final collectionRef = FirebaseFirestore.instance.collection(collectionPathName);
-    final response = await _fetchData(
-      collectionRef, 
-      orderByFieldName: orderByTime, 
-      fetchLimit: 5,
-    );
-    return response.map((e) => BossBattleResult.fromMap(e.data())).toList();
-  }
-
-  @override
-  Future<List<Challenger>> getChallangerScores() async {
-    final response = await _fetchData(
-      _collectionRefChallanger,
-       orderByFieldName: orderByScore, 
-       descending: true,
-    );
-    return response.map((e) => Challenger.fromMap(e.data())).toList(); 
-  }
-
-  @override
-  Future<List<TimeTrial>> getTimeTrialScores() async {
-    final response = await _fetchData(
-      _collectionRefTimeTrial, 
-      orderByFieldName: orderByScore, 
-      descending: true,
-    );
-    return response.map((e) => TimeTrial.fromMap(e.data())).toList();
-  }
-  
-  @override
-  Future<List<Combo>> getComboScores() async {
-    final response = await _fetchData(
-      _collectionRefCombo, 
-      orderByFieldName: orderByScore, 
-      descending: true,
-    );
-    return response.map((e) => Combo.fromMap(e.data())).toList();
+        final collectionPathName = 'Boss_${bossName.replaceAll(" ", "_")}';
+        final collectionRef = FirebaseFirestore.instance.collection(collectionPathName);
+        final response = await _fetchData(
+          collectionRef,
+          orderByFieldName: orderByTime,
+          fetchLimit: 5,
+        );
+        return response.map((e) => BossBattleResult.fromMap(e.data()) as T).toList();
+    }
   }
 
   @override
@@ -191,7 +182,7 @@ class FirestoreService implements IDatabaseService {
   }
 
   @override
-  void dispose() {
+  void resetPagination() {
     _hasMoreData = true;
     _lastDocument = null;
   }

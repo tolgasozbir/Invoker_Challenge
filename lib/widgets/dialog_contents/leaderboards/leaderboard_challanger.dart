@@ -1,3 +1,4 @@
+import 'package:dota2_invoker_game/services/database/firestore_service.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -26,7 +27,7 @@ class _LeaderboardChallangerState extends State<LeaderboardChallanger> with Scre
   void initState() {
     Future.microtask(() async {
       changeLoadingState();
-      results = await AppServices.instance.databaseService.getChallangerScores();
+      results = await AppServices.instance.databaseService.getScores<Challenger>(scoreType: ScoreType.Challenger);
       changeLoadingState();
     });
     super.initState();
@@ -34,7 +35,7 @@ class _LeaderboardChallangerState extends State<LeaderboardChallanger> with Scre
 
   @override
   void didChangeDependencies() {
-    AppServices.instance.databaseService.dispose();
+    AppServices.instance.databaseService.resetPagination();
     super.didChangeDependencies();
   }
 
@@ -82,7 +83,8 @@ class _LeaderboardChallangerState extends State<LeaderboardChallanger> with Scre
         }
         changeLoadingState();
         await Future.delayed(const Duration(seconds: 1));
-        results?.addAll(await AppServices.instance.databaseService.getChallangerScores());
+        final moreResults = await AppServices.instance.databaseService.getScores<Challenger>(scoreType: ScoreType.Challenger);
+        results?.addAll(moreResults);
         changeLoadingState();
       },
     );
