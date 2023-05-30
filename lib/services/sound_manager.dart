@@ -7,17 +7,10 @@ import '../constants/app_strings.dart';
 import '../enums/Bosses.dart';
 
 class SoundManager {
+  SoundManager._();
 
   static SoundManager? _instance;
-  static SoundManager get instance {
-    if (_instance != null) {
-      return _instance!;
-    }
-    _instance = SoundManager._();
-    return _instance!;
-  }
-
-  SoundManager._();
+  static SoundManager get instance => _instance ??= SoundManager._();
 
   AudioPlayer? _player;
   final _cache = AudioCache();
@@ -36,14 +29,46 @@ class SoundManager {
     _player = await _cache.play(fileName, volume: volume * getVolume/100);
   }
 
-  void playHorn() {
-    final horns = [
-      SoundPaths.horn_dire,
-      SoundPaths.horn_radiant,
-    ];
-    final sound = horns[_rnd.nextInt(horns.length)];
-    _playSound(fileName: sound);
+  void _playRandomSound(List<String> sounds, {double volume = 0.35}) {
+    if (sounds.isNotEmpty) {
+      final sound = sounds[_rnd.nextInt(sounds.length)];
+      _playSound(fileName: sound, volume: volume);
+    }
   }
+
+  
+  // Common Sounds //
+
+  void playLoadingSound() => _playRandomSound(_loadingSound, volume: 0.40);
+
+  void playMeepMerp() => _playSound(fileName: SoundPaths.meepMerp);
+
+  void failCombinationSound() => _playRandomSound(_failSound);
+
+  void ggSound() => _playRandomSound(_ggSound);
+
+  void playInvoke({double volume = 0.35}) => _playSound(fileName: SoundPaths.invoke, volume: volume);
+
+  void trueCombinationSound(String combination) {
+    switch (combination) {
+      case 'qqq': _playRandomSound(_coldSnapSound); break;
+      case 'qqw': _playRandomSound(_ghostWalkSound); break;
+      case 'qqe': _playRandomSound(_iceWallSound); break;
+      case 'www': _playRandomSound(_emp); break;
+      case 'wwq': _playRandomSound(_tornado); break;
+      case 'wwe': _playRandomSound(_alacrity); break;
+      case 'eee': _playRandomSound(_sunStrike); break;
+      case 'eeq': _playRandomSound(_forgeSpirit); break;
+      case 'eew': _playRandomSound(_chaosMeteor); break;
+      case 'qwe': _playRandomSound(_blast); break;
+      default: failCombinationSound();
+    }
+  }
+
+  
+  //  Boss Battle Mode Specific Sounds  //
+
+  void playHorn() => _playRandomSound(_horns);
 
   void playBossEnteringSound(Bosses boss) async {
     int soundCount = 0;
@@ -114,6 +139,8 @@ class SoundManager {
   
   void playBossDyingSound(Bosses boss) async {
     int soundCount = 0;
+    double volume = 0.35;
+
     switch (boss) {
       case Bosses.warlock:
       case Bosses.omniknight:
@@ -135,7 +162,6 @@ class SoundManager {
 
     final int num = _rnd.nextInt(soundCount) + 1;
     final String sound = '${SoundPaths.bossSounds}/${boss.name}/dying$num.mpeg';
-    double volume = 0.35;
 
     if (boss == Bosses.templar) {
       volume = 1.0;
@@ -173,6 +199,8 @@ class SoundManager {
   
   void playBossTauntSound(Bosses boss) async {
     int soundCount = 0;
+    final double volume = boss == Bosses.templar ? 1.0 : 0.35;
+
     switch (boss) {
       case Bosses.warlock:
       case Bosses.omniknight:
@@ -200,7 +228,6 @@ class SoundManager {
 
     final int num = _rnd.nextInt(soundCount) + 1;
     final String sound = '${SoundPaths.bossSounds}/${boss.name}/taunt$num.mpeg';
-    final double volume = boss == Bosses.templar ? 1.0 : 0.35;
     _playSound(fileName: sound, volume: volume);
 
     // Boss specific sounds
@@ -222,35 +249,24 @@ class SoundManager {
 
   void playWkReincarnation() async {
     const String reincarnation = '${SoundPaths.bossSounds}/wraith_king/reincarnation.mp3';
-    const String suprise = '${SoundPaths.bossSounds}/wraith_king/suprise.mp3';
+    const String surprise = '${SoundPaths.bossSounds}/wraith_king/surprise.mp3';
     const String laugh = '${SoundPaths.bossSounds}/wraith_king/laugh.mpeg';
+
     await Future.delayed(const Duration(milliseconds: 600));
     _playSound(fileName: laugh);
+
     await Future.delayed(const Duration(milliseconds: 1000));
     _playSound(fileName: reincarnation);
+
     await Future.delayed(const Duration(milliseconds: 3600));
-    _playSound(fileName: suprise);
+    _playSound(fileName: surprise);
   }
 
-  void playMeepMerp() {
-    _playSound(fileName: SoundPaths.meepMerp);
-  }  
+  void playItemSound(String itemName) => _playSound(fileName: '${SoundPaths.itemSounds}/$itemName.mpeg');
+
+  void playItemBuyingSound() => _playSound(fileName: SoundPaths.itemBuying);  
   
-  void playInvoke({double volume = 0.35}) {
-    _playSound(fileName: SoundPaths.invoke, volume: volume);
-  }
-
-  void playItemSound(String itemName) {
-    _playSound(fileName: '${SoundPaths.itemSounds}/$itemName.mpeg');
-  }
-
-  void playItemBuyingSound() {
-    _playSound(fileName: SoundPaths.itemBuying);
-  }  
-  
-  void playItemSellingSound() {
-    _playSound(fileName: SoundPaths.itemSelling);
-  }
+  void playItemSellingSound() => _playSound(fileName: SoundPaths.itemSelling);
   
   void playWelcomeShopSound() {
     final int soundNum = _rnd.nextInt(6) + 1;
@@ -282,53 +298,20 @@ class SoundManager {
     _playSound(fileName: sound);
   }
 
-  void playLoadingSound(){
-    _playSound(
-      fileName: _loadingSound[_rnd.nextInt(_loadingSound.length)], 
-      volume: 0.40,
-    );
-  }
-
-  void failCombinationSound() {
-    //if (_player?.state == PlayerState.PLAYING) return;
-    _playSound(fileName: _failSound[_rnd.nextInt(_failSound.length)],);
-  }
-
-  void ggSound(){
-    _playSound(fileName: _ggSound[_rnd.nextInt(_ggSound.length)],);
-  }
-
-  void trueCombinationSound(String combination) {
-    //if (_player?.state == PlayerState.PLAYING) return;
-    switch (combination) {
-      case 'qqq': _playSound(fileName: _coldSnapSound[_rnd.nextInt(_coldSnapSound.length)],); break;
-      case 'qqw': _playSound(fileName: _ghostWalkSound[_rnd.nextInt(_ghostWalkSound.length)],); break;
-      case 'qqe': _playSound(fileName: _iceWallSound[_rnd.nextInt(_iceWallSound.length)],); break;
-      case 'www': _playSound(fileName: _emp[_rnd.nextInt(_emp.length)],); break;
-      case 'wwq': _playSound(fileName: _tornado[_rnd.nextInt(_tornado.length)],); break;
-      case 'wwe': _playSound(fileName: _alacrity[_rnd.nextInt(_alacrity.length)],); break;
-      case 'eee': _playSound(fileName: _sunStrike[_rnd.nextInt(_sunStrike.length)],); break;
-      case 'eeq': _playSound(fileName: _forgeSpirit[_rnd.nextInt(_forgeSpirit.length)],); break;
-      case 'eew': _playSound(fileName: _chaosMeteor[_rnd.nextInt(_chaosMeteor.length)],); break;
-      case 'qwe': _playSound(fileName: _blast[_rnd.nextInt(_blast.length)],); break;
-      default : failCombinationSound();
-    }
-  }
-
-  void spellCastTriggerSound(String combination){
+  void spellCastTriggerSound(String combination) {
     trueCombinationSound(combination);
     switch (combination) {
       case 'qqq': _coldSnapCastAndTrigger(); break;
-      case 'qqw': _ghostWalkCast(); break;
-      case 'qqe': _iceWallCast(); break;
-      case 'www': _empCast(); break;
-      case 'wwq': _tornadoCast(); break;
-      case 'wwe': _alacrityCast(); break;
-      case 'qwe': _deafeningBlastCast(); break;
-      case 'eee': _sunStrikeCast(); break;
-      case 'eeq': _forgeSpiritCast(); break;
-      case 'eew': _chaosMeteorCast(); break;
-      default : failCombinationSound();
+      case 'qqw': _playSound(volume: 0.2, fileName: SoundPaths.ghostWalkCast); break;
+      case 'qqe': _playSound(volume: 0.15, fileName: SoundPaths.iceWallCast); break;
+      case 'www': _playSound(volume: 0.15, fileName: SoundPaths.empCast); break;
+      case 'wwq': _playSound(volume: 0.2, fileName: SoundPaths.tornadoCast); break;
+      case 'wwe': _playSound(volume: 0.15, fileName: SoundPaths.alacrityCast); break;
+      case 'qwe': _playSound(volume: 0.2, fileName: SoundPaths.deafeningBlastCast); break;
+      case 'eee': _playSound(volume: 0.2, fileName: SoundPaths.sunStrikeCast); break;
+      case 'eeq': _playSound(volume: 0.2, fileName: SoundPaths.forgeSpiritCast); break;
+      case 'eew': _playSound(volume: 0.2, fileName: SoundPaths.chaosMeteorCast); break;
+      default: failCombinationSound();
     }
   }
 
@@ -342,109 +325,79 @@ class SoundManager {
     });
   }
   
-  void _ghostWalkCast() {
-    _playSound(volume: 0.2, fileName: SoundPaths.ghostWalkCast);
-  }
   
-  void _iceWallCast() {
-    _playSound(volume: 0.15, fileName: SoundPaths.iceWallCast);
-  }
-  
-  void _empCast() {
-    _playSound(volume: 0.15, fileName: SoundPaths.empCast);
-  }
-  
-  void _tornadoCast() {
-    _playSound(volume: 0.2, fileName: SoundPaths.tornadoCast);
-  }
-  
-  void _alacrityCast() {
-    _playSound(volume: 0.15, fileName: SoundPaths.alacrityCast);
-  }
-  
-  void _deafeningBlastCast() {
-    _playSound(volume: 0.2, fileName: SoundPaths.deafeningBlastCast);
-  }
-  
-  void _sunStrikeCast() {
-    _playSound(volume: 0.2, fileName: SoundPaths.sunStrikeCast);
-  }
-  
-  void _forgeSpiritCast() {
-    _playSound(volume: 0.2, fileName: SoundPaths.forgeSpiritCast);
-  }
-  
-  void _chaosMeteorCast() {
-    _playSound(volume: 0.2, fileName: SoundPaths.chaosMeteorCast);
-  }
+  // Sounds //
 
-  //spells
-  final List<String> _coldSnapSound=[
+  final List<String> _horns = [
+    SoundPaths.horn_dire,
+    SoundPaths.horn_radiant,
+  ];
+
+  final List<String> _coldSnapSound = [
     SoundPaths.cold_snap1,
     SoundPaths.cold_snap2,
     SoundPaths.cold_snap3,
   ];
 
-  final List<String> _ghostWalkSound=[
+  final List<String> _ghostWalkSound = [
     SoundPaths.ghost_walk1,
     SoundPaths.ghost_walk2,
     SoundPaths.ghost_walk3,
   ];
 
-  final List<String> _iceWallSound=[
+  final List<String> _iceWallSound = [
     SoundPaths.icewall1,
     SoundPaths.icewall2,
   ];
 
-  final List<String> _emp=[
+  final List<String> _emp = [
     SoundPaths.emp1,
     SoundPaths.emp2,
     SoundPaths.emp3,
   ];
 
-  final List<String> _tornado=[
+  final List<String> _tornado = [
     SoundPaths.tornado1,
     SoundPaths.tornado2,
     SoundPaths.tornado3,
   ];
 
-  final List<String> _alacrity=[
+  final List<String> _alacrity = [
     SoundPaths.alacrity1,
     SoundPaths.alacrity2,
   ];
 
-  final List<String> _sunStrike=[
+  final List<String> _sunStrike = [
     SoundPaths.sunstrike1,
     SoundPaths.sunstrike2,
     SoundPaths.sunstrike3,
   ];
 
-  final List<String> _forgeSpirit=[
+  final List<String> _forgeSpirit = [
     SoundPaths.forge_spirit1,
     SoundPaths.forge_spirit2,
   ];
 
-  final List<String> _chaosMeteor=[
+  final List<String> _chaosMeteor = [
     SoundPaths.meteor1,
     SoundPaths.meteor2,
   ];
 
-  final List<String> _blast=[
+  final List<String> _blast = [
     SoundPaths.blast1,
     SoundPaths.blast2,
     SoundPaths.blast3,
   ];
 
-  //loading
-  final List<String> _loadingSound=[
+  final List<String> _loadingSound = [
     SoundPaths.begin1,
     SoundPaths.begin2,
     SoundPaths.begin3,
     SoundPaths.begin4,
     SoundPaths.begin5,
   ];
-  //fails
-  final List<String> _failSound=[
+
+  final List<String> _failSound = [
     SoundPaths.fail1,
     SoundPaths.fail2,
     SoundPaths.fail3,
@@ -453,11 +406,12 @@ class SoundManager {
     SoundPaths.fail6,
     SoundPaths.fail7,
   ];
-  //gg
-  final List<String> _ggSound=[
+
+  final List<String> _ggSound = [
     SoundPaths.gg1,
     SoundPaths.gg2,
     SoundPaths.gg3,
     SoundPaths.gg4,
   ];
+
 }
