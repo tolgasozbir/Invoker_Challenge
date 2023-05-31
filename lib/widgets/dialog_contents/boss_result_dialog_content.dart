@@ -11,7 +11,7 @@ import '../../extensions/widget_extension.dart';
 import '../../mixins/screen_state_mixin.dart';
 import '../../models/boss_battle_result.dart';
 import '../../providers/boss_battle_provider.dart';
-import '../../providers/user_manager.dart';
+import '../../services/user_manager.dart';
 import '../../services/app_services.dart';
 import '../app_outlined_button.dart';
 import '../app_snackbar.dart';

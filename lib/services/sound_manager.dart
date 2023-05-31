@@ -63,22 +63,12 @@ class SoundManager {
     Duration duration = Duration.zero;
 
     switch (boss) {
-      case Bosses.warlock:
-      case Bosses.omniknight:
-      case Bosses.riki:
-      case Bosses.juggernaut:
-      case Bosses.blood_seeker:
-      case Bosses.axe:
-      case Bosses.pudge:
-      case Bosses.wraith_king:
-      case Bosses.huskar:
-        soundCount = 2;
-        break;
+      case Bosses.templar:
       case Bosses.anti_mage:
       case Bosses.drow_ranger:
-      case Bosses.templar:
         soundCount = 1;
         break;
+      default: soundCount = 2;
     }
 
     final int num = _rnd.nextInt(soundCount) + 1;
@@ -129,22 +119,11 @@ class SoundManager {
     double volume = 0.35;
 
     switch (boss) {
-      case Bosses.warlock:
-      case Bosses.omniknight:
-      case Bosses.riki:
-      case Bosses.juggernaut:
-      case Bosses.blood_seeker:
-      case Bosses.drow_ranger:
-      case Bosses.axe:
-      case Bosses.pudge:
-      case Bosses.wraith_king:
-      case Bosses.huskar:
-        soundCount = 2;
-        break;
       case Bosses.anti_mage:
       case Bosses.templar:
         soundCount = 1;
         break;
+      default : soundCount = 2;
     }
 
     final int num = _rnd.nextInt(soundCount) + 1;
@@ -189,22 +168,11 @@ class SoundManager {
     final double volume = boss == Bosses.templar ? 1.0 : 0.35;
 
     switch (boss) {
-      case Bosses.warlock:
-      case Bosses.omniknight:
-      case Bosses.templar:
-      case Bosses.juggernaut:
-      case Bosses.blood_seeker:
-      case Bosses.drow_ranger:
-      case Bosses.axe:
-      case Bosses.pudge:
-      case Bosses.wraith_king:
-      case Bosses.riki:
-        soundCount = 2;
-        break;
       case Bosses.anti_mage:
       case Bosses.huskar:
         soundCount = 1;
         break;
+      default: soundCount = 2;
     }
 
     if (boss == Bosses.wraith_king) {
@@ -251,7 +219,7 @@ class SoundManager {
 
   void playItemSound(String itemName) => _playSound(fileName: '${AppSoundsPaths.itemSounds}/$itemName.mpeg');
 
-  void playItemBuyingSound() => _playSound(fileName: AppSoundsPaths.itemBuying);  
+  void playItemBuyingSound() => _playSound(fileName: AppSoundsPaths.itemBuying);
   
   void playItemSellingSound() => _playSound(fileName: AppSoundsPaths.itemSelling);
   
@@ -259,7 +227,7 @@ class SoundManager {
     final int soundNum = _rnd.nextInt(6) + 1;
     final String sound = '${AppSoundsPaths.shopWelcome}$soundNum.mpeg';
     _playSound(fileName: sound);
-  }  
+  }
   
   void playLeaveShopSound() {
     final int soundNum = _rnd.nextInt(5) + 1;
@@ -274,7 +242,7 @@ class SoundManager {
     final int soundNum = _rnd.nextInt(9) + 1;
     final String sound = '${AppSoundsPaths.abilityOnCooldown}$soundNum.mpeg';
     _playSound(fileName: sound);
-  }  
+  }
   
   DateTime lastPlayedNoManaTime = DateTime.now();
   void playNoManaSound() {

@@ -10,7 +10,7 @@ import '../../../../extensions/context_extension.dart';
 import '../../../../extensions/widget_extension.dart';
 import '../../../../mixins/screen_state_mixin.dart';
 import '../../../../models/feedback_model.dart';
-import '../../../../providers/user_manager.dart';
+import '../../../../services/user_manager.dart';
 import '../../../../services/app_services.dart';
 import '../../../../utils/formatted_date.dart';
 import '../../../../widgets/app_outlined_button.dart';

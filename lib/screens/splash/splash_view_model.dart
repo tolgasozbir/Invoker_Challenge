@@ -6,7 +6,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../../constants/app_image_paths.dart';
 import '../../enums/local_storage_keys.dart';
-import '../../providers/user_manager.dart';
+import '../../services/user_manager.dart';
 import '../../services/app_services.dart';
 import '../../services/sound_manager.dart';
 import '../../utils/ads_helper.dart';

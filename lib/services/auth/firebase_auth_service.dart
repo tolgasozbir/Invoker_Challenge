@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:dota2_invoker_game/services/auth/IFirebaseAuthService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../providers/user_manager.dart';
+import '../user_manager.dart';
 import '../../widgets/app_snackbar.dart';
 import '../app_services.dart';
 

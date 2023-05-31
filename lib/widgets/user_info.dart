@@ -6,7 +6,7 @@ import '../constants/app_strings.dart';
 import '../extensions/context_extension.dart';
 import '../extensions/widget_extension.dart';
 import '../models/user_model.dart';
-import '../providers/user_manager.dart';
+import '../services/user_manager.dart';
 import 'app_dialogs.dart';
 import 'dialog_contents/login_register_dialog_content.dart';
 import 'dialog_contents/profile_dialog_content.dart';
@@ -25,7 +25,7 @@ class UserStatus extends StatelessWidget {
   
   String get username => user.username;
   double get currentExp => user.exp;
-  double get nextLevelExp => UserManager.instance.getNextLevelExp;
+  double get nextLevelExp => UserManager.instance.nextLevelExp;
   String get level => '${AppStrings.level} ${user.level}';
   bool get isLoggedIn => UserManager.instance.isLoggedIn();
 

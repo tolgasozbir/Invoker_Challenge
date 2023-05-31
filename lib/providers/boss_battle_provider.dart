@@ -20,7 +20,7 @@ import '../services/sound_manager.dart';
 import '../utils/game_save_handler.dart';
 import '../widgets/app_dialogs.dart';
 import '../widgets/dialog_contents/boss_result_dialog_content.dart';
-import 'user_manager.dart';
+import '../services/user_manager.dart';
 
 class BossBattleProvider extends ChangeNotifier {
   Timer? _timer;

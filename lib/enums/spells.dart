@@ -43,7 +43,4 @@ extension SpellsExtension on Spell {
     }
   }
 
-
-
-
 }

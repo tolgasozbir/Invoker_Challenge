@@ -8,7 +8,7 @@ import '../../constants/app_image_paths.dart';
 import '../../constants/app_strings.dart';
 import '../../enums/elements.dart';
 import '../../extensions/widget_extension.dart';
-import '../../providers/user_manager.dart';
+import '../../services/user_manager.dart';
 import '../../utils/ads_helper.dart';
 import '../../widgets/menu_button.dart';
 import '../../widgets/settings_button.dart';

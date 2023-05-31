@@ -14,7 +14,7 @@ import '../mixins/screen_state_mixin.dart';
 import '../mixins/orb_mixin.dart';
 import '../providers/game_provider.dart';
 import '../providers/spell_provider.dart';
-import '../providers/user_manager.dart';
+import '../services/user_manager.dart';
 import '../screens/profile/achievements/achievement_manager.dart';
 import '../services/app_services.dart';
 import '../services/sound_manager.dart';

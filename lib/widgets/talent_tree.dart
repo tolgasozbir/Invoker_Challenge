@@ -6,7 +6,7 @@ import '../constants/app_image_paths.dart';
 import '../constants/app_strings.dart';
 import '../extensions/widget_extension.dart';
 import '../models/user_model.dart';
-import '../providers/user_manager.dart';
+import '../services/user_manager.dart';
 import 'context_menu.dart';
 
 class TalentTree extends StatelessWidget {

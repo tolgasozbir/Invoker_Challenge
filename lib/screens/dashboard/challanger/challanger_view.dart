@@ -6,7 +6,7 @@ import '../../../constants/app_image_paths.dart';
 import '../../../constants/app_strings.dart';
 import '../../../extensions/context_extension.dart';
 import '../../../providers/game_provider.dart';
-import '../../../providers/user_manager.dart';
+import '../../../services/user_manager.dart';
 import '../../../widgets/app_dialogs.dart';
 import '../../../widgets/app_outlined_button.dart';
 import '../../../widgets/app_scaffold.dart';

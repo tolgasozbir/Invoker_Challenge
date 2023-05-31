@@ -13,7 +13,7 @@ import '../../mixins/screen_state_mixin.dart';
 import '../../models/challenger.dart';
 import '../../models/time_trial.dart';
 import '../../providers/game_provider.dart';
-import '../../providers/user_manager.dart';
+import '../../services/user_manager.dart';
 import '../../services/app_services.dart';
 import '../../utils/ads_helper.dart';
 import '../app_outlined_button.dart';

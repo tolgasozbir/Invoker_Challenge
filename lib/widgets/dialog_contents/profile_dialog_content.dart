@@ -8,7 +8,7 @@ import '../../constants/app_strings.dart';
 import '../../extensions/context_extension.dart';
 import '../../extensions/widget_extension.dart';
 import '../../providers/boss_battle_provider.dart';
-import '../../providers/user_manager.dart';
+import '../../services/user_manager.dart';
 import '../../screens/profile/achievements/achievement_manager.dart';
 import '../../screens/profile/achievements/achievements_view.dart';
 import '../../screens/profile/boss_gallery/boss_gallery_view.dart';

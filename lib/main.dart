@@ -10,7 +10,7 @@ import 'firebase_options.dart';
 import 'providers/boss_battle_provider.dart';
 import 'providers/game_provider.dart';
 import 'providers/spell_provider.dart';
-import 'providers/user_manager.dart';
+import 'services/user_manager.dart';
 import 'screens/splash/splash_view.dart';
 import 'services/app_services.dart';
 import 'services/database/firestore_service.dart';
