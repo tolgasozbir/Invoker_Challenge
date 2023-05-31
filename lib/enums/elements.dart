@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../constants/app_colors.dart';
-import '../constants/app_strings.dart';
+import '../constants/app_image_paths.dart';
 
 enum Elements {quas, wex, exort, invoke}
 

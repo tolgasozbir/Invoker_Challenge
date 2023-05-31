@@ -38,7 +38,7 @@ class SpellsHelperWidget extends StatefulWidget {
 }
 
 class _SpellsHelperWidgetState extends State<SpellsHelperWidget> {
-  final List<Spells> allSpells = Spells.values;
+  final List<Spell> allSpells = Spell.values;
   final margin = const EdgeInsets.symmetric(vertical: 4);
 
   @override
@@ -64,8 +64,8 @@ class _SpellsHelperWidgetState extends State<SpellsHelperWidget> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Image.asset(allSpells[i].image, scale: 5,),
-        ...List.generate(allSpells[i].combine.length, (index) {
-          return QWEKey.values.byName(allSpells[i].combine[index].toUpperCase()).getSpellKey(allSpells[i].combine[index]);
+        ...List.generate(allSpells[i].combination.length, (index) {
+          return QWEKey.values.byName(allSpells[i].combination[index].toUpperCase()).getSpellKey(allSpells[i].combination[index]);
         }),
       ],
     );

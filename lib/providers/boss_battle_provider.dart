@@ -383,7 +383,7 @@ class BossBattleProvider extends ChangeNotifier {
   ///
   ///[ability] An Ability object representing the used ability.
   void switchAbility(Ability ability) {
-    if (_castedAbility.isNotEmpty && ability.spell.combine == _castedAbility.first.spell.combine) return;
+    if (_castedAbility.isNotEmpty && ability.spell.combination == _castedAbility.first.spell.combination) return;
     _castedAbility.insert(0, ability);
     while (_castedAbility.length > 2) {
       _castedAbility.removeLast();
@@ -393,15 +393,15 @@ class BossBattleProvider extends ChangeNotifier {
 
   //Creates a list of Ability objects, each corresponding to a spell in the Spells enum.
   //Return A list of Ability objects representing spell cooldowns.
-  List<Ability> spellCooldowns = Spells.values.map((e) => Ability(spell: e)).toList();
+  List<Ability> spellCooldowns = Spell.values.map((e) => Ability(spell: e)).toList();
 
   //Executed when a spell button is pressed.
-  void onPressedAbility(Spells spell) async {
+  void onPressedAbility(Spell spell) async {
     if (!started) { // If the started variable is false, play a meep merp sound and return from the function.
       SoundManager.instance.playMeepMerp();
       return;
     }
-    final index = Spells.values.indexOf(spell); // Gets the index number of the selected spell.
+    final index = Spell.values.indexOf(spell); // Gets the index number of the selected spell.
     final bool isAbilityUsed = spellCooldowns[index].onPressed(currentMana); // Checks if the selected spell can be used, and assigns true to the isAbilityUsed variable if it can.
     if (isAbilityUsed) { // If the selected spell was used
       _spendMana(spell.mana); // Mana is spent equal to the mana value of the chosen spell.

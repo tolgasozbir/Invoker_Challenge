@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../constants/app_colors.dart';
+import '../constants/app_image_paths.dart';
 import '../constants/app_strings.dart';
 import '../extensions/widget_extension.dart';
 import '../models/user_model.dart';

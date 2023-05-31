@@ -1,20 +1,21 @@
-import '../constants/app_strings.dart';
+import '../constants/app_image_paths.dart';
+import '../constants/app_sounds_paths.dart';
 
-enum Spells {
-  cold_snap       (combine: 'qqq', cooldown: 20, mana: 125, damage: 72,  duration: 6),  //432
-  ghost_walk      (combine: 'qqw', cooldown: 20, mana: 100, damage: 50,  duration: 8),  //400
-  ice_wall        (combine: 'qqe', cooldown: 24, mana: 125, damage: 36,  duration: 12), //432
-  emp             (combine: 'www', cooldown: 20, mana: 125, damage: 400, duration: 1),  //400
-  tornado         (combine: 'wwq', cooldown: 22, mana: 150, damage: 380, duration: 1),  //380
-  alacrity        (combine: 'wwe', cooldown: 17, mana: 100, damage: 70,  duration: 8),  //560
-  deafening_blast (combine: 'qwe', cooldown: 28, mana: 250, damage: 640, duration: 1),  //640
-  sun_strike      (combine: 'eee', cooldown: 24, mana: 175, damage: 480, duration: 1),  //480
-  forge_spirit    (combine: 'eeq', cooldown: 26, mana: 75,  damage: 68,  duration: 8),  //544
-  chaos_meteor    (combine: 'eew', cooldown: 30, mana: 200, damage: 160, duration: 5);  //800
+enum Spell {
+  cold_snap       (combination: 'qqq', cooldown: 20, mana: 125, damage: 72,  duration: 6),  //432
+  ghost_walk      (combination: 'qqw', cooldown: 20, mana: 100, damage: 50,  duration: 8),  //400
+  ice_wall        (combination: 'qqe', cooldown: 24, mana: 125, damage: 36,  duration: 12), //432
+  emp             (combination: 'www', cooldown: 20, mana: 125, damage: 400, duration: 1),  //400
+  tornado         (combination: 'wwq', cooldown: 22, mana: 150, damage: 380, duration: 1),  //380
+  alacrity        (combination: 'wwe', cooldown: 17, mana: 100, damage: 70,  duration: 8),  //560
+  deafening_blast (combination: 'qwe', cooldown: 28, mana: 250, damage: 640, duration: 1),  //640
+  sun_strike      (combination: 'eee', cooldown: 24, mana: 175, damage: 480, duration: 1),  //480
+  forge_spirit    (combination: 'eeq', cooldown: 26, mana: 75,  damage: 68,  duration: 8),  //544
+  chaos_meteor    (combination: 'eew', cooldown: 30, mana: 200, damage: 160, duration: 5);  //800
 
-  const Spells({required this.combine, required this.cooldown, required this.mana, required this.damage, required this.duration});
+  const Spell({required this.combination, required this.cooldown, required this.mana, required this.damage, required this.duration});
 
-  final String combine;
+  final String combination;
   final double cooldown;
   final double mana;
   final double damage;
@@ -22,6 +23,27 @@ enum Spells {
 
 }
 
-extension SpellsExtension on Spells {
+extension SpellsExtension on Spell {
   String get image => '${ImagePaths.spells}$name.png';
+
+  String get castSound => '${AppSoundsPaths.spellCastSounds}/${name}_cast.mpeg';
+  
+  List<String> get spellSounds {
+    switch (this) {
+      case Spell.cold_snap:       return AppSoundsPaths.coldSnapSounds;
+      case Spell.ghost_walk:      return AppSoundsPaths.ghostWalkSounds;
+      case Spell.ice_wall:        return AppSoundsPaths.iceWallSounds;
+      case Spell.emp:             return AppSoundsPaths.empSounds;
+      case Spell.tornado:         return AppSoundsPaths.tornadoSounds;
+      case Spell.alacrity:        return AppSoundsPaths.alacritySounds;
+      case Spell.deafening_blast: return AppSoundsPaths.deafeningBlastSounds;
+      case Spell.sun_strike:      return AppSoundsPaths.sunStrikeSounds;
+      case Spell.forge_spirit:    return AppSoundsPaths.forgeSpiritSounds;
+      case Spell.chaos_meteor:    return AppSoundsPaths.chaosMeteorSounds;
+    }
+  }
+
+
+
+
 }

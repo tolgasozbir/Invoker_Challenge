@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import '../../constants/app_image_paths.dart';
 import '../../constants/app_strings.dart';
 import '../../extensions/context_extension.dart';
 import '../../utils/fade_in_page_animation.dart';

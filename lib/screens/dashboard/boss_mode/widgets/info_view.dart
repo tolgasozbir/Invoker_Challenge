@@ -55,11 +55,11 @@ class InfoView extends StatelessWidget {
       ],
     ),
     Column(
-      children: Spells.values.map((e) => spellDamageInfo(e)).toList(),
+      children: Spell.values.map((e) => spellDamageInfo(e)).toList(),
     )
   ];
 
-  Widget spellDamageInfo(Spells spell) {
+  Widget spellDamageInfo(Spell spell) {
     return Table(
       children: [
         TableRow(

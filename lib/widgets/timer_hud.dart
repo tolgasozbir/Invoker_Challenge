@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/app_colors.dart';
-import '../constants/app_strings.dart';
+import '../constants/app_image_paths.dart';
 import '../extensions/context_extension.dart';
 import '../extensions/widget_extension.dart';
 import '../providers/game_provider.dart';

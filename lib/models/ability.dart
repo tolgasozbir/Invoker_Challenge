@@ -3,7 +3,7 @@ import '../services/sound_manager.dart';
 import 'base_cooldown_model.dart';
 
 class Ability extends ICooldownModel {
-  Spells spell;
+  Spell spell;
   Ability({required this.spell});
 
   @override
@@ -25,7 +25,7 @@ class Ability extends ICooldownModel {
     }
 
     lastPressedAt = DateTime.now();
-    SoundManager.instance.spellCastTriggerSound(spell.combine);
+    SoundManager.instance.spellCastTriggerSound(spell);
     return true;
   }
 

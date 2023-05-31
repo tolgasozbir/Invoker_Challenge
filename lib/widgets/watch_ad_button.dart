@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../constants/app_strings.dart';
+import '../constants/app_image_paths.dart';
 import '../extensions/context_extension.dart';
 import '../services/sound_manager.dart';
 import '../utils/ads_helper.dart';

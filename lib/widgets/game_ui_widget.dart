@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/app_colors.dart';
+import '../constants/app_image_paths.dart';
 import '../constants/app_strings.dart';
 import '../enums/database_table.dart';
 import '../enums/elements.dart';
@@ -172,7 +173,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, ScreenStateM
       ),
       child: Image.asset(
         context.watch<GameProvider>().isStart 
-          ? context.watch<SpellProvider>().getNextSpellImage 
+          ? context.watch<SpellProvider>().nextSpell.image 
           : ImagePaths.spellImage,
         fit: BoxFit.cover,
       ).wrapClipRRect(BorderRadius.circular(4)),
@@ -242,9 +243,9 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, ScreenStateM
         return switchOrb(element);
       case Elements.invoke:
         if (!timerProvider.isStart) return;
-        if (SpellCombinationChecker.checkEquality(spellProvider.getNextCombination, currentCombination)) {
+        if (SpellCombinationChecker.checkEquality(spellProvider.nextSpell.combination, currentCombination)) {
           timerProvider.increaseCorrectCounter();
-          SoundManager.instance.trueCombinationSound(spellProvider.getNextCombination);
+          SoundManager.instance.playSpellSound(spellProvider.nextSpell);
           _animKey.currentState?.playAnimation(IconType.True);
         }
         else {
@@ -265,9 +266,9 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, ScreenStateM
         return switchOrb(element);
       case Elements.invoke:
         if (!timerProvider.isStart) return;
-        if (SpellCombinationChecker.checkEquality(spellProvider.getNextCombination, currentCombination)) {
+        if (SpellCombinationChecker.checkEquality(spellProvider.nextSpell.combination, currentCombination)) {
           timerProvider.increaseCorrectCounter();
-          SoundManager.instance.trueCombinationSound(spellProvider.getNextCombination);
+          SoundManager.instance.playSpellSound(spellProvider.nextSpell);
           _animKey.currentState?.playAnimation(IconType.True);
 
           final score = context.read<GameProvider>().getCorrectCombinationCount;
@@ -291,9 +292,9 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, ScreenStateM
         return switchOrb(element);
       case Elements.invoke:
         if (!timerProvider.isStart) return;
-        if (SpellCombinationChecker.checkEquality(spellProvider.getNextCombination, currentCombination)) {
+        if (SpellCombinationChecker.checkEquality(spellProvider.nextSpell.combination, currentCombination)) {
           timerProvider.increaseCorrectCounter();
-          SoundManager.instance.trueCombinationSound(spellProvider.getNextCombination);
+          SoundManager.instance.playSpellSound(spellProvider.nextSpell);
           _animKey.currentState?.playAnimation(IconType.True);
           spellProvider.getRandomSpell();
 
@@ -335,9 +336,9 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, ScreenStateM
         }
         SoundManager.instance.playInvoke(volume: 0.12);
 
-        Spells? castedSpell;
+        Spell? castedSpell;
         for(final spell in spellProvider.comboSpells) {
-          if (SpellCombinationChecker.checkEquality(spell.combine, currentCombination)) {
+          if (SpellCombinationChecker.checkEquality(spell.combination, currentCombination)) {
             castedSpell = spell;
             break;
           }
@@ -352,7 +353,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, ScreenStateM
         if (spellProvider.correctSpells[spellIndex] != true) {
           spellProvider.correctSpells[spellIndex] = true;
           spellProvider.updateView();
-          SoundManager.instance.trueCombinationSound(spellProvider.comboSpells[spellIndex].combine);
+          SoundManager.instance.playSpellSound(spellProvider.comboSpells[spellIndex]);
         }
 
         final int correctSpellCount = spellProvider.correctSpells.where((element) => element == true).length;

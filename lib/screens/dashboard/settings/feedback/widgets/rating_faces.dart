@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../../constants/app_colors.dart';
-import '../../../../../constants/app_strings.dart';
+import '../../../../../constants/app_image_paths.dart';
 import '../../../../../extensions/widget_extension.dart';
 
 class RatingFaces extends StatefulWidget {

@@ -3,54 +3,49 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-import '../constants/app_strings.dart';
 import '../enums/spells.dart';
 
 class SpellProvider extends ChangeNotifier {
 
-  String _spellImage = ImagePaths.spellImage;
-  String _trueCombination = '';
+  Spell _nextSpell = Spell.values.first;
+  Spell get nextSpell => _nextSpell;
 
-  String get getNextSpellImage => _spellImage;
-  String get getNextCombination => _trueCombination;
-
-  final List<Spells> _tempSpells = [];
+  final List<Spell> _tempSpells = [];
   final _rng  = math.Random();
 
   void getRandomSpell() {
-    var rndSpell = Spells.values[_rng.nextInt(Spells.values.length)];
+    var rndSpell = Spell.values[_rng.nextInt(Spell.values.length)];
 
     do {
-      rndSpell = Spells.values[_rng.nextInt(Spells.values.length)];
+      rndSpell = Spell.values[_rng.nextInt(Spell.values.length)];
     } 
     while (_tempSpells.contains(rndSpell));
 
     _tempSpells.insert(0, rndSpell);
     if (_tempSpells.length > 3) _tempSpells.removeLast();
  
-    _spellImage = rndSpell.image;
-    _trueCombination = rndSpell.combine;
+    _nextSpell = rndSpell;
     notifyListeners();
-    log('Next Combination : $_trueCombination');
+    log('Next Combination : ${_nextSpell.combination}');
   }
 
   //Combo
   final int _comboSpellNum = 3;
   int get comboSpellNum => _comboSpellNum;
 
-  final List<Spells> _comboTempSpells = [];
-  final List<Spells> _comboSpells = [];
+  final List<Spell> _comboTempSpells = [];
+  final List<Spell> _comboSpells = [];
   List<bool> correctSpells = [];
-  List<Spells> get comboSpells => _comboSpells;
+  List<Spell> get comboSpells => _comboSpells;
 
   void getRandomComboSpells() {
     _comboSpells.clear();
     correctSpells = List.generate(comboSpellNum, (index) => false);
     for (var i = 0; i < comboSpellNum; i++) {
-      var rndSpell = Spells.values[_rng.nextInt(Spells.values.length)];
+      var rndSpell = Spell.values[_rng.nextInt(Spell.values.length)];
 
       do {
-        rndSpell = Spells.values[_rng.nextInt(Spells.values.length)];
+        rndSpell = Spell.values[_rng.nextInt(Spell.values.length)];
       } 
       while (_comboTempSpells.contains(rndSpell) || _comboSpells.contains(rndSpell));
 

@@ -75,7 +75,7 @@ flutter:
     - assets/sounds/gg_sounds/
     - assets/sounds/loading_sounds/
     - assets/sounds/spell_sounds/
-    - assets/sounds/spell_sounds/cast_trigger_sounds/
+    - assets/sounds/spell_sounds/cast_sounds/
     - assets/sounds/misc/
     - assets/sounds/ability_on_cooldown/
     - assets/sounds/not_enough_mana/

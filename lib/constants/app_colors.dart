@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  AppColors._();
+  const AppColors._();
   //Specific colors
   static const Color quasColor      = Color(0xFF2196F3);
   static const Color wexColor       = Color(0xFFF48FB1);

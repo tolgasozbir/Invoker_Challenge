@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:snappable_thanos/snappable_thanos.dart';
 
+import '../../../constants/app_image_paths.dart';
 import '../../../constants/app_strings.dart';
 import '../../../extensions/context_extension.dart';
 import '../../../providers/game_provider.dart';

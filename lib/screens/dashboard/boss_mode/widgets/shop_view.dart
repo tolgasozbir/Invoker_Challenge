@@ -3,7 +3,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../constants/app_colors.dart';
-import '../../../../constants/app_strings.dart';
+import '../../../../constants/app_image_paths.dart';
 import '../../../../enums/items.dart';
 import '../../../../extensions/context_extension.dart';
 import '../../../../extensions/widget_extension.dart';

@@ -4,6 +4,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/app_colors.dart';
+import '../../constants/app_image_paths.dart';
 import '../../constants/app_strings.dart';
 import '../../enums/elements.dart';
 import '../../extensions/widget_extension.dart';

@@ -4,6 +4,7 @@ import 'package:lottie/lottie.dart';
 import 'package:splash/splash.dart';
 
 import '../../../../constants/app_colors.dart';
+import '../../../../constants/app_image_paths.dart';
 import '../../../../constants/app_strings.dart';
 import '../../../../extensions/context_extension.dart';
 import '../../../../extensions/widget_extension.dart';

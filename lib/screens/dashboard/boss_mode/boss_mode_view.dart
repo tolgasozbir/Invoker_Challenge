@@ -7,6 +7,7 @@ import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/save_butt
 import 'package:dota2_invoker_game/utils/game_save_handler.dart';
 import 'package:dota2_invoker_game/widgets/app_dialogs.dart';
 
+import '../../../constants/app_image_paths.dart';
 import '../../../widgets/dialog_contents/load_game_dialog_content.dart';
 import '../../../widgets/empty_box.dart';
 import 'package:flutter/material.dart';
@@ -351,9 +352,9 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
             return switchOrb(element);
           case Elements.invoke:
             SoundManager.instance.playInvoke();
-            Spells? castedSpell;
-            for(final spell in Spells.values) {
-              if (SpellCombinationChecker.checkEquality(spell.combine, currentCombination)) {
+            Spell? castedSpell;
+            for(final spell in Spell.values) {
+              if (SpellCombinationChecker.checkEquality(spell.combination, currentCombination)) {
                 castedSpell = spell;
                 break;
               }
@@ -362,7 +363,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
               SoundManager.instance.failCombinationSound();
               return;
             }
-            final index = Spells.values.indexOf(castedSpell);
+            final index = Spell.values.indexOf(castedSpell);
             final spell = context.read<BossBattleProvider>().spellCooldowns[index];
             context.read<BossBattleProvider>().switchAbility(spell);
         }

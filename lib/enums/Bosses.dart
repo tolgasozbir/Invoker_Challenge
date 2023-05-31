@@ -1,4 +1,4 @@
-import '../constants/app_strings.dart';
+import '../constants/app_image_paths.dart';
 import '../extensions/string_extension.dart';
 
 enum Bosses {
