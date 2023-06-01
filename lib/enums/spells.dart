@@ -4,10 +4,10 @@ import '../constants/app_sounds_paths.dart';
 enum Spell {
   cold_snap       (combination: 'qqq', cooldown: 20, mana: 125, damage: 72,  duration: 6),  //432
   ghost_walk      (combination: 'qqw', cooldown: 20, mana: 100, damage: 50,  duration: 8),  //400
-  ice_wall        (combination: 'qqe', cooldown: 24, mana: 125, damage: 36,  duration: 12), //432
+  ice_wall        (combination: 'qqe', cooldown: 24, mana: 125, damage: 48,  duration: 9),  //432
   emp             (combination: 'www', cooldown: 20, mana: 125, damage: 400, duration: 1),  //400
-  tornado         (combination: 'wwq', cooldown: 22, mana: 150, damage: 380, duration: 1),  //380
-  alacrity        (combination: 'wwe', cooldown: 17, mana: 100, damage: 70,  duration: 8),  //560
+  tornado         (combination: 'wwq', cooldown: 22, mana: 150, damage: 460, duration: 1),  //460
+  alacrity        (combination: 'wwe', cooldown: 17, mana: 100, damage: 64,  duration: 8),  //512
   deafening_blast (combination: 'qwe', cooldown: 28, mana: 250, damage: 640, duration: 1),  //640
   sun_strike      (combination: 'eee', cooldown: 24, mana: 175, damage: 480, duration: 1),  //480
   forge_spirit    (combination: 'eeq', cooldown: 26, mana: 75,  damage: 68,  duration: 8),  //544

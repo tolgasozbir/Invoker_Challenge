@@ -21,12 +21,12 @@ enum Items {
   ),
 
   Power_treads(
-    bonus: '+100 mana and +10 damage', 
+    bonus: '+120 mana and +12 damage', 
     cost: 1400,
   ),
 
   Phase_boots(
-    bonus: '+16 damage', 
+    bonus: '+18 damage', 
     cost: 1500,
   ),
 
@@ -53,7 +53,7 @@ enum Items {
   ),
 
   Aether_lens(
-    bonus: '+300 mana and +3 mana regeneration', 
+    bonus: '+320 mana and +3 mana regeneration', 
     cost: 2275,
   ),
 
@@ -69,7 +69,7 @@ enum Items {
   ),
 
   Vladmirs_offering(
-    bonus: 'Damage +24%', 
+    bonus: 'Physical Damage +24%', 
     cost: 2450,
   ),
 

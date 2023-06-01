@@ -185,11 +185,11 @@ class BossBattleProvider extends ChangeNotifier {
         maxMana += 250;
         break;
       case Items.Power_treads:
-        maxMana += 100;
-        bonusDamage += 10;
+        maxMana += 120;
+        bonusDamage += 12;
         break;
       case Items.Phase_boots:
-        bonusDamage += 16;
+        bonusDamage += 18;
         break;
       case Items.Veil_of_discord: break;
       case Items.Kaya:
@@ -198,7 +198,7 @@ class BossBattleProvider extends ChangeNotifier {
         break;
       case Items.Aether_lens:
         baseManaRegen += 3;
-        maxMana += 300;
+        maxMana += 320;
         break;
       case Items.Meteor_hammer:
         baseManaRegen += 2.75;
@@ -254,11 +254,11 @@ class BossBattleProvider extends ChangeNotifier {
         maxMana -= 250;
         break;
       case Items.Power_treads:
-        maxMana -= 100;
-        bonusDamage -= 10;
+        maxMana -= 120;
+        bonusDamage -= 12;
         break;
       case Items.Phase_boots:
-        bonusDamage -= 16;
+        bonusDamage -= 18;
         break;
       case Items.Veil_of_discord: break;
       case Items.Kaya:
@@ -267,7 +267,7 @@ class BossBattleProvider extends ChangeNotifier {
         break;
       case Items.Aether_lens:
         baseManaRegen -= 3;
-        maxMana -= 300;
+        maxMana -= 320;
         break;
       case Items.Meteor_hammer:
         baseManaRegen -= 2.75;
