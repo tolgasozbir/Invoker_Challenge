@@ -7,7 +7,7 @@ import '../../../providers/game_provider.dart';
 import '../../../widgets/app_dialogs.dart';
 import '../../../widgets/app_outlined_button.dart';
 import '../../../widgets/app_scaffold.dart';
-import '../../../widgets/dialog_contents/leaderboards/leaderboard_normal.dart';
+import '../../../widgets/dialog_contents/leaderboard_dialog.dart';
 import '../../../widgets/empty_box.dart';
 import '../../../widgets/game_ui_widget.dart';
 
@@ -49,7 +49,7 @@ class _TimeTrialViewState extends State<TimeTrialView> {
       padding: EdgeInsets.only(top: context.dynamicHeight(0.02)),
       onPressed: () => AppDialogs.showScaleDialog(
         title: AppStrings.leaderboard,
-        content: const LeaderboardNormal(leaderboardType: LeaderboardType.TimeTrial),
+        content: LeaderboardDialog(leaderboardType: LeaderboardType.TimeTrial),
         action: AppOutlinedButton(
           title: AppStrings.back,
           onPressed: (){

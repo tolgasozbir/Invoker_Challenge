@@ -1,12 +1,15 @@
-import 'package:dota2_invoker_game/models/base_model.dart';
-import 'package:flutter/foundation.dart';
+import 'package:dota2_invoker_game/models/base_models/base_model.dart';
+import '../base_models/base_score_model.dart';
 
-@immutable
-class Challenger extends IBaseModel<Challenger> {
+class Challenger extends IBaseModel<Challenger> with IScoreModel {
+  @override
   final String? uid;
+  @override
   final String? name;
-  final int? time;
+  @override
   final int? score;
+  @override
+  final int? time;
   
   Challenger({
     required this.uid,

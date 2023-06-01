@@ -9,7 +9,7 @@ import '../../constants/app_strings.dart';
 import '../../extensions/context_extension.dart';
 import '../../extensions/widget_extension.dart';
 import '../../mixins/screen_state_mixin.dart';
-import '../../models/boss_battle_result.dart';
+import '../../models/score_models/boss_battle.dart';
 import '../../providers/boss_battle_provider.dart';
 import '../../services/user_manager.dart';
 import '../../services/app_services.dart';
@@ -19,7 +19,7 @@ import '../empty_box.dart';
 import '../watch_ad_button.dart';
 
 class BossResultRoundDialogContent extends StatelessWidget {
-  final BossBattleResult model;
+  final BossBattle model;
   final int earnedGold;
   final double earnedExp;
   final bool timeUp;
@@ -150,7 +150,7 @@ class BossResultRoundDialogContent extends StatelessWidget {
 class BossResultRoundDialogAction extends StatefulWidget {
   const BossResultRoundDialogAction({super.key, required this.model});
 
-  final BossBattleResult model;
+  final BossBattle model;
 
   @override
   State<BossResultRoundDialogAction> createState() => _BossResultRoundDialogActionState();
@@ -219,7 +219,7 @@ class _BossResultRoundDialogActionState extends State<BossResultRoundDialogActio
     changeLoadingState();
 
     bool isOk = false;
-    isOk = await db.addScore<BossBattleResult>(
+    isOk = await db.addScore<BossBattle>(
       scoreType: ScoreType.Boss, 
       score: score,
     );

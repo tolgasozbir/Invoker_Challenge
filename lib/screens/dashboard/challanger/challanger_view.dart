@@ -1,3 +1,4 @@
+import 'package:dota2_invoker_game/widgets/dialog_contents/leaderboard_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:snappable_thanos/snappable_thanos.dart';
@@ -10,7 +11,6 @@ import '../../../services/user_manager.dart';
 import '../../../widgets/app_dialogs.dart';
 import '../../../widgets/app_outlined_button.dart';
 import '../../../widgets/app_scaffold.dart';
-import '../../../widgets/dialog_contents/leaderboards/leaderboard_challanger.dart';
 import '../../../widgets/empty_box.dart';
 import '../../../widgets/game_ui_widget.dart';
 
@@ -70,7 +70,7 @@ class _ChallangerViewState extends State<ChallangerView> {
       padding: EdgeInsets.only(top: context.dynamicHeight(0.02)),
       onPressed: () => AppDialogs.showScaleDialog(
         title: AppStrings.leaderboard,
-        content: const LeaderboardChallanger(),
+        content: LeaderboardDialog(leaderboardType: LeaderboardType.Challenger),
         action: AppOutlinedButton(
           title: AppStrings.back,
           onPressed: (){

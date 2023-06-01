@@ -172,7 +172,7 @@ class _FeedbackViewState extends State<FeedbackView> with SingleTickerProviderSt
       sender: UserManager.instance.user.username, 
       ratePoint: _ratingValue, 
       message: _feedbackController.text,
-      createdAt: getFormattedDate,
+      createdAt: getFormattedDate(),
     );
 
     final success = await AppServices.instance.databaseService.sendFeedback(feedback);

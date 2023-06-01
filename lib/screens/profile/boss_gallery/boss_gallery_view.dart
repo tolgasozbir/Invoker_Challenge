@@ -1,5 +1,6 @@
 import 'package:dota2_invoker_game/extensions/number_extension.dart';
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
+import 'package:dota2_invoker_game/widgets/dialog_contents/leaderboard_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
@@ -9,7 +10,6 @@ import '../../../extensions/widget_extension.dart';
 import '../../../widgets/app_dialogs.dart';
 import '../../../widgets/app_outlined_button.dart';
 import '../../../widgets/app_scaffold.dart';
-import '../../../widgets/dialog_contents/leaderboards/leaderboard_bosses.dart';
 
 class BossGalleryView extends StatefulWidget {
   const BossGalleryView({super.key});
@@ -87,10 +87,10 @@ class _BossGalleryViewState extends State<BossGalleryView> {
   void cardOnTapFn(Bosses boss) {
     AppDialogs.showScaleDialog(
       title: '${AppStrings.leaderboard} ${boss.getName}',
-      content: LeaderboardBosses(bossName: boss.name.capitalize()),
+      content: LeaderboardDialog(leaderboardType: LeaderboardType.Boss, bossName: boss.name.capitalize()),
       action: AppOutlinedButton(
         title: AppStrings.back,
-        onPressed: (){
+        onPressed: () {
           Navigator.pop(context);
         },
       ),

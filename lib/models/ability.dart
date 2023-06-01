@@ -1,6 +1,6 @@
 import '../enums/spells.dart';
 import '../services/sound_manager.dart';
-import 'base_cooldown_model.dart';
+import 'base_models/base_cooldown_model.dart';
 
 class Ability extends ICooldownModel {
   Spell spell;

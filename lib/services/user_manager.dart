@@ -4,7 +4,7 @@ import 'package:snappable_thanos/snappable_thanos.dart';
 
 import '../constants/app_strings.dart';
 import '../enums/local_storage_keys.dart';
-import '../models/boss_battle_result.dart';
+import '../models/score_models/boss_battle.dart';
 import '../models/user_model.dart';
 import '../screens/profile/achievements/achievement_manager.dart';
 import 'app_services.dart';
@@ -22,7 +22,7 @@ class UserManager extends ChangeNotifier {
   UserModel get user => _userModel!;
 
   void setUser(UserModel user) {
-    user.lastPlayed = getFormattedDate;
+    user.lastPlayed = getFormattedDate();
     _userModel = user;
   }
 
@@ -72,7 +72,7 @@ class UserManager extends ChangeNotifier {
     return user.bestBossScores?[bossName] as Map<String, dynamic>? ?? {};
   }
 
-  void updateBestBossTimeScore(String bossName, int value, BossBattleResult model) async {
+  void updateBestBossTimeScore(String bossName, int value, BossBattle model) async {
     user.bestBossScores ??= {}; // null check
     user.bestBossScores!.putIfAbsent(bossName, () => model.toMap());
     if (isLoggedIn() && user.bestBossScores![bossName]['name'].toString().startsWith('Guest')) {

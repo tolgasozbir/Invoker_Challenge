@@ -1,16 +1,16 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dota2_invoker_game/models/combo.dart';
+import 'package:dota2_invoker_game/models/score_models/combo.dart';
 
 import '../../constants/app_strings.dart';
 import '../../enums/database_table.dart';
 import '../../extensions/string_extension.dart';
-import '../../models/base_model.dart';
-import '../../models/boss_battle_result.dart';
-import '../../models/challenger.dart';
+import '../../models/base_models/base_model.dart';
+import '../../models/score_models/boss_battle.dart';
+import '../../models/score_models/challenger.dart';
 import '../../models/feedback_model.dart';
-import '../../models/time_trial.dart';
+import '../../models/score_models/time_trial.dart';
 import '../../models/user_model.dart';
 import '../../widgets/app_snackbar.dart';
 import 'IDatabaseService.dart';
@@ -124,7 +124,7 @@ class FirestoreService implements IDatabaseService {
       case ScoreType.Combo:
         return _setData(_collectionRefCombo, score.toMap());
       case ScoreType.Boss:
-        final bossScore = score as BossBattleResult;
+        final bossScore = score as BossBattle;
         final collectionPathName = 'Boss_${bossScore.boss.capitalize()}';
         final collection = FirebaseFirestore.instance.collection(collectionPathName);
         return _setData(collection, score.toMap());
@@ -133,6 +133,7 @@ class FirestoreService implements IDatabaseService {
 
   @override
   Future<List<T>> getScores<T extends IBaseModel<T>>({required ScoreType scoreType, String? bossName}) async {
+    assert(!(scoreType == ScoreType.Boss && bossName == null), 'Boss name is required');
     switch (scoreType) {
       case ScoreType.TimeTrial:
         final response = await _fetchData(
@@ -166,7 +167,7 @@ class FirestoreService implements IDatabaseService {
           orderByFieldName: _orderByTime,
           fetchLimit: 5,
         );
-        return response.map((e) => BossBattleResult.fromMap(e.data()) as T).toList();
+        return response.map((e) => BossBattle.fromMap(e.data()) as T).toList();
     }
   }
 

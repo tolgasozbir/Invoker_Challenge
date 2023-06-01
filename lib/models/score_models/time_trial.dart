@@ -1,6 +1,7 @@
-import 'base_model.dart';
+import '../base_models/base_model.dart';
+import '../base_models/base_score_model.dart';
 
-class TimeTrial extends IBaseModel<TimeTrial> with ICommonProperties {
+class TimeTrial extends IBaseModel<TimeTrial> with IScoreModel {
   @override
   final String? uid;
   @override

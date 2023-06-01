@@ -14,7 +14,7 @@ import '../enums/spells.dart';
 import '../extensions/number_extension.dart';
 import '../models/Item.dart';
 import '../models/ability.dart';
-import '../models/boss_battle_result.dart';
+import '../models/score_models/boss_battle.dart';
 import '../screens/profile/achievements/achievement_manager.dart';
 import '../services/sound_manager.dart';
 import '../utils/game_save_handler.dart';
@@ -604,7 +604,7 @@ class BossBattleProvider extends ChangeNotifier {
   }
 
   void _showRoundResultDialog({bool timeUp = false}) {
-    final model = BossBattleResult(
+    final model = BossBattle(
       uid: UserManager.instance.user.uid ?? 'null',
       name: UserManager.instance.user.username,
       round: roundProgress+1, 

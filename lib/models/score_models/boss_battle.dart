@@ -1,10 +1,14 @@
-import 'package:dota2_invoker_game/models/base_model.dart';
+import 'package:dota2_invoker_game/models/base_models/base_model.dart';
+import 'package:dota2_invoker_game/models/base_models/base_score_model.dart';
 
-class BossBattleResult extends IBaseModel<BossBattleResult> {
+class BossBattle extends IBaseModel<BossBattle> with IScoreModel {
+  @override
   final String? uid;
+  @override
   final String name;
   final int round;
   final String boss;
+  @override
   final int time;
   final double averageDps;
   final double maxDps;
@@ -12,7 +16,7 @@ class BossBattleResult extends IBaseModel<BossBattleResult> {
   final double magicalDamage;
   final List<String> items;
 
-  BossBattleResult({
+  BossBattle({
     required this.uid,
     required this.name,
     required this.round,
@@ -25,8 +29,8 @@ class BossBattleResult extends IBaseModel<BossBattleResult> {
     required this.items,
   });
 
-  factory BossBattleResult.fromMap(Map<String, dynamic> map) {
-    return BossBattleResult(
+  factory BossBattle.fromMap(Map<String, dynamic> map) {
+    return BossBattle(
       uid: map['uid'] as String,
       name: map['name'] as String,
       round: map['round'] as int,
@@ -41,8 +45,8 @@ class BossBattleResult extends IBaseModel<BossBattleResult> {
   }
 
   @override
-  BossBattleResult fromMap(Map<String, dynamic> map) {
-    return BossBattleResult.fromMap(map);
+  BossBattle fromMap(Map<String, dynamic> map) {
+    return BossBattle.fromMap(map);
   }
 
   @override

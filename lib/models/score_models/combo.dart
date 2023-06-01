@@ -1,6 +1,8 @@
-import 'base_model.dart';
+import 'package:dota2_invoker_game/models/base_models/base_score_model.dart';
 
-class Combo extends IBaseModel<Combo> with ICommonProperties {
+import '../base_models/base_model.dart';
+
+class Combo extends IBaseModel<Combo> with IScoreModel {
   @override
   final String? uid;
   @override

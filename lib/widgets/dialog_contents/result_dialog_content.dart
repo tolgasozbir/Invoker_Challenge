@@ -1,4 +1,4 @@
-import 'package:dota2_invoker_game/models/combo.dart';
+import 'package:dota2_invoker_game/models/score_models/combo.dart';
 import 'package:dota2_invoker_game/services/database/firestore_service.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -10,8 +10,8 @@ import '../../enums/database_table.dart';
 import '../../extensions/context_extension.dart';
 import '../../extensions/widget_extension.dart';
 import '../../mixins/screen_state_mixin.dart';
-import '../../models/challenger.dart';
-import '../../models/time_trial.dart';
+import '../../models/score_models/challenger.dart';
+import '../../models/score_models/time_trial.dart';
 import '../../providers/game_provider.dart';
 import '../../services/user_manager.dart';
 import '../../services/app_services.dart';
