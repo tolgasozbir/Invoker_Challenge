@@ -6,7 +6,7 @@ import '../constants/app_strings.dart';
 import '../enums/local_storage_keys.dart';
 import '../models/score_models/boss_battle.dart';
 import '../models/user_model.dart';
-import '../screens/profile/achievements/achievement_manager.dart';
+import 'achievement_manager.dart';
 import 'app_services.dart';
 import '../utils/id_generator.dart';
 import '../widgets/game_ui_widget.dart';

@@ -10,7 +10,7 @@ import '../../extensions/context_extension.dart';
 import '../../extensions/widget_extension.dart';
 import '../../mixins/input_validation_mixin.dart';
 import '../../mixins/screen_state_mixin.dart';
-import '../../screens/profile/achievements/achievement_manager.dart';
+import '../../services/achievement_manager.dart';
 import '../../services/app_services.dart';
 import '../app_outlined_button.dart';
 import '../app_snackbar.dart';

@@ -17,7 +17,7 @@ import '../../widgets/user_info.dart';
 import 'boss_mode/boss_mode_view.dart';
 import 'challanger/challanger_view.dart';
 import 'training/training_view.dart';
-import 'time_trial/with_timer_view.dart';
+import 'time_trial/time_trial_view.dart';
 
 class DashboardView extends StatelessWidget {
   const DashboardView({super.key});

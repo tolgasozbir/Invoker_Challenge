@@ -15,7 +15,7 @@ import '../mixins/orb_mixin.dart';
 import '../providers/game_provider.dart';
 import '../providers/spell_provider.dart';
 import '../services/user_manager.dart';
-import '../screens/profile/achievements/achievement_manager.dart';
+import '../services/achievement_manager.dart';
 import '../services/app_services.dart';
 import '../services/sound_manager.dart';
 import '../utils/spell_combination_checker.dart';
@@ -41,6 +41,22 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, ScreenStateM
   final _animKey = GlobalKey<TrueFalseWidgetState>();
   int challangerLife = UserManager.instance.user.challangerLife;
   final int comboDuration = 6;
+
+  final _boxDecoration = BoxDecoration(
+    color: AppColors.svgGrey,
+    borderRadius: const BorderRadius.all(Radius.circular(4)),
+    border: Border.all(
+      width: 1.6,
+      color: AppColors.white30,
+    ),
+    boxShadow: const [
+      BoxShadow(
+        color: AppColors.white30, 
+        blurRadius: 12, 
+        spreadRadius: 4,
+      ),
+    ],
+  );
 
   @override
   void initState() {
@@ -109,21 +125,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, ScreenStateM
     return Container(
       height: context.dynamicWidth(0.28),
       margin: const EdgeInsets.symmetric(horizontal: 16.0),
-      decoration: BoxDecoration(
-        color: AppColors.svgGrey,
-        borderRadius: const BorderRadius.all(Radius.circular(4)),
-        border: Border.all(
-          width: 1.6,
-          color: AppColors.white30,
-        ),
-        boxShadow: const [
-          BoxShadow(
-            color: AppColors.white30, 
-            blurRadius: 12, 
-            spreadRadius: 4,
-          ),
-        ],
-      ),
+      decoration: _boxDecoration,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: List.generate(context.read<SpellProvider>().comboSpellNum, (index) {
@@ -133,44 +135,29 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, ScreenStateM
             crossFadeState: context.watch<SpellProvider>().correctSpells.isEmpty || context.watch<SpellProvider>().correctSpells[index] == false ? CrossFadeState.showFirst : CrossFadeState.showSecond,
             secondChild: Opacity(
               opacity: 0.1,
-              child: Image.asset(
-                context.watch<GameProvider>().isStart && context.watch<SpellProvider>().comboSpells.isNotEmpty
-                  ? context.watch<SpellProvider>().comboSpells[index].image
-                  : ImagePaths.spellImage,
-                fit: BoxFit.cover,
-              ).wrapClipRRect(BorderRadius.circular(4)).wrapPadding(const EdgeInsets.all(8.0)),
+              child: comboSpellImage(index),
             ),
-            firstChild: Image.asset(
-              context.watch<GameProvider>().isStart && context.watch<SpellProvider>().comboSpells.isNotEmpty
-                ? context.watch<SpellProvider>().comboSpells[index].image
-                : ImagePaths.spellImage,
-              fit: BoxFit.cover,
-            ).wrapClipRRect(BorderRadius.circular(4)).wrapPadding(const EdgeInsets.all(8.0)),
+            firstChild: comboSpellImage(index),
           );
         },),
       ),
     );
   }
 
+  Widget comboSpellImage(int index) {
+    return Image.asset(
+      context.watch<GameProvider>().isStart && context.watch<SpellProvider>().comboSpells.isNotEmpty
+        ? context.watch<SpellProvider>().comboSpells[index].image
+        : ImagePaths.spellImage,
+      fit: BoxFit.cover,
+    ).wrapClipRRect(BorderRadius.circular(4)).wrapPadding(const EdgeInsets.all(8.0));
+  }
+
   Widget bigSpellPicture(){
     return Container(
       width: context.dynamicWidth(0.28),
       height: context.dynamicWidth(0.28),
-      decoration: BoxDecoration(
-        color: AppColors.svgGrey,
-        borderRadius: const BorderRadius.all(Radius.circular(4)),
-        border: Border.all(
-          width: 1.6,
-          color: AppColors.white30,
-        ),
-        boxShadow: const [
-          BoxShadow(
-            color: AppColors.white30, 
-            blurRadius: 12, 
-            spreadRadius: 4,
-          ),
-        ],
-      ),
+      decoration: _boxDecoration,
       child: Image.asset(
         context.watch<GameProvider>().isStart 
           ? context.watch<SpellProvider>().nextSpell.image 

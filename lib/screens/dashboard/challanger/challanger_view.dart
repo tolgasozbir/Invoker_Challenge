@@ -1,18 +1,14 @@
 import 'package:dota2_invoker_game/widgets/dialog_contents/leaderboard_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:snappable_thanos/snappable_thanos.dart';
 
 import '../../../constants/app_image_paths.dart';
 import '../../../constants/app_strings.dart';
 import '../../../extensions/context_extension.dart';
-import '../../../providers/game_provider.dart';
 import '../../../services/user_manager.dart';
-import '../../../widgets/app_dialogs.dart';
-import '../../../widgets/app_outlined_button.dart';
 import '../../../widgets/app_scaffold.dart';
-import '../../../widgets/empty_box.dart';
 import '../../../widgets/game_ui_widget.dart';
+import '../../../widgets/show_leaderboard_button.dart';
 
 class ChallangerView extends StatefulWidget {
   const ChallangerView({super.key});
@@ -39,7 +35,10 @@ class _ChallangerViewState extends State<ChallangerView> {
           Column(
             children: [
               const GameUIWidget(gameType: GameType.Challanger),
-              showLeaderBoardButton(),
+              ShowLeaderBoardButton(
+                title: AppStrings.leaderboard, 
+                contentDialog: LeaderboardDialog(leaderboardType: LeaderboardType.Challenger),
+              ),
             ],
           ),
           if(UserManager.instance.user.challangerLife > 0) lifeIcon(),
@@ -57,26 +56,6 @@ class _ChallangerViewState extends State<ChallangerView> {
         duration: const Duration(milliseconds: 1600),
         onSnapped: () => null,
         child: Image.asset(ImagePaths.icInvokerHead, height: 80),
-      ),
-    );
-  }
-
-  Widget showLeaderBoardButton() {
-    final isStart = context.watch<GameProvider>().isStart;
-    if (isStart) return const EmptyBox();
-    return AppOutlinedButton(
-      title: AppStrings.leaderboard,
-      width: context.dynamicWidth(0.4),
-      padding: EdgeInsets.only(top: context.dynamicHeight(0.02)),
-      onPressed: () => AppDialogs.showScaleDialog(
-        title: AppStrings.leaderboard,
-        content: LeaderboardDialog(leaderboardType: LeaderboardType.Challenger),
-        action: AppOutlinedButton(
-          title: AppStrings.back,
-          onPressed: (){
-            Navigator.pop(context);
-          },
-        ),
       ),
     );
   }

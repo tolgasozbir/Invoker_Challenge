@@ -1,19 +1,19 @@
+import 'package:dota2_invoker_game/widgets/show_leaderboard_button.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/app_strings.dart';
 import '../../../widgets/app_scaffold.dart';
 import '../../../widgets/dialog_contents/leaderboard_dialog.dart';
 import '../../../widgets/game_ui_widget.dart';
-import '../../../widgets/show_leaderboard_button.dart';
 
-class ComboView extends StatefulWidget {
-  const ComboView({super.key});
+class TimeTrialView extends StatefulWidget {
+  const TimeTrialView({super.key});
 
   @override
-  State<ComboView> createState() => _ComboViewState();
+  State<TimeTrialView> createState() => _TimeTrialViewState();
 }
 
-class _ComboViewState extends State<ComboView> {
+class _TimeTrialViewState extends State<TimeTrialView> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -23,15 +23,15 @@ class _ComboViewState extends State<ComboView> {
       ),
     );
   }
-  
+
   Widget _bodyView() {
     return SingleChildScrollView(
       child: Column(
         children: [
-          const GameUIWidget(gameType: GameType.Combo),
+          const GameUIWidget(gameType: GameType.Timer),
           ShowLeaderBoardButton(
             title: AppStrings.leaderboard, 
-            contentDialog: LeaderboardDialog(leaderboardType: LeaderboardType.Combo),
+            contentDialog: LeaderboardDialog(leaderboardType: LeaderboardType.TimeTrial),
           ),
         ],
       ),

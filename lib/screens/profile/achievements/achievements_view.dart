@@ -3,7 +3,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import '../../../constants/app_strings.dart';
 import '../../../widgets/app_scaffold.dart';
-import 'achievement_manager.dart';
+import '../../../services/achievement_manager.dart';
 import 'widgets/achievement_widget.dart';
 
 class AchievementsView extends StatelessWidget {

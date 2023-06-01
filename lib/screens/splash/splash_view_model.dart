@@ -18,13 +18,7 @@ abstract class SplashViewModel extends State<SplashView> {
   final Duration _duration = const Duration(milliseconds: 3000);
   final math.Random _rnd = math.Random();
 
-  final List<String> _splashImages = const [
-    ImagePaths.splashImage1,
-    ImagePaths.splashImage2,
-    ImagePaths.splashImage3,
-  ];
-
-  String get getRandomSplahImage => _splashImages[_rnd.nextInt(_splashImages.length)];
+  String get getRandomSplahImage => ImagePaths.splashImages[_rnd.nextInt(ImagePaths.splashImages.length)];
 
   @override
   void initState(){

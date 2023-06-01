@@ -39,10 +39,12 @@ class ImagePaths {
     '$_svgRoot/rate5.svg',
   ];
 
-  //splash
-  static const String splashImage1 = '$_splash/1.gif';
-  static const String splashImage2 = '$_splash/2.jpg';
-  static const String splashImage3 = '$_splash/3.jpg';
+  static const List<String> splashImages = [
+    '$_splash/1.gif',
+    '$_splash/2.jpg',
+    '$_splash/3.jpg',
+  ];
+
   //main menu element gifs
   static const String quas  = '$_qweGif/quas.gif';
   static const String wex   = '$_qweGif/wex.gif';

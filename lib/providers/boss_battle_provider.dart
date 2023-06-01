@@ -15,7 +15,7 @@ import '../extensions/number_extension.dart';
 import '../models/Item.dart';
 import '../models/ability.dart';
 import '../models/score_models/boss_battle.dart';
-import '../screens/profile/achievements/achievement_manager.dart';
+import '../services/achievement_manager.dart';
 import '../services/sound_manager.dart';
 import '../utils/game_save_handler.dart';
 import '../widgets/app_dialogs.dart';

@@ -5,7 +5,7 @@ class AppStrings {
   static const String appVersion = 'Beta 0.0.5+8';
 
   //Main menu
-  static const String titleTraining = 'Training'; //Endless
+  static const String titleTraining = 'Training / Endless';
   static const String titleWithTimer = 'Time Trial';
   static const String titleChallenger = 'Challenger';
   static const String titleCombo = 'Combo';
