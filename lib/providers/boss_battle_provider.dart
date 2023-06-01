@@ -326,20 +326,6 @@ class BossBattleProvider extends ChangeNotifier {
       }
       updateView();
       switch (item.item) {
-        case Items.Null_talisman:
-        case Items.Void_stone:
-        case Items.Power_treads:
-        case Items.Phase_boots:
-        case Items.Kaya:
-        case Items.Aether_lens:
-        case Items.Hand_of_midas:
-        case Items.Vladmirs_offering:
-        case Items.Monkey_king_bar:
-        case Items.Daedalus:
-        case Items.Eye_of_skadi:
-        case Items.Divine_rapier:
-        case Items.Bloodthorn:
-          break;
         case Items.Arcane_boots:
           _addMana(175);
           break;
@@ -362,6 +348,7 @@ class BossBattleProvider extends ChangeNotifier {
           spellDamage += 3200;
           await Future.delayed(Duration(seconds: item.item.duration?.toInt() ?? 0), () => spellDamage -= 3200,);
           break;
+        default: break;
       }
       updateView();
     }

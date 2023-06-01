@@ -44,18 +44,18 @@ class BossResultRoundDialogContent extends StatelessWidget {
 
     return  Column(
       children: [
-        //TODO: LANG
         _victoryDefeatText(),
-        _resultField('Boss',                      model.boss),
-        _resultField('Elapsed Time',              '${model.time} Sec'),
-        if(timeUp) _resultField('Remaining HP',   bossHpLeft.numberFormat),
-        _resultField('Average DPS (Last 5 Sec)',  model.averageDps.numberFormat),
-        _resultField('Max DPS',                   model.maxDps.numberFormat),
-        _resultField('Physical Damage',           model.physicalDamage.numberFormat),
-        _resultField('Magical Damage',            model.magicalDamage.numberFormat),
-        _resultField('Earned Exp',                earnedExp.numberFormat),
+        _resultField(AppStrings.boss,            model.boss),
+        _resultField(AppStrings.elapsedTime,     '${model.time} Sec'),
+        if(timeUp) 
+          _resultField(AppStrings.remainingHp,   bossHpLeft.numberFormat),
+        _resultField(AppStrings.AverageDps5Sec,  model.averageDps.numberFormat),
+        _resultField(AppStrings.maxDps,          model.maxDps.numberFormat),
+        _resultField(AppStrings.physicalDmg,     model.physicalDamage.numberFormat),
+        _resultField(AppStrings.magicalDmg,      model.magicalDamage.numberFormat),
+        _resultField(AppStrings.earnedExp,       earnedExp.numberFormat),
         if (!timeUp && isLast) ...[
-          _resultField('Earned Gold', earnedGold.numberFormat),
+          _resultField(AppStrings.earnedGold, earnedGold.numberFormat),
           const EmptyBox.h4(),
           watchAdButton(context),
         ],
@@ -79,11 +79,11 @@ class BossResultRoundDialogContent extends StatelessWidget {
             ),
           ),
           if (timeUp) const EmptyBox.h8(),
-          _resultField('Elapsed Time',    "${bestScore["time"]} Sec"),
-          _resultField('Average DPS',     (bestScore['averageDps'] as double).numberFormat),
-          _resultField('Max DPS',         (bestScore['maxDps'] as double).numberFormat),
-          _resultField('Physical Damage', (bestScore['physicalDamage'] as double).numberFormat),
-          _resultField('Magical Damage',  (bestScore['magicalDamage'] as double).numberFormat),
+          _resultField(AppStrings.elapsedTime, "${bestScore["time"]} ${AppStrings.second}"),
+          _resultField(AppStrings.AverageDps,  (bestScore['averageDps'] as double).numberFormat),
+          _resultField(AppStrings.maxDps,      (bestScore['maxDps'] as double).numberFormat),
+          _resultField(AppStrings.physicalDmg, (bestScore['physicalDamage'] as double).numberFormat),
+          _resultField(AppStrings.magicalDmg,  (bestScore['magicalDamage'] as double).numberFormat),
         ]
       ],
     );

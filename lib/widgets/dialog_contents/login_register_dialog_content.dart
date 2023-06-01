@@ -16,6 +16,7 @@ import '../app_outlined_button.dart';
 import '../app_snackbar.dart';
 import '../app_text_from_field.dart';
 import '../empty_box.dart';
+import '../reset_pw_button.dart';
 
 class LoginRegisterDialogContent extends StatefulWidget {
   const LoginRegisterDialogContent({super.key});
@@ -80,8 +81,8 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
           const EmptyBox.h12(),
           showHideOrbs(),
           loginOrRegisterBtn(),
-          const EmptyBox.h12(),
-          //Text("Reset your password!") //TODO: RESET PASSWORD
+          //const EmptyBox.h12(),
+          const ResetPwButton(),
         ],
       ),
     );

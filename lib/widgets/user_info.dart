@@ -56,7 +56,7 @@ class UserStatus extends StatelessWidget {
     AppDialogs.showSlidingDialog(
       dismissible: true,
       showBackButton: true,
-      height: isLoggedIn ? context.dynamicHeight(0.64) : 460,
+      height: isLoggedIn ? context.dynamicHeight(0.64) : 500,
       title:  isLoggedIn ? AppStrings.profile : '${AppStrings.login}&${AppStrings.register}',
       uid: UserManager.instance.user.uid,
       content: isLoggedIn

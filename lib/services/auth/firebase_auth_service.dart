@@ -23,6 +23,7 @@ class FirebaseAuthService implements IFirebaseAuthService {
     snackBartype: SnackBarType.error,
   );
 
+  //TODO: ERROR CODES LANG
   String _getErrorMessage(String errorCode) {
     switch (errorCode) {
       case 'invalid-email':
@@ -37,6 +38,8 @@ class FirebaseAuthService implements IFirebaseAuthService {
         return 'The email address is already in use by another account.';
       case 'unknown':
         return 'Given values are empty';
+      case 'too-many-requests':
+        return 'We have blocked all requests from this device due to unusual activity. Try again later.';
       default:
         return 'Something went wrong, try again!';
     }
@@ -47,10 +50,12 @@ class FirebaseAuthService implements IFirebaseAuthService {
       await operation();
       return true;
     } on FirebaseAuthException catch (error) {
+      log(error.code);
       log(_getErrorMessage(error.code));
       _errorSnackbar(_getErrorMessage(error.code));
       return false;
     } catch (error) {
+      log(error.toString());
       log(_getErrorMessage(error.toString()));
       _errorSnackbar(_getErrorMessage(error.toString()));
       return false;
@@ -85,8 +90,8 @@ class FirebaseAuthService implements IFirebaseAuthService {
   }
 
   @override
-  Future<void> resetPassword({required String email}) async {
-    await _handleAsyncAuthOperation(() async => _firebaseAuth.sendPasswordResetEmail(email: email));
+  Future<bool> resetPassword({required String email}) async {
+    return _handleAsyncAuthOperation(() async => _firebaseAuth.sendPasswordResetEmail(email: email));
   }
 
   @override

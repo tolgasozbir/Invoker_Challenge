@@ -58,6 +58,8 @@ class AppStrings {
   static const String login = 'Login';
   static const String or = '-OR-';
   static const String register = 'Register';
+  static const String resetPw = 'Reset your password!';
+  static const String reset = 'Reset';
 
   //Input Validation
   static const String cannotEmpty = 'Cannot be empty';
@@ -86,6 +88,7 @@ class AppStrings {
   static const String sbNotEnoughGold = 'Not enough gold';
   static const String sbCannotFetchMore = 'Cannot show more data';
   static const String sbGameSaved = 'Game saved';
+  static const String sbResetPw = 'A password reset request has been sent to your email. Please check your email.';
 
   //Talent tree
   static const String talentTree = 'Talent Tree';
@@ -107,5 +110,34 @@ class AppStrings {
   static const String fbMidText = 'Tell me how your experience was and let me know what I can improve.';
   static const String fbHint = 'Drop me any suggestions, questions or complaints to improve :)';
   static const String fbSendBtn = 'Send Feedback';
+
+  //Boss Battle Info
+  static const String aboutTheGame = 'About the game.';
+  static const String spellDamageSheet = 'Spell Damage Sheets';
+  static const String note = 'Note: Each level increases the spell damage by 2%.';
+  static const String circlesMeaning = 'Meaning of Circles';
+  static const String outerCircleInfo = "The outer circle represents the boss's health.";
+  static const String middleCircleInfo = 'The middle circle represents the number of rounds.';
+  static const String innerCircleInfo = 'The inner circle represents the passage of time.';
+  static const String roundInfo = 'Each round is 180 seconds long.';
+  static const String spell = 'Spell';
+  static const String dps = 'DPS';
+  static const String duration = 'Duration';
+  static const String totalBaseDamage = 'Total Base Damage';
+  static const String currentTotalDamage = 'Current Total Damage';
+
+  //LeaderBoard
+  static const String boss = 'Boss';
+  static const String elapsedTime = 'Elapsed Time';
+  static const String second = 'Sec';
+  static const String remainingHp = 'Remaining HP';
+  static const String AverageDps5Sec = 'Average DPS (Last 5 Sec)';
+  static const String AverageDps = 'Average DPS';
+  static const String maxDps = 'Max DPS';
+  static const String physicalDmg = 'Physical Damage';
+  static const String magicalDmg = 'Magical Damage';
+  static const String earnedExp = 'Earned Exp';
+  static const String earnedGold = 'Earned Gold';
+
 
 }

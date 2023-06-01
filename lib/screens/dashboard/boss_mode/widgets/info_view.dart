@@ -1,3 +1,4 @@
+import 'package:dota2_invoker_game/constants/app_strings.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../enums/spells.dart';
@@ -13,7 +14,7 @@ class InfoView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('About the game.'), //TODO: LANG
+        title: const Text(AppStrings.aboutTheGame),
         centerTitle: true,
       ),
       body: SafeArea(child: _bodyView(context)),
@@ -35,23 +36,23 @@ class InfoView extends StatelessWidget {
 
   List<Widget> spellDamageSheet(BuildContext context) => [
     Text(
-      'Spell Damage Sheets', 
+      AppStrings.spellDamageSheet, 
       style: TextStyle(
         fontSize: context.sp(14), 
         decoration: TextDecoration.underline,
       ),
     ).wrapCenter(),
     const EmptyBox.h8(),
-    const Text('Note: Each level increases the spell damage by 2%.').wrapFittedBox(),
+    const Text(AppStrings.note).wrapFittedBox(),
     const EmptyBox.h8(),
     Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Text('Spell').wrapExpanded(),
-        const Text('DPS', textAlign: TextAlign.center,).wrapExpanded(),
-        const Text('Duration', textAlign: TextAlign.center,).wrapExpanded(),
-        const Text('Total Base Damage', textAlign: TextAlign.center,).wrapExpanded(),
-        const Text('Current Total Damage', textAlign: TextAlign.right,).wrapExpanded(), 
+        const Text(AppStrings.spell).wrapExpanded(),
+        const Text(AppStrings.dps, textAlign: TextAlign.center,).wrapExpanded(),
+        const Text(AppStrings.duration, textAlign: TextAlign.center,).wrapExpanded(),
+        const Text(AppStrings.totalBaseDamage, textAlign: TextAlign.center,).wrapExpanded(),
+        const Text(AppStrings.currentTotalDamage, textAlign: TextAlign.right,).wrapExpanded(), 
       ],
     ),
     Column(
@@ -92,7 +93,7 @@ class InfoView extends StatelessWidget {
 
   List<Widget> aboutTheCircles(BuildContext context) => [
     Text(
-      'Meaning of Circles', 
+      AppStrings.circlesMeaning, 
       style: TextStyle(
         fontSize: context.sp(14),
         decoration: TextDecoration.underline,
@@ -109,7 +110,7 @@ class InfoView extends StatelessWidget {
     ),
     const EmptyBox.h12(),
     Text(
-      "The outer circle represents the boss's health.", 
+      AppStrings.outerCircleInfo, 
       style: TextStyle(
         fontSize: context.sp(12),
         color: Colors.red, 
@@ -118,7 +119,7 @@ class InfoView extends StatelessWidget {
     ),
     const EmptyBox.h4(),
     Text(
-      'The middle circle represents the number of rounds.',
+      AppStrings.middleCircleInfo,
       style: TextStyle(
         fontSize: context.sp(12),
         color: Colors.amber, 
@@ -127,7 +128,7 @@ class InfoView extends StatelessWidget {
     ),
     const EmptyBox.h4(),
     Text(
-      'The inner circle represents the passage of time.',
+      AppStrings.innerCircleInfo,
       style: TextStyle(
         fontSize: context.sp(12),
         color: Colors.green, 
@@ -136,7 +137,7 @@ class InfoView extends StatelessWidget {
     ),
     const EmptyBox.h4(),
     Text(
-      'Each round is 180 seconds long.',
+      AppStrings.roundInfo,
       style: TextStyle(
         fontSize: context.sp(12),
         fontWeight: FontWeight.w500,

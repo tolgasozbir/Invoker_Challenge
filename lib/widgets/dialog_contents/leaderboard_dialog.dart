@@ -261,12 +261,11 @@ class _LeaderboardDialogState extends State<LeaderboardDialog> with ScreenStateM
       title: model.name,
       content: Column(
         children: [
-          //TODO: LANG
-          _resultField('Elapsed Time', '${model.time} Sec'),
-          _resultField('Max DPS',         model.maxDps.numberFormat),
-          _resultField('Average DPS',     model.averageDps.numberFormat),
-          _resultField('Physical Damage', model.physicalDamage.numberFormat),
-          _resultField('Magical Damage',  model.magicalDamage.numberFormat),
+          _resultField(AppStrings.elapsedTime, '${model.time} ${AppStrings.second}'),
+          _resultField(AppStrings.maxDps,      model.maxDps.numberFormat),
+          _resultField(AppStrings.AverageDps,  model.averageDps.numberFormat),
+          _resultField(AppStrings.physicalDmg, model.physicalDamage.numberFormat),
+          _resultField(AppStrings.magicalDmg,  model.magicalDamage.numberFormat),
           Container(
             padding: const EdgeInsets.all(8),
             margin: const EdgeInsets.symmetric(vertical: 2),
@@ -276,7 +275,7 @@ class _LeaderboardDialogState extends State<LeaderboardDialog> with ScreenStateM
             ),
             child: Row(
               children: [
-                const Text('Items : ', style: TextStyle(fontWeight: FontWeight.w500),),
+                const Text('${AppStrings.items} : ', style: TextStyle(fontWeight: FontWeight.w500),),
                 for (var i = 0; i < 6; i++)
                   i < itemWidgets.length ? itemWidgets[i].wrapExpanded() : const EmptyBox().wrapExpanded(),
               ],
