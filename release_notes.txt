@@ -1,3 +1,15 @@
+# 1.0.0 (Major Update)
+
+- Added a new game mode called "Combo Mode."
+- Implemented password reset feature.
+- Made code improvements.
+- Fixed minor bugs.
+- Updated user model.
+- Introduced new achievements.
+- Made changes to certain items and spells (Boss Battle Mode).
+- Removed the exit button from the main menu and replaced it with the Combo Mode.
+- Added the label "Endless" next to the Training button.
+
 # 0.0.5+8
 - Experience gain reduced in boss battles.
 - Minor bugs fixed.
