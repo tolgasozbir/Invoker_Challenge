@@ -196,7 +196,7 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
         username: usernameController.text.trim(),
       );
     }
-    AchievementManager.instance.reset(); //reset achievements
+    //AchievementManager.instance.reset(); //reset achievements //TODO:
     changeLoadingState();
     if (mounted && isOk) Navigator.pop(context);
   }

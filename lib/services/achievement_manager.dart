@@ -40,7 +40,7 @@ class AchievementManager {
     UserManager.instance.setAndSaveUserToLocale(UserManager.instance.user);
   }
 
-  void reset() {
+  void reset() { //TODO:
     _achievements.clear();
     UserManager.instance.user.achievements = {};
     _userRecords = UserManager.instance.user.achievements!;

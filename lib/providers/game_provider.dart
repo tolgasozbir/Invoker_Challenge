@@ -122,9 +122,10 @@ class GameProvider extends ChangeNotifier {
     final score = getCorrectCombinationCount;
 
     int countdownTime = 8;
-    if (score >= 8) countdownTime = 7;
-    else if (score >= 10) countdownTime = 6;
-    else if (score >= 15) countdownTime = 5;
+    if (score < 8) countdownTime = 8;
+    else if (score < 16) countdownTime = 7;
+    else if (score < 24) countdownTime = 6;
+    else countdownTime = 5;
 
     _setCountdownTime(countdownTime);
   }
