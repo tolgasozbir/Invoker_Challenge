@@ -26,6 +26,7 @@ class AchievementsView extends StatelessWidget {
     final achievements = AchievementManager.instance.achievements;
     return AnimationLimiter(
       child: ListView.builder(
+        physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.all(8),
         itemCount: achievements.length,
         itemBuilder: (BuildContext context, int index) {

@@ -40,7 +40,6 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, ScreenStateM
   late GameProvider _gameProvider;
   final _animKey = GlobalKey<TrueFalseWidgetState>();
   int challangerLife = UserManager.instance.user.challangerLife;
-  final int comboDuration = 6;
 
   final _boxDecoration = BoxDecoration(
     color: AppColors.svgGrey,
@@ -67,7 +66,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, ScreenStateM
 
   void initSpecificValues() {
     if (widget.gameType == GameType.Combo) {
-      context.read<GameProvider>().setTimeToCountdown(comboDuration);
+      context.read<GameProvider>().updateCountdownTimeBasedOnScore();
     }
   }
 
@@ -308,7 +307,6 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, ScreenStateM
   }
   
   void skillOnTapFNCombo(Elements element){
-    //TODO: ACHİEVEMENTS
     final spellProvider = context.read<SpellProvider>();
     final timerProvider = context.read<GameProvider>();
     switch (element) {
@@ -347,7 +345,9 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, ScreenStateM
         final bool isComboComplete = correctSpellCount == spellProvider.comboSpellNum;
         if (isComboComplete) {
           timerProvider.increaseCorrectCounter();
-          context.read<GameProvider>().setTimeToCountdown(comboDuration);
+          final score = context.read<GameProvider>().getCorrectCombinationCount;
+          AchievementManager.instance.updateCombo(score);
+          context.read<GameProvider>().updateCountdownTimeBasedOnScore();
           spellProvider.getRandomComboSpells();
         }
     }
@@ -377,7 +377,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, ScreenStateM
         context.read<GameProvider>().startCoundown(gameType: GameType.Timer, databaseTable: DatabaseTable.TimeTrial);
         break;
       case GameType.Combo:
-        context.read<GameProvider>().setTimeToCountdown(comboDuration);
+        context.read<GameProvider>().updateCountdownTimeBasedOnScore();
         context.read<GameProvider>().startCoundown(gameType: GameType.Combo, databaseTable: DatabaseTable.Combo);
         context.read<SpellProvider>().getRandomComboSpells();
         return;

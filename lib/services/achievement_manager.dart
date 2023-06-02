@@ -22,6 +22,7 @@ class AchievementManager {
     _achievements.addAll(_playedGamesAchievements);
     _achievements.addAll(_timerModeAchievements);
     _achievements.addAll(_challengerModeAchievements);
+    _achievements.addAll(_comboModeAchievements);
     _achievements.addAll(_bossModeAchievements);
     _achievements.addAll(_miscAchievements);
     _achievements.insert(0, achieveAll);
@@ -30,8 +31,10 @@ class AchievementManager {
   void updateAchievements() {
     updateLevel();
     //updatePlayedGame();
-    updateChallenger(0, 0);
+    //
     updateTimer(0);
+    updateChallenger(0, 0);
+    updateCombo(0);
     updateMiscGold(0);
     initAchievements();
     UserManager.instance.setAndSaveUserToLocale(UserManager.instance.user);
@@ -72,6 +75,13 @@ class AchievementManager {
     //print("Timer Score : ${UserManager.instance.user.achievements?["timer"]}");
   }
   
+  void updateCombo(int score) {
+    UserManager.instance.user.achievements?.putIfAbsent('combo', () => 0);
+    final currentRecord = _userRecords['combo'] as int? ?? 0;
+    if (score <= currentRecord) return;
+    UserManager.instance.user.achievements?['combo'] = score;
+  }
+
   void updateBoss() {
     UserManager.instance.user.achievements?.putIfAbsent('boss', () => 0);
     UserManager.instance.user.achievements?['boss']++;
@@ -180,6 +190,24 @@ class AchievementManager {
     ),).toList();
   }
   
+  List<AchievementWidgetModel> get _comboModeAchievements {
+    const comboModeAchievements = [
+      Achievements.combo1,
+      Achievements.combo2,
+      Achievements.combo3,
+    ];
+
+    return comboModeAchievements.map((e) => AchievementWidgetModel(
+      id: e.getId, 
+      iconPath: e.getIconPath, 
+      title: e.getTitle, 
+      description: e.getDescription, 
+      isDone: (_userRecords['combo'] as int? ?? 0) >= e.getMaxProgress,
+      currentProgress: _userRecords['combo'] as int? ?? 0, 
+      maxProgress: e.getMaxProgress,
+    ),).toList();
+  }
+
   List<AchievementWidgetModel> get _bossModeAchievements {
     const challengerModeAchievements = [
       Achievements.boss1,
