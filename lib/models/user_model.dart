@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:dota2_invoker_game/models/base_models/base_model.dart';
+import 'base_models/base_model.dart';
 
 class UserModel extends IBaseModel<UserModel> {
   String? uid;

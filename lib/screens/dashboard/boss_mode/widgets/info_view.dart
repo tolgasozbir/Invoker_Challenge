@@ -1,4 +1,4 @@
-import 'package:dota2_invoker_game/constants/app_strings.dart';
+import '../../../../constants/app_strings.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../enums/spells.dart';

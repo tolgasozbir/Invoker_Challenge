@@ -1,5 +1,5 @@
-import 'package:dota2_invoker_game/extensions/number_extension.dart';
-import 'package:dota2_invoker_game/services/database/firestore_service.dart';
+import '../../extensions/number_extension.dart';
+import '../../services/database/firestore_service.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';

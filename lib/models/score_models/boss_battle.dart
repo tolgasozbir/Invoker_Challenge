@@ -1,5 +1,5 @@
-import 'package:dota2_invoker_game/models/base_models/base_model.dart';
-import 'package:dota2_invoker_game/models/base_models/base_score_model.dart';
+import '../base_models/base_model.dart';
+import '../base_models/base_score_model.dart';
 
 class BossBattle extends IBaseModel<BossBattle> with IScoreModel {
   @override

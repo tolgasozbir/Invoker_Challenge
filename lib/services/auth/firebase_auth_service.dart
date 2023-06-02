@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:dota2_invoker_game/services/auth/IFirebaseAuthService.dart';
+import 'IFirebaseAuthService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../user_manager.dart';

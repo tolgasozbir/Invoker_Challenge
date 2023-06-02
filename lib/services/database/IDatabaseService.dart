@@ -1,4 +1,4 @@
-import 'package:dota2_invoker_game/models/base_models/base_model.dart';
+import '../../models/base_models/base_model.dart';
 import '../../models/feedback_model.dart';
 import '../../models/user_model.dart';
 import 'firestore_service.dart';

@@ -1,11 +1,11 @@
 import 'dart:math';
 
-import 'package:dota2_invoker_game/extensions/number_extension.dart';
-import 'package:dota2_invoker_game/models/ability.dart';
-import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/info_button.dart';
-import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/save_button.dart';
-import 'package:dota2_invoker_game/utils/game_save_handler.dart';
-import 'package:dota2_invoker_game/widgets/app_dialogs.dart';
+import '../../../extensions/number_extension.dart';
+import '../../../models/ability.dart';
+import 'widgets/info_button.dart';
+import 'widgets/save_button.dart';
+import '../../../utils/game_save_handler.dart';
+import '../../../widgets/app_dialogs.dart';
 
 import '../../../constants/app_image_paths.dart';
 import '../../../widgets/dialog_contents/load_game_dialog_content.dart';

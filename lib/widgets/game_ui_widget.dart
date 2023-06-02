@@ -1,4 +1,4 @@
-import 'package:dota2_invoker_game/enums/spells.dart';
+import '../enums/spells.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

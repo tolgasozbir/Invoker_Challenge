@@ -1,4 +1,4 @@
-import 'package:dota2_invoker_game/utils/formatted_date.dart';
+import '../utils/formatted_date.dart';
 import 'package:flutter/material.dart';
 import 'package:snappable_thanos/snappable_thanos.dart';
 

@@ -1,5 +1,5 @@
-import 'package:dota2_invoker_game/constants/app_strings.dart';
-import 'package:dota2_invoker_game/extensions/context_extension.dart';
+import '../../../../constants/app_strings.dart';
+import '../../../../extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

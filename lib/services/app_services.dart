@@ -1,5 +1,5 @@
-import 'database/IDatabaseService.dart';
 import 'auth/firebase_auth_service.dart';
+import 'database/IDatabaseService.dart';
 import 'local_storage/ILocalStorageService.dart';
 
 class AppServices {

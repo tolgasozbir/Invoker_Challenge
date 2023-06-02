@@ -1,4 +1,4 @@
-import 'package:dota2_invoker_game/widgets/show_leaderboard_button.dart';
+import '../../../widgets/show_leaderboard_button.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/app_strings.dart';

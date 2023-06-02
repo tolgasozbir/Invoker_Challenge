@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:dota2_invoker_game/enums/local_storage_keys.dart';
-import 'package:dota2_invoker_game/services/app_services.dart';
+import '../enums/local_storage_keys.dart';
+import '../services/app_services.dart';
 
 class GameSaveHandler {
   GameSaveHandler._();

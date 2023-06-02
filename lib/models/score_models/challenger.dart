@@ -1,4 +1,4 @@
-import 'package:dota2_invoker_game/models/base_models/base_model.dart';
+import '../base_models/base_model.dart';
 import '../base_models/base_score_model.dart';
 
 class Challenger extends IBaseModel<Challenger> with IScoreModel {

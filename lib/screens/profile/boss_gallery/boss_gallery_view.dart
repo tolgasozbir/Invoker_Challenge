@@ -1,6 +1,6 @@
-import 'package:dota2_invoker_game/extensions/number_extension.dart';
-import 'package:dota2_invoker_game/extensions/string_extension.dart';
-import 'package:dota2_invoker_game/widgets/dialog_contents/leaderboard_dialog.dart';
+import '../../../extensions/number_extension.dart';
+import '../../../extensions/string_extension.dart';
+import '../../../widgets/dialog_contents/leaderboard_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 

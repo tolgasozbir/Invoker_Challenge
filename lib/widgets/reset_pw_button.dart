@@ -1,6 +1,6 @@
-import 'package:dota2_invoker_game/extensions/context_extension.dart';
-import 'package:dota2_invoker_game/mixins/screen_state_mixin.dart';
-import 'package:dota2_invoker_game/services/app_services.dart';
+import '../extensions/context_extension.dart';
+import '../mixins/screen_state_mixin.dart';
+import '../services/app_services.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 

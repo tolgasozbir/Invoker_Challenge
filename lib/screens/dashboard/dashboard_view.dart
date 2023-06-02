@@ -1,4 +1,4 @@
-import 'package:dota2_invoker_game/screens/dashboard/combo/combo_view.dart';
+import 'combo/combo_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';

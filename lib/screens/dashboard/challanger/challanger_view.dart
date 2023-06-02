@@ -1,4 +1,4 @@
-import 'package:dota2_invoker_game/widgets/dialog_contents/leaderboard_dialog.dart';
+import '../../../widgets/dialog_contents/leaderboard_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:snappable_thanos/snappable_thanos.dart';
 

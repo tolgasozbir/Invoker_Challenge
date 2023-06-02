@@ -1,7 +1,7 @@
-import 'package:dota2_invoker_game/constants/app_strings.dart';
-import 'package:dota2_invoker_game/extensions/widget_extension.dart';
-import 'package:dota2_invoker_game/providers/boss_battle_provider.dart';
-import 'package:dota2_invoker_game/utils/game_save_handler.dart';
+import '../../constants/app_strings.dart';
+import '../../extensions/widget_extension.dart';
+import '../../providers/boss_battle_provider.dart';
+import '../../utils/game_save_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

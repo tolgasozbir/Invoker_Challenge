@@ -1,8 +1,8 @@
-import 'package:dota2_invoker_game/extensions/number_extension.dart';
-import 'package:dota2_invoker_game/models/score_models/combo.dart';
-import 'package:dota2_invoker_game/models/score_models/time_trial.dart';
-import 'package:dota2_invoker_game/services/database/firestore_service.dart';
-import 'package:dota2_invoker_game/widgets/empty_box.dart';
+import '../../extensions/number_extension.dart';
+import '../../models/score_models/combo.dart';
+import '../../models/score_models/time_trial.dart';
+import '../../services/database/firestore_service.dart';
+import '../empty_box.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
