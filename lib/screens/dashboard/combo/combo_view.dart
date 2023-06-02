@@ -1,6 +1,8 @@
+import 'package:dota2_invoker_game/extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/app_strings.dart';
+import '../../../utils/ads_helper.dart';
 import '../../../widgets/app_scaffold.dart';
 import '../../../widgets/dialog_contents/leaderboard_dialog.dart';
 import '../../../widgets/game_ui_widget.dart';
@@ -26,15 +28,30 @@ class _ComboViewState extends State<ComboView> {
   
   Widget _bodyView() {
     return SingleChildScrollView(
-      child: Column(
+      child: Stack(
+        clipBehavior: Clip.none,
         children: [
-          const GameUIWidget(gameType: GameType.Combo),
-          ShowLeaderBoardButton(
-            title: AppStrings.leaderboard, 
-            contentDialog: LeaderboardDialog(leaderboardType: LeaderboardType.Combo),
+          adBannerWidget(),
+          Column(
+            children: [
+              const GameUIWidget(gameType: GameType.Combo),
+              ShowLeaderBoardButton(
+                title: AppStrings.leaderboard, 
+                contentDialog: LeaderboardDialog(leaderboardType: LeaderboardType.Combo),
+              ),
+            ],
           ),
         ],
       ),
+    );
+  }
+
+  Positioned adBannerWidget() {
+    return Positioned(
+      top: context.height - MediaQuery.of(context).padding.top - 50,
+      left: 0,
+      right: 0,
+      child: const AdBanner(),
     );
   }
 

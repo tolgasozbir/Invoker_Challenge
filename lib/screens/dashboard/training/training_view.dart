@@ -62,12 +62,17 @@ class _TrainingViewState extends State<TrainingView> {
         duration: const Duration(milliseconds: 400),
         right: context.dynamicWidth(0.02), 
         top: kToolbarHeight + (provider.spellHelperIsOpen ? context.dynamicHeight(0.24) : 0),
-        child: InkWell(
-          splashColor: AppColors.transparent,
-          highlightColor: AppColors.transparent,
-          child: SizedBox.square(
-            dimension: context.dynamicWidth(0.08),
-            child: const Icon(FontAwesomeIcons.questionCircle,color: AppColors.amber),
+        child: GestureDetector(
+          child: Container(
+            alignment: Alignment.topRight,
+            color: Theme.of(context).scaffoldBackgroundColor,
+            padding: const EdgeInsets.all(4),
+            height: context.dynamicWidth(0.16),
+            width: context.dynamicWidth(0.16),
+            child: const Icon(
+              FontAwesomeIcons.questionCircle,
+              color: AppColors.amber,
+            ),
           ),
           onTap: () => provider.showCloseHelperWidget(),
         ),
