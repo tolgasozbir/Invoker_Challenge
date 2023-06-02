@@ -12,7 +12,8 @@ There are four different game modes in the game:
 1. Free Mode: Learning mode, can be played without any restrictions.
 2. Time Trial Mode: You try to cast as many spells as possible within a certain amount of time.
 3. Challenger Mode: You try to perform the required spells without making any mistakes.
-4. Boss Battle: You use your abilities freely against different Dota 2 characters and strengthen yourself by buying items from the market.
+4. Combo Mode: You have a limited time to perform 3 spell combos. As you advance, time diminishes.
+5. Boss Battle: You use your abilities freely against different Dota 2 characters and strengthen yourself by buying items from the market.
 
 ## How to Play?
 
