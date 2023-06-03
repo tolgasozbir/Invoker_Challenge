@@ -1,3 +1,10 @@
+# 1.0.2 (Bug Fix)
+
+- The problem of achievements being reset during login has been resolved.
+- The issue of time not decreasing and remaining constant in combo mode has been fixed.
+- The incorrect calculation of the duration in combo mode has been fixed.
+- Now, if no login is made, the system creates a new account for the user each time.
+
 # 1.0.0 (Major Update)
 
 - Added a new game mode called "Combo Mode."
