@@ -17,6 +17,7 @@ class AchievementManager {
 
   void initAchievements(){
     UserManager.instance.user.achievements ??= {};
+    _userRecords = UserManager.instance.user.achievements!;
     _achievements.clear();
     _achievements.addAll(_levelAchievements);
     _achievements.addAll(_playedGamesAchievements);
@@ -29,22 +30,8 @@ class AchievementManager {
   }
 
   void updateAchievements() {
-    updateLevel();
-    //updatePlayedGame();
-    //
-    updateTimer(0);
-    updateChallenger(0, 0);
-    updateCombo(0);
-    updateMiscGold(0);
     initAchievements();
     UserManager.instance.setAndSaveUserToLocale(UserManager.instance.user);
-  }
-
-  void reset() { //TODO:
-    _achievements.clear();
-    UserManager.instance.user.achievements = {};
-    _userRecords = UserManager.instance.user.achievements!;
-    updateAchievements();
   }
 
   void updateLevel() {

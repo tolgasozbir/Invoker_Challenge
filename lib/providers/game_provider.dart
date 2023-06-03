@@ -20,6 +20,7 @@ class GameProvider extends ChangeNotifier {
   int _timerValue = 0;
   int _countdownValue = 60;
   int _correctCombinationCount = 0;
+  int _comboPassingTime = 0;
 
   bool get isStart => _isStart;
   bool get spellHelperIsOpen => _spellHeplerIsOpen;
@@ -70,7 +71,7 @@ class GameProvider extends ChangeNotifier {
         time = timeTrialTime;
         break;
       case GameType.Combo:
-        time = (score+1) * 6 + (isAdWatched ? 10 : 0); //6 sec comboduration
+        time = _comboPassingTime + (isAdWatched ? 10 : 0); //6 sec comboduration
         exp = score * 3;
     }
     AchievementManager.instance.updatePlayedGame();
@@ -96,6 +97,10 @@ class GameProvider extends ChangeNotifier {
   void showCloseHelperWidget() {
     _spellHeplerIsOpen = !_spellHeplerIsOpen;
     notifyListeners();
+  }
+
+  void _increaseComboPassingTime() {
+    _comboPassingTime++;
   }
 
   void increaseCorrectCounter(){
@@ -141,6 +146,7 @@ class GameProvider extends ChangeNotifier {
     changeIsStartStatus();
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) { 
       _decreaseCountdownValue();
+      _increaseComboPassingTime();
       if (_countdownValue <= 0) {
         disposeTimer();
         changeIsStartStatus();
@@ -159,6 +165,7 @@ class GameProvider extends ChangeNotifier {
     _timerValue = 0;
     _countdownValue = 60;
     _correctCombinationCount = 0;
+    _comboPassingTime = 0;
     disposeTimer();
     notifyListeners();
   }

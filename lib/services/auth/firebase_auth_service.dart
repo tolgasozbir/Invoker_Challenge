@@ -77,11 +77,11 @@ class FirebaseAuthService implements IFirebaseAuthService {
   @override
   Future<bool> signUp({required String email, required String password, required String username}) async {
     final bool isSuccess = await _handleAsyncAuthOperation(() async {
-      final user = UserManager.instance.user;
-      final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(email: email,password: password);
+      final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
       if (userCredential.user != null) {
-        user.uid = userCredential.user!.uid;
+        final user = UserManager.instance.createUser();
         user.username = username;
+        user.uid = userCredential.user!.uid;
         await UserManager.instance.setAndSaveUserToLocale(user);
         await AppServices.instance.databaseService.createOrUpdateUser(user);
       }

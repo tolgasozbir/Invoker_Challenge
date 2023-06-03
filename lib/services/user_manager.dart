@@ -30,9 +30,9 @@ class UserManager extends ChangeNotifier {
     return AppServices.instance.firebaseAuthService.currentUser != null;
   }
 
-  UserModel createUser() {
-    final guest = UserModel.guest(username: AppStrings.guest + idGenerator());
-    return guest;
+  UserModel createUser({String? username}) {
+    final newUser = UserModel.guest(username: username ?? AppStrings.guest + idGenerator());
+    return newUser;
   }
 
   String? getUserFromLocal() {
