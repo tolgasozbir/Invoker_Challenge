@@ -1,8 +1,3 @@
-import '../../extensions/number_extension.dart';
-import '../../models/score_models/combo.dart';
-import '../../models/score_models/time_trial.dart';
-import '../../services/database/firestore_service.dart';
-import '../empty_box.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -10,15 +5,20 @@ import '../../constants/app_colors.dart';
 import '../../constants/app_image_paths.dart';
 import '../../constants/app_strings.dart';
 import '../../extensions/context_extension.dart';
+import '../../extensions/number_extension.dart';
 import '../../extensions/widget_extension.dart';
 import '../../mixins/screen_state_mixin.dart';
 import '../../models/base_models/base_score_model.dart';
 import '../../models/score_models/boss_battle.dart';
 import '../../models/score_models/challenger.dart';
+import '../../models/score_models/combo.dart';
+import '../../models/score_models/time_trial.dart';
 import '../../services/app_services.dart';
+import '../../services/database/firestore_service.dart';
 import '../app_dialogs.dart';
 import '../app_outlined_button.dart';
 import '../app_snackbar.dart';
+import '../empty_box.dart';
 
 enum LeaderboardType { TimeTrial, Challenger, Combo, Boss }
 

@@ -1,15 +1,15 @@
-import '../../../extensions/number_extension.dart';
-import '../../../extensions/string_extension.dart';
-import '../../../widgets/dialog_contents/leaderboard_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import '../../../constants/app_strings.dart';
 import '../../../enums/Bosses.dart';
+import '../../../extensions/number_extension.dart';
+import '../../../extensions/string_extension.dart';
 import '../../../extensions/widget_extension.dart';
 import '../../../widgets/app_dialogs.dart';
 import '../../../widgets/app_outlined_button.dart';
 import '../../../widgets/app_scaffold.dart';
+import '../../../widgets/dialog_contents/leaderboard_dialog.dart';
 
 class BossGalleryView extends StatefulWidget {
   const BossGalleryView({super.key});

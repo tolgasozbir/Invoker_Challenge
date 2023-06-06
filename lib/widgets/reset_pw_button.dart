@@ -1,4 +1,4 @@
-import 'package:dota2_invoker_game/services/user_manager.dart';
+import '../services/user_manager.dart';
 
 import '../extensions/context_extension.dart';
 import '../mixins/screen_state_mixin.dart';

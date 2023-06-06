@@ -1,4 +1,4 @@
-import 'package:dota2_invoker_game/services/user_manager.dart';
+import '../../services/user_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
