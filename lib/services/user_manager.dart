@@ -71,10 +71,15 @@ class UserManager extends ChangeNotifier {
   }
 
   Future<void> _saveUserToCache(UserModel user) async {
+    await _clearCache(LocalStorageKey.userRecords);
     await AppServices.instance.localStorageService.setValue<String>(
       LocalStorageKey.userRecords,
       user.toJson(),
     );
+  }
+
+  Future<void> _clearCache(LocalStorageKey key) async {
+    await AppServices.instance.localStorageService.removeValue(key);
   }
 
 

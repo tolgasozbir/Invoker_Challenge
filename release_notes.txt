@@ -1,3 +1,8 @@
+# 1.0.4
+- Refactoring and Bug Fix
+- The issue of data discrepancies during version transitions has been resolved.
+- The system no longer creates a new account for the guest user every time.
+
 # 1.0.2 (Bug Fix)
 
 - The problem of achievements being reset during login has been resolved.

@@ -25,6 +25,6 @@ class AppServices {
     this._localStorageService = localStorageService;
     this._firebaseAuthService = firebaseAuthService;
 
-    await _localStorageService!.init();
+    await this.localStorageService.init();
   }
 }
