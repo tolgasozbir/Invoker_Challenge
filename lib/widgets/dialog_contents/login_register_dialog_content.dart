@@ -1,3 +1,4 @@
+import 'package:dota2_invoker_game/services/user_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -10,7 +11,6 @@ import '../../extensions/context_extension.dart';
 import '../../extensions/widget_extension.dart';
 import '../../mixins/input_validation_mixin.dart';
 import '../../mixins/screen_state_mixin.dart';
-import '../../services/app_services.dart';
 import '../app_outlined_button.dart';
 import '../app_snackbar.dart';
 import '../app_text_from_field.dart';
@@ -66,12 +66,12 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
           const EmptyBox.h12(),
           Row(
             children: [
-              ...checkboxWithTitle(
+              ...checkboxLoginRegister(
                 title: AppStrings.login, 
                 isSelected: isLoginCheckboxSelected,
               ),
               Text(AppStrings.or, style: textStyle,),
-              ...checkboxWithTitle(
+              ...checkboxLoginRegister(
                 title: AppStrings.register, 
                 isSelected: !isLoginCheckboxSelected,
               ),
@@ -80,7 +80,6 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
           const EmptyBox.h12(),
           showHideOrbs(),
           loginOrRegisterBtn(),
-          //const EmptyBox.h12(),
           const ResetPwButton(),
         ],
       ),
@@ -135,7 +134,7 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
     ],
   ).wrapPadding(const EdgeInsets.only(bottom: 32, top: 8));
 
-  List<Widget> checkboxWithTitle({required String title, bool isSelected = false}) {
+  List<Widget> checkboxLoginRegister({required String title, bool isSelected = false}) {
     return [
       const Spacer(),
       Text(title, style: textStyle),
@@ -180,16 +179,15 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
     }
     
     changeLoadingState();
-    final auth = AppServices.instance.firebaseAuthService;
     var isOk = false;
     if (isLoginCheckboxSelected) {
-      isOk = await auth.signIn(
+      isOk = await UserManager.instance.signIn(
         email: eMailController.text.trim(), 
         password: passwordController.text.trim(),
       );
     } 
     else {
-      isOk = await auth.signUp(
+      isOk = await UserManager.instance.signUp(
         email: eMailController.text.trim(), 
         password: passwordController.text.trim(), 
         username: usernameController.text.trim(),

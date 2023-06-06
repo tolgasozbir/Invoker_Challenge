@@ -85,7 +85,6 @@ class FirestoreService implements IDatabaseService {
   }
 
   Future<bool> _setData(CollectionReference<Map<String, dynamic>> collectionRef, Map<String, dynamic> data) async {
-    //Create if it does not exist, update if it does exist.
     if (data['uid'] == null) return false;
     try {
       await collectionRef.doc(data['uid']).set(data)
@@ -97,6 +96,7 @@ class FirestoreService implements IDatabaseService {
     }
   }
 
+  ///Create if it does not exist, update if it does exist.
   @override
   Future<void> createOrUpdateUser(UserModel userModel) async {
     await _setData(_collectionRefUsers, userModel.toMap());

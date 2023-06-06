@@ -40,22 +40,19 @@ abstract class SplashViewModel extends State<SplashView> {
   }
 
   Future<void> getUserRecords() async {
-    final isLoggedIn = UserManager.instance.isLoggedIn();
-    //login değilse her seferinde yeni user oluşturuyor
-    if (!isLoggedIn) {
-      //varsa eski lokal kayıtlarını siliyor
-      await AppServices.instance.localStorageService.removeValue(LocalStorageKey.userRecords);
+    await UserManager.instance.initUser(); //cache'de varsa çek yoksa oluştur cache'e kaydet
+    final hasConnection = await InternetConnectionChecker().hasConnection;
+    final user = UserManager.instance.user;
+
+    if (hasConnection && user.uid != null) {
+      await UserManager.instance.saveUserToDb(user);
     }
 
-    final hasConnection = await InternetConnectionChecker().hasConnection;
-    //fetch or create user record and set data
-    UserManager.instance.setUser(await UserManager.instance.fetchOrCreateUser());
-    //Saving local data to db if user is logged in and has internet connection
-    if (isLoggedIn && hasConnection) {
-      await AppServices.instance.databaseService.createOrUpdateUser(UserManager.instance.user);
-    } 
     log(UserManager.instance.user.uid ?? 'uid: null');
     log(UserManager.instance.user.username);
+    log('------------------------------------');
+    // ignore: avoid_print
+    print(UserManager.instance.user.achievements);
   }
 
   void getSettingsValues() {

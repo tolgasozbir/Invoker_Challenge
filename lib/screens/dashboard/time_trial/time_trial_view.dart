@@ -25,10 +25,10 @@ class _TimeTrialViewState extends State<TimeTrialView> {
   }
 
   Widget _bodyView() {
-    return SingleChildScrollView(
+    return const SingleChildScrollView(
       child: Column(
         children: [
-          const GameUIWidget(gameType: GameType.Timer),
+          GameUIWidget(gameType: GameType.Timer),
           ShowLeaderBoardButton(
             title: AppStrings.leaderboard, 
             contentDialog: LeaderboardDialog(leaderboardType: LeaderboardType.TimeTrial),

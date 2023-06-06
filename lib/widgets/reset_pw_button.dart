@@ -1,6 +1,7 @@
+import 'package:dota2_invoker_game/services/user_manager.dart';
+
 import '../extensions/context_extension.dart';
 import '../mixins/screen_state_mixin.dart';
-import '../services/app_services.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
@@ -73,7 +74,7 @@ class _ResetPwButtonState extends State<ResetPwButton> with ScreenStateMixin {
       AppSnackBar.showSnackBarMessage(text: AppStrings.errorConnection, snackBartype: SnackBarType.info);
       return;
     }
-    final isOk = await AppServices.instance.firebaseAuthService.resetPassword(email: eMailController.text);
+    final isOk = await UserManager.instance.resetPassword(email: eMailController.text);
     if (isOk) {
       AppSnackBar.showSnackBarMessage(text: AppStrings.sbResetPw, snackBartype: SnackBarType.success);
       Navigator.pop(context);

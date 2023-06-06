@@ -592,7 +592,7 @@ class BossBattleProvider extends ChangeNotifier {
 
   void _showRoundResultDialog({bool timeUp = false}) {
     final model = BossBattle(
-      uid: UserManager.instance.user.uid ?? 'null',
+      uid: UserManager.instance.user.uid,
       name: UserManager.instance.user.username,
       round: roundProgress+1, 
       boss: currentBoss.name, 

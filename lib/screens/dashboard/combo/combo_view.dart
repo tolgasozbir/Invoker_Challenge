@@ -32,9 +32,9 @@ class _ComboViewState extends State<ComboView> {
         clipBehavior: Clip.none,
         children: [
           adBannerWidget(),
-          Column(
+          const Column(
             children: [
-              const GameUIWidget(gameType: GameType.Combo),
+              GameUIWidget(gameType: GameType.Combo),
               ShowLeaderBoardButton(
                 title: AppStrings.leaderboard, 
                 contentDialog: LeaderboardDialog(leaderboardType: LeaderboardType.Combo),

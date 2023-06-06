@@ -81,7 +81,7 @@ class UserModel extends IBaseModel<UserModel> {
     return <String, dynamic>{
       'uid': uid,
       'username': username,
-      'challangerLife' : challangerLife,
+      'challangerLife': challangerLife,
       'bestChallengerScore': bestChallengerScore,
       'bestTimerScore': bestTimerScore,
       'bestComboScore': bestComboScore,

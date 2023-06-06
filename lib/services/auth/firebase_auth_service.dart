@@ -3,9 +3,7 @@ import 'dart:developer';
 import 'IFirebaseAuthService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../user_manager.dart';
 import '../../widgets/app_snackbar.dart';
-import '../app_services.dart';
 
 class FirebaseAuthService implements IFirebaseAuthService {
   FirebaseAuthService._();
@@ -65,11 +63,8 @@ class FirebaseAuthService implements IFirebaseAuthService {
   @override
   Future<bool> signIn({required String email, required String password}) async {
     final bool isSuccess = await _handleAsyncAuthOperation(() async {
-      final userCredential = await _firebaseAuth.signInWithEmailAndPassword(email: email,password: password);
-      if (userCredential.user != null) {
-        final user = await UserManager.instance.getUserFromDb(userCredential.user!.uid);
-        await UserManager.instance.setAndSaveUserToLocale(user!);
-      }
+      final userCredential = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+      if (userCredential.user == null) throw Exception('Something went wrong, try again!');
     });
     return isSuccess;
   }
@@ -78,13 +73,7 @@ class FirebaseAuthService implements IFirebaseAuthService {
   Future<bool> signUp({required String email, required String password, required String username}) async {
     final bool isSuccess = await _handleAsyncAuthOperation(() async {
       final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
-      if (userCredential.user != null) {
-        final user = UserManager.instance.createUser();
-        user.username = username;
-        user.uid = userCredential.user!.uid;
-        await UserManager.instance.setAndSaveUserToLocale(user);
-        await AppServices.instance.databaseService.createOrUpdateUser(user);
-      }
+      if (userCredential.user == null) throw Exception('Something went wrong, try again!');
     });
     return isSuccess;
   }
@@ -96,12 +85,7 @@ class FirebaseAuthService implements IFirebaseAuthService {
 
   @override
   Future<void> signOut() async {
-    await _handleAsyncAuthOperation(() async {
-      await _firebaseAuth.signOut();
-      await AppServices.instance.localStorageService.deleteAllValues();
-      final newGuestUser = UserManager.instance.createUser();
-      await UserManager.instance.setAndSaveUserToLocale(newGuestUser);
-    });
+    await _handleAsyncAuthOperation(() async => _firebaseAuth.signOut());
   }
 
 }

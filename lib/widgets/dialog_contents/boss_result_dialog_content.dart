@@ -181,7 +181,6 @@ class _BossResultRoundDialogActionState extends State<BossResultRoundDialogActio
   }
   
   Future<void> submitScoreFn() async {
-    final isLoggedIn = UserManager.instance.isLoggedIn();
     final user = UserManager.instance.user;
     final uid = user.uid;
     final db = AppServices.instance.databaseService;
@@ -189,7 +188,7 @@ class _BossResultRoundDialogActionState extends State<BossResultRoundDialogActio
     final score = widget.model;
 
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
-    if (!isLoggedIn || uid == null) {
+    if (uid == null) {
       AppSnackBar.showSnackBarMessage(
         text: AppStrings.errorSubmitScore1, 
         snackBartype: SnackBarType.error,

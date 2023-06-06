@@ -27,7 +27,7 @@ class UserStatus extends StatelessWidget {
   double get currentExp => user.exp;
   double get nextLevelExp => UserManager.instance.nextLevelExp;
   String get level => '${AppStrings.level} ${user.level}';
-  bool get isLoggedIn => UserManager.instance.isLoggedIn();
+  bool get hasUid => user.uid != null;
 
   @override
   Widget build(BuildContext context) {
@@ -56,10 +56,10 @@ class UserStatus extends StatelessWidget {
     AppDialogs.showSlidingDialog(
       dismissible: true,
       showBackButton: true,
-      height: isLoggedIn ? context.dynamicHeight(0.64) : 500,
-      title:  isLoggedIn ? AppStrings.profile : '${AppStrings.login}&${AppStrings.register}',
+      height: hasUid ? context.dynamicHeight(0.64) : 500,
+      title:  hasUid ? AppStrings.profile : '${AppStrings.login}&${AppStrings.register}',
       uid: UserManager.instance.user.uid,
-      content: isLoggedIn
+      content: hasUid
         ? const ProfileDialogContent()
         : const LoginRegisterDialogContent(),
     );

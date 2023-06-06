@@ -11,7 +11,6 @@ import '../../providers/boss_battle_provider.dart';
 import '../../screens/profile/achievements/achievements_view.dart';
 import '../../screens/profile/boss_gallery/boss_gallery_view.dart';
 import '../../services/achievement_manager.dart';
-import '../../services/app_services.dart';
 import '../../services/user_manager.dart';
 import '../app_outlined_button.dart';
 import '../app_snackbar.dart';
@@ -101,7 +100,7 @@ class ProfileDialogContent extends StatelessWidget {
         }
 
         UserManager.instance.updateSyncedDate();
-        await AppServices.instance.databaseService.createOrUpdateUser(UserManager.instance.user);
+        await UserManager.instance.saveUserToDb(UserManager.instance.user);
         AppSnackBar.showSnackBarMessage(text: AppStrings.syncDataSuccess, snackBartype: SnackBarType.success);
         if (context.mounted) Navigator.pop(context);
       }, 
@@ -113,7 +112,7 @@ class ProfileDialogContent extends StatelessWidget {
     return AppOutlinedButton(
       width: double.infinity,
       onPressed: () async {
-        await AppServices.instance.firebaseAuthService.signOut();
+        await UserManager.instance.signOut();
         context.read<BossBattleProvider>().disposeGame(); //Reset Boss Mode Values
         AchievementManager.instance.updateAchievements(); //Reset achievements
         if (context.mounted) Navigator.pop(context);

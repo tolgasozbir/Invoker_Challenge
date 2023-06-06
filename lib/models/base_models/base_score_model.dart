@@ -1,4 +1,4 @@
-abstract class IScoreModel {
+mixin IScoreModel {
   String? uid;
   String? name;
   int? score;

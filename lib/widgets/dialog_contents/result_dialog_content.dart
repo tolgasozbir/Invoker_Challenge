@@ -174,7 +174,6 @@ class _ResultDialogActionState extends State<ResultDialogAction> with ScreenStat
   }
 
   Future<void> submitScoreFn(DatabaseTable dbTable) async {
-    final isLoggedIn = UserManager.instance.isLoggedIn();
     final user = UserManager.instance.user;
     final uid = user.uid;
     final name = user.username;
@@ -183,7 +182,7 @@ class _ResultDialogActionState extends State<ResultDialogAction> with ScreenStat
     final db = AppServices.instance.databaseService;
 
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
-    if (!isLoggedIn || uid == null) {
+    if (uid == null) {
       AppSnackBar.showSnackBarMessage(
         text: AppStrings.errorSubmitScore1, 
         snackBartype: SnackBarType.error,

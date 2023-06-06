@@ -32,9 +32,9 @@ class _ChallangerViewState extends State<ChallangerView> {
     return SingleChildScrollView(
       child: Stack(
         children: [
-          Column(
+          const Column(
             children: [
-              const GameUIWidget(gameType: GameType.Challanger),
+              GameUIWidget(gameType: GameType.Challanger),
               ShowLeaderBoardButton(
                 title: AppStrings.leaderboard, 
                 contentDialog: LeaderboardDialog(leaderboardType: LeaderboardType.Challenger),

@@ -96,9 +96,9 @@ class _LeaderboardDialogState extends State<LeaderboardDialog> with ScreenStateM
 
   Widget challengerTitles() {
     if (widget.leaderboardType != LeaderboardType.Challenger) return const EmptyBox();
-    return Row(
+    return const Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: const [
+      children: [
         Expanded(flex: 5, child: Text(AppStrings.username)),
         Expanded(flex: 2, child: Center(child: Text(AppStrings.time))),
         Expanded(flex: 2, child: Center(child: Text('${AppStrings.score}    '))),

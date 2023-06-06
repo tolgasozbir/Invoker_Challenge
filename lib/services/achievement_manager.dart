@@ -15,7 +15,7 @@ class AchievementManager {
 
   var _userRecords = UserManager.instance.user.achievements ??= {};
 
-  void initAchievements(){
+  void initAchievements() {
     UserManager.instance.user.achievements ??= {};
     _userRecords = UserManager.instance.user.achievements!;
     _achievements.clear();
@@ -31,7 +31,7 @@ class AchievementManager {
 
   void updateAchievements() {
     initAchievements();
-    UserManager.instance.setAndSaveUserToLocale(UserManager.instance.user);
+    UserManager.instance.setUserAndSaveToCache(UserManager.instance.user);
   }
 
   void updateLevel() {
