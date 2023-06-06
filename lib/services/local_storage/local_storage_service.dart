@@ -18,6 +18,7 @@ class LocalStorageService implements ILocalStorageService {
 
   @override
   Future<void> setValue<T>(LocalStorageKey key, T value) async {
+    await removeValue(key);
     if (value is String) {
       await _prefs.setString(key.name, value);
     } else if (value is int) {

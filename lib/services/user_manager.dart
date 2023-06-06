@@ -1,5 +1,3 @@
-// ignore_for_file: use_late_for_private_fields_and_variables
-
 import '../utils/formatted_date.dart';
 import 'package:flutter/material.dart';
 import 'package:snappable_thanos/snappable_thanos.dart';
@@ -20,8 +18,8 @@ class UserManager extends ChangeNotifier {
 
   final snappableKey = GlobalKey<SnappableState>();
 
-  UserModel? _userModel;
-  UserModel get user => _userModel!;
+  UserModel _userModel = UserModel.guest(username: AppStrings.guest + idGenerator());
+  UserModel get user => _userModel;
 
   void setUser(UserModel user) {
     user.lastPlayed = getFormattedDate();
@@ -71,16 +69,16 @@ class UserManager extends ChangeNotifier {
   }
 
   Future<void> _saveUserToCache(UserModel user) async {
-    await _clearCache(LocalStorageKey.userRecords);
+    //await _clearCache(LocalStorageKey.userRecords);
     await AppServices.instance.localStorageService.setValue<String>(
       LocalStorageKey.userRecords,
       user.toJson(),
     );
   }
 
-  Future<void> _clearCache(LocalStorageKey key) async {
-    await AppServices.instance.localStorageService.removeValue(key);
-  }
+  // Future<void> _clearCache(LocalStorageKey key) async {
+  //   await AppServices.instance.localStorageService.removeValue(key);
+  // }
 
 
   //Auth
