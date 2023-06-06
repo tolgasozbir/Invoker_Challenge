@@ -26,7 +26,6 @@ class SpellProvider extends ChangeNotifier {
 
   ///Returns a random spell
   void getRandomSpell() {
-    _tempSpells.clear();
 
     Spell rndSpell;
     do {

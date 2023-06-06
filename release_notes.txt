@@ -2,6 +2,7 @@
 - Refactoring and Bug Fix
 - The issue of data discrepancies during version transitions has been resolved.
 - The system no longer creates a new account for the guest user every time.
+- The issue of the same spells appearing in Challenger mode has been resolved.
 
 # 1.0.2 (Bug Fix)
 
@@ -18,7 +19,7 @@
 - Fixed minor bugs.
 - Updated user model.
 - Introduced new achievements.
-- Made changes to certain items and spells (Boss Battle Mode).
+- Made changes to certain items and spells. (Boss Battle Mode)
 - Removed the exit button from the main menu and replaced it with the Combo Mode.
 - Added the label "Endless" next to the Training button.
 
