@@ -1,3 +1,6 @@
+# 1.1.0
+- Hive database has been added to the project to prevent data loss during version transitions.
+
 # 1.0.41
 - Minor Changes
 

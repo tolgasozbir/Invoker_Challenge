@@ -1,20 +1,40 @@
 import 'dart:convert';
 
+import 'package:dota2_invoker_game/services/hive/IBaseHiveService.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
 import 'base_models/base_model.dart';
 
+part 'user_model.g.dart';
+
+@HiveType(typeId: HiveTypeIds.userTypeId)
 class UserModel extends IBaseModel<UserModel> {
+
+  @HiveField(0)
   String? uid;
+  @HiveField(1)
   String username;
+  @HiveField(2)
   int challangerLife;
+  @HiveField(3)
   int bestChallengerScore;
+  @HiveField(4)
   int bestTimerScore;
+  @HiveField(5)
   int bestComboScore;
+  @HiveField(6)
   int level;
+  @HiveField(7)
   double exp;
+  @HiveField(8)
   double expMultiplier;
+  @HiveField(9)
   Map<String,dynamic>? talentTree;
+  @HiveField(10)
   Map<String,dynamic>? achievements;
+  @HiveField(11)
   Map<String,dynamic>? bestBossScores;
+  @HiveField(12)
   String? lastPlayed;
 
   UserModel({

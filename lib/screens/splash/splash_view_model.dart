@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../../constants/app_image_paths.dart';
@@ -27,10 +28,16 @@ abstract class SplashViewModel extends State<SplashView> {
   }
 
   Future<void> init() async {
+    await initHive();
     await loadAds();
     await getUserRecords();
     getSettingsValues();
     await goToMainMenu();
+  }
+
+  Future<void> initHive() async {
+    await Hive.initFlutter();
+    await UserManager.instance.userHiveManager.init();
   }
 
   Future<void> loadAds() async {

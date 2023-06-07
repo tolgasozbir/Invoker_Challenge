@@ -10,11 +10,17 @@ import 'achievement_manager.dart';
 import 'app_services.dart';
 import '../utils/id_generator.dart';
 import '../widgets/game_ui_widget.dart';
+import 'hive/IBaseHiveService.dart';
 
 class UserManager extends ChangeNotifier {
   UserManager._();
   static UserManager? _instance;
   static UserManager get instance => _instance ??= UserManager._();
+
+  final IBaseHiveService<UserModel> userHiveManager = IBaseHiveService<UserModel>(
+    boxName: HiveBoxNames.user, 
+    adapter: UserModelAdapter(),
+  );
 
   final snappableKey = GlobalKey<SnappableState>();
 
@@ -41,6 +47,8 @@ class UserManager extends ChangeNotifier {
     if (user != null) {
       // If the user is found in the cache, set it as the current user
       setUser(user);
+      //Hiveda olmayıp SharedPreferenceste olan verileri hive geçiş için hive içerisinde kayıt ediyorum
+      await userHiveManager.putItem(LocalStorageKey.userRecords.name, user);
       return;
     }
     // If the user is not found in the cache, create a new user
@@ -63,6 +71,12 @@ class UserManager extends ChangeNotifier {
   //Cache - Local
 
   UserModel? getUserFromCache() {
+    // Retrieve the user from HiveCacheManager
+    final user = userHiveManager.getItem(LocalStorageKey.userRecords.name);
+    // ignore: avoid_print
+    print(user);
+    if (user != null) return user;
+    // If user data is not available in Hive, retrieve it from SharedPreferences
     final cache = AppServices.instance.localStorageService.getValue<String>(LocalStorageKey.userRecords);
     if (cache == null) return null;
     return UserModel.fromJson(cache);
@@ -70,6 +84,12 @@ class UserManager extends ChangeNotifier {
 
   Future<void> _saveUserToCache(UserModel user) async {
     //await _clearCache(LocalStorageKey.userRecords);
+    //save with hive
+    await userHiveManager.putItem(
+      LocalStorageKey.userRecords.name, 
+      user,
+    );
+    //save with sharedPreferences
     await AppServices.instance.localStorageService.setValue<String>(
       LocalStorageKey.userRecords,
       user.toJson(),
