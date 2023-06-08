@@ -47,12 +47,26 @@ abstract class SplashViewModel extends State<SplashView> {
   }
 
   Future<void> getUserRecords() async {
-    await UserManager.instance.initUser(); //cache'de varsa çek yoksa oluştur cache'e kaydet
+    // Retrieve user records from cache if available, otherwise create a new user and save it to the cache
+    await UserManager.instance.initUser();
     final hasConnection = await InternetConnectionChecker().hasConnection;
     final user = UserManager.instance.user;
 
     if (hasConnection && user.uid != null) {
-      await UserManager.instance.saveUserToDb(user);
+      final dbUser = await UserManager.instance.getUserFromDb(user.uid!);
+
+      // Use dbUser model for Hive database migration and to handle inconsistencies during version transitions in SharedPrefs
+      final bool useDbModel = 
+        dbUser != null && 
+        dbUser.exp >= user.exp && 
+        dbUser.level >= user.level && 
+        (dbUser.achievements?['playedGame'] as int? ?? 0) >= (user.achievements?['playedGame'] as int? ?? 0);
+
+      if (useDbModel) {
+        await UserManager.instance.setUserAndSaveToCache(dbUser);
+      } else {
+        await UserManager.instance.saveUserToDb(user);
+      }
     }
 
     log(UserManager.instance.user.uid ?? 'uid: null');

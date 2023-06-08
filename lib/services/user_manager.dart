@@ -226,7 +226,12 @@ class UserManager extends ChangeNotifier {
   }
 
   void _levelUp(double exp) {
-    if (user.level == _maxLevel) return;
+    if (user.level == _maxLevel) {
+      if (user.achievements?['level'] != _maxLevel) {
+        user.achievements?['level'] = _maxLevel;
+      }
+      return;
+    }
 
     var currExp = exp;
     while (currExp >= nextLevelExp) {
