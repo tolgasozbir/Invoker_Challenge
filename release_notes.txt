@@ -1,7 +1,7 @@
 # 1.1.0
 - Hive database has been added to the project to prevent data loss during version transitions.
 - The issue where the level achievement would remain at 29 even if the user reached level 30 has been resolved.
-- User information is now compared between the database and cache, and the most up-to-date information is used.
+- User model is now compared between the database and cache, and the most up-to-date is used.
 
 # 1.0.41
 - Minor Changes

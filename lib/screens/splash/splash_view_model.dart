@@ -56,11 +56,9 @@ abstract class SplashViewModel extends State<SplashView> {
       final dbUser = await UserManager.instance.getUserFromDb(user.uid!);
 
       // Use dbUser model for Hive database migration and to handle inconsistencies during version transitions in SharedPrefs
-      final bool useDbModel = 
-        dbUser != null && 
-        dbUser.exp >= user.exp && 
-        dbUser.level >= user.level && 
-        (dbUser.achievements?['playedGame'] as int? ?? 0) >= (user.achievements?['playedGame'] as int? ?? 0);
+      final bool useDbModel =
+        dbUser != null &&
+        (dbUser.level > user.level || (dbUser.level == user.level && dbUser.exp >= user.exp));
 
       if (useDbModel) {
         await UserManager.instance.setUserAndSaveToCache(dbUser);
