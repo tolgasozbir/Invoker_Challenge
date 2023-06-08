@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:dota2_invoker_game/constants/app_strings.dart';
+
 import 'IFirebaseAuthService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -25,21 +27,21 @@ class FirebaseAuthService implements IFirebaseAuthService {
   String _getErrorMessage(String errorCode) {
     switch (errorCode) {
       case 'invalid-email':
-        return 'Invalid e-mail address.';
+        return AppStrings.AuthInvalidMail;
       case 'user-not-found':
-        return 'Account not found';
+        return AppStrings.AuthUserNotFound;
       case 'wrong-password':
-        return 'Password is invalid';
+        return AppStrings.AuthWrongPassword;
       case 'weak-password':
-        return 'Password should be at least 6 characters.';
+        return AppStrings.AuthWeakPassword;
       case 'email-already-in-use':
-        return 'The email address is already in use by another account.';
+        return AppStrings.AuthEmailAlreadyInUse;
       case 'unknown':
-        return 'Given values are empty';
+        return AppStrings.AuthUnknown;
       case 'too-many-requests':
-        return 'We have blocked all requests from this device due to unusual activity. Try again later.';
+        return AppStrings.AuthToManyRequests;
       default:
-        return 'Something went wrong, try again!';
+        return AppStrings.AuthDefaultError;
     }
   }
 

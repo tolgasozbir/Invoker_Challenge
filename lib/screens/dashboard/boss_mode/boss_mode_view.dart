@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:dota2_invoker_game/extensions/string_extension.dart';
+
 import '../../../extensions/number_extension.dart';
 import '../../../models/ability.dart';
 import 'widgets/info_button.dart';
@@ -248,7 +250,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
       left: 8,
       child: Row(
         children: [
-          Text('Dps : ${provider.dps.numberFormat}'),
+          Text('${AppStrings.dps.toLowerCase().capitalize()} : ${provider.dps.numberFormat}'),
         ],
       ),
     );
@@ -292,7 +294,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
       child: SizedBox.expand(
         child: AnimatedSwitcher(
           duration: const Duration(seconds: 1),
-          child: status ? const EmptyBox() : isHornPlaying ? const Text('Starting') : const Text('Start'),
+          child: status ? const EmptyBox() : isHornPlaying ? const Text(AppStrings.starting) : const Text(AppStrings.start),
         ),
       ),
     );

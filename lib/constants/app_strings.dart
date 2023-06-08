@@ -23,13 +23,14 @@ class AppStrings {
     "Your data is saved on your device, don't forget to synchronize it from the profile menu to avoid losing your data.",
   ];
 
-  //Common
+  //Common - General
   static const String leaderboard = 'Leaderboard';
   static const String showMore = 'Show more';
   static const String result = 'Results';
   static const String stageResults = 'Stage Summary';
   static const String send = 'Submit';
   static const String start = 'Start';
+  static const String starting = 'Starting';
   static const String close = 'Close';
   static const String back = 'Back';
   static const String logout = 'Logout';
@@ -89,6 +90,16 @@ class AppStrings {
   static const String sbCannotFetchMore = 'Cannot show more data';
   static const String sbGameSaved = 'Game saved';
   static const String sbResetPw = 'A password reset request has been sent to your email. Please check your email.';
+
+  //Auth Error Messages
+  static const String AuthInvalidMail = 'Invalid e-mail address.';
+  static const String AuthUserNotFound = 'Account not found';
+  static const String AuthWrongPassword = 'Password is invalid';
+  static const String AuthWeakPassword = 'Password should be at least 6 characters.';
+  static const String AuthEmailAlreadyInUse = 'The email address is already in use by another account.';
+  static const String AuthUnknown = 'Given values are empty';
+  static const String AuthToManyRequests = 'We have blocked all requests from this device due to unusual activity. Try again later.';
+  static const String AuthDefaultError = 'Something went wrong, try again!';
 
   //Talent tree
   static const String talentTree = 'Talent Tree';
