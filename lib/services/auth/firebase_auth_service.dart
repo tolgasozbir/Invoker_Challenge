@@ -23,7 +23,6 @@ class FirebaseAuthService implements IFirebaseAuthService {
     snackBartype: SnackBarType.error,
   );
 
-  //TODO: ERROR CODES LANG
   String _getErrorMessage(String errorCode) {
     switch (errorCode) {
       case 'invalid-email':
@@ -66,7 +65,7 @@ class FirebaseAuthService implements IFirebaseAuthService {
   Future<bool> signIn({required String email, required String password}) async {
     final bool isSuccess = await _handleAsyncAuthOperation(() async {
       final userCredential = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
-      if (userCredential.user == null) throw Exception('Something went wrong, try again!');
+      if (userCredential.user == null) throw Exception(AppStrings.AuthDefaultError);
     });
     return isSuccess;
   }
@@ -75,7 +74,7 @@ class FirebaseAuthService implements IFirebaseAuthService {
   Future<bool> signUp({required String email, required String password, required String username}) async {
     final bool isSuccess = await _handleAsyncAuthOperation(() async {
       final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
-      if (userCredential.user == null) throw Exception('Something went wrong, try again!');
+      if (userCredential.user == null) throw Exception(AppStrings.AuthDefaultError);
     });
     return isSuccess;
   }

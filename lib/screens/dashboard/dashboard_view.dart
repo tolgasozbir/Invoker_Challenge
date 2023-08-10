@@ -89,8 +89,6 @@ class DashboardView extends StatelessWidget {
       color: AppColors.comboBtnColor,
       imagePath: ImagePaths.icCombo,
       title: AppStrings.titleCombo,
-      animType: AnimType.Scale,
-      bannerTitle: 'New',
       navigatePage: ComboView(),
     ),
     MenuButton(

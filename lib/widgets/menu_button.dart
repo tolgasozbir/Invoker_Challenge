@@ -7,7 +7,6 @@ import '../extensions/context_extension.dart';
 import '../providers/game_provider.dart';
 import '../screens/dashboard/loading_view.dart';
 import '../services/sound_manager.dart';
-import '../utils/ads_helper.dart';
 import '../utils/fade_in_page_animation.dart';
 
 enum AnimType {
@@ -79,12 +78,12 @@ class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateM
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
     context.read<GameProvider>().resetTimer();
 
-    AdsHelper.instance.adCounter++;
-    if (AdsHelper.instance.interstitialAd != null && AdsHelper.instance.adCounter % 3 == 0) {
-      await AdsHelper.instance.interstitialAd!.show();
-      Navigator.push(context, fadeInPageRoute(widget.navigatePage!));
-      return;
-    }
+    // AdsHelper.instance.adCounter++;
+    // if (AdsHelper.instance.interstitialAd != null && AdsHelper.instance.adCounter % 4 == 0) {
+    //   await AdsHelper.instance.interstitialAd!.show();
+    //   Navigator.push(context, fadeInPageRoute(widget.navigatePage!));
+    //   return;
+    // }
 
     SoundManager.instance.playLoadingSound();
     Navigator.push(context, fadeInPageRoute(LoadingView(page: widget.navigatePage!)));
