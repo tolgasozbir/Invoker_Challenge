@@ -1,3 +1,5 @@
+//TODO: DİL
+
 enum Achievements {
   level1(title: 'Good Knowledge',       description: 'Reach 10 level.',   maxProgress: 10),
   level2(title: 'Second Chance',        description: 'Reach 15 level.',   maxProgress: 15),

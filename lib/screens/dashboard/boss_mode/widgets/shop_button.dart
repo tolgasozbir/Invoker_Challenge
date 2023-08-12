@@ -7,6 +7,8 @@ import '../../../../widgets/bouncing_button.dart';
 import 'shop_view.dart';
 
 
+//TODO: SHOP TEXT
+
 class ShopButton extends StatelessWidget {
   const ShopButton({super.key,});
 

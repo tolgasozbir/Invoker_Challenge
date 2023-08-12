@@ -1,3 +1,4 @@
+import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:lottie/lottie.dart';
@@ -5,7 +6,7 @@ import 'package:splash/splash.dart';
 
 import '../../../../constants/app_colors.dart';
 import '../../../../constants/app_image_paths.dart';
-import '../../../../constants/app_strings.dart';
+import '../../../../constants/locale_keys.g.dart';
 import '../../../../extensions/context_extension.dart';
 import '../../../../extensions/widget_extension.dart';
 import '../../../../mixins/screen_state_mixin.dart';
@@ -101,16 +102,16 @@ class _FeedbackViewState extends State<FeedbackView> with SingleTickerProviderSt
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(AppStrings.fbTitleFirst, style: textStyle.copyWith(color: const Color(0xFF4295F9)),),
+        Text(LocaleKeys.feedback_fbTitleFirst.locale, style: textStyle.copyWith(color: const Color(0xFF4295F9)),),
         const EmptyBox.w4(),
-        Text(AppStrings.fbTitleSecond, style: textStyle.copyWith(color: const Color(0xFF29C594))),
+        Text(LocaleKeys.feedback_fbTitleSecond.locale, style: textStyle.copyWith(color: const Color(0xFF29C594))),
       ],
     );
   }
 
   Text middleText() {
     return Text(
-      AppStrings.fbMidText, 
+      LocaleKeys.feedback_fbMidText.locale, 
       style: TextStyle(fontSize: context.sp(12), color: Colors.grey.shade400),
       textAlign: TextAlign.center,
     );
@@ -121,7 +122,7 @@ class _FeedbackViewState extends State<FeedbackView> with SingleTickerProviderSt
       maxLines: null,
       isExpand: true,
       controller: _feedbackController,
-      hintText: AppStrings.fbHint,
+      hintText: LocaleKeys.feedback_fbHint.locale,
       textCapitalization: TextCapitalization.sentences,
       textInputAction: TextInputAction.done,
     );
@@ -131,7 +132,7 @@ class _FeedbackViewState extends State<FeedbackView> with SingleTickerProviderSt
     return Stack(
       children: [
         AppOutlinedButton(
-          title: AppStrings.fbSendBtn,
+          title: LocaleKeys.feedback_fbSendBtn.locale,
           width: context.dynamicWidth(0.9),
           bgColor: AppColors.fbSendBtn,
           padding: const EdgeInsets.only(top: 16),
@@ -156,13 +157,13 @@ class _FeedbackViewState extends State<FeedbackView> with SingleTickerProviderSt
 
   void sendBtnFn() async {
     if (_feedbackController.text.length < 10) {
-      AppSnackBar.showSnackBarMessage(text: AppStrings.feedbackInfoMessage, snackBartype: SnackBarType.info);
+      AppSnackBar.showSnackBarMessage(text: LocaleKeys.snackbarMessages_feedbackInfoMessage.locale, snackBartype: SnackBarType.info);
       return;
     }
 
     final hasConnection = await InternetConnectionChecker().hasConnection;
     if (!hasConnection) {
-      AppSnackBar.showSnackBarMessage(text: AppStrings.errorConnection, snackBartype: SnackBarType.info);
+      AppSnackBar.showSnackBarMessage(text: LocaleKeys.snackbarMessages_errorConnection.locale, snackBartype: SnackBarType.info);
       return;
     }
 
@@ -181,13 +182,13 @@ class _FeedbackViewState extends State<FeedbackView> with SingleTickerProviderSt
       await _lottieController.animateTo(1);
       _feedbackController.clear();
       AppSnackBar.showSnackBarMessage(
-        text: AppStrings.feedbackSuccessMessage, 
+        text: LocaleKeys.snackbarMessages_feedbackSuccessMessage.locale, 
         snackBartype: SnackBarType.success,
         duration: duration,
       );
     }else {
       AppSnackBar.showSnackBarMessage(
-        text: '${AppStrings.errorMessage} ${AppStrings.errorConnection}', 
+        text: '${LocaleKeys.snackbarMessages_errorMessage.locale} ${LocaleKeys.snackbarMessages_errorConnection.locale}', 
         snackBartype: SnackBarType.error,
         duration: duration,
       );

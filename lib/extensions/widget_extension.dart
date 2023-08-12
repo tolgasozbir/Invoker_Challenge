@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+//TODO: REMOVE ALL
 extension MediaQueryExtension on Widget {
   Widget wrapAlign(Alignment alignment) => Align(alignment: alignment, child: this);
   Widget wrapPadding(EdgeInsets edgeInsets) => Padding(padding: edgeInsets, child: this);

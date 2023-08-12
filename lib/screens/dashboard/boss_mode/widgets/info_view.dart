@@ -1,6 +1,7 @@
+import 'package:dota2_invoker_game/constants/locale_keys.g.dart';
+import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../constants/app_strings.dart';
 import '../../../../enums/spells.dart';
 import '../../../../extensions/context_extension.dart';
 import '../../../../extensions/widget_extension.dart';
@@ -14,7 +15,7 @@ class InfoView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(AppStrings.aboutTheGame),
+        title: Text(LocaleKeys.bossBattleInfo_aboutTheGame.locale),
         centerTitle: true,
       ),
       body: SafeArea(child: _bodyView(context)),
@@ -36,23 +37,23 @@ class InfoView extends StatelessWidget {
 
   List<Widget> spellDamageSheet(BuildContext context) => [
     Text(
-      AppStrings.spellDamageSheet, 
+      LocaleKeys.bossBattleInfo_spellDamageSheet.locale, 
       style: TextStyle(
         fontSize: context.sp(14), 
         decoration: TextDecoration.underline,
       ),
     ).wrapCenter(),
     const EmptyBox.h8(),
-    const Text(AppStrings.note).wrapFittedBox(),
+    Text(LocaleKeys.bossBattleInfo_note.locale).wrapFittedBox(),
     const EmptyBox.h8(),
     Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Text(AppStrings.spell).wrapExpanded(),
-        const Text(AppStrings.dps, textAlign: TextAlign.center,).wrapExpanded(),
-        const Text(AppStrings.duration, textAlign: TextAlign.center,).wrapExpanded(),
-        const Text(AppStrings.totalBaseDamage, textAlign: TextAlign.center,).wrapExpanded(),
-        const Text(AppStrings.currentTotalDamage, textAlign: TextAlign.right,).wrapExpanded(), 
+        Text(LocaleKeys.bossBattleInfo_spell.locale).wrapExpanded(),
+        Text(LocaleKeys.bossBattleInfo_dps.locale, textAlign: TextAlign.center,).wrapExpanded(),
+        Text(LocaleKeys.bossBattleInfo_duration.locale, textAlign: TextAlign.center,).wrapExpanded(),
+        Text(LocaleKeys.bossBattleInfo_totalBaseDamage.locale, textAlign: TextAlign.center,).wrapExpanded(),
+        Text(LocaleKeys.bossBattleInfo_currentTotalDamage.locale, textAlign: TextAlign.right,).wrapExpanded(), 
       ],
     ),
     Column(
@@ -93,7 +94,7 @@ class InfoView extends StatelessWidget {
 
   List<Widget> aboutTheCircles(BuildContext context) => [
     Text(
-      AppStrings.circlesMeaning, 
+      LocaleKeys.bossBattleInfo_circlesMeaning.locale, 
       style: TextStyle(
         fontSize: context.sp(14),
         decoration: TextDecoration.underline,
@@ -110,7 +111,7 @@ class InfoView extends StatelessWidget {
     ),
     const EmptyBox.h12(),
     Text(
-      AppStrings.outerCircleInfo, 
+      LocaleKeys.bossBattleInfo_outerCircleInfo.locale, 
       style: TextStyle(
         fontSize: context.sp(12),
         color: Colors.red, 
@@ -119,7 +120,7 @@ class InfoView extends StatelessWidget {
     ),
     const EmptyBox.h4(),
     Text(
-      AppStrings.middleCircleInfo,
+      LocaleKeys.bossBattleInfo_middleCircleInfo.locale,
       style: TextStyle(
         fontSize: context.sp(12),
         color: Colors.amber, 
@@ -128,7 +129,7 @@ class InfoView extends StatelessWidget {
     ),
     const EmptyBox.h4(),
     Text(
-      AppStrings.innerCircleInfo,
+      LocaleKeys.bossBattleInfo_innerCircleInfo.locale,
       style: TextStyle(
         fontSize: context.sp(12),
         color: Colors.green, 
@@ -137,7 +138,7 @@ class InfoView extends StatelessWidget {
     ),
     const EmptyBox.h4(),
     Text(
-      AppStrings.roundInfo,
+      LocaleKeys.bossBattleInfo_roundInfo.locale,
       style: TextStyle(
         fontSize: context.sp(12),
         fontWeight: FontWeight.w500,

@@ -1,7 +1,8 @@
+import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../constants/app_strings.dart';
+import '../constants/locale_keys.g.dart';
 import '../extensions/context_extension.dart';
 import '../providers/game_provider.dart';
 import 'app_dialogs.dart';
@@ -23,10 +24,10 @@ class ShowLeaderBoardButton extends StatelessWidget {
       width: context.dynamicWidth(0.4),
       padding: EdgeInsets.only(top: context.dynamicHeight(0.02)),
       onPressed: () => AppDialogs.showScaleDialog(
-        title: AppStrings.leaderboard,
+        title: LocaleKeys.commonGeneral_leaderboard.locale,
         content: contentDialog,
         action: AppOutlinedButton(
-          title: AppStrings.back,
+          title: LocaleKeys.commonGeneral_back.locale,
           onPressed: () {
             Navigator.pop(context);
           },

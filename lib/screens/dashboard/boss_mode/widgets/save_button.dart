@@ -1,8 +1,9 @@
+import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../constants/app_colors.dart';
-import '../../../../constants/app_strings.dart';
+import '../../../../constants/locale_keys.g.dart';
 import '../../../../extensions/context_extension.dart';
 import '../../../../providers/boss_battle_provider.dart';
 import '../../../../utils/game_save_handler.dart';
@@ -21,7 +22,7 @@ class SaveButton extends StatelessWidget {
             side: BorderSide(color: AppColors.white.withOpacity(0.2)),
             onPressed: () => saveGameFn(context),
             avatar: const Icon(Icons.save),
-            label: const Text(AppStrings.save),
+            label: Text(LocaleKeys.commonGeneral_save.locale),
             padding: const EdgeInsets.fromLTRB(12, 2, 6, 2),
             backgroundColor: context.theme.scaffoldBackgroundColor,
           ),
@@ -42,7 +43,7 @@ class SaveButton extends StatelessWidget {
     );
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
     AppSnackBar.showSnackBarMessage(
-      text: AppStrings.sbGameSaved, 
+      text: LocaleKeys.snackbarMessages_sbGameSaved.locale, 
       snackBartype: SnackBarType.success, 
       duration: const Duration(seconds: 1),
     );

@@ -1,6 +1,7 @@
+import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 
-import '../constants/app_strings.dart';
+import '../constants/locale_keys.g.dart';
 
 mixin InputValidationMixin {
 
@@ -11,19 +12,23 @@ mixin InputValidationMixin {
   String? isValid(String? value) {
     return value?.trim().isNotEmpty ?? false 
       ? null
-      : AppStrings.cannotEmpty;
+      : LocaleKeys.inputValidation_cannotEmpty.locale;
   }  
   
   String? isValidEmail(String? email) {
     return email != null 
-      ? RegExp(_emailRegex).hasMatch(email) ? null : AppStrings.invalidMail 
-      : AppStrings.cannotEmpty;
+      ? RegExp(_emailRegex).hasMatch(email) 
+        ? null 
+        : LocaleKeys.inputValidation_invalidMail.locale 
+      : LocaleKeys.inputValidation_cannotEmpty.locale;
   }  
   
   String? isValidPassword(String? password) {
     return password?.isNotEmpty ?? false
-      ? password!.trim().length >= 6 ? null : AppStrings.invalidPass
-      : AppStrings.cannotEmpty;
+      ? password!.trim().length >= 6 
+        ? null 
+        : LocaleKeys.inputValidation_invalidPass.locale
+      : LocaleKeys.inputValidation_cannotEmpty.locale;
   }  
 
 }

@@ -1,7 +1,8 @@
 import 'dart:developer';
 
-import 'package:dota2_invoker_game/constants/app_strings.dart';
+import 'package:dota2_invoker_game/extensions/string_extension.dart';
 
+import '../../constants/locale_keys.g.dart';
 import 'IFirebaseAuthService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -26,21 +27,21 @@ class FirebaseAuthService implements IFirebaseAuthService {
   String _getErrorMessage(String errorCode) {
     switch (errorCode) {
       case 'invalid-email':
-        return AppStrings.AuthInvalidMail;
+        return LocaleKeys.authErrorMessages_AuthInvalidMail.locale;
       case 'user-not-found':
-        return AppStrings.AuthUserNotFound;
+        return LocaleKeys.authErrorMessages_AuthUserNotFound.locale;
       case 'wrong-password':
-        return AppStrings.AuthWrongPassword;
+        return LocaleKeys.authErrorMessages_AuthWrongPassword.locale;
       case 'weak-password':
-        return AppStrings.AuthWeakPassword;
+        return LocaleKeys.authErrorMessages_AuthWeakPassword.locale;
       case 'email-already-in-use':
-        return AppStrings.AuthEmailAlreadyInUse;
+        return LocaleKeys.authErrorMessages_AuthEmailAlreadyInUse.locale;
       case 'unknown':
-        return AppStrings.AuthUnknown;
+        return LocaleKeys.authErrorMessages_AuthUnknown.locale;
       case 'too-many-requests':
-        return AppStrings.AuthToManyRequests;
+        return LocaleKeys.authErrorMessages_AuthToManyRequests.locale;
       default:
-        return AppStrings.AuthDefaultError;
+        return LocaleKeys.authErrorMessages_AuthDefaultError.locale;
     }
   }
 
@@ -65,7 +66,7 @@ class FirebaseAuthService implements IFirebaseAuthService {
   Future<bool> signIn({required String email, required String password}) async {
     final bool isSuccess = await _handleAsyncAuthOperation(() async {
       final userCredential = await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
-      if (userCredential.user == null) throw Exception(AppStrings.AuthDefaultError);
+      if (userCredential.user == null) throw Exception(LocaleKeys.authErrorMessages_AuthDefaultError.locale);
     });
     return isSuccess;
   }
@@ -74,7 +75,7 @@ class FirebaseAuthService implements IFirebaseAuthService {
   Future<bool> signUp({required String email, required String password, required String username}) async {
     final bool isSuccess = await _handleAsyncAuthOperation(() async {
       final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
-      if (userCredential.user == null) throw Exception(AppStrings.AuthDefaultError);
+      if (userCredential.user == null) throw Exception(LocaleKeys.authErrorMessages_AuthDefaultError.locale);
     });
     return isSuccess;
   }

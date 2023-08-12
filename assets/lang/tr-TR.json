@@ -1,0 +1,155 @@
+{
+    "mainMenu": {
+        "titleTraining": "Eğitim / Sonsuz",
+        "titleWithTimer": "Zamana Karşı",
+        "titleChallenger": "Meydan Okuyucu",
+        "titleCombo": "Kombo",
+        "titleBossMode": "Boss Savaşı",
+        "quitGame": "Oyundan Çık",
+        "settings": "Ayarlar",
+        "profile": "Profil",
+        "achievements": "Başarımlar",
+        "bossGallery": " Boss Galerisi ",
+        "level": "Seviye"
+    },
+
+    "loading" : {
+        "message1" : "Seviye yükseldikçe hasarınız, büyü hasarınız, mana ve mana yenilenmeniz de artar, bu da patronları yenmeyi kolaylaştırır. Seviye atlamak için zamana karşı, meydan okuyucu, kombo ve patron şavaşı modlarını oynayabilirsiniz.",
+        "message2" : "Verileriniz cihazınızda kaydedilir, verilerinizi kaybetmemek için profil menüsünden senkronize etmeyi unutmayın."
+    },
+
+    "commonGeneral": {
+        "leaderboard": "Lider Tablosu",
+        "showMore": "Daha Fazla Göster",
+        "result": "Sonuçlar",
+        "stageResults": "Aşama Özeti",
+        "send": "Gönder",
+        "start": "Başlat",
+        "starting": "Başlıyor",
+        "close": "Kapat",
+        "back": "Geri",
+        "logout": "Çıkış Yap",
+        "victory": "Zafer",
+        "defeated": "Yenilgi",
+        "last": "(Son) ",
+        "time": "Zaman",
+        "score": "Skor",
+        "bestScore": "En İyi Skor",
+        "bestScoreByKill": "En iyi skorunuz öldürme sürenize göre",
+        "exp": "Deneyim",
+        "syncData": "Verileri Senkronize Et ve Sakla",
+        "save": "Kaydet",
+        "delete": "Sil",
+        "loadGame": "Oyunu Yükle",
+        "nextBoss": "Bir Sonraki Patron",
+        "items": "Eşyalar"
+    },
+
+    "formDialog": {
+        "guest": "Misafir",
+        "eMail": "E-posta",
+        "eMailHint": "fakeKuroKy@xyz.com",
+        "username": "Kullanıcı Adı",
+        "usernameHint": "KuroKy",
+        "password": "Şifre",
+        "login": "Giriş Yap",
+        "or": "-VEYA-",
+        "register": "Kaydol",
+        "resetPw": "Şifrenizi Sıfırlayın!",
+        "reset": "Sıfırla"
+    },
+
+    "inputValidation": {
+        "cannotEmpty": "Boş Bırakılamaz",
+        "invalidMail": "Geçersiz e-posta",
+        "invalidPass": "En az 6 karakter olmalı"
+    },
+
+    "snackbarMessages": {
+        "fillFields": "Lütfen tüm gerekli alanları doldurun",
+        "errorMessage": "Bir hata oluştu!",
+        "errorConnection": "İnternet bağlantınızı kontrol edin ve tekrar deneyin.",
+        "errorSubmitScore1": "Puanınızı göndermek için giriş yapmalısınız.",
+        "errorSubmitScore2": "Puanınızı göndermek için önceki puanınızı geçmelisiniz.",
+        "succesSubmitScore": "Puanınız başarıyla gönderildi.",
+        "feedbackInfoMessage": "Mesajınız en az 10 karakter olmalıdır.",
+        "feedbackSuccessMessage": "Teşekkürler! Geri bildiriminiz deneyiminizi geliştirmemize yardımcı olacak.",
+        "qwerHudInfoMessage1": "Quas, Wex, Exort ve Invoke düğmelerinin yüksekliğini ayarlar.",
+        "qwerHudInfoMessage2": "Yüksek olduğunda, aşşağıya daha yakın olur.",
+        "syncDataSuccess": "Verileriniz başarıyla kaydedildi.",
+        "syncDataWait": "Her 5 dakikada bir senkronizasyon yapabilirsiniz.",
+        "sbInfo": "Bilgi",
+        "sbSuccess": "Başarılı",
+        "sbError": "Hata",
+        "sbNoMoreData": "Daha fazla veri yok!",
+        "sbWaitAnimation": "Buton pasiftir, 5 saniye içinde etkinleşecek. Lütfen bekleyin.",
+        "sbInventoryFull": "Envanter dolu!",
+        "sbNotEnoughGold": "Yeterli altın yok",
+        "sbCannotFetchMore": "Daha fazla veri gösterilemiyor",
+        "sbGameSaved": "Oyun kaydedildi",
+        "sbResetPw": "Şifre sıfırlama isteği e-posta adresinize gönderildi. Lütfen e-postanızı kontrol edin."
+    },
+
+    "authErrorMessages": {
+        "AuthInvalidMail": "Geçersiz e-posta adresi.",
+        "AuthUserNotFound": "Hesap bulunamadı",
+        "AuthWrongPassword": "Şifre geçersiz",
+        "AuthWeakPassword": "Şifre en az 6 karakter olmalı.",
+        "AuthEmailAlreadyInUse": "E-posta adresi zaten başka bir hesap tarafından kullanılıyor.",
+        "AuthUnknown": "Verilen değerler boş",
+        "AuthToManyRequests": "Bu cihazdan gelen tüm istekleri olağandışı etkinlik nedeniyle engelledik. Daha sonra tekrar deneyin.",
+        "AuthDefaultError": "Bir hata oluştu, tekrar deneyin!"
+    },
+
+    "talents" : {
+        "talentTree": "Yetenek Ağacı",
+        "talent10": "Patron Savaşı +400 Mana",
+        "talent15": "+1 Mey. Okuyucu Canı",
+        "talent20": "+2 Deneyim Çarpanı",
+        "talent25": "Patronlara Çifte Hasar"
+    },
+
+    "settings": {
+        "feedback": "Geri Bildirim",
+        "rateApp": "Uygulamayı değerlendir",
+        "volume": "Ses Düzeyi"
+    },
+
+    "feedback": {
+        "fbTitleFirst": "Bana geri",
+        "fbTitleSecond": "bildirim gönder!",
+        "fbMidText": "Deneyiminizi bize anlatın ve neyi geliştirebileceğimizi bize bildirin.",
+        "fbHint": "Herhangi bir öneri, soru veya şikayet bırakarak geliştirmemize yardımcı olun :)",
+        "fbSendBtn": "Geri Bildirim Gönder"
+    },
+
+    "bossBattleInfo": {
+        "aboutTheGame": "Oyun Hakkında",
+        "spellDamageSheet": "Büyü Hasarı Tablosu",
+        "note": "Not: Her seviye büyü hasarını %2 artırır.",
+        "circlesMeaning": "Dairelerin Anlamı",
+        "outerCircleInfo": "Dış daire patronun sağlığını temsil eder.",
+        "middleCircleInfo": "Orta daire tur sayısını temsil eder.",
+        "innerCircleInfo": "İç daire zamanın geçişini temsil eder.",
+        "roundInfo": "Her tur 180 saniye sürer.",
+        "spell": "Büyü",
+        "dps": "SBH",
+        "duration": "Süre",
+        "totalBaseDamage": "Toplam Taban Hasar",
+        "currentTotalDamage": "Mevcut Toplam Hasar"
+    },
+
+    "leaderboard": {
+        "boss": "Patron",
+        "elapsedTime": "Geçen Süre",
+        "second": "Sn",
+        "remainingHp": "Kalan HP",
+        "AverageDps5Sec": "Ortalama SBH (Son 5 Sn)",
+        "AverageDps": "Ortalama SBH",
+        "maxDps": "En Yüksek SBH",
+        "physicalDmg": "Fiziksel Hasar",
+        "magicalDmg": "Büyü Hasarı",
+        "earnedExp": "Kazanılan Deneyim",
+        "earnedGold": "Kazanılan Altın"
+    }
+}

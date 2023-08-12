@@ -1,9 +1,10 @@
+import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../constants/app_colors.dart';
 import '../../constants/app_image_paths.dart';
-import '../../constants/app_strings.dart';
+import '../../constants/locale_keys.g.dart';
 import '../../extensions/context_extension.dart';
 import '../../extensions/number_extension.dart';
 import '../../extensions/widget_extension.dart';
@@ -96,12 +97,12 @@ class _LeaderboardDialogState extends State<LeaderboardDialog> with ScreenStateM
 
   Widget challengerTitles() {
     if (widget.leaderboardType != LeaderboardType.Challenger) return const EmptyBox();
-    return const Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Expanded(flex: 5, child: Text(AppStrings.username)),
-        Expanded(flex: 2, child: Center(child: Text(AppStrings.time))),
-        Expanded(flex: 2, child: Center(child: Text('${AppStrings.score}    '))),
+        Expanded(flex: 5, child: Text(LocaleKeys.formDialog_username.locale)),
+        Expanded(flex: 2, child: Center(child: Text(LocaleKeys.commonGeneral_time.locale))),
+        Expanded(flex: 2, child: Center(child: Text('${LocaleKeys.commonGeneral_score.locale}    '))),
       ],
     ).wrapPadding(const EdgeInsets.all(8.0));
   }
@@ -109,7 +110,7 @@ class _LeaderboardDialogState extends State<LeaderboardDialog> with ScreenStateM
   AppOutlinedButton showMoreBtn() {
     return AppOutlinedButton(
       width: double.infinity,
-      title: AppStrings.showMore,
+      title: LocaleKeys.commonGeneral_showMore.locale,
       isButtonActive: !isLoading,
       onPressed: showMoreFn,
     );
@@ -119,7 +120,7 @@ class _LeaderboardDialogState extends State<LeaderboardDialog> with ScreenStateM
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
     if ((results?.length ?? 0) >= 100) {
       AppSnackBar.showSnackBarMessage(
-        text: AppStrings.sbCannotFetchMore, 
+        text: LocaleKeys.snackbarMessages_sbCannotFetchMore.locale, 
         snackBartype: SnackBarType.info,
       );
       return;
@@ -261,11 +262,11 @@ class _LeaderboardDialogState extends State<LeaderboardDialog> with ScreenStateM
       title: model.name,
       content: Column(
         children: [
-          _resultField(AppStrings.elapsedTime, '${model.time} ${AppStrings.second}'),
-          _resultField(AppStrings.maxDps,      model.maxDps.numberFormat),
-          _resultField(AppStrings.AverageDps,  model.averageDps.numberFormat),
-          _resultField(AppStrings.physicalDmg, model.physicalDamage.numberFormat),
-          _resultField(AppStrings.magicalDmg,  model.magicalDamage.numberFormat),
+          _resultField(LocaleKeys.leaderboard_elapsedTime.locale, '${model.time} ${LocaleKeys.leaderboard_second.locale}'),
+          _resultField(LocaleKeys.leaderboard_maxDps.locale,      model.maxDps.numberFormat),
+          _resultField(LocaleKeys.leaderboard_AverageDps.locale,  model.averageDps.numberFormat),
+          _resultField(LocaleKeys.leaderboard_physicalDmg.locale, model.physicalDamage.numberFormat),
+          _resultField(LocaleKeys.leaderboard_magicalDmg.locale,  model.magicalDamage.numberFormat),
           Container(
             padding: const EdgeInsets.all(8),
             margin: const EdgeInsets.symmetric(vertical: 2),
@@ -275,7 +276,7 @@ class _LeaderboardDialogState extends State<LeaderboardDialog> with ScreenStateM
             ),
             child: Row(
               children: [
-                const Text('${AppStrings.items} : ', style: TextStyle(fontWeight: FontWeight.w500),),
+                Text('${LocaleKeys.commonGeneral_items.locale} : ', style: const TextStyle(fontWeight: FontWeight.w500),),
                 for (var i = 0; i < 6; i++)
                   i < itemWidgets.length ? itemWidgets[i].wrapExpanded() : const EmptyBox().wrapExpanded(),
               ],
@@ -284,7 +285,7 @@ class _LeaderboardDialogState extends State<LeaderboardDialog> with ScreenStateM
         ],
       ),
       action: AppOutlinedButton(
-        title: AppStrings.back,
+        title: LocaleKeys.commonGeneral_back.locale,
         onPressed: () {
           Navigator.pop(context);
         },

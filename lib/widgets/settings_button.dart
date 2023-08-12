@@ -1,7 +1,8 @@
+import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/app_colors.dart';
-import '../constants/app_strings.dart';
+import '../constants/locale_keys.g.dart';
 import '../extensions/context_extension.dart';
 import '../screens/dashboard/settings/settings_view.dart';
 import 'app_dialogs.dart';
@@ -69,7 +70,7 @@ class _SettingsButtonState extends State<SettingsButton> with SingleTickerProvid
     _controller.forward();
     await AppDialogs.showSlidingDialog<bool>(
       height: context.dynamicHeight(0.64),
-      title: AppStrings.settings, 
+      title: LocaleKeys.mainMenu_settings.locale,
       content: const SettingsView(),
       showBackButton: true,
       dismissible: true,

@@ -87,6 +87,7 @@ class AchievementManager {
     UserManager.instance.user.achievements?[achievementName] = progress;
   }
 
+  //TODO: DİL
   //First Achievement total progress
   AchievementWidgetModel get achieveAll {
     final int currentProgress = achievements.where((e) => e.isDone == true).toList().length;

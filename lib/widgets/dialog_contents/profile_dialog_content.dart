@@ -1,12 +1,13 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/app_colors.dart';
 import '../../constants/app_image_paths.dart';
-import '../../constants/app_strings.dart';
+import '../../constants/locale_keys.g.dart';
 import '../../extensions/context_extension.dart';
-import '../../extensions/widget_extension.dart';
 import '../../providers/boss_battle_provider.dart';
 import '../../screens/profile/achievements/achievements_view.dart';
 import '../../screens/profile/boss_gallery/boss_gallery_view.dart';
@@ -46,21 +47,28 @@ class ProfileDialogContent extends StatelessWidget {
       child: SizedBox(
         height: context.dynamicHeight(0.14),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Image.asset(ImagePaths.icAchievements),
-            Column(
-              children: [
-                const Text(AppStrings.achievements)
-                  .wrapFittedBox()
-                  .wrapExpanded(flex: 2),
-                Text('$current/$totalCount',)
-                  .wrapFittedBox()
-                  .wrapExpanded(flex: 1),
-                const Spacer(),
-              ],
-            ).wrapExpanded(flex: 2),
-            const Icon(Icons.chevron_right, color: AppColors.amber).wrapCenter()
+            Image.asset(ImagePaths.icAchievements, width: context.dynamicWidth(0.24),),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  AutoSizeText(
+                    LocaleKeys.mainMenu_achievements.locale,
+                    style: TextStyle(fontSize: context.sp(18)),
+                    maxLines: 1,
+                  ),
+                  AutoSizeText(
+                    '$current/$totalCount',
+                    style: TextStyle(fontSize: context.sp(14)),
+                    maxLines: 1,
+                  ),
+                ],
+              ),
+            ),
+            const Icon(Icons.chevron_right, color: AppColors.amber)
           ],
         ),
       ),
@@ -73,9 +81,18 @@ class ProfileDialogContent extends StatelessWidget {
       child: SizedBox(
         height: context.dynamicHeight(0.14),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Image.asset(ImagePaths.icInvokerHead).wrapExpanded(flex: 2),
-            const FittedBox(child: Text(AppStrings.bossGallery)).wrapExpanded(flex: 3),
+            Image.asset(ImagePaths.icInvokerHead, width: context.dynamicWidth(0.24),),
+            Expanded(
+              child: AutoSizeText(
+                LocaleKeys.mainMenu_bossGallery.locale,
+                style: TextStyle(fontSize: context.sp(18)),
+                maxLines: 1,
+                textAlign: TextAlign.center,
+              ),
+            ),
             const Icon(Icons.chevron_right, color: AppColors.amber),
           ],
         ),
@@ -90,21 +107,27 @@ class ProfileDialogContent extends StatelessWidget {
       onPressed: () async {
         final hasConnection = await InternetConnectionChecker().hasConnection;
         if (!hasConnection) {
-          AppSnackBar.showSnackBarMessage(text: AppStrings.errorConnection, snackBartype: SnackBarType.error);
+          AppSnackBar.showSnackBarMessage(text: LocaleKeys.snackbarMessages_errorConnection.locale, snackBartype: SnackBarType.error);
           return;
         }
         
         if (DateTime.now().difference(UserManager.instance.lastSyncedDate) < UserManager.instance.waitSyncDuration) {
-          AppSnackBar.showSnackBarMessage(text: AppStrings.syncDataWait, snackBartype: SnackBarType.info);
+          AppSnackBar.showSnackBarMessage(
+            text: LocaleKeys.snackbarMessages_syncDataWait.locale, 
+            snackBartype: SnackBarType.info,
+          );
           return;
         }
 
         UserManager.instance.updateSyncedDate();
         await UserManager.instance.saveUserToDb(UserManager.instance.user);
-        AppSnackBar.showSnackBarMessage(text: AppStrings.syncDataSuccess, snackBartype: SnackBarType.success);
+        AppSnackBar.showSnackBarMessage(
+          text: LocaleKeys.snackbarMessages_syncDataSuccess.locale, 
+          snackBartype: SnackBarType.success,
+        );
         if (context.mounted) Navigator.pop(context);
       }, 
-      title: AppStrings.syncData,
+      title: LocaleKeys.commonGeneral_syncData.locale,
     );
   }
   
@@ -117,7 +140,7 @@ class ProfileDialogContent extends StatelessWidget {
         AchievementManager.instance.updateAchievements(); //Reset achievements
         if (context.mounted) Navigator.pop(context);
       }, 
-      title: AppStrings.logout,
+      title: LocaleKeys.commonGeneral_logout.locale,
     );
   }
 

@@ -1,7 +1,9 @@
+import 'package:dota2_invoker_game/extensions/string_extension.dart';
+
+import '../../../constants/locale_keys.g.dart';
 import '../../../extensions/context_extension.dart';
 import 'package:flutter/material.dart';
 
-import '../../../constants/app_strings.dart';
 import '../../../utils/ads_helper.dart';
 import '../../../widgets/app_scaffold.dart';
 import '../../../widgets/dialog_contents/leaderboard_dialog.dart';
@@ -32,12 +34,12 @@ class _ComboViewState extends State<ComboView> {
         clipBehavior: Clip.none,
         children: [
           adBannerWidget(),
-          const Column(
+          Column(
             children: [
-              GameUIWidget(gameType: GameType.Combo),
+              const GameUIWidget(gameType: GameType.Combo),
               ShowLeaderBoardButton(
-                title: AppStrings.leaderboard, 
-                contentDialog: LeaderboardDialog(leaderboardType: LeaderboardType.Combo),
+                title: LocaleKeys.commonGeneral_leaderboard.locale, 
+                contentDialog: const LeaderboardDialog(leaderboardType: LeaderboardType.Combo),
               ),
             ],
           ),

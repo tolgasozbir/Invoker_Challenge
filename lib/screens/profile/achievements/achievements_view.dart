@@ -1,7 +1,8 @@
+import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
-import '../../../constants/app_strings.dart';
+import '../../../constants/locale_keys.g.dart';
 import '../../../services/achievement_manager.dart';
 import '../../../widgets/app_scaffold.dart';
 import 'widgets/achievement_widget.dart';
@@ -15,7 +16,7 @@ class AchievementsView extends StatelessWidget {
       extendBodyBehindAppBar: false,
       appbar: AppBar(
         centerTitle: true,
-        title: const Text(AppStrings.achievements),
+        title: Text(LocaleKeys.mainMenu_achievements.locale),
       ),
       body: _bodyView(),
     );

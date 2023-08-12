@@ -1,3 +1,6 @@
+import 'package:dota2_invoker_game/extensions/string_extension.dart';
+
+import '../../constants/locale_keys.g.dart';
 import '../../models/score_models/combo.dart';
 import '../../services/database/firestore_service.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +8,6 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/app_colors.dart';
-import '../../constants/app_strings.dart';
 import '../../enums/database_table.dart';
 import '../../extensions/context_extension.dart';
 import '../../extensions/widget_extension.dart';
@@ -52,26 +54,27 @@ class _ResultDialogContentState extends State<ResultDialogContent> {
   Widget build(BuildContext context) {
    return Column(
     children: [
-      resultField(context, AppStrings.score, widget.correctCount.toString()),
-      resultField(context, AppStrings.time, widget.time.toString()),
-      resultField(context, AppStrings.exp, '+${UserManager.instance.expCalc(widget.exp).toStringAsFixed(0)}'),
+      resultField(context, LocaleKeys.commonGeneral_score.locale, widget.correctCount.toString()),
+      resultField(context, LocaleKeys.commonGeneral_time.locale, widget.time.toString()),
+      resultField(context, LocaleKeys.commonGeneral_exp.locale, '+${UserManager.instance.expCalc(widget.exp).toStringAsFixed(0)}'),
       const EmptyBox.h16(),
       if(!context.watch<GameProvider>().isAdWatched) watchAdButton(context),
       const EmptyBox.h8(),
       Text(
-        AppStrings.bestScore,
+        LocaleKeys.commonGeneral_bestScore.locale,
         textAlign: TextAlign.center,
         style: TextStyle(
           fontWeight: FontWeight.w500, 
           fontSize: context.sp(13),
         ),
       ),
-      resultField(context, AppStrings.score, UserManager.instance.getBestScore(widget.gameType).toString())
+      resultField(context, LocaleKeys.commonGeneral_score.locale, UserManager.instance.getBestScore(widget.gameType).toString())
     ],
    );
   }
 
   WatchAdButton watchAdButton(BuildContext context) {
+    //TODO: DİLE EKLE 
     String btnTitle = '';
     switch (widget.gameType) {
       case GameType.Training:
@@ -159,13 +162,13 @@ class _ResultDialogActionState extends State<ResultDialogAction> with ScreenStat
     return Row(
       children: [
         AppOutlinedButton(
-          title: AppStrings.send,
+          title: LocaleKeys.commonGeneral_send.locale,
           isButtonActive: !isLoading,
           onPressed: () async => submitScoreFn(widget.databaseTable),
         ).wrapExpanded(),
         const EmptyBox.w8(),
         AppOutlinedButton(
-          title: AppStrings.back,
+          title: LocaleKeys.commonGeneral_back.locale,
           isButtonActive: !isLoading,
           onPressed: () => Navigator.pop(context),
         ).wrapExpanded(),
@@ -184,7 +187,7 @@ class _ResultDialogActionState extends State<ResultDialogAction> with ScreenStat
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
     if (uid == null) {
       AppSnackBar.showSnackBarMessage(
-        text: AppStrings.errorSubmitScore1, 
+        text: LocaleKeys.snackbarMessages_errorSubmitScore1.locale, 
         snackBartype: SnackBarType.error,
       );
       return;
@@ -192,7 +195,7 @@ class _ResultDialogActionState extends State<ResultDialogAction> with ScreenStat
 
     if (score < UserManager.instance.getBestScore(widget.gameType)) {
       AppSnackBar.showSnackBarMessage(
-        text: AppStrings.errorSubmitScore2, 
+        text: LocaleKeys.snackbarMessages_errorSubmitScore2.locale, 
         snackBartype: SnackBarType.error,
       );
       return;
@@ -201,7 +204,7 @@ class _ResultDialogActionState extends State<ResultDialogAction> with ScreenStat
     final hasConnection = await InternetConnectionChecker().hasConnection;
     if (!hasConnection) {
       AppSnackBar.showSnackBarMessage(
-        text: AppStrings.errorConnection, 
+        text: LocaleKeys.snackbarMessages_errorConnection.locale, 
         snackBartype: SnackBarType.error,
       );
       return;
@@ -245,12 +248,12 @@ class _ResultDialogActionState extends State<ResultDialogAction> with ScreenStat
 
     if (isOk) {
       AppSnackBar.showSnackBarMessage(
-        text: AppStrings.succesSubmitScore, 
+        text: LocaleKeys.snackbarMessages_succesSubmitScore.locale, 
         snackBartype: SnackBarType.success,
       );
     } else {
       AppSnackBar.showSnackBarMessage(
-        text: AppStrings.errorMessage, 
+        text: LocaleKeys.snackbarMessages_errorMessage.locale, 
         snackBartype: SnackBarType.error,
       );
     }

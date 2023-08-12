@@ -1,10 +1,12 @@
+import 'package:dota2_invoker_game/extensions/string_extension.dart';
+
+import '../constants/locale_keys.g.dart';
 import '../enums/spells.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/app_colors.dart';
 import '../constants/app_image_paths.dart';
-import '../constants/app_strings.dart';
 import '../enums/database_table.dart';
 import '../enums/elements.dart';
 import '../enums/local_storage_keys.dart';
@@ -111,7 +113,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, ScreenStateM
   Widget trueCounter(){
     final score = context.watch<GameProvider>().getCorrectCombinationCount.toString();
     return Text(
-      '${AppStrings.score}: $score',
+      '${LocaleKeys.commonGeneral_score.locale}: $score',
       textAlign: TextAlign.right,
       style: TextStyle(
         fontSize: context.sp(18), 
@@ -357,7 +359,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, ScreenStateM
     final isStart = context.read<GameProvider>().isStart;
     if (isStart) return const EmptyBox();
     return AppOutlinedButton(
-      title: AppStrings.start, 
+      title: LocaleKeys.commonGeneral_start.locale, 
       width: context.dynamicWidth(0.4),
       padding: EdgeInsets.only(top: context.dynamicHeight(0.04)),
       onPressed: startBtnFn,

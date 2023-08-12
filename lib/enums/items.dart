@@ -1,5 +1,5 @@
 import '../constants/app_image_paths.dart';
-
+//TODO: DİL
 enum Items {
   Null_talisman(
     bonus: 'Increases mana by +60 and +0.8 mana regeneration', 

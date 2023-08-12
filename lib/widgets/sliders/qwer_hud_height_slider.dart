@@ -1,7 +1,8 @@
+import 'package:dota2_invoker_game/constants/locale_keys.g.dart';
+import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/app_colors.dart';
-import '../../constants/app_strings.dart';
 import '../../enums/local_storage_keys.dart';
 import '../../extensions/widget_extension.dart';
 import '../../services/app_services.dart';
@@ -96,12 +97,12 @@ class _QWERHudHeightSliderState extends State<QWERHudHeightSlider> {
       icon: const Icon(Icons.question_mark),
       onPressed: () {
         AppSnackBar.showSnackBarMessage(
-          text: AppStrings.qwerHudInfoMessage1, 
+          text: LocaleKeys.snackbarMessages_qwerHudInfoMessage1.locale, 
           snackBartype: SnackBarType.info,
           duration: const Duration(milliseconds: 3000),
         );
         AppSnackBar.showSnackBarMessage(
-          text: AppStrings.qwerHudInfoMessage2, 
+          text: LocaleKeys.snackbarMessages_qwerHudInfoMessage2.locale, 
           snackBartype: SnackBarType.info,
           duration: const Duration(milliseconds: 3000),
         );

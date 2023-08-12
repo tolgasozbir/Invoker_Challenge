@@ -1,8 +1,9 @@
+import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../constants/app_colors.dart';
-import '../constants/app_strings.dart';
+import '../constants/locale_keys.g.dart';
 import '../extensions/context_extension.dart';
 import '../extensions/widget_extension.dart';
 import '../models/user_model.dart';
@@ -26,7 +27,7 @@ class UserStatus extends StatelessWidget {
   String get username => user.username;
   double get currentExp => user.exp;
   double get nextLevelExp => UserManager.instance.nextLevelExp;
-  String get level => '${AppStrings.level} ${user.level}';
+  String get level => '${LocaleKeys.mainMenu_level.locale} ${user.level}';
   bool get hasUid => user.uid != null;
 
   @override
@@ -57,7 +58,7 @@ class UserStatus extends StatelessWidget {
       dismissible: true,
       showBackButton: true,
       height: hasUid ? context.dynamicHeight(0.64) : 500,
-      title:  hasUid ? AppStrings.profile : '${AppStrings.login}&${AppStrings.register}',
+      title:  hasUid ? LocaleKeys.mainMenu_profile.locale : '${LocaleKeys.formDialog_login.locale}&${LocaleKeys.formDialog_register.locale}',
       uid: UserManager.instance.user.uid,
       content: hasUid
         ? const ProfileDialogContent()

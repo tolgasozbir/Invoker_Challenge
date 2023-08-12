@@ -1,0 +1,156 @@
+{
+    "mainMenu" : {
+        "titleTraining": "Training / Endless",
+        "titleWithTimer": "Time Trial",
+        "titleChallenger": "Challenger",
+        "titleCombo": "Combo",
+        "titleBossMode": "Boss Battle",
+        "quitGame": "Quit Game",
+        "settings": "Settings",
+        "profile": "Profile",
+        "achievements": "Achievements",
+        "bossGallery": " Boss Gallery ",
+        "level": "Level"
+    },
+
+    "loading" : {
+        "message1" : "Remember, as you level up, your damage, spell damage, mana, and mana regeneration also increase, making it easier for you to defeat bosses. To level up, you can play timer, challenger, and boss modes.",
+        "message2" : "Your data is saved on your device, don't forget to synchronize it from the profile menu to avoid losing your data."
+    },
+
+    "commonGeneral": {
+        "leaderboard": "Leaderboard",
+        "showMore": "Show more",
+        "result": "Results",
+        "stageResults": "Stage Summary",
+        "send": "Submit",
+        "start": "Start",
+        "starting": "Starting",
+        "close": "Close",
+        "back": "Back",
+        "logout": "Logout",
+        "victory": "Victory",
+        "defeated": "Defeated",
+        "last": "(Last) ",
+        "time": "Time",
+        "score": "Score",
+        "bestScore": "Best Score",
+        "bestScoreByKill": "Your best score by kill time",
+        "exp": "Experience",
+        "syncData": "Synchronize and store the data",
+        "save": "Save",
+        "delete": "Delete",
+        "loadGame": "Load Game",
+        "nextBoss": "Next Boss",
+        "items": "Items"
+    },
+
+    "formDialog" : {
+        "guest": "Guest",
+        "eMail": "Email",
+        "eMailHint": "fakeKuroKy@xyz.com",
+        "username": "Username",
+        "usernameHint": "KuroKy",
+        "password": "Password",
+        "login": "Login",
+        "or": "-OR-",
+        "register": "Register",
+        "resetPw": "Reset your password!",
+        "reset": "Reset"
+    },
+
+    "inputValidation" : {
+        "cannotEmpty": "Cannot be empty",
+        "invalidMail": "Invalid email",
+        "invalidPass": "Must be at least 6 characters"
+    },
+
+    "snackbarMessages" : {
+        "fillFields": "Please fill out all required fields",
+        "errorMessage": "Something went wrong!",
+        "errorConnection": "Check your internet connection and try again.",
+        "errorSubmitScore1": "You must be logged in to submit your score.",
+        "errorSubmitScore2": "To submit your score, you need to beat your previous score.",
+        "succesSubmitScore": "Your score has been sent successfully.",
+        "feedbackInfoMessage": "Your message must be at least 10 characters.",
+        "feedbackSuccessMessage": "Thank you! your feedback will help me improve your experience.",
+        "qwerHudInfoMessage1": "Adjusts the height of the quas, wex, exort, and invoke buttons.",
+        "qwerHudInfoMessage2": "The higher it is, the closer it is to the bottom.",
+        "syncDataSuccess": "Your data has been successfully saved.",
+        "syncDataWait": "You can perform synchronization every 5 minutes.",
+        "sbInfo": "Info",
+        "sbSuccess": "Success",
+        "sbError": "Error",
+        "sbNoMoreData": "No more data!",
+        "sbWaitAnimation": "Button is inactive, it will be enabled in 5 seconds. Please wait.",
+        "sbInventoryFull": "Inventory is full!",
+        "sbNotEnoughGold": "Not enough gold",
+        "sbCannotFetchMore": "Cannot show more data",
+        "sbGameSaved": "Game saved",
+        "sbResetPw": "A password reset request has been sent to your email. Please check your email."
+    },
+
+    "authErrorMessages" : {
+        "AuthInvalidMail": "Invalid e-mail address.",
+        "AuthUserNotFound": "Account not found",
+        "AuthWrongPassword": "Password is invalid",
+        "AuthWeakPassword": "Password should be at least 6 characters.",
+        "AuthEmailAlreadyInUse": "The email address is already in use by another account.",
+        "AuthUnknown": "Given values are empty",
+        "AuthToManyRequests": "We have blocked all requests from this device due to unusual activity. Try again later.",
+        "AuthDefaultError": "Something went wrong, try again!"
+    },
+
+    "talents" : {
+        "talentTree": "Talent Tree",
+        "talent10": "+400 Mana in Boss Battle",
+        "talent15": "+1 Challenger Life",
+        "talent20": "+2 Exp Multiplier",
+        "talent25": "D. Dmg to Bosses"
+    },
+
+    "settings" : {
+        "feedback": "Feedback",
+        "rateApp": "Rate this app",
+        "volume": "Volume"
+    },
+
+    "feedback" : {
+        "fbTitleFirst": "Send me your",
+        "fbTitleSecond": "Feedback!",
+        "fbMidText": "Tell me how your experience was and let me know what I can improve.",
+        "fbHint": "Drop me any suggestions, questions or complaints to improve :)",
+        "fbSendBtn": "Send Feedback"
+    },
+
+    "bossBattleInfo" : {
+        "aboutTheGame": "About the game.",
+        "spellDamageSheet": "Spell Damage Sheets",
+        "note": "Note: Each level increases the spell damage by 2%.",
+        "circlesMeaning": "Meaning of Circles",
+        "outerCircleInfo": "The outer circle represents the boss's health.",
+        "middleCircleInfo": "The middle circle represents the number of rounds.",
+        "innerCircleInfo": "The inner circle represents the passage of time.",
+        "roundInfo": "Each round is 180 seconds long.",
+        "spell": "Spell",
+        "dps": "DPS",
+        "duration": "Duration",
+        "totalBaseDamage": "Total Base Damage",
+        "currentTotalDamage": "Current Total Damage"
+    },   
+
+    "leaderboard" : {
+        "boss": "Boss",
+        "elapsedTime": "Elapsed Time",
+        "second": "Sec",
+        "remainingHp": "Remaining HP",
+        "AverageDps5Sec": "Average DPS (Last 5 Sec)",
+        "AverageDps": "Average DPS",
+        "maxDps": "Max DPS",
+        "physicalDmg": "Physical Damage",
+        "magicalDmg": "Magical Damage",
+        "earnedExp": "Earned Exp",
+        "earnedGold": "Earned Gold"
+    }
+
+}
