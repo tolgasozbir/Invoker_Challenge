@@ -1,11 +1,12 @@
 import 'dart:math';
 
+import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../constants/app_colors.dart';
 import '../constants/app_image_paths.dart';
-import '../constants/app_strings.dart';
+import '../constants/locale_keys.g.dart';
 import '../extensions/widget_extension.dart';
 
 enum SnackBarType{
@@ -70,15 +71,15 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
     switch (widget.type) {
       case SnackBarType.info:
         snackBarColor = AppColors.infoColor;
-        snackBarTitle = AppStrings.sbInfo;
+        snackBarTitle = LocaleKeys.snackbarMessages_sbInfo.locale;
         break;
       case SnackBarType.success:
         snackBarColor = AppColors.successColor;
-        snackBarTitle = AppStrings.sbSuccess;
+        snackBarTitle = LocaleKeys.snackbarMessages_sbSuccess.locale;
         break;
       case SnackBarType.error:
         snackBarColor = AppColors.errorColor;
-        snackBarTitle = AppStrings.sbError;
+        snackBarTitle = LocaleKeys.snackbarMessages_sbError.locale;
         break;
     }
   }

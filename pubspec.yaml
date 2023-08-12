@@ -15,6 +15,9 @@ dependencies:
   #State Management
   provider: ^6.0.0
 
+  #Localization
+  easy_localization: ^3.0.2
+
   #Icons
   font_awesome_flutter: ^9.1.0
   cupertino_icons: ^1.0.2
@@ -24,6 +27,7 @@ dependencies:
   audioplayers: ^0.20.0
   internet_connection_checker: ^1.0.0+1
   url_launcher: ^6.1.10
+  auto_size_text: ^3.0.0
 
   #.env
   flutter_config: ^2.0.0
@@ -34,9 +38,9 @@ dependencies:
   shared_preferences: ^2.0.17
 
   #Firebase
-  firebase_core: ^2.4.1
-  cloud_firestore: ^4.3.1
-  firebase_auth: ^4.2.6
+  firebase_core: ^2.15.0
+  cloud_firestore: ^4.8.4
+  firebase_auth: ^4.7.2
 
   #Animation
   lottie: ^1.4.2
@@ -66,6 +70,8 @@ flutter:
 
   assets:
     - .env
+
+    - assets/lang/
 
     - assets/images/splash_images/
     - assets/images/qwe_gifs/

@@ -1,10 +1,12 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../constants/app_colors.dart';
-import '../../../constants/app_strings.dart';
+import '../../../constants/locale_keys.g.dart';
 import '../../../extensions/context_extension.dart';
 import '../../../utils/fade_in_page_animation.dart';
 import '../../../widgets/app_snackbar.dart';
@@ -28,14 +30,14 @@ class SettingsView extends StatelessWidget {
           menuItem(
             context: context,
             leading: FontAwesomeIcons.commentDots,
-            text: AppStrings.feedback,
+            text: LocaleKeys.settings_feedback.locale,
             onTap: () => Navigator.push(context, fadeInPageRoute(const FeedbackView())),
           ),
           divider(),
           menuItem(
             context: context,
             leading: FontAwesomeIcons.starHalfAlt,
-            text: AppStrings.rateApp,
+            text: LocaleKeys.settings_rateApp.locale,
             onTap: storeRedirect,
           ),
           divider(),
@@ -53,7 +55,7 @@ class SettingsView extends StatelessWidget {
       );
     }
     catch(e) {
-      AppSnackBar.showSnackBarMessage(text: AppStrings.errorMessage, snackBartype: SnackBarType.error);
+      AppSnackBar.showSnackBarMessage(text: LocaleKeys.snackbarMessages_errorMessage.locale, snackBartype: SnackBarType.error);
     }
   }
 
@@ -63,12 +65,15 @@ class SettingsView extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Icon(leading),
-          const Spacer(),
-          Text(text, style: TextStyle(fontSize: context.sp(14)),),
-          const Spacer(flex: 9,),
+          Expanded(
+            child: AutoSizeText(
+              '  $text',
+              style: TextStyle(fontSize: context.sp(14)),
+              maxLines: 1,
+            ),
+          ),
           const Icon(CupertinoIcons.chevron_forward)
         ],
       ),

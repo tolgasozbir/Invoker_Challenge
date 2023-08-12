@@ -1,3 +1,5 @@
+import 'package:dota2_invoker_game/utils/localization_manager.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -22,6 +24,8 @@ import 'widgets/app_snackbar.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  //Localization
+  await EasyLocalization.ensureInitialized();
   //App state observer
   final observer = MyAppLifecycleObserver();
   WidgetsBinding.instance.addObserver(observer);
@@ -40,15 +44,19 @@ void main() async {
     firebaseAuthService: FirebaseAuthService.instance,
   );
   //Providers
-  runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider(create: (context) => GameProvider()),
-      ChangeNotifierProvider(create: (context) => SpellProvider()),
-      ChangeNotifierProvider(create: (context) => UserManager.instance),
-      ChangeNotifierProvider(create: (context) => BossBattleProvider()),
-    ],
-    child: const MyApp(),
-  ),);
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => GameProvider()),
+        ChangeNotifierProvider(create: (context) => SpellProvider()),
+        ChangeNotifierProvider(create: (context) => UserManager.instance),
+        ChangeNotifierProvider(create: (context) => BossBattleProvider()),
+      ],
+      child: LocalizationManager(
+        child: const MyApp(),
+      ),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -60,9 +68,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: AppStrings.appName,
       theme: ThemeData.dark(),
-      home: const SplashView(),
       navigatorKey: AppDialogs.navigatorKey,
       scaffoldMessengerKey: AppSnackBar.scaffoldMessengerKey,
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+      home: const SplashView(),
     );
   }
 }

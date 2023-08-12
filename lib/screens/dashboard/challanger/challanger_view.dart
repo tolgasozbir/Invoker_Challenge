@@ -1,8 +1,9 @@
+import 'package:dota2_invoker_game/constants/locale_keys.g.dart';
+import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:snappable_thanos/snappable_thanos.dart';
 
 import '../../../constants/app_image_paths.dart';
-import '../../../constants/app_strings.dart';
 import '../../../extensions/context_extension.dart';
 import '../../../services/user_manager.dart';
 import '../../../widgets/app_scaffold.dart';
@@ -32,12 +33,12 @@ class _ChallangerViewState extends State<ChallangerView> {
     return SingleChildScrollView(
       child: Stack(
         children: [
-          const Column(
+          Column(
             children: [
-              GameUIWidget(gameType: GameType.Challanger),
+              const GameUIWidget(gameType: GameType.Challanger),
               ShowLeaderBoardButton(
-                title: AppStrings.leaderboard, 
-                contentDialog: LeaderboardDialog(leaderboardType: LeaderboardType.Challenger),
+                title: LocaleKeys.commonGeneral_leaderboard.locale, 
+                contentDialog: const LeaderboardDialog(leaderboardType: LeaderboardType.Challenger),
               ),
             ],
           ),

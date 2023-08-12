@@ -1,3 +1,6 @@
+import 'package:dota2_invoker_game/constants/locale_keys.g.dart';
+import 'package:dota2_invoker_game/extensions/string_extension.dart';
+
 import 'combo/combo_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -67,34 +70,34 @@ class DashboardView extends StatelessWidget {
   }
 
   List<Widget> get menuBtns => [
-    const MenuButton( 
+    MenuButton( 
       color: AppColors.quasColor,
       imagePath: ImagePaths.quas,
-      title: AppStrings.titleTraining,
-      navigatePage: TrainingView(),
+      title: LocaleKeys.mainMenu_titleTraining.locale,
+      navigatePage: const TrainingView(),
     ),
-    const MenuButton(
+    MenuButton(
       color: AppColors.wexColor,
       imagePath: ImagePaths.wex,
-      title: AppStrings.titleWithTimer,
-      navigatePage: TimeTrialView(),
+      title: LocaleKeys.mainMenu_titleWithTimer.locale,
+      navigatePage: const TimeTrialView(),
     ),
-    const MenuButton(
+    MenuButton(
       color: AppColors.exortColor,
       imagePath: ImagePaths.exort,
-      title: AppStrings.titleChallenger,
-      navigatePage: ChallangerView(),
+      title: LocaleKeys.mainMenu_titleChallenger.locale,
+      navigatePage: const ChallangerView(),
     ),
-    const MenuButton(
+    MenuButton(
       color: AppColors.comboBtnColor,
       imagePath: ImagePaths.icCombo,
-      title: AppStrings.titleCombo,
-      navigatePage: ComboView(),
+      title: LocaleKeys.mainMenu_titleCombo.locale,
+      navigatePage: const ComboView(),
     ),
     MenuButton(
       color: AppColors.white,
       imagePath: Elements.invoke.getImage,
-      title: AppStrings.titleBossMode,
+      title: LocaleKeys.mainMenu_titleBossMode.locale,
       bannerTitle: 'Beta',
       animType: AnimType.Rotation,
       fit: BoxFit.contain,

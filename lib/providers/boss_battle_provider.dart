@@ -4,10 +4,11 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:math' as math;
 
+import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:snappable_thanos/snappable_thanos.dart';
 
-import '../constants/app_strings.dart';
+import '../constants/locale_keys.g.dart';
 import '../enums/Bosses.dart';
 import '../enums/items.dart';
 import '../enums/spells.dart';
@@ -621,13 +622,13 @@ class BossBattleProvider extends ChangeNotifier {
     _updateManaAndBaseDamage();
     _resetCooldowns();
 
-    final String lastBossText = roundProgress+1 == Bosses.values.length ? AppStrings.last : '';
+    final String lastBossText = roundProgress+1 == Bosses.values.length ? LocaleKeys.commonGeneral_last.locale : '';
 
     AppDialogs.showSlidingDialog(
       dismissible: false,
       showBackButton: false,
       height: 540,
-      title: '${(roundProgress+1).getOrdinal} $lastBossText${AppStrings.stageResults}',
+      title: '${(roundProgress+1).getOrdinal} $lastBossText${LocaleKeys.commonGeneral_stageResults.locale}',
       content: BossResultRoundDialogContent(
         model: model, 
         earnedGold: gainedGold + (_isActiveMidas ? midasGold : 0), 

@@ -1,3 +1,6 @@
+import 'package:dota2_invoker_game/extensions/string_extension.dart';
+
+import '../../constants/locale_keys.g.dart';
 import '../../services/user_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +9,6 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../../constants/app_colors.dart';
 import '../../constants/app_image_paths.dart';
-import '../../constants/app_strings.dart';
 import '../../extensions/context_extension.dart';
 import '../../extensions/widget_extension.dart';
 import '../../mixins/input_validation_mixin.dart';
@@ -40,8 +42,8 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
         children: [
           usernameFieldAnimated(),
           AppTextFormField(
-            topLabel: AppStrings.eMail,
-            hintText: AppStrings.eMailHint,
+            topLabel: LocaleKeys.formDialog_eMail.locale,
+            hintText: LocaleKeys.formDialog_eMailHint.locale,
             controller: eMailController,
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
@@ -49,7 +51,7 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
           ),
           const EmptyBox.h16(),
           AppTextFormField(
-            topLabel: AppStrings.password,
+            topLabel: LocaleKeys.formDialog_password.locale,
             obscureText: showPassword,
             controller: passwordController,
             keyboardType: TextInputType.visiblePassword,
@@ -67,12 +69,12 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
           Row(
             children: [
               ...checkboxLoginRegister(
-                title: AppStrings.login, 
+                title: LocaleKeys.formDialog_login.locale, 
                 isSelected: isLoginCheckboxSelected,
               ),
-              Text(AppStrings.or, style: textStyle,),
+              Text(LocaleKeys.formDialog_or.locale, style: textStyle,),
               ...checkboxLoginRegister(
-                title: AppStrings.register, 
+                title: LocaleKeys.formDialog_register.locale, 
                 isSelected: !isLoginCheckboxSelected,
               ),
             ],
@@ -90,8 +92,8 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
     return AnimatedCrossFade(
       firstChild: const SizedBox(height: 16, width: double.infinity,),
       secondChild: AppTextFormField(
-        topLabel: AppStrings.username,
-        hintText: AppStrings.usernameHint,
+        topLabel: LocaleKeys.formDialog_username.locale,
+        hintText: LocaleKeys.formDialog_usernameHint.locale,
         controller: usernameController,
         textInputAction: TextInputAction.next,
         maxLength: isLoginCheckboxSelected ? null : 16,
@@ -156,7 +158,7 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
       width: double.infinity,
       onPressed: onTapFn, 
       isButtonActive: !isLoading,
-      title: isLoginCheckboxSelected ? AppStrings.login : AppStrings.register,
+      title: isLoginCheckboxSelected ? LocaleKeys.formDialog_login.locale : LocaleKeys.formDialog_register.locale,
       textStyle: textStyle,
     ).wrapPadding(const EdgeInsets.symmetric(horizontal: 4));
   }
@@ -167,14 +169,17 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
     updateScreen();
     if (!isValidate) {
       ScaffoldMessenger.of(context).removeCurrentSnackBar();
-      AppSnackBar.showSnackBarMessage(text: AppStrings.fillFields, snackBartype: SnackBarType.info);
+      AppSnackBar.showSnackBarMessage(
+        text: LocaleKeys.snackbarMessages_fillFields.locale, 
+        snackBartype: SnackBarType.info,
+      );
       return;
     }
 
     final bool hasConnection = await InternetConnectionChecker().hasConnection;
     if (!hasConnection) {
       ScaffoldMessenger.of(context).removeCurrentSnackBar();
-      AppSnackBar.showSnackBarMessage(text: AppStrings.errorConnection, snackBartype: SnackBarType.info);
+      AppSnackBar.showSnackBarMessage(text: LocaleKeys.snackbarMessages_errorConnection.locale, snackBartype: SnackBarType.info);
       return;
     }
     

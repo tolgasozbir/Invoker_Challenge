@@ -1,3 +1,6 @@
+import 'package:dota2_invoker_game/extensions/string_extension.dart';
+
+import '../../constants/locale_keys.g.dart';
 import '../../extensions/number_extension.dart';
 import '../../services/database/firestore_service.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +8,6 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/app_colors.dart';
-import '../../constants/app_strings.dart';
 import '../../extensions/context_extension.dart';
 import '../../extensions/widget_extension.dart';
 import '../../mixins/screen_state_mixin.dart';
@@ -45,17 +47,17 @@ class BossResultRoundDialogContent extends StatelessWidget {
     return  Column(
       children: [
         _victoryDefeatText(),
-        _resultField(AppStrings.boss,            model.boss),
-        _resultField(AppStrings.elapsedTime,     '${model.time} Sec'),
+        _resultField(LocaleKeys.leaderboard_boss.locale,            model.boss),
+        _resultField(LocaleKeys.leaderboard_elapsedTime.locale,     '${model.time} Sec'),
         if(timeUp) 
-          _resultField(AppStrings.remainingHp,   bossHpLeft.numberFormat),
-        _resultField(AppStrings.AverageDps5Sec,  model.averageDps.numberFormat),
-        _resultField(AppStrings.maxDps,          model.maxDps.numberFormat),
-        _resultField(AppStrings.physicalDmg,     model.physicalDamage.numberFormat),
-        _resultField(AppStrings.magicalDmg,      model.magicalDamage.numberFormat),
-        _resultField(AppStrings.earnedExp,       earnedExp.numberFormat),
+          _resultField(LocaleKeys.leaderboard_remainingHp.locale,   bossHpLeft.numberFormat),
+        _resultField(LocaleKeys.leaderboard_AverageDps5Sec.locale,  model.averageDps.numberFormat),
+        _resultField(LocaleKeys.leaderboard_maxDps.locale,          model.maxDps.numberFormat),
+        _resultField(LocaleKeys.leaderboard_physicalDmg.locale,     model.physicalDamage.numberFormat),
+        _resultField(LocaleKeys.leaderboard_magicalDmg.locale,      model.magicalDamage.numberFormat),
+        _resultField(LocaleKeys.leaderboard_earnedExp.locale,       earnedExp.numberFormat),
         if (!timeUp && isLast) ...[
-          _resultField(AppStrings.earnedGold, earnedGold.numberFormat),
+          _resultField(LocaleKeys.leaderboard_earnedGold.locale, earnedGold.numberFormat),
           const EmptyBox.h4(),
           watchAdButton(context),
         ],
@@ -66,7 +68,7 @@ class BossResultRoundDialogContent extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  AppStrings.bestScoreByKill,
+                  LocaleKeys.commonGeneral_bestScoreByKill.locale,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontWeight: FontWeight.w500, 
@@ -79,11 +81,11 @@ class BossResultRoundDialogContent extends StatelessWidget {
             ),
           ),
           if (timeUp) const EmptyBox.h8(),
-          _resultField(AppStrings.elapsedTime, "${bestScore["time"]} ${AppStrings.second}"),
-          _resultField(AppStrings.AverageDps,  (bestScore['averageDps'] as double).numberFormat),
-          _resultField(AppStrings.maxDps,      (bestScore['maxDps'] as double).numberFormat),
-          _resultField(AppStrings.physicalDmg, (bestScore['physicalDamage'] as double).numberFormat),
-          _resultField(AppStrings.magicalDmg,  (bestScore['magicalDamage'] as double).numberFormat),
+          _resultField(LocaleKeys.leaderboard_elapsedTime.locale, "${bestScore["time"]} ${LocaleKeys.leaderboard_second.locale}"),
+          _resultField(LocaleKeys.leaderboard_AverageDps.locale,  (bestScore['averageDps'] as double).numberFormat),
+          _resultField(LocaleKeys.leaderboard_maxDps.locale,      (bestScore['maxDps'] as double).numberFormat),
+          _resultField(LocaleKeys.leaderboard_physicalDmg.locale, (bestScore['physicalDamage'] as double).numberFormat),
+          _resultField(LocaleKeys.leaderboard_magicalDmg.locale,  (bestScore['magicalDamage'] as double).numberFormat),
         ]
       ],
     );
@@ -99,7 +101,7 @@ class BossResultRoundDialogContent extends StatelessWidget {
           borderRadius: BorderRadius.circular(4),
         ),
         child: Text(
-          timeUp ? AppStrings.defeated : AppStrings.victory, 
+          timeUp ? LocaleKeys.commonGeneral_defeated.locale : LocaleKeys.commonGeneral_victory.locale, 
           style: TextStyle(
             fontSize: 18, 
             fontWeight: FontWeight.bold,
@@ -166,13 +168,13 @@ class _BossResultRoundDialogActionState extends State<BossResultRoundDialogActio
       children: [
         AppOutlinedButton(
           bgColor: isNewScore ? AppColors.green.withOpacity(0.24) : AppColors.red.withOpacity(0.24),
-          title: AppStrings.send,
+          title: LocaleKeys.commonGeneral_send.locale,
           isButtonActive: !isLoading,
           onPressed: () async => submitScoreFn(),
         ).wrapExpanded(),
         const EmptyBox.w8(),
         AppOutlinedButton(
-          title: AppStrings.back,
+          title: LocaleKeys.commonGeneral_back.locale,
           isButtonActive: !isLoading,
           onPressed: () => Navigator.pop(context),
         ).wrapExpanded(),
@@ -190,7 +192,7 @@ class _BossResultRoundDialogActionState extends State<BossResultRoundDialogActio
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
     if (uid == null) {
       AppSnackBar.showSnackBarMessage(
-        text: AppStrings.errorSubmitScore1, 
+        text: LocaleKeys.snackbarMessages_errorSubmitScore1.locale, 
         snackBartype: SnackBarType.error,
       );
       return;
@@ -198,7 +200,7 @@ class _BossResultRoundDialogActionState extends State<BossResultRoundDialogActio
 
     if (widget.model.time > bestTime) {
       AppSnackBar.showSnackBarMessage(
-        text: AppStrings.errorSubmitScore2, 
+        text: LocaleKeys.snackbarMessages_errorSubmitScore2.locale, 
         snackBartype: SnackBarType.error,
       );
       return;
@@ -207,7 +209,7 @@ class _BossResultRoundDialogActionState extends State<BossResultRoundDialogActio
     final hasConnection = await InternetConnectionChecker().hasConnection;
     if (!hasConnection) {
       AppSnackBar.showSnackBarMessage(
-        text: AppStrings.errorConnection, 
+        text: LocaleKeys.snackbarMessages_errorConnection.locale, 
         snackBartype: SnackBarType.error,
       );
       return;
@@ -225,12 +227,12 @@ class _BossResultRoundDialogActionState extends State<BossResultRoundDialogActio
 
     if (isOk) {
       AppSnackBar.showSnackBarMessage(
-        text: AppStrings.succesSubmitScore, 
+        text: LocaleKeys.snackbarMessages_succesSubmitScore.locale, 
         snackBartype: SnackBarType.success,
       );
     } else {
       AppSnackBar.showSnackBarMessage(
-        text: AppStrings.errorMessage, 
+        text: LocaleKeys.snackbarMessages_errorMessage.locale, 
         snackBartype: SnackBarType.error,
       );
     }

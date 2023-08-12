@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
-import '../../../constants/app_strings.dart';
+import '../../../constants/locale_keys.g.dart';
 import '../../../enums/Bosses.dart';
 import '../../../extensions/number_extension.dart';
 import '../../../extensions/string_extension.dart';
@@ -25,7 +25,7 @@ class _BossGalleryViewState extends State<BossGalleryView> {
       extendBodyBehindAppBar: false,
       appbar: AppBar(
         centerTitle: true,
-        title: const Text(AppStrings.bossGallery),
+        title: Text(LocaleKeys.mainMenu_bossGallery.locale),
       ),
       body: _bodyView(),
     );
@@ -86,10 +86,10 @@ class _BossGalleryViewState extends State<BossGalleryView> {
 
   void cardOnTapFn(Bosses boss) {
     AppDialogs.showScaleDialog(
-      title: '${AppStrings.leaderboard} ${boss.getName}',
+      title: '${LocaleKeys.commonGeneral_leaderboard.locale} ${boss.getName}',
       content: LeaderboardDialog(leaderboardType: LeaderboardType.Boss, bossName: boss.name.capitalize()),
       action: AppOutlinedButton(
-        title: AppStrings.back,
+        title: LocaleKeys.commonGeneral_back.locale,
         onPressed: () {
           Navigator.pop(context);
         },

@@ -1,8 +1,9 @@
 import 'dart:async';
 
+import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 
-import '../constants/app_strings.dart';
+import '../constants/locale_keys.g.dart';
 import '../enums/database_table.dart';
 import '../services/achievement_manager.dart';
 import '../services/user_manager.dart';
@@ -78,7 +79,7 @@ class GameProvider extends ChangeNotifier {
     UserManager.instance.addExp(exp);
     UserManager.instance.setBestScore(gameType, score);
     AppDialogs.showSlidingDialog(
-      title: AppStrings.result, 
+      title: LocaleKeys.commonGeneral_result.locale, 
       content: ResultDialogContent(
         correctCount: score,
         time: time,

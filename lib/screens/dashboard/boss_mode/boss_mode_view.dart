@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:dota2_invoker_game/constants/locale_keys.g.dart';
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
 
 import '../../../extensions/number_extension.dart';
@@ -18,7 +19,6 @@ import 'package:snappable_thanos/snappable_thanos.dart';
 import 'package:splash/splash.dart';
 
 import '../../../constants/app_colors.dart';
-import '../../../constants/app_strings.dart';
 import '../../../enums/Bosses.dart';
 import '../../../enums/elements.dart';
 import '../../../enums/spells.dart';
@@ -74,7 +74,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
     if (savedGame == null) return;
     AppDialogs.showSlidingDialog(
       height: 224,
-      title: '${AppStrings.loadGame}?',
+      title: '${LocaleKeys.commonGeneral_loadGame.locale}?',
       content: LoadGameDialogContent(savedGame: savedGame), 
     );
   }
@@ -108,7 +108,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
     if (!canPop) {
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
       AppSnackBar.showSnackBarMessage(
-        text: AppStrings.sbWaitAnimation, 
+        text: LocaleKeys.snackbarMessages_sbWaitAnimation.locale, 
         snackBartype: SnackBarType.info,
       );
     }
@@ -250,7 +250,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
       left: 8,
       child: Row(
         children: [
-          Text('${AppStrings.dps.toLowerCase().capitalize()} : ${provider.dps.numberFormat}'),
+          Text('${LocaleKeys.bossBattleInfo_dps.locale.toLowerCase().capitalize()} : ${provider.dps.numberFormat}'),
         ],
       ),
     );
@@ -294,7 +294,11 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
       child: SizedBox.expand(
         child: AnimatedSwitcher(
           duration: const Duration(seconds: 1),
-          child: status ? const EmptyBox() : isHornPlaying ? const Text(AppStrings.starting) : const Text(AppStrings.start),
+          child: status 
+            ? const EmptyBox() 
+            : isHornPlaying 
+              ? Text(LocaleKeys.commonGeneral_starting.locale) 
+              : Text(LocaleKeys.commonGeneral_start.locale),
         ),
       ),
     );

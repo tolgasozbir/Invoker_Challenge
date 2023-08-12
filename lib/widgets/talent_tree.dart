@@ -1,9 +1,10 @@
+import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../constants/app_colors.dart';
 import '../constants/app_image_paths.dart';
-import '../constants/app_strings.dart';
+import '../constants/locale_keys.g.dart';
 import '../extensions/widget_extension.dart';
 import '../models/user_model.dart';
 import '../services/user_manager.dart';
@@ -15,6 +16,13 @@ class TalentTree extends StatelessWidget {
   });
 
   final UserModel user;
+
+  List<String> get talents => [
+    LocaleKeys.talents_talent10.locale,
+    LocaleKeys.talents_talent15.locale,
+    LocaleKeys.talents_talent20.locale,
+    LocaleKeys.talents_talent25.locale,
+  ];
 
   double get offStateIconSize => 64;
   double get previewIconSize => 256;
@@ -43,16 +51,16 @@ class TalentTree extends StatelessWidget {
       ...List.generate(UserManager.instance.treeLevels.length, (index) => 
         menuActionBtn(
           context: context, 
-          title: '${UserManager.instance.treeLevels[index]}) ${AppStrings.talents[index]} ', 
+          title: '${UserManager.instance.treeLevels[index]}) ${talents[index]} ', 
           talentLevel: UserManager.instance.treeLevels[index],
         ),
       ).reversed,
       //Back Button
       CupertinoContextMenuAction(
         onPressed: () => Navigator.pop(context),
-        child: const Center(
+        child: Center(
           child: Text(
-            AppStrings.close,
+            LocaleKeys.commonGeneral_close.locale,
             textAlign: TextAlign.center,
           ),
         ),
@@ -82,9 +90,9 @@ class TalentTree extends StatelessWidget {
             alignment: Alignment.topCenter,
             size: previewIconSize,
           ),
-          const DefaultTextStyle(
-            style: TextStyle(fontSize: 32), 
-            child: Text(AppStrings.talentTree),
+          DefaultTextStyle(
+            style: const TextStyle(fontSize: 32), 
+            child: Text(LocaleKeys.talents_talentTree.locale),
           ),
         ],
       ),

@@ -1,4 +1,6 @@
-import '../../constants/app_strings.dart';
+import 'package:dota2_invoker_game/extensions/string_extension.dart';
+
+import '../../constants/locale_keys.g.dart';
 import '../../extensions/widget_extension.dart';
 import '../../providers/boss_battle_provider.dart';
 import '../../utils/game_save_handler.dart';
@@ -33,7 +35,7 @@ class LoadGameDialogContent extends StatelessWidget {
   Row nextBossImage() {
     return Row(
       children: [
-        const Text('${AppStrings.nextBoss} : ', style: TextStyle(fontWeight: FontWeight.w500)),
+        Text('${LocaleKeys.commonGeneral_nextBoss.locale} : ', style: const TextStyle(fontWeight: FontWeight.w500)),
         Image.asset(Bosses.values[savedGame.roundProgress+1].getImage, height: 48,),
       ],
     );
@@ -42,7 +44,7 @@ class LoadGameDialogContent extends StatelessWidget {
   Row itemImages(List<Items> items) {
     return Row(
       children: [
-        const Text('${AppStrings.items} : ', style: TextStyle(fontWeight: FontWeight.w500),),
+        Text('${LocaleKeys.commonGeneral_items.locale} : ', style: const TextStyle(fontWeight: FontWeight.w500),),
         for (var i = 0; i < 6; i++)
           i < items.length ? Image.asset(items[i].image, height: 48).wrapExpanded() : const EmptyBox().wrapExpanded(),
       ],
@@ -62,7 +64,7 @@ class LoadGameDialogContent extends StatelessWidget {
 
   AppOutlinedButton loadSaveButton(BuildContext context) {
     return AppOutlinedButton(
-      title: AppStrings.loadGame, 
+      title: LocaleKeys.commonGeneral_loadGame.locale, 
       onPressed: () {
         final provider = context.read<BossBattleProvider>();
         provider.roundProgress = savedGame.roundProgress;
@@ -78,7 +80,7 @@ class LoadGameDialogContent extends StatelessWidget {
 
   AppOutlinedButton backButton(BuildContext context) {
     return AppOutlinedButton(
-      title: '${AppStrings.back} (${AppStrings.delete})', 
+      title: '${LocaleKeys.commonGeneral_back.locale} (${LocaleKeys.commonGeneral_delete.locale})', 
       onPressed: () {
         GameSaveHandler.instance.deleteSavedGame();
         Navigator.pop(context);

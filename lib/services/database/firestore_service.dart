@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../constants/app_strings.dart';
+import '../../constants/locale_keys.g.dart';
 import '../../enums/database_table.dart';
 import '../../extensions/string_extension.dart';
 import '../../models/base_models/base_model.dart';
@@ -34,12 +34,12 @@ class FirestoreService implements IDatabaseService {
   bool _hasMoreData = true;
 
   void _errorSnackbar() => AppSnackBar.showSnackBarMessage(
-    text: AppStrings.errorMessage, 
+    text: LocaleKeys.snackbarMessages_errorMessage.locale, 
     snackBartype: SnackBarType.error,
   );
 
   void _noMoreSnackbar() => AppSnackBar.showSnackBarMessage(
-    text: AppStrings.sbNoMoreData, 
+    text: LocaleKeys.snackbarMessages_sbNoMoreData.locale, 
     snackBartype: SnackBarType.info,
   );
 

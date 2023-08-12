@@ -1,8 +1,9 @@
+import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../constants/app_colors.dart';
-import '../../../../constants/app_strings.dart';
+import '../../../../constants/locale_keys.g.dart';
 import '../../../../enums/items.dart';
 import '../../../../extensions/context_extension.dart';
 import '../../../../extensions/widget_extension.dart';
@@ -12,6 +13,8 @@ import '../../../../services/sound_manager.dart';
 import '../../../../widgets/app_snackbar.dart';
 import '../../../../widgets/empty_box.dart';
 import 'shop_view.dart';
+
+    //TODO: DİL TÜM SAYFAYI KONTROL ET
 
 class ItemDescriptionWidget extends StatelessWidget {
   const ItemDescriptionWidget({super.key, required this.item, this.isItemSellable = false});
@@ -170,7 +173,7 @@ class ItemDescriptionWidget extends StatelessWidget {
     final provider = context.read<BossBattleProvider>();
     if (item.item.cost > provider.userGold) {
       AppSnackBar.showSnackBarMessage(
-        text: AppStrings.sbNotEnoughGold,
+        text: LocaleKeys.snackbarMessages_sbNotEnoughGold.locale,
         snackBartype: SnackBarType.error,
       );
       SoundManager.instance.playMeepMerp();
@@ -178,7 +181,7 @@ class ItemDescriptionWidget extends StatelessWidget {
     }
     if (provider.inventory.length == 6) {
       AppSnackBar.showSnackBarMessage(
-        text: AppStrings.sbInventoryFull, 
+        text: LocaleKeys.snackbarMessages_sbInventoryFull.locale, 
         snackBartype: SnackBarType.error,
       );
       SoundManager.instance.playMeepMerp();

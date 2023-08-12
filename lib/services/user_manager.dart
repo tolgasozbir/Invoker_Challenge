@@ -1,8 +1,9 @@
+import 'package:dota2_invoker_game/extensions/string_extension.dart';
+import '../constants/locale_keys.g.dart';
 import '../utils/formatted_date.dart';
 import 'package:flutter/material.dart';
 import 'package:snappable_thanos/snappable_thanos.dart';
 
-import '../constants/app_strings.dart';
 import '../enums/local_storage_keys.dart';
 import '../models/score_models/boss_battle.dart';
 import '../models/user_model.dart';
@@ -24,7 +25,7 @@ class UserManager extends ChangeNotifier {
 
   final snappableKey = GlobalKey<SnappableState>();
 
-  UserModel _userModel = UserModel.guest(username: AppStrings.guest + idGenerator());
+  UserModel _userModel = UserModel.guest(username: LocaleKeys.formDialog_guest.locale + idGenerator());
   UserModel get user => _userModel;
 
   void setUser(UserModel user) {
@@ -58,7 +59,7 @@ class UserManager extends ChangeNotifier {
   }
 
   UserModel createUser() {
-    final newUser = UserModel.guest(username: AppStrings.guest + idGenerator());
+    final newUser = UserModel.guest(username: LocaleKeys.formDialog_guest.locale + idGenerator());
     return newUser;
   }
 
@@ -73,8 +74,6 @@ class UserManager extends ChangeNotifier {
   UserModel? getUserFromCache() {
     // Retrieve the user from HiveCacheManager
     final user = userHiveManager.getItem(LocalStorageKey.userRecords.name);
-    // ignore: avoid_print
-    print(user);
     if (user != null) return user;
     // If user data is not available in Hive, retrieve it from SharedPreferences
     final cache = AppServices.instance.localStorageService.getValue<String>(LocalStorageKey.userRecords);
