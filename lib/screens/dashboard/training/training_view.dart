@@ -33,7 +33,7 @@ class _TrainingViewState extends State<TrainingView> {
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          adBannerWidget(),
+          //adBannerWidget(),
           ListView(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,

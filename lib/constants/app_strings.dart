@@ -4,10 +4,6 @@ class AppStrings {
   static const String appName = 'Invoker Challenge';
   static const String appVersion = 'Beta 1.1.0';
 
-  //TODO: MESAJA YENİ BİRTANE EKLE
-  // EĞER BİR HATA İLE KARŞILAŞTIYSANIZ ŞURADAN BİZE BİLDİRİN GİBİSİNDEN
-  // VEYA BİR YAZIM HATASI VARSA LÜTFEN DÜZELTEREK BİZE BİLDİRİN GİBİ
-
   //Main menu
   //static const String titleTraining = 'Training / Endless';
   //static const String titleWithTimer = 'Time Trial';

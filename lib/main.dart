@@ -1,9 +1,14 @@
+import 'dart:async';
+
+import 'package:dota2_invoker_game/providers/app_context_provider.dart';
+import 'package:dota2_invoker_game/utils/ads_helper.dart';
 import 'package:dota2_invoker_game/utils/localization_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_config/flutter_config.dart';
+import 'package:flutter_fgbg/flutter_fgbg.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +23,6 @@ import 'services/auth/firebase_auth_service.dart';
 import 'services/database/firestore_service.dart';
 import 'services/local_storage/local_storage_service.dart';
 import 'services/user_manager.dart';
-import 'utils/my_app_life_cycle_observer.dart';
 import 'widgets/app_dialogs.dart';
 import 'widgets/app_snackbar.dart';
 
@@ -26,9 +30,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //Localization
   await EasyLocalization.ensureInitialized();
-  //App state observer
-  final observer = MyAppLifecycleObserver();
-  WidgetsBinding.instance.addObserver(observer);
   //Environment variables
   await FlutterConfig.loadEnvVariables();
   //Ads
@@ -51,6 +52,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => SpellProvider()),
         ChangeNotifierProvider(create: (context) => UserManager.instance),
         ChangeNotifierProvider(create: (context) => BossBattleProvider()),
+        ChangeNotifierProvider(create: (context) => AppContextProvider()),
       ],
       child: LocalizationManager(
         child: const MyApp(),
@@ -59,8 +61,32 @@ void main() async {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  late StreamSubscription<FGBGType> subscription;
+
+  @override
+  void initState() {
+    super.initState();
+    subscription = FGBGEvents.stream.listen((event) async {
+      if (event == FGBGType.foreground) {
+        await AdsHelper.instance.appOpenAdLoad();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    subscription.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

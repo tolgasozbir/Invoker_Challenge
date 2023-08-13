@@ -15,6 +15,8 @@ abstract class  LocaleKeys {
   static const mainMenu = 'mainMenu';
   static const loading_message1 = 'loading.message1';
   static const loading_message2 = 'loading.message2';
+  static const loading_message3 = 'loading.message3';
+  static const loading_message4 = 'loading.message4';
   static const loading = 'loading';
   static const commonGeneral_leaderboard = 'commonGeneral.leaderboard';
   static const commonGeneral_showMore = 'commonGeneral.showMore';

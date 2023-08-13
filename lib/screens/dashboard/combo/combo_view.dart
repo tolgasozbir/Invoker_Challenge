@@ -33,7 +33,7 @@ class _ComboViewState extends State<ComboView> {
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          adBannerWidget(),
+          //adBannerWidget(),
           Column(
             children: [
               const GameUIWidget(gameType: GameType.Combo),

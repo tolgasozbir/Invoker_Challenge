@@ -10,4 +10,7 @@ extension MediaQueryExtension on BuildContext {
   double dynamicWidth(double val) => width * val;
   double dynamicHeight(double val) => height * val;
   double sp(double val) => val * (width / 3) / 100;
+
+  ///is phone width < 340
+  bool get isSmallPhone => width < 340;
 }

@@ -15,7 +15,9 @@
 
     "loading" : {
         "message1" : "Seviye yükseldikçe hasarınız, büyü hasarınız, mana ve mana yenilenmeniz de artar, bu da patronları yenmeyi kolaylaştırır. Seviye atlamak için zamana karşı, meydan okuyucu, kombo ve patron şavaşı modlarını oynayabilirsiniz.",
-        "message2" : "Verileriniz cihazınızda kaydedilir, verilerinizi kaybetmemek için profil menüsünden senkronize etmeyi unutmayın."
+        "message2" : "Verileriniz cihazınızda kaydedilir, verilerinizi kaybetmemek için profil menüsünden senkronize etmeyi unutmayın.",
+        "message3" : "Hatalar Olur, Biz Buradayız! Eğer bir hata ile karşılaştıysanız veya uygulamamızı daha iyi yapmak için önerileriniz varsa, lütfen bize bildirin. Sizden gelen geri bildirimler olmadan daha iyiye ulaşamayız! Geri Bildirimlerinizi Bekliyoruz! Teşekkür ederiz.",
+        "message4" : "Dil Çevirilerinde Gözünüze Takılan Bir Şey mi Var? Uygulamamızı farklı dillere adapte etmeye çalışırken bazen çeviri hataları olabiliyor. Eğer bir çeviri hatası veya düzeltilmesi gereken bir terim fark ederseniz, lütfen bize haber vermekten çekinmeyin."
     },
 
     "commonGeneral": {
