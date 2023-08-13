@@ -1,3 +1,6 @@
+# 1.2.0
+- Language support expanded: You can now use the application in English, Russian, and Turkish languages.
+
 # 1.1.0
 - Hive database has been added to the project to prevent data loss during version transitions.
 - The issue where the level achievement would remain at 29 even if the user reached level 30 has been resolved.
@@ -13,14 +16,12 @@
 - The issue of the same spells appearing in Challenger mode has been resolved.
 
 # 1.0.2 (Bug Fix)
-
 - The problem of achievements being reset during login has been resolved.
 - The issue of time not decreasing and remaining constant in combo mode has been fixed.
 - The incorrect calculation of the duration in combo mode has been fixed.
 - Now, if no login is made, the system creates a new account for the user each time.
 
 # 1.0.0 (Major Update)
-
 - Added a new game mode called "Combo Mode."
 - Implemented password reset feature.
 - Made code improvements.
