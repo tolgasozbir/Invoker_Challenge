@@ -27,12 +27,12 @@ class ProfileDialogContent extends StatelessWidget {
       child: Column(
         children: [
           achievements(context),
-          const Divider(color: AppColors.amber),
+          const Divider(color: AppColors.amber, height: 8),
           bossGallery(context),
-          const Divider(color: AppColors.amber),
+          const Divider(color: AppColors.amber, height: 8,),
           const Spacer(),
           syncDataBtn(context),
-          const EmptyBox.h8(),
+          if (!context.isSmallPhone) const EmptyBox.h8(),
           logoutbtn(context),
         ],
       ),
@@ -104,6 +104,7 @@ class ProfileDialogContent extends StatelessWidget {
   Widget syncDataBtn(BuildContext context) {
     return AppOutlinedButton(
       width: double.infinity,
+      height: context.isSmallPhone ? 36 : null,
       onPressed: () async {
         final hasConnection = await InternetConnectionChecker().hasConnection;
         if (!hasConnection) {
@@ -134,6 +135,7 @@ class ProfileDialogContent extends StatelessWidget {
   Widget logoutbtn(BuildContext context) {
     return AppOutlinedButton(
       width: double.infinity,
+      height: context.isSmallPhone ? 36 : null,
       onPressed: () async {
         await UserManager.instance.signOut();
         context.read<BossBattleProvider>().disposeGame(); //Reset Boss Mode Values

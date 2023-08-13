@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -43,7 +44,10 @@ class UserStatus extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(username),
+              AutoSizeText(
+                username,
+                maxLines: 1,
+              ),
               expBar(),
               levelAndExp(),
             ],
@@ -92,10 +96,16 @@ class UserStatus extends StatelessWidget {
 
   Row levelAndExp() {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(level).wrapFittedBox(),
-        const Spacer(),
-        Text('${currentExp.toStringAsFixed(0)}/${nextLevelExp.toStringAsFixed(0)}').wrapFittedBox()
+        AutoSizeText(
+          level,
+          maxLines: 1,
+        ),
+        AutoSizeText(
+          '${currentExp.toStringAsFixed(0)}/${nextLevelExp.toStringAsFixed(0)}',
+          maxLines: 1,
+        ),
       ],
     );
   }

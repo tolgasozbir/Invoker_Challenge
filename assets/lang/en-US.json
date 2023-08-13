@@ -15,7 +15,9 @@
 
     "loading" : {
         "message1" : "Remember, as you level up, your damage, spell damage, mana, and mana regeneration also increase, making it easier for you to defeat bosses. To level up, you can play timer, challenger, and boss modes.",
-        "message2" : "Your data is saved on your device, don't forget to synchronize it from the profile menu to avoid losing your data."
+        "message2" : "Your data is saved on your device, don't forget to synchronize it from the profile menu to avoid losing your data.",
+        "message3" : "Mistakes Happen, We're Here! If you've encountered an error or have suggestions to make our app better, please let us know. We can't improve without your feedback! We're Waiting for Your Feedback! Thank you.",
+        "message4" : "Notice Anything Odd in Translations? While adapting our app to different languages, translation errors can sometimes occur. If you spot any mistake or come across terms that need correction, please don't hesitate to let us know."
     },
 
     "commonGeneral": {

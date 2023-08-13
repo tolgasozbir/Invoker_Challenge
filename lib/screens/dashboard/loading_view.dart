@@ -24,6 +24,8 @@ class _LoadingViewState extends State<LoadingView> {
   List<String> get messageList => [
     LocaleKeys.loading_message1.locale,
     LocaleKeys.loading_message2.locale,
+    LocaleKeys.loading_message3.locale,
+    LocaleKeys.loading_message4.locale,
   ];
   String get message => messageList[rng.nextInt(messageList.length)];
 

@@ -12,7 +12,6 @@ import '../constants/locale_keys.g.dart';
 import '../enums/Bosses.dart';
 import '../enums/items.dart';
 import '../enums/spells.dart';
-import '../extensions/number_extension.dart';
 import '../models/Item.dart';
 import '../models/ability.dart';
 import '../models/score_models/boss_battle.dart';
@@ -628,7 +627,7 @@ class BossBattleProvider extends ChangeNotifier {
       dismissible: false,
       showBackButton: false,
       height: 540,
-      title: '${(roundProgress+1).getOrdinal} $lastBossText${LocaleKeys.commonGeneral_stageResults.locale}',
+      title: '${roundProgress+1}. $lastBossText${LocaleKeys.commonGeneral_stageResults.locale}',
       content: BossResultRoundDialogContent(
         model: model, 
         earnedGold: gainedGold + (_isActiveMidas ? midasGold : 0), 

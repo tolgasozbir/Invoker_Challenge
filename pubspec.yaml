@@ -28,6 +28,7 @@ dependencies:
   internet_connection_checker: ^1.0.0+1
   url_launcher: ^6.1.10
   auto_size_text: ^3.0.0
+  flutter_fgbg: ^0.2.2
 
   #.env
   flutter_config: ^2.0.0

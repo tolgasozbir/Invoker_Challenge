@@ -1,5 +1,7 @@
 import 'package:dota2_invoker_game/constants/locale_keys.g.dart';
+import 'package:dota2_invoker_game/extensions/context_extension.dart';
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
+import 'package:dota2_invoker_game/providers/app_context_provider.dart';
 
 import 'combo/combo_view.dart';
 import 'package:flutter/material.dart';
@@ -22,8 +24,20 @@ import 'challanger/challanger_view.dart';
 import 'training/training_view.dart';
 import 'time_trial/time_trial_view.dart';
 
-class DashboardView extends StatelessWidget {
+class DashboardView extends StatefulWidget {
   const DashboardView({super.key});
+
+  @override
+  State<DashboardView> createState() => _DashboardViewState();
+}
+
+class _DashboardViewState extends State<DashboardView> {
+
+  @override
+  void initState() {
+    Future.microtask(() => context.read<AppContextProvider>().setAppContext(context));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,10 +72,10 @@ class DashboardView extends StatelessWidget {
                 ),
               ),
             ),
-            const Spacer(),
+            if (!context.isSmallPhone) const Spacer(),
             SizedBox(
               width: double.infinity,
-              child: const Text(AppStrings.appVersion).wrapPadding(const EdgeInsets.all(8)),
+              child: const Text(AppStrings.appVersion).wrapPadding(EdgeInsets.all(context.isSmallPhone ? 4 : 8)),
             ),
           ],
         ),
