@@ -1,3 +1,7 @@
+# 1.2.1
+- Some missing language translations were added.
+- Minor refactoring
+
 # 1.2.0
 - Language support expanded: You can now use the application in English, Russian, and Turkish languages.
 
