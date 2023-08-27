@@ -2,6 +2,7 @@ import 'package:dota2_invoker_game/constants/locale_keys.g.dart';
 import 'package:dota2_invoker_game/extensions/context_extension.dart';
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:dota2_invoker_game/providers/app_context_provider.dart';
+import 'package:user_messaging_platform/user_messaging_platform.dart';
 
 import 'combo/combo_view.dart';
 import 'package:flutter/material.dart';
@@ -33,9 +34,21 @@ class DashboardView extends StatefulWidget {
 
 class _DashboardViewState extends State<DashboardView> {
 
+  //iOS installation was not performed.
+  void updateConsent() async {
+    // Make sure to continue with the latest consent info.
+    var info = await UserMessagingPlatform.instance.requestConsentInfoUpdate();
+    // Show the consent form if consent is required.
+    if (info.consentStatus == ConsentStatus.required) {
+      // `showConsentForm` returns the latest consent info, after the consent from has been closed.
+      info = await UserMessagingPlatform.instance.showConsentForm();
+    }
+  }
+
   @override
   void initState() {
     Future.microtask(() => context.read<AppContextProvider>().setAppContext(context));
+    updateConsent();
     super.initState();
   }
 

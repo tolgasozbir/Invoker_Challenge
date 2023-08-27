@@ -74,19 +74,18 @@ class _ResultDialogContentState extends State<ResultDialogContent> {
   }
 
   WatchAdButton watchAdButton(BuildContext context) {
-    //TODO: DİLE EKLE 
     String btnTitle = '';
     switch (widget.gameType) {
       case GameType.Training:
         break;
       case GameType.Challanger:
-        btnTitle = 'Continue';
+        btnTitle = LocaleKeys.adBtn_continue.locale;
         break;
       case GameType.Timer:
-        btnTitle = '+30 Sec';
+        btnTitle = LocaleKeys.adBtn_sec30.locale;
         break;
       case GameType.Combo:
-        btnTitle = '+10 Sec';
+        btnTitle = LocaleKeys.adBtn_sec10.locale;
         break;
     }
     return WatchAdButton(

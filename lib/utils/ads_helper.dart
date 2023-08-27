@@ -10,7 +10,7 @@ class AdsHelper {
   AdsHelper._();
   static final AdsHelper instance = AdsHelper._();
 
-  int adCounter = 0;
+  int adCounter = 1;
 
   bool enableAndroidTestIds = kDebugMode;
 

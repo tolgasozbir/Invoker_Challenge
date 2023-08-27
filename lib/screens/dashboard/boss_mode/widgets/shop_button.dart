@@ -1,3 +1,5 @@
+import 'package:dota2_invoker_game/constants/locale_keys.g.dart';
+import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -5,9 +7,6 @@ import '../../../../providers/boss_battle_provider.dart';
 import '../../../../services/sound_manager.dart';
 import '../../../../widgets/bouncing_button.dart';
 import 'shop_view.dart';
-
-
-//TODO: SHOP TEXT
 
 class ShopButton extends StatelessWidget {
   const ShopButton({super.key,});
@@ -45,9 +44,9 @@ class ShopButton extends StatelessWidget {
                 end: Alignment.bottomCenter,
               ),
             ),
-            child: const Text(
-              'SHOP', 
-              style: TextStyle(
+            child: Text(
+              LocaleKeys.commonGeneral_shop.locale, 
+              style: const TextStyle(
                 fontSize: 16, 
                 color: Color(0xFFFBFBCC), 
                 fontWeight: FontWeight.bold, 

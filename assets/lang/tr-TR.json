@@ -44,7 +44,15 @@
         "delete": "Sil",
         "loadGame": "Oyunu Yükle",
         "nextBoss": "Bir Sonraki Patron",
-        "items": "Eşyalar"
+        "items": "Eşyalar",
+        "language" : "Dil",
+        "shop" : "SHOP"
+    },
+
+    "adBtn" : {
+        "continue" : "Devam et",
+        "sec30" : "+30 Sn",
+        "sec10" : "+10 Sn"
     },
 
     "formDialog": {
@@ -153,5 +161,91 @@
         "magicalDmg": "Büyü Hasarı",
         "earnedExp": "Kazanılan Deneyim",
         "earnedGold": "Kazanılan Altın"
+    },
+
+    "Item" : {
+        "sell" : "Sat",
+        "buy" : "Satın Al",
+        "sellPrice": "Satış Fiyatı: ",
+        "cost": "Fiyat: ",
+        "bonus": "Bonus: ",
+        "active": "Aktif: ",
+        "Null_talisman": {
+            "bonus": "+60 mana ve +0.8 mana yenilenmesi sağlar",
+            "active": ""
+        },
+        "Void_stone": {
+            "bonus": "+2.25 mana yenilenmesi sağlar",
+            "active": ""
+        },
+        "Arcane_boots": {
+            "bonus": "+250 mana",
+            "active": "175 mana geri yükler"
+        },
+        "Power_treads": {
+            "bonus": "+120 mana ve +12 hasar",
+            "active": ""
+        },
+        "Phase_boots": {
+            "bonus": "+18 hasar",
+            "active": ""
+        },
+        "Veil_of_discord": {
+            "bonus": "Patronlar artırılmış büyü hasarı alır.\nSüre: 16 saniye",
+            "active": "Büyü artırma +20%"
+        },
+        "Kaya": {
+            "bonus": "Mana yenilenme artışı +24% ve büyü artırma +8%",
+            "active": ""
+        },
+        "Hand_of_midas": {
+            "bonus": "Her raundun sonunda 360 altın verir.\n(Birden fazla öge çalışmaz!)",
+            "active": ""
+        },
+        "Aether_lens": {
+            "bonus": "+320 mana ve +3 mana yenilenmesi",
+            "active": ""
+        },
+        "Meteor_hammer": {
+            "bonus": "+2.75 mana yenilenmesi\nSüre: 6 saniye. Zamanla patronlara hasar verir.",
+            "active": "Saniyede Hasar: 100"
+        },
+        "Vladmirs_offering": {
+            "bonus": "Fiziksel Hasar +24%",
+            "active": ""
+        },
+        "Ethereal_blade": {
+            "bonus": "+400 Mana, mana yenilenme artışı +72% ve büyü artırma +16%\nSüre: 8 Saniye\n(Birden fazla öge istatistikleri birleştirilmez!)",
+            "active": "Büyü Güçlendirmesi +40%"
+        },
+        "Monkey_king_bar": {
+            "bonus": "Hasarı 48 artırır",
+            "active": ""
+        },
+        "Refresher_orb": {
+            "bonus": "+7 mana yenilenmesi",
+            "active": "Tüm ögelerinizin ve yeteneklerinizin yeniden yüklenmesini sağlar.\n(Birden fazla öge çalışmaz)"
+        },
+        "Daedalus": {
+            "bonus": "Hasarı 64 artırır",
+            "active": ""
+        },
+        "Eye_of_skadi": {
+            "bonus": "+1600 mana artırır",
+            "active": ""
+        },
+        "Bloodthorn": {
+            "bonus": "+40 Saldırı Hasarı\n+400 Mana\n+4.0 Mana Yenilenmesi",
+            "active": ""
+        },
+        "Dagon": {
+            "bonus": "Enerji Patlaması",
+            "active": "+3200 Büyüsel Hasar"
+        },
+        "Divine_rapier": {
+            "bonus": "Hasarı 128 artırır",
+            "active": ""
+        }
     }
+
 }

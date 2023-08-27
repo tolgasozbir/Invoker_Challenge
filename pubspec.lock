@@ -978,6 +978,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.4"
+  user_messaging_platform:
+    dependency: "direct main"
+    description:
+      name: user_messaging_platform
+      sha256: d92c576f569ec7d56737dcd64a68626a496e540d79607e2a147e032c355f502d
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.1"
   uuid:
     dependency: transitive
     description:
