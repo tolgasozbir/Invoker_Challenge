@@ -25,7 +25,8 @@ class WatchAdButton extends StatelessWidget {
     return GestureDetector(
       onTap: isAdWatched ? meepMerp : () async => watchAdFn(context),
       child: Container(
-        width: context.dynamicWidth(0.36),
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        //width: context.dynamicWidth(0.36),
         height: 48,
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -39,6 +40,7 @@ class WatchAdButton extends StatelessWidget {
           border: Border.all(),
         ),
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Icon(Icons.slow_motion_video, size: 26,),

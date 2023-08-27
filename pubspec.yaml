@@ -54,6 +54,8 @@ dependencies:
 
   #Ads
   google_mobile_ads: ^2.3.0
+  #UMP
+  user_messaging_platform: ^1.2.1
 
 
 dev_dependencies:

@@ -1,10 +1,12 @@
+import 'package:dota2_invoker_game/constants/locale_keys.g.dart';
 import 'package:dota2_invoker_game/extensions/context_extension.dart';
+import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:dota2_invoker_game/providers/app_context_provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-enum LangCodes { en, ru, tr, }
+enum LangCodes { En, Ru, Tr, }
 
 class LanguageDropdown extends StatefulWidget {
   const LanguageDropdown({super.key});
@@ -14,7 +16,6 @@ class LanguageDropdown extends StatefulWidget {
 }
 
 class _LanguageDropdownState extends State<LanguageDropdown> {
-  //TODO: DİL
   @override
   Widget build(BuildContext context) {
     return DropdownMenu(
@@ -22,7 +23,7 @@ class _LanguageDropdownState extends State<LanguageDropdown> {
       leadingIcon: const Icon(Icons.language),
       label: FittedBox(
         child: Text(
-          'Language', 
+          LocaleKeys.commonGeneral_language.locale, 
           style: TextStyle(fontSize: context.sp(13)),
         ),
       ),

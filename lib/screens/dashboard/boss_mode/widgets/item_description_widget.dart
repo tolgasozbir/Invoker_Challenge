@@ -14,8 +14,6 @@ import '../../../../widgets/app_snackbar.dart';
 import '../../../../widgets/empty_box.dart';
 import 'shop_view.dart';
 
-    //TODO: DİL TÜM SAYFAYI KONTROL ET
-
 class ItemDescriptionWidget extends StatelessWidget {
   const ItemDescriptionWidget({super.key, required this.item, this.isItemSellable = false});
 
@@ -54,7 +52,7 @@ class ItemDescriptionWidget extends StatelessWidget {
           itemImageAndTitle(context),
           itemCostField(context),
           bonusField(context),
-          if (item.item.active != null) 
+          if (item.item.activeTranslation.isNotNullOrNoEmpty) 
             itemActiveField(context),
           const Spacer(),
           Row(
@@ -92,7 +90,7 @@ class ItemDescriptionWidget extends StatelessWidget {
     return Row(
       children: [
         Text(
-          isItemSellable ? 'Selling Price: ' : 'Cost: ', 
+          isItemSellable ? LocaleKeys.Item_sellPrice.locale : LocaleKeys.Item_cost.locale, 
           style: TextStyle(fontSize: context.sp(13), fontWeight: FontWeight.w500,),
         ),
         GoldWidget(gold: isItemSellable ? (item.item.cost * 0.75).toInt() : item.item.cost),
@@ -102,14 +100,14 @@ class ItemDescriptionWidget extends StatelessWidget {
 
   Text bonusField(BuildContext context) {
     return Text(
-      'Bonus: ${item.item.bonus}', 
+      '${LocaleKeys.Item_bonus.locale} ${item.item.bonusTranslation}', 
       style: TextStyle(fontSize: context.sp(13), fontWeight: FontWeight.w500,),
     );
   }
 
   Widget itemActiveField(BuildContext context) {
     return Text(
-      'Active: ${item.item.active}', 
+      '${LocaleKeys.Item_active.locale} ${item.item.activeTranslation}', 
       style: TextStyle(fontSize: context.sp(13), fontWeight: FontWeight.w500,),
     ).wrapPadding(const EdgeInsets.symmetric(vertical: 8));
   }
@@ -161,7 +159,7 @@ class ItemDescriptionWidget extends StatelessWidget {
         foregroundColor: AppColors.black,
       ),
       label: const Icon(Icons.sell_outlined), 
-      icon: Text(isItemSellable ? 'Sell' : 'Buy', style: TextStyle(fontSize: context.sp(14), fontWeight: FontWeight.bold,),),
+      icon: Text(isItemSellable ? LocaleKeys.Item_sell.locale : LocaleKeys.Item_buy.locale, style: TextStyle(fontSize: context.sp(14), fontWeight: FontWeight.bold,),),
       onPressed: isItemSellable
        ? () => sellFn(context)
        : () => buyFn(context),

@@ -44,7 +44,15 @@
         "delete": "Delete",
         "loadGame": "Load Game",
         "nextBoss": "Next Boss",
-        "items": "Items"
+        "items": "Items",
+        "language" : "Language",
+        "shop" : "SHOP"
+    },
+
+    "adBtn" : {
+        "continue" : "Continue",
+        "sec30" : "+30 Sec",
+        "sec10" : "+10 Sec"
     },
 
     "formDialog" : {
@@ -153,6 +161,91 @@
         "magicalDmg": "Magical Damage",
         "earnedExp": "Earned Exp",
         "earnedGold": "Earned Gold"
+    },
+
+    "Item" : {
+        "sell" : "Sell",
+        "buy" : "Buy",
+        "sellPrice": "Selling Price: ",
+        "cost": "'Cost: ",
+        "bonus": "Bonus: ",
+        "active": "Active: ",
+        "Null_talisman": {
+            "bonus": "Increases mana by +60 and +0.8 mana regeneration",
+            "active": ""
+        },
+        "Void_stone": {
+            "bonus": "+2.25 mana regeneration",
+            "active": ""
+        },
+        "Arcane_boots": {
+            "bonus": "+250 mana",
+            "active": "Restore 175 mana"
+        },
+        "Power_treads": {
+            "bonus": "+120 mana and +12 damage",
+            "active": ""
+        },
+        "Phase_boots": {
+            "bonus": "+18 damage",
+            "active": ""
+        },
+        "Veil_of_discord": {
+            "bonus": "Increases magic damage taken by bosses.\nDuration: 16 seconds",
+            "active": "Spell amplification +20%"
+        },
+        "Kaya": {
+            "bonus": "Mana regen amp +24% and spell amp +8%",
+            "active": ""
+        },
+        "Hand_of_midas": {
+            "bonus": "Gives 360 gold at the end of each round.\n(Multiple items won't work!)",
+            "active": ""
+        },
+        "Aether_lens": {
+            "bonus": "+320 mana and +3 mana regeneration",
+            "active": ""
+        },
+        "Meteor_hammer": {
+            "bonus": "+2.75 mana regeneration\nDuration: 6 seconds. Deals damage to bosses over time.",
+            "active": "Damage Per Second: 100"
+        },
+        "Vladmirs_offering": {
+            "bonus": "Physical Damage +24%",
+            "active": ""
+        },
+        "Ethereal_blade": {
+            "bonus": "+400 Mana with mana regen amp +72% and spell amp +16%\nDuration: 8 Seconds\n(Multiple item stats won't stacks!)",
+            "active": "Magic Amplification +40%"
+        },
+        "Monkey_king_bar": {
+            "bonus": "Increases damage by 48",
+            "active": ""
+        },
+        "Refresher_orb": {
+            "bonus": "+7 mana regeneration",
+            "active": "Resets the cooldowns of all your items and abilities.\n(Multiple items won't stacks)"
+        },
+        "Daedalus": {
+            "bonus": "Increases damage by 64",
+            "active": ""
+        },
+        "Eye_of_skadi": {
+            "bonus": "Increases mana by +1600",
+            "active": ""
+        },
+        "Bloodthorn": {
+            "bonus": "+40 Attack Damage\n+400 Mana\n+4.0 Mana Regeneration",
+            "active": ""
+        },
+        "Dagon": {
+            "bonus": "Energy Burst",
+            "active": "+3200 Magic Damage"
+        },
+        "Divine_rapier": {
+            "bonus": "Increases damage by 128",
+            "active": ""
+        }
     }
 
 }

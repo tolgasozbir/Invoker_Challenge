@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dota2_invoker_game/constants/app_strings.dart';
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:dota2_invoker_game/widgets/language_dropdown.dart';
 import 'package:flutter/cupertino.dart';
@@ -49,15 +50,17 @@ class SettingsView extends StatelessWidget {
   }
 
   Future<void> storeRedirect() async {
-    const String googlePlayStoreUrl = 'https://play.google.com/store/apps/details?id=com.dota2.invoker.game';
     try{
       await launchUrl(
-        Uri.parse(googlePlayStoreUrl),
+        Uri.parse(AppStrings.googlePlayStoreUrl),
         mode: LaunchMode.externalApplication,
       );
     }
     catch(e) {
-      AppSnackBar.showSnackBarMessage(text: LocaleKeys.snackbarMessages_errorMessage.locale, snackBartype: SnackBarType.error);
+      AppSnackBar.showSnackBarMessage(
+        text: LocaleKeys.snackbarMessages_errorMessage.locale, 
+        snackBartype: SnackBarType.error,
+      );
     }
   }
 

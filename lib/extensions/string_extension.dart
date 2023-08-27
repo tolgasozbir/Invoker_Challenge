@@ -9,3 +9,8 @@ extension StringExtension on String {
   String get locale => this.tr();
   String localeWithArgs({List<String>? args}) => this.tr(args: args);
 }
+
+extension NullableStringExtension on String? {
+  bool get isNullOrEmpty => this?.isEmpty ?? false;
+  bool get isNotNullOrNoEmpty => this?.isNotEmpty ?? false;
+}

@@ -158,7 +158,7 @@ class BossBattleProvider extends ChangeNotifier {
 
   void addItemToInventory(Item item) {
     _inventory.add(item);
-    _buyItem(item);
+    _updateStats(item: item, isBuying: true); //buy item
     _spendGold(item.item.cost);
     currentMana = maxMana;
     updateView();
@@ -166,151 +166,34 @@ class BossBattleProvider extends ChangeNotifier {
   
   void removeItemToInventory(Item item) {
     _inventory.remove(item);
-    _sellItem(item);
+    _updateStats(item: item, isBuying: false); //sell item
     _addGold((item.item.cost * 0.75).toInt());
     currentMana = maxMana;
     updateView();
   }
 
-  void _buyItem(Item item) {
-    switch (item.item) {
-      case Items.Null_talisman:
-        baseManaRegen += 0.80;
-        maxMana += 60;
-        break;
-      case Items.Void_stone:
-        baseManaRegen += 2.25;
-        break;
-      case Items.Arcane_boots:
-        maxMana += 250;
-        break;
-      case Items.Power_treads:
-        maxMana += 120;
-        bonusDamage += 12;
-        break;
-      case Items.Phase_boots:
-        bonusDamage += 18;
-        break;
-      case Items.Veil_of_discord: break;
-      case Items.Kaya:
-        spellAmp += 0.08;
-        manaRegenMultiplier += 0.24;
-        break;
-      case Items.Aether_lens:
-        baseManaRegen += 3;
-        maxMana += 320;
-        break;
-      case Items.Meteor_hammer:
-        baseManaRegen += 2.75;
-        break;
-      case Items.Hand_of_midas:
-        _isActiveMidas = true;
-        break;
-      case Items.Vladmirs_offering:
-        damageMultiplier += 0.24;
-        break;
-      case Items.Ethereal_blade:
-        final len = _inventory.where((element) => element.item == Items.Ethereal_blade).toList().length;
-        if (len < 2){
-          spellAmp += 0.16;
-          manaRegenMultiplier += 0.72;
-          maxMana += 400;
-        }
-        break;
-      case Items.Monkey_king_bar:
-        bonusDamage += 48;
-        break;
-      case Items.Refresher_orb:
-        baseManaRegen += 7;
-        break;
-      case Items.Daedalus:
-        bonusDamage += 64;
-        break;
-      case Items.Eye_of_skadi:
-        maxMana += 1600;
-        break;
-      case Items.Bloodthorn:
-        bonusDamage += 40;
-        maxMana += 400;
-        baseManaRegen += 4;
-        break;
-      case Items.Dagon: break;
-      case Items.Divine_rapier:
-        bonusDamage += 128;
-        break;
-    }
-  }
+  void _updateStats({required Item item, required bool isBuying}) {
+    final itemBonus = item.item.bonuses;
+    final int multiplier = isBuying ? 1 : -1;
 
-  void _sellItem(Item item) {
-    switch (item.item) {
-      case Items.Null_talisman:
-        baseManaRegen -= 0.80;
-        maxMana -= 60;
-        break;
-      case Items.Void_stone:
-        baseManaRegen -= 2.25;
-        break;
-      case Items.Arcane_boots:
-        maxMana -= 250;
-        break;
-      case Items.Power_treads:
-        maxMana -= 120;
-        bonusDamage -= 12;
-        break;
-      case Items.Phase_boots:
-        bonusDamage -= 18;
-        break;
-      case Items.Veil_of_discord: break;
-      case Items.Kaya:
-        spellAmp -= 0.08;
-        manaRegenMultiplier -= 0.24;
-        break;
-      case Items.Aether_lens:
-        baseManaRegen -= 3;
-        maxMana -= 320;
-        break;
-      case Items.Meteor_hammer:
-        baseManaRegen -= 2.75;
-        break;
-      case Items.Hand_of_midas:
-        final bool itemHasInventory = _inventory.any((element) => element.item == Items.Hand_of_midas);
-        if (!itemHasInventory) {
-          _isActiveMidas = false;
-        }
-        break;
-      case Items.Vladmirs_offering:
-        damageMultiplier -= 0.24;
-        break;
-      case Items.Ethereal_blade:
-        final bool itemHasInventory = _inventory.any((element) => element.item == Items.Ethereal_blade);
-        if (!itemHasInventory){
-          spellAmp -= 0.16;
-          manaRegenMultiplier -= 0.72;
-          maxMana -= 400;
-        }
-        break;
-      case Items.Monkey_king_bar:
-        bonusDamage -= 48;
-        break;
-      case Items.Refresher_orb:
-        baseManaRegen -= 7;
-        break;
-      case Items.Daedalus:
-        bonusDamage -= 64;
-        break;
-      case Items.Eye_of_skadi:
-        maxMana -= 1600;
-        break;
-      case Items.Bloodthorn:
-        bonusDamage -= 40;
-        maxMana -= 400;
-        baseManaRegen -= 4;
-        break;
-      case Items.Dagon: break;
-      case Items.Divine_rapier:
-        bonusDamage -= 128;
-        break;
-    }
+    if (item.item == Items.Hand_of_midas) {
+      final itemHasInventory = _inventory.any((element) => element.item == Items.Hand_of_midas);
+      _isActiveMidas = itemHasInventory;
+      return;
+    } 
+    else if (item.item == Items.Ethereal_blade) {
+      final eBladeCount = _inventory.where((element) => element.item == Items.Ethereal_blade).length;
+      final itemHasInventory = eBladeCount > 0;
+      if ((eBladeCount > 1 && isBuying) || (!isBuying && itemHasInventory)) {
+          return;
+      }
+    } 
+    maxMana += itemBonus.mana * multiplier;
+    baseManaRegen += itemBonus.manaRegen * multiplier;
+    manaRegenMultiplier += itemBonus.manaRegenAmp * multiplier;
+    bonusDamage += itemBonus.damage * multiplier;
+    damageMultiplier += itemBonus.damageMultiplier * multiplier;
+    spellAmp += itemBonus.spellAmp * multiplier;
   }
 
   void onPressedItem(Item item) async {
@@ -415,7 +298,7 @@ class BossBattleProvider extends ChangeNotifier {
     baseManaRegen = 3.9 + UserManager.instance.user.level * 0.27;
     //Re-added item buffs
     for (final item in inventory) {
-      _buyItem(item);
+      _updateStats(item: item, isBuying: true);
     }
     currentMana = maxMana;
     if (updateUI) {
