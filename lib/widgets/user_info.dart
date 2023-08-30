@@ -62,7 +62,7 @@ class UserStatus extends StatelessWidget {
       dismissible: true,
       showBackButton: true,
       height: hasUid ? context.dynamicHeight(0.64) : 500,
-      title:  hasUid ? LocaleKeys.mainMenu_profile.locale : '${LocaleKeys.formDialog_login.locale}&${LocaleKeys.formDialog_register.locale}',
+      title:  hasUid ? LocaleKeys.mainMenu_profile.locale : '${LocaleKeys.formDialog_login.locale} & ${LocaleKeys.formDialog_register.locale}',
       uid: UserManager.instance.user.uid,
       content: hasUid
         ? const ProfileDialogContent()

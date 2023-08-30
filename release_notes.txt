@@ -1,3 +1,7 @@
+# 1.2.2
+- Resolved text overflow issue on login-register screen.
+- Updated the language selection widget.
+
 # 1.2.1
 - Some missing language translations were added.
 - Minor refactoring

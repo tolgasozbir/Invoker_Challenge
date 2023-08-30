@@ -1,7 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dota2_invoker_game/constants/app_strings.dart';
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
-import 'package:dota2_invoker_game/widgets/language_dropdown.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -43,7 +42,6 @@ class SettingsView extends StatelessWidget {
             onTap: storeRedirect,
           ),
           divider(),
-          const LanguageDropdown(),
         ],
       ),
     );

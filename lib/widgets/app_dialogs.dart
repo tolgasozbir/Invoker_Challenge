@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/app_colors.dart';
@@ -12,6 +13,7 @@ class AppDialogs {
   static Future<T?> showSlidingDialog<T extends Object>({
     String? title,
     String? uid, 
+    Widget? titleAct,
     required Widget content, 
     Widget? action, 
     double? height,
@@ -67,7 +69,13 @@ class AppDialogs {
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(title, style: TextStyle(fontSize: context.sp(16), fontWeight: FontWeight.w500)),
+                                        Expanded(
+                                          child: AutoSizeText(
+                                            title,
+                                            maxLines: 1,
+                                            style: TextStyle(fontSize: context.sp(16), fontWeight: FontWeight.w500),
+                                          ),
+                                        ),
                                         if (uid != null) 
                                           Padding(
                                             padding: const EdgeInsets.only(right: 8),
@@ -79,6 +87,11 @@ class AppDialogs {
                                                 fontWeight: FontWeight.w500,
                                               ),
                                             ),
+                                          ),
+                                        if (uid == null && titleAct != null)
+                                          Padding(
+                                            padding: const EdgeInsets.only(right: 12, top: 12),
+                                            child: titleAct,
                                           ),
                                       ],
                                     ),

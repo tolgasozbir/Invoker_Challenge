@@ -62,9 +62,9 @@
         "username": "Имя пользователя",
         "usernameHint": "KuroKy",
         "password": "Пароль",
-        "login": "Войти",
+        "login": "Логин",
         "or": "-ИЛИ-",
-        "register": "Зарегистрироваться",
+        "register": "зарегаться",
         "resetPw": "Сбросить пароль!",
         "reset": "Сбросить"
     },

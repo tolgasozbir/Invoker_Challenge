@@ -72,7 +72,7 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
                 title: LocaleKeys.formDialog_login.locale, 
                 isSelected: isLoginCheckboxSelected,
               ),
-              Text(LocaleKeys.formDialog_or.locale, style: textStyle,),
+              //Text(LocaleKeys.formDialog_or.locale, style: textStyle,),
               ...checkboxLoginRegister(
                 title: LocaleKeys.formDialog_register.locale, 
                 isSelected: !isLoginCheckboxSelected,
