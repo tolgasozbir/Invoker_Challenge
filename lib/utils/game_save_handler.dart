@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import '../enums/local_storage_keys.dart';
 import '../services/app_services.dart';
 
@@ -34,11 +35,13 @@ class SaveProps {
   final int roundProgress;
   final int userGold;
   final List<String> inventoryItems;
+  final List<String>? consumableItems;
 
   SaveProps(
     this.roundProgress,
     this.userGold,
     this.inventoryItems,
+    this.consumableItems,
   );
 
   Map<String, dynamic> toMap() {
@@ -46,6 +49,7 @@ class SaveProps {
       'roundProgress': roundProgress,
       'userGold': userGold,
       'inventoryItems': inventoryItems,
+      'consumableItems': consumableItems ?? [],
     };
   }
 
@@ -54,6 +58,7 @@ class SaveProps {
       map['roundProgress'] as int,
       map['userGold'] as int,
       List<String>.from(map['inventoryItems'] as List<dynamic>),
+      List<String>.from(map['consumableItems'] as List<dynamic>? ?? []),
     );
   }
 

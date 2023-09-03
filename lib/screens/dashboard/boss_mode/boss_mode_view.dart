@@ -124,20 +124,22 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
             final skyLight =  provider.currentBossAlive ? SkyLight.dark : SkyLight.light;
             final skyType = provider.roundProgress >= 6 ? SkyType.thunderstorm : SkyType.normal;
             final weatherType = provider.roundProgress >= 10 ? WeatherType.rainy : WeatherType.normal;
-            return Stack(
-            alignment: Alignment.center,
-            fit: StackFit.expand,
-            children: [
-              Sky(skyLight: skyLight, skyType: skyType),
-              ...circles(provider),
-              bossHeads(provider),
-              Weather(weatherType: weatherType),
-              dpsText(provider),
-              dpsStick(provider),
-              attackDamage(provider),
-              startBtn(provider),
-            ],
-          ).wrapExpanded();
+            return Expanded(
+              child: Stack(
+                alignment: Alignment.center,
+                fit: StackFit.expand,
+                children: [
+                  Sky(skyLight: skyLight, skyType: skyType),
+                  ...circles(provider),
+                  bossHeads(provider),
+                  Weather(weatherType: weatherType),
+                  dpsText(provider),
+                  dpsStick(provider),
+                  attackDamage(provider),
+                  startBtn(provider),
+                ],
+              ),
+            );
           },
         ),
         selectedElementOrbs(),
@@ -149,7 +151,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             const InventoryHud(),
-            abilitySlot().wrapExpanded(),
+            Expanded(child: abilitySlot()),
           ],
         ),
         const EmptyBox.h16(),
@@ -226,18 +228,24 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
         height: 4,
         child: Row(
           children: [
-            Container(
-              decoration: const BoxDecoration(
-                color: AppColors.red,
-                borderRadius: BorderRadius.horizontal(left: Radius.circular(2)),
+            Expanded(
+              flex: provider.physicalPercentage.round(),
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: AppColors.red,
+                  borderRadius: BorderRadius.horizontal(left: Radius.circular(2)),
+                ),
               ),
-            ).wrapExpanded(flex: provider.physicalPercentage.round()),
-            Container(
-              decoration: const BoxDecoration(
-                color: AppColors.blue,
-                borderRadius: BorderRadius.horizontal(right: Radius.circular(2)),
+            ),
+            Expanded(
+              flex: provider.magicalPercentage.round(),
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: AppColors.blue,
+                  borderRadius: BorderRadius.horizontal(right: Radius.circular(2)),
+                ),
               ),
-            ).wrapExpanded(flex: provider.magicalPercentage.round()),
+            ),
           ],
         ),
       ),

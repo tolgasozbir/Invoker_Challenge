@@ -160,8 +160,8 @@ class UserManager extends ChangeNotifier {
 
   //
 
-  Map<String, dynamic> getBestBossScore(String bossName) {
-    return user.bestBossScores?[bossName] as Map<String, dynamic>? ?? {};
+  Map<dynamic, dynamic> getBestBossScore(String bossName) {
+    return user.bestBossScores?[bossName] as Map<dynamic, dynamic>? ?? {};
   }
 
   void updateBestBossTimeScore(String bossName, int value, BossBattle model) async {

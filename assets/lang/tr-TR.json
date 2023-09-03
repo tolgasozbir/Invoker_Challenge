@@ -56,7 +56,7 @@
     },
 
     "formDialog": {
-        "guest": "Misafir",
+        "guest": "Guest",
         "eMail": "E-posta",
         "eMailHint": "fakeKuroKy@xyz.com",
         "username": "Kullanıcı Adı",
@@ -95,6 +95,7 @@
         "sbWaitAnimation": "Buton pasiftir, 5 saniye içinde etkinleşecek. Lütfen bekleyin.",
         "sbInventoryFull": "Envanter dolu!",
         "sbNotEnoughGold": "Yeterli altın yok",
+        "sbAlreadyAvailable": "Bu eşya zaten mevcut",
         "sbCannotFetchMore": "Daha fazla veri gösterilemiyor",
         "sbGameSaved": "Oyun kaydedildi",
         "sbResetPw": "Şifre sıfırlama isteği e-posta adresinize gönderildi. Lütfen e-postanızı kontrol edin."
@@ -244,6 +245,14 @@
         },
         "Divine_rapier": {
             "bonus": "Hasarı 128 artırır",
+            "active": ""
+        },
+        "Aghanims_scepter": {
+            "bonus": "Sun Strike hasarını 2 katına çıkarır, +400 mana ve +10 hasar ekler ayrıca tüm yeteneklere 3 seviye ekler.\n(Bir kez satın alınabilir, envanterinizde yer kaplamaz ve geri satılamaz.)",
+            "active": ""
+        },
+        "Aghanims_shard": {
+            "bonus": "EMP 225 mana yeniler.",
             "active": ""
         }
     }

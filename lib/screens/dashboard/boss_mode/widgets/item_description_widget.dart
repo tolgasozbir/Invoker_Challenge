@@ -177,7 +177,15 @@ class ItemDescriptionWidget extends StatelessWidget {
       SoundManager.instance.playMeepMerp();
       return;
     }
-    if (provider.inventory.length == 6) {
+    if (item.item.consumable && provider.consumableItems.any((element) => element.item == item.item)) {
+      AppSnackBar.showSnackBarMessage(
+        text: LocaleKeys.snackbarMessages_sbAlreadyAvailable.locale,
+        snackBartype: SnackBarType.error,
+      );
+      SoundManager.instance.playMeepMerp();
+      return;
+    }
+    if (provider.inventory.length == 6 && !item.item.consumable) {
       AppSnackBar.showSnackBarMessage(
         text: LocaleKeys.snackbarMessages_sbInventoryFull.locale, 
         snackBartype: SnackBarType.error,
@@ -185,7 +193,7 @@ class ItemDescriptionWidget extends StatelessWidget {
       SoundManager.instance.playMeepMerp();
       return;
     }
-    context.read<BossBattleProvider>().addItemToInventory(item);
+    provider.addItemToInventory(item);
   }
 
   void sellFn(BuildContext context) {

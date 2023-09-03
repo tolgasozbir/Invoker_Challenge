@@ -37,8 +37,11 @@ class SaveButton extends StatelessWidget {
       SaveProps(
         provider.roundProgress,
         //kullanıcının var olan altınını ve item networth değerini topluyoruz (neden item değerlerini topluyoruz? çünkü load ederken itemler geri alındığında eksik gold olmaması için)
-        provider.userGold + provider.inventory.fold(0, (previousValue, element) => previousValue+element.item.cost), 
+        provider.userGold 
+          + provider.inventory.fold(0, (previousValue, element) => previousValue+element.item.cost)
+          + provider.consumableItems.fold(0, (previousValue, element) => previousValue+element.item.cost) as int,
         provider.inventory.map((e) => e.item.name).toList(),
+        provider.consumableItems.map((e) => e.item.name).toList(),
       ),
     );
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
