@@ -495,7 +495,7 @@ class BossBattleProvider extends ChangeNotifier {
       uid: UserManager.instance.user.uid,
       name: UserManager.instance.user.username,
       round: roundProgress+1, 
-      boss: currentBoss.name, 
+      boss: currentBoss.getName, 
       time: elapsedTime, 
       averageDps: averageDps, 
       maxDps: maxDps, 
