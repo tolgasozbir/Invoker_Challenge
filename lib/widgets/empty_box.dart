@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class EmptyBox extends SizedBox {
-  const EmptyBox() : super(width: 0, height: 0);
+  const EmptyBox() : super.shrink();
 
   const EmptyBox.w4() : super(width: 4);
   const EmptyBox.w8() : super(width: 8);

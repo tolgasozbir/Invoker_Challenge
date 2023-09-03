@@ -4,6 +4,15 @@ import '../constants/app_image_paths.dart';
 import '../constants/locale_keys.g.dart';
 
 enum Items {
+  //TODO:
+  // Octarine_core(
+  //   bonuses: ItemBonuses(
+  //     mana: 625,
+  //     manaRegen: 5,
+  //   ),
+  //   cost: 5000,
+  // ),
+
   Null_talisman(
     bonuses: ItemBonuses(
       mana: 60,
@@ -172,6 +181,21 @@ enum Items {
       damage: 128,
     ),
     cost: 9900,
+  ),
+
+  Aghanims_scepter(
+    bonuses: ItemBonuses(
+      mana: 400,
+      damage: 10,
+    ),
+    cost: 5800,
+    consumable: true,
+  ),
+  
+  Aghanims_shard(
+    bonuses: ItemBonuses(),
+    cost: 1400,
+    consumable: true,
   );
 
   // Aegis(
@@ -179,7 +203,7 @@ enum Items {
   //   cost: 0,
   // );
 
-  const Items({required this.bonuses, required this.cost, this.active, this.cooldown, this.manaCost, this.duration, this.hasSound = false});
+  const Items({required this.bonuses, required this.cost, this.active, this.cooldown, this.manaCost, this.duration, this.hasSound = false, this.consumable = false});
 
   final ItemBonuses bonuses;
   final int cost;
@@ -188,6 +212,7 @@ enum Items {
   final double? manaCost;
   final double? duration;
   final bool hasSound;
+  final bool consumable;
 }
 
 class ItemBonuses {
@@ -244,6 +269,8 @@ class _ItemTranslations {
     Items.Bloodthorn: LocaleKeys.Item_Bloodthorn_bonus,
     Items.Dagon: LocaleKeys.Item_Dagon_bonus,
     Items.Divine_rapier: LocaleKeys.Item_Divine_rapier_bonus,
+    Items.Aghanims_scepter: LocaleKeys.Item_Aghanims_scepter_bonus,
+    Items.Aghanims_shard: LocaleKeys.Item_Aghanims_shard_bonus,
   };
 
   static final Map<Items, String> _itemActives = {
@@ -266,6 +293,8 @@ class _ItemTranslations {
     Items.Bloodthorn: LocaleKeys.Item_Bloodthorn_active,
     Items.Dagon: LocaleKeys.Item_Dagon_active,
     Items.Divine_rapier: LocaleKeys.Item_Divine_rapier_active,
+    Items.Aghanims_scepter: LocaleKeys.Item_Aghanims_scepter_active,
+    Items.Aghanims_shard: LocaleKeys.Item_Aghanims_shard_active,
   };
 
 }

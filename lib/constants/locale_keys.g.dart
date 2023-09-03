@@ -84,6 +84,7 @@ abstract class  LocaleKeys {
   static const snackbarMessages_sbWaitAnimation = 'snackbarMessages.sbWaitAnimation';
   static const snackbarMessages_sbInventoryFull = 'snackbarMessages.sbInventoryFull';
   static const snackbarMessages_sbNotEnoughGold = 'snackbarMessages.sbNotEnoughGold';
+  static const snackbarMessages_sbAlreadyAvailable = 'snackbarMessages.sbAlreadyAvailable';
   static const snackbarMessages_sbCannotFetchMore = 'snackbarMessages.sbCannotFetchMore';
   static const snackbarMessages_sbGameSaved = 'snackbarMessages.sbGameSaved';
   static const snackbarMessages_sbResetPw = 'snackbarMessages.sbResetPw';
@@ -202,6 +203,12 @@ abstract class  LocaleKeys {
   static const Item_Divine_rapier_bonus = 'Item.Divine_rapier.bonus';
   static const Item_Divine_rapier_active = 'Item.Divine_rapier.active';
   static const Item_Divine_rapier = 'Item.Divine_rapier';
+  static const Item_Aghanims_scepter_bonus = 'Item.Aghanims_scepter.bonus';
+  static const Item_Aghanims_scepter_active = 'Item.Aghanims_scepter.active';
+  static const Item_Aghanims_scepter = 'Item.Aghanims_scepter';
+  static const Item_Aghanims_shard_bonus = 'Item.Aghanims_shard.bonus';
+  static const Item_Aghanims_shard_active = 'Item.Aghanims_shard.active';
+  static const Item_Aghanims_shard = 'Item.Aghanims_shard';
   static const Item = 'Item';
 
 }

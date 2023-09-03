@@ -84,12 +84,30 @@ class _ShopViewState extends State<ShopView> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            const InventoryHud(isItemsSellable: true),
-            const EmptyBox().wrapExpanded(),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                consumableItems(),
+                const InventoryHud(isItemsSellable: true),
+              ],
+            ),
+            const Spacer(),
           ],
         ),
         const EmptyBox.h16(),
       ],
+    );
+  }
+
+  Padding consumableItems() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 24),
+      child: Row(
+        children: List.generate(context.watch<BossBattleProvider>().consumableItems.length, (index) {
+          final item = context.watch<BossBattleProvider>().consumableItems[index].item.image;
+          return Image.asset(item, width: context.dynamicWidth(0.1),);
+        }),
+      ),
     );
   }
 }

@@ -144,6 +144,13 @@ class BossBattleProvider extends ChangeNotifier {
     SoundManager.instance.playItemBuyingSound();
   }
 
+  final List<Item> _consumableItems = [];
+  List<Item> get consumableItems => _consumableItems;
+  ///Her Yeteneğe %6 hasar ekler + SS 2x damage
+  bool get hasAghanimScepter => _consumableItems.any((element) => element.item == Items.Aghanims_scepter);
+  ///EMP mana çalar
+  bool get hasAghanimShard => _consumableItems.any((element) => element.item == Items.Aghanims_shard);
+
   final List<Item> _inventory = [];
   List<Item> get inventory => _inventory;
 
@@ -157,7 +164,9 @@ class BossBattleProvider extends ChangeNotifier {
   }
 
   void addItemToInventory(Item item) {
-    _inventory.add(item);
+    item.item.consumable 
+      ? _consumableItems.add(item) 
+      : _inventory.add(item);
     _updateStats(item: item, isBuying: true); //buy item
     _spendGold(item.item.cost);
     currentMana = maxMana;
@@ -275,10 +284,18 @@ class BossBattleProvider extends ChangeNotifier {
     final bool isAbilityUsed = spellCooldowns[index].onPressed(currentMana); // Checks if the selected spell can be used, and assigns true to the isAbilityUsed variable if it can.
     if (isAbilityUsed) { // If the selected spell was used
       _spendMana(spell.mana); // Mana is spent equal to the mana value of the chosen spell.
-      final double abilityDamageMultiplier = spell.damage * (UserManager.instance.user.level * 0.02); //max level 0.6 - %60
-      final double fullDamage = spell.damage + abilityDamageMultiplier;
-      spellDamage += fullDamage; // Adds the spell damage to the spellDamage variable.
+      final double abilityDamageMultiplier = spell.damage * ((UserManager.instance.user.level + (hasAghanimScepter ? 1 : 0)) * 0.02); //max level 0.6 - %60
+      double fullDamage = spell.damage + abilityDamageMultiplier;
       updateView(); // Update the player's view.
+      await Future.delayed(spell.effectDelay);
+      if (spell == Spell.emp && hasAghanimShard) {
+        _addMana(225);
+        updateView();
+      } 
+      else if (spell == Spell.sun_strike && hasAghanimScepter) {
+        fullDamage *= 2;
+      }
+      spellDamage += fullDamage; // Adds the spell damage to the spellDamage variable.
       await Future.delayed(Duration(seconds: spell.duration), () => spellDamage -= fullDamage); // Wait for the spell's duration and subtract the spell damage from the spellDamage variable.
     }
   }
@@ -579,6 +596,7 @@ class BossBattleProvider extends ChangeNotifier {
     _resetCooldowns();
     _castedAbility.clear();
     _inventory.clear();
+    _consumableItems.clear();
     snapIsDone = true;
     currentBossAlive = false;
     currentBoss = Bosses.values.first;

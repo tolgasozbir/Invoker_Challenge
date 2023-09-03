@@ -73,6 +73,10 @@ class LoadGameDialogContent extends StatelessWidget {
           final item = Items.values.byName(e);
           provider.addItemToInventory(Item(item: item));
         }
+        for (final e in savedGame.consumableItems ?? []) {
+          final item = Items.values.byName(e);
+          provider.addItemToInventory(Item(item: item));
+        }
         Navigator.pop(context);
       },
     );

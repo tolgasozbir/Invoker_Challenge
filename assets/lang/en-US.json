@@ -95,6 +95,7 @@
         "sbWaitAnimation": "Button is inactive, it will be enabled in 5 seconds. Please wait.",
         "sbInventoryFull": "Inventory is full!",
         "sbNotEnoughGold": "Not enough gold",
+        "sbAlreadyAvailable": "This item has already been purchased before",
         "sbCannotFetchMore": "Cannot show more data",
         "sbGameSaved": "Game saved",
         "sbResetPw": "A password reset request has been sent to your email. Please check your email."
@@ -244,6 +245,14 @@
         },
         "Divine_rapier": {
             "bonus": "Increases damage by 128",
+            "active": ""
+        },
+        "Aghanims_scepter": {
+            "bonus": "Doubles Sun Strike damage, adds +400 mana, +10 damage, and also adds 3 levels to all abilities.\n(Can be purchased once, takes no inventory space, and is non-refundable.)",
+            "active": ""
+        },
+        "Aghanims_shard": {
+            "bonus": "EMP restores 225 mana.",
             "active": ""
         }
     }
