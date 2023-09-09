@@ -10,6 +10,7 @@ enum Items {
   //     mana: 625,
   //     manaRegen: 5,
   //   ),
+  //   activeProps: ItemActiveProps(),
   //   cost: 5000,
   // ),
 
@@ -18,6 +19,7 @@ enum Items {
       mana: 60,
       manaRegen: 0.8,
     ),
+    activeProps: ItemActiveProps(),
     cost: 500,
   ),
 
@@ -25,6 +27,7 @@ enum Items {
     bonuses: ItemBonuses(
       manaRegen: 2.25,
     ),
+    activeProps: ItemActiveProps(),
     cost: 825,
   ),
 
@@ -32,10 +35,14 @@ enum Items {
     bonuses: ItemBonuses(
       mana: 250,
     ),
+    activeProps: ItemActiveProps(
+      cooldown: 40,
+      manaCost: 0,
+      activeBonuses: ItemActiveBonuses(
+        mana: 175,
+      ),
+    ),
     cost: 1300, 
-    active: 'Restore 175 mana', 
-    cooldown: 40, 
-    manaCost: 0,
     hasSound: true,
   ),
 
@@ -44,6 +51,7 @@ enum Items {
       mana: 120,
       damage: 12,
     ),
+    activeProps: ItemActiveProps(),
     cost: 1400,
   ),
 
@@ -52,18 +60,21 @@ enum Items {
       mana: 120,
       damage: 18,
     ),
+    activeProps: ItemActiveProps(),
     cost: 1500,
   ),
 
   Veil_of_discord(
     bonuses: ItemBonuses(),
-    // bonus: 'Increases magic damage taken by bosses.'
-    // '\nDuration: 16 seconds', ////
+    activeProps: ItemActiveProps(
+      cooldown: 30,
+      manaCost: 50,
+      duration: 16,
+      activeBonuses: ItemActiveBonuses(
+        spellAmp: 0.20,
+      ),
+    ),
     cost: 1525, 
-    active: 'Spell amplification +20%', 
-    cooldown: 30, 
-    manaCost: 50, 
-    duration: 16,
     hasSound: true,
   ),
 
@@ -72,11 +83,13 @@ enum Items {
       spellAmp: 0.08,
       manaRegenAmp: 0.24,
     ),
+    activeProps: ItemActiveProps(),
     cost: 2050,
   ),
 
   Hand_of_midas(
     bonuses: ItemBonuses(),
+    activeProps: ItemActiveProps(),
     cost: 2200,
     hasSound: true,
   ),
@@ -86,6 +99,7 @@ enum Items {
       mana: 320,
       manaRegen: 3,
     ), 
+    activeProps: ItemActiveProps(),
     cost: 2275,
   ),
 
@@ -93,13 +107,15 @@ enum Items {
     bonuses: ItemBonuses(
       manaRegen: 2.75,
     ),
-    // bonus: '+2.75 mana regeneration'
-    // '\nDuration: 6 seconds. Deals damage to bosses over time.', 
+    activeProps: ItemActiveProps(
+      cooldown: 24, 
+      manaCost: 100, 
+      duration: 6,
+      activeBonuses: ItemActiveBonuses(
+        magicalDamage: 100,
+      ),
+    ),
     cost: 2300, 
-    active: 'Damage Per Second: 100', 
-    cooldown: 24, 
-    manaCost: 100, 
-    duration: 6,
     hasSound: true,
   ),
 
@@ -107,6 +123,7 @@ enum Items {
     bonuses: ItemBonuses(
       damageMultiplier: 0.24,
     ),
+    activeProps: ItemActiveProps(),
     cost: 2450,
   ),
 
@@ -116,11 +133,15 @@ enum Items {
       manaRegenAmp: 0.72,
       spellAmp: 0.16,
     ),
+    activeProps: ItemActiveProps(
+      cooldown: 36, 
+      manaCost: 200, 
+      duration: 8,
+      activeBonuses: ItemActiveBonuses(
+        spellAmp: 0.40,
+      ),
+    ),
     cost: 4650, 
-    active: 'Magic Amplification +40%', 
-    cooldown: 36, 
-    manaCost: 200, 
-    duration: 8,
     hasSound: true,
   ),
 
@@ -128,6 +149,7 @@ enum Items {
     bonuses: ItemBonuses(
       damage: 48,
     ),
+    activeProps: ItemActiveProps(),
     cost: 4575,
   ),
 
@@ -135,11 +157,11 @@ enum Items {
     bonuses: ItemBonuses(
       manaRegen: 7,
     ),
+    activeProps: ItemActiveProps(
+      cooldown: 180, 
+      manaCost: 350,
+    ),
     cost: 5000, 
-    active: 'Resets the cooldowns of all your items and abilities.'
-    "\n(Multiple items won't stacks)", 
-    cooldown: 180, 
-    manaCost: 350,
     hasSound: true,
   ),
 
@@ -147,6 +169,7 @@ enum Items {
     bonuses: ItemBonuses(
       damage: 64,
     ),
+    activeProps: ItemActiveProps(),
     cost: 5650,
   ),
   
@@ -154,6 +177,7 @@ enum Items {
     bonuses: ItemBonuses(
       mana: 1600,
     ),
+    activeProps: ItemActiveProps(),
     cost: 5200,
   ),
   
@@ -163,16 +187,21 @@ enum Items {
       mana: 400,
       manaRegen: 4.0,
     ),
+    activeProps: ItemActiveProps(),
     cost: 6800,
   ),
   
   Dagon(
     bonuses: ItemBonuses(), //damage?
+    activeProps: ItemActiveProps(
+      cooldown: 30,
+      manaCost: 200,
+      duration: 1,
+      activeBonuses: ItemActiveBonuses(
+        magicalDamage: 3200,
+      ),
+    ),
     cost: 7950,
-    active: '+3200 Magic Damage',
-    cooldown: 30,
-    manaCost: 200,
-    duration: 1,
     hasSound: true,
   ),
   
@@ -180,6 +209,7 @@ enum Items {
     bonuses: ItemBonuses(
       damage: 128,
     ),
+    activeProps: ItemActiveProps(),
     cost: 9900,
   ),
 
@@ -188,12 +218,14 @@ enum Items {
       mana: 400,
       damage: 10,
     ),
+    activeProps: ItemActiveProps(),
     cost: 5800,
     consumable: true,
   ),
   
   Aghanims_shard(
     bonuses: ItemBonuses(),
+    activeProps: ItemActiveProps(),
     cost: 1400,
     consumable: true,
   );
@@ -203,14 +235,12 @@ enum Items {
   //   cost: 0,
   // );
 
-  const Items({required this.bonuses, required this.cost, this.active, this.cooldown, this.manaCost, this.duration, this.hasSound = false, this.consumable = false});
+  const Items({required this.bonuses, required this.activeProps, required this.cost, this.hasSound = false, this.consumable = false});
 
   final ItemBonuses bonuses;
+  final ItemActiveProps activeProps;
   final int cost;
-  final String? active;
-  final double? cooldown;
-  final double? manaCost;
-  final double? duration;
+
   final bool hasSound;
   final bool consumable;
 }
@@ -231,6 +261,29 @@ class ItemBonuses {
     this.damageMultiplier = 0,
     this.spellAmp = 0,
   });
+}
+
+class ItemActiveBonuses {
+  final double mana;
+  //final double physicalDamage;
+  final double magicalDamage;
+  final double spellAmp;
+
+  const ItemActiveBonuses({
+    this.mana = 0,
+    this.spellAmp = 0,
+    this.magicalDamage = 0,
+    //this.physicalDamage = 0,
+  });
+}
+
+class ItemActiveProps {
+  final double? cooldown;
+  final double? manaCost;
+  final double? duration;
+  final ItemActiveBonuses activeBonuses;
+
+  const ItemActiveProps({this.cooldown, this.manaCost, this.duration, this.activeBonuses = const ItemActiveBonuses()});
 }
 
 extension ItemExtension on Items {

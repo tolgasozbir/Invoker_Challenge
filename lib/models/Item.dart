@@ -7,12 +7,12 @@ class Item extends ICooldownModel {
   Item({required this.item});
 
   @override
-  double get getRemainingCooldownTime => (item.cooldown ?? 0) - (DateTime.now().difference(lastPressedAt).inSeconds);
+  double get getRemainingCooldownTime => (item.activeProps.cooldown ?? 0) - (DateTime.now().difference(lastPressedAt).inSeconds);
 
   @override
   bool onPressed(double currentMana) {
-    if (item.cooldown == null) return false;
-    final cooldown = Duration(seconds: item.cooldown!.toInt());
+    if (item.activeProps.cooldown == null) return false;
+    final cooldown = Duration(seconds: item.activeProps.cooldown!.toInt());
     final isCooldownOver = DateTime.now().difference(lastPressedAt) > cooldown;
 
     if (!isCooldownOver) {
@@ -20,7 +20,7 @@ class Item extends ICooldownModel {
       return false;
     }
 
-    if (currentMana < (item.manaCost ?? 0)) {
+    if (currentMana < (item.activeProps.manaCost ?? 0)) {
       SoundManager.instance.playNoManaSound();
       return false;
     }

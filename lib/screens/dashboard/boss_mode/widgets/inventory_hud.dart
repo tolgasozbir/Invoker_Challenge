@@ -87,7 +87,7 @@ class _InventoryHudState extends State<InventoryHud> {
     return InkWell(
       child: CooldownAnimation(
         key: ObjectKey(item),
-        duration: Duration(seconds: (item.item.cooldown ?? 0).toInt()),
+        duration: Duration(seconds: (item.item.activeProps.cooldown ?? 0).toInt()),
         remainingCd: item.getRemainingCooldownTime,
         size: context.dynamicWidth(0.12),
         child: Container(
@@ -102,7 +102,7 @@ class _InventoryHudState extends State<InventoryHud> {
           child: Text(
             widget.isItemsSellable 
               ? '' 
-              : (item.item.manaCost?.toStringAsFixed(0) ?? ''), 
+              : (item.item.activeProps.manaCost?.toStringAsFixed(0) ?? ''), 
             style: TextStyle(
               fontSize: context.sp(10), 
               fontWeight: FontWeight.bold,

@@ -194,7 +194,7 @@ class BossBattleProvider extends ChangeNotifier {
       final eBladeCount = _inventory.where((element) => element.item == Items.Ethereal_blade).length;
       final itemHasInventory = eBladeCount > 0;
       if ((eBladeCount > 1 && isBuying) || (!isBuying && itemHasInventory)) {
-          return;
+        return;
       }
     } 
     maxMana += itemBonus.mana * multiplier;
@@ -210,42 +210,66 @@ class BossBattleProvider extends ChangeNotifier {
       SoundManager.instance.playMeepMerp();
       return;
     }
+
     final bool isItemUsed = item.onPressed(currentMana);
+
     if (isItemUsed) {
-      _spendMana(item.item.manaCost ?? 0);
+      _spendMana(item.item.activeProps.manaCost ?? 0);
+
       if (item.item.hasSound) {
         SoundManager.instance.playItemSound(item.item.name);
       }
-      updateView();
-      switch (item.item) {
-        case Items.Arcane_boots:
-          _addMana(175);
-          break;
-        case Items.Veil_of_discord:
-          spellAmp += 0.20;
-          await Future.delayed(Duration(seconds: item.item.duration?.toInt() ?? 0), () => spellAmp -= 0.20,);
-          break;
-        case Items.Meteor_hammer:
-          spellDamage += 100;
-          await Future.delayed(Duration(seconds: item.item.duration?.toInt() ?? 0), () => spellDamage -= 100,);
-          break;
-        case Items.Ethereal_blade:
-          spellAmp += 0.40;
-          await Future.delayed(Duration(seconds: item.item.duration?.toInt() ?? 0), () => spellAmp -= 0.40,);
-          break;
-        case Items.Refresher_orb:
-          _resetCooldowns(withRefresherOrb: false);
-          break;
-        case Items.Dagon:
-          spellDamage += 3200;
-          await Future.delayed(Duration(seconds: item.item.duration?.toInt() ?? 0), () => spellDamage -= 3200,);
-          break;
-        default: break;
+
+      if (item.item == Items.Arcane_boots) {
+        _useArcaneBoots(item);
+        return;
+      } else if (item.item == Items.Refresher_orb) {
+        _useRefresherOrb(item);
+        return;
       }
-      updateView();
+      _modifyBonuses(item, true);
+      await Future.delayed(
+        Duration(seconds: item.item.activeProps.duration?.toInt() ?? 0), 
+        () => _modifyBonuses(item, false), //TODO: round bitiyse sadece magic silinsin magic amp zaaten 0 oluyor bug here
+      );
     }
   }
 
+  void _useArcaneBoots(Item item) {
+    _addMana(item.item.activeProps.activeBonuses.mana);
+    updateView();
+  }
+
+  void _useRefresherOrb(Item item) {
+    _resetCooldowns(withRefresherOrb: false);
+    updateView();
+  }
+
+  void _modifyBonuses(Item item, bool apply) {
+    final activeBonuses = item.item.activeProps.activeBonuses;
+
+    final multiplier = apply ? 1 : -1;
+
+    //bonusDamage += multiplier * activeBonuses.physicalDamage; // TODO: Orchid 1.5x damage bonusDamage yerine multiplier olabilir
+    spellDamage += multiplier * activeBonuses.magicalDamage;
+    spellAmp    += multiplier * activeBonuses.spellAmp;
+
+    ///Boss öldükten sonra spellAmp _updateManaAndBaseDamage() fonksiyonunda sıfırlanıyor.
+    ///Bu sebeble e.blade veil gibi itemlerin durationları bittikten sonra çıkarma işlemi yapıldığından eksiye düşüyor
+    ///Bunun önüne geçmek için aşşağıdaki kodu yazdık
+    if (spellAmp < cSpellAmp) {
+      spellAmp = cSpellAmp;
+    }
+    updateView();
+  }
+
+  double cSpellAmp = 0;
+  void calculateSpellAmp() {
+    cSpellAmp = 0;
+    for (final item in inventory) {
+      cSpellAmp += item.item.bonuses.spellAmp;
+    }
+  }
 
   ///-----     End Inventory - Items     -----///
 
@@ -316,6 +340,9 @@ class BossBattleProvider extends ChangeNotifier {
     //Re-added item buffs
     for (final item in inventory) {
       _updateStats(item: item, isBuying: true);
+    }
+    for (final consumableItem in consumableItems) {
+      _updateStats(item: consumableItem, isBuying: true);
     }
     currentMana = maxMana;
     if (updateUI) {
@@ -415,6 +442,7 @@ class BossBattleProvider extends ChangeNotifier {
       isHornSoundPlaying = false;
     }
     if (hasHornSoundStopped == false) return;
+    calculateSpellAmp();
     started = true;
     currentBossAlive = true;
     roundProgress++;
