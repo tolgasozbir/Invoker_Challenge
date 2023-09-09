@@ -60,10 +60,10 @@ class ItemDescriptionWidget extends StatelessWidget {
             children: [
               Row(
               children: [
-                if (item.item.cooldown != null)
+                if (item.item.activeProps.cooldown != null)
                   cooldownfield(context),
                 const EmptyBox.w12(),
-                if (item.item.manaCost != null)
+                if (item.item.activeProps.manaCost != null)
                   manafield(context),
                 ],
               ),
@@ -125,7 +125,7 @@ class ItemDescriptionWidget extends StatelessWidget {
           ),
         ),
         Text(
-          item.item.cooldown!.toStringAsFixed(0),
+          item.item.activeProps.cooldown!.toStringAsFixed(0),
           style: TextStyle(fontSize: context.sp(13), fontWeight: FontWeight.w500,),
         ),
       ],
@@ -145,7 +145,7 @@ class ItemDescriptionWidget extends StatelessWidget {
           ),
         ),
         Text(
-          item.item.manaCost!.toStringAsFixed(0),
+          item.item.activeProps.manaCost!.toStringAsFixed(0),
           style: TextStyle(fontSize: context.sp(13), fontWeight: FontWeight.w500,),
         ),
       ],
