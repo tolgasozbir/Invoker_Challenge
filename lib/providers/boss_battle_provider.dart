@@ -230,7 +230,7 @@ class BossBattleProvider extends ChangeNotifier {
       _modifyBonuses(item, true);
       await Future.delayed(
         Duration(seconds: item.item.activeProps.duration?.toInt() ?? 0), 
-        () => _modifyBonuses(item, false), //TODO: round bitiyse sadece magic silinsin magic amp zaaten 0 oluyor bug here
+        () => _modifyBonuses(item, false),
       );
     }
   }

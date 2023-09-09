@@ -1,3 +1,8 @@
+# 1.3.1
+- Fixed the overflow issue in the level exp bar on the main menu that occurs at high levels.
+- The error causing the incorrect calculation of spell amplification in boss battle mode has been fixed.
+- Minor code improvements.
+
 # 1.3.0
 - Added new items: Aghanim Scepter and Aghanim Shard.
 - Added delay times to some abilities: Emp, Tornado, Sun Strike, and Chaos Meteor.
