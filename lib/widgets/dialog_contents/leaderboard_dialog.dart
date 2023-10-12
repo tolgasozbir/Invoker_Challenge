@@ -89,7 +89,7 @@ class _LeaderboardDialogState extends State<LeaderboardDialog> with ScreenStateM
             ? Lottie.asset(LottiePaths.lottieNoData, height: context.dynamicHeight(0.32))
             : resultListView(results!),
           if (results!= null && results!.isNotEmpty)
-            showMoreBtn().wrapPadding(const EdgeInsets.all(8))
+            showMoreBtn().wrapPadding(const EdgeInsets.all(8)),
         ],
       ),
     );
@@ -247,11 +247,11 @@ class _LeaderboardDialogState extends State<LeaderboardDialog> with ScreenStateM
                 softWrap: false,
                 overflow: TextOverflow.fade,
               ),
-              const Icon(Icons.arrow_drop_down_circle_outlined)
+              const Icon(Icons.arrow_drop_down_circle_outlined),
             ],
           ).wrapPadding(const EdgeInsets.all(8)),
         ),
-      ).wrapExpanded()
+      ).wrapExpanded(),
     ];
   }
 

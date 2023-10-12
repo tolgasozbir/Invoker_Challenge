@@ -38,7 +38,7 @@ class ItemDescriptionWidget extends StatelessWidget {
     colors: [
       Colors.grey, 
       Colors.grey, 
-      Colors.black
+      Colors.black,
     ],
   );
 
@@ -69,7 +69,7 @@ class ItemDescriptionWidget extends StatelessWidget {
               ),
               button(context),
             ],
-          )
+          ),
         ],
       ),
     );

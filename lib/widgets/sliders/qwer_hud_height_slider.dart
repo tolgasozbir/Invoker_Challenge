@@ -81,7 +81,7 @@ class _QWERHudHeightSliderState extends State<QWERHudHeightSlider> {
                   );
                 },
               ),).wrapCenter().wrapExpanded(),
-              valueText(widget.max.toString())
+              valueText(widget.max.toString()),
             ],
           ).wrapPadding(EdgeInsets.symmetric(horizontal: widget.sliderHeight * paddingFactor)),
         ).wrapExpanded(),

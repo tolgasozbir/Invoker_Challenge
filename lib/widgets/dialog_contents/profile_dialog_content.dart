@@ -68,7 +68,7 @@ class ProfileDialogContent extends StatelessWidget {
                 ],
               ),
             ),
-            const Icon(Icons.chevron_right, color: AppColors.amber)
+            const Icon(Icons.chevron_right, color: AppColors.amber),
           ],
         ),
       ),

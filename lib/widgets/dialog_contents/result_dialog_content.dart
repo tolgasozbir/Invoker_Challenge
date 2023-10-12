@@ -68,7 +68,7 @@ class _ResultDialogContentState extends State<ResultDialogContent> {
           fontSize: context.sp(13),
         ),
       ),
-      resultField(context, LocaleKeys.commonGeneral_score.locale, UserManager.instance.getBestScore(widget.gameType).toString())
+      resultField(context, LocaleKeys.commonGeneral_score.locale, UserManager.instance.getBestScore(widget.gameType).toString()),
     ],
    );
   }

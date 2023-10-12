@@ -36,7 +36,7 @@ class _InventoryHudState extends State<InventoryHud> {
       ),
       child: Consumer<BossBattleProvider>(
         builder: (context, provider, child) {
-          final items = context.watch<BossBattleProvider>().inventory;
+          final items = provider.inventory;
           return Column(
             children: [
               Row(
@@ -89,7 +89,7 @@ class _InventoryHudState extends State<InventoryHud> {
         key: ObjectKey(item),
         duration: Duration(seconds: (item.item.activeProps.cooldown ?? 0).toInt()),
         remainingCd: item.getRemainingCooldownTime,
-        size: context.dynamicWidth(0.12),
+        size: context.dynamicWidth(0.12)+4,
         child: Container(
           width: context.dynamicWidth(0.12),
           height: context.dynamicWidth(0.12),

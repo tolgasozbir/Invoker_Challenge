@@ -105,7 +105,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, ScreenStateM
         else comboRequiredSpells(),
         selectedElementOrbs(),
         skills(),
-        startButton()
+        startButton(),
       ],
     );
   }

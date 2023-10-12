@@ -42,7 +42,7 @@ class _ShopViewState extends State<ShopView> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          GoldWidget(gold: context.watch<BossBattleProvider>().userGold)
+          GoldWidget(gold: context.watch<BossBattleProvider>().userGold),
         ],
       ),
       body: _bodyView(),

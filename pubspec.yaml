@@ -20,28 +20,28 @@ dependencies:
 
   #Icons
   font_awesome_flutter: ^9.1.0
-  cupertino_icons: ^1.0.2
+  cupertino_icons: ^1.0.6
 
   #Utils
   flutter_svg: ^1.1.6
   audioplayers: ^0.20.0
   internet_connection_checker: ^1.0.0+1
-  url_launcher: ^6.1.10
+  url_launcher: ^6.1.14
   auto_size_text: ^3.0.0
   flutter_fgbg: ^0.2.2
 
   #.env
-  flutter_config: ^2.0.0
+  flutter_config: ^2.0.2
 
   #Local Storage
   hive: ^2.2.3
   hive_flutter: ^1.1.0
-  shared_preferences: ^2.0.17
+  shared_preferences: ^2.2.2
 
   #Firebase
-  firebase_core: ^2.15.0
-  cloud_firestore: ^4.8.4
-  firebase_auth: ^4.7.2
+  firebase_core: ^2.17.0
+  cloud_firestore: ^4.9.3
+  firebase_auth: ^4.10.1
 
   #Animation
   lottie: ^1.4.2
@@ -53,7 +53,7 @@ dependencies:
   sleek_circular_slider: ^2.0.1
 
   #Ads
-  google_mobile_ads: ^2.3.0
+  google_mobile_ads: ^2.4.0
   #UMP
   user_messaging_platform: ^1.2.1
 

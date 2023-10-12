@@ -87,7 +87,7 @@ class AppTextFormField extends StatelessWidget {
             hintText: this.hintText,
             errorText: this.errorText,
           ),
-        ).wrapExpanded(flex: isExpand ? 1 : 0)
+        ).wrapExpanded(flex: isExpand ? 1 : 0),
       ],
     );
   }

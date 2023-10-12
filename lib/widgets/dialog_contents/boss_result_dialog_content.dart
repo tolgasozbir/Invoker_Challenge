@@ -76,7 +76,7 @@ class BossResultRoundDialogContent extends StatelessWidget {
                   ),
                 ),
                 const EmptyBox.w4(),
-                const Icon(Icons.swipe_down)
+                const Icon(Icons.swipe_down),
               ],
             ),
           ),
@@ -86,7 +86,7 @@ class BossResultRoundDialogContent extends StatelessWidget {
           _resultField(LocaleKeys.leaderboard_maxDps.locale,      (bestScore['maxDps'] as double).numberFormat),
           _resultField(LocaleKeys.leaderboard_physicalDmg.locale, (bestScore['physicalDamage'] as double).numberFormat),
           _resultField(LocaleKeys.leaderboard_magicalDmg.locale,  (bestScore['magicalDamage'] as double).numberFormat),
-        ]
+        ],
       ],
     );
   }

@@ -77,7 +77,7 @@ class SettingsView extends StatelessWidget {
               maxLines: 1,
             ),
           ),
-          const Icon(CupertinoIcons.chevron_forward)
+          const Icon(CupertinoIcons.chevron_forward),
         ],
       ),
     );

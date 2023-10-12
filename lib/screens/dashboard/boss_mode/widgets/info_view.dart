@@ -58,7 +58,7 @@ class InfoView extends StatelessWidget {
     ),
     Column(
       children: Spell.values.map((e) => spellDamageInfo(e)).toList(),
-    )
+    ),
   ];
 
   Widget spellDamageInfo(Spell spell) {
@@ -87,7 +87,7 @@ class InfoView extends StatelessWidget {
               child: Text(((spell.damage*spell.duration) + ((spell.damage*spell.duration) * UserManager.instance.user.level * 0.02)).toStringAsFixed(1)).wrapAlign(Alignment.centerRight),
             ),
           ],
-        )
+        ),
       ],
     ).wrapPadding(const EdgeInsets.only(bottom: 8));
   }
