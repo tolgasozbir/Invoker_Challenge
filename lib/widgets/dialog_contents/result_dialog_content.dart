@@ -80,13 +80,10 @@ class _ResultDialogContentState extends State<ResultDialogContent> {
         break;
       case GameType.Challanger:
         btnTitle = LocaleKeys.adBtn_continue.locale;
-        break;
       case GameType.Timer:
         btnTitle = LocaleKeys.adBtn_sec30.locale;
-        break;
       case GameType.Combo:
         btnTitle = LocaleKeys.adBtn_sec10.locale;
-        break;
     }
     return WatchAdButton(
       title: btnTitle,
@@ -97,13 +94,10 @@ class _ResultDialogContentState extends State<ResultDialogContent> {
             break;
           case GameType.Challanger:
             context.read<GameProvider>().continueChallangerAfterWatchingAd();
-            break;
           case GameType.Timer:
             context.read<GameProvider>().continueTimeTrialAfterWatchingAd();
-            break;
           case GameType.Combo:
             context.read<GameProvider>().continueComboAfterWatchingAd();
-            break;
         }
         Navigator.pop(context);
       },
@@ -221,7 +215,6 @@ class _ResultDialogActionState extends State<ResultDialogAction> with ScreenStat
             score: score,
           ),
         );
-        break;
       case DatabaseTable.Challenger:
         isOk = await db.addScore<Challenger>(
           scoreType: ScoreType.Challenger, 
@@ -232,7 +225,6 @@ class _ResultDialogActionState extends State<ResultDialogAction> with ScreenStat
             score: score,
           ),
         );
-        break;
       case DatabaseTable.Combo:
         isOk = await db.addScore<Combo>(
           scoreType: ScoreType.Combo, 
@@ -242,7 +234,6 @@ class _ResultDialogActionState extends State<ResultDialogAction> with ScreenStat
             score: score,
           ),
         );
-        break;
     }
 
     if (isOk) {

@@ -67,10 +67,8 @@ class GameProvider extends ChangeNotifier {
         break;
       case GameType.Challanger:
         time = challangerTime;
-        break;
       case GameType.Timer:
         time = timeTrialTime;
-        break;
       case GameType.Combo:
         time = _comboPassingTime + (isAdWatched ? 10 : 0); //6 sec comboduration
         exp = score * 3;

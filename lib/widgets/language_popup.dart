@@ -53,13 +53,10 @@ class _LanguagePopupState extends State<LanguagePopup> {
     switch (selected) {
       case 0: 
         EasyLocalization.of(ctx)?.setLocale(const Locale('en', 'US'));
-        break;
       case 1: 
         EasyLocalization.of(ctx)?.setLocale(const Locale('ru', 'RU'));
-        break;
       case 2: 
         EasyLocalization.of(ctx)?.setLocale(const Locale('tr', 'TR'));
-        break;
       default: 
         EasyLocalization.of(ctx)?.setLocale(const Locale('en', 'US'));
         break;

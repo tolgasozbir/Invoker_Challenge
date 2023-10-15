@@ -67,7 +67,6 @@ class SoundManager {
       case Bosses.anti_mage:
       case Bosses.drow_ranger:
         soundCount = 1;
-        break;
       default: soundCount = 2;
     }
 
@@ -122,7 +121,6 @@ class SoundManager {
       case Bosses.anti_mage:
       case Bosses.templar:
         soundCount = 1;
-        break;
       default : soundCount = 2;
     }
 
@@ -171,7 +169,6 @@ class SoundManager {
       case Bosses.anti_mage:
       case Bosses.huskar:
         soundCount = 1;
-        break;
       default: soundCount = 2;
     }
 

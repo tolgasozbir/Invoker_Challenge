@@ -117,8 +117,11 @@ class TalentTree extends StatelessWidget {
   SvgPicture talentTreeSvg(double size, Color color) {
     return SvgPicture.asset(
       ImagePaths.svgTalentTree, 
-      height: size, 
-      color: color,
+      height: size,
+      colorFilter: ColorFilter.mode(
+        color,
+        BlendMode.srcIn,
+      ),
     );
   }
 

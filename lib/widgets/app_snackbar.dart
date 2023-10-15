@@ -72,15 +72,12 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
       case SnackBarType.info:
         snackBarColor = AppColors.infoColor;
         snackBarTitle = LocaleKeys.snackbarMessages_sbInfo.locale;
-        break;
       case SnackBarType.success:
         snackBarColor = AppColors.successColor;
         snackBarTitle = LocaleKeys.snackbarMessages_sbSuccess.locale;
-        break;
       case SnackBarType.error:
         snackBarColor = AppColors.errorColor;
         snackBarTitle = LocaleKeys.snackbarMessages_sbError.locale;
-        break;
     }
   }
 
@@ -154,7 +151,10 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
       right: 0,
       child: SvgPicture.asset(
         svg,
-        color: AppColors.svgGrey.withOpacity(0.64),
+        colorFilter: ColorFilter.mode(
+          AppColors.svgGrey.withOpacity(0.64), 
+          BlendMode.srcIn,
+        ),
         width: bgIconSize+32,
       ),
     );
@@ -166,7 +166,10 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
       top: position,
       child: SvgPicture.asset(
         ImagePaths.svgDota2Logo,
-        color: AppColors.svgGrey.withOpacity(0.24),
+        colorFilter: ColorFilter.mode(
+          AppColors.svgGrey.withOpacity(0.24), 
+          BlendMode.srcIn,
+        ),
         width: bgIconSize,
       ),
     );
@@ -179,7 +182,10 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
       top: position/2,
       child: SvgPicture.asset(
         ImagePaths.svgQuas,
-        color: AppColors.quasColor.withOpacity(0.72),
+        colorFilter: ColorFilter.mode(
+          AppColors.quasColor.withOpacity(0.72),
+          BlendMode.srcIn,
+        ),
         width: bgIconSize/2,
       ),
     );
@@ -192,7 +198,10 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
       top: position/2,
       child: SvgPicture.asset(
         ImagePaths.svgWex,
-        color: AppColors.wexColor.withOpacity(0.72),
+        colorFilter: ColorFilter.mode(
+          AppColors.wexColor.withOpacity(0.72),
+          BlendMode.srcIn,
+        ),
         width: bgIconSize/2,
       ),
     );
@@ -205,7 +214,10 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
       top: position/2,
       child: SvgPicture.asset(
         ImagePaths.svgExort,
-        color: AppColors.exortColor.withOpacity(0.72),
+        colorFilter: ColorFilter.mode(
+          AppColors.exortColor.withOpacity(0.72),
+          BlendMode.srcIn,
+        ),
         width: bgIconSize/2,
       ),
     );

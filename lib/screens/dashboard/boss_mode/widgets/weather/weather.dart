@@ -24,13 +24,11 @@ class _WeatherState extends State<Weather> {
       switch (widget.weatherType) {
         case WeatherType.normal:
           weather = const EmptyBox();
-          break;
         case WeatherType.rainy:
           weather = Rain(
             width: constraints.maxWidth, 
             height: constraints.maxHeight,
           );
-          break;
       }
       return ClipRect(child: this.weather);
     },);

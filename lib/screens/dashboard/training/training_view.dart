@@ -70,7 +70,7 @@ class _TrainingViewState extends State<TrainingView> {
             height: context.dynamicWidth(0.16),
             width: context.dynamicWidth(0.16),
             child: const Icon(
-              FontAwesomeIcons.questionCircle,
+              FontAwesomeIcons.circleQuestion,
               color: AppColors.amber,
             ),
           ),

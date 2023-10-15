@@ -198,13 +198,10 @@ class UserManager extends ChangeNotifier {
         break;
       case GameType.Challanger:
         user.bestChallengerScore = score;
-        break;
       case GameType.Timer:
         user.bestTimerScore = score;
-        break;
       case GameType.Combo:
         user.bestComboScore = score;
-        break;
     }
     await setUserAndSaveToCache(user);
   }
@@ -261,8 +258,8 @@ class UserManager extends ChangeNotifier {
 
     switch (level) {
       case 10: break; ///[maxMana += UserManager.instance.user.level >= 10 ? 400] in BossProvider
-      case 15: user.challangerLife = 1; break;
-      case 20: user.expMultiplier += 2; break;
+      case 15: user.challangerLife = 1;
+      case 20: user.expMultiplier += 2;
       case 25: break; ///[baseDamage *= (UserManager.instance.user.level >= 30 ? 2 : 1)] in BossProvider
       default: break;
     }

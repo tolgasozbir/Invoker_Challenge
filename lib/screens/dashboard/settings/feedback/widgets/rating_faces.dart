@@ -26,7 +26,13 @@ class _RatingFacesState extends State<RatingFaces> {
         final isSelected = selectedIndex == index+1;
         flex = isSelected ? 6 : 5;
         return InkWell(
-          child: SvgPicture.asset(svg, color: isSelected ? AppColors.amber : AppColors.white30),
+          child: SvgPicture.asset(
+            svg, 
+            colorFilter: ColorFilter.mode(
+              isSelected ? AppColors.amber : AppColors.white30, 
+              BlendMode.srcIn,
+            ),
+          ),
           onTap: () {
             FocusManager.instance.primaryFocus?.unfocus();
             setState(() => selectedIndex = index+1);

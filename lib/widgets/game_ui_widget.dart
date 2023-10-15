@@ -374,10 +374,8 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, ScreenStateM
         UserManager.instance.snappableKey.currentState?.reset();
         challangerLife = UserManager.instance.user.challangerLife;
         context.read<GameProvider>().startTimer(); 
-        break;
       case GameType.Timer:
         context.read<GameProvider>().startCoundown(gameType: GameType.Timer, databaseTable: DatabaseTable.TimeTrial);
-        break;
       case GameType.Combo:
         context.read<GameProvider>().updateCountdownTimeBasedOnScore();
         context.read<GameProvider>().startCoundown(gameType: GameType.Combo, databaseTable: DatabaseTable.Combo);

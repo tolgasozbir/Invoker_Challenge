@@ -22,7 +22,7 @@ class InfoButton extends StatelessWidget {
           SoundManager.instance.playMeepMerp();
         }
       },
-      icon: const Icon(FontAwesomeIcons.questionCircle),
+      icon: const Icon(FontAwesomeIcons.circleQuestion),
     );
   }
 }

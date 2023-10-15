@@ -37,7 +37,7 @@ class SettingsView extends StatelessWidget {
           divider(),
           menuItem(
             context: context,
-            leading: FontAwesomeIcons.starHalfAlt,
+            leading: FontAwesomeIcons.starHalfStroke,
             text: LocaleKeys.settings_rateApp.locale,
             onTap: storeRedirect,
           ),

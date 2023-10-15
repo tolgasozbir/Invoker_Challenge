@@ -163,7 +163,6 @@ class _ContextMenuWidgetState extends State<ContextMenu> with TickerProviderStat
         }
         _lastOverlayEntry?.remove();
         _lastOverlayEntry = null;
-        break;
 
       case AnimationStatus.completed:
         setState(() {
@@ -179,7 +178,6 @@ class _ContextMenuWidgetState extends State<ContextMenu> with TickerProviderStat
           _lastOverlayEntry = null;
           _openController.reset();
         });
-        break;
 
       case AnimationStatus.forward:
       case AnimationStatus.reverse:

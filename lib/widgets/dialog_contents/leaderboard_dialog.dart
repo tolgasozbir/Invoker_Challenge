@@ -45,19 +45,15 @@ class _LeaderboardDialogState extends State<LeaderboardDialog> with ScreenStateM
     switch (widget.leaderboardType) {
       case LeaderboardType.TimeTrial:
         results = await AppServices.instance.databaseService.getScores<TimeTrial>(scoreType: ScoreType.TimeTrial);
-        break;
       case LeaderboardType.Challenger:
         results = await AppServices.instance.databaseService.getScores<Challenger>(scoreType: ScoreType.Challenger);
-        break;
       case LeaderboardType.Combo:
         results = await AppServices.instance.databaseService.getScores<Combo>(scoreType: ScoreType.Combo);
-        break;
       case LeaderboardType.Boss:
         results = await AppServices.instance.databaseService.getScores<BossBattle>(
           scoreType: ScoreType.Boss, 
           bossName: widget.bossName,
         );
-        break;
     }
   }
 
@@ -130,19 +126,15 @@ class _LeaderboardDialogState extends State<LeaderboardDialog> with ScreenStateM
     switch (widget.leaderboardType) {
       case LeaderboardType.TimeTrial:
         results?.addAll(await AppServices.instance.databaseService.getScores<TimeTrial>(scoreType: ScoreType.TimeTrial));
-        break;
       case LeaderboardType.Challenger:
         results?.addAll(await AppServices.instance.databaseService.getScores<Challenger>(scoreType: ScoreType.Challenger));
-        break;
       case LeaderboardType.Combo:
         results?.addAll(await AppServices.instance.databaseService.getScores<Combo>(scoreType: ScoreType.Combo));
-        break;
       case LeaderboardType.Boss:
         results?.addAll(await AppServices.instance.databaseService.getScores<BossBattle>(
           scoreType: ScoreType.Boss, 
           bossName: widget.bossName,
         ),);
-        break;
     }
     changeLoadingState();
   }

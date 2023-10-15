@@ -86,7 +86,7 @@ class TrueFalseWidgetState extends State<TrueFalseIconWidget> with TickerProvide
       child: Opacity(
         opacity: type == IconType.True ? _animAlphaTrue.value : _animAlphaFalse.value,
         child: Icon(
-          type == IconType.True ? FontAwesomeIcons.check : FontAwesomeIcons.times,
+          type == IconType.True ? FontAwesomeIcons.check : FontAwesomeIcons.xmark,
           color: type == IconType.True ? AppColors.correctIconColor : AppColors.wrongIconColor,
         ),
       ),

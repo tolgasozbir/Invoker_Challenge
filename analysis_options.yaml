@@ -34,6 +34,8 @@ linter:
     avoid_private_typedef_functions: false
     unawaited_futures: false
     sort_pub_dependencies: false
+    always_put_required_named_parameters_first: false
+    combinators_ordering: false
 
 analyzer:
   errors:

@@ -4,15 +4,6 @@ import '../constants/app_image_paths.dart';
 import '../constants/locale_keys.g.dart';
 
 enum Items {
-  //TODO:
-  // Octarine_core(
-  //   bonuses: ItemBonuses(
-  //     mana: 625,
-  //     manaRegen: 5,
-  //   ),
-  //   activeProps: ItemActiveProps(),
-  //   cost: 5000,
-  // ),
 
   Null_talisman(
     bonuses: ItemBonuses(

@@ -120,17 +120,26 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
     children: [
       SvgPicture.asset(
         ImagePaths.svgQuas,
-        color: AppColors.quasColor.withOpacity(0.72),
+        colorFilter: ColorFilter.mode(
+          AppColors.quasColor.withOpacity(0.72),
+          BlendMode.srcIn,
+        ),
         width: 48,
       ),
       SvgPicture.asset(
         ImagePaths.svgWex,
-        color: AppColors.wexColor.withOpacity(0.72),
+        colorFilter: ColorFilter.mode(
+          AppColors.wexColor.withOpacity(0.72),
+          BlendMode.srcIn,
+        ),
         width: 48,
       ),
       SvgPicture.asset(
         ImagePaths.svgExort,
-        color: AppColors.exortColor.withOpacity(0.72),
+        colorFilter: ColorFilter.mode(
+          AppColors.exortColor.withOpacity(0.72),
+          BlendMode.srcIn,
+        ),
         width: 48,
       ),
     ],

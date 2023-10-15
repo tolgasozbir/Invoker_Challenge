@@ -93,7 +93,6 @@ class SkyState extends State<Sky> with TickerProviderStateMixin {
         }
         setMoon(_moonShine, 0.0, _duration);
         setSun(_sunShine, 0.0, _duration);
-        break;
       case SkyType.sunny:
         setCloudy(_brightness, 0.2, _duration);
         if (widget.skyLight == SkyLight.light) {
@@ -103,7 +102,6 @@ class SkyState extends State<Sky> with TickerProviderStateMixin {
           setMoon(_moonShine, 1, _duration);
           setSun(_sunShine, 0, _duration);
         }
-        break;
       case SkyType.thunderstorm:
         setCloudy(_brightness, 0.5, _duration);
         setThunder();
@@ -114,7 +112,6 @@ class SkyState extends State<Sky> with TickerProviderStateMixin {
           setMoon(_moonShine, 1, _duration);
           setSun(_sunShine, 0, _duration);
         }
-        break;
     }
   }
 
