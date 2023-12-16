@@ -29,6 +29,7 @@ dependencies:
   url_launcher: ^6.1.14
   auto_size_text: ^3.0.0
   flutter_fgbg: ^0.2.2
+  tuple: ^2.0.2
 
   #.env
   flutter_config: ^2.0.2

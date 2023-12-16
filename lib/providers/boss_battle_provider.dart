@@ -279,6 +279,7 @@ class BossBattleProvider extends ChangeNotifier {
   //Creates a list of Ability objects to hold the abilities casted with the F and D keys.
   final List<Ability> _castedAbility = [];
   List<Ability> get castedAbility => _castedAbility;
+  bool abilitySwitch = true; //trigger update view
 
   ///Adds the selected ability to the castedAbility list and removes the old ability if it exists.
   ///
@@ -291,6 +292,7 @@ class BossBattleProvider extends ChangeNotifier {
     while (_castedAbility.length > 2) {
       _castedAbility.removeLast();
     }
+    abilitySwitch = !abilitySwitch;
     updateView();
   }
 
