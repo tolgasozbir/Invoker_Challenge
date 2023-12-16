@@ -2,11 +2,11 @@ import 'package:dota2_invoker_game/constants/locale_keys.g.dart';
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../enums/spells.dart';
-import '../../../../extensions/context_extension.dart';
-import '../../../../extensions/widget_extension.dart';
-import '../../../../services/user_manager.dart';
-import '../../../../widgets/empty_box.dart';
+import '../../../../../enums/spells.dart';
+import '../../../../../extensions/context_extension.dart';
+import '../../../../../extensions/widget_extension.dart';
+import '../../../../../services/user_manager.dart';
+import '../../../../../widgets/empty_box.dart';
 
 class InfoView extends StatelessWidget {
   const InfoView({super.key});

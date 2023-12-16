@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../constants/app_colors.dart';
-import '../../../../constants/app_image_paths.dart';
-import '../../../../enums/items.dart';
-import '../../../../extensions/context_extension.dart';
-import '../../../../extensions/widget_extension.dart';
-import '../../../../models/Item.dart';
-import '../../../../providers/boss_battle_provider.dart';
-import '../../../../services/sound_manager.dart';
-import '../../../../utils/ads_helper.dart';
-import '../../../../widgets/app_dialogs.dart';
-import '../../../../widgets/empty_box.dart';
-import 'inventory_hud.dart';
-import 'item_description_widget.dart';
+import '../../../../../constants/app_colors.dart';
+import '../../../../../constants/app_image_paths.dart';
+import '../../../../../enums/items.dart';
+import '../../../../../extensions/context_extension.dart';
+import '../../../../../extensions/widget_extension.dart';
+import '../../../../../models/Item.dart';
+import '../../../../../providers/boss_battle_provider.dart';
+import '../../../../../services/sound_manager.dart';
+import '../../../../../utils/ads_helper.dart';
+import '../../../../../widgets/app_dialogs.dart';
+import '../../../../../widgets/empty_box.dart';
+import '../inventory_hud.dart';
+import '../item_description_widget.dart';
 
 class ShopView extends StatefulWidget {
   const ShopView({super.key});

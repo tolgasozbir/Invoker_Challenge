@@ -21,6 +21,7 @@ import '../services/achievement_manager.dart';
 import '../services/app_services.dart';
 import '../services/sound_manager.dart';
 import '../utils/spell_combination_checker.dart';
+import '../utils/value_notifier_listener.dart';
 import 'app_outlined_button.dart';
 import 'bouncing_button.dart';
 import 'empty_box.dart';
@@ -172,9 +173,12 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, ScreenStateM
     return SizedBox(
       width: context.dynamicWidth(0.25),
       height: context.dynamicHeight(0.10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: selectedOrbs,
+      child: ValueNotifierListener<List<Widget>>(
+        valueNotifier: selectedOrbs,
+        builder: (value) => Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: value,
+        ),
       ),
     );
   }
@@ -197,7 +201,13 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, ScreenStateM
         children: [
           DecoratedBox(
             decoration: qwerAbilityDecoration(element.getColor),
-            child: Image.asset(element.getImage,width: context.dynamicWidth(0.18)),
+            child: ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(2)),
+              child: Image.asset(
+                element.getImage,
+                width: context.dynamicWidth(0.18),
+              ),
+            ),
           ),
           Text(
             element.getKey.toUpperCase(), 
