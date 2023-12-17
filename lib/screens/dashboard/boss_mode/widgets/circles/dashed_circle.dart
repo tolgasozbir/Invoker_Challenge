@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:dota2_invoker_game/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class DashedCircle extends StatelessWidget {
@@ -8,7 +9,7 @@ class DashedCircle extends StatelessWidget {
     required this.dashProgress, 
     required this.dashUnits, 
     required this.circleRadius, 
-    required this.circleColor, 
+    this.circleColor = AppColors.circleColor, 
     required this.dashGap, 
     required this.reversedColor,
   });
