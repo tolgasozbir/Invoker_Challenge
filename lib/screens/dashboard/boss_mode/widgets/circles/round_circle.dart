@@ -18,7 +18,7 @@ class RoundCircle extends StatelessWidget {
         dashUnits: value.item2,
         circleRadius: context.dynamicHeight(0.16),
         dashGap: 0.24,
-        circleColor: const Color(0xFFB50DE2),
+        //circleColor: const Color(0xFFB50DE2),
         reversedColor: false,
       ),
     );

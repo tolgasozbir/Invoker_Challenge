@@ -13,6 +13,7 @@ import 'widgets/background/background_weather.dart';
 import 'widgets/circles/round_circle.dart';
 import 'widgets/circles/time_circle.dart';
 import 'widgets/info/info_button.dart';
+import 'widgets/mana_bar.dart';
 import 'widgets/save_button.dart';
 import '../../../utils/game_save_handler.dart';
 import '../../../widgets/app_dialogs.dart';
@@ -38,7 +39,6 @@ import '../../../utils/spell_combination_checker.dart';
 import '../../../widgets/app_snackbar.dart';
 import '../../../widgets/bouncing_button.dart';
 import 'widgets/inventory_hud.dart';
-import 'main_widgets/mana_bar.dart';
 import 'widgets/shop/shop_button.dart';
 
 class BossModeView extends StatefulWidget {
@@ -50,9 +50,6 @@ class BossModeView extends StatefulWidget {
 
 class _BossModeViewState extends State<BossModeView> with OrbMixin {
   late BossBattleProvider provider;
-  final circleColor = const Color(0xFFB50DE2);
-
-
 
   @override
   void initState() {

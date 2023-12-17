@@ -21,9 +21,9 @@ class ShopButton extends StatelessWidget {
             height: kToolbarHeight,
             padding: const EdgeInsets.all(8),
             margin: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(2),
-              gradient: const LinearGradient(
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(2)),
+              gradient: LinearGradient(
                 colors: [Color(0xFFE7CB90), Color(0xFF584226), Color(0xFFAB945A)],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -35,9 +35,9 @@ class ShopButton extends StatelessWidget {
             alignment: Alignment.center,
             height: kToolbarHeight,
             margin: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(2),
-              gradient: const LinearGradient(
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(2)),
+              gradient: LinearGradient(
                 colors: [Color(0xFFD9BA00), Color(0xFFF4C400), Color(0xFF7E5B0C)],
                 stops: [0, .2, 1],
                 begin: Alignment.topCenter,

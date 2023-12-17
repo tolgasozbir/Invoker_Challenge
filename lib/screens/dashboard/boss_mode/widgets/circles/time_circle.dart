@@ -16,7 +16,7 @@ class TimeCircle extends StatelessWidget {
         dashUnits: provider.timeUnits,
         circleRadius: context.dynamicHeight(0.13),
         dashGap: 0.2,
-        circleColor: const Color(0xFFB50DE2),
+        //circleColor: const Color(0xFFB50DE2),
         reversedColor: false,
       ),
     );

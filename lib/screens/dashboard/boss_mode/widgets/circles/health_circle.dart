@@ -16,7 +16,7 @@ class HealthCircle extends StatelessWidget {
         dashUnits: provider.healthUnit,
         circleRadius: context.dynamicHeight(0.19),
         dashGap: 0.22,
-        circleColor: const Color(0xFFB50DE2),
+        //circleColor: const Color(0xFFB50DE2),
         reversedColor: true,
       ),
     );
