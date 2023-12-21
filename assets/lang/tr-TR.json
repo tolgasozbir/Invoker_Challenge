@@ -164,6 +164,38 @@
         "earnedGold": "Kazanılan Altın"
     },
 
+    "exitGameDialogMessages" : {
+        "title1" : "Invoker, Biraz Soluklanalım mı?",
+        "body1"  : "Hey Invoker, anladık, Boss savaşları çetin geçiyor! Biraz soluklanmak istiyor musun? Ancak hatırlatmak isteriz, bu dünya senin büyü dolu yeteneklerini bekliyor. Oyundan çıkmak istediğine emin misin?",
+        "word1"  : "Dinlen, toparlan, ama dünyanın büyüsünden uzak kalmamak önemli!",
+        "yes1"   : "Evet, Oyundan Ayrıl",
+        "no1"    : "Hayır, Oyuna Devam Et",
+
+        "title2" : "Invoker, Bir Anlık Düşünelim mi?",
+        "body2"  : "Magus Invoker, bir süre durup düşünmenin zamanı geldi mi? Boss savaşlarında bir mola almak istediğini anlıyoruz. Ancak, gerçekten çıkmak mı istiyorsun?",
+        "word2"  : "Zaman geri alınamaz, fakat dünya seni bekliyor!",
+        "yes2"   : "Evet, Oyundan Ayrıl",
+        "no2"    : "Hayır, Oyuna Devam Et",
+
+        "title3" : "Invoker, Biraz Mola?",
+        "body3"  : "Hey Invoker! Zorlu bir savaş geçirdin ve biraz dinlenmek mi istiyorsun? Unutma, Boss savaşları seni çağırıyor. Gerçekten çıkmak istiyor musun?",
+        "word3"  : "Bir süreliğine mola ver, fakat hatırla ki savaşlar seni bekliyor!",
+        "yes3"   : "Evet, Oyundan Ayrıl",
+        "no3"    : "Hayır, Oyuna Devam Et",
+
+        "title4" : "Zamanın mı Geldi, Invoker?",
+        "body4"  : "Merak etme Invoker, kudretli büyülerinle dolu bir gün geçirdin. Şimdi biraz dinlenme vakti mi? Ama unutma, Boss savaşları seni bekliyor. Zamanın geldi mi, yoksa bir büyü daha mı yapmalısın?",
+        "word4"  : "Bir mola ver, ama unutma ki her an yeni bir zafer seni bekliyor!",
+        "yes4"   : "Evet, Oyundan Ayrıl",
+        "no4"    : "Hayır, Oyuna Devam Et",
+
+        "title5" : "Bir Mola İster misin, Invoker?",
+        "body5"  : "Magus Invoker, zorlu savaşlar ve büyü dolu anlarla dolu bir gün geçirdin. Biraz nefes almak ister misin? Ama hatırlatmak isteriz, o büyülü dünya seni bekliyor. Gerçekten ayrılmak mı istiyorsun?",
+        "word5"  : "Nefes al, ama unutma ki zaferin hikayesi henüz tamamlanmadı!",
+        "yes5"   : "Evet, Oyundan Ayrıl",
+        "no5"    : "Hayır, Oyuna Devam Et"
+    },
+
     "Item" : {
         "sell" : "Sat",
         "buy" : "Satın Al",

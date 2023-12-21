@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:dota2_invoker_game/constants/app_strings.dart';
 import 'package:dota2_invoker_game/constants/locale_keys.g.dart';
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/ability_slot.dart';
@@ -5,9 +8,11 @@ import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/boss_head
 import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/circles/health_circle.dart';
 import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/dps_widget.dart';
 import 'package:dota2_invoker_game/utils/value_notifier_listener.dart';
+import 'package:dota2_invoker_game/widgets/app_outlined_button.dart';
 import 'package:tuple/tuple.dart';
 
 import '../../../extensions/number_extension.dart';
+import '../../../models/exit_dialog_message.dart';
 import 'widgets/background/background_sky.dart';
 import 'widgets/background/background_weather.dart';
 import 'widgets/circles/round_circle.dart';
@@ -76,13 +81,62 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
     );
   }
 
+
+  void exitGameDialog() async {
+    final rndMessageNum = Random().nextInt(AppStrings.exitMessages.length);
+    final message = AppStrings.exitMessages[rndMessageNum];
+    final status = await AppDialogs.showSlidingDialog(
+      dismissible: true,
+      height: 320,
+      title: message.title.locale,
+      content: Column(
+        children: [
+          const EmptyBox.h12(),
+          Text(
+            message.body.locale,
+            style: TextStyle(fontSize: context.sp(11)),
+            textAlign: TextAlign.center,
+          ),
+          const EmptyBox.h32(),
+          Text(
+            message.word.locale,
+            style: TextStyle(fontSize: context.sp(10)),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+      action: actButtons(message),
+    );
+    if (status == true && mounted) {
+      Navigator.pop(context);
+    }
+  }
+
+  Row actButtons(ExitDialogMessage message) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        actButton(title: message.yes.locale, callbackVal: true).wrapExpanded(),
+        const EmptyBox.w8(),
+        actButton(title: message.no.locale,).wrapExpanded(),
+      ],
+    );
+  }
+
+  AppOutlinedButton actButton({required String title, dynamic callbackVal}) {
+    return AppOutlinedButton(
+      title: title,
+      onPressed: () => Navigator.pop(context, callbackVal),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(
           onPressed: () {
-            if (backButtonFn()) Navigator.pop(context);
+            if (backButtonFn()) exitGameDialog();
           },
         ),
         actions: const [
