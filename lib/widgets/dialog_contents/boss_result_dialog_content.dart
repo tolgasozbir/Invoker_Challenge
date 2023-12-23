@@ -38,7 +38,7 @@ class BossResultRoundDialogContent extends StatelessWidget {
     required this.bossHpLeft,
   });
 
-  int get goldAmount => model.round * 100;
+  int get goldAmount => (model.round+3) * 100;
 
   @override
   Widget build(BuildContext context) {

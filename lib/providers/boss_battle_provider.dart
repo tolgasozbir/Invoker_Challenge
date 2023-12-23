@@ -125,7 +125,7 @@ class BossBattleProvider extends ChangeNotifier {
   int _userGold = 1000;
   int get userGold => _userGold;
   set userGold(int gold) => _userGold = gold;
-  int get gainedGold => ((getRemainingTime ~/ 8) * (roundProgress+1)) + ((roundProgress+1) * 460) + 400;
+  int get gainedGold => (getRemainingTime * (roundProgress+1)) + ((roundProgress+1) * 480) + 420;
 
   bool isAdWatched = false;
   void addGoldAfterWatchingAd(int goldAmount) {
@@ -546,7 +546,7 @@ class BossBattleProvider extends ChangeNotifier {
       AchievementManager.instance.updatePlayedGame();
     }
 
-    final int expGain = ((roundProgress+1) * 5) + (getRemainingTime ~/ 10);
+    final int expGain = ((roundProgress+1) * 6) + (getRemainingTime ~/ 8);
     UserManager.instance.addExp(expGain);
     _updateManaAndBaseDamage();
     _resetCooldowns();
