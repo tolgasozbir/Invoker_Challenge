@@ -47,7 +47,7 @@ class FirestoreService implements IDatabaseService {
     CollectionReference<Map<String, dynamic>> collectionRef, {
     required String orderByFieldName,
     bool descending = false,
-    int fetchLimit = 10,
+    int fetchLimit = 20,
   }) async {
 
     if (!_hasMoreData) {

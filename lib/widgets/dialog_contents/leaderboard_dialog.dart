@@ -114,7 +114,7 @@ class _LeaderboardDialogState extends State<LeaderboardDialog> with ScreenStateM
 
   void showMoreFn() async {
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
-    if ((results?.length ?? 0) >= 100) {
+    if ((results?.length ?? 0) >= 200) {
       AppSnackBar.showSnackBarMessage(
         text: LocaleKeys.snackbarMessages_sbCannotFetchMore.locale, 
         snackBartype: SnackBarType.info,
