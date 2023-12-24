@@ -58,6 +58,8 @@ class ImagePaths {
   static const String icCombo       = '$_misc/ic_combo.png';
   static const String gold          = '$_misc/gold.png';
   static const String icSword       = '$_misc/ic_sword.png';
+  static const String gPlayLogo     = '$_misc/google_play.png';
+  static const String appLogo       = '$_misc/logo.png';
 
   static const String icAchievements = '$_root/achievements/ic_achievements.png';
 

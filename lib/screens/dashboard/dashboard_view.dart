@@ -2,6 +2,9 @@ import 'package:dota2_invoker_game/constants/locale_keys.g.dart';
 import 'package:dota2_invoker_game/extensions/context_extension.dart';
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:dota2_invoker_game/providers/app_context_provider.dart';
+import 'package:dota2_invoker_game/utils/app_updater.dart';
+import 'package:dota2_invoker_game/widgets/dialog_contents/app_update_dialog.dart';
+import 'package:tuple/tuple.dart';
 import 'package:user_messaging_platform/user_messaging_platform.dart';
 
 import 'combo/combo_view.dart';
@@ -45,10 +48,34 @@ class _DashboardViewState extends State<DashboardView> {
     }
   }
 
+  void updateApp() {
+    //item1 hasUpdate
+    //item2 forceUpdate
+    final Tuple2<bool, bool> hasUpdate = AppUpdater.instance.checkUpdate();
+    if (hasUpdate.item1) {
+      showUpdateDialog(hasUpdate.item2);
+    }
+  }
+
+  void showUpdateDialog(bool forceUpdate) {
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AppUpdateDialog(forceUpdate: forceUpdate),
+    ); 
+  }
+
+  void init() async {
+    Future.microtask(() {
+      context.read<AppContextProvider>().setAppContext(context);
+      updateConsent();
+      updateApp();
+    });
+  }
+
   @override
   void initState() {
-    Future.microtask(() => context.read<AppContextProvider>().setAppContext(context));
-    updateConsent();
+    init();
     super.initState();
   }
 
@@ -88,7 +115,7 @@ class _DashboardViewState extends State<DashboardView> {
             if (!context.isSmallPhone) const Spacer(),
             SizedBox(
               width: double.infinity,
-              child: const Text(AppStrings.appVersion).wrapPadding(EdgeInsets.all(context.isSmallPhone ? 4 : 8)),
+              child: const Text(AppStrings.appVersionStr).wrapPadding(EdgeInsets.all(context.isSmallPhone ? 4 : 8)),
             ),
           ],
         ),
