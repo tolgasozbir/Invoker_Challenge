@@ -214,6 +214,7 @@ class BossBattleProvider extends ChangeNotifier {
     final bool isItemUsed = item.onPressed(currentMana);
 
     if (isItemUsed) {
+      isLastClickGhostWalk = false;
       _spendMana(item.item.activeProps.manaCost ?? 0);
 
       if (item.item.hasSound) {
@@ -226,6 +227,8 @@ class BossBattleProvider extends ChangeNotifier {
       } else if (item.item == Items.Refresher_orb) {
         _useRefresherOrb(item);
         return;
+      } else if (item.item == Items.Dagon) {
+        _useDagon();
       }
       _modifyBonuses(item, true);
       await Future.delayed(
@@ -240,9 +243,24 @@ class BossBattleProvider extends ChangeNotifier {
     updateView();
   }
 
+  bool triggerView = false; ////trigger update view after using refresher orb
+  void _updateAbilityHudView() {
+    triggerView = !triggerView; 
+    updateView();
+  }
+
   void _useRefresherOrb(Item item) {
     _resetCooldowns(withRefresherOrb: false);
-    updateView();
+    _updateAbilityHudView();
+  }
+
+  ///Reset all dagon cd
+  ///only one dagon can be used
+  void _useDagon() {
+    final items = inventory.where((element) => element.item == Items.Dagon);
+    for (final dagon in items) {
+      dagon.onPressed(currentMana);
+    }
   }
 
   void _modifyBonuses(Item item, bool apply) {
@@ -300,6 +318,21 @@ class BossBattleProvider extends ChangeNotifier {
   //Return A list of Ability objects representing spell cooldowns.
   List<Ability> spellCooldowns = Spell.values.map((e) => Ability(spell: e)).toList();
 
+  bool isLastClickGhostWalk = false; //ghost walk'da mı değilmi diye kontrol ediyoruz shard varsa ve ghost walkdaysa mana regenleniyor
+  void ghostWalkManaRegen() async {
+    const manaRegen = 10;
+    baseManaRegen += manaRegen;
+
+    var time = 0;
+    Timer.periodic(const Duration(seconds: 1), (timer) {
+      time++;
+      if (time >= 15 || isLastClickGhostWalk == false) {
+        timer.cancel();
+        baseManaRegen -= manaRegen;
+      }
+    });
+  }
+
   //Executed when a spell button is pressed.
   void onPressedAbility(Spell spell) async {
     if (!started) { // If the started variable is false, play a meep merp sound and return from the function.
@@ -309,17 +342,21 @@ class BossBattleProvider extends ChangeNotifier {
     final index = Spell.values.indexOf(spell); // Gets the index number of the selected spell.
     final bool isAbilityUsed = spellCooldowns[index].onPressed(currentMana); // Checks if the selected spell can be used, and assigns true to the isAbilityUsed variable if it can.
     if (isAbilityUsed) { // If the selected spell was used
+      isLastClickGhostWalk = spell == Spell.ghost_walk;
       _spendMana(spell.mana); // Mana is spent equal to the mana value of the chosen spell.
       final double abilityDamageMultiplier = spell.damage * ((UserManager.instance.user.level + (hasAghanimScepter ? 1 : 0)) * 0.02); //max level 0.6 - %60
       double fullDamage = spell.damage + abilityDamageMultiplier;
       updateView(); // Update the player's view.
       await Future.delayed(spell.effectDelay);
-      if (spell == Spell.emp && hasAghanimShard) {
+      if (hasAghanimShard && spell == Spell.emp) {
         _addMana(225);
         updateView();
       } 
-      else if (spell == Spell.sun_strike && hasAghanimScepter) {
+      else if (hasAghanimScepter && spell == Spell.sun_strike) {
         fullDamage *= 2;
+      }
+      else if(hasAghanimShard && spell == Spell.ghost_walk) {
+        ghostWalkManaRegen();
       }
       spellDamage += fullDamage; // Adds the spell damage to the spellDamage variable.
       await Future.delayed(Duration(seconds: spell.duration), () => spellDamage -= fullDamage); // Wait for the spell's duration and subtract the spell damage from the spellDamage variable.
@@ -550,6 +587,7 @@ class BossBattleProvider extends ChangeNotifier {
     UserManager.instance.addExp(expGain);
     _updateManaAndBaseDamage();
     _resetCooldowns();
+    _updateAbilityHudView();
 
     final String lastBossText = roundProgress+1 == Bosses.values.length ? LocaleKeys.commonGeneral_last.locale : '';
 
@@ -604,7 +642,7 @@ class BossBattleProvider extends ChangeNotifier {
   }
 
   ///Reset progress values
-  void _reset() {
+  void _reset({bool clearAbilityHud = true}) {
     _timer?.cancel();
     _timer = null;
     started = false;
@@ -634,10 +672,14 @@ class BossBattleProvider extends ChangeNotifier {
     _updateManaAndBaseDamage(updateUI: false);
     _isActiveMidas = false;
     isSavingEnabled = false;
-    _userGold = 1000;
+    _userGold = 100000;
+    if (clearAbilityHud) {
+      _updateAbilityHudView();
+    }
   }
 
   void _resetCooldowns({bool withRefresherOrb = true}) {
+    //TODO: _updateAbilityHudView(); burada çağırılsa olabilir bi kontrol et
     for (final element in spellCooldowns) {
       element.resetCooldown();
     }
@@ -652,7 +694,8 @@ class BossBattleProvider extends ChangeNotifier {
       final bool isItemRefresherOrb = element.item == Items.Refresher_orb;
       if (!isItemRefresherOrb) element.resetCooldown(); 
       else element.onPressed(currentMana); //fazladan refresher orb alınmışsa tıklanma fonksiyonunu çağırarak hepsini cooldown'a sokar
-    }}
+    }
+  }
 
   ///Resets the game values and stops the timer object. 
   ///Otherwise, when re-entering the mode, 
@@ -676,7 +719,7 @@ class BossBattleProvider extends ChangeNotifier {
   ///}
   /// ```
   void disposeGame() {
-    _reset();
+    _reset(clearAbilityHud: false);
     if (_timer == null) return;
     _timer?.cancel();
     _timer = null;

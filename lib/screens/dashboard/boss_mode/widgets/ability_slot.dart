@@ -20,8 +20,8 @@ class AbilitySlot extends StatefulWidget {
 class _AbilitySlotState extends State<AbilitySlot> {
   @override
   Widget build(BuildContext context) {
-    return Selector<BossBattleProvider, Tuple2<List<Ability>, bool>>(
-      selector: (_, provider) => Tuple2(provider.castedAbility, provider.abilitySwitch),
+    return Selector<BossBattleProvider, Tuple3<List<Ability>, bool, bool>>(
+      selector: (_, provider) => Tuple3(provider.castedAbility, provider.abilitySwitch, provider.triggerView),
       builder: (_, value, __) => Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: List.generate(2, (index) => value.item1.length < index + 1 ? emptyAbilitySlot() : DecoratedBox(

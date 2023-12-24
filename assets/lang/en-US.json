@@ -278,7 +278,7 @@
             "active": ""
         },
         "Dagon": {
-            "bonus": "Energy Burst",
+            "bonus": "Energy Burst\n(Multiple items cannot be used)",
             "active": "+3200 Magic Damage"
         },
         "Divine_rapier": {
@@ -290,7 +290,7 @@
             "active": ""
         },
         "Aghanims_shard": {
-            "bonus": "EMP restores 225 mana.",
+            "bonus": "EMP restores 225 mana.\nGhost Walk ability regenerates 10 mana per second for 15 seconds when no other ability or item is used.\n(Can be purchased once, takes no inventory space, and is non-refundable.)",
             "active": ""
         }
     }

@@ -278,7 +278,7 @@
             "active": ""
         },
         "Dagon": {
-            "bonus": "Enerji Patlaması",
+            "bonus": "Enerji Patlaması\n(Birden fazla öge kullanılmaz)",
             "active": "+3200 Büyüsel Hasar"
         },
         "Divine_rapier": {
@@ -290,7 +290,7 @@
             "active": ""
         },
         "Aghanims_shard": {
-            "bonus": "EMP 225 mana yeniler.",
+            "bonus": "EMP 225 mana yeniler.\nGhost Walk yeteneği, başka bir yetenek veya eşya kullanılmadığında 15 saniye boyunca saniyede 10 mana yeniler.\n(Bir kez satın alınabilir, envanterinizde yer kaplamaz ve geri satılamaz.)",
             "active": ""
         }
     }
