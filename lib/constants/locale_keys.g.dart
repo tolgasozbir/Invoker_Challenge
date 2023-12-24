@@ -166,6 +166,10 @@ abstract class  LocaleKeys {
   static const exitGameDialogMessages_yes5 = 'exitGameDialogMessages.yes5';
   static const exitGameDialogMessages_no5 = 'exitGameDialogMessages.no5';
   static const exitGameDialogMessages = 'exitGameDialogMessages';
+  static const appUpdateDialog_update = 'appUpdateDialog.update';
+  static const appUpdateDialog_later = 'appUpdateDialog.later';
+  static const appUpdateDialog_message = 'appUpdateDialog.message';
+  static const appUpdateDialog = 'appUpdateDialog';
   static const Item_sell = 'Item.sell';
   static const Item_buy = 'Item.buy';
   static const Item_sellPrice = 'Item.sellPrice';

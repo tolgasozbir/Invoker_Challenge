@@ -1,16 +1,14 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:dota2_invoker_game/constants/app_strings.dart';
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
+import 'package:dota2_invoker_game/utils/url_launcher.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../../constants/app_colors.dart';
 import '../../../constants/locale_keys.g.dart';
 import '../../../extensions/context_extension.dart';
 import '../../../utils/fade_in_page_animation.dart';
-import '../../../widgets/app_snackbar.dart';
 import '../../../widgets/empty_box.dart';
 import '../../../widgets/sliders/qwer_hud_height_slider.dart';
 import '../../../widgets/sliders/volume_slider.dart';
@@ -39,27 +37,12 @@ class SettingsView extends StatelessWidget {
             context: context,
             leading: FontAwesomeIcons.starHalfStroke,
             text: LocaleKeys.settings_rateApp.locale,
-            onTap: storeRedirect,
+            onTap: () => UrlLauncher.instance.storeRedirect(),
           ),
           divider(),
         ],
       ),
     );
-  }
-
-  Future<void> storeRedirect() async {
-    try{
-      await launchUrl(
-        Uri.parse(AppStrings.googlePlayStoreUrl),
-        mode: LaunchMode.externalApplication,
-      );
-    }
-    catch(e) {
-      AppSnackBar.showSnackBarMessage(
-        text: LocaleKeys.snackbarMessages_errorMessage.locale, 
-        snackBartype: SnackBarType.error,
-      );
-    }
   }
 
   Divider divider() => const Divider(color: AppColors.amber, height: 28);

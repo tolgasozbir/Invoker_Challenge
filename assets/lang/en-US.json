@@ -196,6 +196,12 @@
         "no5": "No, Continue Playing"
     },
 
+    "appUpdateDialog": {
+        "update": "Update",
+        "later": "Later",
+        "message": "Invoker, get ready! A surprise update is waiting for you. Update now and discover what's new in our magical world. We've enhanced the gaming experience with brand-new features and changes. Tap the update button and join this enchanting adventure!"
+    },
+
     "Item" : {
         "sell" : "Sell",
         "buy" : "Buy",
