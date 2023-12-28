@@ -82,7 +82,11 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
   }
 
 
-  void exitGameDialog() async {
+  void exitGameDialog() async { 
+    if (context.read<BossBattleProvider>().currentBoss.index == 0 && mounted) {
+      Navigator.pop(context);
+      return;
+    }
     final rndMessageNum = Random().nextInt(AppStrings.exitMessages.length);
     final message = AppStrings.exitMessages[rndMessageNum];
     final status = await AppDialogs.showSlidingDialog(

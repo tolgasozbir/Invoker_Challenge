@@ -672,14 +672,13 @@ class BossBattleProvider extends ChangeNotifier {
     _updateManaAndBaseDamage(updateUI: false);
     _isActiveMidas = false;
     isSavingEnabled = false;
-    _userGold = 100000;
+    _userGold = 1000;
     if (clearAbilityHud) {
       _updateAbilityHudView();
     }
   }
 
   void _resetCooldowns({bool withRefresherOrb = true}) {
-    //TODO: _updateAbilityHudView(); burada çağırılsa olabilir bi kontrol et
     for (final element in spellCooldowns) {
       element.resetCooldown();
     }
