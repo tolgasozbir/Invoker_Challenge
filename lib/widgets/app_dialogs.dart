@@ -12,6 +12,7 @@ class AppDialogs {
 
   static Future<T?> showSlidingDialog<T extends Object>({
     String? title,
+    bool centerTitle = false,
     String? uid, 
     Widget? titleAct,
     required Widget content, 
@@ -65,7 +66,7 @@ class AppDialogs {
                               if (title != null)
                                 Expanded(
                                   child: Padding(
-                                    padding: showBackButton ? EdgeInsets.zero : const EdgeInsets.fromLTRB(24, 20, 0, 0),
+                                    padding: showBackButton ? EdgeInsets.zero : const EdgeInsets.fromLTRB(24, 20, 24, 0),
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
@@ -73,6 +74,7 @@ class AppDialogs {
                                           child: AutoSizeText(
                                             title,
                                             maxLines: 1,
+                                            textAlign: centerTitle ? TextAlign.center : null,
                                             style: TextStyle(fontSize: context.sp(16), fontWeight: FontWeight.w500),
                                           ),
                                         ),

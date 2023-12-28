@@ -31,7 +31,7 @@ class AdsHelper {
   }
   
   String get appOpenAdUnitId {
-    if (enableAndroidTestIds) return 'ca-app-pub-3940256099942544/3419835294';
+    if (enableAndroidTestIds) return 'ca-app-pub-3940256099942544/9257395921';
 
     if (Platform.isAndroid) {
       return FlutterConfig.get('APP_OPEN_AD_ANDROID') as String;

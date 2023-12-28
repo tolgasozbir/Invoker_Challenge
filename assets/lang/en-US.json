@@ -98,7 +98,8 @@
         "sbAlreadyAvailable": "This item has already been purchased before",
         "sbCannotFetchMore": "Cannot show more data",
         "sbGameSaved": "Game saved",
-        "sbResetPw": "A password reset request has been sent to your email. Please check your email."
+        "sbResetPw": "A password reset request has been sent to your email. Please check your email.",
+        "sbLoadGameInfo": "Note: Your game save will be deleted after it is loaded."
     },
 
     "authErrorMessages" : {
@@ -168,32 +169,25 @@
         "title1": "Invoker, Shall We Take a Break?",
         "body1": "Hey Invoker, we understand that Boss battles can be tough! Do you want to take a breather? But remember, this world is waiting for your magical abilities. Are you sure you want to exit the game?",
         "word1": "Rest, recover, but it's essential not to stray too far from the enchantment of the world!",
-        "yes1": "Yes, Exit the Game",
-        "no1": "No, Continue Playing",
     
         "title2": "Invoker, Shall We Ponder for a Moment?",
         "body2": "Magus Invoker, is it time to pause and think? We understand you may want a break from Boss battles. However, do you really want to exit?",
         "word2": "Time cannot be reversed, but the world is waiting for you!",
-        "yes2": "Yes, Exit Game",
-        "no2": "No, Continue Playing",
     
         "title3": "Invoker, Need a Short Break?",
         "body3": "Hey Invoker! Have you had a challenging battle and want to take a short break? Remember, Boss battles are calling for you. Do you really want to exit?",
         "word3": "Take a short break, but remember that battles are waiting for you!",
-        "yes3": "Yes, Exit Game",
-        "no3": "No, Continue Playing",
     
         "title4": "Is It Time, Invoker?",
         "body4": "Don't worry, Invoker, you've had a day filled with powerful spells. Is it time for a rest now? But remember, Boss battles are waiting for you. Is it time, or should you cast another spell?",
         "word4": "Take a break, but remember that a new victory awaits you at any moment!",
-        "yes4": "Yes, Exit Game",
-        "no4": "No, Continue Playing",
     
         "title5": "Do You Want a Break, Invoker?",
         "body5": "Magus Invoker, you've had a day filled with challenging battles and magical moments. Would you like to catch your breath? But we'd like to remind you, that magical world is waiting for you. Do you really want to leave?",
         "word5": "Take a breath, but remember that the story of your victory is not yet complete!",
-        "yes5": "Yes, Exit Game",
-        "no5": "No, Continue Playing"
+
+        "yes": "Yes, Exit Game",
+        "no": "No, Continue Playing"
     },
 
     "appUpdateDialog": {

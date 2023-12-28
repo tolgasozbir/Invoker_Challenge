@@ -74,6 +74,11 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
     await Future.microtask(() {});
     final savedGame = await GameSaveHandler.instance.loadGame();
     if (savedGame == null) return;
+    AppSnackBar.showSnackBarMessage(
+      text: LocaleKeys.snackbarMessages_sbLoadGameInfo.locale, 
+      snackBartype: SnackBarType.info,
+      duration: const Duration(seconds: 5),
+    );
     AppDialogs.showSlidingDialog(
       height: 224,
       title: '${LocaleKeys.commonGeneral_loadGame.locale}?',
@@ -83,7 +88,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
 
 
   void exitGameDialog() async { 
-    if (context.read<BossBattleProvider>().currentBoss.index == 0 && mounted) {
+    if (context.read<BossBattleProvider>().roundProgress == -1 && mounted) {
       Navigator.pop(context);
       return;
     }
@@ -93,6 +98,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
       dismissible: true,
       height: 320,
       title: message.title.locale,
+      centerTitle: true,
       content: Column(
         children: [
           const EmptyBox.h12(),
@@ -120,9 +126,9 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        actButton(title: message.yes.locale, callbackVal: true).wrapExpanded(),
+        actButton(title: LocaleKeys.exitGameDialogMessages_yes.locale, callbackVal: true).wrapExpanded(),
         const EmptyBox.w8(),
-        actButton(title: message.no.locale,).wrapExpanded(),
+        actButton(title: LocaleKeys.exitGameDialogMessages_no.locale,).wrapExpanded(),
       ],
     );
   }

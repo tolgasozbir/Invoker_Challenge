@@ -77,6 +77,7 @@ class LoadGameDialogContent extends StatelessWidget {
           final item = Items.values.byName(e);
           provider.addItemToInventory(Item(item: item));
         }
+        GameSaveHandler.instance.deleteSavedGame();
         Navigator.pop(context);
       },
     );
