@@ -188,14 +188,8 @@ class BossBattleProvider extends ChangeNotifier {
       final itemHasInventory = _inventory.any((element) => element.item == Items.Hand_of_midas);
       _isActiveMidas = itemHasInventory;
       return;
-    } 
-    else if (item.item == Items.Ethereal_blade) {
-      final eBladeCount = _inventory.where((element) => element.item == Items.Ethereal_blade).length;
-      final itemHasInventory = eBladeCount > 0;
-      if ((eBladeCount > 1 && isBuying) || (!isBuying && itemHasInventory)) {
-        return;
-      }
-    } 
+    }
+
     maxMana += itemBonus.mana * multiplier;
     baseManaRegen += itemBonus.manaRegen * multiplier;
     manaRegenMultiplier += itemBonus.manaRegenAmp * multiplier;
@@ -226,8 +220,6 @@ class BossBattleProvider extends ChangeNotifier {
       } else if (item.item == Items.Refresher_orb) {
         _useRefresherOrb(item);
         return;
-      } else if (item.item == Items.Dagon) {
-        _useDagon();
       }
       _modifyBonuses(item, true);
       await Future.delayed(
@@ -253,12 +245,20 @@ class BossBattleProvider extends ChangeNotifier {
     _updateAbilityHudView();
   }
 
-  ///Reset all dagon cd
-  ///only one dagon can be used
-  void _useDagon() {
-    final items = inventory.where((element) => element.item == Items.Dagon);
-    for (final dagon in items) {
-      dagon.onPressed(currentMana);
+  /// Resets the cooldown for all items of the same type.
+  /// Only one item of the specified type can be used.
+  /// Calls the onPressed method for the selected item.
+  /// 
+  /// Example usage:
+  /// 
+  /// ```dart
+  /// _useItem(Items.Dagon);
+  /// _useItem(Items.Ethereal_blade);
+  /// ```
+  void _useItem(Items item) {
+    final items = inventory.where((element) => element.item == item);
+    for (final item in items) {
+      item.onPressed(currentMana);
     }
   }
 
@@ -280,6 +280,7 @@ class BossBattleProvider extends ChangeNotifier {
     updateView();
   }
 
+  //TODO: Buna bi çözüm bulalım _updateManaAndBaseDamage() içerisini değişkenleri getter yapsak ?
   double cSpellAmp = 0;
   void calculateSpellAmp() {
     cSpellAmp = 0;

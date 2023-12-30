@@ -89,6 +89,7 @@ abstract class  LocaleKeys {
   static const snackbarMessages_sbGameSaved = 'snackbarMessages.sbGameSaved';
   static const snackbarMessages_sbResetPw = 'snackbarMessages.sbResetPw';
   static const snackbarMessages_sbLoadGameInfo = 'snackbarMessages.sbLoadGameInfo';
+  static const snackbarMessages_sbSinglePurchase = 'snackbarMessages.sbSinglePurchase';
   static const snackbarMessages = 'snackbarMessages';
   static const authErrorMessages_AuthInvalidMail = 'authErrorMessages.AuthInvalidMail';
   static const authErrorMessages_AuthUserNotFound = 'authErrorMessages.AuthUserNotFound';

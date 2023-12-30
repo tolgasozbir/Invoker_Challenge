@@ -99,7 +99,8 @@
         "sbCannotFetchMore": "Cannot show more data",
         "sbGameSaved": "Game saved",
         "sbResetPw": "A password reset request has been sent to your email. Please check your email.",
-        "sbLoadGameInfo": "Note: Your game save will be deleted after it is loaded."
+        "sbLoadGameInfo": "Note: Your game save will be deleted after it is loaded.",
+        "sbSinglePurchase": "This item can be purchased only once."
     },
 
     "authErrorMessages" : {
@@ -240,7 +241,7 @@
             "active": ""
         },
         "Meteor_hammer": {
-            "bonus": "+2.75 mana regeneration\nDuration: 6 seconds. Deals damage to bosses over time.",
+            "bonus": "+2.75 mana regeneration\nDuration: 6 seconds\nDeals damage to bosses over time.",
             "active": "Damage Per Second: 100"
         },
         "Vladmirs_offering": {
@@ -248,7 +249,7 @@
             "active": ""
         },
         "Ethereal_blade": {
-            "bonus": "+400 Mana with mana regen amp +72% and spell amp +16%\nDuration: 8 Seconds\n(Multiple item stats won't stacks!)",
+            "bonus": "+400 Mana with mana regen amp +72% and spell amp +16%\nDuration: 8 Seconds\n(This item can be purchased only once!)",
             "active": "Magic Amplification +40%"
         },
         "Monkey_king_bar": {
@@ -272,7 +273,7 @@
             "active": ""
         },
         "Dagon": {
-            "bonus": "Energy Burst\n(Multiple items cannot be used)",
+            "bonus": "Energy Burst\n(This item can be purchased only once!)",
             "active": "+3200 Magic Damage"
         },
         "Divine_rapier": {

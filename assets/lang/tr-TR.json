@@ -99,7 +99,8 @@
         "sbCannotFetchMore": "Daha fazla veri gösterilemiyor",
         "sbGameSaved": "Oyun kaydedildi",
         "sbResetPw": "Şifre sıfırlama isteği e-posta adresinize gönderildi. Lütfen e-postanızı kontrol edin.",
-        "sbLoadGameInfo": "Not: Oyun kaydınız yükledikten sonra kaydınız silinir."
+        "sbLoadGameInfo": "Not: Oyun kaydınız yükledikten sonra kaydınız silinir.",
+        "sbSinglePurchase": "Bu eşya bir kez satın alınabilir."
     },
 
     "authErrorMessages": {
@@ -240,7 +241,7 @@
             "active": ""
         },
         "Meteor_hammer": {
-            "bonus": "+2.75 mana yenilenmesi\nSüre: 6 saniye. Zamanla patronlara hasar verir.",
+            "bonus": "+2.75 mana yenilenmesi\nSüre: 6 saniye\nZamanla patronlara hasar verir.",
             "active": "Saniyede Hasar: 100"
         },
         "Vladmirs_offering": {
@@ -248,7 +249,7 @@
             "active": ""
         },
         "Ethereal_blade": {
-            "bonus": "+400 Mana, mana yenilenme artışı +72% ve büyü artırma +16%\nSüre: 8 Saniye\n(Birden fazla öge istatistikleri birleştirilmez!)",
+            "bonus": "+400 Mana, mana yenilenme artışı +72% ve büyü artırma +16%\nSüre: 8 Saniye\n(Bu eşya bir kez satın alınabilir!)",
             "active": "Büyü Güçlendirmesi +40%"
         },
         "Monkey_king_bar": {
@@ -272,7 +273,7 @@
             "active": ""
         },
         "Dagon": {
-            "bonus": "Enerji Patlaması\n(Birden fazla öge kullanılmaz)",
+            "bonus": "Enerji Patlaması\n(Bu eşya bir kez satın alınabilir!)",
             "active": "+3200 Büyüsel Hasar"
         },
         "Divine_rapier": {

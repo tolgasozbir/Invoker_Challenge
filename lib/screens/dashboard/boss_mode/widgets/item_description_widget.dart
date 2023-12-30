@@ -23,6 +23,9 @@ class ItemDescriptionWidget extends StatelessWidget {
   ///If the value is "true", the item is sellable, and if the value is "false", the item cannot be sold. 
   final bool isItemSellable;
 
+  // ignore: avoid_field_initializers_in_const_classes
+  final List<Items> onceBuyableItems = const [Items.Dagon, Items.Ethereal_blade];
+
   double get containerSize => 20;
   EdgeInsets get margin => const EdgeInsets.only(right: 8);
   BorderRadius get borderRadius => const BorderRadius.all(Radius.circular(4));
@@ -170,28 +173,25 @@ class ItemDescriptionWidget extends StatelessWidget {
     Navigator.pop(context);
     final provider = context.read<BossBattleProvider>();
     if (item.item.cost > provider.userGold) {
-      AppSnackBar.showSnackBarMessage(
-        text: LocaleKeys.snackbarMessages_sbNotEnoughGold.locale,
-        snackBartype: SnackBarType.error,
-      );
-      SoundManager.instance.playMeepMerp();
-      return;
-    }
-    if (item.item.consumable && provider.consumableItems.any((element) => element.item == item.item)) {
-      AppSnackBar.showSnackBarMessage(
-        text: LocaleKeys.snackbarMessages_sbAlreadyAvailable.locale,
-        snackBartype: SnackBarType.error,
-      );
-      SoundManager.instance.playMeepMerp();
+      showSnackBarAndPlaySound(message: LocaleKeys.snackbarMessages_sbNotEnoughGold.locale);
       return;
     }
     if (provider.inventory.length == 6 && !item.item.consumable) {
-      AppSnackBar.showSnackBarMessage(
-        text: LocaleKeys.snackbarMessages_sbInventoryFull.locale, 
-        snackBartype: SnackBarType.error,
-      );
-      SoundManager.instance.playMeepMerp();
+      showSnackBarAndPlaySound(message: LocaleKeys.snackbarMessages_sbInventoryFull.locale);
       return;
+    }
+    if (item.item.consumable && provider.consumableItems.any((element) => element.item == item.item)) {
+      showSnackBarAndPlaySound(
+        message: LocaleKeys.snackbarMessages_sbAlreadyAvailable.locale,
+        snackBarType: SnackBarType.info,
+      );
+      return;
+    }
+    if (onceBuyableItems.contains(item.item)) {
+      if (isItemInInventory(provider, item.item)) {
+        showSnackBarAndPlaySound(message: LocaleKeys.snackbarMessages_sbSinglePurchase.locale);
+        return;
+      }
     }
     provider.addItemToInventory(item);
   }
@@ -199,6 +199,18 @@ class ItemDescriptionWidget extends StatelessWidget {
   void sellFn(BuildContext context) {
     context.read<BossBattleProvider>().removeItemToInventory(item);
     Navigator.pop(context);
+  }
+
+  void showSnackBarAndPlaySound({required String message, SnackBarType? snackBarType}) {
+    AppSnackBar.showSnackBarMessage(
+      text: message,
+      snackBartype: snackBarType ?? SnackBarType.error,
+    );
+    SoundManager.instance.playMeepMerp();
+  }
+
+  bool isItemInInventory(BossBattleProvider provider, Items item) {
+    return provider.inventory.any((element) => element.item == item);
   }
 
 }
