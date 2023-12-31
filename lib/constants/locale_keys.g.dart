@@ -151,12 +151,6 @@ abstract class  LocaleKeys {
   static const exitGameDialogMessages_title3 = 'exitGameDialogMessages.title3';
   static const exitGameDialogMessages_body3 = 'exitGameDialogMessages.body3';
   static const exitGameDialogMessages_word3 = 'exitGameDialogMessages.word3';
-  static const exitGameDialogMessages_title4 = 'exitGameDialogMessages.title4';
-  static const exitGameDialogMessages_body4 = 'exitGameDialogMessages.body4';
-  static const exitGameDialogMessages_word4 = 'exitGameDialogMessages.word4';
-  static const exitGameDialogMessages_title5 = 'exitGameDialogMessages.title5';
-  static const exitGameDialogMessages_body5 = 'exitGameDialogMessages.body5';
-  static const exitGameDialogMessages_word5 = 'exitGameDialogMessages.word5';
   static const exitGameDialogMessages_yes = 'exitGameDialogMessages.yes';
   static const exitGameDialogMessages_no = 'exitGameDialogMessages.no';
   static const exitGameDialogMessages = 'exitGameDialogMessages';

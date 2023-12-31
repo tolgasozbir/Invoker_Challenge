@@ -25,16 +25,6 @@ class AppStrings {
       body: LocaleKeys.exitGameDialogMessages_body3, 
       word: LocaleKeys.exitGameDialogMessages_word3, 
     ),
-    ExitDialogMessage(
-      title: LocaleKeys.exitGameDialogMessages_title4, 
-      body: LocaleKeys.exitGameDialogMessages_body4, 
-      word: LocaleKeys.exitGameDialogMessages_word4, 
-    ),
-    ExitDialogMessage(
-      title: LocaleKeys.exitGameDialogMessages_title5, 
-      body: LocaleKeys.exitGameDialogMessages_body5, 
-      word: LocaleKeys.exitGameDialogMessages_word5, 
-    ),
   ];
 
 }

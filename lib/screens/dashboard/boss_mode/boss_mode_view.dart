@@ -96,7 +96,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
     final message = AppStrings.exitMessages[rndMessageNum];
     final status = await AppDialogs.showSlidingDialog(
       dismissible: true,
-      height: 320,
+      height: 352,
       title: message.title.locale,
       centerTitle: true,
       content: Column(

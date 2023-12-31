@@ -167,28 +167,20 @@
     },
 
     "exitGameDialogMessages" : {
-        "title1" : "Invoker, Biraz Soluklanalım mı?",
-        "body1"  : "Hey Invoker, anladık, Boss savaşları çetin geçiyor! Biraz soluklanmak istiyor musun? Ancak hatırlatmak isteriz, bu dünya senin büyü dolu yeteneklerini bekliyor. Oyundan çıkmak istediğine emin misin?",
+        "title1" : "Hadi Büyüyü Bozalım!",
+        "body1"  : "Efsanevi Invoker! Toprakları sarsan büyülerin efendisi! Oyundan çıkmak üzere olduğunu söylüyorsun. Ancak, bir büyücü aniden ortadan kaybolur mu? Yapılan büyüleri bir kenara bırakarak gerçekten bu dünyadan ayrılmak mı istiyorsun? Yoksa biraz daha sihirli dokunuşlarla dolu bir dünyada kalalım mı?",
         "word1"  : "Dinlen, toparlan, ama dünyanın büyüsünden uzak kalmamak önemli!",
 
-        "title2" : "Invoker, Bir Anlık Düşünelim mi?",
-        "body2"  : "Magus Invoker, bir süre durup düşünmenin zamanı geldi mi? Boss savaşlarında bir mola almak istediğini anlıyoruz. Ancak, gerçekten çıkmak mı istiyorsun?",
+        "title2" : "Zaman Çıkış Zamanı mı?",
+        "body2"  : "Savaş alanında bir kahraman olarak harikalar yarattın, ancak şimdi karar verme vakti geldi. Oyundan çıkma kararı gerçekten istediğin bir şey mi? Eğer öyleyse, sana açık bir kapı var. Ancak, daha fazla zafer ve savaş dolu anlar yaşamak istiyorsan, o kapıyı bırakıp burada kalabilirsin.",
         "word2"  : "Zaman geri alınamaz, fakat dünya seni bekliyor!",
 
         "title3" : "Invoker, Biraz Mola?",
-        "body3"  : "Hey Invoker! Zorlu bir savaş geçirdin ve biraz dinlenmek mi istiyorsun? Unutma, Boss savaşları seni çağırıyor. Gerçekten çıkmak istiyor musun?",
-        "word3"  : "Bir süreliğine mola ver, fakat hatırla ki savaşlar seni bekliyor!",
+        "body3"  : "Savaşın tam ortasında duruyorsun ve savaş alanından ayrılmak üzere olduğunu söylüyorsun. Eğer bu zorlu mücadeleden vazgeçmek istiyorsan, yolunu seçmelisin. Unutma, zafer bazen pes etmeyi gerektirir. Belki de zafer, sadece bir adım daha ileride. Ne yapmak istersin?",
+        "word3"  : "Nefes al, ama unutma ki zaferin hikayesi henüz tamamlanmadı!",
 
-        "title4" : "Zamanın mı Geldi, Invoker?",
-        "body4"  : "Merak etme Invoker, kudretli büyülerinle dolu bir gün geçirdin. Şimdi biraz dinlenme vakti mi? Ama unutma, Boss savaşları seni bekliyor. Zamanın geldi mi, yoksa bir büyü daha mı yapmalısın?",
-        "word4"  : "Bir mola ver, ama unutma ki her an yeni bir zafer seni bekliyor!",
-
-        "title5" : "Bir Mola İster misin, Invoker?",
-        "body5"  : "Magus Invoker, zorlu savaşlar ve büyü dolu anlarla dolu bir gün geçirdin. Biraz nefes almak ister misin? Ama hatırlatmak isteriz, o büyülü dünya seni bekliyor. Gerçekten ayrılmak mı istiyorsun?",
-        "word5"  : "Nefes al, ama unutma ki zaferin hikayesi henüz tamamlanmadı!",
-
-        "yes"   : "Evet, Oyundan Ayrıl",
-        "no"    : "Hayır, Oyuna Devam Et"
+        "yes"   : "Oyundan Ayrıl",
+        "no"    : "Oyuna Devam Et"
     },
 
     "appUpdateDialog" : {
