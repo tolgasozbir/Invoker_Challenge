@@ -90,6 +90,7 @@ abstract class  LocaleKeys {
   static const snackbarMessages_sbResetPw = 'snackbarMessages.sbResetPw';
   static const snackbarMessages_sbLoadGameInfo = 'snackbarMessages.sbLoadGameInfo';
   static const snackbarMessages_sbSinglePurchase = 'snackbarMessages.sbSinglePurchase';
+  static const snackbarMessages_sbTyForSupportUs = 'snackbarMessages.sbTyForSupportUs';
   static const snackbarMessages = 'snackbarMessages';
   static const authErrorMessages_AuthInvalidMail = 'authErrorMessages.AuthInvalidMail';
   static const authErrorMessages_AuthUserNotFound = 'authErrorMessages.AuthUserNotFound';
@@ -154,6 +155,8 @@ abstract class  LocaleKeys {
   static const exitGameDialogMessages_yes = 'exitGameDialogMessages.yes';
   static const exitGameDialogMessages_no = 'exitGameDialogMessages.no';
   static const exitGameDialogMessages = 'exitGameDialogMessages';
+  static const supportUsField_supportUs = 'supportUsField.supportUs';
+  static const supportUsField = 'supportUsField';
   static const appUpdateDialog_update = 'appUpdateDialog.update';
   static const appUpdateDialog_later = 'appUpdateDialog.later';
   static const appUpdateDialog_message = 'appUpdateDialog.message';

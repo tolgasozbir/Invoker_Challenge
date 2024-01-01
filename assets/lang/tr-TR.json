@@ -100,7 +100,8 @@
         "sbGameSaved": "Oyun kaydedildi",
         "sbResetPw": "Şifre sıfırlama isteği e-posta adresinize gönderildi. Lütfen e-postanızı kontrol edin.",
         "sbLoadGameInfo": "Not: Oyun kaydınız yükledikten sonra kaydınız silinir.",
-        "sbSinglePurchase": "Bu eşya bir kez satın alınabilir."
+        "sbSinglePurchase": "Bu eşya bir kez satın alınabilir.",
+        "sbTyForSupportUs" : "Bizi desteklediğiniz için teşekkür ederiz."
     },
 
     "authErrorMessages": {
@@ -181,6 +182,10 @@
 
         "yes"   : "Oyundan Ayrıl",
         "no"    : "Oyuna Devam Et"
+    },
+
+    "supportUsField" : {
+        "supportUs" : "Bizi destekleyin"
     },
 
     "appUpdateDialog" : {

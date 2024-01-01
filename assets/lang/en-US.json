@@ -100,7 +100,8 @@
         "sbGameSaved": "Game saved",
         "sbResetPw": "A password reset request has been sent to your email. Please check your email.",
         "sbLoadGameInfo": "Note: Your game save will be deleted after it is loaded.",
-        "sbSinglePurchase": "This item can be purchased only once."
+        "sbSinglePurchase": "This item can be purchased only once.",
+        "sbTyForSupportUs" : "Thank you for supporting us."
     },
 
     "authErrorMessages" : {
@@ -181,6 +182,10 @@
         
         "yes": "Exit the Game",
         "no": "Continue the Game"
+    },
+
+    "supportUsField" : {
+        "supportUs" : "Support us"
     },
 
     "appUpdateDialog": {

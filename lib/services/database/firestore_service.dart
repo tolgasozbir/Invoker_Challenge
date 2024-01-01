@@ -165,7 +165,7 @@ class FirestoreService implements IDatabaseService {
         final response = await _fetchData(
           collectionRef,
           orderByFieldName: _orderByTime,
-          fetchLimit: 5,
+          fetchLimit: 10,
         );
         return response.map((e) => BossBattle.fromMap(e.data()) as T).toList();
     }
