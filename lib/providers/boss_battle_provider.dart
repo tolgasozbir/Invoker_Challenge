@@ -255,12 +255,12 @@ class BossBattleProvider extends ChangeNotifier {
   /// _useItem(Items.Dagon);
   /// _useItem(Items.Ethereal_blade);
   /// ```
-  void _useItem(Items item) {
-    final items = inventory.where((element) => element.item == item);
-    for (final item in items) {
-      item.onPressed(currentMana);
-    }
-  }
+  // void _useItem(Items item) {
+  //   final items = inventory.where((element) => element.item == item);
+  //   for (final item in items) {
+  //     item.onPressed(currentMana);
+  //   }
+  // }
 
   void _modifyBonuses(Item item, bool apply) {
     final activeBonuses = item.item.activeProps.activeBonuses;

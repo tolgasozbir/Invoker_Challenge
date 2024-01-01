@@ -170,6 +170,7 @@ enum Items {
     ),
     activeProps: ItemActiveProps(),
     cost: 5200,
+    isVisibleInShop: false,  
   ),
   
   Bloodthorn(
@@ -221,12 +222,19 @@ enum Items {
     consumable: true,
   );
 
-  // Aegis(
+  // Aegis( //TODO:
   //   bonus: "",
   //   cost: 0,
   // );
 
-  const Items({required this.bonuses, required this.activeProps, required this.cost, this.hasSound = false, this.consumable = false});
+  const Items({
+    required this.bonuses, 
+    required this.activeProps, 
+    required this.cost, 
+    this.hasSound = false, 
+    this.consumable = false,
+    this.isVisibleInShop = true,
+  });
 
   final ItemBonuses bonuses;
   final ItemActiveProps activeProps;
@@ -234,6 +242,8 @@ enum Items {
 
   final bool hasSound;
   final bool consumable;
+
+  final bool isVisibleInShop;
 }
 
 class ItemBonuses {

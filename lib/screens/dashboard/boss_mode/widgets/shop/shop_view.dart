@@ -25,6 +25,8 @@ class ShopView extends StatefulWidget {
 
 class _ShopViewState extends State<ShopView> {
 
+  final items = Items.values.where((element) => element.isVisibleInShop).toList();
+
   @override
   void initState() {
     SoundManager.instance.playWelcomeShopSound();
@@ -58,9 +60,9 @@ class _ShopViewState extends State<ShopView> {
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 5,
           ),
-          itemCount: Items.values.length,
+          itemCount: items.length,
           itemBuilder: (BuildContext context, int index) {
-            final item = Items.values[index];
+            final item = items[index];
             return InkWell(
               child: Container(
                 margin: const EdgeInsets.all(4),
