@@ -82,7 +82,7 @@ class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateM
     context.read<GameProvider>().resetTimer();
 
     AdsHelper.instance.adCounter++;
-    if (AdsHelper.instance.interstitialAd != null && AdsHelper.instance.adCounter % 2 == 0) {
+    if (AdsHelper.instance.interstitialAd != null && AdsHelper.instance.adCounter.isEven) {
       await AdsHelper.instance.interstitialAd!.show();
       Navigator.push(context, fadeInPageRoute(widget.navigatePage!));
       return;
