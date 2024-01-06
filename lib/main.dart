@@ -96,7 +96,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: AppStrings.appName,
-      theme: ThemeData.dark(),
+      theme: ThemeData.dark(useMaterial3: false),
       navigatorKey: AppDialogs.navigatorKey,
       scaffoldMessengerKey: AppSnackBar.scaffoldMessengerKey,
       localizationsDelegates: context.localizationDelegates,

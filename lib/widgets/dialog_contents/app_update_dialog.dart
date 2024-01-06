@@ -21,8 +21,8 @@ class AppUpdateDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async => false,
+    return PopScope(
+      canPop: false,
       child: SimpleDialog(
         contentPadding: const EdgeInsets.fromLTRB(0, 12, 0, 0),
         children: [

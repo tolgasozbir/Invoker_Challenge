@@ -72,11 +72,11 @@ class InfoView extends StatelessWidget {
             ),
             TableCell(
               verticalAlignment: TableCellVerticalAlignment.middle,
-              child: Text(spell.duration == 1 ? '-' : (spell.damage).toString()).wrapCenter(),
+              child: Text(spell.duration == 1 ? '-' : spell.damage.toString()).wrapCenter(),
             ),
             TableCell(
               verticalAlignment: TableCellVerticalAlignment.middle,
-              child: Text(spell.duration == 1 ? '-' : (spell.duration).toString()).wrapCenter(),
+              child: Text(spell.duration == 1 ? '-' : spell.duration.toString()).wrapCenter(),
             ),
             TableCell(
               verticalAlignment: TableCellVerticalAlignment.middle,

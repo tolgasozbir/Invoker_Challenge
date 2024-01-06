@@ -157,9 +157,9 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
           ShopButton(),
         ],
       ),
-      body: WillPopScope(
+      body: PopScope(
+        canPop: false,
         child: bodyView(),
-        onWillPop: () async => backButtonFn(),
       ),
     );
   }
