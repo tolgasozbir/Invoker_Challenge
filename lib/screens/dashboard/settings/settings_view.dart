@@ -3,7 +3,6 @@ import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:dota2_invoker_game/utils/url_launcher.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../constants/app_colors.dart';
 import '../../../constants/locale_keys.g.dart';
@@ -28,14 +27,14 @@ class SettingsView extends StatelessWidget {
           divider(),
           menuItem(
             context: context,
-            leading: FontAwesomeIcons.commentDots,
+            leading: CupertinoIcons.text_bubble,
             text: LocaleKeys.settings_feedback.locale,
             onTap: () => Navigator.push(context, fadeInPageRoute(const FeedbackView())),
           ),
           divider(),
           menuItem(
             context: context,
-            leading: FontAwesomeIcons.starHalfStroke,
+            leading: CupertinoIcons.star_lefthalf_fill,
             text: LocaleKeys.settings_rateApp.locale,
             onTap: () => UrlLauncher.instance.storeRedirect(),
           ),

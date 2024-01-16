@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants/app_colors.dart';
@@ -70,7 +69,8 @@ class _TrainingViewState extends State<TrainingView> {
             height: context.dynamicWidth(0.16),
             width: context.dynamicWidth(0.16),
             child: const Icon(
-              FontAwesomeIcons.circleQuestion,
+              Icons.help_outline,
+              size: 28,
               color: AppColors.amber,
             ),
           ),

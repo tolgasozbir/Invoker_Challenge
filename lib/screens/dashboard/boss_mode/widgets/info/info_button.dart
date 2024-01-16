@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../providers/boss_battle_provider.dart';
@@ -22,7 +21,7 @@ class InfoButton extends StatelessWidget {
           SoundManager.instance.playMeepMerp();
         }
       },
-      icon: const Icon(FontAwesomeIcons.circleQuestion),
+      icon: const Icon(Icons.help_outline, size: 28),
     );
   }
 }
