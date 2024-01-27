@@ -124,7 +124,7 @@ class BossBattleProvider extends ChangeNotifier {
   int _userGold = 1000;
   int get userGold => _userGold;
   set userGold(int gold) => _userGold = gold;
-  int get gainedGold => (getRemainingTime * (roundProgress+1)) + ((roundProgress+1) * 480) + 420;
+  int get gainedGold => ((getRemainingTime ~/ 4) * (roundProgress+1)) + ((roundProgress+1) * 512) + 420;
 
   bool isAdWatched = false;
   void addGoldAfterWatchingAd(int goldAmount) {

@@ -45,7 +45,7 @@ void main() async {
     localStorageService: LocalStorageService.instance,
     firebaseAuthService: FirebaseAuthService.instance,
   );
-  //Config
+  //Remote config
   await FirebaseRemoteConfigService.instance.initConfigs();
   //Providers
   runApp(

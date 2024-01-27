@@ -23,6 +23,13 @@ class GameProvider extends ChangeNotifier {
   int _correctCombinationCount = 0;
   int _comboPassingTime = 0;
 
+  //Variable used to track how many times the user has pressed a button
+  //Increment this variable each time the button is pressed
+  //This allows you to keep track of how many times the user has pressed the button
+  int buttonPressCount = 0;
+
+
+
   bool get isStart => _isStart;
   bool get spellHelperIsOpen => _spellHeplerIsOpen;
   int get getTimerValue => _timerValue;
@@ -105,6 +112,13 @@ class GameProvider extends ChangeNotifier {
   void increaseCorrectCounter(){
     _correctCombinationCount++;
     notifyListeners();
+  }
+  
+  void decreaseCorrectCounter(){
+    if (_correctCombinationCount > 0) {
+      _correctCombinationCount--;
+      notifyListeners();
+    }
   }  
   
   void _increaseTimer(){
@@ -124,12 +138,14 @@ class GameProvider extends ChangeNotifier {
 
   void updateCountdownTimeBasedOnScore() {
     final score = getCorrectCombinationCount;
+    int countdownTime;
 
-    int countdownTime = 8;
     if (score < 8) countdownTime = 8;
     else if (score < 16) countdownTime = 7;
-    else if (score < 24) countdownTime = 6;
-    else countdownTime = 5;
+    else if (score < 32) countdownTime = 6;
+    else if (score < 64) countdownTime = 5;
+    else if (score < 128) countdownTime = 4;
+    else countdownTime = 3;
 
     _setCountdownTime(countdownTime);
   }
@@ -146,6 +162,7 @@ class GameProvider extends ChangeNotifier {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) { 
       _decreaseCountdownValue();
       _increaseComboPassingTime();
+      buttonPressCount = 0;
       if (_countdownValue <= 0) {
         disposeTimer();
         changeIsStartStatus();

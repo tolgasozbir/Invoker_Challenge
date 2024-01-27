@@ -257,6 +257,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, ScreenStateM
   void skillOnTapFNTimer(Elements element){
     final spellProvider = context.read<SpellProvider>();
     final timerProvider = context.read<GameProvider>();
+    timerProvider.buttonPressCount++;
     switch (element) {
       case Elements.quas:
       case Elements.wex:
@@ -268,13 +269,16 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, ScreenStateM
           timerProvider.increaseCorrectCounter();
           SoundManager.instance.playSpellSound(spellProvider.nextSpell);
           _animKey.currentState?.playAnimation(IconType.True);
-
-          final score = context.read<GameProvider>().getCorrectCombinationCount;
+          final score = timerProvider.getCorrectCombinationCount;
           AchievementManager.instance.updateTimer(score);
         } 
         else {
           SoundManager.instance.failCombinationSound();
           _animKey.currentState?.playAnimation(IconType.False);
+          //if user spam r button decrease point
+          if (timerProvider.buttonPressCount > 4) {
+            timerProvider.decreaseCorrectCounter();
+          }
         }
         spellProvider.getRandomSpell();
     }
