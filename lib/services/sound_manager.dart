@@ -27,7 +27,7 @@ class SoundManager {
     if (!nonstop) {
       await _player?.stop();
     }
-    _player = await _cache.play(fileName, volume: volume * getVolume/100);
+    //_player = await _cache.play(fileName, volume: volume * getVolume/100);
   }
 
   void _playRandomSound(List<String> sounds, {double volume = 0.35}) {

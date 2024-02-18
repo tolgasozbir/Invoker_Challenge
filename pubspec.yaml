@@ -3,7 +3,7 @@ description: DOTA 2 Invoker practice game.
 
 publish_to: 'none'
 
-version: 1.4.0+24
+version: 1.4.1+25
 
 environment:
   sdk: '>=3.0.0-0 <4.0.0'
@@ -24,9 +24,9 @@ dependencies:
 
   #Utils
   flutter_svg: ^2.0.7
-  audioplayers: ^0.20.0
+  audioplayers: ^5.2.1
   internet_connection_checker: ^1.0.0+1
-  url_launcher: ^6.2.3
+  url_launcher: ^6.1.0
   auto_size_text: ^3.0.0
   flutter_fgbg: ^0.2.2
   tuple: ^2.0.2
@@ -40,10 +40,11 @@ dependencies:
   shared_preferences: ^2.2.2
 
   #Firebase
-  firebase_core: ^2.24.2
-  cloud_firestore: ^4.14.0
-  firebase_auth: ^4.16.0
-  firebase_remote_config: ^4.3.8
+  firebase_core: ^2.25.4
+  cloud_firestore: ^4.15.4
+  firebase_auth: ^4.17.4
+  firebase_remote_config: ^4.3.13
+  firebase_analytics: ^10.8.5
 
   #Animation
   lottie: ^2.6.0
