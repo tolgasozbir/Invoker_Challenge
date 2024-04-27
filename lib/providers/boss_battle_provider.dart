@@ -320,15 +320,18 @@ class BossBattleProvider extends ChangeNotifier {
 
   bool isLastClickGhostWalk = false; //ghost walk'da mı değilmi diye kontrol ediyoruz shard varsa ve ghost walkdaysa mana regenleniyor
   void ghostWalkManaRegen() async {
-    const manaRegen = 10;
-    baseManaRegen += manaRegen;
+    const gwBonusManaRegen = 10;
+    baseManaRegen += gwBonusManaRegen;
 
     var time = 0;
     Timer.periodic(const Duration(seconds: 1), (timer) {
       time++;
       if (time >= 15 || isLastClickGhostWalk == false) {
         timer.cancel();
-        baseManaRegen -= manaRegen;
+        //fix mana bug - önceden mana hesaplanıp gw kullanıldığında oyun bittiyse hesaplanmış üzerinden regeni kaldırıyordu
+        if (started) {
+          baseManaRegen -= gwBonusManaRegen;
+        }
       }
     });
   }
