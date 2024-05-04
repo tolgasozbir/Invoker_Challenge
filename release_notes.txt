@@ -1,3 +1,7 @@
+# 1.4.1
+- Upgrade AGP (Android Gradle Plugin)
+- Fixed permanent mana depletion issue when using ghost walk.
+
 # 1.4.0
 - Performance improvements have been made in Boss Battle mode.
 - An exit dialogue has been added to prevent accidental exits from the game.
