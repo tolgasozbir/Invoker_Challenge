@@ -231,5 +231,7 @@ abstract class  LocaleKeys {
   static const Item_Aghanims_shard_active = 'Item.Aghanims_shard.active';
   static const Item_Aghanims_shard = 'Item.Aghanims_shard';
   static const Item = 'Item';
+  static const InfoMessages_patchMessage = 'InfoMessages.patchMessage';
+  static const InfoMessages = 'InfoMessages';
 
 }

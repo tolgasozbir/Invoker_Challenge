@@ -5,4 +5,6 @@ enum LocalStorageKey {
   //int keys
   volume,
   qwerHudHeight,
+  //bool keys
+  showInfoMessageV142, //TODO Remove after patch
 }
