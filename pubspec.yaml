@@ -53,6 +53,7 @@ dependencies:
   splash: ^1.1.0
   flutter_staggered_animations: ^1.1.1
   snappable_thanos: ^0.0.4
+  flutter_animate: ^4.5.0
 
   #Widgets
   sleek_circular_slider: ^2.0.1

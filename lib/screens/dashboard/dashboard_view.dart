@@ -7,12 +7,12 @@ import 'package:dota2_invoker_game/services/app_services.dart';
 import 'package:dota2_invoker_game/utils/app_updater.dart';
 import 'package:dota2_invoker_game/widgets/app_dialogs.dart';
 import 'package:dota2_invoker_game/widgets/dialog_contents/app_update_dialog.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:tuple/tuple.dart';
 import 'package:user_messaging_platform/user_messaging_platform.dart';
 
 import 'combo/combo_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/app_colors.dart';
@@ -121,17 +121,16 @@ class _DashboardViewState extends State<DashboardView> {
                 const SettingsButton().wrapAlign(Alignment.topRight).wrapExpanded(),
               ],
             ).wrapExpanded(flex: 3),
-            ...List.generate(menuBtns.length, (index) => AnimationLimiter(
-                child: AnimationConfiguration.staggeredList(
-                  duration: const Duration(milliseconds: 1600),
-                  position: index, 
-                  child: SlideAnimation(
-                    verticalOffset: -100,
-                    child: FadeInAnimation(child: menuBtns[index]),
-                  ),
-                ),
-              ),
-            ),
+
+            ...menuBtns.animate(interval: 200.ms, delay: 600.ms)
+              .fadeIn(curve: Curves.easeOutExpo, duration: 1000.ms)
+              .blurXY(begin: 32, duration: 1000.ms)
+              .slideX(begin: -0.4, duration: 1000.ms)
+              .shimmer(duration: 2400.ms)
+              .then(delay: 1000.ms)
+              .animate(onPlay: (controller) => controller.repeat(), interval: 200.ms)
+              .shimmer(size: 0.5, duration: 1000.ms, delay: 5000.ms),
+              
             if (!context.isSmallPhone) const Spacer(),
             SizedBox(
               width: double.infinity,
