@@ -3,6 +3,21 @@ import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import '../constants/app_image_paths.dart';
 import '../constants/locale_keys.g.dart';
 
+enum DamageType {
+  Physical,
+  Magical,
+  Pure,
+}
+
+enum AttackModifiers {
+  CriticalStrike(damageType: DamageType.Physical),
+  Pierce(damageType: DamageType.Magical);
+
+  final DamageType damageType;
+
+  const AttackModifiers({required this.damageType});
+}
+
 enum Items {
 
   Null_talisman(
@@ -141,6 +156,11 @@ enum Items {
       damage: 48,
     ),
     activeProps: ItemActiveProps(),
+    itemProcModifier: ItemProcModifier(
+      modifier: AttackModifiers.Pierce, 
+      procChance: 50,
+      procDamage: 35,
+    ),
     cost: 4575,
   ),
 
@@ -161,6 +181,11 @@ enum Items {
       damage: 64,
     ),
     activeProps: ItemActiveProps(),
+    itemProcModifier: ItemProcModifier(
+      modifier: AttackModifiers.CriticalStrike, 
+      procChance: 20,
+      critRate: 175,
+    ),
     cost: 5650,
   ),
   
@@ -179,7 +204,9 @@ enum Items {
       mana: 400,
       manaRegen: 4.0,
     ),
-    activeProps: ItemActiveProps(),
+    activeProps: ItemActiveProps(
+      
+    ),
     cost: 6800,
   ),
   
@@ -234,10 +261,12 @@ enum Items {
     this.hasSound = false, 
     this.consumable = false,
     this.isVisibleInShop = true,
+    this.itemProcModifier,
   });
 
   final ItemBonuses bonuses;
   final ItemActiveProps activeProps;
+  final ItemProcModifier? itemProcModifier;
   final int cost;
 
   final bool hasSound;
@@ -285,6 +314,20 @@ class ItemActiveProps {
   final ItemActiveBonuses activeBonuses;
 
   const ItemActiveProps({this.cooldown, this.manaCost, this.duration, this.activeBonuses = const ItemActiveBonuses()});
+}
+
+class ItemProcModifier {
+  final AttackModifiers modifier;
+  final int procChance;
+  final int? critRate;
+  final int? procDamage;
+
+  const ItemProcModifier({
+    required this.modifier, 
+    required this.procChance, 
+    this.critRate, 
+    this.procDamage, 
+  });
 }
 
 extension ItemExtension on Items {

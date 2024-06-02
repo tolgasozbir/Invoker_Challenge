@@ -411,6 +411,51 @@ class BossBattleProvider extends ChangeNotifier {
     magicalPercentage = (magicalDamage / totalDamage) * 100;
   }
 
+  // A common function to get the highest critical strike rate or pierce damage.
+  double getHighestModifierValue(AttackModifiers modifierType) {
+    // Initial value is 100 for critical strike rate (1x normal), 0 for pierce damage.
+    int highestValue = modifierType == AttackModifiers.CriticalStrike ? 100 : 0;
+
+    // Iterate through each item in the inventory.
+    for (final element in inventory) {
+      final itemProcModifier = element.item.itemProcModifier;
+
+      // Continue if the item does not have a proc modifier.
+      if (itemProcModifier == null) {
+        continue;
+      }
+
+      // Check if the item has the specified modifier type.
+      if (itemProcModifier.modifier == modifierType) {
+        // Generate a random number between 1 and 100.
+        final randomNumber = rng.nextInt(100) + 1;
+
+        // If the random number is less than or equal to the proc chance, use the modifier value.
+        if (randomNumber <= itemProcModifier.procChance) {
+          final value = modifierType == AttackModifiers.CriticalStrike 
+              ? itemProcModifier.critRate 
+              : itemProcModifier.procDamage;
+
+          // Update the highest value if the current value is not null and greater than the highest value.
+          if (value != null && value > highestValue) {
+            highestValue = value;
+          }
+        }
+      }
+    }
+
+    // Return the highest value, adjusted for critical strike rate if applicable.
+    return modifierType == AttackModifiers.CriticalStrike 
+        ? highestValue / 100 
+        : highestValue.toDouble();
+  }
+
+  // Function to get the highest critical strike rate.
+  double getHighestCriticalStrikeRate() => getHighestModifierValue(AttackModifiers.CriticalStrike);
+
+  // Function to get the highest pierce damage.
+  double getHighestPierceDamage() => getHighestModifierValue(AttackModifiers.Pierce);
+
   /// This function is triggered to perform an auto-hit every second.
   /// ```dart
   /// double baseDamage = level * 5 + (0-15)
@@ -427,7 +472,7 @@ class BossBattleProvider extends ChangeNotifier {
   /// 
   /// this function is called inside the [_timer] object
   void _autoHit(){
-    final double fullDamage = (baseDamage+bonusDamage) + (damageMultiplier * (baseDamage+bonusDamage)) + rng.nextInt(16);
+    final double fullDamage = ((baseDamage+bonusDamage) + (damageMultiplier * (baseDamage+bonusDamage)) + rng.nextInt(16)) * getHighestCriticalStrikeRate();
     final double health = currentBoss.getHp / healthUnit;
     final double totalDamage = fullDamage /health;
     healthProgress += totalDamage;
@@ -455,12 +500,19 @@ class BossBattleProvider extends ChangeNotifier {
   /// 
   ///this function is called inside the [_timer] object
   void _hitWithSpell() {
-    final double damage = spellDamage + (spellDamage * spellAmp); //
-    dps += damage;
-    magicalDamage += damage;
+    final double pierceDamage = getHighestPierceDamage();
 
+    // Calculate the total damage with spell damage, pierce damage, and spell amplification.
+    final double baseDamage = spellDamage + pierceDamage;
+    final double totalDamage = baseDamage + (baseDamage * spellAmp);
+
+    // Update the DPS and magical damage.
+    dps += totalDamage;
+    magicalDamage += totalDamage;
+
+    // Calculate the boss's health progress and update current HP.
     final double health = currentBoss.getHp / healthUnit;
-    healthProgress += damage/health;
+    healthProgress += totalDamage / health;
     currentBossHp = currentBoss.getHp - (healthProgress * health);
   }
 
