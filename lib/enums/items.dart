@@ -205,9 +205,15 @@ enum Items {
       manaRegen: 4.0,
     ),
     activeProps: ItemActiveProps(
-      
+      cooldown: 32,
+      duration: 5,
+      manaCost: 125,
+      activeBonuses: ItemActiveBonuses(
+        magicalDamage: 40,
+      ),
     ),
     cost: 6800,
+    hasSound: true,
   ),
   
   Dagon(

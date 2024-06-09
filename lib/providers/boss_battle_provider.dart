@@ -234,15 +234,15 @@ class BossBattleProvider extends ChangeNotifier {
     updateView();
   }
 
+  void _useRefresherOrb(Item item) {
+    _resetCooldowns(withRefresherOrb: false);
+    _updateAbilityHudView();
+  }
+
   bool triggerView = false; ////trigger update view after using refresher orb
   void _updateAbilityHudView() {
     triggerView = !triggerView; 
     updateView();
-  }
-
-  void _useRefresherOrb(Item item) {
-    _resetCooldowns(withRefresherOrb: false);
-    _updateAbilityHudView();
   }
 
   /// Resets the cooldown for all items of the same type.
