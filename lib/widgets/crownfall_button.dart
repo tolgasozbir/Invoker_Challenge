@@ -52,9 +52,9 @@ class CrownfallButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: CustomPaint(
-        foregroundPainter: CrownfallPainter(buttonType: buttonType),
+        foregroundPainter: _CrownfallPainter(buttonType: buttonType),
         child: ClipPath(
-          clipper: CrownfallClipper(),
+          clipper: _CrownfallClipper(),
           child: Container(
             width: width,
             height: height,
@@ -79,7 +79,7 @@ class CrownfallButton extends StatelessWidget {
   }
 }
 
-class CrownfallClipper extends CustomClipper<Path> {
+class _CrownfallClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     final double w = size.width;
@@ -107,8 +107,8 @@ class CrownfallClipper extends CustomClipper<Path> {
   bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
 
-class CrownfallPainter extends CustomPainter {
-  CrownfallPainter({required this.buttonType});
+class _CrownfallPainter extends CustomPainter {
+  _CrownfallPainter({required this.buttonType});
 
   final CrownfallButtonTypes buttonType;
 
@@ -260,8 +260,8 @@ class CrownfallPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(CrownfallPainter oldDelegate) => false;
+  bool shouldRepaint(_CrownfallPainter oldDelegate) => false;
 
   @override
-  bool shouldRebuildSemantics(CrownfallPainter oldDelegate) => false;
+  bool shouldRebuildSemantics(_CrownfallPainter oldDelegate) => false;
 }
