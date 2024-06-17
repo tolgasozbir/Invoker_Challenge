@@ -1,18 +1,42 @@
-import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
-//TODO: PASSİVE TYPE
+import 'package:flutter/material.dart';
+
+enum CrownfallButtonTypes {
+  Azurite(
+    gradientColors: [Color(0xFF2062b2), Color(0xFF041834),],
+    innerLinesColors: [Colors.blue, Colors.transparent, Colors.transparent, Colors.blue],
+  ),
+
+  Jade(
+    gradientColors: [Color(0xFF396D55), Color(0xFF1E3A33),],
+    innerLinesColors: [Colors.green, Colors.transparent, Colors.transparent, Colors.green],
+  ),
+
+  Ruby(
+    gradientColors: [Color(0xFFBF1F1F), Color(0xFF5E091A),],
+    innerLinesColors: [Colors.red, Colors.transparent, Colors.transparent, Colors.red],
+  ),
+
+  Onyx(
+    gradientColors: [Color(0xFF414747), Color(0xFF242726),],
+    innerLinesColors: [Colors.grey, Colors.transparent, Colors.transparent, Colors.grey],
+  );
+
+  final List<Color> gradientColors;
+  final List<Color> innerLinesColors;
+
+  const CrownfallButtonTypes({required this.gradientColors, required this.innerLinesColors});
+}
+
 class CrownfallButton extends StatelessWidget {
   const CrownfallButton({
     super.key, 
     this.text = 'Text', 
     this.textStyle = const TextStyle(fontWeight: FontWeight.w500), 
     this.width = 200, 
-    this.height = 64, 
-    this.gradientColors = const [
-      Color(0xFF2062b2),
-      Color(0xFF041834),
-    ],
+    this.height = 64,
+    this.buttonType = CrownfallButtonTypes.Azurite,
     this.onTap,
   });
 
@@ -20,7 +44,7 @@ class CrownfallButton extends StatelessWidget {
   final TextStyle textStyle;
   final double width;
   final double height;
-  final List<Color> gradientColors;
+  final CrownfallButtonTypes buttonType;
   final VoidCallback? onTap;
 
   @override
@@ -28,7 +52,7 @@ class CrownfallButton extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: CustomPaint(
-        foregroundPainter: CrownfallPainter(),
+        foregroundPainter: CrownfallPainter(buttonType: buttonType),
         child: ClipPath(
           clipper: CrownfallClipper(),
           child: Container(
@@ -36,7 +60,7 @@ class CrownfallButton extends StatelessWidget {
             height: height,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: gradientColors,
+                colors: buttonType.gradientColors,
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
               ),
@@ -84,12 +108,17 @@ class CrownfallClipper extends CustomClipper<Path> {
 }
 
 class CrownfallPainter extends CustomPainter {
-  final scaleFactor = 0.8;
+  CrownfallPainter({required this.buttonType});
+
+  final CrownfallButtonTypes buttonType;
+
+  final double scaleFactor = 0.8;
+
   final outerBorderGradientStart = const Color(0xffe8e3d5);
   final outerBorderGradientEnd = const Color(0xffad7f30);
+
   final protrusionGradientStart = const Color(0xff9a887c);
   final protrusionGradientEnd = const Color(0xff966f2b);
-  final innerLinesGradientColors = const [Colors.blue, Colors.transparent, Colors.transparent, Colors.blue];
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -109,7 +138,7 @@ class CrownfallPainter extends CustomPainter {
       ..strokeWidth = 1
       ..style = PaintingStyle.stroke
       ..shader = LinearGradient(
-        colors: innerLinesGradientColors,
+        colors: buttonType.innerLinesColors,
         stops: const [0.2, 0.3, 0.7, 0.8],
       ).createShader(Rect.fromLTWH(0, 0, w, h));
 
@@ -117,7 +146,7 @@ class CrownfallPainter extends CustomPainter {
       ..strokeWidth = 1
       ..style = PaintingStyle.stroke
       ..shader = LinearGradient(
-        colors: innerLinesGradientColors,
+        colors: buttonType.innerLinesColors,
         stops: const [0.2, 0.3, 0.6 ,0.8],
       ).createShader(Rect.fromLTWH(0, 0, w, h));
 
