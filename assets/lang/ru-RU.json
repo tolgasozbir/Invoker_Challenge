@@ -164,7 +164,9 @@
         "physicalDmg": "Физический урон",
         "magicalDmg": "Магический урон",
         "earnedExp": "Полученный опыт",
-        "earnedGold": "Полученное золото"
+        "earnedGold": "Полученное золото",
+        "round": "Раунд",
+        "bestTime": "Лучшее Время Завершения"
     },
 
     "exitGameDialogMessages": {

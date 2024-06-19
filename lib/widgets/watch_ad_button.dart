@@ -1,3 +1,4 @@
+import 'package:dota2_invoker_game/widgets/crownfall_button.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/app_image_paths.dart';
@@ -22,40 +23,25 @@ class WatchAdButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return CrownfallButton(
+      buttonType: isAdWatched ? CrownfallButtonTypes.Onyx : CrownfallButtonTypes.Azurite,
       onTap: isAdWatched ? meepMerp : () async => watchAdFn(context),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        //width: context.dynamicWidth(0.36),
-        height: 48,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Colors.blue.shade600,
-              Colors.blue.shade300,
-              Colors.blue.shade600,
-            ],
-          ),
-          borderRadius: BorderRadius.circular(4),
-          border: Border.all(),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.slow_motion_video, size: 26,),
-            const EmptyBox.w4(),
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: context.sp(13),
-                fontWeight: FontWeight.bold,
-                shadows: List.generate(2, (index) => const Shadow(blurRadius: 2)),
-              ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(Icons.slow_motion_video, size: 26,),
+          const EmptyBox.w4(),
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: context.sp(13),
+              fontWeight: FontWeight.bold,
+              shadows: List.generate(2, (index) => const Shadow(blurRadius: 2)),
             ),
-            if(showGoldIcon) Image.asset(ImagePaths.gold, height: 28),
-          ],
-        ),
+          ),
+          if(showGoldIcon) Image.asset(ImagePaths.gold, height: 28),
+        ],
       ),
     );
   }

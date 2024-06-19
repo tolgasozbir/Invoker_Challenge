@@ -1,4 +1,7 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dota2_invoker_game/enums/Bosses.dart';
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
+import 'package:dota2_invoker_game/widgets/crownfall_button.dart';
 
 import '../../constants/locale_keys.g.dart';
 import '../../extensions/number_extension.dart';
@@ -15,14 +18,14 @@ import '../../models/score_models/boss_battle.dart';
 import '../../providers/boss_battle_provider.dart';
 import '../../services/user_manager.dart';
 import '../../services/app_services.dart';
-import '../app_outlined_button.dart';
 import '../app_snackbar.dart';
 import '../empty_box.dart';
 import '../watch_ad_button.dart';
 
 class BossResultRoundDialogContent extends StatelessWidget {
   final BossBattle model;
-  final int earnedGold;
+  final String bossName;
+  final int totalEarnedGold;
   final double earnedExp;
   final bool timeUp;
   final bool isLast;
@@ -31,7 +34,8 @@ class BossResultRoundDialogContent extends StatelessWidget {
   const BossResultRoundDialogContent({
     super.key, 
     required this.model, 
-    required this.earnedGold, 
+    required this.bossName,
+    required this.totalEarnedGold,
     required this.earnedExp,
     required this.timeUp,
     required this.isLast, 
@@ -42,53 +46,193 @@ class BossResultRoundDialogContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bestScore = UserManager.instance.getBestBossScore(model.boss);
-
+    final bestTime = UserManager.instance.getBestBossScore(bossName)['time'] as int? ?? 0;
+    
     return  Column(
       children: [
-        _victoryDefeatText(),
-        _resultField(LocaleKeys.leaderboard_boss.locale,            model.boss),
-        _resultField(LocaleKeys.leaderboard_elapsedTime.locale,     '${model.time} Sec'),
-        if(timeUp) 
-          _resultField(LocaleKeys.leaderboard_remainingHp.locale,   bossHpLeft.numberFormat),
-        _resultField(LocaleKeys.leaderboard_AverageDps5Sec.locale,  model.averageDps.numberFormat),
-        _resultField(LocaleKeys.leaderboard_maxDps.locale,          model.maxDps.numberFormat),
-        _resultField(LocaleKeys.leaderboard_physicalDmg.locale,     model.physicalDamage.numberFormat),
-        _resultField(LocaleKeys.leaderboard_magicalDmg.locale,      model.magicalDamage.numberFormat),
-        _resultField(LocaleKeys.leaderboard_earnedExp.locale,       earnedExp.numberFormat),
-        if (!timeUp && isLast) ...[
-          _resultField(LocaleKeys.leaderboard_earnedGold.locale, earnedGold.numberFormat),
-          const EmptyBox.h4(),
-          watchAdButton(context),
-        ],
-        const Divider(),
-        if (bestScore.isNotEmpty) ...[
-          FittedBox(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+        //Header
+        header(context),
+        //Stats
+        Flexible(
+          child: SingleChildScrollView(
+            child: Column(
               children: [
-                Text(
-                  LocaleKeys.commonGeneral_bestScoreByKill.locale,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500, 
-                    fontSize: context.sp(13),
-                  ),
-                ),
-                const EmptyBox.w4(),
-                const Icon(Icons.swipe_down),
+                _victoryDefeatText(),
+                if(timeUp) 
+                  _resultField(LocaleKeys.leaderboard_remainingHp.locale,   bossHpLeft.numberFormat),
+                _resultField(LocaleKeys.leaderboard_elapsedTime.locale,     '${model.time} ${LocaleKeys.leaderboard_second.locale}'),
+                _resultField(LocaleKeys.leaderboard_bestTime.locale, bestTime > 0 ? '$bestTime ${LocaleKeys.leaderboard_second.locale}' : '-'),
+                _damages(),
+                _resultField(LocaleKeys.leaderboard_AverageDps.locale, model.averageDps.numberFormat),
+                _resultField(LocaleKeys.leaderboard_earnedExp.locale,earnedExp.numberFormat, color: AppColors.green),
+                if (!timeUp && isLast) ...[
+                  _resultField(LocaleKeys.leaderboard_earnedGold.locale, totalEarnedGold.numberFormat, color: AppColors.amber),
+                  const Divider(),
+                  watchAdButton(context),
+                  const EmptyBox.h4(),
+                ],
               ],
             ),
           ),
-          if (timeUp) const EmptyBox.h8(),
-          _resultField(LocaleKeys.leaderboard_elapsedTime.locale, "${bestScore["time"]} ${LocaleKeys.leaderboard_second.locale}"),
-          _resultField(LocaleKeys.leaderboard_AverageDps.locale,  (bestScore['averageDps'] as double).numberFormat),
-          _resultField(LocaleKeys.leaderboard_maxDps.locale,      (bestScore['maxDps'] as double).numberFormat),
-          _resultField(LocaleKeys.leaderboard_physicalDmg.locale, (bestScore['physicalDamage'] as double).numberFormat),
-          _resultField(LocaleKeys.leaderboard_magicalDmg.locale,  (bestScore['magicalDamage'] as double).numberFormat),
-        ],
+        ),
+
       ],
     );
+  }
+
+  Column header(BuildContext context) {
+    final String lastBossText = model.round == Bosses.values.length ? LocaleKeys.commonGeneral_last.locale : '';
+    return Column(
+        children: [
+          //Title
+          AutoSizeText(
+            '${LocaleKeys.leaderboard_round.locale} ${model.round} $lastBossText',
+            maxLines: 1,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: context.sp(20), fontWeight: FontWeight.w500, fontFamily: 'Virgil'),
+          ),
+          const EmptyBox.h4(),
+          //Circle Image
+          Container(
+            width: context.dynamicWidth(0.32),
+            height: context.dynamicWidth(0.32),
+            padding: const EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+              border: Border.all(),
+              color: Colors.transparent,
+              shape: BoxShape.circle,
+            ),
+            child: Image.asset(
+              Bosses.values[model.round-1].getImage,
+              fit: BoxFit.cover,
+            ),
+          ),
+          //Boss name
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: Text(
+              model.boss,
+              style: TextStyle(fontSize: context.sp(18), fontWeight: FontWeight.w500,  fontFamily: 'Virgil'),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          const Divider(color: Colors.black, height: 0,),
+          const EmptyBox.h8(),
+        ],
+      );
+  }
+
+  Padding _damages() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 2),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                LocaleKeys.leaderboard_physicalDmg.locale,
+                style: const TextStyle(fontWeight: FontWeight.w500),
+                textAlign: TextAlign.center,
+              ),
+              Text(
+                LocaleKeys.leaderboard_magicalDmg.locale,
+                style: const TextStyle(fontWeight: FontWeight.w500),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Expanded(
+                flex: calculateFlex('physical'),
+                child: Container(
+                  height: 24,
+                  width: 50,
+                  decoration: BoxDecoration(
+                    color: AppColors.red,
+                    borderRadius: const BorderRadius.all(Radius.circular(4)),
+                    border: Border.all(),
+                  ),
+                ),
+              ),
+              Container(
+                height: 32,
+                width: 4,
+                margin: const EdgeInsets.symmetric(horizontal: 2),
+                decoration: BoxDecoration(
+                  border: Border.all(),
+                  borderRadius: const BorderRadius.all(Radius.circular(8)),
+                ),
+              ),
+              Expanded(
+                flex: calculateFlex('magical'),
+                child: Container(
+                  height: 24,
+                  width: 50,
+                  decoration: BoxDecoration(
+                    color: AppColors.blue,
+                    borderRadius: const BorderRadius.all(Radius.circular(4)),
+                    border: Border.all(),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 6.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  model.physicalDamage.toInt().numberFormat,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500, 
+                    fontFamily: 'Virgil',
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  model.magicalDamage.toInt().numberFormat,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500, 
+                    fontFamily: 'Virgil',
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  int calculateFlex(String damageType) {
+    // Toplam hasarı hesaplayın
+    final totalDamage = model.physicalDamage + model.magicalDamage;
+    if (totalDamage <= 0) {
+      return 1;
+    }
+    int flex;
+
+    // Belirtilen hasar türüne göre yüzdesini hesaplayın
+    if (damageType == 'magical') {
+      flex = ((model.magicalDamage / totalDamage) * 100).toInt();
+    } else if (damageType == 'physical') {
+      flex = ((model.physicalDamage / totalDamage) * 100).toInt();
+    } else {
+      throw ArgumentError('Invalid damage type: $damageType');
+    }
+
+    // Eğer flex 0 veya 0'dan küçükse, 1 değerini verin
+    if (flex <= 0) {
+      flex = 1;
+    }
+
+    return flex;
   }
 
   Container _victoryDefeatText() {
@@ -121,7 +265,7 @@ class BossResultRoundDialogContent extends StatelessWidget {
     );
   }
 
-  Widget _resultField(String title, String value) {
+  Widget _resultField(String title, String value, {Color? color}) {
     return Container(
       padding: const EdgeInsets.all(8),
       margin: const EdgeInsets.symmetric(vertical: 2),
@@ -139,7 +283,7 @@ class BossResultRoundDialogContent extends StatelessWidget {
           const Spacer(),
           Text(
             value,
-            style: const TextStyle(fontWeight: FontWeight.w500),
+            style: TextStyle(fontWeight: FontWeight.w500, color: color),
             textAlign: TextAlign.center,
           ),
         ],
@@ -150,9 +294,11 @@ class BossResultRoundDialogContent extends StatelessWidget {
 }
 
 class BossResultRoundDialogAction extends StatefulWidget {
-  const BossResultRoundDialogAction({super.key, required this.model});
+  const BossResultRoundDialogAction({super.key, required this.model, required this.bossName, required this.timeUp});
 
   final BossBattle model;
+  final String bossName;
+  final bool timeUp;
 
   @override
   State<BossResultRoundDialogAction> createState() => _BossResultRoundDialogActionState();
@@ -160,23 +306,37 @@ class BossResultRoundDialogAction extends StatefulWidget {
 
 class _BossResultRoundDialogActionState extends State<BossResultRoundDialogAction> with ScreenStateMixin {
 
-  bool get isNewScore => widget.model.time <= (UserManager.instance.getBestBossScore(widget.model.boss)['time'] ?? 0);
+  bool get isNewScore => !widget.timeUp && widget.model.time <= (UserManager.instance.getBestBossScore(widget.bossName)['time'] ?? 0);
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        AppOutlinedButton(
-          bgColor: isNewScore ? AppColors.green.withOpacity(0.24) : AppColors.red.withOpacity(0.24),
-          title: LocaleKeys.commonGeneral_send.locale,
+        CrownfallButton(
+          height: 48,
+          buttonType: isLoading 
+              ? CrownfallButtonTypes.Onyx 
+              : isNewScore 
+                  ? CrownfallButtonTypes.Jade 
+                  : CrownfallButtonTypes.Ruby,
           isButtonActive: !isLoading,
-          onPressed: () async => submitScoreFn(),
+          onTap: () => submitScoreFn(),
+          child: Text(
+            LocaleKeys.commonGeneral_send.locale,
+            style: const TextStyle(fontWeight: FontWeight.w500),
+            textAlign: TextAlign.center,
+          ),
         ).wrapExpanded(),
         const EmptyBox.w8(),
-        AppOutlinedButton(
-          title: LocaleKeys.commonGeneral_back.locale,
-          isButtonActive: !isLoading,
-          onPressed: () => Navigator.pop(context),
+        CrownfallButton(
+          height: 48,
+          buttonType: CrownfallButtonTypes.Onyx,
+          onTap: () => Navigator.pop(context),
+          child: Text(
+            LocaleKeys.commonGeneral_back.locale,
+            style: const TextStyle(fontWeight: FontWeight.w500),
+            textAlign: TextAlign.center,
+          ),
         ).wrapExpanded(),
       ],
     );
@@ -186,7 +346,7 @@ class _BossResultRoundDialogActionState extends State<BossResultRoundDialogActio
     final user = UserManager.instance.user;
     final uid = user.uid;
     final db = AppServices.instance.databaseService;
-    final bestTime = UserManager.instance.getBestBossScore(widget.model.boss)['time'] ?? 0;
+    final bestTime = UserManager.instance.getBestBossScore(widget.bossName)['time'] ?? 0;
     final score = widget.model;
 
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
@@ -198,7 +358,7 @@ class _BossResultRoundDialogActionState extends State<BossResultRoundDialogActio
       return;
     }
 
-    if (widget.model.time > bestTime) {
+    if (widget.model.time > bestTime || widget.timeUp) {
       AppSnackBar.showSnackBarMessage(
         text: LocaleKeys.snackbarMessages_errorSubmitScore2.locale, 
         snackBartype: SnackBarType.error,
@@ -238,6 +398,6 @@ class _BossResultRoundDialogActionState extends State<BossResultRoundDialogActio
     }
 
     changeLoadingState();
-    if (isOk) Navigator.pop(context);
+    if (isOk && mounted) Navigator.pop(context);
   }
 }

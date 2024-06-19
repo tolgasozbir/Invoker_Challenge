@@ -4,11 +4,9 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:math' as math;
 
-import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:snappable_thanos/snappable_thanos.dart';
 
-import '../constants/locale_keys.g.dart';
 import '../enums/Bosses.dart';
 import '../enums/items.dart';
 import '../enums/spells.dart';
@@ -124,7 +122,12 @@ class BossBattleProvider extends ChangeNotifier {
   int _userGold = 1000;
   int get userGold => _userGold;
   set userGold(int gold) => _userGold = gold;
-  int get gainedGold => ((getRemainingTime ~/ 4) * (roundProgress+1)) + ((roundProgress+1) * 512) + 420;
+  //kazanılan
+  int get gainedGold => ((roundProgress+1) * 512) + 420;
+  //erken bitirme bonusu
+  int get bonusGold => (getRemainingTime ~/ 4) * (roundProgress+1);
+  // total
+  int get totalEarnedGold => gainedGold + bonusGold;
 
   bool isAdWatched = false;
   void addGoldAfterWatchingAd(int goldAmount) {
@@ -267,7 +270,6 @@ class BossBattleProvider extends ChangeNotifier {
 
     final multiplier = apply ? 1 : -1;
 
-    //bonusDamage += multiplier * activeBonuses.physicalDamage; // TODO: Orchid 1.5x damage bonusDamage yerine multiplier olabilir
     spellDamage += multiplier * activeBonuses.magicalDamage;
     spellAmp    += multiplier * activeBonuses.spellAmp;
 
@@ -575,7 +577,7 @@ class BossBattleProvider extends ChangeNotifier {
       started = false;
       currentBossHp = 0; // eksi değer göstermemesi için
       dps = 0;
-      _addGold(gainedGold);
+      _addGold(totalEarnedGold);
       await Future.delayed(const Duration(milliseconds: 100)); //snap işleminde 100 ms sonrasını baz almak için
       SoundManager.instance.playBossDyingSound(currentBoss);
       await snapBoss();
@@ -592,6 +594,8 @@ class BossBattleProvider extends ChangeNotifier {
       log('Time out');
       SoundManager.instance.playBossTauntSound(currentBoss);
       _showRoundResultDialog(timeUp: true);
+      //burada reklam izlerke başa sarcak
+      //TODO:
       _reset();
       return;
     }
@@ -643,22 +647,21 @@ class BossBattleProvider extends ChangeNotifier {
     _resetCooldowns();
     _updateAbilityHudView();
 
-    final String lastBossText = roundProgress+1 == Bosses.values.length ? LocaleKeys.commonGeneral_last.locale : '';
-
-    AppDialogs.showSlidingDialog(
-      dismissible: false,
-      showBackButton: false,
-      height: 540,
-      title: '${roundProgress+1}. $lastBossText${LocaleKeys.commonGeneral_stageResults.locale}',
+    AppDialogs.showScaleFadeDialog(
       content: BossResultRoundDialogContent(
         model: model, 
-        earnedGold: gainedGold + (_isActiveMidas ? midasGold : 0), 
+        bossName: currentBoss.name,
+        totalEarnedGold: totalEarnedGold + (_isActiveMidas ? midasGold : 0),
         earnedExp: UserManager.instance.expCalc(expGain),
         timeUp: timeUp,
         isLast: model.round != Bosses.values.length,
         bossHpLeft: currentBossHp,
       ),
-      action: BossResultRoundDialogAction(model: model),
+      action: BossResultRoundDialogAction(
+        bossName: currentBoss.name, 
+        timeUp: timeUp,
+        model: model,
+      ),
     );
   }
 

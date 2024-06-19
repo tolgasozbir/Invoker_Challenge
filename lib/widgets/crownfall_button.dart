@@ -2,6 +2,8 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 
+import '../services/sound_manager.dart';
+
 enum CrownfallButtonTypes {
   Azurite(
     gradientColors: [Color(0xFF2062b2), Color(0xFF041834),],
@@ -32,30 +34,31 @@ enum CrownfallButtonTypes {
 class CrownfallButton extends StatelessWidget {
   const CrownfallButton({
     super.key, 
-    this.text = 'Text', 
-    this.textStyle = const TextStyle(fontWeight: FontWeight.w500), 
+    this.child,
     this.width = 200, 
-    this.height = 64,
+    this.height = 48,
     this.buttonType = CrownfallButtonTypes.Azurite,
     this.onTap,
+    this.isButtonActive = true,
   });
 
-  final String text;
-  final TextStyle textStyle;
+  final Widget? child;
   final double width;
   final double height;
   final CrownfallButtonTypes buttonType;
   final VoidCallback? onTap;
+  final bool isButtonActive;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: isButtonActive ? onTap : () => SoundManager.instance.playMeepMerp(),
       child: CustomPaint(
         foregroundPainter: _CrownfallPainter(buttonType: buttonType),
         child: ClipPath(
           clipper: _CrownfallClipper(),
-          child: Container(
+          child: AnimatedContainer(
+            duration: Durations.medium4,
             width: width,
             height: height,
             decoration: BoxDecoration(
@@ -65,13 +68,7 @@ class CrownfallButton extends StatelessWidget {
                 end: Alignment.bottomCenter,
               ),
             ),
-            child: Center(
-              child: Text(
-                text,
-                style: textStyle,
-                textAlign: TextAlign.center,
-              ),
-            ),
+            child: Center(child: child),
           ),
         ),
       ),

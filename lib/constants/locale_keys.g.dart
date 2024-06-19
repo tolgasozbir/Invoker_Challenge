@@ -142,6 +142,8 @@ abstract class  LocaleKeys {
   static const leaderboard_magicalDmg = 'leaderboard.magicalDmg';
   static const leaderboard_earnedExp = 'leaderboard.earnedExp';
   static const leaderboard_earnedGold = 'leaderboard.earnedGold';
+  static const leaderboard_round = 'leaderboard.round';
+  static const leaderboard_bestTime = 'leaderboard.bestTime';
   static const leaderboard = 'leaderboard';
   static const exitGameDialogMessages_title1 = 'exitGameDialogMessages.title1';
   static const exitGameDialogMessages_body1 = 'exitGameDialogMessages.body1';

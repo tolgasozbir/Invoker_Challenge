@@ -164,7 +164,9 @@
         "physicalDmg": "Physical Damage",
         "magicalDmg": "Magical Damage",
         "earnedExp": "Earned Exp",
-        "earnedGold": "Earned Gold"
+        "earnedGold": "Earned Gold",
+        "round": "Round",
+        "bestTime": "Best Completion Time"
     },
 
     "exitGameDialogMessages": {

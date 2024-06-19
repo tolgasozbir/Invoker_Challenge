@@ -77,6 +77,12 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
+  fonts:
+    - family: Virgil
+      fonts:
+        - asset: assets/fonts/Virgil.ttf
+          weight: 400
+
   assets:
     - .env
 

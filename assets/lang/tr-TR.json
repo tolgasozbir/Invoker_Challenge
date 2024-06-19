@@ -164,7 +164,9 @@
         "physicalDmg": "Fiziksel Hasar",
         "magicalDmg": "Büyü Hasarı",
         "earnedExp": "Kazanılan Deneyim",
-        "earnedGold": "Kazanılan Altın"
+        "earnedGold": "Kazanılan Altın",
+        "round": "Round",
+        "bestTime": "En İyi Bitirme Süren"
     },
 
     "exitGameDialogMessages" : {

@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dota2_invoker_game/widgets/empty_box.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/app_colors.dart';
@@ -9,6 +10,52 @@ class AppDialogs {
   AppDialogs._();
 
   static final navigatorKey = GlobalKey<NavigatorState>();
+
+  static Future<T?> showScaleFadeDialog<T extends Object>({required Widget content, Widget? action,}) {
+    return showGeneralDialog<T?>(
+      context: navigatorKey.currentContext!,
+      barrierDismissible: false,
+      barrierLabel: '',
+      transitionDuration: Durations.medium2,
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return Scaffold(
+          backgroundColor: AppColors.transparent,
+          resizeToAvoidBottomInset: false,
+          body: SafeArea(
+            child: Center(
+              child: Container(
+                height: context.height,
+                width: context.width,
+                margin: const EdgeInsets.all(32),
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: AppColors.dialogBgColor, 
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Column(
+                  children: [
+                    Expanded(child: content),
+                    const EmptyBox.h8(),
+                    action!,
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+      transitionBuilder: (context, a1, a2, child) {
+        //TODO: ANİMATİON CLİPRRECT
+        return ScaleTransition(
+          scale: Tween<double>(begin: 0.5, end: 1.0).animate(a1),
+          child: FadeTransition(
+            opacity: Tween<double>(begin: 0.5, end: 1.0).animate(a1),
+            child: child,
+          ),
+        );
+      },
+    );
+  }
 
   static Future<T?> showSlidingDialog<T extends Object>({
     String? title,
