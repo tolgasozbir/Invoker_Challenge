@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dota2_invoker_game/widgets/empty_box.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +18,7 @@ class AppDialogs {
       context: navigatorKey.currentContext!,
       barrierDismissible: false,
       barrierLabel: '',
-      transitionDuration: Durations.medium2,
+      transitionDuration: Durations.long4,
       pageBuilder: (context, animation, secondaryAnimation) {
         return Scaffold(
           backgroundColor: AppColors.transparent,
@@ -45,13 +47,10 @@ class AppDialogs {
         );
       },
       transitionBuilder: (context, a1, a2, child) {
-        //TODO: ANİMATİON CLİPRRECT
-        return ScaleTransition(
-          scale: Tween<double>(begin: 0.5, end: 1.0).animate(a1),
-          child: FadeTransition(
-            opacity: Tween<double>(begin: 0.5, end: 1.0).animate(a1),
-            child: child,
-          ),
+        return CircularRevealAnimation(
+          animation: a1,
+          centerAlignment: const Alignment(0.0, -0.54),
+          child: child,
         );
       },
     );
@@ -266,4 +265,101 @@ class AppDialogs {
     );
   }
 
+}
+
+
+class CircularRevealAnimation extends StatelessWidget {
+  final Alignment? centerAlignment;
+  final Offset? centerOffset;
+  final double? minRadius;
+  final double? maxRadius;
+  final Widget child;
+  final Animation<double> animation;
+
+  /// Creates [CircularRevealAnimation] with given params.
+  /// For open animation [animation] should run forward: [AnimationController.forward].
+  /// For close animation [animation] should run reverse: [AnimationController.reverse].
+  ///
+  /// [centerAlignment] center of circular reveal. [centerOffset] if not specified.
+  /// [centerOffset] center of circular reveal. Child's center if not specified.
+  /// [centerAlignment] or [centerOffset] must be null (or both).
+  ///
+  /// [minRadius] minimum radius of circular reveal. 0 if not if not specified.
+  /// [maxRadius] maximum radius of circular reveal. Distance from center to further child's corner if not specified.
+  const CircularRevealAnimation({
+    super.key, 
+    required this.child,
+    required this.animation,
+    this.centerAlignment,
+    this.centerOffset,
+    this.minRadius,
+    this.maxRadius,
+  }) : assert(centerAlignment == null || centerOffset == null);
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: animation,
+      builder: (BuildContext context, Widget? child) {
+        return ClipPath(
+          clipper: CircularRevealClipper(
+            fraction: animation.value,
+            centerAlignment: centerAlignment,
+            centerOffset: centerOffset,
+            minRadius: minRadius,
+            maxRadius: maxRadius,
+          ),
+          child: child,
+        );
+      },
+      child: this.child,
+    );
+  }
+}
+
+@immutable
+class CircularRevealClipper extends CustomClipper<Path> {
+  final double fraction;
+  final Alignment? centerAlignment;
+  final Offset? centerOffset;
+  final double? minRadius;
+  final double? maxRadius;
+
+  const CircularRevealClipper({
+    required this.fraction,
+    this.centerAlignment,
+    this.centerOffset,
+    this.minRadius,
+    this.maxRadius,
+  });
+
+  @override
+  Path getClip(Size size) {
+    final center = this.centerAlignment?.alongSize(size) ??
+        this.centerOffset ??
+        Offset(size.width / 2, size.height / 2);
+    final minRadius = this.minRadius ?? 0;
+    final maxRadius = this.maxRadius ?? calcMaxRadius(size, center);
+
+    return Path()
+      ..addOval(
+        Rect.fromCircle(
+          center: center,
+          radius: lerpDouble(minRadius, maxRadius, fraction),
+        ),
+      );
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => true;
+
+  static double calcMaxRadius(Size size, Offset center) {
+    final w = max(center.dx, size.width - center.dx);
+    final h = max(center.dy, size.height - center.dy);
+    return sqrt(w * w + h * h);
+  }
+
+  static double lerpDouble(double a, double b, double t) {
+    return a * (1.0 - t) + b * t;
+  }
 }
