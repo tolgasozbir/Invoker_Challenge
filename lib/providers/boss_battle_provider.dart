@@ -183,6 +183,20 @@ class BossBattleProvider extends ChangeNotifier {
     updateView();
   }
 
+  void upgradeItem(Item upgradedItem, int spendedGold, List<Item> removeItems) async {
+    for (final item in removeItems) {
+      final invItem = _inventory.firstWhere((element) => element.item == item.item);
+      _inventory.remove(invItem);
+      _updateStats(item: item, isBuying: false);
+      await Future.delayed(Duration.zero);
+    }
+    _inventory.add(upgradedItem);
+    _updateStats(item: upgradedItem, isBuying: true);
+    currentMana = maxMana;
+    _spendGold(spendedGold);
+    updateView();
+  }
+
   void _updateStats({required Item item, required bool isBuying}) {
     final itemBonus = item.item.bonuses;
     final int multiplier = isBuying ? 1 : -1;
@@ -214,7 +228,11 @@ class BossBattleProvider extends ChangeNotifier {
       _spendMana(item.item.activeProps.manaCost ?? 0);
 
       if (item.item.hasSound) {
-        SoundManager.instance.playItemSound(item.item.name);
+        if (item.item.name.contains(Items.Dagon.name)) {
+          SoundManager.instance.playItemSound(Items.Dagon.name);
+        } else {
+          SoundManager.instance.playItemSound(item.item.name);
+        }  
       }
 
       if (item.item == Items.Arcane_boots) {

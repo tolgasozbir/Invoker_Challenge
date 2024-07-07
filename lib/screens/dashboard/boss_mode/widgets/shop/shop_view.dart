@@ -1,3 +1,5 @@
+import 'package:dota2_invoker_game/constants/locale_keys.g.dart';
+import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +27,14 @@ class ShopView extends StatefulWidget {
 
 class _ShopViewState extends State<ShopView> {
 
-  final items = Items.values.where((element) => element.isVisibleInShop).toList();
+  static final _items = Items.values.where((element) => element.isVisibleInShop).toList();
+  final advancedItems = _items.where((element) => element.itemType == ItemType.Advanced).toList();
+  final basicItems = _items.where((element) => element.itemType == ItemType.Basic).toList();
+  int selectedTabIndex = 1;
+  final selectedColor = const Color(0xFF114C7C);
+  final unSelectedColor = const Color(0xFF1C2834);
+
+  List<Items> get getSelectedItems => selectedTabIndex == 0 ? basicItems : advancedItems;
 
   @override
   void initState() {
@@ -55,14 +64,15 @@ class _ShopViewState extends State<ShopView> {
     return Column(
       children: [
         const AdBanner(adSize: AdSize.fullBanner),
+        tabContainer(),
         GridView.builder(
           shrinkWrap: true,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 5,
           ),
-          itemCount: items.length,
+          itemCount: getSelectedItems.length,
           itemBuilder: (BuildContext context, int index) {
-            final item = items[index];
+            final item = getSelectedItems[index];
             return InkWell(
               child: Container(
                 margin: const EdgeInsets.all(4),
@@ -81,8 +91,8 @@ class _ShopViewState extends State<ShopView> {
               },
             );
           },
-        ).wrapPadding(const EdgeInsets.all(8)),
-        const Spacer(),
+        ).wrapPadding(const EdgeInsets.all(8)).wrapExpanded(),
+        //const Spacer(),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -101,6 +111,50 @@ class _ShopViewState extends State<ShopView> {
     );
   }
 
+  Widget tabContainer() {
+    return Container(
+      // padding: const EdgeInsets.all(8),
+      margin: const EdgeInsets.only(left: 10, right: 10, top: 8),
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(4)),
+        border: Border.all(
+          color: AppColors.amber,
+        ),
+      ),
+      child: IntrinsicHeight(
+        child: Row(
+          children: [
+            buildTabItem(0, LocaleKeys.Item_basic.locale),
+            const VerticalDivider(color: AppColors.amber, width: 2, thickness: 1,),
+            buildTabItem(1, LocaleKeys.Item_advanced.locale),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildTabItem(int index, String text) {
+    return Expanded(
+      child: GestureDetector(
+        onTap: () => setState(() => selectedTabIndex = index),
+        child: AnimatedContainer(
+          duration: Durations.medium2,
+          padding: const EdgeInsets.all(8),
+          color: selectedTabIndex == index ? selectedColor : unSelectedColor,
+          child: Center(
+            child: Text(
+              text,
+              style: TextStyle(
+                fontSize: context.sp(11),
+                fontWeight: selectedTabIndex == index ? FontWeight.bold : null,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   Padding consumableItems() {
     return Padding(
       padding: const EdgeInsets.only(left: 24),
@@ -115,7 +169,7 @@ class _ShopViewState extends State<ShopView> {
 }
 
 class GoldWidget extends StatelessWidget {
-  const GoldWidget({super.key, required this.gold, this.iconHeight = 56});
+  const GoldWidget({super.key, required this.gold, this.iconHeight = 32});
 
   final int gold;
   final double iconHeight;
@@ -127,7 +181,7 @@ class GoldWidget extends StatelessWidget {
         Text(
           gold.toString(), 
           style: TextStyle(
-            fontSize: context.sp(14), 
+            fontSize: context.sp(11), 
             fontWeight: FontWeight.bold,
             color: AppColors.goldColor,
             shadows: const [

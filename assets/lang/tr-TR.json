@@ -197,8 +197,11 @@
     },
 
     "Item" : {
+        "basic" : "Basit",
+        "advanced" : "Gelişmiş",
         "sell" : "Sat",
         "buy" : "Satın Al",
+        "upgrade" : "Yükselt",
         "sellPrice": "Satış Fiyatı: ",
         "cost": "Fiyat: ",
         "bonus": "Bonus: ",
@@ -272,6 +275,26 @@
             "active": ""
         },
         "Dagon": {
+            "bonus": "Enerji Patlaması\n(Bu eşya bir kez satın alınabilir!)",
+            "active": "+3200 Büyüsel Hasar"
+        },
+        "Dagon1": {
+            "bonus": "Enerji Patlaması\n(Bu eşya bir kez satın alınabilir!)",
+            "active": "+640 Büyüsel Hasar"
+        },
+        "Dagon2": {
+            "bonus": "Enerji Patlaması\n(Bu eşya bir kez satın alınabilir!)",
+            "active": "+1280 Büyüsel Hasar"
+        },
+        "Dagon3": {
+            "bonus": "Enerji Patlaması\n(Bu eşya bir kez satın alınabilir!)",
+            "active": "+1920 Büyüsel Hasar"
+        },
+        "Dagon4": {
+            "bonus": "Enerji Patlaması\n(Bu eşya bir kez satın alınabilir!)",
+            "active": "+2560 Büyüsel Hasar"
+        },
+        "Dagon5": {
             "bonus": "Enerji Patlaması\n(Bu eşya bir kez satın alınabilir!)",
             "active": "+3200 Büyüsel Hasar"
         },

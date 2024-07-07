@@ -197,10 +197,13 @@
     },
 
     "Item" : {
+        "basic" : "Basic",
+        "advanced" : "Advanced",
         "sell" : "Sell",
         "buy" : "Buy",
+        "upgrade" : "Upgrade",
         "sellPrice": "Selling Price: ",
-        "cost": "'Cost: ",
+        "cost": "Cost: ",
         "bonus": "Bonus: ",
         "active": "Active: ",
         "Null_talisman": {
@@ -272,6 +275,26 @@
             "active": ""
         },
         "Dagon": {
+            "bonus": "Energy Burst\n(This item can be purchased only once!)",
+            "active": "+3200 Magic Damage"
+        },
+        "Dagon1": {
+            "bonus": "Energy Burst\n(This item can be purchased only once!)",
+            "active": "+640 Magic Damage"
+        },
+        "Dagon2": {
+            "bonus": "Energy Burst\n(This item can be purchased only once!)",
+            "active": "+1280 Magic Damage"
+        },
+        "Dagon3": {
+            "bonus": "Energy Burst\n(This item can be purchased only once!)",
+            "active": "+1920 Magic Damage"
+        },
+        "Dagon4": {
+            "bonus": "Energy Burst\n(This item can be purchased only once!)",
+            "active": "+2560 Magic Damage"
+        },
+        "Dagon5": {
             "bonus": "Energy Burst\n(This item can be purchased only once!)",
             "active": "+3200 Magic Damage"
         },

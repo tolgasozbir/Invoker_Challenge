@@ -18,9 +18,15 @@ enum AttackModifiers {
   const AttackModifiers({required this.damageType});
 }
 
+enum ItemType {
+  Basic,
+  Advanced,
+}
+
 enum Items {
 
   Null_talisman(
+    itemType: ItemType.Basic,
     bonuses: ItemBonuses(
       mana: 60,
       manaRegen: 0.8,
@@ -30,6 +36,7 @@ enum Items {
   ),
 
   Void_stone(
+    itemType: ItemType.Basic,
     bonuses: ItemBonuses(
       manaRegen: 2.25,
     ),
@@ -38,6 +45,7 @@ enum Items {
   ),
 
   Arcane_boots(
+    itemType: ItemType.Basic,
     bonuses: ItemBonuses(
       mana: 250,
     ),
@@ -53,6 +61,7 @@ enum Items {
   ),
 
   Power_treads(
+    itemType: ItemType.Basic,
     bonuses: ItemBonuses(
       mana: 120,
       damage: 12,
@@ -62,8 +71,8 @@ enum Items {
   ),
 
   Phase_boots(
+    itemType: ItemType.Basic,
     bonuses: ItemBonuses(
-      mana: 120,
       damage: 18,
     ),
     activeProps: ItemActiveProps(),
@@ -107,6 +116,7 @@ enum Items {
     ), 
     activeProps: ItemActiveProps(),
     cost: 2275,
+    requiredItems: [Items.Void_stone],
   ),
 
   Meteor_hammer(
@@ -123,6 +133,7 @@ enum Items {
     ),
     cost: 2300, 
     hasSound: true,
+    requiredItems: [Items.Kaya],
   ),
 
   Vladmirs_offering(
@@ -149,6 +160,7 @@ enum Items {
     ),
     cost: 4650, 
     hasSound: true,
+    requiredItems: [Items.Aether_lens],
   ),
 
   Monkey_king_bar(
@@ -216,6 +228,85 @@ enum Items {
     hasSound: true,
   ),
   
+  Dagon1(
+    bonuses: ItemBonuses(),
+    activeProps: ItemActiveProps(
+      cooldown: 30,
+      manaCost: 200,
+      duration: 1,
+      activeBonuses: ItemActiveBonuses(
+        magicalDamage: 640,
+      ),
+    ),
+    cost: 1600,
+    hasSound: true,
+    isVisibleInShop: false,
+  ),  
+  
+  Dagon2(
+    bonuses: ItemBonuses(),
+    activeProps: ItemActiveProps(
+      cooldown: 30,
+      manaCost: 200,
+      duration: 1,
+      activeBonuses: ItemActiveBonuses(
+        magicalDamage: 1280,
+      ),
+    ),
+    cost: 3200,
+    requiredItems: [Items.Dagon1],
+    hasSound: true,
+    isVisibleInShop: false,
+  ),  
+  
+  Dagon3(
+    bonuses: ItemBonuses(),
+    activeProps: ItemActiveProps(
+      cooldown: 30,
+      manaCost: 200,
+      duration: 1,
+      activeBonuses: ItemActiveBonuses(
+        magicalDamage: 1920,
+      ),
+    ),
+    requiredItems: [Items.Dagon2],
+    cost: 4800,
+    hasSound: true,
+    isVisibleInShop: false,
+  ),  
+  
+  Dagon4(
+    bonuses: ItemBonuses(),
+    activeProps: ItemActiveProps(
+      cooldown: 30,
+      manaCost: 200,
+      duration: 1,
+      activeBonuses: ItemActiveBonuses(
+        magicalDamage: 2560,
+      ),
+    ),
+    requiredItems: [Items.Dagon3],
+    cost: 6400,
+    hasSound: true,
+    isVisibleInShop: false,
+  ),  
+  
+  Dagon5(
+    bonuses: ItemBonuses(),
+    activeProps: ItemActiveProps(
+      cooldown: 30,
+      manaCost: 200,
+      duration: 1,
+      activeBonuses: ItemActiveBonuses(
+        magicalDamage: 3200,
+      ),
+    ),
+    requiredItems: [Items.Dagon4],
+    cost: 8000,
+    hasSound: true,
+    isVisibleInShop: false,
+  ),
+
   Dagon(
     bonuses: ItemBonuses(), //damage?
     activeProps: ItemActiveProps(
@@ -261,6 +352,7 @@ enum Items {
   // );
 
   const Items({
+    this.itemType = ItemType.Advanced,
     required this.bonuses, 
     required this.activeProps, 
     required this.cost, 
@@ -268,17 +360,23 @@ enum Items {
     this.consumable = false,
     this.isVisibleInShop = true,
     this.itemProcModifier,
+    this.requiredItems,
   });
 
+  final ItemType itemType;
   final ItemBonuses bonuses;
   final ItemActiveProps activeProps;
   final ItemProcModifier? itemProcModifier;
   final int cost;
 
   final bool hasSound;
+
   final bool consumable;
 
   final bool isVisibleInShop;
+
+  //final Items? upgradeTo;
+  final List<Items>? requiredItems;
 }
 
 class ItemBonuses {
@@ -371,6 +469,11 @@ class _ItemTranslations {
     Items.Eye_of_skadi: LocaleKeys.Item_Eye_of_skadi_bonus,
     Items.Bloodthorn: LocaleKeys.Item_Bloodthorn_bonus,
     Items.Dagon: LocaleKeys.Item_Dagon_bonus,
+    Items.Dagon1: LocaleKeys.Item_Dagon1_bonus,
+    Items.Dagon2: LocaleKeys.Item_Dagon2_bonus,
+    Items.Dagon3: LocaleKeys.Item_Dagon3_bonus,
+    Items.Dagon4: LocaleKeys.Item_Dagon4_bonus,
+    Items.Dagon5: LocaleKeys.Item_Dagon5_bonus,
     Items.Divine_rapier: LocaleKeys.Item_Divine_rapier_bonus,
     Items.Aghanims_scepter: LocaleKeys.Item_Aghanims_scepter_bonus,
     Items.Aghanims_shard: LocaleKeys.Item_Aghanims_shard_bonus,
@@ -395,6 +498,11 @@ class _ItemTranslations {
     Items.Eye_of_skadi: LocaleKeys.Item_Eye_of_skadi_active,
     Items.Bloodthorn: LocaleKeys.Item_Bloodthorn_active,
     Items.Dagon: LocaleKeys.Item_Dagon_active,
+    Items.Dagon1: LocaleKeys.Item_Dagon1_active,
+    Items.Dagon2: LocaleKeys.Item_Dagon2_active,
+    Items.Dagon3: LocaleKeys.Item_Dagon3_active,
+    Items.Dagon4: LocaleKeys.Item_Dagon4_active,
+    Items.Dagon5: LocaleKeys.Item_Dagon5_active,
     Items.Divine_rapier: LocaleKeys.Item_Divine_rapier_active,
     Items.Aghanims_scepter: LocaleKeys.Item_Aghanims_scepter_active,
     Items.Aghanims_shard: LocaleKeys.Item_Aghanims_shard_active,
