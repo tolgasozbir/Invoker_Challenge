@@ -205,6 +205,12 @@ abstract class  LocaleKeys {
   static const Item_Vladmirs_offering_bonus = 'Item.Vladmirs_offering.bonus';
   static const Item_Vladmirs_offering_active = 'Item.Vladmirs_offering.active';
   static const Item_Vladmirs_offering = 'Item.Vladmirs_offering';
+  static const Item_Crystalys_bonus = 'Item.Crystalys.bonus';
+  static const Item_Crystalys_active = 'Item.Crystalys.active';
+  static const Item_Crystalys = 'Item.Crystalys';
+  static const Item_Orchid_bonus = 'Item.Orchid.bonus';
+  static const Item_Orchid_active = 'Item.Orchid.active';
+  static const Item_Orchid = 'Item.Orchid';
   static const Item_Ethereal_blade_bonus = 'Item.Ethereal_blade.bonus';
   static const Item_Ethereal_blade_active = 'Item.Ethereal_blade.active';
   static const Item_Ethereal_blade = 'Item.Ethereal_blade';

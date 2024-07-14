@@ -38,7 +38,7 @@ enum Items {
   Void_stone(
     itemType: ItemType.Basic,
     bonuses: ItemBonuses(
-      manaRegen: 2.25,
+      manaRegen: 1.75,
     ),
     activeProps: ItemActiveProps(),
     cost: 825,
@@ -86,16 +86,16 @@ enum Items {
       manaCost: 50,
       duration: 16,
       activeBonuses: ItemActiveBonuses(
-        spellAmp: 0.20,
+        spellAmp: 0.10,
       ),
     ),
-    cost: 1525, 
+    cost: 1725, 
     hasSound: true,
   ),
 
   Kaya(
     bonuses: ItemBonuses(
-      spellAmp: 0.08,
+      spellAmp: 0.10,
       manaRegenAmp: 0.24,
     ),
     activeProps: ItemActiveProps(),
@@ -111,8 +111,8 @@ enum Items {
 
   Aether_lens(
     bonuses: ItemBonuses(
-      mana: 320,
-      manaRegen: 3,
+      mana: 300,
+      manaRegen: 2.5,
     ), 
     activeProps: ItemActiveProps(),
     cost: 2275,
@@ -121,7 +121,8 @@ enum Items {
 
   Meteor_hammer(
     bonuses: ItemBonuses(
-      manaRegen: 2.75,
+      spellAmp: 0.12,
+      manaRegenAmp: 0.50,
     ),
     activeProps: ItemActiveProps(
       cooldown: 24, 
@@ -131,24 +132,52 @@ enum Items {
         magicalDamage: 100,
       ),
     ),
-    cost: 2300, 
+    cost: 2950,
     hasSound: true,
     requiredItems: [Items.Kaya],
   ),
 
   Vladmirs_offering(
     bonuses: ItemBonuses(
-      damageMultiplier: 0.24,
+      damageMultiplier: 0.18,
+      manaRegen: 1.75,
     ),
     activeProps: ItemActiveProps(),
-    cost: 2450,
+    cost: 2200,
+  ),
+
+  Crystalys(
+    bonuses: ItemBonuses(
+      damage: 32,
+    ),
+    activeProps: ItemActiveProps(),
+    itemProcModifier: ItemProcModifier(
+      modifier: AttackModifiers.CriticalStrike, 
+      procChance: 12,
+      critRate: 130,
+    ),
+    cost: 2250,
+  ),
+
+  Orchid(
+    bonuses: ItemBonuses(
+      damage: 20,
+      mana: 200,
+      manaRegen: 2.0,
+    ),
+    activeProps: ItemActiveProps(
+      cooldown: 24,
+      duration: 5,
+      manaCost: 125,
+    ),
+    cost: 3275,
+    hasSound: true,
   ),
 
   Ethereal_blade(
     bonuses: ItemBonuses(
       mana: 400,
-      manaRegenAmp: 0.72,
-      spellAmp: 0.16,
+      manaRegen: 3.0,
     ),
     activeProps: ItemActiveProps(
       cooldown: 36, 
@@ -156,9 +185,10 @@ enum Items {
       duration: 8,
       activeBonuses: ItemActiveBonuses(
         spellAmp: 0.40,
+        magicalDamage: 200,
       ),
     ),
-    cost: 4650, 
+    cost: 5375, 
     hasSound: true,
     requiredItems: [Items.Aether_lens],
   ),
@@ -170,7 +200,7 @@ enum Items {
     activeProps: ItemActiveProps(),
     itemProcModifier: ItemProcModifier(
       modifier: AttackModifiers.Pierce, 
-      procChance: 50,
+      procChance: 40,
       procDamage: 35,
     ),
     cost: 4575,
@@ -178,7 +208,7 @@ enum Items {
 
   Refresher_orb(
     bonuses: ItemBonuses(
-      manaRegen: 7,
+      manaRegen: 8,
     ),
     activeProps: ItemActiveProps(
       cooldown: 180, 
@@ -199,6 +229,7 @@ enum Items {
       critRate: 175,
     ),
     cost: 5650,
+    requiredItems: [Items.Crystalys],
   ),
   
   Eye_of_skadi(
@@ -226,6 +257,7 @@ enum Items {
     ),
     cost: 6800,
     hasSound: true,
+    requiredItems: [Items.Orchid],
   ),
   
   Dagon1(
@@ -308,7 +340,7 @@ enum Items {
   ),
 
   Dagon(
-    bonuses: ItemBonuses(), //damage?
+    bonuses: ItemBonuses(),
     activeProps: ItemActiveProps(
       cooldown: 30,
       manaCost: 200,
@@ -462,6 +494,8 @@ class _ItemTranslations {
     Items.Aether_lens: LocaleKeys.Item_Aether_lens_bonus,
     Items.Meteor_hammer: LocaleKeys.Item_Meteor_hammer_bonus,
     Items.Vladmirs_offering: LocaleKeys.Item_Vladmirs_offering_bonus,
+    Items.Crystalys: LocaleKeys.Item_Crystalys_bonus,
+    Items.Orchid: LocaleKeys.Item_Orchid_bonus,
     Items.Ethereal_blade: LocaleKeys.Item_Ethereal_blade_bonus,
     Items.Monkey_king_bar: LocaleKeys.Item_Monkey_king_bar_bonus,
     Items.Refresher_orb: LocaleKeys.Item_Refresher_orb_bonus,
@@ -491,6 +525,8 @@ class _ItemTranslations {
     Items.Aether_lens: LocaleKeys.Item_Aether_lens_active,
     Items.Meteor_hammer: LocaleKeys.Item_Meteor_hammer_active,
     Items.Vladmirs_offering: LocaleKeys.Item_Vladmirs_offering_active,
+    Items.Crystalys: LocaleKeys.Item_Crystalys_active,
+    Items.Orchid: LocaleKeys.Item_Orchid_active,
     Items.Ethereal_blade: LocaleKeys.Item_Ethereal_blade_active,
     Items.Monkey_king_bar: LocaleKeys.Item_Monkey_king_bar_active,
     Items.Refresher_orb: LocaleKeys.Item_Refresher_orb_active,

@@ -169,17 +169,51 @@ class _ShopViewState extends State<ShopView> {
 }
 
 class GoldWidget extends StatelessWidget {
-  const GoldWidget({super.key, required this.gold, this.iconHeight = 32});
+  const GoldWidget({super.key, required this.gold, this.iconHeight = 32, this.discount});
 
   final int gold;
+  final int? discount;
   final double iconHeight;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text(
-          gold.toString(), 
+        if (discount != null)
+          AnimatedNumber(begin: gold, end: gold-(discount ?? 0))
+        else 
+          Text(
+            gold.toString(), 
+            style: TextStyle(
+              fontSize: context.sp(11), 
+              fontWeight: FontWeight.bold,
+              color: AppColors.goldColor,
+              shadows: const [
+                BoxShadow(color: AppColors.goldColor, blurRadius: 12),
+                BoxShadow(blurRadius: 8),
+              ],
+            ),
+          ),
+        Image.asset(ImagePaths.gold, height: iconHeight),
+      ],
+    );
+  }
+}
+
+class AnimatedNumber extends StatelessWidget {
+  final int begin;
+  final int end;
+
+  const AnimatedNumber({super.key, required this.begin, required this.end});
+
+  @override
+  Widget build(BuildContext context) {
+    return TweenAnimationBuilder<int>(
+      tween: IntTween(begin: begin, end: end),
+      duration: const Duration(milliseconds: 1200),
+      builder: (context, value, child) {
+        return Text(
+          value.toString(), 
           style: TextStyle(
             fontSize: context.sp(11), 
             fontWeight: FontWeight.bold,
@@ -189,9 +223,8 @@ class GoldWidget extends StatelessWidget {
               BoxShadow(blurRadius: 8),
             ],
           ),
-        ),
-        Image.asset(ImagePaths.gold, height: iconHeight),
-      ],
+        );
+      },
     );
   }
 }

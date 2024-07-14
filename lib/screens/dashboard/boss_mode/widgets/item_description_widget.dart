@@ -7,7 +7,6 @@ import '../../../../constants/app_colors.dart';
 import '../../../../constants/locale_keys.g.dart';
 import '../../../../enums/items.dart';
 import '../../../../extensions/context_extension.dart';
-import '../../../../extensions/widget_extension.dart';
 import '../../../../models/Item.dart';
 import '../../../../providers/boss_battle_provider.dart';
 import '../../../../services/sound_manager.dart';
@@ -45,6 +44,14 @@ class _ItemDescriptionWidgetState extends State<ItemDescriptionWidget> {
     {
       'from' : Items.Kaya,
       'to' : Items.Meteor_hammer,
+    },
+    {
+      'from' : Items.Crystalys,
+      'to' : Items.Daedalus,
+    },
+    {
+      'from' : Items.Orchid,
+      'to' : Items.Bloodthorn,
     },
   ];
   Map<String, Items>? getUpgradableItem() {
@@ -175,7 +182,10 @@ class _ItemDescriptionWidgetState extends State<ItemDescriptionWidget> {
                   widget.isItemSellable ? LocaleKeys.Item_sellPrice.locale : LocaleKeys.Item_cost.locale, 
                   style: TextStyle(fontSize: context.sp(11), fontWeight: FontWeight.w500,),
                 ),
-                GoldWidget(gold: widget.isItemSellable ? (widget.item.item.cost * 0.75).toInt() : (widget.item.item.cost - totalItemDiscount)),
+                GoldWidget(
+                  gold: widget.isItemSellable ? (widget.item.item.cost * 0.75).toInt() : (widget.item.item.cost),
+                  discount: widget.isItemSellable ? null : totalItemDiscount,
+                ),
               ],
             ),
           ],
@@ -192,18 +202,38 @@ class _ItemDescriptionWidgetState extends State<ItemDescriptionWidget> {
     );
   }
 
-  Text bonusField() {
-    return Text(
-      '${LocaleKeys.Item_bonus.locale} ${widget.item.item.bonusTranslation}', 
-      style: TextStyle(fontSize: context.sp(11), fontWeight: FontWeight.w500,),
+  Widget bonusField() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          LocaleKeys.Item_bonus.locale, 
+          style: TextStyle(fontSize: context.sp(11), fontWeight: FontWeight.w500,),
+        ),
+        Text(
+          widget.item.item.bonusTranslation, 
+          style: TextStyle(fontSize: context.sp(11), fontWeight: FontWeight.w500,),
+        ),
+      ],
     );
   }
 
   Widget itemActiveField() {
-    return Text(
-      '${LocaleKeys.Item_active.locale} ${widget.item.item.activeTranslation}', 
-      style: TextStyle(fontSize: context.sp(11), fontWeight: FontWeight.w500,),
-    ).wrapPadding(const EdgeInsets.symmetric(vertical: 8));
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const EmptyBox.h8(),
+        Text(
+          LocaleKeys.Item_active.locale, 
+          style: TextStyle(fontSize: context.sp(11), fontWeight: FontWeight.w500,),
+        ),
+        Text(
+          widget.item.item.activeTranslation, 
+          style: TextStyle(fontSize: context.sp(11), fontWeight: FontWeight.w500,),
+        ),
+        const EmptyBox.h8(),
+      ],
+    );
   }
 
   Row cooldownfield() {
@@ -465,26 +495,30 @@ class _DagonDescriptionViewState extends State<DagonDescriptionView> {
                   child: PageView.builder(
                     itemCount: dagonLevels.length,
                     controller: dagonPageController,
-                    onPageChanged: (index) => setState(() {
-                      selectedDagonIndex = index;
-                    }),
+                    onPageChanged: (index) => setState(() => selectedDagonIndex = index),
                     itemBuilder: (context, index) => Image.asset(dagonLevels[index].image),
                   ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(5, (index) {
-                    return AnimatedContainer(
-                      duration: const Duration(milliseconds: 300),
-                      width: selectedDagonIndex == index ? 24 : 20,
-                      height: selectedDagonIndex == index ? 24 : 20,
-                      margin: const EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: currentDagonLevel > index ? Colors.grey : Colors.amber,
-                        shape: BoxShape.circle,
-                        border: selectedDagonIndex != index
-                            ? null
-                            : Border.all(color: Colors.white, width: 2),
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() => selectedDagonIndex = index);
+                        dagonPageController.animateToPage(index, duration: Durations.medium4, curve: Curves.linear);
+                      },
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
+                        width: selectedDagonIndex == index ? 24 : 20,
+                        height: selectedDagonIndex == index ? 24 : 20,
+                        margin: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: currentDagonLevel > index ? Colors.grey : Colors.amber,
+                          shape: BoxShape.circle,
+                          border: selectedDagonIndex != index
+                              ? null
+                              : Border.all(color: Colors.white, width: 2),
+                        ),
                       ),
                     );
                   }),

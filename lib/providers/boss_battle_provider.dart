@@ -241,6 +241,12 @@ class BossBattleProvider extends ChangeNotifier {
       } else if (item.item == Items.Refresher_orb) {
         _useRefresherOrb(item);
         return;
+      } else if (item.item == Items.Bloodthorn) {
+        _useBloodThorn();
+      }
+      else if (item.item == Items.Orchid) {
+        _useOrchid();
+        return;
       }
       _modifyBonuses(item, true);
       await Future.delayed(
@@ -248,6 +254,24 @@ class BossBattleProvider extends ChangeNotifier {
         () => _modifyBonuses(item, false),
       );
     }
+  }
+
+  void _useBloodThorn() {
+    final duration = Duration(seconds: Items.Bloodthorn.activeProps.duration?.toInt() ?? 0);
+    Future.delayed(duration, () {
+      final burnDamage = last5AttackDamage.fold<double>(0, (a, b) => a + b) * 0.15;
+      spellDamage += burnDamage;
+      Future.delayed(Durations.extralong4, () => spellDamage -= burnDamage);
+    });
+  }
+
+  void _useOrchid() {
+    final duration = Duration(seconds: Items.Orchid.activeProps.duration?.toInt() ?? 0);
+    Future.delayed(duration, () {
+      final burnDamage = last5AttackDamage.fold<double>(0, (a, b) => a + b) * 0.10;
+      spellDamage += burnDamage;
+      Future.delayed(Durations.extralong4, () => spellDamage -= burnDamage);
+    });
   }
 
   void _useArcaneBoots(Item item) {

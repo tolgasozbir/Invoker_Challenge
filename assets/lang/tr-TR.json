@@ -207,31 +207,31 @@
         "bonus": "Bonus: ",
         "active": "Aktif: ",
         "Null_talisman": {
-            "bonus": "+60 mana ve +0.8 mana yenilenmesi sağlar",
+            "bonus": "Mana +60\nMana Yenilenmesi +0.8",
             "active": ""
         },
         "Void_stone": {
-            "bonus": "+2.25 mana yenilenmesi sağlar",
+            "bonus": "Mana Yenilenmesi +1.75",
             "active": ""
         },
         "Arcane_boots": {
-            "bonus": "+250 mana",
-            "active": "175 mana geri yükler"
+            "bonus": "Mana +250",
+            "active": "175 Mana'yı Geri Yükler"
         },
         "Power_treads": {
-            "bonus": "+120 mana ve +12 hasar",
+            "bonus": "Mana +120\nHasar +12",
             "active": ""
         },
         "Phase_boots": {
-            "bonus": "+18 hasar",
+            "bonus": "Hasar +18",
             "active": ""
         },
         "Veil_of_discord": {
-            "bonus": "Patronlar artırılmış büyü hasarı alır.\nSüre: 16 saniye",
-            "active": "Büyü artırma +20%"
+            "bonus": "Boss'ların aldığı büyü hasarını artırır.\nSüre: 16 Saniye",
+            "active": "Büyü Hasarı +10%"
         },
         "Kaya": {
-            "bonus": "Mana yenilenme artışı +24% ve büyü artırma +8%",
+            "bonus": "Mana Yenilenme Artışı +24%\nBüyü Hasarı Artışı +10%",
             "active": ""
         },
         "Hand_of_midas": {
@@ -239,31 +239,39 @@
             "active": ""
         },
         "Aether_lens": {
-            "bonus": "+320 mana ve +3 mana yenilenmesi",
+            "bonus": "Mana +300\nMana Yenilenmesi +2.5",
             "active": ""
         },
         "Meteor_hammer": {
-            "bonus": "+2.75 mana yenilenmesi\nSüre: 6 saniye\nZamanla patronlara hasar verir.",
-            "active": "Saniyede Hasar: 100"
+            "bonus": "Zamanla patronlara hasar verir.\nMana Yenilenme Artışı +50%\nBüyü Hasarı Artışı +12%",
+            "active": "Saniyede Hasar: 100\nSüre: 6 Saniye"
         },
         "Vladmirs_offering": {
-            "bonus": "Fiziksel Hasar +24%",
+            "bonus": "Fiziksel Hasar +18%\nMana Regen +1.75",
             "active": ""
         },
+        "Crystalys": {
+            "bonus": "Bonus hasar veren kritik vuruş yapma şansı verir.\nTetiklenme Şansı %12\nKritik Hasar %130\nHasar +32",
+            "active": ""
+        },
+        "Orchid": {
+            "bonus": "Hasar +20\nMana +200\nMana Yenilenmesi +2.0",
+            "active": "Eşyanın süresi boyunca bosslara verdiğiniz toplam hasarın %10'u, süre sonunda ekstra büyü hasarı olarak bosslara verilir.\nSüre Sonunda Hasar %10\nSüre: 5 Saniye"
+        },
         "Ethereal_blade": {
-            "bonus": "+400 Mana, mana yenilenme artışı +72% ve büyü artırma +16%\nSüre: 8 Saniye\n(Bu eşya bir kez satın alınabilir!)",
-            "active": "Büyü Güçlendirmesi +40%"
+            "bonus": "(Bu eşya bir kez satın alınabilir!)\nMana +400\nMana Yenilenmesi +3.0",
+            "active": "Süresi boyunca bossların aldığı büyü hasarını artırır.\nTemel Büyü Hasarı 200\nBüyü Yükseltme +40%\nSüre: 8 Saniye"
         },
         "Monkey_king_bar": {
-            "bonus": "Hasarı 48 artırır",
+            "bonus": "MKB'nin delme hasarı verme şansı var.\nTetiklenme Şansı %40\nDelici Hasar 35\nHasarı 48 arttırır",
             "active": ""
         },
         "Refresher_orb": {
-            "bonus": "+7 mana yenilenmesi",
+            "bonus": "Mana Yenilenmesi +8.0",
             "active": "Tüm ögelerinizin ve yeteneklerinizin yeniden yüklenmesini sağlar.\n(Birden fazla öge çalışmaz)"
         },
         "Daedalus": {
-            "bonus": "Hasarı 64 artırır",
+            "bonus": "Bonus hasar veren kritik vuruş yapma şansı verir.\nTetiklenme Şansı %20\nKritik Hasar %175\nHasar +64",
             "active": ""
         },
         "Eye_of_skadi": {
@@ -271,8 +279,8 @@
             "active": ""
         },
         "Bloodthorn": {
-            "bonus": "+40 Saldırı Hasarı\n+400 Mana\n+4.0 Mana Yenilenmesi",
-            "active": ""
+            "bonus": "Hasar +40\nMana +400\nMana Yenilenmesi +4.0",
+            "active": "Eşyanın süresi boyunca bosslara verdiğiniz toplam hasarın %15'i, süre sonunda ekstra büyü hasarı olarak bosslara verilir.\nVuruş Başına Büyü Hasarı: 40\nSüre Sonunda Hasar %15\nSüre: 5 Saniye"
         },
         "Dagon": {
             "bonus": "Enerji Patlaması\n(Bu eşya bir kez satın alınabilir!)",
@@ -303,7 +311,7 @@
             "active": ""
         },
         "Aghanims_scepter": {
-            "bonus": "Sun Strike hasarını 2 katına çıkarır, +400 mana ve +10 hasar ekler ayrıca tüm yeteneklere 3 seviye ekler.\n(Bir kez satın alınabilir, envanterinizde yer kaplamaz ve geri satılamaz.)",
+            "bonus": "Tüm yeteneklere 3 seviye ekler.\n2x Sun Strike hasarı\nMana +400\nHasar +10\n(Bir kez satın alınabilir, envanterinizde yer kaplamaz ve geri satılamaz.)",
             "active": ""
         },
         "Aghanims_shard": {

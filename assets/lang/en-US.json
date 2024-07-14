@@ -207,31 +207,31 @@
         "bonus": "Bonus: ",
         "active": "Active: ",
         "Null_talisman": {
-            "bonus": "Increases mana by +60 and +0.8 mana regeneration",
+            "bonus": "Mana +60\nMana Regen +0.8",
             "active": ""
         },
         "Void_stone": {
-            "bonus": "+2.25 mana regeneration",
+            "bonus": "Mana Regen +1.75",
             "active": ""
         },
         "Arcane_boots": {
-            "bonus": "+250 mana",
-            "active": "Restore 175 mana"
+            "bonus": "Mana +250",
+            "active": "Mana Restore by 175"
         },
         "Power_treads": {
-            "bonus": "+120 mana and +12 damage",
+            "bonus": "Mana +120\nDamage +12",
             "active": ""
         },
         "Phase_boots": {
-            "bonus": "+18 damage",
+            "bonus": "Damage +18",
             "active": ""
         },
         "Veil_of_discord": {
-            "bonus": "Increases magic damage taken by bosses.\nDuration: 16 seconds",
-            "active": "Spell amplification +20%"
+            "bonus": "Increases magic damage taken by bosses.\nDuration: 16 Seconds",
+            "active": "Spell Amplification +10%"
         },
         "Kaya": {
-            "bonus": "Mana regen amp +24% and spell amp +8%",
+            "bonus": "Mana Regen Amp +24%\nSpell Damage Amp +10%",
             "active": ""
         },
         "Hand_of_midas": {
@@ -239,31 +239,39 @@
             "active": ""
         },
         "Aether_lens": {
-            "bonus": "+320 mana and +3 mana regeneration",
+            "bonus": "Mana +300\nMana Regen +2.5",
             "active": ""
         },
         "Meteor_hammer": {
-            "bonus": "+2.75 mana regeneration\nDuration: 6 seconds\nDeals damage to bosses over time.",
-            "active": "Damage Per Second: 100"
+            "bonus": "Deals damage to bosses over time.\nMana Regen Amp +50%\nSpell Damage Amp +12%",
+            "active": "Damage per Second: 100\nDuration: 6 Seconds"
         },
         "Vladmirs_offering": {
-            "bonus": "Physical Damage +24%",
+            "bonus": "Physical Damage +18%\nMana Regen +1.75",
             "active": ""
         },
+        "Crystalys": {
+            "bonus": "Gives a chance to deal a bonus damage critical strike.\nProc Chance 12%\nCritical Damage 130%\nDamage +32",
+            "active": ""
+        },
+        "Orchid": {
+            "bonus": "Damage +20\nMana +200\nMana Regen +2.0",
+            "active": "During the item's duration, 10% of the total damage dealt to bosses is dealt as extra magic damage to bosses at the end of the duration.\nEnd Damage Dealt: 10%\nDuration: 5 Seconds"
+        },
         "Ethereal_blade": {
-            "bonus": "+400 Mana with mana regen amp +72% and spell amp +16%\nDuration: 8 Seconds\n(This item can be purchased only once!)",
-            "active": "Magic Amplification +40%"
+            "bonus": "(This item can be purchased only once!)\nMana +400\nMana Regen +3.0",
+            "active": "Increases the magic damage taken by bosses during its duration.\nBase Magical Damage 200\nMagic Amplification +40%\nDuration: 8 Seconds"
         },
         "Monkey_king_bar": {
-            "bonus": "Increases damage by 48",
+            "bonus": "MKB has a chance to deal piercing damage.\nProc Chance 40%\nPierce Damage 35\nIncreases damage by 48",
             "active": ""
         },
         "Refresher_orb": {
-            "bonus": "+7 mana regeneration",
+            "bonus": "Mana Regen +8.0",
             "active": "Resets the cooldowns of all your items and abilities.\n(Multiple items won't stacks)"
         },
         "Daedalus": {
-            "bonus": "Increases damage by 64",
+            "bonus": "Gives a chance to deal a bonus damage critical strike.\nProc Chance 20%\nCritical Damage 175%\nDamage +64",
             "active": ""
         },
         "Eye_of_skadi": {
@@ -271,8 +279,8 @@
             "active": ""
         },
         "Bloodthorn": {
-            "bonus": "+40 Attack Damage\n+400 Mana\n+4.0 Mana Regeneration",
-            "active": ""
+            "bonus": "Damage +40\nMana +400\nMana Regen +4.0",
+            "active": "During the item's duration, 15% of the total damage dealt to bosses is dealt as extra magic damage to bosses at the end of the duration.\nMagical Damage per Hit: 40\nEnd Damage Dealt: 15%\nDuration: 5 Seconds"
         },
         "Dagon": {
             "bonus": "Energy Burst\n(This item can be purchased only once!)",
@@ -303,7 +311,7 @@
             "active": ""
         },
         "Aghanims_scepter": {
-            "bonus": "Doubles Sun Strike damage, adds +400 mana, +10 damage, and also adds 3 levels to all abilities.\n(Can be purchased once, takes no inventory space, and is non-refundable.)",
+            "bonus": "Adds 3 levels to all abilities.\n2x Sun Strike Damage\nMana +400\nDamage +10\n(Can be purchased once, takes no inventory space, and is non-refundable.)",
             "active": ""
         },
         "Aghanims_shard": {
