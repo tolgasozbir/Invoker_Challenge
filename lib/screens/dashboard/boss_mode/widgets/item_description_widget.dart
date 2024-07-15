@@ -111,7 +111,7 @@ class _ItemDescriptionWidgetState extends State<ItemDescriptionWidget> {
       return const DagonDescriptionView();
     
     return SizedBox(
-      height: context.dynamicHeight(0.6)-48,
+      height: context.dynamicHeight(context.height < 640 ? 0.64 : 0.6)-32,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -406,7 +406,7 @@ class _DagonDescriptionViewState extends State<DagonDescriptionView> {
   Widget build(BuildContext context) {
     final selectedDagon = dagonLevels[selectedDagonIndex];
     return SizedBox(
-      height: context.dynamicHeight(0.6) - 48,
+      height: context.dynamicHeight(context.height < 640 ? 0.64 : 0.6)-32,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -502,15 +502,18 @@ class _DagonDescriptionViewState extends State<DagonDescriptionView> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(5, (index) {
+                    final normalDotSize = selectedDagonIndex == index ? 24.0 : 20.0;
+                    final smallDotsize = selectedDagonIndex == index ? 20.0 : 16.0;
+                    final getDotSize = context.height < 640 ? smallDotsize : normalDotSize;
                     return GestureDetector(
                       onTap: () {
                         setState(() => selectedDagonIndex = index);
-                        dagonPageController.animateToPage(index, duration: Durations.medium4, curve: Curves.linear);
+                        dagonPageController.animateToPage(index, duration: Durations.medium2, curve: Curves.linear);
                       },
                       child: AnimatedContainer(
                         duration: const Duration(milliseconds: 300),
-                        width: selectedDagonIndex == index ? 24 : 20,
-                        height: selectedDagonIndex == index ? 24 : 20,
+                        width: getDotSize,
+                        height: getDotSize,
                         margin: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
                           color: currentDagonLevel > index ? Colors.grey : Colors.amber,

@@ -213,7 +213,7 @@ class AppDialogs {
           child: SafeArea(
             child: Center(
               child: Container(
-                height: height ?? context.dynamicHeight(0.6),
+                height: height ?? context.dynamicHeight(context.height < 640 ? 0.64 : 0.6),
                 margin: const EdgeInsets.symmetric(horizontal: 32),
                 decoration: BoxDecoration(
                   color: dialogBgColor,

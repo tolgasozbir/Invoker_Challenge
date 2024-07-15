@@ -256,11 +256,11 @@
         },
         "Orchid": {
             "bonus": "Hasar +20\nMana +200\nMana Yenilenmesi +2.0",
-            "active": "Eşyanın süresi boyunca bosslara verdiğiniz toplam hasarın %10'u, süre sonunda ekstra büyü hasarı olarak bosslara verilir.\nSüre Sonunda Hasar %10\nSüre: 5 Saniye"
+            "active": "Eşyanın süresince verilen hasarın %10'u, süre sonunda büyü hasarına dönüşür.\nSüre: 5 Saniye"
         },
         "Ethereal_blade": {
             "bonus": "(Bu eşya bir kez satın alınabilir!)\nMana +400\nMana Yenilenmesi +3.0",
-            "active": "Süresi boyunca bossların aldığı büyü hasarını artırır.\nTemel Büyü Hasarı 200\nBüyü Yükseltme +40%\nSüre: 8 Saniye"
+            "active": "Temel Büyü Hasarı 200\nBüyü Yükseltme +40%\nSüre: 8 Saniye"
         },
         "Monkey_king_bar": {
             "bonus": "MKB'nin delme hasarı verme şansı var.\nTetiklenme Şansı %40\nDelici Hasar 35\nHasarı 48 arttırır",
@@ -280,7 +280,7 @@
         },
         "Bloodthorn": {
             "bonus": "Hasar +40\nMana +400\nMana Yenilenmesi +4.0",
-            "active": "Eşyanın süresi boyunca bosslara verdiğiniz toplam hasarın %15'i, süre sonunda ekstra büyü hasarı olarak bosslara verilir.\nVuruş Başına Büyü Hasarı: 40\nSüre Sonunda Hasar %15\nSüre: 5 Saniye"
+            "active": "Eşyanın süresince verilen hasarın %15'i, süre sonunda büyü hasarına dönüşür.\nVuruş Başına Büyü Hasarı: 40\nSüre: 5 Saniye"
         },
         "Dagon": {
             "bonus": "Enerji Patlaması\n(Bu eşya bir kez satın alınabilir!)",

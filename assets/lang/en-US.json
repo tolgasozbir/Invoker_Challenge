@@ -256,11 +256,11 @@
         },
         "Orchid": {
             "bonus": "Damage +20\nMana +200\nMana Regen +2.0",
-            "active": "During the item's duration, 10% of the total damage dealt to bosses is dealt as extra magic damage to bosses at the end of the duration.\nEnd Damage Dealt: 10%\nDuration: 5 Seconds"
+            "active": "10% of damage dealt over the item's duration converts to spell damage at the end.\nDuration: 5 Seconds"
         },
         "Ethereal_blade": {
             "bonus": "(This item can be purchased only once!)\nMana +400\nMana Regen +3.0",
-            "active": "Increases the magic damage taken by bosses during its duration.\nBase Magical Damage 200\nMagic Amplification +40%\nDuration: 8 Seconds"
+            "active": "Base Magical Damage 200\nMagic Amplification +40%\nDuration: 8 Seconds"
         },
         "Monkey_king_bar": {
             "bonus": "MKB has a chance to deal piercing damage.\nProc Chance 40%\nPierce Damage 35\nIncreases damage by 48",
@@ -280,7 +280,7 @@
         },
         "Bloodthorn": {
             "bonus": "Damage +40\nMana +400\nMana Regen +4.0",
-            "active": "During the item's duration, 15% of the total damage dealt to bosses is dealt as extra magic damage to bosses at the end of the duration.\nMagical Damage per Hit: 40\nEnd Damage Dealt: 15%\nDuration: 5 Seconds"
+            "active": "15% of damage dealt over the item's duration converts to spell damage at the end.\nMagical Damage per Hit: 40\nDuration: 5 Seconds"
         },
         "Dagon": {
             "bonus": "Energy Burst\n(This item can be purchased only once!)",
