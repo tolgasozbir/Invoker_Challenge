@@ -40,7 +40,17 @@ class CrownfallButton extends StatelessWidget {
     this.buttonType = CrownfallButtonTypes.Azurite,
     this.onTap,
     this.isButtonActive = true,
-  });
+  }) : this.protrusion = true;
+  
+  const CrownfallButton.normal({
+    super.key, 
+    this.child,
+    this.width = 200, 
+    this.height = 48,
+    this.buttonType = CrownfallButtonTypes.Azurite,
+    this.onTap,
+    this.isButtonActive = true,
+  }) : this.protrusion = false;
 
   final Widget? child;
   final double width;
@@ -48,15 +58,16 @@ class CrownfallButton extends StatelessWidget {
   final CrownfallButtonTypes buttonType;
   final VoidCallback? onTap;
   final bool isButtonActive;
+  final bool protrusion;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: isButtonActive ? onTap : () => SoundManager.instance.playMeepMerp(),
       child: CustomPaint(
-        foregroundPainter: _CrownfallPainter(buttonType: buttonType),
+        foregroundPainter: _CrownfallPainter(buttonType: buttonType, protrusion: this.protrusion),
         child: ClipPath(
-          clipper: _CrownfallClipper(),
+          clipper: _CrownfallClipper(protrusion: this.protrusion),
           child: AnimatedContainer(
             duration: Durations.medium4,
             width: width,
@@ -77,12 +88,25 @@ class CrownfallButton extends StatelessWidget {
 }
 
 class _CrownfallClipper extends CustomClipper<Path> {
+  const _CrownfallClipper({required this.protrusion});
+
+  final bool protrusion;
+
   @override
   Path getClip(Size size) {
     final double w = size.width;
     final double h = size.height;
 
-    return Path()
+    final normal = Path()
+      ..moveTo(w * 0.14, 0)
+      ..lineTo(w * 0.05, h / 2)
+      ..lineTo(w * 0.14, h)
+      ..lineTo(w * 0.86, h)
+      ..lineTo(w * 0.95, h / 2)
+      ..lineTo(w * 0.86, 0)
+      ..close();
+
+    final base = Path()
       ..moveTo(w * 0.86, 0)
       ..lineTo(w * 0.14, 0)
       ..lineTo(w * 0.12, h * 0.1)
@@ -98,6 +122,8 @@ class _CrownfallClipper extends CustomClipper<Path> {
       ..lineTo(w * 0.92, h * 0.1)
       ..lineTo(w * 0.88, h * 0.1)
       ..close();
+
+    return protrusion ? base : normal;
   }
 
   @override
@@ -105,9 +131,10 @@ class _CrownfallClipper extends CustomClipper<Path> {
 }
 
 class _CrownfallPainter extends CustomPainter {
-  _CrownfallPainter({required this.buttonType});
+  _CrownfallPainter({required this.buttonType, required this.protrusion,});
 
   final CrownfallButtonTypes buttonType;
+  final bool protrusion;
 
   final double scaleFactor = 0.8;
 
@@ -147,7 +174,7 @@ class _CrownfallPainter extends CustomPainter {
         stops: const [0.2, 0.3, 0.6 ,0.8],
       ).createShader(Rect.fromLTWH(0, 0, w, h));
 
-    drawSideBorders(canvas, w, h);
+    if (protrusion) drawSideBorders(canvas, w, h);
 
     final Path outerBorderPath = Path()
       ..moveTo(w * 0.14, 0)
@@ -167,7 +194,7 @@ class _CrownfallPainter extends CustomPainter {
       ..lineTo(w * 0.94-8, h/2)
       ..lineTo(w * 0.86-4, 12)
       ..close();
-    canvas.drawPath(innerLinePath, innerLinePaint);
+    if (protrusion) canvas.drawPath(innerLinePath, innerLinePaint);
 
     final Path innerLinePathScaled = Path()
       ..moveTo(
@@ -195,7 +222,7 @@ class _CrownfallPainter extends CustomPainter {
         (h * 0.5) * (1 - scaleFactor),
       )
       ..close();
-    canvas.drawPath(innerLinePathScaled, innerLineLongPaint);
+    if (protrusion) canvas.drawPath(innerLinePathScaled, innerLineLongPaint);
   }
 
   void drawSideBorders(Canvas canvas, double w, double h) {

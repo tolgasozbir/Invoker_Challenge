@@ -391,7 +391,7 @@ class _DagonDescriptionViewState extends State<DagonDescriptionView> {
     }
 
     if (currentDagon == null) {
-      print('Dagon not found in inventory.');
+      //print('Dagon not found in inventory.');
       return;
     }
 

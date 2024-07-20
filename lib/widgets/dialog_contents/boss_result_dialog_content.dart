@@ -57,7 +57,6 @@ class BossResultRoundDialogContent extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                _victoryDefeatText(),
                 if(timeUp) 
                   _resultField(LocaleKeys.leaderboard_remainingHp.locale,   bossHpLeft.numberFormat),
                 _resultField(LocaleKeys.leaderboard_elapsedTime.locale,     '${model.time} ${LocaleKeys.leaderboard_second.locale}'),
@@ -67,7 +66,7 @@ class BossResultRoundDialogContent extends StatelessWidget {
                 _resultField(LocaleKeys.leaderboard_earnedExp.locale,earnedExp.numberFormat, color: AppColors.green),
                 if (!timeUp && isLast) ...[
                   _resultField(LocaleKeys.leaderboard_earnedGold.locale, totalEarnedGold.numberFormat, color: AppColors.amber),
-                  const Divider(),
+                  const EmptyBox.h4(),
                   watchAdButton(context),
                   const EmptyBox.h4(),
                 ],
@@ -81,15 +80,16 @@ class BossResultRoundDialogContent extends StatelessWidget {
   }
 
   Column header(BuildContext context) {
-    final String lastBossText = model.round == Bosses.values.length ? LocaleKeys.commonGeneral_last.locale : '';
+    final String lastBossText = model.round == Bosses.values.length ? ' ${LocaleKeys.commonGeneral_last.locale} ' : ' ';
+    final victoryDefeatText = timeUp ? LocaleKeys.commonGeneral_defeated.locale : LocaleKeys.commonGeneral_victory.locale;
     return Column(
         children: [
           //Title
           AutoSizeText(
-            '${LocaleKeys.leaderboard_round.locale} ${model.round} $lastBossText',
+            '${LocaleKeys.leaderboard_round.locale} ${model.round}$lastBossText$victoryDefeatText',
             maxLines: 1,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: context.sp(20), fontWeight: FontWeight.w500, fontFamily: 'Virgil'),
+            style: TextStyle(fontSize: context.sp(18), fontWeight: FontWeight.w500, fontFamily: 'Virgil'),
           ),
           const EmptyBox.h4(),
           //Circle Image
@@ -116,8 +116,7 @@ class BossResultRoundDialogContent extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
-          const Divider(color: Colors.black, height: 0,),
-          const EmptyBox.h8(),
+          const Divider(color: Colors.white, height: 0,),
         ],
       );
   }
@@ -233,27 +232,6 @@ class BossResultRoundDialogContent extends StatelessWidget {
     }
 
     return flex;
-  }
-
-  Container _victoryDefeatText() {
-    return Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(4),
-        margin: const EdgeInsets.only(bottom: 2),
-        decoration: BoxDecoration(
-          color: AppColors.resultFieldBg,
-          borderRadius: BorderRadius.circular(4),
-        ),
-        child: Text(
-          timeUp ? LocaleKeys.commonGeneral_defeated.locale : LocaleKeys.commonGeneral_victory.locale, 
-          style: TextStyle(
-            fontSize: 18, 
-            fontWeight: FontWeight.bold,
-            color: timeUp ? AppColors.red : AppColors.amber,
-          ), 
-          textAlign: TextAlign.center,
-        ),
-      );
   }
 
   WatchAdButton watchAdButton(BuildContext context) {

@@ -23,7 +23,7 @@ class WatchAdButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CrownfallButton(
+    return CrownfallButton.normal(
       buttonType: isAdWatched ? CrownfallButtonTypes.Onyx : CrownfallButtonTypes.Azurite,
       onTap: isAdWatched ? meepMerp : () async => watchAdFn(context),
       child: Row(

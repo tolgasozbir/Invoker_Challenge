@@ -1,6 +1,8 @@
 import 'package:dota2_invoker_game/constants/locale_keys.g.dart';
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
+import 'package:dota2_invoker_game/widgets/crownfall_button.dart';
 import 'package:flutter/material.dart';
+import 'dart:ui' as ui;
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 
@@ -112,42 +114,94 @@ class _ShopViewState extends State<ShopView> {
   }
 
   Widget tabContainer() {
-    return Container(
-      // padding: const EdgeInsets.all(8),
-      margin: const EdgeInsets.only(left: 10, right: 10, top: 8),
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(4)),
-        border: Border.all(
-          color: AppColors.amber,
-        ),
-      ),
-      child: IntrinsicHeight(
-        child: Row(
-          children: [
-            buildTabItem(0, LocaleKeys.Item_basic.locale),
-            const VerticalDivider(color: AppColors.amber, width: 2, thickness: 1,),
-            buildTabItem(1, LocaleKeys.Item_advanced.locale),
-          ],
-        ),
-      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return GestureDetector(
+          onTapDown: (details) {
+            // Determine which side of the container was tapped
+            if (details.localPosition.dx > constraints.biggest.width / 2) {
+              setState(() => selectedTabIndex = 1);
+            } else {
+              setState(() => selectedTabIndex = 0);
+            }
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10, right: 10, top: 8),
+            child: CustomPaint(
+              foregroundPainter: TabPainter(),
+              child: ClipPath(
+                clipper: TabClipper(),
+                child: Container(
+                  height: 56,
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      colors: [
+                        Color(0xff252a48),
+                        Color(0xff161b23),
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                    ),
+                    borderRadius: const BorderRadius.all(Radius.circular(4)),
+                    border: Border.all(
+                      color: AppColors.amber,
+                    ),
+                  ),
+                  child: Stack(
+                    children: [
+                      Row(
+                        children: [
+                          buildTabBgText(0, LocaleKeys.Item_basic.locale),
+                          buildTabBgText(1, LocaleKeys.Item_advanced.locale),
+                        ],
+                      ),
+                      buildTabButton(context),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 
-  Widget buildTabItem(int index, String text) {
-    return Expanded(
-      child: GestureDetector(
-        onTap: () => setState(() => selectedTabIndex = index),
-        child: AnimatedContainer(
-          duration: Durations.medium2,
-          padding: const EdgeInsets.all(8),
-          color: selectedTabIndex == index ? selectedColor : unSelectedColor,
-          child: Center(
-            child: Text(
-              text,
-              style: TextStyle(
-                fontSize: context.sp(11),
-                fontWeight: selectedTabIndex == index ? FontWeight.bold : null,
+  Widget buildTabButton(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: AnimatedAlign(
+            duration: Durations.medium2,
+            alignment: selectedTabIndex == 0 ? Alignment.centerLeft : Alignment.centerRight,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 6, bottom: 6),
+              child: CrownfallButton.normal(
+                child: Text(
+                  selectedTabIndex == 0 ? LocaleKeys.Item_basic.locale : LocaleKeys.Item_advanced.locale,
+                  style: TextStyle(
+                    fontSize: context.sp(11),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget buildTabBgText(int index, String text) {
+    return Expanded(
+      child: Center(
+        child: AnimatedOpacity(
+          opacity: selectedTabIndex == index ? 0 : 1,
+          duration: Durations.medium2,
+          child: Text(
+            text,
+            style: TextStyle(
+              fontSize: context.sp(11),
             ),
           ),
         ),
@@ -227,4 +281,48 @@ class AnimatedNumber extends StatelessWidget {
       },
     );
   }
+}
+
+class TabClipper extends CustomClipper<Path> {
+
+  @override
+  Path getClip(Size size) {
+    final double w = size.width;
+    final double h = size.height;
+
+    final tabPath = Path()
+      ..moveTo((w * 0.05)+4, 0)
+      ..lineTo(0, h / 2)
+      ..lineTo((w * 0.05)+4, h)
+      ..lineTo((w * 0.95)-4, h)
+      ..lineTo(w, h / 2)
+      ..lineTo((w * 0.95)-4, 0)
+      ..close();
+
+    return tabPath;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
+}
+
+class TabPainter extends CustomPainter {
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final Path path = TabClipper().getClip(size);
+    final Paint paint = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2
+      ..shader = ui.Gradient.linear(
+        Offset(size.width / 2, 0),
+        Offset(size.width / 2, size.height),
+        [const Color(0xffe8e3d5), const Color(0xffad7f30)],
+      );
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
