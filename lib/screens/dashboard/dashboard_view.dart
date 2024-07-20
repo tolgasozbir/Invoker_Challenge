@@ -1,11 +1,8 @@
 import 'package:dota2_invoker_game/constants/locale_keys.g.dart';
-import 'package:dota2_invoker_game/enums/local_storage_keys.dart';
 import 'package:dota2_invoker_game/extensions/context_extension.dart';
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:dota2_invoker_game/providers/app_context_provider.dart';
-import 'package:dota2_invoker_game/services/app_services.dart';
 import 'package:dota2_invoker_game/utils/app_updater.dart';
-import 'package:dota2_invoker_game/widgets/app_dialogs.dart';
 import 'package:dota2_invoker_game/widgets/dialog_contents/app_update_dialog.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:tuple/tuple.dart';
@@ -42,12 +39,17 @@ class _DashboardViewState extends State<DashboardView> {
 
   //iOS installation was not performed.
   void updateConsent() async {
-    // Make sure to continue with the latest consent info.
-    var info = await UserMessagingPlatform.instance.requestConsentInfoUpdate();
-    // Show the consent form if consent is required.
-    if (info.consentStatus == ConsentStatus.required) {
-      // `showConsentForm` returns the latest consent info, after the consent from has been closed.
-      info = await UserMessagingPlatform.instance.showConsentForm();
+    try {
+      // Make sure to continue with the latest consent info.
+      var info = await UserMessagingPlatform.instance.requestConsentInfoUpdate();
+      // Show the consent form if consent is required.
+      if (info.consentStatus == ConsentStatus.required) {
+        // `showConsentForm` returns the latest consent info, after the consent from has been closed.
+        info = await UserMessagingPlatform.instance.showConsentForm();
+      }
+    } catch (e) {
+      // ignore: avoid_print
+      print('updateConsent $e');
     }
   }
 
@@ -68,28 +70,11 @@ class _DashboardViewState extends State<DashboardView> {
     ); 
   }
 
-  void showInfoMessage() {
-    final bool showInfoMessage = AppServices.instance.localStorageService.getValue<bool>(LocalStorageKey.showInfoMessageV142) ?? true;
-    if (showInfoMessage) {
-      AppDialogs.showScaleDialog(
-        content: Text(LocaleKeys.InfoMessages_patchMessage.locale),
-        action: OutlinedButton(
-          onPressed: () async {
-            await AppServices.instance.localStorageService.setValue<bool>(LocalStorageKey.showInfoMessageV142, false);
-            if (mounted) Navigator.pop(context);
-          },
-          child: Text(LocaleKeys.commonGeneral_close.locale),
-        ),
-      );
-    }
-  }
-
   void init() async {
     Future.microtask(() {
       context.read<AppContextProvider>().setAppContext(context);
       updateConsent();
       updateApp();
-      showInfoMessage();
     });
   }
 

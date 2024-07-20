@@ -321,7 +321,7 @@
     },
 
     "InfoMessages" : {
-        "patchMessage" : "Değerli Oyuncular,\n\nBu güncellemeyle bir dizi düzenleme gerçekleştirdik ve heyecan verici gelişmelerin kapısını araladık. Sonraki güncellemelerde sizi bekleyen daha büyük yenilikler var: heyecan verici boss savaşları ve yeni eşyalar gibi. Unutmayın, hala beta aşamasındayız ve sizin geri bildirimleriniz ve desteğiniz olmadan bu noktaya gelemezdik.\n\nGeri bildirimleriniz doğrultusunda oyun deneyimini daha da geliştirmek için çalışıyoruz. Her birinizin oyunda karşılaştığı sorunları çözmek ve sağlam bir oyun deneyimi sunmak için çabalıyoruz.\n\nBu yolculuğu sizlerle paylaştığımız için mutluyuz ve destekleriniz için teşekkür ederiz. Hep birlikte daha heyecan verici bir oyun için ilerliyoruz! Heyecan dolu bir maceraya hazır olun!\n\nSaygılarımızla,\nInvoker Challenge Ekibi"
+        "patchMessage" : ""
     }
 
 }

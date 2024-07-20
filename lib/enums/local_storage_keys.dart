@@ -6,5 +6,5 @@ enum LocalStorageKey {
   volume,
   qwerHudHeight,
   //bool keys
-  showInfoMessageV142, //TODO Remove after patch
+  clearBossScoreFromCacheV150, //TODO Remove after patch
 }

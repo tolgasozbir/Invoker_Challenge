@@ -46,6 +46,13 @@ class UserManager extends ChangeNotifier {
     // Retrieve the user from the cache
     final user = getUserFromCache();
     if (user != null) {
+      ///
+      final bool clearScores = AppServices.instance.localStorageService.getValue<bool>(LocalStorageKey.clearBossScoreFromCacheV150) ?? true;
+      if (clearScores) {
+        user.bestBossScores = null;
+        await AppServices.instance.localStorageService.setValue<bool>(LocalStorageKey.clearBossScoreFromCacheV150, false);
+      }
+      ///
       // If the user is found in the cache, set it as the current user
       setUser(user);
       //Hiveda olmayıp SharedPreferenceste olan verileri hive geçiş için hive içerisinde kayıt ediyorum
