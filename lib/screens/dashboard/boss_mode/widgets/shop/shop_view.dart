@@ -126,25 +126,21 @@ class _ShopViewState extends State<ShopView> {
             }
           },
           child: Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10, top: 8),
+            padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
             child: CustomPaint(
               foregroundPainter: TabPainter(),
               child: ClipPath(
                 clipper: TabClipper(),
                 child: Container(
-                  height: 56,
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(
+                  height: context.dynamicWidth(0.125)+4,
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
                       colors: [
                         Color(0xff252a48),
                         Color(0xff161b23),
                       ],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                    ),
-                    borderRadius: const BorderRadius.all(Radius.circular(4)),
-                    border: Border.all(
-                      color: AppColors.amber,
                     ),
                   ),
                   child: Stack(
@@ -177,6 +173,7 @@ class _ShopViewState extends State<ShopView> {
             child: Padding(
               padding: const EdgeInsets.only(top: 6, bottom: 6),
               child: CrownfallButton.normal(
+                width: context.dynamicWidth(0.5),
                 child: Text(
                   selectedTabIndex == 0 ? LocaleKeys.Item_basic.locale : LocaleKeys.Item_advanced.locale,
                   style: TextStyle(

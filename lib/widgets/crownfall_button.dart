@@ -53,8 +53,8 @@ class CrownfallButton extends StatelessWidget {
   }) : this.protrusion = false;
 
   final Widget? child;
-  final double width;
-  final double height;
+  final double? width;
+  final double? height;
   final CrownfallButtonTypes buttonType;
   final VoidCallback? onTap;
   final bool isButtonActive;

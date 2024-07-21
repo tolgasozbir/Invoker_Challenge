@@ -5,4 +5,7 @@ abstract class ICooldownModel {
   void resetCooldown() {
     lastPressedAt = DateTime.now().subtract(const Duration(minutes: 3));
   }
+  void startCooldown() {
+    lastPressedAt = DateTime.now();
+  }
 }

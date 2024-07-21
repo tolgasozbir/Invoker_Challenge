@@ -215,6 +215,14 @@ class BossBattleProvider extends ChangeNotifier {
     spellAmp += itemBonus.spellAmp * multiplier;
   }
 
+  void applyCooldownForSimilarItems() {
+    for (final item in inventory) {
+      if (item.item == Items.Orchid || item.item == Items.Bloodthorn) {
+        item.startCooldown();
+      }
+    }
+  }
+
   void onPressedItem(Item item) async {
     if (!started) { // If the started variable is false, play a meep merp sound and return from the function.
       SoundManager.instance.playMeepMerp();
@@ -243,9 +251,11 @@ class BossBattleProvider extends ChangeNotifier {
         return;
       } else if (item.item == Items.Bloodthorn) {
         _useBloodThorn();
+        applyCooldownForSimilarItems();
       }
       else if (item.item == Items.Orchid) {
         _useOrchid();
+        applyCooldownForSimilarItems();
         return;
       }
       _modifyBonuses(item, true);

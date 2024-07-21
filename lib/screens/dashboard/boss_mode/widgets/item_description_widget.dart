@@ -1,9 +1,9 @@
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
+import 'package:dota2_invoker_game/widgets/crownfall_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../constants/app_colors.dart';
 import '../../../../constants/locale_keys.g.dart';
 import '../../../../enums/items.dart';
 import '../../../../extensions/context_extension.dart';
@@ -121,7 +121,10 @@ class _ItemDescriptionWidgetState extends State<ItemDescriptionWidget> {
           if (widget.item.item.activeTranslation.isNotNullOrNoEmpty) 
             itemActiveField(),
           const Spacer(),
-          upgradeInfo(),
+          if (!widget.isItemSellable) ...[
+            upgradeInfo(),
+            const SizedBox(height: 6),
+          ],
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -134,7 +137,10 @@ class _ItemDescriptionWidgetState extends State<ItemDescriptionWidget> {
                   manafield(),
                 ],
               ),
-              button(),
+              Transform.translate(
+                offset: const Offset(16, 0),
+                child: buyOrSellButton(),
+              ),
             ],
           ),
         ],
@@ -276,27 +282,37 @@ class _ItemDescriptionWidgetState extends State<ItemDescriptionWidget> {
     );
   }
 
-  ElevatedButton button() {
-    return ElevatedButton.icon(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: widget.isItemSellable ? AppColors.red : AppColors.amber,
-        foregroundColor: AppColors.black,
-      ),
-      label: const Icon(Icons.sell_outlined), 
-      icon: Text(
-        widget.isItemSellable 
-          ? LocaleKeys.Item_sell.locale 
-          : existingItems.isNotEmpty 
-            ? LocaleKeys.Item_upgrade.locale
-            : LocaleKeys.Item_buy.locale, 
-        style: TextStyle(
-          fontSize: context.sp(12), 
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      onPressed: widget.isItemSellable
+  Widget buyOrSellButton() {
+    return CrownfallButton.normal(
+      height: 36,
+      width: null,
+      buttonType: widget.isItemSellable 
+        ? CrownfallButtonTypes.Ruby
+        : CrownfallButtonTypes.Azurite,
+      onTap:  widget.isItemSellable
        ? () => sellFn(context)
        : () => buyFn(context),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: context.height < 640 ? 24 : 32),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.sell_outlined),
+            const EmptyBox.w4(),
+            Text(
+              widget.isItemSellable 
+                ? LocaleKeys.Item_sell.locale 
+                : existingItems.isNotEmpty 
+                  ? LocaleKeys.Item_upgrade.locale
+                  : LocaleKeys.Item_buy.locale, 
+              style: TextStyle(
+                fontSize: context.sp(12), 
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -411,10 +427,11 @@ class _DagonDescriptionViewState extends State<DagonDescriptionView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildItemDetails(selectedDagon),
-          const SizedBox(height: 8),
+          const EmptyBox.h8(),
           _buildBonusField(selectedDagon),
           _buildItemActiveField(selectedDagon),
           _buildDagonPageView(),
+          const EmptyBox.h8(),
           _buildBottomRow(),
         ],
       ),
@@ -496,14 +513,17 @@ class _DagonDescriptionViewState extends State<DagonDescriptionView> {
                     itemCount: dagonLevels.length,
                     controller: dagonPageController,
                     onPageChanged: (index) => setState(() => selectedDagonIndex = index),
-                    itemBuilder: (context, index) => Image.asset(dagonLevels[index].image),
+                    itemBuilder: (context, index) => Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Image.asset(dagonLevels[index].image),
+                    ),
                   ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(5, (index) {
                     final normalDotSize = selectedDagonIndex == index ? 24.0 : 20.0;
-                    final smallDotsize = selectedDagonIndex == index ? 20.0 : 16.0;
+                    final smallDotsize = selectedDagonIndex == index ? 16.0 : 12.0;
                     final getDotSize = context.height < 640 ? smallDotsize : normalDotSize;
                     return GestureDetector(
                       onTap: () {
@@ -557,11 +577,14 @@ class _DagonDescriptionViewState extends State<DagonDescriptionView> {
         Row(
           children: [
             _buildCooldownField(),
-            const SizedBox(width: 12),
+            const EmptyBox.w12(),
             _buildManaField(),
           ],
         ),
-        _buildActionButton(dagonLevels[selectedDagonIndex]),
+        Transform.translate(
+          offset: const Offset(16, 0),
+          child: _buildActionButton(dagonLevels[selectedDagonIndex]),
+        ),
       ],
     );
   }
@@ -611,21 +634,28 @@ class _DagonDescriptionViewState extends State<DagonDescriptionView> {
   }
 
   Widget _buildActionButton(Items currentItem) {
-    return ElevatedButton.icon(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.amber,
-        foregroundColor: AppColors.black,
+    return CrownfallButton.normal(
+      height: 36,
+      width: null,
+      onTap: () => _handleBuyOrUpgrade(currentItem),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: context.height < 640 ? 24 : 32),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.sell_outlined),
+            const EmptyBox.w4(),
+            Text(
+              currentDagon == Items.Dagon5 
+                ? LocaleKeys.Item_buy.locale
+                : currentDagon != null 
+                  ? LocaleKeys.Item_upgrade.locale
+                  : LocaleKeys.Item_buy.locale,
+              style: TextStyle(fontSize: context.sp(12), fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
       ),
-      icon: const Icon(Icons.sell_outlined),
-      label: Text(
-        currentDagon == Items.Dagon5 
-          ? LocaleKeys.Item_buy.locale
-          : currentDagon != null 
-            ? LocaleKeys.Item_upgrade.locale
-            : LocaleKeys.Item_buy.locale,
-        style: TextStyle(fontSize: context.sp(12), fontWeight: FontWeight.bold),
-      ),
-      onPressed: () => _handleBuyOrUpgrade(currentItem),
     );
   }
 
