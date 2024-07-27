@@ -1,10 +1,12 @@
 import 'package:dota2_invoker_game/constants/locale_keys.g.dart';
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
+import 'package:dota2_invoker_game/mixins/screen_state_mixin.dart';
 import 'package:dota2_invoker_game/widgets/crownfall_button.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
+import 'package:reorderable_grid/reorderable_grid.dart';
 
 import '../../../../../constants/app_colors.dart';
 import '../../../../../constants/app_image_paths.dart';
@@ -27,7 +29,7 @@ class ShopView extends StatefulWidget {
   State<ShopView> createState() => _ShopViewState();
 }
 
-class _ShopViewState extends State<ShopView> {
+class _ShopViewState extends State<ShopView> with ScreenStateMixin {
 
   static final _items = Items.values.where((element) => element.isVisibleInShop).toList();
   final advancedItems = _items.where((element) => element.itemType == ItemType.Advanced).toList();
@@ -102,7 +104,17 @@ class _ShopViewState extends State<ShopView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 consumableItems(),
-                const InventoryHud(isItemsSellable: true),
+                GestureDetector(
+                  onLongPress: () {
+                    showDialog<void>(
+                      context: context, 
+                      builder: (context) => const Dialog(
+                        child: InventoryReorderDialog(),
+                      ),
+                    );
+                  },
+                  child: const InventoryHud(isItemsSellable: true),
+                ),
               ],
             ),
             const Spacer(),
@@ -322,4 +334,47 @@ class TabPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => false;
+}
+
+class InventoryReorderDialog extends StatefulWidget {
+  const InventoryReorderDialog({super.key});
+
+  @override
+  State<InventoryReorderDialog> createState() => _InventoryReorderDialogState();
+}
+
+class _InventoryReorderDialogState extends State<InventoryReorderDialog> with ScreenStateMixin {
+
+  List<Item> items = [];
+  @override
+  void initState() {
+    items = context.read<BossBattleProvider>().inventory;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ReorderableGridView.count(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      crossAxisCount: 3,
+      onReorder: (oldIndex, newIndex) {
+        final item = items.removeAt(oldIndex);
+        items.insert(newIndex, item);
+        context.read<BossBattleProvider>().updateView();
+        updateScreen();
+      },
+      childAspectRatio: 1,
+      children: items.map((item) {
+        return Padding(
+          key: ValueKey(item),
+          padding: const EdgeInsets.all(8),
+          child: Image.asset(
+            item.item.image,
+            height: context.dynamicHeight(0.2),
+          ),
+        );
+      }).toList(),
+    );
+  }
 }

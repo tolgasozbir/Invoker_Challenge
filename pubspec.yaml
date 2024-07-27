@@ -26,7 +26,7 @@ dependencies:
   flutter_svg: ^2.0.7
   audioplayers: 
     git:
-      url: https://github.com/sozbir/audioplayers
+      url: https://github.com/tolgasozbir/audioplayers
   internet_connection_checker: ^1.0.0+1
   url_launcher: ^6.1.0
   auto_size_text: ^3.0.0
@@ -57,6 +57,7 @@ dependencies:
 
   #Widgets
   sleek_circular_slider: ^2.0.1
+  reorderable_grid: ^1.0.10
 
   #Ads
   google_mobile_ads: ^4.0.0

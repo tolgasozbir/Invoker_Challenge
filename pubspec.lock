@@ -54,8 +54,8 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: fe8afdaee48ccbb353989f73b30157bc82902041
-      url: "https://github.com/sozbir/audioplayers"
+      resolved-ref: "9221dbf8e41cb586484de158184e1d20d6c98f2b"
+      url: "https://github.com/tolgasozbir/audioplayers"
     source: git
     version: "0.20.1"
   auto_size_text:
@@ -514,10 +514,10 @@ packages:
     dependency: transitive
     description:
       name: http
-      sha256: "5895291c13fa8a3bd82e76d5627f69e0d85ca6a30dcac95c4ea19a5d555879c2"
+      sha256: b9c29a161230ee03d3ccf545097fccd9b87a5264228c5d348202e0f0c28f9010
       url: "https://pub.dev"
     source: hosted
-    version: "0.13.6"
+    version: "1.2.2"
   http_multi_server:
     dependency: transitive
     description:
@@ -798,6 +798,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.3"
+  reorderable_grid:
+    dependency: "direct main"
+    description:
+      name: reorderable_grid
+      sha256: "0b9cd95ef0f070ef99f92affe9cf85a4aa127099cd1334e5940950ce58cd981d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.10"
   shared_preferences:
     dependency: "direct main"
     description:
