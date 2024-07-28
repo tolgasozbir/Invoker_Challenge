@@ -106,6 +106,7 @@ class _ShopViewState extends State<ShopView> with ScreenStateMixin {
                 consumableItems(),
                 GestureDetector(
                   onLongPress: () {
+                    if (context.read<BossBattleProvider>().inventory.length < 2) return;
                     showDialog<void>(
                       context: context, 
                       builder: (context) => const Dialog(

@@ -48,7 +48,7 @@ android {
     defaultConfig {
         applicationId "com.dota2.invoker.game"
         minSdkVersion 23
-        targetSdkVersion 33
+        targetSdkVersion 34
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
@@ -75,6 +75,7 @@ flutter {
 dependencies {
     implementation 'androidx.window:window:1.0.0'
     implementation 'androidx.window:window-java:1.0.0'
-    implementation platform('com.google.firebase:firebase-bom:32.7.2')
+    implementation platform('com.google.firebase:firebase-bom:33.1.2')
     implementation 'com.google.firebase:firebase-analytics'
+    implementation("com.google.firebase:firebase-analytics-ktx")
 }

@@ -84,8 +84,7 @@ class AdsHelper {
           appOpenAd!.show();
         }, 
         onAdFailedToLoad: (error) => log('Ad failed to load: ${error.message}'),
-      ), 
-      orientation: AppOpenAd.orientationPortrait,
+      ),
     );
   }
 

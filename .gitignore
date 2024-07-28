@@ -18,6 +18,7 @@ android/app/google-services.json
 ios/runner/GoogleService-Info.plist
 ios/firebase_app_id_file.json
 lib/firebase_options.dart
+firebase.json
 
 # IntelliJ related
 *.iml
