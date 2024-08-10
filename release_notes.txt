@@ -1,3 +1,25 @@
+# 1.5.0
+--------
+- New Features:
+    - Added item upgrade feature.
+    - Added attack modifiers, including critical strike and pierce.
+    - Added new few items and items categorized them into basic and advanced.
+
+- Improvements:
+    - Fixed the analytics issue (missing google_app_id) by updating the Android Gradle Plugin (AGP).
+    - Updated core packages.
+    - Increased targetSdkVersion from 33 to 34.
+
+- UI Enhancements:
+    - Improved the boss mode dialog UI.
+    - Updated the menu button UI with new animations.
+    - Refined the shop view UI.
+    - Enhanced the item description UI.
+
+- Fixes:
+    - Resolved the issue preventing high score submissions in boss battle mode.
+    - Rearranged items and made minor adjustments.
+
 # 1.4.1
 - Upgrade AGP (Android Gradle Plugin)
 - Fixed permanent mana depletion issue when using ghost walk.
