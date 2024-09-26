@@ -78,7 +78,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    subscription = FGBGEvents.stream.listen((event) async {
+    subscription = FGBGEvents.instance.stream.listen((event) async {
       if (event == FGBGType.foreground) {
         await AdsHelper.instance.appOpenAdLoad();
       }

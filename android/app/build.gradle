@@ -30,7 +30,7 @@ apply from: project(':flutter_config').projectDir.getPath() + "/dotenv.gradle"
 android {
     namespace "com.dota2.invoker.game"
     compileSdkVersion 34
-    ndkVersion flutter.ndkVersion
+    ndkVersion = "26.1.10909125"
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -51,6 +51,7 @@ android {
         targetSdkVersion 34
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        multiDexEnabled true
     }
 
    signingConfigs {
@@ -73,6 +74,7 @@ flutter {
 }
 
 dependencies {
+    implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.window:window:1.0.0'
     implementation 'androidx.window:window-java:1.0.0'
     implementation platform('com.google.firebase:firebase-bom:33.1.2')

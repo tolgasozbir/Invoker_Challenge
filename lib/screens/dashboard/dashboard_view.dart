@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dota2_invoker_game/constants/locale_keys.g.dart';
 import 'package:dota2_invoker_game/extensions/context_extension.dart';
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
@@ -6,8 +8,8 @@ import 'package:dota2_invoker_game/utils/app_updater.dart';
 import 'package:dota2_invoker_game/widgets/dialog_contents/app_update_dialog.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:tuple/tuple.dart';
-import 'package:user_messaging_platform/user_messaging_platform.dart';
 
+import '../../utils/consent_manager.dart';
 import 'combo/combo_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -36,17 +38,17 @@ class DashboardView extends StatefulWidget {
 }
 
 class _DashboardViewState extends State<DashboardView> {
+  final _consentManager = ConsentManager();
 
-  //iOS installation was not performed.
   void updateConsent() async {
     try {
-      // Make sure to continue with the latest consent info.
-      var info = await UserMessagingPlatform.instance.requestConsentInfoUpdate();
-      // Show the consent form if consent is required.
-      if (info.consentStatus == ConsentStatus.required) {
-        // `showConsentForm` returns the latest consent info, after the consent from has been closed.
-        info = await UserMessagingPlatform.instance.showConsentForm();
-      }
+      log('Consent start');
+      _consentManager.gatherConsent((consentGatheringError) async {
+        if (consentGatheringError != null) {
+          // Consent not obtained in current session.
+          log('${consentGatheringError.errorCode}: ${consentGatheringError.message}');
+        }
+      });
     } catch (e) {
       // ignore: avoid_print
       print('updateConsent $e');
