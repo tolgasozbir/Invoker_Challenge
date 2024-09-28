@@ -185,7 +185,7 @@ enum Items {
       duration: 8,
       activeBonuses: ItemActiveBonuses(
         spellAmp: 0.40,
-        magicalDamage: 200,
+        magicalDamage: 25, //200 dps
       ),
     ),
     cost: 5375, 
