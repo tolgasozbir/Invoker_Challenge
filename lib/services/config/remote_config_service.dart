@@ -44,12 +44,15 @@ class FirebaseRemoteConfigService {
   }
 
   Future<void> _fetchAndActivate() async {
-    final updated = await _remoteConfig.fetchAndActivate();
-
-    if (updated) {
-      log('The config has been updated.');
-    } else {
-      log('The config is not updated..');
+    try {
+      final updated = await _remoteConfig.fetchAndActivate();
+      if (updated) {
+        log('The config has been updated.');
+      } else {
+        log('The config is not updated..');
+      }
+    } catch (e) {
+      log('err _fetchAndActivate() $e');
     }
   }
 

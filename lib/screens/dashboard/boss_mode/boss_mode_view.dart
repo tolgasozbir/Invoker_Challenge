@@ -4,6 +4,7 @@ import 'package:dota2_invoker_game/constants/app_strings.dart';
 import 'package:dota2_invoker_game/constants/locale_keys.g.dart';
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/ability_slot.dart';
+import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/attack_damage_widget.dart';
 import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/boss_head.dart';
 import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/circles/health_circle.dart';
 import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/dps_widget.dart';
@@ -11,7 +12,6 @@ import 'package:dota2_invoker_game/utils/value_notifier_listener.dart';
 import 'package:dota2_invoker_game/widgets/app_outlined_button.dart';
 import 'package:tuple/tuple.dart';
 
-import '../../../extensions/number_extension.dart';
 import '../../../models/exit_dialog_message.dart';
 import 'widgets/background/background_sky.dart';
 import 'widgets/background/background_weather.dart';
@@ -23,15 +23,12 @@ import 'widgets/save_button.dart';
 import '../../../utils/game_save_handler.dart';
 import '../../../widgets/app_dialogs.dart';
 
-import '../../../constants/app_image_paths.dart';
 import '../../../widgets/dialog_contents/load_game_dialog_content.dart';
 import '../../../widgets/empty_box.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:splash/splash.dart';
-
-import '../../../constants/app_colors.dart';
 
 import '../../../enums/elements.dart';
 import '../../../enums/spells.dart';
@@ -193,7 +190,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
               const BossHead(),
               const BackgroundWeather(),
               const DpsWidget(),
-              attackDamage(),
+              const AttackDamageWidget(),
               startBtn(),
             ],
           ),
@@ -213,28 +210,6 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
         const EmptyBox.h16(),
         //
       ],
-    );
-  }
-
-  Positioned attackDamage() {
-    return Positioned(
-      top: 8,
-      right: 8,
-      child: Selector<BossBattleProvider, Tuple3<int,double,double>>(
-        selector: (_, provider) => Tuple3(provider.baseDamage, provider.damageMultiplier, provider.bonusDamage),
-        builder: (_, value, __) => Row(
-          children: [
-            Text((value.item1 + (value.item1 * value.item2)).numberFormat),
-            if (provider.bonusDamage > 0)
-              Text(
-                '+${(value.item3 + (value.item3 * value.item2)).numberFormat}', 
-                style: const TextStyle(color: AppColors.green),
-              ),
-            const EmptyBox.w4(),
-            const Image(image: AssetImage(ImagePaths.icSword)),
-          ],
-        ),
-      ),
     );
   }
 

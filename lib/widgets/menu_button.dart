@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dota2_invoker_game/extensions/widget_extension.dart';
 import 'package:flutter/material.dart';
@@ -83,7 +85,11 @@ class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateM
 
     AdsHelper.instance.adCounter++;
     if (AdsHelper.instance.interstitialAd != null && AdsHelper.instance.adCounter.isEven) {
-      await AdsHelper.instance.interstitialAd!.show();
+      try {
+        await AdsHelper.instance.interstitialAd!.show();
+      } catch (e) {
+        log('err interstitialAd $e');
+      }
       Navigator.push(context, fadeInPageRoute(widget.navigatePage!));
       return;
     }

@@ -60,6 +60,7 @@ dependencies:
   #Widgets
   sleek_circular_slider: ^2.0.1
   reorderable_grid: ^1.0.10
+  percent_indicator: ^4.2.3
 
   #Ads
   google_mobile_ads: ^5.1.0

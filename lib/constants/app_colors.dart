@@ -45,6 +45,7 @@ class AppColors {
 
   //Boss battle mode
   static const circleColor = Color(0xFFB50DE2);
+  static const circleColorSecondary = Color(0xFF44234d);
 
   //Common colors
   static const Color transparent  = Colors.transparent;

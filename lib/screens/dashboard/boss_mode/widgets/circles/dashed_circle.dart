@@ -9,7 +9,8 @@ class DashedCircle extends StatelessWidget {
     required this.dashProgress, 
     required this.dashUnits, 
     required this.circleRadius, 
-    this.circleColor = AppColors.circleColor, 
+    this.circleColor = AppColors.circleColor,
+    this.circleColorSecondary = AppColors.circleColorSecondary,
     required this.dashGap, 
     required this.reversedColor,
   });
@@ -18,6 +19,7 @@ class DashedCircle extends StatelessWidget {
   final int dashUnits;
   final double circleRadius;
   final Color circleColor;
+  final Color circleColorSecondary;
   final double dashGap;
   final bool reversedColor;
 
@@ -30,6 +32,7 @@ class DashedCircle extends StatelessWidget {
         radius: circleRadius,
         gap: dashGap,
         color: circleColor,
+        colorSecondary: circleColorSecondary,
         reversedColor: reversedColor,
       ),
     );
@@ -41,6 +44,7 @@ class CirclePainter extends CustomPainter {
   final int units;
   final double gap;
   final Color color;
+  final Color colorSecondary;
   final double radius;
   final bool reversedColor;
 
@@ -50,6 +54,7 @@ class CirclePainter extends CustomPainter {
     required this.radius,
     required this.gap,
     required this.color,
+    required this.colorSecondary,
     this.reversedColor = false,
   });
 
@@ -71,7 +76,7 @@ class CirclePainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 4
       ..maskFilter = maskFiler
-      ..color = reversedColor ? color.withOpacity(0.2) : color;
+      ..color = reversedColor ? colorSecondary : color;
     //..shader = gradient.createShader(rect);
 
     final paintEmpty = Paint()
@@ -79,7 +84,7 @@ class CirclePainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 4
       ..maskFilter = maskFiler
-      ..color = reversedColor ? color : color.withOpacity(0.2);
+      ..color = reversedColor ? color : colorSecondary;
 
     for (var i = 0; i < units; i++) {
       final unit = 2 * pi / units;
@@ -96,5 +101,5 @@ class CirclePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(CustomPainter oldDelegate) => true;
+  bool shouldRepaint(CustomPainter oldDelegate) => false;
 }

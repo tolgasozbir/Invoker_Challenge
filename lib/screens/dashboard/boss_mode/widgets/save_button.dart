@@ -14,10 +14,11 @@ class SaveButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<BossBattleProvider>(
-      builder: (context, provider, child) {
+    return Selector<BossBattleProvider, bool>(
+      selector: (_, provider) => provider.isSavingEnabled,
+      builder: (context, value, _) {
         return Visibility(
-          visible: provider.isSavingEnabled,
+          visible: value,
           child: RawChip(
             side: BorderSide(color: AppColors.white.withOpacity(0.2)),
             onPressed: () => saveGameFn(context),

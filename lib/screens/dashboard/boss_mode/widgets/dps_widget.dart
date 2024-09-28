@@ -3,6 +3,7 @@ import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:dota2_invoker_game/widgets/empty_box.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tuple/tuple.dart';
 
 import '../../../../constants/app_colors.dart';
 import '../../../../constants/locale_keys.g.dart';
@@ -16,8 +17,9 @@ class DpsWidget extends StatelessWidget {
     return Positioned(
       top: 8,
       left: 8,
-      child: Consumer<BossBattleProvider>(
-        builder: (context, provider, child) => Column(
+      child: Selector<BossBattleProvider, Tuple3<double, double, double>>(
+        selector: (_, provider) => Tuple3(provider.physicalPercentage, provider.magicalPercentage, provider.dps),
+        builder: (_, value, __) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             //Dps Bar
@@ -27,7 +29,7 @@ class DpsWidget extends StatelessWidget {
               child: Row(
                 children: [
                   Expanded(
-                    flex: provider.physicalPercentage.round(),
+                    flex: value.item1.round(),//provider.physicalPercentage.round(),
                     child: Container(
                       decoration: const BoxDecoration(
                         color: AppColors.red,
@@ -36,7 +38,7 @@ class DpsWidget extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                    flex: provider.magicalPercentage.round(),
+                    flex: value.item2.round(),//provider.magicalPercentage.round(),
                     child: Container(
                       decoration: const BoxDecoration(
                         color: AppColors.blue,
@@ -49,7 +51,7 @@ class DpsWidget extends StatelessWidget {
             ),
             const EmptyBox.h4(),
             //Dps Text
-            Text('${LocaleKeys.bossBattleInfo_dps.locale.toLowerCase().capitalize()} : ${provider.dps.numberFormat}'),
+            Text('${LocaleKeys.bossBattleInfo_dps.locale.toLowerCase().capitalize()} : ${value.item3.numberFormat}'), //${provider.dps.numberFormat}'
           ],
         ),
       ),
