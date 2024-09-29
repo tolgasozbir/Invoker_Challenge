@@ -56,6 +56,7 @@ dependencies:
   flutter_staggered_animations: ^1.1.1
   snappable_thanos: ^0.0.4
   flutter_animate: ^4.5.0
+  animated_flip_counter: ^0.3.4
 
   #Widgets
   sleek_circular_slider: ^2.0.1
