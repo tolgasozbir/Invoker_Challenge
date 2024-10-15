@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dota2_invoker_game/enums/Bosses.dart';
 
 import '../../constants/locale_keys.g.dart';
 import '../../enums/database_table.dart';
@@ -125,15 +126,15 @@ class FirestoreService implements IDatabaseService {
         return _setData(_collectionRefCombo, score.toMap());
       case ScoreType.Boss:
         final bossScore = score as BossBattle;
-        final collectionPathName = 'Boss_${bossScore.boss.capitalize()}';
+        final collectionPathName = 'Boss_${bossScore.boss}';
         final collection = FirebaseFirestore.instance.collection(collectionPathName);
         return _setData(collection, score.toMap());
     }
   }
 
   @override
-  Future<List<T>> getScores<T extends IBaseModel<T>>({required ScoreType scoreType, String? bossName}) async {
-    assert(!(scoreType == ScoreType.Boss && bossName == null), 'Boss name is required');
+  Future<List<T>> getScores<T extends IBaseModel<T>>({required ScoreType scoreType, Bosses? boss}) async {
+    assert(!(scoreType == ScoreType.Boss && boss == null), 'Boss is required');
     switch (scoreType) {
       case ScoreType.TimeTrial:
         final response = await _fetchData(
@@ -157,10 +158,10 @@ class FirestoreService implements IDatabaseService {
         );
         return response.map((e) => Combo.fromMap(e.data()) as T).toList();
       case ScoreType.Boss:
-        if (bossName == null) 
-          throw ArgumentError('Boss name must be provided for fetching boss scores.');
+        if (boss == null) 
+          throw ArgumentError('Boss must be provided for fetching boss scores.');
 
-        final collectionPathName = 'Boss_${bossName.replaceAll(" ", "_")}';
+        final collectionPathName = 'Boss_${boss.getDbName}';
         final collectionRef = FirebaseFirestore.instance.collection(collectionPathName);
         final response = await _fetchData(
           collectionRef,

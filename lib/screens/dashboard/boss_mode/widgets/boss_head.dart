@@ -37,7 +37,7 @@ class BossHead extends StatelessWidget {
                   builder: (context, provider1, child) => Text(provider1.currentBossHp.numberFormat),
                 ),
                 //Boss Name
-                Text(value.item3.getName),
+                Text(value.item3.getReadableName),
               ],
             ),
           ),

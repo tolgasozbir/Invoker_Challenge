@@ -24,7 +24,7 @@ import '../watch_ad_button.dart';
 
 class BossResultRoundDialogContent extends StatelessWidget {
   final BossBattle model;
-  final String bossName;
+  final Bosses boss;
   final int totalEarnedGold;
   final double earnedExp;
   final bool timeUp;
@@ -34,7 +34,7 @@ class BossResultRoundDialogContent extends StatelessWidget {
   const BossResultRoundDialogContent({
     super.key, 
     required this.model, 
-    required this.bossName,
+    required this.boss,
     required this.totalEarnedGold,
     required this.earnedExp,
     required this.timeUp,
@@ -46,7 +46,7 @@ class BossResultRoundDialogContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bestTime = UserManager.instance.getBestBossScore(bossName)['time'] as int? ?? 0;
+    final bestTime = UserManager.instance.getBestBossScore(boss)['time'] as int? ?? 0;
     
     return  Column(
       children: [
@@ -272,10 +272,10 @@ class BossResultRoundDialogContent extends StatelessWidget {
 }
 
 class BossResultRoundDialogAction extends StatefulWidget {
-  const BossResultRoundDialogAction({super.key, required this.model, required this.bossName, required this.timeUp});
+  const BossResultRoundDialogAction({super.key, required this.model, required this.boss, required this.timeUp});
 
   final BossBattle model;
-  final String bossName;
+  final Bosses boss;
   final bool timeUp;
 
   @override
@@ -284,7 +284,7 @@ class BossResultRoundDialogAction extends StatefulWidget {
 
 class _BossResultRoundDialogActionState extends State<BossResultRoundDialogAction> with ScreenStateMixin {
 
-  bool get isNewScore => !widget.timeUp && widget.model.time <= (UserManager.instance.getBestBossScore(widget.bossName)['time'] ?? 0);
+  bool get isNewScore => !widget.timeUp && widget.model.time <= (UserManager.instance.getBestBossScore(widget.boss)['time'] ?? 0);
 
   @override
   Widget build(BuildContext context) {
@@ -324,7 +324,7 @@ class _BossResultRoundDialogActionState extends State<BossResultRoundDialogActio
     final user = UserManager.instance.user;
     final uid = user.uid;
     final db = AppServices.instance.databaseService;
-    final bestTime = UserManager.instance.getBestBossScore(widget.bossName)['time'] ?? 0;
+    final bestTime = UserManager.instance.getBestBossScore(widget.boss)['time'] ?? 0;
     final score = widget.model;
 
     ScaffoldMessenger.of(context).removeCurrentSnackBar();

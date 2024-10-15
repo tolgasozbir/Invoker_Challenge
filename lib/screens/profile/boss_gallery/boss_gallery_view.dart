@@ -66,7 +66,7 @@ class _BossGalleryViewState extends State<BossGalleryView> {
           children: [
             Image.asset(boss.getImage),
             Text(
-              boss.getName, 
+              boss.getReadableName, 
               style: TextStyle(
                 fontWeight: FontWeight.w600,
                 shadows: List.generate(2, (index) => const Shadow(color: Colors.red, blurRadius: 4)),
@@ -86,8 +86,8 @@ class _BossGalleryViewState extends State<BossGalleryView> {
 
   void cardOnTapFn(Bosses boss) {
     AppDialogs.showScaleDialog(
-      title: '${LocaleKeys.commonGeneral_leaderboard.locale} ${boss.getName}',
-      content: LeaderboardDialog(leaderboardType: LeaderboardType.Boss, bossName: boss.name.capitalize()),
+      title: '${LocaleKeys.commonGeneral_leaderboard.locale} ${boss.getReadableName}',
+      content: LeaderboardDialog(leaderboardType: LeaderboardType.Boss, boss: boss),
       action: AppOutlinedButton(
         title: LocaleKeys.commonGeneral_back.locale,
         onPressed: () {

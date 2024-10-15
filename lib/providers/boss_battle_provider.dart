@@ -672,7 +672,7 @@ class BossBattleProvider extends ChangeNotifier {
       uid: UserManager.instance.user.uid,
       name: UserManager.instance.user.username,
       round: roundProgress+1, 
-      boss: currentBoss.getName, 
+      boss: currentBoss.getDbName, 
       time: elapsedTime, 
       averageDps: averageDps, 
       maxDps: maxDps, 
@@ -682,7 +682,7 @@ class BossBattleProvider extends ChangeNotifier {
     );
 
     if (currentBossHp <= 0) {
-      UserManager.instance.updateBestBossTimeScore(currentBoss.name, elapsedTime, model);
+      UserManager.instance.updateBestBossTimeScore(currentBoss, elapsedTime, model);
     }
     AchievementManager.instance.updateBoss();
     AchievementManager.instance.updateMiscGold(userGold);
@@ -702,7 +702,7 @@ class BossBattleProvider extends ChangeNotifier {
     AppDialogs.showScaleFadeDialog(
       content: BossResultRoundDialogContent(
         model: model, 
-        bossName: currentBoss.name,
+        boss: currentBoss,
         totalEarnedGold: totalEarnedGold + (_isActiveMidas ? midasGold : 0),
         earnedExp: UserManager.instance.expCalc(expGain),
         timeUp: timeUp,
@@ -710,7 +710,7 @@ class BossBattleProvider extends ChangeNotifier {
         bossHpLeft: currentBossHp,
       ),
       action: BossResultRoundDialogAction(
-        bossName: currentBoss.name, 
+        boss: currentBoss, 
         timeUp: timeUp,
         model: model,
       ),
@@ -781,7 +781,7 @@ class BossBattleProvider extends ChangeNotifier {
     _updateManaAndBaseDamage(updateUI: false);
     _isActiveMidas = false;
     isSavingEnabled = false;
-    _userGold = 1000;
+    _userGold = 100000;
     if (clearAbilityHud) {
       _updateAbilityHudView();
     }

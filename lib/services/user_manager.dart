@@ -1,3 +1,4 @@
+import 'package:dota2_invoker_game/enums/Bosses.dart';
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import '../constants/locale_keys.g.dart';
 import '../utils/formatted_date.dart';
@@ -167,24 +168,24 @@ class UserManager extends ChangeNotifier {
 
   //
 
-  Map<dynamic, dynamic> getBestBossScore(String bossName) {
-    return user.bestBossScores?[bossName] as Map<dynamic, dynamic>? ?? {};
+  Map<dynamic, dynamic> getBestBossScore(Bosses boss) {
+    return user.bestBossScores?[boss.getDbName] as Map<dynamic, dynamic>? ?? {};
   }
 
-  void updateBestBossTimeScore(String bossName, int value, BossBattle model) async {
+  void updateBestBossTimeScore(Bosses boss, int value, BossBattle model) async {
     user.bestBossScores ??= {}; // null check
-    user.bestBossScores!.putIfAbsent(bossName, () => model.toMap());
+    user.bestBossScores!.putIfAbsent(boss.getDbName, () => model.toMap());
     
     // Kullanıcının uid değeri boş değilse ve user objesinin bestBossScores özelliği varsa:
-    // - bestBossScores objesinde bossName anahtarının varlığını ve bu anahtarın değerinin "Guest" ile başladığını kontrol ediyoruz.
-    if (user.uid != null && user.bestBossScores![bossName]['name'].toString().startsWith('Guest')) {
-      // Yukarıdaki koşullar sağlandığında, bestBossScores objesindeki bossName anahtarının "name" özelliğini
+    // - bestBossScores objesinde boss db name(Anti_Mage) anahtarının varlığını ve bu anahtarın değerinin "Guest" ile başladığını kontrol ediyoruz.
+    if (user.uid != null && user.bestBossScores![boss.getDbName]['name'].toString().startsWith('Guest')) {
+      // Yukarıdaki koşullar sağlandığında, bestBossScores objesindeki boss db name(Anti_Mage) anahtarının "name" özelliğini
       // kullanıcının kullanıcı adıyla değiştiriyoruz.
-      user.bestBossScores![bossName]['name'] = user.username;
+      user.bestBossScores![boss.getDbName]['name'] = user.username;
     }
-    if ((user.bestBossScores?[bossName]['time'] as int? ?? 0) < value) return;
-    if (user.bestBossScores!.containsKey(bossName)) {
-      user.bestBossScores![bossName] = model.toMap();
+    if ((user.bestBossScores?[boss.getDbName]['time'] as int? ?? 0) < value) return;
+    if (user.bestBossScores!.containsKey(boss.getDbName)) {
+      user.bestBossScores![boss.getDbName] = model.toMap();
     }
     await setUserAndSaveToCache(user);
   }

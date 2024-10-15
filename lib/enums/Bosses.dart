@@ -23,5 +23,8 @@ enum Bosses {
 extension BossExtension on Bosses {
   double get getHp => _health;
   String get getImage => '${ImagePaths.bosses}boss_$name.png';
-  String get getName => name.replaceAll('_', ' ').capitalize();
+  /// anti_mage to Anti Mage
+  String get getReadableName => this.name.toSpacedTitle();
+  /// anti_mage to Anti_Mage
+  String get getDbName => this.name.toSnakeTitle();
 }

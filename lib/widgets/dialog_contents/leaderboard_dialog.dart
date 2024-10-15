@@ -1,3 +1,4 @@
+import 'package:dota2_invoker_game/enums/Bosses.dart';
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -27,11 +28,11 @@ class LeaderboardDialog extends StatefulWidget {
   const LeaderboardDialog({
     super.key, 
     required this.leaderboardType, 
-    this.bossName,
-  }) : assert(!(leaderboardType == LeaderboardType.Boss && bossName == null), 'Boss name is required');
+    this.boss,
+  }) : assert(!(leaderboardType == LeaderboardType.Boss && boss == null), 'Boss is required');
 
   final LeaderboardType leaderboardType;
-  final String? bossName;
+  final Bosses? boss;
 
   @override
   State<LeaderboardDialog> createState() => _LeaderboardDialogState();
@@ -52,7 +53,7 @@ class _LeaderboardDialogState extends State<LeaderboardDialog> with ScreenStateM
       case LeaderboardType.Boss:
         results = await AppServices.instance.databaseService.getScores<BossBattle>(
           scoreType: ScoreType.Boss, 
-          bossName: widget.bossName,
+          boss: widget.boss,
         );
     }
   }
@@ -133,7 +134,7 @@ class _LeaderboardDialogState extends State<LeaderboardDialog> with ScreenStateM
       case LeaderboardType.Boss:
         results?.addAll(await AppServices.instance.databaseService.getScores<BossBattle>(
           scoreType: ScoreType.Boss, 
-          bossName: widget.bossName,
+          boss: widget.boss,
         ),);
     }
     changeLoadingState();
