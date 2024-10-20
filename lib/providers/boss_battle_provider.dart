@@ -48,7 +48,7 @@ class BossBattleProvider extends ChangeNotifier {
 
   //Circle Values
   int roundUnit = Bosses.values.length;
-  int healthUnit = 60;
+  int healthUnit = 48;
   int timeUnits = 180;
   int roundProgress = -1;
   double healthProgress = 0;
@@ -781,7 +781,7 @@ class BossBattleProvider extends ChangeNotifier {
     _updateManaAndBaseDamage(updateUI: false);
     _isActiveMidas = false;
     isSavingEnabled = false;
-    _userGold = 100000;
+    _userGold = 1000;
     if (clearAbilityHud) {
       _updateAbilityHudView();
     }
