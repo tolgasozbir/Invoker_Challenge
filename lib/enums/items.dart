@@ -86,7 +86,7 @@ enum Items {
       manaCost: 50,
       duration: 16,
       activeBonuses: ItemActiveBonuses(
-        spellAmp: 0.10,
+        spellAmp: 0.16,
       ),
     ),
     cost: 1725, 
@@ -95,7 +95,7 @@ enum Items {
 
   Kaya(
     bonuses: ItemBonuses(
-      spellAmp: 0.10,
+      spellAmp: 0.08,
       manaRegenAmp: 0.24,
     ),
     activeProps: ItemActiveProps(),
@@ -139,7 +139,7 @@ enum Items {
 
   Vladmirs_offering(
     bonuses: ItemBonuses(
-      damageMultiplier: 0.18,
+      damageMultiplier: 0.16,
       manaRegen: 1.75,
     ),
     activeProps: ItemActiveProps(),
@@ -148,13 +148,13 @@ enum Items {
 
   Crystalys(
     bonuses: ItemBonuses(
-      damage: 32,
+      damage: 24,
     ),
     activeProps: ItemActiveProps(),
     itemProcModifier: ItemProcModifier(
       modifier: AttackModifiers.CriticalStrike, 
       procChance: 12,
-      critRate: 130,
+      critRate: 120,
     ),
     cost: 2250,
   ),
@@ -220,13 +220,13 @@ enum Items {
 
   Daedalus(
     bonuses: ItemBonuses(
-      damage: 64,
+      damage: 56,
     ),
     activeProps: ItemActiveProps(),
     itemProcModifier: ItemProcModifier(
       modifier: AttackModifiers.CriticalStrike, 
       procChance: 20,
-      critRate: 175,
+      critRate: 160,
     ),
     cost: 5650,
     requiredItems: [Items.Crystalys],

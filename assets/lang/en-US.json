@@ -228,10 +228,10 @@
         },
         "Veil_of_discord": {
             "bonus": "Increases magic damage taken by bosses.\nDuration: 16 Seconds",
-            "active": "Spell Amplification +10%"
+            "active": "Spell Amplification +16%"
         },
         "Kaya": {
-            "bonus": "Mana Regen Amp +24%\nSpell Damage Amp +10%",
+            "bonus": "Mana Regen Amp +24%\nSpell Damage Amp +8%",
             "active": ""
         },
         "Hand_of_midas": {
@@ -247,11 +247,11 @@
             "active": "Damage per Second: 100\nDuration: 6 Seconds"
         },
         "Vladmirs_offering": {
-            "bonus": "Physical Damage +18%\nMana Regen +1.75",
+            "bonus": "Physical Damage +16%\nMana Regen +1.75",
             "active": ""
         },
         "Crystalys": {
-            "bonus": "Gives a chance to deal a bonus damage critical strike.\nProc Chance 12%\nCritical Damage 130%\nDamage +32",
+            "bonus": "Gives a chance to deal a bonus damage critical strike.\nProc Chance 12%\nCritical Damage 120%\nDamage +24",
             "active": ""
         },
         "Orchid": {
@@ -271,7 +271,7 @@
             "active": "Resets the cooldowns of all your items and abilities.\n(Multiple items won't stacks)"
         },
         "Daedalus": {
-            "bonus": "Gives a chance to deal a bonus damage critical strike.\nProc Chance 20%\nCritical Damage 175%\nDamage +64",
+            "bonus": "Gives a chance to deal a bonus damage critical strike.\nProc Chance 20%\nCritical Damage 160%\nDamage +56",
             "active": ""
         },
         "Eye_of_skadi": {

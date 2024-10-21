@@ -228,10 +228,10 @@
         },
         "Veil_of_discord": {
             "bonus": "Boss'ların aldığı büyü hasarını artırır.\nSüre: 16 Saniye",
-            "active": "Büyü Hasarı +10%"
+            "active": "Büyü Hasarı +16%"
         },
         "Kaya": {
-            "bonus": "Mana Yenilenme Artışı +24%\nBüyü Hasarı Artışı +10%",
+            "bonus": "Mana Yenilenme Artışı +24%\nBüyü Hasarı Artışı +8%",
             "active": ""
         },
         "Hand_of_midas": {
@@ -247,11 +247,11 @@
             "active": "Saniyede Hasar: 100\nSüre: 6 Saniye"
         },
         "Vladmirs_offering": {
-            "bonus": "Fiziksel Hasar +18%\nMana Regen +1.75",
+            "bonus": "Fiziksel Hasar +16%\nMana Regen +1.75",
             "active": ""
         },
         "Crystalys": {
-            "bonus": "Bonus hasar veren kritik vuruş yapma şansı verir.\nTetiklenme Şansı %12\nKritik Hasar %130\nHasar +32",
+            "bonus": "Bonus hasar veren kritik vuruş yapma şansı verir.\nTetiklenme Şansı %12\nKritik Hasar %120\nHasar +24",
             "active": ""
         },
         "Orchid": {
@@ -271,7 +271,7 @@
             "active": "Tüm ögelerinizin ve yeteneklerinizin yeniden yüklenmesini sağlar.\n(Birden fazla öge çalışmaz)"
         },
         "Daedalus": {
-            "bonus": "Bonus hasar veren kritik vuruş yapma şansı verir.\nTetiklenme Şansı %20\nKritik Hasar %175\nHasar +64",
+            "bonus": "Bonus hasar veren kritik vuruş yapma şansı verir.\nTetiklenme Şansı %20\nKritik Hasar %160\nHasar +56",
             "active": ""
         },
         "Eye_of_skadi": {
