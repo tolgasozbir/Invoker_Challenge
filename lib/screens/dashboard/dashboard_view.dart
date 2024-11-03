@@ -109,7 +109,8 @@ class _DashboardViewState extends State<DashboardView> {
               ],
             ).wrapExpanded(flex: 3),
 
-            ...menuBtns.animate(interval: 200.ms, delay: 600.ms)
+            ...menuBtns
+              .animate(interval: 200.ms, delay: 600.ms)
               .fadeIn(curve: Curves.easeOutExpo, duration: 1000.ms)
               .blurXY(begin: 32, duration: 1000.ms)
               .slideX(begin: -0.4, duration: 1000.ms)

@@ -25,6 +25,8 @@ class LocalStorageService implements ILocalStorageService {
       await _prefs.setInt(key.name, value);
     } else if (value is bool) {
       await _prefs.setBool(key.name, value);
+    } else if (value is List<String>) {
+      await _prefs.setStringList(key.name, value);
     } else {
       throw ArgumentError('Unsupported value type');
     }
@@ -38,6 +40,8 @@ class LocalStorageService implements ILocalStorageService {
       return _prefs.getInt(key.name) as T?;
     } else if (T == bool) {
       return _prefs.getBool(key.name) as T?;
+    } else if (T == List<String>) {
+      return _prefs.getStringList(key.name) as T?;
     }
     return null;
   }

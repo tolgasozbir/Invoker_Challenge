@@ -34,6 +34,6 @@ extension StringExtension on String {
 }
 
 extension NullableStringExtension on String? {
-  bool get isNullOrEmpty => this?.isEmpty ?? false;
+  bool get isNullOrEmpty => this?.isEmpty ?? true;
   bool get isNotNullOrNoEmpty => this?.isNotEmpty ?? false;
 }
