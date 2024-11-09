@@ -5,7 +5,7 @@ class AppStrings {
   const AppStrings._();
   
   static const String appName = 'Invoker Challenge';
-  static const String appVersion = '1.5.0';
+  static const String appVersion = '1.6.0';
   static const String appVersionStr = 'Beta $appVersion';
   static const String googlePlayStoreUrl = 'https://play.google.com/store/apps/details?id=com.dota2.invoker.game';
   

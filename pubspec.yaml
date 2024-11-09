@@ -3,7 +3,7 @@ description: DOTA 2 Invoker practice game.
 
 publish_to: 'none'
 
-version: 1.5.0+26
+version: 1.6.0+27
 
 environment:
   sdk: '>=3.0.0-0 <4.0.0'
@@ -64,7 +64,7 @@ dependencies:
   percent_indicator: ^4.2.3
 
   #Ads
-  google_mobile_ads: ^5.1.0
+  google_mobile_ads: ^5.2.0
 
 
 dev_dependencies:
