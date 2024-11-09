@@ -7,6 +7,7 @@ import 'package:dota2_invoker_game/providers/app_context_provider.dart';
 import 'package:dota2_invoker_game/utils/app_updater.dart';
 import 'package:dota2_invoker_game/widgets/dialog_contents/app_update_dialog.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:tuple/tuple.dart';
 
 import '../../utils/consent_manager.dart';
@@ -91,7 +92,7 @@ class _DashboardViewState extends State<DashboardView> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: _bodyView(context),
-      bottomNavigationBar: const AdBanner(),
+      bottomNavigationBar: const AdBanner(adSize: AdSize.fullBanner),
     );
   }
 
@@ -118,11 +119,17 @@ class _DashboardViewState extends State<DashboardView> {
               .then(delay: 1000.ms)
               .animate(onPlay: (controller) => controller.repeat(), interval: 200.ms)
               .shimmer(size: 0.5, duration: 1000.ms, delay: 5000.ms),
-              
+
             if (!context.isSmallPhone) const Spacer(),
-            SizedBox(
-              width: double.infinity,
-              child: const Text(AppStrings.appVersionStr).wrapPadding(EdgeInsets.all(context.isSmallPhone ? 4 : 8)),
+            
+            Padding(
+              padding: context.isSmallPhone 
+                ? const EdgeInsets.only(left: 4,bottom: 4) 
+                : const EdgeInsets.only(left: 8, bottom: 8),
+              child: const SizedBox(
+                width: double.infinity,
+                child: Text(AppStrings.appVersionStr),
+              ),
             ),
           ],
         ),

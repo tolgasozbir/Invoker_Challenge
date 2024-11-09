@@ -1,11 +1,13 @@
 import 'package:dota2_invoker_game/constants/locale_keys.g.dart';
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../../../../../enums/spells.dart';
 import '../../../../../extensions/context_extension.dart';
 import '../../../../../extensions/widget_extension.dart';
 import '../../../../../services/user_manager.dart';
+import '../../../../../utils/ads_helper.dart';
 import '../../../../../widgets/empty_box.dart';
 
 class InfoView extends StatelessWidget {
@@ -23,14 +25,21 @@ class InfoView extends StatelessWidget {
   }
   
   Widget _bodyView(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(8),
+    return Column(
       children: [
-        //BackButton().wrapAlign(Alignment.centerLeft),
-        const Divider(height: 0),
-        ...aboutTheCircles(context),
-        const Divider(height: 32),
-        ...spellDamageSheet(context),
+        const AdBanner(adSize: AdSize.fullBanner),
+        Expanded(
+          child: ListView(
+            padding: const EdgeInsets.all(8),
+            children: [
+              const Divider(height: 0),
+              ...aboutTheCircles(context),
+              const Divider(height: 32),
+              ...spellDamageSheet(context),
+            ],
+          ),
+        ),
+        const AdBanner(adSize: AdSize.fullBanner),
       ],
     );
   }
