@@ -29,8 +29,38 @@ enum Achievements {
   boss2(title: 'Feel the power.',       description: 'Kill 300 boss in Boss mode.', maxProgress: 300),
   boss3(title: "What's next?.",         description: 'Kill 500 boss in Boss mode.', maxProgress: 500),
 
-  misc_kill_wk(title: "King's Bane", description: "Put an end to the Wraith King's reign",      maxProgress: 1),
+  //TODO: 2
+
+  kill_warlock(title: 'Breaker of Pacts', description: 'Destroy the Warlock and sever his ties with the infernal realms.', maxProgress: 1),
+  kill_omniknight(title: 'Fallen Paladin', description: 'Bring the holy knight to his knees and scatter his divine light.', maxProgress: 1),
+  kill_riki(title: 'Echoes of the Shadow', description: 'Banish Riki to the void and silence the whispers of the unseen.', maxProgress: 1),
+  kill_huskar(title: 'Ashes of Valor', description: "Reduce Huskar's blazing resolve to ashes", maxProgress: 1),
+  kill_templar(title: 'Secrets Unveiled', description: 'Tear through the veil of secrecy and expose the true face of the Templar Assassin.', maxProgress: 1),
+  kill_anti_mage(title: "Mage's Revenge", description: 'Prove that magic cannot be silenced by defeating the Anti-Mage.', maxProgress: 1),
+  kill_juggernaut(title: "Blademaster's Demise", description: "Stand victorious against Juggernaut's unstoppable blade dance", maxProgress: 1),
+  kill_blood_seeker(title: 'The End of Thirst', description: "Put an end to Bloodseeker's insatiable bloodlust.", maxProgress: 1),
+  kill_drow_ranger(title: 'Frostfall', description: 'Shatter the icy precision of Drow Ranger and end her frozen reign.', maxProgress: 1),
+  kill_axe(title: 'Iron Will Broken', description: "Crush Axe's unyielding spirit and silence his battle cry.", maxProgress: 1),
+  kill_pudge(title: "Butcher's End", description: "Escape the grip of Pudge's hooks and stop his gruesome feast.", maxProgress: 1),
+  kill_wraith_king(title: 'The Crown’s End', description: "Destroy the Wraith King's immortality and end his reign over both life and death.", maxProgress: 1),
+  kill_all_bosses(title: 'The Apex Challenger', description: 'Conquer all bosses and prove yourself as the ultimate hero.', maxProgress: 1),
+
+  misc_kill_wk(title: "King's Bane", description: "Put an end to the Wraith King's reign",      maxProgress: 1), //kalktı değiştir
   misc_gold(title: 'Barely Touched', description: 'Economize your gold and amass 10,000 gold.',  maxProgress: 10000);
+
+  //kill_warlock
+  //kill_omniknight
+  //kill_riki
+  //kill_huskar
+  //kill_templar
+  //kill_anti_mage
+  //kill_juggernaut
+  //kill_blood_seeker
+  //kill_drow_ranger
+  //kill_axe
+  //kill_pudge // pudge yenilgisine hook takılma sesi ve freshmeat ekle
+  //kill_wraith_king
+  //kill_all_bosses
 
 
   const Achievements({required this.title, required this.description, required this.maxProgress});
