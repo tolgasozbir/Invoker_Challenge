@@ -3,6 +3,9 @@
 <plist version="1.0">
 <dict>
 
+  <key>FLTEnableImpeller</key>
+  <false />
+
   <key>LSApplicationQueriesSchemes</key>
     <array>
       <string>https</string>
@@ -65,5 +68,9 @@
       <string>tr</string>
       <string>ru</string>
     </array>
-  </dict>
+  	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+</dict>
 </plist>
