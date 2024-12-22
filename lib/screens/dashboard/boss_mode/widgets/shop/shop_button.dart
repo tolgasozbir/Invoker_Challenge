@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dota2_invoker_game/constants/locale_keys.g.dart';
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +7,8 @@ import 'package:provider/provider.dart';
 
 import '../../../../../providers/boss_battle_provider.dart';
 import '../../../../../services/sound_manager.dart';
+import '../../../../../utils/ads_helper.dart';
+import '../../../../../utils/fade_in_page_animation.dart';
 import '../../../../../widgets/bouncing_button.dart';
 import 'shop_view.dart';
 
@@ -56,12 +60,24 @@ class ShopButton extends StatelessWidget {
           ),
         ],
       ),
-      onPressed: () {
+      onPressed: () async {
         final bool isClickable = !context.read<BossBattleProvider>().started && 
                          context.read<BossBattleProvider>().snapIsDone && 
                         !context.read<BossBattleProvider>().isHornSoundPlaying;
-        if(isClickable)
+        if(isClickable) {
+          AdsHelper.instance.shopEntryAdCounter++;
+          //print("${AdsHelper.instance.shopAdCounter % 4} / 4 || ${AdsHelper.instance.shopAdCounter % 4 == 0}");
+          if (AdsHelper.instance.shopEntryAdCounter % 4 == 0 && AdsHelper.instance.interstitialAd != null) {
+            try {
+              await AdsHelper.instance.interstitialAd!.show();
+            } catch (e) {
+              log('err interstitialAd $e');
+            }
+            Navigator.push(context, fadeInPageRoute(const ShopView()));
+            return;
+          }
           Navigator.push(context, MaterialPageRoute(builder: (context) => const ShopView(),));
+        }
         else {
           SoundManager.instance.playMeepMerp();
         }

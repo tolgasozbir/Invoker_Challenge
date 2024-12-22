@@ -41,9 +41,9 @@ abstract class SplashViewModel extends State<SplashView> {
   }
 
   Future<void> loadAds() async {
-    await AdsHelper.instance.rewardedInterstitialAdLoad();
-    await AdsHelper.instance.interstitialAdLoad();
     await AdsHelper.instance.appOpenAdLoad();
+    await AdsHelper.instance.interstitialAdLoad();
+    await AdsHelper.instance.rewardedAdLoad();
   }
 
   Future<void> getUserRecords() async {

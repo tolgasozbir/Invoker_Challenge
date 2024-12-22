@@ -22,14 +22,6 @@ class TimeCircle extends StatelessWidget {
         backgroundColor: AppColors.circleColorSecondary,
         circularStrokeCap: CircularStrokeCap.butt,
       ),
-      // builder: (_, value, __) => DashedCircle(
-      //   dashProgress: value.item1,
-      //   dashUnits: value.item2,
-      //   circleRadius: context.dynamicHeight(0.13),
-      //   dashGap: 0.2,
-      //   //circleColor: const Color(0xFFB50DE2),
-      //   reversedColor: false,
-      // ),
     );
   }
 }

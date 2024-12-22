@@ -46,7 +46,7 @@ class _ResultDialogContentState extends State<ResultDialogContent> {
 
   @override
   void initState() {
-    Future.microtask(() async => AdsHelper.instance.rewardedInterstitialAdLoad());
+    Future.microtask(() async => AdsHelper.instance.rewardedAdLoad());
     super.initState();
   }
 

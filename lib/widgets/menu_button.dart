@@ -83,8 +83,8 @@ class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateM
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
     context.read<GameProvider>().resetTimer();
 
-    AdsHelper.instance.adCounter++;
-    if (AdsHelper.instance.interstitialAd != null && AdsHelper.instance.adCounter.isEven) {
+    AdsHelper.instance.menuAdCounter++;
+    if (AdsHelper.instance.interstitialAd != null && AdsHelper.instance.menuAdCounter.isEven) {
       try {
         await AdsHelper.instance.interstitialAd!.show();
       } catch (e) {
