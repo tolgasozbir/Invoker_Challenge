@@ -1,3 +1,4 @@
+import 'package:dota2_invoker_game/constants/app_image_paths.dart';
 import 'package:flutter/material.dart';
 
 import 'splash_view_model.dart';
@@ -19,7 +20,7 @@ class _SplashViewState extends SplashViewModel {
     return SafeArea(
       child: SizedBox.expand(
         child: Image.asset(
-          getRandomSplahImage,
+          ImagePaths.splashImage,
           fit: BoxFit.cover,
         ),
       ),

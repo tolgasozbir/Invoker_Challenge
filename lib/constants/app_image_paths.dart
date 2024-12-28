@@ -10,7 +10,6 @@ class LottiePaths {
 class ImagePaths {
   const ImagePaths._();
   static const String _root     = 'assets/images';
-  static const String _splash   = '$_root/splash_images';
   static const String _qweGif   = '$_root/qwe_gifs';
   static const String _misc     = '$_root/misc';
   static const String elements  = '$_root/elements/';
@@ -39,17 +38,12 @@ class ImagePaths {
     '$_svgRoot/rate5.svg',
   ];
 
-  static const List<String> splashImages = [
-    '$_splash/1.gif',
-    '$_splash/2.jpg',
-    '$_splash/3.jpg',
-  ];
-
   //main menu element gifs
   static const String quas  = '$_qweGif/quas.gif';
   static const String wex   = '$_qweGif/wex.gif';
   static const String exort = '$_qweGif/exort.gif';  
   //other
+  static const String splashImage   = '$_misc/splash_image.jpg';
   static const String spellImage    = '$_misc/quas-wex-exort.jpg';
   static const String loadingGif    = '$_misc/qweLoading.gif';
   static const String todClock      = '$_misc/time_of_day_clock.png';

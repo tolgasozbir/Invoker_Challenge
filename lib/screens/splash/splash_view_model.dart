@@ -1,11 +1,9 @@
 import 'dart:developer';
-import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
-import '../../constants/app_image_paths.dart';
 import '../../enums/local_storage_keys.dart';
 import '../../services/user_manager.dart';
 import '../../services/app_services.dart';
@@ -16,10 +14,7 @@ import 'splash_view.dart';
 
 abstract class SplashViewModel extends State<SplashView> {
 
-  final Duration _duration = const Duration(milliseconds: 3000);
-  final math.Random _rnd = math.Random();
-
-  String get getRandomSplahImage => ImagePaths.splashImages[_rnd.nextInt(ImagePaths.splashImages.length)];
+  final Duration _duration = const Duration(milliseconds: 2400);
 
   @override
   void initState(){
