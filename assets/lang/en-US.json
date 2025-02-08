@@ -126,7 +126,9 @@
     "settings" : {
         "feedback": "Feedback",
         "rateApp": "Rate this app",
-        "volume": "Volume"
+        "volume": "Volume",
+        "playerInfoTitle" : "Sound Mode | Normal - Advanced",
+        "playerInfoDesc" : "If there is no sound, change this setting."
     },
 
     "feedback" : {

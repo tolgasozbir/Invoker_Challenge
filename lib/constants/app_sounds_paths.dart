@@ -2,7 +2,7 @@ class AppSoundsPaths {
   const AppSoundsPaths._();
 
   //  Paths  //
-  static const String _root           = 'sounds';
+  static const String _root           = 'assets/sounds';
   static const String _ggSounds       = '$_root/gg_sounds';
   static const String _loadingSounds  = '$_root/loading_sounds';
   static const String _spellSounds    = '$_root/spell_sounds';
