@@ -434,6 +434,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.1.2"
+  flutter_soloud:
+    dependency: "direct main"
+    description:
+      name: flutter_soloud
+      sha256: c1f678187c9f11d22edde1fbcfe0fd51d932b7fc9098c609cb2ff071a5e3dc7a
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.7"
   flutter_staggered_animations:
     dependency: "direct main"
     description:

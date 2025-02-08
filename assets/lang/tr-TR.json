@@ -126,7 +126,9 @@
     "settings": {
         "feedback": "Geri Bildirim",
         "rateApp": "Uygulamayı değerlendir",
-        "volume": "Ses Düzeyi"
+        "volume": "Ses Düzeyi",
+        "playerInfoTitle" : "Ses Modu | Normal - Gelişmiş",
+        "playerInfoDesc" : "Ses çalmıyorsa bu ayarı değiştirin."
     },
 
     "feedback": {

@@ -17,7 +17,7 @@ class VolumeSlider extends StatelessWidget {
     return SleekCircularSlider(
       min: 0,
       max: 100,
-      initialValue: SoundManager.instance.getVolume,
+      initialValue: SoundManager.instance.appVolume,
       onChangeEnd: (value) async {
         SoundManager.instance.setVolume(value);
         await AppServices.instance.localStorageService.setValue<int>(

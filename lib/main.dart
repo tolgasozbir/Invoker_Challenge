@@ -23,6 +23,7 @@ import 'services/app_services.dart';
 import 'services/auth/firebase_auth_service.dart';
 import 'services/database/firestore_service.dart';
 import 'services/local_storage/local_storage_service.dart';
+import 'services/sound_manager.dart';
 import 'services/user_manager.dart';
 import 'widgets/app_dialogs.dart';
 import 'widgets/app_snackbar.dart';
@@ -33,20 +34,22 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   //Environment variables
   await FlutterConfig.loadEnvVariables();
-  //Ads
-  await MobileAds.instance.initialize();
   //Firebase
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  //App orientation
-  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  //Remote config
+  await FirebaseRemoteConfigService.instance.initConfigs();
   //Services
   await AppServices.instance.initServices(
     databaseService: FirestoreService.instance, 
     localStorageService: LocalStorageService.instance,
     firebaseAuthService: FirebaseAuthService.instance,
   );
-  //Remote config
-  await FirebaseRemoteConfigService.instance.initConfigs();
+  //Ads
+  await MobileAds.instance.initialize();
+  //Sound player
+  await SoundManager.instance.initialize();
+  //App orientation
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   //Providers
   runApp(
     MultiProvider(

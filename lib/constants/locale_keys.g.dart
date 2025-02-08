@@ -110,6 +110,8 @@ abstract class  LocaleKeys {
   static const settings_feedback = 'settings.feedback';
   static const settings_rateApp = 'settings.rateApp';
   static const settings_volume = 'settings.volume';
+  static const settings_playerInfoTitle = 'settings.playerInfoTitle';
+  static const settings_playerInfoDesc = 'settings.playerInfoDesc';
   static const settings = 'settings';
   static const feedback_fbTitleFirst = 'feedback.fbTitleFirst';
   static const feedback_fbTitleSecond = 'feedback.fbTitleSecond';

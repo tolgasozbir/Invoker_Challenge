@@ -1,5 +1,8 @@
 import 'dart:developer';
 
+import 'package:dota2_invoker_game/enums/sound_players.dart';
+import 'package:dota2_invoker_game/services/sound_player/audioplayer_wrapper.dart';
+import 'package:dota2_invoker_game/services/sound_player/soloud_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -67,9 +70,16 @@ abstract class SplashViewModel extends State<SplashView> {
   }
 
   void getSettingsValues() {
-    SoundManager.instance.setVolume(
-      AppServices.instance.localStorageService.getValue<int>(LocalStorageKey.volume)?.toDouble() ?? 80,
-    );
+    final storage = AppServices.instance.localStorageService;
+
+    final savedVolume = storage.getValue<int>(LocalStorageKey.volume)?.toDouble() ?? 80;
+    SoundManager.instance.setVolume(savedVolume);
+
+    final soundPlayer = storage.getValue<String>(LocalStorageKey.soundPlayer) ?? SoundPlayers.SoLoud.name;
+    final isSoLoud = soundPlayer == SoundPlayers.SoLoud.name;
+    final player = isSoLoud ? SoLoudWrapper.instance : AudioPlayerWrapper.instance;
+
+    SoundManager.instance.switchPlayer(player);
   }
 
   Future<void> goToMainMenu() async {

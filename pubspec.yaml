@@ -27,6 +27,7 @@ dependencies:
   audioplayers: 
     git:
       url: https://github.com/tolgasozbir/audioplayers
+  flutter_soloud: ^2.1.7
   internet_connection_checker: ^1.0.0+1
   url_launcher: ^6.3.0
   auto_size_text: ^3.0.0
