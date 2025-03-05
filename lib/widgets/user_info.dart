@@ -30,6 +30,7 @@ class UserStatus extends StatelessWidget {
   double get nextLevelExp => UserManager.instance.nextLevelExp;
   String get level => '${LocaleKeys.mainMenu_level.locale} ${user.level}';
   bool get hasUid => user.uid != null;
+  String? get miniMapIc => UserManager.instance.invokerType.miniMapIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +62,7 @@ class UserStatus extends StatelessWidget {
     AppDialogs.showSlidingDialog(
       dismissible: true,
       showBackButton: true,
-      height: hasUid ? context.dynamicHeight(0.64) : 500,
+      height: hasUid ? context.dynamicHeight(0.72) : 500,
       title:  hasUid ? LocaleKeys.mainMenu_profile.locale : '${LocaleKeys.formDialog_login.locale} & ${LocaleKeys.formDialog_register.locale}',
       uid: UserManager.instance.user.uid,
       content: hasUid
@@ -76,12 +77,12 @@ class UserStatus extends StatelessWidget {
       height: 64,
       margin: const EdgeInsets.all(8),
       decoration: boxDecoration,
-      child: const Icon(
-        FontAwesomeIcons.userSecret, 
-        shadows: [
-          Shadow(blurRadius: 32,),
-        ],
-      ),
+      child: hasUid && miniMapIc.isNotNullOrNoEmpty
+        ? Image.asset(miniMapIc!)
+        : const Icon(
+            FontAwesomeIcons.userSecret, 
+            shadows: [Shadow(blurRadius: 32)],
+          ),
     );
   }
 

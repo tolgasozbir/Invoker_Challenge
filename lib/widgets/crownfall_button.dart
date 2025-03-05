@@ -79,7 +79,7 @@ class CrownfallButton extends StatelessWidget {
                 end: Alignment.bottomCenter,
               ),
             ),
-            child: Center(child: child),
+            child: Center(child: FittedBox(child: child)),
           ),
         ),
       ),

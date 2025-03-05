@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
+import 'package:dota2_invoker_game/screens/profile/invoker_style/invoker_style_view.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
@@ -7,6 +8,7 @@ import 'package:provider/provider.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_image_paths.dart';
 import '../../constants/locale_keys.g.dart';
+import '../../enums/Bosses.dart';
 import '../../extensions/context_extension.dart';
 import '../../providers/boss_battle_provider.dart';
 import '../../screens/profile/achievements/achievements_view.dart';
@@ -23,14 +25,16 @@ class ProfileDialogContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: context.dynamicHeight(0.64)-80,
+      height: context.dynamicHeight(0.64),
       child: Column(
         children: [
           achievements(context),
-          const Divider(color: AppColors.amber, height: 8),
+          const Divider(color: AppColors.amber, thickness: 1, height: 8),
           bossGallery(context),
-          const Divider(color: AppColors.amber, height: 8,),
-          const Spacer(),
+          const Divider(color: AppColors.amber, thickness: 1, height: 8),
+          invokerForm(context),
+          const Divider(color: AppColors.amber, thickness: 1, height: 8),
+          const EmptyBox.h8(),
           syncDataBtn(context),
           if (!context.isSmallPhone) const EmptyBox.h8(),
           logoutbtn(context),
@@ -84,7 +88,7 @@ class ProfileDialogContent extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Image.asset(ImagePaths.icInvokerHead, width: context.dynamicWidth(0.24),),
+            Image.asset(Bosses.wraith_king.getImage, width: context.dynamicWidth(0.24),),
             Expanded(
               child: AutoSizeText(
                 LocaleKeys.mainMenu_bossGallery.locale,
@@ -98,6 +102,31 @@ class ProfileDialogContent extends StatelessWidget {
         ),
       ),
       onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const BossGalleryView(),)),
+    );
+  }
+  
+  InkWell invokerForm(BuildContext context) {
+    return InkWell(
+      child: SizedBox(
+        height: context.dynamicHeight(0.14),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Image.asset(ImagePaths.icInvokerHead, width: context.dynamicWidth(0.24),),
+            Expanded(
+              child: AutoSizeText(
+                LocaleKeys.InvokerForm_invokerForm.locale,
+                style: TextStyle(fontSize: context.sp(18)),
+                maxLines: 1,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            const Icon(Icons.chevron_right, color: AppColors.amber),
+          ],
+        ),
+      ),
+      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const InvokerStyleView(),)),
     );
   }
 

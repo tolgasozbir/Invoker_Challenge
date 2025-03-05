@@ -27,6 +27,13 @@ class SettingsView extends StatelessWidget {
           const EmptyBox.h8(),
           const SoundPlayerSwitch(),
           divider(),
+          // menuItem(
+          //   context: context,
+          //   leading: Icons.auto_awesome_outlined,
+          //   text: LocaleKeys.InvokerForm_invokerForm.locale,
+          //   onTap: () => Navigator.push(context, fadeInPageRoute(const InvokerStyleView())),
+          // ),
+          // divider(),
           menuItem(
             context: context,
             leading: CupertinoIcons.text_bubble,

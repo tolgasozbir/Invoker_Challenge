@@ -1,5 +1,6 @@
 import '../constants/app_image_paths.dart';
 import '../constants/app_sounds_paths.dart';
+import '../services/user_manager.dart';
 
 enum Spell {
   cold_snap       (combination: 'qqq', cooldown: 20, mana: 125, damage: 72,  duration: 6),  //432
@@ -25,7 +26,7 @@ enum Spell {
 }
 
 extension SpellsExtension on Spell {
-  String get image => '${ImagePaths.spells}$name.png';
+  String get image => UserManager.instance.invokerType.spells[this] ?? ImagePaths.ic_unknown;
 
   String get castSound => '${AppSoundsPaths.spellCastSounds}/${name}_cast.mpeg';
   

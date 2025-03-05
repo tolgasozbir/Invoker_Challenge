@@ -1,6 +1,7 @@
 import 'package:dota2_invoker_game/enums/Bosses.dart';
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import '../constants/locale_keys.g.dart';
+import '../models/invoker.dart';
 import '../utils/formatted_date.dart';
 import 'package:flutter/material.dart';
 import 'package:snappable_thanos/snappable_thanos.dart';
@@ -18,6 +19,23 @@ class UserManager extends ChangeNotifier {
   UserManager._();
   static UserManager? _instance;
   static UserManager get instance => _instance ??= UserManager._();
+
+  Invoker _invokerType = InvokerSet.defaultSet.type;
+  Invoker get invokerType => _invokerType;
+
+  void changeInvokerType(InvokerSet set) async {
+    if (invokerType == set.type) {
+      //print("No changes");
+      return;
+    }
+    //print("current set is : ${set.name}");
+    _invokerType = set.type;
+    await AppServices.instance.localStorageService.setValue<String>(
+      LocalStorageKey.userRecords,
+      set.name,
+    );
+    notifyListeners();
+  }
 
   final IBaseHiveService<UserModel> userHiveManager = IBaseHiveService<UserModel>(
     boxName: HiveBoxNames.user, 

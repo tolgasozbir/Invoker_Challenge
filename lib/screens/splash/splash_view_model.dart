@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dota2_invoker_game/enums/sound_players.dart';
+import 'package:dota2_invoker_game/models/invoker.dart';
 import 'package:dota2_invoker_game/services/sound_player/audioplayer_wrapper.dart';
 import 'package:dota2_invoker_game/services/sound_player/soloud_wrapper.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,7 @@ abstract class SplashViewModel extends State<SplashView> {
     await loadAds();
     await getUserRecords();
     getSettingsValues();
+    loadInvokerSet();
     await goToMainMenu();
   }
 
@@ -80,6 +82,17 @@ abstract class SplashViewModel extends State<SplashView> {
     final player = isSoLoud ? SoLoudWrapper.instance : AudioPlayerWrapper.instance;
 
     SoundManager.instance.switchPlayer(player);
+  }
+
+  void loadInvokerSet() {
+    final cachedInvokerSet = AppServices.instance.localStorageService.getValue<String>(LocalStorageKey.invokerForm);
+    if (cachedInvokerSet != null) {
+      final set = InvokerSet.values.firstWhere(
+        (e) => e.name == cachedInvokerSet,
+        orElse: () => InvokerSet.defaultSet,
+      );
+      UserManager.instance.changeInvokerType(set);
+    }
   }
 
   Future<void> goToMainMenu() async {

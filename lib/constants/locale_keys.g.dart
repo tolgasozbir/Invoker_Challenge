@@ -165,6 +165,10 @@ abstract class  LocaleKeys {
   static const appUpdateDialog_later = 'appUpdateDialog.later';
   static const appUpdateDialog_message = 'appUpdateDialog.message';
   static const appUpdateDialog = 'appUpdateDialog';
+  static const InvokerForm_invokerForm = 'InvokerForm.invokerForm';
+  static const InvokerForm_equipPersona = 'InvokerForm.equipPersona';
+  static const InvokerForm_unequipPersona = 'InvokerForm.unequipPersona';
+  static const InvokerForm = 'InvokerForm';
   static const Item_basic = 'Item.basic';
   static const Item_advanced = 'Item.advanced';
   static const Item_sell = 'Item.sell';

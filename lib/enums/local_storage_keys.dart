@@ -3,6 +3,7 @@ enum LocalStorageKey {
   userRecords,
   savedGame,
   soundPlayer,
+  invokerForm,
   //int keys
   volume,
   qwerHudHeight,

@@ -10,7 +10,7 @@ mixin OrbMixin<T extends StatefulWidget> on State<T> {
   String get currentCombination => _currentCombination.join();
 
   BoxDecoration qwerAbilityDecoration(Color color) => BoxDecoration(
-    borderRadius: const BorderRadius.all(Radius.circular(2)),
+    borderRadius: const BorderRadius.all(Radius.circular(8)),
     border: const Border.symmetric(
       horizontal: BorderSide(strokeAlign: BorderSide.strokeAlignOutside),
       vertical: BorderSide(strokeAlign: BorderSide.strokeAlignOutside),
@@ -19,7 +19,7 @@ mixin OrbMixin<T extends StatefulWidget> on State<T> {
       BoxShadow(
         color: color, 
         blurRadius: 16,
-        offset: const Offset(2, 2),
+        //offset: const Offset(2, 2),
       ),
     ],
   );
