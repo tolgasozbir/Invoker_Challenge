@@ -33,6 +33,7 @@ class AppSoundsPaths {
   static const List<String> personaPickSounds = [
     '$_miscSounds/kid_select1.mp3',
     '$_miscSounds/kid_select2.mp3',
+    '$_miscSounds/kid_select3.mp3',
   ];
 
   static const List<String> failSounds = [
