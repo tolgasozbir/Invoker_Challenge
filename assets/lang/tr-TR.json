@@ -198,6 +198,12 @@
         "message" : "Invoker, hazır ol! Sürpriz bir güncelleme seni bekliyor. Hemen güncelle ve sihir dolu dünyamızda neler olduğunu keşfet. Yepyeni özellikler ve değişikliklerle oyun deneyimini daha da güzelleştirdik. Güncelleme butonuna dokun ve bu sihirli serüvene katıl!"
     },
 
+    "InvokerForm" : {
+        "invokerForm" : "Invoker Formu",
+        "equipPersona" : "Persona'yı Kuşan",
+        "unequipPersona" : "Persona'yı Çıkar"
+    },
+
     "Item" : {
         "basic" : "Basit",
         "advanced" : "Gelişmiş",

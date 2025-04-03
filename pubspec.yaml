@@ -33,6 +33,7 @@ dependencies:
   auto_size_text: ^3.0.0
   flutter_fgbg: ^0.6.0
   tuple: ^2.0.2
+  collection: ^1.18.0
 
   #.env
   flutter_config:

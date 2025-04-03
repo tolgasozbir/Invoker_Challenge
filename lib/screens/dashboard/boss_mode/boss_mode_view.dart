@@ -269,7 +269,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
           DecoratedBox(
             decoration: qwerAbilityDecoration(element.getColor),
             child: ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(2)),
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
               child: Image.asset(
                 element.getImage,
                 width: context.dynamicWidth(0.18),

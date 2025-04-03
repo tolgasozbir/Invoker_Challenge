@@ -198,6 +198,12 @@
         "message": "Invoker, get ready! A surprise update is waiting for you. Update now and discover what's new in our magical world. We've enhanced the gaming experience with brand-new features and changes. Tap the update button and join this enchanting adventure!"
     },
 
+    "InvokerForm" : {
+        "invokerForm" : "Invoker Form",
+        "equipPersona" : "Equip Persona",
+        "unequipPersona" : "Unequip Persona"
+    },
+
     "Item" : {
         "basic" : "Basic",
         "advanced" : "Advanced",

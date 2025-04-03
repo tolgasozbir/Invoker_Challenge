@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:dota2_invoker_game/services/sound_player/audioplayer_wrapper.dart';
 import 'package:dota2_invoker_game/services/sound_player/soloud_wrapper.dart';
+import 'package:dota2_invoker_game/services/user_manager.dart';
 import '../constants/app_sounds_paths.dart';
 
 import '../enums/Bosses.dart';
@@ -41,14 +42,30 @@ class SoundManager {
   }
 
   // Common Sounds //
+  bool get _isPersona => UserManager.instance.isPersonaActive;
 
-  void playLoadingSound() => player.playRandomSound(AppSoundsPaths.loadingSounds, volume: 0.40);
+  void playLoadingSound() {
+    player.playRandomSound(
+      _isPersona ? AppSoundsPaths.loadingSoundsKid : AppSoundsPaths.loadingSounds, 
+      volume: 0.40,
+    );
+  }
 
   void playMeepMerp() => player.play(AppSoundsPaths.meepMerp);
 
-  void failCombinationSound() => player.playRandomSound(AppSoundsPaths.failSounds);
+  void failCombinationSound() {
+    player.playRandomSound(
+      _isPersona ? AppSoundsPaths.failSoundsKid : AppSoundsPaths.failSounds,
+      volume: 0.35,
+    );
+  }
 
-  void ggSound() => player.playRandomSound(AppSoundsPaths.ggSounds);
+  void ggSound() {
+    player.playRandomSound(
+      _isPersona ? AppSoundsPaths.ggSoundsKid : AppSoundsPaths.ggSounds,
+      volume: 0.35,
+    );
+  }
 
   void playInvoke({double volume = 0.35}) => player.play(AppSoundsPaths.invoke, volume: volume);
 
@@ -239,8 +256,11 @@ class SoundManager {
     if (!(DateTime.now().difference(lastPlayedCdTime) > const Duration(seconds: 1))) return;
     lastPlayedCdTime = DateTime.now();
     final int soundNum = _rnd.nextInt(9) + 1;
-    final String sound = '${AppSoundsPaths.abilityOnCooldown}$soundNum.mpeg';
-    player.play(sound);
+    String sound = '${AppSoundsPaths.abilityOnCooldown}$soundNum.mpeg';
+    if (_isPersona) {
+      sound = '${AppSoundsPaths.abilityOnCooldownKid}$soundNum.mp3';
+    }
+    player.play(sound, volume: 0.35);
   }
   
   DateTime lastPlayedNoManaTime = DateTime.now();
@@ -248,13 +268,24 @@ class SoundManager {
     if (!(DateTime.now().difference(lastPlayedNoManaTime) > const Duration(seconds: 1))) return;
     lastPlayedNoManaTime = DateTime.now();
     final int soundNum = _rnd.nextInt(9) + 1;
-    final String sound = '${AppSoundsPaths.notEnoughMana}$soundNum.mpeg';
-    player.play(sound);
+    String sound = '${AppSoundsPaths.notEnoughMana}$soundNum.mpeg';
+    if (_isPersona) {
+      sound = '${AppSoundsPaths.notEnoughManaKid}$soundNum.mp3';
+    }
+    player.play(sound, volume: 0.35);
   }
 
   void spellCastTriggerSound(Spell spell) {
     playSpellSound(spell);
     player.play(spell.castSound, volume: 0.2);
+  }
+
+  // Oth
+  DateTime lastPlayedPersonaPickTime = DateTime.now();
+  void playPersonaPickedSound() {
+    if (!(DateTime.now().difference(lastPlayedPersonaPickTime) > const Duration(seconds: 2))) return;
+    lastPlayedPersonaPickTime = DateTime.now();
+    player.playRandomSound(AppSoundsPaths.personaPickSounds, volume: 0.40);
   }
 
 }
