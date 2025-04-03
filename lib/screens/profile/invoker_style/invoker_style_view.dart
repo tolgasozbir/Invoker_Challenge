@@ -6,6 +6,7 @@ import 'package:dota2_invoker_game/constants/locale_keys.g.dart';
 import 'package:dota2_invoker_game/extensions/context_extension.dart';
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:dota2_invoker_game/mixins/screen_state_mixin.dart';
+import 'package:dota2_invoker_game/services/sound_manager.dart';
 import 'package:dota2_invoker_game/services/user_manager.dart';
 import 'package:dota2_invoker_game/widgets/crownfall_button.dart';
 import 'package:dota2_invoker_game/widgets/empty_box.dart';
@@ -130,9 +131,13 @@ class _InvokerStyleViewState extends State<InvokerStyleView> with ScreenStateMix
       width: context.dynamicWidth(0.64),
       height: 64,
       onTap: () {
-        UserManager.instance.changeInvokerType(
-          isPersonaActive ? InvokerSet.defaultSet : InvokerSet.personaSet,
-        );
+        final invokerSet = isPersonaActive ? InvokerSet.defaultSet : InvokerSet.personaSet;
+        UserManager.instance.changeInvokerType(invokerSet);
+
+        if (!isPersonaActive) {
+          SoundManager.instance.playPersonaPickedSound();
+        }
+
         updateScreen();
       },
       child: Text(

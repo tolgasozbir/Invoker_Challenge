@@ -29,19 +29,21 @@ extension SpellsExtension on Spell {
   String get image => UserManager.instance.invokerType.spells[this] ?? ImagePaths.ic_unknown;
 
   String get castSound => '${AppSoundsPaths.spellCastSounds}/${name}_cast.mpeg';
+
+  bool get _isPersona => UserManager.instance.isPersonaActive;
   
   List<String> get spellSounds {
     switch (this) {
-      case Spell.cold_snap:       return AppSoundsPaths.coldSnapSounds;
-      case Spell.ghost_walk:      return AppSoundsPaths.ghostWalkSounds;
-      case Spell.ice_wall:        return AppSoundsPaths.iceWallSounds;
-      case Spell.emp:             return AppSoundsPaths.empSounds;
-      case Spell.tornado:         return AppSoundsPaths.tornadoSounds;
-      case Spell.alacrity:        return AppSoundsPaths.alacritySounds;
-      case Spell.deafening_blast: return AppSoundsPaths.deafeningBlastSounds;
-      case Spell.sun_strike:      return AppSoundsPaths.sunStrikeSounds;
-      case Spell.forge_spirit:    return AppSoundsPaths.forgeSpiritSounds;
-      case Spell.chaos_meteor:    return AppSoundsPaths.chaosMeteorSounds;
+      case Spell.cold_snap:       return _isPersona ? AppSoundsPaths.coldSnapSoundsKid        : AppSoundsPaths.coldSnapSounds;
+      case Spell.ghost_walk:      return _isPersona ? AppSoundsPaths.ghostWalkSoundsKid       : AppSoundsPaths.ghostWalkSounds;
+      case Spell.ice_wall:        return _isPersona ? AppSoundsPaths.iceWallSoundsKid         : AppSoundsPaths.iceWallSounds;
+      case Spell.emp:             return _isPersona ? AppSoundsPaths.empSoundsKid             : AppSoundsPaths.empSounds;
+      case Spell.tornado:         return _isPersona ? AppSoundsPaths.tornadoSoundsKid         : AppSoundsPaths.tornadoSounds;
+      case Spell.alacrity:        return _isPersona ? AppSoundsPaths.alacritySoundsKid        : AppSoundsPaths.alacritySounds;
+      case Spell.deafening_blast: return _isPersona ? AppSoundsPaths.deafeningBlastSoundsKid  : AppSoundsPaths.deafeningBlastSounds;
+      case Spell.sun_strike:      return _isPersona ? AppSoundsPaths.sunStrikeSoundsKid       : AppSoundsPaths.sunStrikeSounds;
+      case Spell.forge_spirit:    return _isPersona ? AppSoundsPaths.forgeSpiritSoundsKid     : AppSoundsPaths.forgeSpiritSounds;
+      case Spell.chaos_meteor:    return _isPersona ? AppSoundsPaths.chaosMeteorSoundsKid     : AppSoundsPaths.chaosMeteorSounds;
     }
   }
 

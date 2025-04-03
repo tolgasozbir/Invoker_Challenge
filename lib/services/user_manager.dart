@@ -22,18 +22,20 @@ class UserManager extends ChangeNotifier {
 
   Invoker _invokerType = InvokerSet.defaultSet.type;
   Invoker get invokerType => _invokerType;
+  bool _isPersonaActive = false;
+  bool get isPersonaActive => _isPersonaActive;
 
   void changeInvokerType(InvokerSet set) async {
-    if (invokerType == set.type) {
-      //print("No changes");
-      return;
-    }
-    //print("current set is : ${set.name}");
+    if (invokerType == set.type) return;
+
+    _isPersonaActive = set == InvokerSet.personaSet;
     _invokerType = set.type;
+
     await AppServices.instance.localStorageService.setValue<String>(
       LocalStorageKey.userRecords,
       set.name,
     );
+
     notifyListeners();
   }
 
