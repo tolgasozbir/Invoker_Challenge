@@ -89,10 +89,18 @@ flutter:
           weight: 400
 
   assets:
+    # Environment configuration
     - .env
 
+    # Localization
     - assets/lang/
 
+    # Animations & Graphics
+    - assets/icons/
+    - assets/lottie/
+    - assets/svg/
+
+    # Images
     - assets/images/qwe_gifs/
     - assets/images/misc/
     - assets/images/elements/
@@ -101,30 +109,40 @@ flutter:
     - assets/images/bosses/
     - assets/images/items/
 
-    - assets/sounds/fail_sounds/
-    - assets/sounds/gg_sounds/
-    - assets/sounds/loading_sounds/
-    - assets/sounds/spell_sounds/
-    - assets/sounds/spell_sounds/cast_sounds/
-    - assets/sounds/misc/
-    - assets/sounds/ability_on_cooldown/
-    - assets/sounds/not_enough_mana/
-    - assets/sounds/shop_sounds/
-    - assets/sounds/item_sounds/
-    - assets/sounds/boss_sounds/warlock/
-    - assets/sounds/boss_sounds/omniknight/
-    - assets/sounds/boss_sounds/riki/
-    - assets/sounds/boss_sounds/huskar/
-    - assets/sounds/boss_sounds/templar/
-    - assets/sounds/boss_sounds/anti_mage/
-    - assets/sounds/boss_sounds/juggernaut/
-    - assets/sounds/boss_sounds/blood_seeker/
-    - assets/sounds/boss_sounds/blood_seeker/
-    - assets/sounds/boss_sounds/drow_ranger/
-    - assets/sounds/boss_sounds/axe/
-    - assets/sounds/boss_sounds/pudge/
-    - assets/sounds/boss_sounds/wraith_king/
+    # Sounds
+    ## Invoker Responses
+    - assets/sounds/ability_cooldown/default/
+    - assets/sounds/ability_cooldown/persona/
+    - assets/sounds/fail_cast/default/
+    - assets/sounds/fail_cast/persona/
+    - assets/sounds/game_over/default/
+    - assets/sounds/game_over/persona/
+    - assets/sounds/insufficient_mana/default/
+    - assets/sounds/insufficient_mana/persona/
+    - assets/sounds/loading/default/
+    - assets/sounds/loading/persona/
 
-    - assets/lottie/
-    - assets/svg/
-    - assets/icons/
+    ## Item Sounds
+    - assets/sounds/item/
+    ## Miscellaneous Sounds
+    - assets/sounds/misc/
+    ## Shop Sounds
+    - assets/sounds/shop/
+    ## Spell Sounds
+    - assets/sounds/spell/
+    - assets/sounds/spell/cast/
+
+    ##Boss Sounds
+    - assets/sounds/boss/warlock/
+    - assets/sounds/boss/omniknight/
+    - assets/sounds/boss/riki/
+    - assets/sounds/boss/huskar/
+    - assets/sounds/boss/templar/
+    - assets/sounds/boss/anti_mage/
+    - assets/sounds/boss/juggernaut/
+    - assets/sounds/boss/blood_seeker/
+    - assets/sounds/boss/blood_seeker/
+    - assets/sounds/boss/drow_ranger/
+    - assets/sounds/boss/axe/
+    - assets/sounds/boss/pudge/
+    - assets/sounds/boss/wraith_king/

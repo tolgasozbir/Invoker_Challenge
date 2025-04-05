@@ -1,202 +1,103 @@
-class AppSoundsPaths {
-  const AppSoundsPaths._();
+/// Provides sound asset paths.
+class AppSoundPaths {
+  const AppSoundPaths._();
 
-  //  Paths  //
-  static const String _root           = 'assets/sounds';
-  static const String _ggSounds       = '$_root/gg_sounds';
-  static const String _loadingSounds  = '$_root/loading_sounds';
-  static const String _spellSounds    = '$_root/spell_sounds';
-  static const String _miscSounds     = '$_root/misc';
-  static const String _shopSounds     = '$_root/shop_sounds';
-  
-  static const String spellCastSounds   = '$_spellSounds/cast_sounds';
-  static const String itemSounds        = '$_root/item_sounds';
-  static const String bossSounds        = '$_root/boss_sounds';
-  static const String abilityOnCooldown = '$_root/ability_on_cooldown/notyet';
-  static const String abilityOnCooldownKid = '$_root/ability_on_cooldown/kid_notyet';
-  static const String notEnoughMana     = '$_root/not_enough_mana/nomana';
-  static const String notEnoughManaKid     = '$_root/not_enough_mana/kid_nomana';
+  /// Generates a list of sound file paths.
+  /// Constructs file paths sequentially by appending numbers to the file name.
+  ///
+  /// [basePath] - The directory path where the sound files are located.
+  /// [fileName] - The base name of the sound files.
+  /// [fileCount] - The number of files to generate.
+  /// [extension] - The file extension (default is 'mp3').
+  ///
+  /// Example:
+  /// ```dart
+  /// List<String> soundPaths = _createSoundList('assets/sounds', 'sound', 3);
+  /// print(soundPaths);
+  /// // Output: ['assets/sounds/sound1.mp3', 'assets/sounds/sound2.mp3', 'assets/sounds/sound3.mp3']
+  /// ```
+  static List<String> _createSoundList(String basePath, String fileName, int fileCount, {String extension = 'mp3'}) {
+    return List<String>.generate(
+      fileCount,
+      (index) => '$basePath/$fileName${index + 1}.$extension',
+    );
+  }
 
-  //  Shop Sounds  //
-  static const String itemBuying  = '$_shopSounds/item_buying.mpeg';
-  static const String itemSelling = '$_shopSounds/Item_selling.mpeg';
-  static const String shopWelcome = '$_shopSounds/shop_welcome';
-  static const String shopLeave   = '$_shopSounds/shop_leave';
+  // Root directory
+  static const String _base = 'assets/sounds';
+  // Subdirectories
+  static const String _cooldown = '$_base/ability_cooldown';
+  static const String _failCast = '$_base/fail_cast';
+  static const String _gameOver = '$_base/game_over';
+  static const String _noMana   = '$_base/insufficient_mana';
+  static const String _loading  = '$_base/loading';
+  static const String _shop     = '$_base/shop';
+  static const String _misc     = '$_base/misc';
+  static const String _spell    = '$_base/spell';
+  static const String spellCast = '$_spell/cast';
+  static const String boss      = '$_base/boss';
+  static const String item      = '$_base/item';
 
-  //  Misc  //
-  static const String meepMerp      = '$_miscSounds/meep_merp.mp3';
-  static const String invoke        = '$_miscSounds/Invoke.mpeg';
+  // -- Invoker Sounds (default/persona) --
+  static final List<String> abilityCooldownDefault = _createSoundList('$_cooldown/default', 'not_ready', 9);
+  static final List<String> abilityCooldownPersona = _createSoundList('$_cooldown/persona', 'not_ready', 9);
+
+  static final List<String> failCastDefault = _createSoundList('$_failCast/default', 'fail', 7);
+  static final List<String> failCastPersona = _createSoundList('$_failCast/persona', 'fail', 5);
+
+  static final List<String> gameOverDefault = _createSoundList('$_gameOver/default', 'game_over', 4);
+  static final List<String> gameOverPersona = _createSoundList('$_gameOver/persona', 'game_over', 4);  
+
+  static final List<String> noManaDefault = _createSoundList('$_noMana/default', 'no_mana', 9);
+  static final List<String> noManaPersona = _createSoundList('$_noMana/persona', 'no_mana', 9);
+
+  static final List<String> loadingDefault = _createSoundList('$_loading/persona', 'loading', 5);
+  static final List<String> loadingPersona = _createSoundList('$_loading/persona', 'loading', 5);
+
+  // -- Shop Sounds --
+  static const String itemBuy  = '$_shop/item_buy.mp3';
+  static const String itemSell = '$_shop/item_sell.mp3';
+  static final List<String> shopEnter = _createSoundList(_shop, 'welcome', 6);
+  static final List<String> shopExit  = _createSoundList(_shop, 'leave', 5);
+
+  // -- Misc Sounds --
+  static const String meepMerp = '$_misc/meep_merp.mp3';
+  static const String invoke   = '$_misc/invoke.mp3';
   static const List<String> horns = [
-    '$_miscSounds/horn_dire.mpeg',
-    '$_miscSounds/horn_radiant.mpeg',
+    '$_misc/horn_dire.mp3',
+    '$_misc/horn_radiant.mp3',
   ];
-  static const List<String> personaPickSounds = [
-    '$_miscSounds/kid_select1.mp3',
-    '$_miscSounds/kid_select2.mp3',
-    '$_miscSounds/kid_select3.mp3',
-  ];
+  static final List<String> personaSelect = _createSoundList(_misc, 'persona_select', 3);
 
-  static const List<String> failSounds = [
-    '$_root/fail_sounds/fail1.mp3',
-    '$_root/fail_sounds/fail2.mp3',
-    '$_root/fail_sounds/fail3.mp3',
-    '$_root/fail_sounds/fail4.mp3',
-    '$_root/fail_sounds/fail5.mp3',
-    '$_root/fail_sounds/fail6.mp3',
-    '$_root/fail_sounds/fail7.mp3',
-  ];  
+  // -- Invoker Spell Sounds (default/persona) --
+  static final coldSnap         = _createSoundList(_spell, 'cold_snap', 3);
+  static final coldSnapPersona  = _createSoundList(_spell, 'cold_snap_persona', 3);
+
+  static final ghostWalk        = _createSoundList(_spell, 'ghost_walk', 3);
+  static final ghostWalkPersona = _createSoundList(_spell, 'ghost_walk_persona', 2);
   
-  static const List<String> failSoundsKid = [
-    '$_root/fail_sounds/kid_fail1.mp3',
-    '$_root/fail_sounds/kid_fail2.mp3',
-    '$_root/fail_sounds/kid_fail3.mp3',
-    '$_root/fail_sounds/kid_fail4.mp3',
-    '$_root/fail_sounds/kid_fail5.mp3',
-  ];
+  static final iceWall          = _createSoundList(_spell, 'icewall', 2);
+  static final iceWallPersona   = _createSoundList(_spell, 'icewall_persona', 2);
 
-  static const List<String> loadingSounds = [
-    '$_loadingSounds/begin1.mp3',
-    '$_loadingSounds/begin2.mp3',
-    '$_loadingSounds/begin3.mp3',
-    '$_loadingSounds/begin4.mp3',
-    '$_loadingSounds/begin5.mp3',
-  ];  
+  static final emp              = _createSoundList(_spell, 'emp', 3);
+  static final empPersona       = _createSoundList(_spell, 'emp_persona', 3);
+
+  static final tornado          = _createSoundList(_spell, 'tornado', 3);
+  static final tornadoPersona   = _createSoundList(_spell, 'tornado_persona', 3);
+
+  static final alacrity         = _createSoundList(_spell, 'alacrity', 2);
+  static final alacrityPersona  = _createSoundList(_spell, 'alacrity_persona', 2);
+
+  static final deafeningBlast         = _createSoundList(_spell, 'blast', 3);
+  static final deafeningBlastPersona  = _createSoundList(_spell, 'blast_persona', 3);
+
+  static final sunStrike          = _createSoundList(_spell, 'sun_strike', 3);
+  static final sunStrikePersona   = _createSoundList(_spell, 'sun_strike_persona', 3);
+
+  static final forgeSpirit        = _createSoundList(_spell, 'forge_spirit', 2);
+  static final forgeSpiritPersona = _createSoundList(_spell, 'forge_spirit_persona', 2);
+
+  static final chaosMeteor        = _createSoundList(_spell, 'meteor', 2);
+  static final chaosMeteorPersona = _createSoundList(_spell, 'meteor_persona', 3);
   
-  static const List<String> loadingSoundsKid = [
-    '$_loadingSounds/kid_begin1.mp3',
-    '$_loadingSounds/kid_begin2.mp3',
-    '$_loadingSounds/kid_begin3.mp3',
-    '$_loadingSounds/kid_begin4.mp3',
-    '$_loadingSounds/kid_begin5.mp3',
-  ];
-
-  static const List<String> ggSounds = [
-    '$_ggSounds/gg1.mpeg',
-    '$_ggSounds/gg2.mpeg',
-    '$_ggSounds/gg3.mpeg',
-    '$_ggSounds/gg4.mpeg',
-  ];
-  
-  static const List<String> ggSoundsKid = [
-    '$_ggSounds/kid_gg1.mp3',
-    '$_ggSounds/kid_gg2.mp3',
-    '$_ggSounds/kid_gg3.mp3',
-    '$_ggSounds/kid_gg4.mp3',
-  ];
-
-  
-  //  Spell Sounds  //
-
-  static const coldSnapSounds = [
-    '$_spellSounds/cold_snap1.mp3',
-    '$_spellSounds/cold_snap2.mp3',
-    '$_spellSounds/cold_snap3.mp3',
-  ];
-  
-  static const coldSnapSoundsKid = [
-    '$_spellSounds/kid_cold_snap1.mp3',
-    '$_spellSounds/kid_cold_snap2.mp3',
-    '$_spellSounds/kid_cold_snap3.mp3',
-  ];
-
-  static const ghostWalkSounds = [
-    '$_spellSounds/ghost_walk1.mp3',
-    '$_spellSounds/ghost_walk2.mp3',
-    '$_spellSounds/ghost_walk3.mp3',
-  ];
-  
-  static const ghostWalkSoundsKid = [
-    '$_spellSounds/kid_ghost_walk1.mp3',
-    '$_spellSounds/kid_ghost_walk2.mp3',
-  ];
-
-  static const iceWallSounds = [
-    '$_spellSounds/icewall1.mp3',
-    '$_spellSounds/icewall2.mp3',
-  ];
-  
-  static const iceWallSoundsKid = [
-    '$_spellSounds/kid_icewall1.mp3',
-    '$_spellSounds/kid_icewall2.mp3',
-  ];
-
-  static const empSounds = [
-    '$_spellSounds/emp1.mp3',
-    '$_spellSounds/emp2.mp3',
-    '$_spellSounds/emp3.mp3',
-  ];
-  
-  static const empSoundsKid = [
-    '$_spellSounds/kid_emp1.mp3',
-    '$_spellSounds/kid_emp2.mp3',
-    '$_spellSounds/kid_emp3.mp3',
-  ];
-
-  static const tornadoSounds = [
-    '$_spellSounds/tornado1.mp3',
-    '$_spellSounds/tornado2.mp3',
-    '$_spellSounds/tornado3.mp3',
-  ];
-  
-  static const tornadoSoundsKid = [
-    '$_spellSounds/kid_tornado1.mp3',
-    '$_spellSounds/kid_tornado2.mp3',
-    '$_spellSounds/kid_tornado3.mp3',
-  ];
-
-  static const alacritySounds = [
-    '$_spellSounds/alacrity1.mp3',
-    '$_spellSounds/alacrity2.mp3',
-  ];
-
-  static const alacritySoundsKid = [
-    '$_spellSounds/kid_alacrity1.mp3',
-    '$_spellSounds/kid_alacrity2.mp3',
-  ];
-
-  static const deafeningBlastSounds = [
-    '$_spellSounds/blast1.mp3',
-    '$_spellSounds/blast2.mp3',
-    '$_spellSounds/blast3.mp3',
-  ];
-  
-  static const deafeningBlastSoundsKid = [
-    '$_spellSounds/kid_blast1.mp3',
-    '$_spellSounds/kid_blast2.mp3',
-    '$_spellSounds/kid_blast3.mp3',
-  ];
-
-  static const sunStrikeSounds = [
-    '$_spellSounds/sunstrike1.mp3',
-    '$_spellSounds/sunstrike2.mp3',
-    '$_spellSounds/sunstrike3.mp3',
-  ];
-  
-  static const sunStrikeSoundsKid = [
-    '$_spellSounds/kid_sun_strike1.mp3',
-    '$_spellSounds/kid_sun_strike2.mp3',
-    '$_spellSounds/kid_sun_strike3.mp3',
-  ];
-
-  static const forgeSpiritSounds = [
-    '$_spellSounds/forge_spirit1.mp3',
-    '$_spellSounds/forge_spirit2.mp3',
-  ];
-  
-  static const forgeSpiritSoundsKid = [
-    '$_spellSounds/kid_forge_spirit1.mp3',
-    '$_spellSounds/kid_forge_spirit2.mp3',
-  ];
-
-  static const chaosMeteorSounds = [
-    '$_spellSounds/meteor1.mp3',
-    '$_spellSounds/meteor2.mp3',
-  ];
-  
-  static const chaosMeteorSoundsKid = [
-    '$_spellSounds/kid_meteor1.mp3',
-    '$_spellSounds/kid_meteor2.mp3',
-    '$_spellSounds/kid_meteor3.mp3',
-  ];
-
 }
