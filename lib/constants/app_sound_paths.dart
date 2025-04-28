@@ -51,7 +51,7 @@ class AppSoundPaths {
   static final List<String> noManaDefault = _createSoundList('$_noMana/default', 'no_mana', 9);
   static final List<String> noManaPersona = _createSoundList('$_noMana/persona', 'no_mana', 9);
 
-  static final List<String> loadingDefault = _createSoundList('$_loading/persona', 'loading', 5);
+  static final List<String> loadingDefault = _createSoundList('$_loading/default', 'loading', 5);
   static final List<String> loadingPersona = _createSoundList('$_loading/persona', 'loading', 5);
 
   // -- Shop Sounds --

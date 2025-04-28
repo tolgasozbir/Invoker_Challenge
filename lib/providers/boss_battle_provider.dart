@@ -138,12 +138,12 @@ class BossBattleProvider extends ChangeNotifier {
 
   void _addGold(int val) {
     _userGold += val;
-    SoundManager.instance.playItemSellingSound();
+    SoundManager.instance.playItemSellSound();
   }
 
   void _spendGold(int val) {
     _userGold -= val;
-    SoundManager.instance.playItemBuyingSound();
+    SoundManager.instance.playItemBuySound();
   }
 
   final List<Item> _consumableItems = [];
@@ -527,12 +527,12 @@ class BossBattleProvider extends ChangeNotifier {
   /// this function is called inside the [_timer] object
   void _autoHit(){
     final double fullDamage = ((baseDamage+bonusDamage) + (damageMultiplier * (baseDamage+bonusDamage)) + rng.nextInt(16)) * getHighestCriticalStrikeRate();
-    final double health = currentBoss.getHp / healthUnit;
+    final double health = currentBoss.health / healthUnit;
     final double totalDamage = fullDamage /health;
     healthProgress += totalDamage;
     physicalDamage += fullDamage;
     dps += fullDamage;
-    currentBossHp = currentBoss.getHp - (healthProgress * health);
+    currentBossHp = currentBoss.health - (healthProgress * health);
   }
 
 
@@ -565,9 +565,9 @@ class BossBattleProvider extends ChangeNotifier {
     magicalDamage += totalDamage;
 
     // Calculate the boss's health progress and update current HP.
-    final double health = currentBoss.getHp / healthUnit;
+    final double health = currentBoss.health / healthUnit;
     healthProgress += totalDamage / health;
-    currentBossHp = currentBoss.getHp - (healthProgress * health);
+    currentBossHp = currentBoss.health - (healthProgress * health);
   }
 
   ///This function increments the time variable by one to increase the game time.
@@ -595,7 +595,7 @@ class BossBattleProvider extends ChangeNotifier {
     currentBossAlive = true;
     roundProgress++;
     currentBoss = bossList[roundProgress];
-    currentBossHp = currentBoss.getHp;
+    currentBossHp = currentBoss.health;
     SoundManager.instance.playBossEnteringSound(currentBoss);
     healthProgress = 0;
     timeProgress = 0;
@@ -631,7 +631,7 @@ class BossBattleProvider extends ChangeNotifier {
       dps = 0;
       _addGold(totalEarnedGold);
       await Future.delayed(const Duration(milliseconds: 100)); //snap işleminde 100 ms sonrasını baz almak için
-      SoundManager.instance.playBossDyingSound(currentBoss);
+      SoundManager.instance.playBossDeathSound(currentBoss);
       await snapBoss();
       currentBossAlive = false;
       _handOfMidasFn();
@@ -655,12 +655,12 @@ class BossBattleProvider extends ChangeNotifier {
 
   Future<void> wraithKingReincarnation() async {
     currentBossHp = 0;
-    SoundManager.instance.playWkReincarnation();
+    SoundManager.instance.playWraithKingReincarnation();
     isWraithKingReincarnated = true;
     _timer?.cancel();
     _timer = null;
     started = false;
-    await Future.delayed(const Duration(seconds: 3),() {
+    await Future.delayed(const Duration(seconds: 3),() { //TODO: 4 5 sn yap ve healthprogressi yükselt 
       healthProgress = 30;
       started = true;
       timerFn();

@@ -73,7 +73,7 @@ class _BossGalleryViewState extends State<BossGalleryView> {
               ),
             ).wrapFittedBox(),
             Text(
-              'HP ${boss.getHp.numberFormat}',
+              'HP ${boss.health.numberFormat}',
               style: TextStyle(
                 shadows: List.generate(2, (index) => const Shadow(color: Colors.deepPurple, blurRadius: 4)),
               ),

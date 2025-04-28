@@ -1,5 +1,5 @@
 import '../constants/app_image_paths.dart';
-import '../constants/app_sounds_paths.dart';
+import '../constants/app_sound_paths.dart';
 import '../services/user_manager.dart';
 
 enum Spell {

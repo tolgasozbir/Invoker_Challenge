@@ -247,7 +247,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, ScreenStateM
           _animKey.currentState?.playAnimation(IconType.True);
         }
         else {
-          SoundManager.instance.failCombinationSound();
+          SoundManager.instance.playFailCastSound();
           _animKey.currentState?.playAnimation(IconType.False);
         }
         spellProvider.getRandomSpell();
@@ -273,7 +273,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, ScreenStateM
           AchievementManager.instance.updateTimer(score);
         } 
         else {
-          SoundManager.instance.failCombinationSound();
+          SoundManager.instance.playFailCastSound();
           _animKey.currentState?.playAnimation(IconType.False);
           //if user spam r button decrease point
           if (timerProvider.buttonPressCount > 4) {
@@ -306,14 +306,14 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, ScreenStateM
         } 
         else {
           if (challangerLife > 0) {
-            SoundManager.instance.failCombinationSound();
+            SoundManager.instance.playFailCastSound();
             _animKey.currentState?.playAnimation(IconType.False);
             spellProvider.getRandomSpell();
             challangerLife--;
             UserManager.instance.snappableKey.currentState?.snap();
             return;
           }
-          SoundManager.instance.ggSound();
+          SoundManager.instance.playGameOverSound();
           timerProvider.changeIsStartStatus();
           timerProvider.disposeTimer();
           _animKey.currentState?.playAnimation(IconType.False);
@@ -346,7 +346,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, ScreenStateM
         }
 
         if (castedSpell == null) {
-          SoundManager.instance.failCombinationSound();
+          SoundManager.instance.playFailCastSound();
           return;
         }
 

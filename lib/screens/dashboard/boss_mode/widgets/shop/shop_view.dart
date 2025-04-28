@@ -43,13 +43,13 @@ class _ShopViewState extends State<ShopView> with ScreenStateMixin {
 
   @override
   void initState() {
-    SoundManager.instance.playWelcomeShopSound();
+    SoundManager.instance.playShopEnterSound();
     super.initState();
   }
 
   @override
   void dispose() {
-    SoundManager.instance.playLeaveShopSound();
+    SoundManager.instance.playShopExitSound();
     super.dispose();
   }
 
