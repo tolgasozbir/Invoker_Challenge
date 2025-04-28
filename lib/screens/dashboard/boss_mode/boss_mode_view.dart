@@ -303,7 +303,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
               }
             }
             if (castedSpell == null) {
-              SoundManager.instance.failCombinationSound();
+              SoundManager.instance.playFailCastSound();
               return;
             }
             final index = Spell.values.indexOf(castedSpell);

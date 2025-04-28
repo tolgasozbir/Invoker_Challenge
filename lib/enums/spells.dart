@@ -1,5 +1,5 @@
 import '../constants/app_image_paths.dart';
-import '../constants/app_sounds_paths.dart';
+import '../constants/app_sound_paths.dart';
 import '../services/user_manager.dart';
 
 enum Spell {
@@ -28,22 +28,22 @@ enum Spell {
 extension SpellsExtension on Spell {
   String get image => UserManager.instance.invokerType.spells[this] ?? ImagePaths.ic_unknown;
 
-  String get castSound => '${AppSoundsPaths.spellCastSounds}/${name}_cast.mpeg';
+  String get castSound => '${AppSoundPaths.spellCast}/${name}_cast.mp3';
 
   bool get _isPersona => UserManager.instance.isPersonaActive;
   
   List<String> get spellSounds {
     switch (this) {
-      case Spell.cold_snap:       return _isPersona ? AppSoundsPaths.coldSnapSoundsKid        : AppSoundsPaths.coldSnapSounds;
-      case Spell.ghost_walk:      return _isPersona ? AppSoundsPaths.ghostWalkSoundsKid       : AppSoundsPaths.ghostWalkSounds;
-      case Spell.ice_wall:        return _isPersona ? AppSoundsPaths.iceWallSoundsKid         : AppSoundsPaths.iceWallSounds;
-      case Spell.emp:             return _isPersona ? AppSoundsPaths.empSoundsKid             : AppSoundsPaths.empSounds;
-      case Spell.tornado:         return _isPersona ? AppSoundsPaths.tornadoSoundsKid         : AppSoundsPaths.tornadoSounds;
-      case Spell.alacrity:        return _isPersona ? AppSoundsPaths.alacritySoundsKid        : AppSoundsPaths.alacritySounds;
-      case Spell.deafening_blast: return _isPersona ? AppSoundsPaths.deafeningBlastSoundsKid  : AppSoundsPaths.deafeningBlastSounds;
-      case Spell.sun_strike:      return _isPersona ? AppSoundsPaths.sunStrikeSoundsKid       : AppSoundsPaths.sunStrikeSounds;
-      case Spell.forge_spirit:    return _isPersona ? AppSoundsPaths.forgeSpiritSoundsKid     : AppSoundsPaths.forgeSpiritSounds;
-      case Spell.chaos_meteor:    return _isPersona ? AppSoundsPaths.chaosMeteorSoundsKid     : AppSoundsPaths.chaosMeteorSounds;
+      case Spell.cold_snap:       return _isPersona ? AppSoundPaths.coldSnapPersona        : AppSoundPaths.coldSnap;
+      case Spell.ghost_walk:      return _isPersona ? AppSoundPaths.ghostWalkPersona       : AppSoundPaths.ghostWalk;
+      case Spell.ice_wall:        return _isPersona ? AppSoundPaths.iceWallPersona         : AppSoundPaths.iceWall;
+      case Spell.emp:             return _isPersona ? AppSoundPaths.empPersona             : AppSoundPaths.emp;
+      case Spell.tornado:         return _isPersona ? AppSoundPaths.tornadoPersona         : AppSoundPaths.tornado;
+      case Spell.alacrity:        return _isPersona ? AppSoundPaths.alacrityPersona        : AppSoundPaths.alacrity;
+      case Spell.deafening_blast: return _isPersona ? AppSoundPaths.deafeningBlastPersona  : AppSoundPaths.deafeningBlast;
+      case Spell.sun_strike:      return _isPersona ? AppSoundPaths.sunStrikePersona       : AppSoundPaths.sunStrike;
+      case Spell.forge_spirit:    return _isPersona ? AppSoundPaths.forgeSpiritPersona     : AppSoundPaths.forgeSpirit;
+      case Spell.chaos_meteor:    return _isPersona ? AppSoundPaths.chaosMeteorPersona     : AppSoundPaths.chaosMeteor;
     }
   }
 
