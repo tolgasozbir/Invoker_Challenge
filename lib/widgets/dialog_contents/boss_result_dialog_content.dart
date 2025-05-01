@@ -327,6 +327,10 @@ class _BossResultRoundDialogActionState extends State<BossResultRoundDialogActio
     final bestTime = UserManager.instance.getBestBossScore(widget.boss)['time'] ?? 0;
     final score = widget.model;
 
+    //TODO check if magic damage + pyscial damage not bigger than boss healt return throw error and save log to firebase
+    // yüzde 5-10 luk sapma payı koyabilirsin ayrıca saniye kontrolüde yapabilirsin
+    // son seviyede sadece spell atarak kaç sn de bitiyorsa ilk boss onun bir iki saniye altını hesap edebilirsin
+
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
     if (uid == null) {
       AppSnackBar.showSnackBarMessage(

@@ -149,15 +149,18 @@ class _LoginRegisterDialogContentState extends State<LoginRegisterDialogContent>
     return [
       const Spacer(),
       Text(title, style: textStyle),
-      Checkbox(
-        value: isSelected, 
-        onChanged: (value) {
-          isLoginCheckboxSelected = !isLoginCheckboxSelected;
-          updateScreen();
-        },
-        activeColor: AppColors.white30,
-        checkColor: AppColors.amber,
-      ).scaleWidget(1.2),
+      Transform.scale(
+        scale: 1.2,
+        child: Checkbox(
+          value: isSelected, 
+          onChanged: (value) {
+            isLoginCheckboxSelected = !isLoginCheckboxSelected;
+            updateScreen();
+          },
+          activeColor: AppColors.white30,
+          checkColor: AppColors.amber,
+        ),
+      ),
       const Spacer(),
     ];
   }

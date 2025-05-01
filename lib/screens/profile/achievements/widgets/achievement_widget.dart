@@ -29,14 +29,18 @@ class AchievementWidget extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text(
-                achievement.title, 
-                style: TextStyle(fontSize: context.sp(16)),
-              ).wrapFittedBox(),
-              Text(
-                achievement.description, 
-                style: TextStyle(fontSize: context.sp(10)),
-              ).wrapFittedBox(),
+              FittedBox(
+                child: Text(
+                  achievement.title, 
+                  style: TextStyle(fontSize: context.sp(16)),
+                ),
+              ),
+              FittedBox(
+                child: Text(
+                  achievement.description, 
+                  style: TextStyle(fontSize: context.sp(10)),
+                ),
+              ),
               Row(
                 children: [
                   Text(current.toStringAsFixed(0)),

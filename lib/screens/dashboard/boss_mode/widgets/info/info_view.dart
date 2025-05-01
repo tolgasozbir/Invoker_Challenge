@@ -53,7 +53,7 @@ class InfoView extends StatelessWidget {
       ),
     ).wrapCenter(),
     const EmptyBox.h8(),
-    Text(LocaleKeys.bossBattleInfo_note.locale).wrapFittedBox(),
+    FittedBox(child: Text(LocaleKeys.bossBattleInfo_note.locale)),
     const EmptyBox.h8(),
     Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

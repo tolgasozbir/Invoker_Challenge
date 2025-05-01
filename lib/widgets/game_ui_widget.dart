@@ -147,12 +147,15 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, ScreenStateM
   }
 
   Widget comboSpellImage(int index) {
-    return Image.asset(
-      context.watch<GameProvider>().isStart && context.watch<SpellProvider>().comboSpells.isNotEmpty
-        ? context.watch<SpellProvider>().comboSpells[index].image
-        : ImagePaths.spellImage,
-      fit: BoxFit.cover,
-    ).wrapClipRRect(BorderRadius.circular(4)).wrapPadding(const EdgeInsets.all(8.0));
+    return ClipRRect(
+      borderRadius: const BorderRadius.all(Radius.circular(4)),
+      child: Image.asset(
+        context.watch<GameProvider>().isStart && context.watch<SpellProvider>().comboSpells.isNotEmpty
+          ? context.watch<SpellProvider>().comboSpells[index].image
+          : ImagePaths.spellImage,
+        fit: BoxFit.cover,
+      ),
+    ).wrapPadding(const EdgeInsets.all(8.0));
   }
 
   Widget bigSpellPicture(){
@@ -160,12 +163,15 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, ScreenStateM
       width: context.dynamicWidth(0.28),
       height: context.dynamicWidth(0.28),
       decoration: _boxDecoration,
-      child: Image.asset(
-        context.watch<GameProvider>().isStart 
-          ? context.watch<SpellProvider>().nextSpell.image 
-          : ImagePaths.spellImage,
-        fit: BoxFit.cover,
-      ).wrapClipRRect(BorderRadius.circular(4)),
+      child: ClipRRect(
+        borderRadius: const BorderRadius.all(Radius.circular(4)),
+        child: Image.asset(
+          context.watch<GameProvider>().isStart 
+            ? context.watch<SpellProvider>().nextSpell.image 
+            : ImagePaths.spellImage,
+          fit: BoxFit.cover,
+        ),
+      ),
     );
   }
 

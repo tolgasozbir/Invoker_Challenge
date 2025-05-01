@@ -5,7 +5,6 @@ import '../../../constants/locale_keys.g.dart';
 import '../../../enums/Bosses.dart';
 import '../../../extensions/number_extension.dart';
 import '../../../extensions/string_extension.dart';
-import '../../../extensions/widget_extension.dart';
 import '../../../widgets/app_dialogs.dart';
 import '../../../widgets/app_outlined_button.dart';
 import '../../../widgets/app_scaffold.dart';
@@ -65,19 +64,23 @@ class _BossGalleryViewState extends State<BossGalleryView> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Image.asset(boss.getImage),
-            Text(
-              boss.getReadableName, 
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                shadows: List.generate(2, (index) => const Shadow(color: Colors.red, blurRadius: 4)),
+            FittedBox(
+              child: Text(
+                boss.getReadableName, 
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  shadows: List.generate(2, (index) => const Shadow(color: Colors.red, blurRadius: 4)),
+                ),
               ),
-            ).wrapFittedBox(),
-            Text(
-              'HP ${boss.health.numberFormat}',
-              style: TextStyle(
-                shadows: List.generate(2, (index) => const Shadow(color: Colors.deepPurple, blurRadius: 4)),
+            ),
+            FittedBox(
+              child: Text(
+                'HP ${boss.health.numberFormat}',
+                style: TextStyle(
+                  shadows: List.generate(2, (index) => const Shadow(color: Colors.deepPurple, blurRadius: 4)),
+                ),
               ),
-            ).wrapFittedBox(),
+            ),
           ],
         ),
       ),

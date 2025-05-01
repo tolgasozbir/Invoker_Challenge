@@ -46,10 +46,13 @@ class _AbilitySlotState extends State<AbilitySlot> {
         size: context.dynamicWidth(0.2),
         child: Stack(
           children: [
-            Image.asset(
-              ability.spell.image, 
-              width: context.dynamicWidth(0.2),
-            ).wrapClipRRect(BorderRadius.circular(8)),
+            ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
+              child: Image.asset(
+                ability.spell.image, 
+                width: context.dynamicWidth(0.2),
+              ),
+            ),
             Positioned(
               bottom: 0,
               right: 0,
