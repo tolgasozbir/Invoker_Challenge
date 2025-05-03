@@ -27,7 +27,7 @@ class _InvokerStyleViewState extends State<InvokerStyleView> with ScreenStateMix
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(LocaleKeys.InvokerForm_invokerForm.locale),
+        title: Text(LocaleKeys.InvokerPersona_invokerPersona.locale),
         centerTitle: true,
       ),
       body: _bodyView(),
@@ -50,14 +50,12 @@ class _InvokerStyleViewState extends State<InvokerStyleView> with ScreenStateMix
       ...invokerSet.type.spells.values,
     ];
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
-      child: GridView.builder(
-        shrinkWrap: true,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5),
-        itemCount: icons.length,
-        itemBuilder: (context, index) => _buildIconTile(icons[index]),
-      ),
+    return GridView.builder(
+      padding: const EdgeInsets.all(4),
+      shrinkWrap: true,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5),
+      itemCount: icons.length,
+      itemBuilder: (context, index) => _buildIconTile(icons[index]),
     );
   }
 
@@ -141,7 +139,7 @@ class _InvokerStyleViewState extends State<InvokerStyleView> with ScreenStateMix
         updateScreen();
       },
       child: Text(
-        isPersonaActive ? LocaleKeys.InvokerForm_unequipPersona.locale : LocaleKeys.InvokerForm_equipPersona.locale,
+        isPersonaActive ? LocaleKeys.InvokerPersona_unequipPersona.locale : LocaleKeys.InvokerPersona_equipPersona.locale,
         style: TextStyle(fontSize: context.sp(14), fontWeight: FontWeight.w600),
         textAlign: TextAlign.center,
       ),

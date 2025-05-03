@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:dota2_invoker_game/constants/app_colors.dart';
 import 'package:dota2_invoker_game/constants/app_strings.dart';
 import 'package:dota2_invoker_game/constants/locale_keys.g.dart';
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
@@ -230,9 +231,19 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
               duration: const Duration(seconds: 1),
               child: status 
                 ? const EmptyBox() 
-                : value.item3 
-                  ? Text(LocaleKeys.commonGeneral_starting.locale) 
-                  : Text(LocaleKeys.commonGeneral_start.locale),
+                : Text(
+                    value.item3 
+                      ? LocaleKeys.commonGeneral_starting.locale 
+                      : LocaleKeys.commonGeneral_start.locale,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      color: AppColors.amberAccent, 
+                      fontFamily: 'Virgil', 
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 2,
+                    ),
+                  ),
+
             ),
           ),
         );

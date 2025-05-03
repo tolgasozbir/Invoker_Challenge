@@ -116,7 +116,7 @@ class ProfileDialogContent extends StatelessWidget {
             Image.asset(ImagePaths.icInvokerHead, width: context.dynamicWidth(0.24),),
             Expanded(
               child: AutoSizeText(
-                LocaleKeys.InvokerForm_invokerForm.locale,
+                LocaleKeys.InvokerPersona_invokerPersona.locale,
                 style: TextStyle(fontSize: context.sp(18)),
                 maxLines: 1,
                 textAlign: TextAlign.center,

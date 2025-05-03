@@ -46,6 +46,7 @@ class ImagePaths {
   static const String splashImage   = '$_misc/splash_image.jpg';
   static const String spellImage    = '$_misc/quas-wex-exort.jpg';
   static const String loadingGif    = '$_misc/qweLoading.gif';
+  static const String loading       = '$_misc/loading.gif';
   static const String todClock      = '$_misc/time_of_day_clock.png';
   static const String icInvokerHead = '$_misc/ic_invoker_head.png';
   static const String icInvokeLine  = '$_misc/ic_invoke_line.png';
@@ -58,6 +59,8 @@ class ImagePaths {
   static const String icInvokerMiniMap        = '$_misc/ic_mini_inv.png';
   static const String icInvokerMiniMapPersona = '$_misc/ic_mini_inv_persona.png';
   static const String invokerPersonaShowcase  = '$_misc/invoker_persona_showcase.jpeg';
+  static const String invokerPersonaInfo1  = '$_misc/info_persona1.png';
+  static const String invokerPersonaInfo2  = '$_misc/info_persona2.png';
 
   static const String icAchievements = '$_root/achievements/ic_achievements.png';
 

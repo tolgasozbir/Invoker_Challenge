@@ -13,11 +13,13 @@
         "level": "Lvl"
     },
 
-    "loading" : {
-        "message1" : "Remember, as you level up, your damage, spell damage, mana, and mana regeneration also increase, making it easier for you to defeat bosses. To level up, you can play timer, challenger, and boss modes.",
-        "message2" : "Your data is saved on your device, don't forget to synchronize it from the profile menu to avoid losing your data.",
-        "message3" : "Mistakes Happen, We're Here! If you've encountered an error or have suggestions to make our app better, please let us know. We can't improve without your feedback! We're Waiting for Your Feedback! Thank you.",
-        "message4" : "Notice Anything Odd in Translations? While adapting our app to different languages, translation errors can sometimes occur. If you spot any mistake or come across terms that need correction, please don't hesitate to let us know."
+    "loading": {
+        "message1": "As you level up, your damage, spell power, mana, and mana regeneration increase, making it easier to defeat bosses. To level up, try playing Time Trial, Challenge, Combo, or Boss Battle modes.",
+        "message2": "Your data is stored on this device. To prevent possible data loss, don’t forget to synchronize your data from the Profile menu.",
+        "message3": "Bugs Happen – We’re Here for You! If you encounter an issue or have ideas to help us improve, please let us know. Your feedback is essential. Thank you!",
+        "message4": "Spotted a translation mistake? While adapting the app into different languages, some errors might slip through. If you notice a mistranslation or odd term, don’t hesitate to tell us.",
+        "message5": "A new power awakens in the dark... Discover the new Invoker Persona by opening the Profile menu and tapping 'Invoker Persona'. Enhance your experience with unique voices and special icons.",
+        "continue": "Tap to Continue"
     },
 
     "commonGeneral": {
@@ -198,8 +200,8 @@
         "message": "Invoker, get ready! A surprise update is waiting for you. Update now and discover what's new in our magical world. We've enhanced the gaming experience with brand-new features and changes. Tap the update button and join this enchanting adventure!"
     },
 
-    "InvokerForm" : {
-        "invokerForm" : "Invoker Form",
+    "InvokerPersona": {
+        "invokerPersona" : "Invoker Persona",
         "equipPersona" : "Equip Persona",
         "unequipPersona" : "Unequip Persona"
     },

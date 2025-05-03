@@ -17,6 +17,8 @@ abstract class  LocaleKeys {
   static const loading_message2 = 'loading.message2';
   static const loading_message3 = 'loading.message3';
   static const loading_message4 = 'loading.message4';
+  static const loading_message5 = 'loading.message5';
+  static const loading_continue = 'loading.continue';
   static const loading = 'loading';
   static const commonGeneral_leaderboard = 'commonGeneral.leaderboard';
   static const commonGeneral_showMore = 'commonGeneral.showMore';
@@ -165,10 +167,10 @@ abstract class  LocaleKeys {
   static const appUpdateDialog_later = 'appUpdateDialog.later';
   static const appUpdateDialog_message = 'appUpdateDialog.message';
   static const appUpdateDialog = 'appUpdateDialog';
-  static const InvokerForm_invokerForm = 'InvokerForm.invokerForm';
-  static const InvokerForm_equipPersona = 'InvokerForm.equipPersona';
-  static const InvokerForm_unequipPersona = 'InvokerForm.unequipPersona';
-  static const InvokerForm = 'InvokerForm';
+  static const InvokerPersona_invokerPersona = 'InvokerPersona.invokerPersona';
+  static const InvokerPersona_equipPersona = 'InvokerPersona.equipPersona';
+  static const InvokerPersona_unequipPersona = 'InvokerPersona.unequipPersona';
+  static const InvokerPersona = 'InvokerPersona';
   static const Item_basic = 'Item.basic';
   static const Item_advanced = 'Item.advanced';
   static const Item_sell = 'Item.sell';
