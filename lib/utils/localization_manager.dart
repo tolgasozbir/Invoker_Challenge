@@ -8,11 +8,11 @@ class LocalizationManager extends EasyLocalization {
   }) : super(
     path: 'assets/lang',
     supportedLocales: [
-      const Locale('en', 'US'),
-      const Locale('tr', 'TR'),
-      const Locale('ru', 'RU'),
+      const Locale('en'),
+      const Locale('tr'),
+      const Locale('ru'),
     ],
-    fallbackLocale: const Locale('en', 'US'),
+    fallbackLocale: const Locale('en'),
     useFallbackTranslations: true,
   );
 }

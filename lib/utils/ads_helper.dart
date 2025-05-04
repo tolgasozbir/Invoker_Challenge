@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_config/flutter_config.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart' show dotenv;
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 enum AdUnit {
@@ -42,11 +42,21 @@ enum AdUnit {
     if (kDebugMode) return this.testId;
 
     if (Platform.isAndroid) {
-      return FlutterConfig.get(this.androidKey) as String;
+      final adUnitId = dotenv.env[this.androidKey];
+      if (adUnitId == null) {
+        assert(false, 'AdUnitId is null for Android. Please check the .env file.');
+        return '';
+      }
+      return adUnitId;
     }
 
     if (Platform.isIOS) {
-      return FlutterConfig.get(this.iosKey) as String;
+      final adUnitId = dotenv.env[this.iosKey];
+      if (adUnitId == null) {
+        assert(false, 'AdUnitId is null for iOS. Please check FlutterConfig settings.');
+        return '';
+      }
+      return adUnitId;
     }
 
     throw UnsupportedError('Unsupported platform');

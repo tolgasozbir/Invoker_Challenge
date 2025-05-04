@@ -37,8 +37,8 @@ class _QWERHudHeightSliderState extends State<QWERHudHeightSlider> {
   SliderThemeData get sliderTheme {
     return SliderTheme.of(context).copyWith(
       activeTrackColor: AppColors.white,
-      inactiveTrackColor: AppColors.white.withOpacity(0.5),
-      overlayColor: AppColors.white.withOpacity(0.4),
+      inactiveTrackColor: AppColors.white.withValues(alpha: 0.5),
+      overlayColor: AppColors.white.withValues(alpha: 0.4),
       trackHeight: 4.0,
       thumbShape: _CustomSliderThumbCircle(
         thumbRadius: widget.sliderHeight * 0.4,

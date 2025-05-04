@@ -13,70 +13,67 @@ dependencies:
     sdk: flutter
   
   #State Management
-  provider: ^6.1.2
+  provider: ^6.1.5
 
   #Localization
   easy_localization: ^3.0.7
 
   #Icons
-  font_awesome_flutter: ^10.7.0
+  font_awesome_flutter: ^10.8.0
   cupertino_icons: ^1.0.8
 
   #Utils
-  flutter_svg: ^2.0.10+1
+  flutter_svg: ^2.1.0
   audioplayers: 
     git:
       url: https://github.com/tolgasozbir/audioplayers
-  flutter_soloud: ^2.1.7
+  flutter_soloud: ^3.1.8
   internet_connection_checker: ^1.0.0+1
-  url_launcher: ^6.3.0
+  url_launcher: ^6.3.1
   auto_size_text: ^3.0.0
-  flutter_fgbg: ^0.6.0
+  flutter_fgbg: ^0.7.1
   tuple: ^2.0.2
   collection: ^1.18.0
 
   #.env
-  flutter_config:
-      git:
-        url: https://github.com/egonm12/flutter_config.git
+  flutter_dotenv: ^5.2.1
 
   #Local Storage
   hive: ^2.2.3
   hive_flutter: ^1.1.0
-  shared_preferences: ^2.3.2
+  shared_preferences: ^2.5.3
 
   #Firebase
-  firebase_core: ^3.5.0
-  cloud_firestore: ^5.4.2
-  firebase_auth: ^5.3.0
-  firebase_remote_config: ^5.1.2
-  firebase_analytics: ^11.3.2
+  firebase_core: ^3.13.0
+  cloud_firestore: ^5.6.7
+  firebase_auth: ^5.5.3
+  firebase_remote_config: ^5.4.3
+  firebase_analytics: ^11.4.5
 
   #Animation
-  lottie: ^3.1.2
-  splash: ^1.1.0
+  lottie: ^3.3.0
+  splash: ^1.2.0
   flutter_staggered_animations: ^1.1.1
   snappable_thanos: ^0.0.4
-  flutter_animate: ^4.5.0
+  flutter_animate: ^4.5.2
   animated_flip_counter: ^0.3.4
 
   #Widgets
   sleek_circular_slider: ^2.0.1
   reorderable_grid: ^1.0.10
-  percent_indicator: ^4.2.3
+  percent_indicator: ^4.2.5
 
   #Ads
-  google_mobile_ads: ^5.2.0
-
+  google_mobile_ads: ^6.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   #Lint
-  very_good_analysis: ^6.0.0
+  very_good_analysis: ^7.0.0
   #Hive
   hive_generator: ^2.0.1
-  build_runner: ^2.4.12
+  build_runner: ^2.4.15
 
 
 flutter:

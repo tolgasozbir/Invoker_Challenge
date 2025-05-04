@@ -12,7 +12,7 @@ class SunPainter extends CustomPainter {
 
     final paint = Paint()
       ..strokeWidth = 4.0
-      ..color = Colors.white.withOpacity(fraction)
+      ..color = Colors.white.withValues(alpha: fraction)
       ..maskFilter = const MaskFilter.blur(BlurStyle.solid, 20);
 
     canvas.drawCircle(center, radius, paint);

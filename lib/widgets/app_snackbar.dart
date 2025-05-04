@@ -152,7 +152,7 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
       child: SvgPicture.asset(
         svg,
         colorFilter: ColorFilter.mode(
-          AppColors.svgGrey.withOpacity(0.64), 
+          AppColors.svgGrey.withValues(alpha: 0.64), 
           BlendMode.srcIn,
         ),
         width: bgIconSize+32,
@@ -167,7 +167,7 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
       child: SvgPicture.asset(
         ImagePaths.svgDota2Logo,
         colorFilter: ColorFilter.mode(
-          AppColors.svgGrey.withOpacity(0.24), 
+          AppColors.svgGrey.withValues(alpha: 0.24), 
           BlendMode.srcIn,
         ),
         width: bgIconSize,
@@ -183,7 +183,7 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
       child: SvgPicture.asset(
         ImagePaths.svgQuas,
         colorFilter: ColorFilter.mode(
-          AppColors.quasColor.withOpacity(0.72),
+          AppColors.quasColor.withValues(alpha: 0.72),
           BlendMode.srcIn,
         ),
         width: bgIconSize/2,
@@ -199,7 +199,7 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
       child: SvgPicture.asset(
         ImagePaths.svgWex,
         colorFilter: ColorFilter.mode(
-          AppColors.wexColor.withOpacity(0.72),
+          AppColors.wexColor.withValues(alpha: 0.72),
           BlendMode.srcIn,
         ),
         width: bgIconSize/2,
@@ -215,7 +215,7 @@ class _SnacBarContentState extends State<_SnacBarContent> with TickerProviderSta
       child: SvgPicture.asset(
         ImagePaths.svgExort,
         colorFilter: ColorFilter.mode(
-          AppColors.exortColor.withOpacity(0.72),
+          AppColors.exortColor.withValues(alpha: 0.72),
           BlendMode.srcIn,
         ),
         width: bgIconSize/2,

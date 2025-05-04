@@ -58,8 +58,7 @@ class _LanguagePopupState extends State<LanguagePopup> {
       case 2: 
         EasyLocalization.of(ctx)?.setLocale(const Locale('tr', 'TR'));
       default: 
-        EasyLocalization.of(ctx)?.setLocale(const Locale('en', 'US'));
-        break;
+        EasyLocalization.of(ctx)?.setLocale(const Locale('en', 'US'));   
     }
     if (mounted) {
       await Future.delayed(const Duration(milliseconds: 100));

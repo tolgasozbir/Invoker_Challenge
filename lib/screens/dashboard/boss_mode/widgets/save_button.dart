@@ -20,7 +20,7 @@ class SaveButton extends StatelessWidget {
         return Visibility(
           visible: value,
           child: RawChip(
-            side: BorderSide(color: AppColors.white.withOpacity(0.2)),
+            side: BorderSide(color: AppColors.white.withValues(alpha: 0.2)),
             onPressed: () => saveGameFn(context),
             avatar: const Icon(Icons.save),
             label: Text(LocaleKeys.commonGeneral_save.locale),

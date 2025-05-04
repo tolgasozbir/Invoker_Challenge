@@ -16,7 +16,7 @@ class AchievementWidget extends StatelessWidget {
     final max = achievement.maxProgress.toDouble();
     final current = currentProgress >= max ? max : currentProgress;
     return Container(
-      color: Colors.grey.withOpacity(0.2),
+      color: Colors.grey.withValues(alpha: 0.2),
       height: context.dynamicHeight(0.12),
       margin: const EdgeInsets.only(bottom: 8),
       padding: const EdgeInsets.only(right: 8),

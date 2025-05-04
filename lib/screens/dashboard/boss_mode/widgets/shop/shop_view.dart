@@ -82,8 +82,8 @@ class _ShopViewState extends State<ShopView> with ScreenStateMixin {
               child: Container(
                 margin: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.32),
-                  border: Border.all(color: AppColors.amber.withOpacity(0.72)),
+                  color: Colors.black.withValues(alpha: 0.32),
+                  border: Border.all(color: AppColors.amber.withValues(alpha: 0.72)),
                   borderRadius: const BorderRadius.all(Radius.circular(6)),
                 ),
                 child: Image.asset(item.image),

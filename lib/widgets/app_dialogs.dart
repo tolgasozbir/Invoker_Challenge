@@ -131,7 +131,7 @@ class AppDialogs {
                                               uid.substring(0, 8), 
                                               style: TextStyle(
                                                 fontSize: context.sp(16), 
-                                                color: Colors.grey.withOpacity(0.6),
+                                                color: Colors.grey.withValues(alpha: 0.6),
                                                 fontWeight: FontWeight.w500,
                                               ),
                                             ),

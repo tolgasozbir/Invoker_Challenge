@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-
-  <key>FLTEnableImpeller</key>
-  <false />
-
-  <key>LSApplicationQueriesSchemes</key>
+  <dict>
+    <key>FLTEnableImpeller</key>
+    <false/>
+    <key>LSApplicationQueriesSchemes</key>
     <array>
       <string>https</string>
       <string>http</string>
     </array>
-
     <key>CFBundleDevelopmentRegion</key>
     <string>$(DEVELOPMENT_LANGUAGE)</string>
     <key>CFBundleExecutable</key>
@@ -68,9 +65,9 @@
       <string>tr</string>
       <string>ru</string>
     </array>
-  	<key>CADisableMinimumFrameDurationOnPhone</key>
-	<true/>
-	<key>UIApplicationSupportsIndirectInputEvents</key>
-	<true/>
-</dict>
+    <key>CADisableMinimumFrameDurationOnPhone</key>
+    <true/>
+    <key>UIApplicationSupportsIndirectInputEvents</key>
+    <true/>
+  </dict>
 </plist>

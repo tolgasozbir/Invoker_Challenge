@@ -10,7 +10,7 @@ class SkyPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, (size.height / 2) - 0);
-    skyPaint.color = Colors.black.withOpacity(fraction);
+    skyPaint.color = Colors.black.withValues(alpha: fraction);
 
     canvas.drawCircle(center, radius, skyPaint);
   }

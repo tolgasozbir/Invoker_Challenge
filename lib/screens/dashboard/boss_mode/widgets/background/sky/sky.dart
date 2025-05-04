@@ -43,7 +43,7 @@ class SkyState extends State<Sky> with TickerProviderStateMixin {
     ..maskFilter = const MaskFilter.blur(BlurStyle.inner, 200);
 
   Paint thunder = Paint()
-    ..color = Colors.white.withOpacity(1)
+    ..color = Colors.white.withValues(alpha: 1)
     ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 20);
 
   @override

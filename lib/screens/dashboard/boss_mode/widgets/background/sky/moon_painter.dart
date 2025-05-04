@@ -14,7 +14,7 @@ class MoonPainter extends CustomPainter {
 
     final paint = Paint()
       ..strokeWidth = 4.0
-      ..color = Colors.white.withOpacity(fraction)
+      ..color = Colors.white.withValues(alpha: fraction)
       ..maskFilter = const MaskFilter.blur(BlurStyle.solid, 5);
 
     final rect = Rect.fromCircle(center: center, radius: radius);

@@ -28,7 +28,7 @@ class AppOutlinedButton extends StatelessWidget {
   final EdgeInsets? padding;
   final bool isButtonActive;
 
-  Color _buttonStateColor(Color color) => isButtonActive ? color : color.withOpacity(0.5);
+  Color _buttonStateColor(Color color) => isButtonActive ? color : color.withValues(alpha: 0.5);
 
   @override
   Widget build(BuildContext context) {

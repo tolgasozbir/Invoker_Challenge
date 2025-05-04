@@ -96,7 +96,7 @@ class _InventoryHudState extends State<InventoryHud> {
           margin: const EdgeInsets.all(2),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4),
-            color: Colors.black.withOpacity(0.64),
+            color: Colors.black.withValues(alpha: 0.64),
             image: DecorationImage(image: AssetImage(item.item.image)),
           ),
           child: Text(

@@ -13,7 +13,7 @@ class DropPainter extends CustomPainter {
       Offset(this.drop.x, this.drop.y),
       Offset(this.drop.x, this.drop.y + this.drop.length),
       Paint()
-        ..color = Colors.black.withOpacity(this.drop.opacity)
+        ..color = Colors.black.withValues(alpha: this.drop.opacity)
         ..strokeWidth = 3.0
         ..strokeCap = StrokeCap.round,
     );

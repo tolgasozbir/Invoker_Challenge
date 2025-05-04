@@ -40,7 +40,6 @@ class _LanguageDropdownState extends State<LanguageDropdown> {
             EasyLocalization.of(ctx)?.setLocale(const Locale('tr', 'TR'));
           default: 
             EasyLocalization.of(ctx)?.setLocale(const Locale('en', 'US'));
-            break;
         }
         if (mounted) {
           await Future.delayed(const Duration(milliseconds: 100));

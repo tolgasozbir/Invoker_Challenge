@@ -8,7 +8,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_config/flutter_config.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart' show dotenv;
 import 'package:flutter_fgbg/flutter_fgbg.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
@@ -33,7 +33,7 @@ void main() async {
   //Localization
   await EasyLocalization.ensureInitialized();
   //Environment variables
-  await FlutterConfig.loadEnvVariables();
+  await dotenv.load(fileName: '.env');
   //Firebase
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   //Remote config

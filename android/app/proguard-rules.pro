@@ -1,1 +1,0 @@
--keep class com.dota2.invoker.game.*BuildConfig { *; }

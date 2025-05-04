@@ -91,7 +91,7 @@ class UserStatus extends StatelessWidget {
       current: currentExp,
       max: nextLevelExp,
       activeColor: AppColors.expBarColor,
-      inactiveColor: AppColors.expBarColor.withOpacity(0.5),
+      inactiveColor: AppColors.expBarColor.withValues(alpha: 0.5),
     ).wrapPadding(const EdgeInsets.symmetric(vertical: 8));
   }
 
