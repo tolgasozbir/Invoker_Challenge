@@ -46,6 +46,7 @@ android {
         versionName = flutter.versionName
         // 🔽 AdMob placeholder
         manifestPlaceholders["ADMOB_APP_ID"] = admobAppId
+        multiDexEnabled = true
     }
 
     signingConfigs {
@@ -74,4 +75,5 @@ dependencies {
   implementation("com.google.android.gms:play-services-ads:24.2.0")
   implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
   implementation("com.google.firebase:firebase-analytics")
+  implementation("androidx.multidex:multidex:2.0.1")
 }
