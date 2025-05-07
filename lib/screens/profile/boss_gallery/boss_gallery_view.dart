@@ -69,6 +69,8 @@ class _BossGalleryViewState extends State<BossGalleryView> {
                 boss.getReadableName, 
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
+                  fontFamily: 'Virgil',
+                  fontSize: 16,
                   shadows: List.generate(2, (index) => const Shadow(color: Colors.red, blurRadius: 4)),
                 ),
               ),
@@ -77,6 +79,7 @@ class _BossGalleryViewState extends State<BossGalleryView> {
               child: Text(
                 'HP ${boss.health.numberFormat}',
                 style: TextStyle(
+                  fontFamily: 'Virgil',
                   shadows: List.generate(2, (index) => const Shadow(color: Colors.deepPurple, blurRadius: 4)),
                 ),
               ),
@@ -88,6 +91,7 @@ class _BossGalleryViewState extends State<BossGalleryView> {
   }
 
   void cardOnTapFn(Bosses boss) {
+    //SoundManager.instance.playBossEnteringSound(boss);
     AppDialogs.showScaleDialog(
       title: '${LocaleKeys.commonGeneral_leaderboard.locale} ${boss.getReadableName}',
       content: LeaderboardDialog(leaderboardType: LeaderboardType.Boss, boss: boss),
