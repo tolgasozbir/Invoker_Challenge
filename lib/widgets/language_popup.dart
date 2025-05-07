@@ -1,6 +1,8 @@
+import 'package:collection/collection.dart';
 import 'package:dota2_invoker_game/extensions/context_extension.dart';
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -26,6 +28,9 @@ class LanguagePopup extends StatefulWidget {
 class _LanguagePopupState extends State<LanguagePopup> {
   @override
   Widget build(BuildContext context) {
+    final currentLocale = context.locale;
+    Languages? currentLanguage = Languages.values.firstWhereOrNull((lang) => lang.name.toLowerCase() == currentLocale.languageCode);
+
     return PopupMenuButton<int>(
       onSelected: onSelectFn,
       //icon: const Icon(Icons.language),
@@ -41,7 +46,10 @@ class _LanguagePopupState extends State<LanguagePopup> {
       itemBuilder: (context) => Languages.values.map((e) => _buildPopupMenuItem(e)).toList(),
       child: Column(
         children: [
-          const Icon(Icons.language),
+          if (currentLanguage == null) 
+            const Icon(Icons.translate)
+          else 
+            Image.asset(currentLanguage.iconPath, width: 24, height: 24,),
           Text(LocaleKeys.commonGeneral_language.locale),
         ],
       ),
@@ -52,13 +60,13 @@ class _LanguagePopupState extends State<LanguagePopup> {
     final ctx = context.read<AppContextProvider>().appContext ?? context;
     switch (selected) {
       case 0: 
-        EasyLocalization.of(ctx)?.setLocale(const Locale('en', 'US'));
+        EasyLocalization.of(ctx)?.setLocale(const Locale('en'));
       case 1: 
-        EasyLocalization.of(ctx)?.setLocale(const Locale('ru', 'RU'));
+        EasyLocalization.of(ctx)?.setLocale(const Locale('ru'));
       case 2: 
-        EasyLocalization.of(ctx)?.setLocale(const Locale('tr', 'TR'));
+        EasyLocalization.of(ctx)?.setLocale(const Locale('tr'));
       default: 
-        EasyLocalization.of(ctx)?.setLocale(const Locale('en', 'US'));   
+        EasyLocalization.of(ctx)?.setLocale(const Locale('en'));   
     }
     if (mounted) {
       await Future.delayed(const Duration(milliseconds: 100));
