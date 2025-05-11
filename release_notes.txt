@@ -1,3 +1,11 @@
+# 1.7.0
+- Invoker persona added: unique icons, and custom voice lines have been implemented
+- Audio system updated: Switched to soloud for improved performance; audioplayers remains temporarily supported.
+- Boss Battle enhancements: Reduced latency and improved fluidity.
+- Enhanced loading screen: Visual improvements and minor layout adjustments.
+- Android 15+ fix: Disabled edge-to-edge layout to avoid UI issues.
+- Various minor fixes and optimizations.
+
 # 1.6.2
 - Minor adjustments have been made.
 - Rewarded interstitial ad has been replaced with rewarded ad.
