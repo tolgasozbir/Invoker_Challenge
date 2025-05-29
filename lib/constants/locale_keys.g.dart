@@ -1,5 +1,7 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
+// ignore_for_file: constant_identifier_names
+
 abstract class  LocaleKeys {
   static const mainMenu_titleTraining = 'mainMenu.titleTraining';
   static const mainMenu_titleWithTimer = 'mainMenu.titleWithTimer';
@@ -265,6 +267,28 @@ abstract class  LocaleKeys {
   static const Item_Aghanims_shard_active = 'Item.Aghanims_shard.active';
   static const Item_Aghanims_shard = 'Item.Aghanims_shard';
   static const Item = 'Item';
+  static const ColorPicker_selectColor = 'ColorPicker.selectColor';
+  static const ColorPicker_presetThemes = 'ColorPicker.presetThemes';
+  static const ColorPicker_reset = 'ColorPicker.reset';
+  static const ColorPicker_apply = 'ColorPicker.apply';
+  static const ColorPicker_customizeColors = 'ColorPicker.customizeColors';
+  static const ColorPicker_CircleLabels_outer = 'ColorPicker.CircleLabels.outer';
+  static const ColorPicker_CircleLabels_middle = 'ColorPicker.CircleLabels.middle';
+  static const ColorPicker_CircleLabels_inner = 'ColorPicker.CircleLabels.inner';
+  static const ColorPicker_CircleLabels = 'ColorPicker.CircleLabels';
+  static const ColorPicker_ColorThemeKeys_mist = 'ColorPicker.ColorThemeKeys.mist';
+  static const ColorPicker_ColorThemeKeys_cool = 'ColorPicker.ColorThemeKeys.cool';
+  static const ColorPicker_ColorThemeKeys_nature = 'ColorPicker.ColorThemeKeys.nature';
+  static const ColorPicker_ColorThemeKeys_flame = 'ColorPicker.ColorThemeKeys.flame';
+  static const ColorPicker_ColorThemeKeys_terra = 'ColorPicker.ColorThemeKeys.terra';
+  static const ColorPicker_ColorThemeKeys_aqua = 'ColorPicker.ColorThemeKeys.aqua';
+  static const ColorPicker_ColorThemeKeys_contrast = 'ColorPicker.ColorThemeKeys.contrast';
+  static const ColorPicker_ColorThemeKeys_vibe = 'ColorPicker.ColorThemeKeys.vibe';
+  static const ColorPicker_ColorThemeKeys_light = 'ColorPicker.ColorThemeKeys.light';
+  static const ColorPicker_ColorThemeKeys_berry = 'ColorPicker.ColorThemeKeys.berry';
+  static const ColorPicker_ColorThemeKeys_sky = 'ColorPicker.ColorThemeKeys.sky';
+  static const ColorPicker_ColorThemeKeys = 'ColorPicker.ColorThemeKeys';
+  static const ColorPicker = 'ColorPicker';
   static const InfoMessages_patchMessage = 'InfoMessages.patchMessage';
   static const InfoMessages = 'InfoMessages';
 

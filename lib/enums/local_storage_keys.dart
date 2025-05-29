@@ -7,4 +7,7 @@ enum LocalStorageKey {
   //int keys
   volume,
   qwerHudHeight,
+  outerColor,   // hp circle
+  middleColor,  // round circle
+  innerColor,   // time circle
 }
