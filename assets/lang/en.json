@@ -330,6 +330,32 @@
         }
     },
 
+    "ColorPicker": {
+        "selectColor": "Select Color",
+        "presetThemes": "Preset Themes",
+        "reset": "Reset",
+        "apply": "Apply",
+        "customizeColors": "Customize Colors",
+        "CircleLabels": {
+            "outer": "Outer Circle",
+            "middle": "Middle Circle",
+            "inner": "Inner Circle"
+        },
+        "ColorThemeKeys": {
+            "mist": "Mist",
+            "cool": "Cool",
+            "nature": "Nature",
+            "flame": "Flame",
+            "terra": "Earth",
+            "aqua": "Water",
+            "contrast": "Contrast",
+            "vibe": "Vibe",
+            "light": "Light",
+            "berry": "Berry",
+            "sky": "Sky"
+        }
+    },
+
     "InfoMessages" : {
         "patchMessage" : ""
     }

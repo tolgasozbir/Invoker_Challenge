@@ -330,6 +330,32 @@
         }
     },
 
+    "ColorPicker": {
+        "selectColor": "Renk Seçin",
+        "presetThemes": "Hazır Temalar",
+        "reset": "Sıfırla",
+        "apply": "Uygula",
+        "customizeColors": "Renkleri Özelleştir",
+        "CircleLabels": {
+            "outer": "Dış Daire",
+            "middle": "Orta Daire",
+            "inner": "İç Daire"
+        },
+        "ColorThemeKeys": {
+            "mist": "Sis",
+            "cool": "Serin",
+            "nature": "Doğa",
+            "flame": "Alev",
+            "terra": "Kav",
+            "aqua": "Su",
+            "contrast": "Zıt",
+            "vibe": "Enerji",
+            "light": "Işık",
+            "berry": "Meyve",
+            "sky": "Gök"
+        }
+    },
+ 
     "InfoMessages" : {
         "patchMessage" : ""
     }

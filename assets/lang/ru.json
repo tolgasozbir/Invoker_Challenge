@@ -330,6 +330,32 @@
         }
     },
 
+    "ColorPicker": {
+        "selectColor": "Выбрать цвет",
+        "presetThemes": "Готовые темы",
+        "reset": "Сбросить",
+        "apply": "Применить",
+        "customizeColors": "Настроить цвета",
+        "CircleLabels": {
+            "outer": "Внешний круг",
+            "middle": "Средний круг",
+            "inner": "Внутренний круг"
+        },
+        "ColorThemeKeys": {
+            "mist": "Туман",
+            "cool": "Прохлада",
+            "nature": "Природа",
+            "flame": "Пламя",
+            "terra": "Земля",
+            "aqua": "Вода",
+            "contrast": "Контраст",
+            "vibe": "Энергия",
+            "light": "Свет",
+            "berry": "Ягода",
+            "sky": "Небо"
+        }
+    },
+
     "InfoMessages" : {
         "patchMessage" : ""
     }

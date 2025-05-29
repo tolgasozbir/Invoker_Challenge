@@ -9,4 +9,7 @@ extension NumberExtension on num {
     }
     return numberDigits.join();
   }
+
+  /// Converts a double value in the range 0-1 to 0-255 integer color byte.
+  int toColorByte() => (this.clamp(0.0, 1.0) * 255).round();
 }
