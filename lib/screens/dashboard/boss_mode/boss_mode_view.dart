@@ -8,6 +8,7 @@ import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/ability_s
 import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/attack_damage_widget.dart';
 import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/boss_head.dart';
 import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/circles/health_circle.dart';
+import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/color_settings/color_settings_button.dart';
 import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/dps_widget.dart';
 import 'package:dota2_invoker_game/utils/value_notifier_listener.dart';
 import 'package:dota2_invoker_game/widgets/app_outlined_button.dart';
@@ -149,9 +150,8 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
         ),
         actions: const [
           SaveButton(),
-          EmptyBox.w4(),
           InfoButton(),
-          EmptyBox.w4(),
+          ColorSettingsButton(),
           ShopButton(),
         ],
       ),

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dota2_invoker_game/providers/app_context_provider.dart';
+import 'package:dota2_invoker_game/providers/color_settings_provider.dart';
 import 'package:dota2_invoker_game/services/config/remote_config_service.dart';
 import 'package:dota2_invoker_game/utils/ads_helper.dart';
 import 'package:dota2_invoker_game/utils/localization_manager.dart';
@@ -59,6 +60,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => UserManager.instance),
         ChangeNotifierProvider(create: (context) => BossBattleProvider()),
         ChangeNotifierProvider(create: (context) => AppContextProvider()),
+        ChangeNotifierProvider(create: (context) => ColorSettingsProvider()),
       ],
       child: LocalizationManager(
         child: const MyApp(),

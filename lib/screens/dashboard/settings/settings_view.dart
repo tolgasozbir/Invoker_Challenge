@@ -1,6 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
-import 'package:dota2_invoker_game/screens/dashboard/settings/circle_color_customizer.dart';
 import 'package:dota2_invoker_game/utils/url_launcher.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,13 +26,6 @@ class SettingsView extends StatelessWidget {
           const QWERHudHeightSlider(),
           const EmptyBox.h8(),
           const SoundPlayerSwitch(),
-          divider(),
-          menuItem(
-            context: context,
-            leading: Icons.color_lens_outlined,
-            text: LocaleKeys.ColorPicker_customizeColors.locale,
-            onTap: () => Navigator.push(context, fadeInPageRoute(const CircleColorCustomizer())),
-          ),
           divider(),
           menuItem(
             context: context,

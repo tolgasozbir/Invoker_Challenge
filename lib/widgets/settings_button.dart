@@ -70,7 +70,7 @@ class _SettingsButtonState extends State<SettingsButton> with SingleTickerProvid
   void onTapFn() async {
     _controller.forward();
     await AppDialogs.showSlidingDialog<bool>(
-      height: context.dynamicHeight(0.7),
+      height: context.dynamicHeight(0.64),
       title: LocaleKeys.mainMenu_settings.locale,
       titleAct: const LanguagePopup(),
       content: const SettingsView(),

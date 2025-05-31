@@ -5,6 +5,7 @@ import 'package:dota2_invoker_game/extensions/color_extension.dart';
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:dota2_invoker_game/mixins/screen_state_mixin.dart';
 import 'package:dota2_invoker_game/models/circle_theme_model.dart';
+import 'package:dota2_invoker_game/providers/color_settings_provider.dart';
 import 'package:dota2_invoker_game/services/app_services.dart';
 import 'package:dota2_invoker_game/widgets/app_snackbar.dart';
 import 'package:dota2_invoker_game/widgets/empty_box.dart';
@@ -12,6 +13,7 @@ import 'package:flutter/material.dart';
 
 import 'package:dota2_invoker_game/constants/app_colors.dart';
 import 'package:dota2_invoker_game/extensions/context_extension.dart';
+import 'package:provider/provider.dart';
 
 class CircleColorCustomizer extends StatefulWidget {
   const CircleColorCustomizer({super.key});
@@ -133,12 +135,6 @@ class _CircleColorCustomizerState extends State<CircleColorCustomizer> with Scre
     _loadColors(); // Load colors when the widget initializes
   }
 
-  @override
-  void dispose() {
-    //AppSnackBar.scaffoldMessengerKey.currentState?.clearSnackBars();
-    super.dispose();
-  }
-
   // --- Shared Preferences Methods ---
 
   // Load colors from shared preferences
@@ -161,6 +157,11 @@ class _CircleColorCustomizerState extends State<CircleColorCustomizer> with Scre
     await cache.setValue<int>(LocalStorageKey.outerColor,  _outerCircleColor.toARGB32());
     await cache.setValue<int>(LocalStorageKey.middleColor, _middleCircleColor.toARGB32());
     await cache.setValue<int>(LocalStorageKey.innerColor,  _innerCircleColor.toARGB32());
+    context.read<ColorSettingsProvider>().updateColors(
+      healthColor: _outerCircleColor, 
+      roundColor: _middleCircleColor, 
+      timeColor: _innerCircleColor,
+    );
     AppSnackBar.showSnackBarMessage(text: 'Başarılı', snackBartype: SnackBarType.success);
   }
 
