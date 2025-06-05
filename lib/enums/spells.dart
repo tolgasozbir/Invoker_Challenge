@@ -1,3 +1,7 @@
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
+
 import '../constants/app_image_paths.dart';
 import '../constants/app_sound_paths.dart';
 import '../services/user_manager.dart';
@@ -44,6 +48,21 @@ extension SpellsExtension on Spell {
       case Spell.sun_strike:      return _isPersona ? AppSoundPaths.sunStrikePersona       : AppSoundPaths.sunStrike;
       case Spell.forge_spirit:    return _isPersona ? AppSoundPaths.forgeSpiritPersona     : AppSoundPaths.forgeSpirit;
       case Spell.chaos_meteor:    return _isPersona ? AppSoundPaths.chaosMeteorPersona     : AppSoundPaths.chaosMeteor;
+    }
+  }
+  
+  Color get spellColor {
+    switch (this) {
+      case Spell.cold_snap:       return _isPersona ? const Color(0xff5eb3f4) : const Color(0xff5eb3f4);
+      case Spell.ghost_walk:      return _isPersona ? const Color(0xffbb80cb) : const Color(0xffd3c8e5);
+      case Spell.ice_wall:        return _isPersona ? const Color(0xffd2e7f6) : const Color(0xffd2e7f6);
+      case Spell.emp:             return _isPersona ? const Color(0xffe673e8) : const Color(0xffe673e8);
+      case Spell.tornado:         return _isPersona ? const Color(0xffe058d6) : const Color(0xff9d51b6);
+      case Spell.alacrity:        return _isPersona ? const Color(0xfff0c593) : const Color(0xffe1a1dc);
+      case Spell.deafening_blast: return _isPersona ? const Color(0xffdd45da) : const Color(0xffe097ae);
+      case Spell.sun_strike:      return _isPersona ? const Color(0xffd5852d) : const Color(0xffdfbb54);
+      case Spell.forge_spirit:    return _isPersona ? const Color(0xffe9430e) : const Color(0xffd4a723);
+      case Spell.chaos_meteor:    return _isPersona ? const Color(0xffe2b672) : const Color(0xffe2b672);
     }
   }
 

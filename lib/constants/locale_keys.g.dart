@@ -125,12 +125,14 @@ abstract class  LocaleKeys {
   static const feedback = 'feedback';
   static const bossBattleInfo_aboutTheGame = 'bossBattleInfo.aboutTheGame';
   static const bossBattleInfo_spellDamageSheet = 'bossBattleInfo.spellDamageSheet';
-  static const bossBattleInfo_note = 'bossBattleInfo.note';
+  static const bossBattleInfo_noteTitle = 'bossBattleInfo.noteTitle';
+  static const bossBattleInfo_noteDesc = 'bossBattleInfo.noteDesc';
   static const bossBattleInfo_circlesMeaning = 'bossBattleInfo.circlesMeaning';
   static const bossBattleInfo_outerCircleInfo = 'bossBattleInfo.outerCircleInfo';
   static const bossBattleInfo_middleCircleInfo = 'bossBattleInfo.middleCircleInfo';
   static const bossBattleInfo_innerCircleInfo = 'bossBattleInfo.innerCircleInfo';
-  static const bossBattleInfo_roundInfo = 'bossBattleInfo.roundInfo';
+  static const bossBattleInfo_roundInfoTitle = 'bossBattleInfo.roundInfoTitle';
+  static const bossBattleInfo_roundInfoDesc = 'bossBattleInfo.roundInfoDesc';
   static const bossBattleInfo_spell = 'bossBattleInfo.spell';
   static const bossBattleInfo_dps = 'bossBattleInfo.dps';
   static const bossBattleInfo_duration = 'bossBattleInfo.duration';

@@ -106,19 +106,23 @@ class _LoadingViewState extends State<LoadingView> {
             Column(
               children: [
                 FittedBox(
-                  child: Text(
-                    LocaleKeys.loading_continue.locale,
-                    style: const TextStyle(
-                      color: AppColors.amberAccent,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Virgil',
-                    ),
-                  )
-                  .animate(onPlay: (controller) => controller.repeat())
-                  .shimmer(duration: 1600.ms, delay: 800.ms)
-                  .animate().scaleXY(begin: 1.0, end: 1.05, duration: 800.ms, curve: Curves.easeInOut)
-                  .then().scaleXY(begin: 1.05, end: 1.0, duration: 800.ms, curve: Curves.easeInOut),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Text(
+                      LocaleKeys.loading_continue.locale,
+                      style: const TextStyle(
+                        color: AppColors.amberAccent,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Virgil',
+                      ),
+                    )
+                    .animate(onPlay: (controller) => controller.repeat())
+                    .shimmer(duration: 1600.ms, delay: 800.ms)
+                    .animate(onPlay: (controller) => controller.repeat())
+                    .scaleXY(begin: 1.0, end: 1.05, duration: 800.ms, curve: Curves.easeInOut)
+                    .then().scaleXY(begin: 1.05, end: 1.0, duration: 800.ms, curve: Curves.easeInOut),
+                  ),
                 ),
         
                 const EmptyBox.h8(),

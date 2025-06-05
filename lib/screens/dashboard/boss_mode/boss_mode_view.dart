@@ -10,6 +10,7 @@ import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/boss_head
 import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/circles/health_circle.dart';
 import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/color_settings/color_settings_button.dart';
 import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/dps_widget.dart';
+import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/game_info/game_info_button.dart';
 import 'package:dota2_invoker_game/utils/value_notifier_listener.dart';
 import 'package:dota2_invoker_game/widgets/app_outlined_button.dart';
 import 'package:tuple/tuple.dart';
@@ -19,7 +20,6 @@ import 'widgets/background/background_sky.dart';
 import 'widgets/background/background_weather.dart';
 import 'widgets/circles/round_circle.dart';
 import 'widgets/circles/time_circle.dart';
-import 'widgets/info/info_button.dart';
 import 'widgets/mana_bar.dart';
 import 'widgets/save_button.dart';
 import '../../../utils/game_save_handler.dart';
@@ -150,7 +150,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
         ),
         actions: const [
           SaveButton(),
-          InfoButton(),
+          GameInfoButton(),
           ColorSettingsButton(),
           ShopButton(),
         ],
