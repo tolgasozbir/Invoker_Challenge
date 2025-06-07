@@ -182,7 +182,7 @@ class _CircleColorCustomizerState extends State<CircleColorCustomizer> with Scre
     _middleCircleColor = _defaultCircleColor;
     _innerCircleColor = _defaultCircleColor;
     updateScreen();
-    _saveColors(); // Save the default colors
+    //_saveColors(); // Save the default colors
   }
 
   // --- UI Build Methods ---
@@ -405,6 +405,9 @@ class _CircleColorCustomizerState extends State<CircleColorCustomizer> with Scre
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(color: colors[i], width: 4),
+              boxShadow: [
+                BoxShadow(color: colors[i].withValues(alpha: 0.1), blurRadius: 8, spreadRadius: 4),
+              ]
             ),
           ),
         ),
