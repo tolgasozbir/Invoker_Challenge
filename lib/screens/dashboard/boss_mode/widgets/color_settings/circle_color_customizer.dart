@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dota2_invoker_game/constants/locale_keys.g.dart';
+import 'package:dota2_invoker_game/enums/Bosses.dart';
 import 'package:dota2_invoker_game/enums/local_storage_keys.dart';
 import 'package:dota2_invoker_game/extensions/color_extension.dart';
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
@@ -12,7 +15,6 @@ import 'package:dota2_invoker_game/widgets/empty_box.dart';
 import 'package:flutter/material.dart';
 
 import 'package:dota2_invoker_game/constants/app_colors.dart';
-import 'package:dota2_invoker_game/extensions/context_extension.dart';
 import 'package:provider/provider.dart';
 
 class CircleColorCustomizer extends StatefulWidget {
@@ -128,11 +130,20 @@ class _CircleColorCustomizerState extends State<CircleColorCustomizer> with Scre
     ),
   ];
 
+  //
+  Bosses _currentBoss = Bosses.values.last;
+
+  Bosses getRandomBoss() {
+    final random = Random();
+    const bosses = Bosses.values;
+    return bosses[random.nextInt(bosses.length)];
+  }
 
   @override
   void initState() {
     super.initState();
     _loadColors(); // Load colors when the widget initializes
+    _currentBoss = getRandomBoss();
   }
 
   // --- Shared Preferences Methods ---
@@ -162,7 +173,7 @@ class _CircleColorCustomizerState extends State<CircleColorCustomizer> with Scre
       roundColor: _middleCircleColor, 
       timeColor: _innerCircleColor,
     );
-    AppSnackBar.showSnackBarMessage(text: 'Başarılı', snackBartype: SnackBarType.success);
+    AppSnackBar.showSnackBarMessage(text: 'Başarılı', snackBartype: SnackBarType.success, duration: Durations.long2);
   }
 
   // Reset colors to default and save
@@ -190,31 +201,42 @@ class _CircleColorCustomizerState extends State<CircleColorCustomizer> with Scre
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        // Circle preview area
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Center(
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                // Outer Circle
-                _buildCircle(0.60, _outerCircleColor),
-                // Middle Circle
-                _buildCircle(0.48, _middleCircleColor),
-                // Inner Circle
-                _buildCircle(0.36, _innerCircleColor),
-              ],
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final midPad   = constraints.maxHeight * 0.086;
+                final innerPad = constraints.maxHeight * 0.172;
+                final imagePad = constraints.maxHeight * 0.254;
+                return Stack(
+                  alignment: Alignment.center,
+                  fit: StackFit.expand,
+                  children: _buildCircleLayersWithImage(
+                    colors: [
+                      _outerCircleColor,
+                      _middleCircleColor,
+                      _innerCircleColor,
+                    ],
+                    paddings: [0.0, midPad, innerPad],
+                    imagePadding: imagePad,
+                    imagePath: _currentBoss.getImage,
+                  ),
+                );
+              },
             ),
           ),
         ),
-
-        Expanded(
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            decoration: const BoxDecoration(
-              color: Color(0xFF1A1A1A),
-              borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
-            ),
+        
+        // Flexible part (bottom section) - it will now size itself to its children
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          decoration: const BoxDecoration(
+            color: Color(0xFF1A1A1A),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
+          ),
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -223,49 +245,35 @@ class _CircleColorCustomizerState extends State<CircleColorCustomizer> with Scre
                   child: Container(
                     width: 40,
                     height: 4,
-                    margin: const EdgeInsets.only(bottom: 10),
+                    margin: const EdgeInsets.only(bottom: 8),
                     decoration: BoxDecoration(
                       color: Colors.grey[600],
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(25),
                     ),
                   ),
                 ),
-                const EmptyBox.h12(), // Added spacing
-
+                const EmptyBox.h8(),
                 // Color selection rows
                 _buildCircleColorPickerRow(
                   LocaleKeys.ColorPicker_CircleLabels_outer.locale,
                   _outerCircleColor,
-                  (color) {
-                    setState(() {
-                      _outerCircleColor = color;
-                    });
-                  },
+                  (color) => updateScreen(fn: () => _outerCircleColor = color),
                 ),
-                 const EmptyBox.h8(), // Spacing between rows
-                 _buildCircleColorPickerRow(
+                const EmptyBox.h4(),
+                _buildCircleColorPickerRow(
                   LocaleKeys.ColorPicker_CircleLabels_middle.locale,
                   _middleCircleColor,
-                  (color) {
-                    setState(() {
-                      _middleCircleColor = color;
-                    });
-                  },
+                  (color) => updateScreen(fn: () => _middleCircleColor = color),
                 ),
-                const EmptyBox.h8(), // Spacing between rows
+                const EmptyBox.h4(),
                 _buildCircleColorPickerRow(
                   LocaleKeys.ColorPicker_CircleLabels_inner.locale,
                   _innerCircleColor,
-                  (color) {
-                    setState(() {
-                      _innerCircleColor = color;
-                    });
-                  },
+                  (color) => updateScreen(fn: () => _innerCircleColor = color),
                 ),
-
-                const EmptyBox.h12(),
+                const EmptyBox.h8(),
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 12),
+                  padding: const EdgeInsets.only(bottom: 8),
                   child: Text(
                     LocaleKeys.ColorPicker_presetThemes.locale,
                     style: TextStyle(
@@ -276,7 +284,8 @@ class _CircleColorCustomizerState extends State<CircleColorCustomizer> with Scre
                   ),
                 ),
                 // Theme selection row
-                Expanded(
+                SizedBox(
+                  height: 80,
                   child: ListView.builder(
                     clipBehavior: Clip.none,
                     scrollDirection: Axis.horizontal,
@@ -285,10 +294,9 @@ class _CircleColorCustomizerState extends State<CircleColorCustomizer> with Scre
                     itemBuilder: (context, index) {
                       final theme = _colorThemes[index];
                       return Padding(
-                        padding: EdgeInsets.only(right: index == _colorThemes.length - 1 ? 0 : 12), // No padding after last item
+                        padding: EdgeInsets.only(right: index == _colorThemes.length - 1 ? 0 : 12),
                         child: GestureDetector(
                           onTap: () {
-                            // Apply theme colors
                             _outerCircleColor = theme.outer;
                             _middleCircleColor = theme.middle;
                             _innerCircleColor = theme.inner;
@@ -301,16 +309,15 @@ class _CircleColorCustomizerState extends State<CircleColorCustomizer> with Scre
                                 height: 42,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                  // Using a simple gradient for theme preview
                                   gradient: LinearGradient(
                                     begin: Alignment.topLeft,
                                     end: Alignment.bottomRight,
                                     colors: [
-                                       theme.outer,
-                                       theme.middle,
-                                       theme.inner,
+                                      theme.outer,
+                                      theme.middle,
+                                      theme.inner,
                                     ],
-                                    stops: const [0.0, 0.5, 1.0], // Distribute colors
+                                    stops: const [0.0, 0.5, 1.0],
                                   ),
                                   boxShadow: [
                                     BoxShadow(
@@ -342,13 +349,13 @@ class _CircleColorCustomizerState extends State<CircleColorCustomizer> with Scre
                     },
                   ),
                 ),
-
+              
                 // Reset and Save buttons
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     OutlinedButton.icon(
-                      onPressed: _resetToDefault, // Call the reset function
+                      onPressed: _resetToDefault,
                       icon: const Icon(Icons.restart_alt),
                       label: Text(LocaleKeys.ColorPicker_reset.locale),
                       style: OutlinedButton.styleFrom(
@@ -361,7 +368,7 @@ class _CircleColorCustomizerState extends State<CircleColorCustomizer> with Scre
                     ),
                     const EmptyBox.w24(),
                     ElevatedButton.icon(
-                      onPressed: _saveColors, // Call the save function
+                      onPressed: _saveColors,
                       icon: const Icon(Icons.check),
                       label: Text(LocaleKeys.ColorPicker_apply.locale),
                       style: ElevatedButton.styleFrom(
@@ -382,17 +389,36 @@ class _CircleColorCustomizerState extends State<CircleColorCustomizer> with Scre
     );
   }
 
-  // Helper method to build a single circle preview
-  Widget _buildCircle(double size, Color color) {
-    return Container(
-      width: context.dynamicWidth(size),
-      height: context.dynamicWidth(size),
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        //color: color.withOpacity(0.2), // Use original color with opacity for fill
-        border: Border.all(color: color, width: 4), // Use darker color for border
+  List<Widget> _buildCircleLayersWithImage({
+    required List<Color> colors,
+    required List<double> paddings,
+    required double imagePadding,
+    required String imagePath,
+  }) {
+    final List<Widget> layers = [];
+
+    for (int i = 0; i < colors.length; i++) {
+      layers.add(
+        Padding(
+          padding: EdgeInsets.all(paddings[i]),
+          child: Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(color: colors[i], width: 4),
+            ),
+          ),
+        ),
+      );
+    }
+
+    layers.add(
+      Padding(
+        padding: EdgeInsets.all(imagePadding),
+        child: Image.asset(imagePath),
       ),
     );
+
+    return layers;
   }
 
   // Helper method to build a color selection row for a specific circle
@@ -405,34 +431,32 @@ class _CircleColorCustomizerState extends State<CircleColorCustomizer> with Scre
           height: 24,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: currentColor, // Use the actual selected color
+            color: currentColor,
              border: Border.all(
-              color: currentColor.darkerColor(), // Darker border for indicator
+              color: currentColor.darkerColor(),
               width: 2,
             ),
           ),
         ),
         const EmptyBox.w8(),
         // Label for the circle
-        Expanded( // Use Expanded to prevent overflow
+        Expanded(
           child: AutoSizeText(
             label,
             style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
-               color: Colors.white70, // Added a color for visibility
+               color: Colors.white70,
             ),
              maxLines: 1,
           ),
         ),
-        const EmptyBox.w8(), // Spacing
+        const EmptyBox.w8(),
         // Button to open color picker
         OutlinedButton.icon(
           onPressed: () {
             // Set which circle is being edited and show the picker
-             setState(() {
-               _editingCircle = label; // Use the label to identify
-             });
+             updateScreen(fn: () =>  _editingCircle = label);  // Use the label to identify,
             _showColorPickerSheet(
               initialColor: currentColor,
               onColorSelected: (selectedColor) {
@@ -527,7 +551,7 @@ class _CircleColorCustomizerState extends State<CircleColorCustomizer> with Scre
                               });
                               // Immediately update the main state and close the modal
                               onColorSelected(color); // Use the callback to update the main state
-                              Navigator.pop(context); // Close the modal
+                              //Navigator.pop(context); // Close the modal
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -565,9 +589,7 @@ class _CircleColorCustomizerState extends State<CircleColorCustomizer> with Scre
       },
     ).whenComplete(() {
        // Reset editing state when modal is closed
-       setState(() {
-         _editingCircle = null;
-       });
+       updateScreen(fn: () => _editingCircle = null);
     });
   }
 }
