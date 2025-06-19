@@ -23,6 +23,7 @@
     },
 
     "commonGeneral": {
+        "ok" : "Tamam",
         "leaderboard": "Lider Tablosu",
         "showMore": "Daha Fazla Göster",
         "result": "Sonuçlar",
@@ -355,6 +356,46 @@
             "light": "Işık",
             "berry": "Meyve",
             "sky": "Gök"
+        }
+    },
+
+    "paywall": {
+        "offerings_not_fetched": "Teklifler alınamadı!",
+        "premium_features": "Premium Özellikler",
+        "intro_text": "Her büyü bir seçimdir. Her destek bir adımdır. Bu oyunu var eden de senin seçimin olacak. Desteklerinle oyunun gelişimine katkıda bulunur, deneyimini daha da zenginleştirirsin.",
+        "features": {
+            "features_title": "Özellikler",
+            "feature_ad_free_title": "Reklamsız Deneyim",
+            "feature_ad_free_desc": "Kesintisiz oyun keyfi",
+            "feature_reach_max_level_title": "Son Seviyeye Ulaş",
+            "feature_reach_max_level_desc": "Doğrudan son seviyeye geç",
+            "feature_bonus_gold_title": "Bonus Altın",
+            "feature_bonus_gold_desc": "Boss savaşlarında ekstra altın kazan",
+            "feature_challenger_life_title": "+1 Mücadeleci Canı",
+            "feature_challenger_life_desc": "Meydan okuyucu modunda ekstra deneme hakkı",
+            "feature_time_title": "+30 Saniye",
+            "feature_time_desc": "Zamana karşı modda ekstra süre",
+            "feature_combo_title": "+15 Saniye Kombo",
+            "feature_combo_desc": "Kombo modunda ekstra süre"
+        },
+        "plans": {
+            "premium": "Premium",
+            "one_time": "Tek Seferlik Satın Alım",
+            "most_popular": "En Popüler",
+            "monthly": "1 Aylık",
+            "subscription": "Aylık Abonelik",
+            "start_monthly_subscription": "Aylık Aboneliği Başlat",
+            "purchase_premium_version": "Premium Sürümünü Satın Al",
+            "one_time_payment_unlimited_use": "Tek seferlik ödeme ile süresiz kullanım",
+            "cancel_anytime": "İstediğiniz zaman iptal edebilirsiniz"
+        },
+        "transaction_messages": {
+            "purchase_success_title": "Satın Alma Tamamlandı",
+            "purchase_success_desc": "Teşekkürler! Satın alma işleminiz başarıyla tamamlandı. Ürününüz hesabınıza tanımlandı ve kullanıma hazır. Oyunumuzu desteklediğiniz için minnettarız!",
+            "transaction_initiated_title": "İşlem Başlatıldı",
+            "transaction_initiated_desc": "Satın alma talebiniz başarıyla iletildi. Ödeme onaylandığında, ürününüz otomatik olarak hesabınıza tanımlanacaktır. İlginiz ve desteğiniz için teşekkür ederiz!",
+            "purchase_failed_title": "Satın Alma Başarısız",
+            "purchase_failed_desc": "İşlem tamamlanamadı. Ödeme sırasında bir sorun oluştu veya işlem iptal edildi. Lütfen tekrar deneyin ya da farklı bir ödeme yöntemi kullanın."
         }
     },
  

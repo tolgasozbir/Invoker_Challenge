@@ -10,4 +10,8 @@ enum LocalStorageKey {
   outerColor,   // hp circle
   middleColor,  // round circle
   innerColor,   // time circle
+  //bool keys
+  bootstrap_completed,
+  //list<string> keys
+  processed_rc_transactions,
 }

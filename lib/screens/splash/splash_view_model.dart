@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:dota2_invoker_game/enums/sound_players.dart';
 import 'package:dota2_invoker_game/models/invoker.dart';
+import 'package:dota2_invoker_game/services/iap/revenuecat_service.dart';
 import 'package:dota2_invoker_game/services/sound_player/audioplayer_wrapper.dart';
 import 'package:dota2_invoker_game/services/sound_player/soloud_wrapper.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,7 @@ abstract class SplashViewModel extends State<SplashView> {
     await initHive();
     await loadAds();
     await getUserRecords();
+    await loadRevenueCatData();
     getSettingsValues();
     loadInvokerSet();
     await goToMainMenu();
@@ -46,6 +48,10 @@ abstract class SplashViewModel extends State<SplashView> {
     await AdsHelper.instance.rewardedAdLoad();
   }
 
+  Future<void> loadRevenueCatData() async {
+    await RevenueCatService.instance.loadDataWithRetry();
+  }
+ 
   Future<void> getUserRecords() async {
     // Retrieve user records from cache if available, otherwise create a new user and save it to the cache
     await UserManager.instance.initUser();

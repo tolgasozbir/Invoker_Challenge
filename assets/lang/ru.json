@@ -23,6 +23,7 @@
     },
 
     "commonGeneral": {
+        "ok" : "OK",
         "leaderboard": "Таблица лидеров",
         "showMore": "Показать больше",
         "result": "Результаты",
@@ -355,6 +356,46 @@
             "light": "Свет",
             "berry": "Ягода",
             "sky": "Небо"
+        }
+    },
+
+    "paywall": {
+        "offerings_not_fetched": "Не удалось получить предложения!",
+        "premium_features": "Премиум-Функции",
+        "intro_text": "Каждое заклинание — это выбор. Каждая поддержка — это шаг вперёд. Эту игру формируют твои решения. Благодаря твоей поддержке игра развивается, а твой опыт становится богаче.",
+        "features": {
+            "features_title": "Функции",
+            "feature_ad_free_title": "Без Рекламы",
+            "feature_ad_free_desc": "Игра без перерывов",
+            "feature_reach_max_level_title":"Макс. Уровень",
+            "feature_reach_max_level_desc": "Мгновенный переход на макс. уровень",
+            "feature_bonus_gold_title": "Бонусное Золото",
+            "feature_bonus_gold_desc": "Доп. золото в битвах с боссами",
+            "feature_challenger_life_title": "+1 Жизнь Игрока",
+            "feature_challenger_life_desc": "Доп. попытки в режиме Испытания",
+            "feature_time_title": "+30 Секунд",
+            "feature_time_desc": "Больше времени в Time Trial",
+            "feature_combo_title": "+15 Секунд Комбо",
+            "feature_combo_desc": "Доп. 15 сек. в режиме Комбо"
+        },
+        "plans": {
+            "premium": "Премиум",
+            "one_time": "Разовая Покупка",
+            "most_popular": "Самое Популярное",
+            "monthly": "1 Месяц",
+            "subscription": "Ежемесячная Подписка",
+            "start_monthly_subscription": "Начать Ежемесячную Подписку",
+            "purchase_premium_version": "Купить Премиум-Версию",
+            "one_time_payment_unlimited_use": "Разовая оплата — неограниченное использование",
+            "cancel_anytime": "Отмена в любое время"
+        },
+        "transaction_messages": {
+            "purchase_success_title": "Покупка Завершена",
+            "purchase_success_desc": "Спасибо! Покупка успешно завершена. Ваш продукт добавлен в ваш аккаунт и готов к использованию. Мы благодарны за вашу поддержку!",
+            "transaction_initiated_title": "Операция Начата",
+            "transaction_initiated_desc": "Запрос на покупку успешно отправлен. После подтверждения оплаты ваш продукт будет автоматически добавлен в ваш аккаунт. Спасибо за интерес и поддержку!",
+            "purchase_failed_title": "Ошибка Покупки",
+            "purchase_failed_desc": "Операция не была завершена. Возникла ошибка во время оплаты или транзакция была отменена. Пожалуйста, попробуйте снова или используйте другой способ оплаты."
         }
     },
 

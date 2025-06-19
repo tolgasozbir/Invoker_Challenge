@@ -67,7 +67,7 @@ dependencies:
   google_mobile_ads: ^6.0.0
 
   #IAP
-  in_app_purchase: ^3.2.1
+  purchases_flutter: ^8.10.1
 
 dev_dependencies:
   flutter_test:

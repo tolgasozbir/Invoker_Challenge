@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:dota2_invoker_game/providers/app_context_provider.dart';
 import 'package:dota2_invoker_game/providers/color_settings_provider.dart';
 import 'package:dota2_invoker_game/services/config/remote_config_service.dart';
+import 'package:dota2_invoker_game/services/iap/revenuecat_service.dart';
 import 'package:dota2_invoker_game/utils/ads_helper.dart';
 import 'package:dota2_invoker_game/utils/localization_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -35,6 +36,8 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   //Environment variables
   await dotenv.load(fileName: '.env');
+  //IAP
+  await RevenueCatService.instance.initialize();
   //Firebase
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   //Remote config
