@@ -12,6 +12,7 @@ enum LocalStorageKey {
   innerColor,   // time circle
   //bool keys
   bootstrap_completed,
+  hasRestoredPurchases,
   //list<string> keys
   processed_rc_transactions,
 }

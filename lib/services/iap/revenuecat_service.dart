@@ -40,7 +40,9 @@ class RevenueCatService {
   String get consumablePremiumOfferingPrice => consumablePremiumOffering?.storeProduct.priceString ?? '';
 
   Future<void> initialize() async {
-    await Purchases.setLogLevel(LogLevel.debug);
+    if (kDebugMode) {
+      await Purchases.setLogLevel(LogLevel.debug);
+    }
 
     late final PurchasesConfiguration configuration;
     if (Platform.isAndroid) {
@@ -55,11 +57,7 @@ class RevenueCatService {
         _customerInfo.value = updatedInfo;
         log('Customer info updated!', name: 'PurchaseService');
         
-        log('is Subscribed : $isSubscribed');
-        if (isSubscribed) {
-          await _grantPremiumAccess();
-        }
-        _checkAndProcessConsumables(updatedInfo);
+        await _processCustomerInfo(updatedInfo);
       });
 
       configuration = PurchasesConfiguration(apiKey);
@@ -68,6 +66,14 @@ class RevenueCatService {
       log('PurchaseService is not supported on this platform.', name: 'PurchaseService');
     }
 
+  }
+
+  Future<void> _processCustomerInfo(CustomerInfo customerInfo) async {
+    log('is Subscribed : $isSubscribed');
+    if (isSubscribed) {
+      await _grantPremiumAccess();
+    }
+    await _checkAndProcessConsumables(customerInfo);
   }
 
   /// Fetches offerings and initial customer info.
@@ -159,10 +165,29 @@ class RevenueCatService {
 
   Future<void> _grantPremiumAccess() async {
     //TODO.
-    log('GRANT PREMİUM');
+    log('GRANT PREMİUM', name: 'PurchaseService');
     await Purchases.syncPurchases();
   }
 
+  /// Sadece ilk uygulama açılışında restore etmeyi dener
+  Future<void> tryRestoreOnFirstLaunch() async {
+    final cache = LocalStorageService.instance;
+    final hasRestored = cache.getValue<bool>(LocalStorageKey.hasRestoredPurchases) ?? false;
+
+    if (!hasRestored) {
+      try {
+        _customerInfo.value = await Purchases.restorePurchases();
+
+        await _processCustomerInfo(_customerInfo.value!);
+
+        await cache.setValue<bool>(LocalStorageKey.hasRestoredPurchases, true);
+
+        log('Satın alımlar restore edildi (ilk açılışta).', name: 'PurchaseService');
+      } catch (e) {
+        log('Restore işlemi başarısız: $e', name: 'PurchaseService');
+      }
+    }
+  }
 
   /// Initiates the purchase flow for a specific package.
   // Future<bool> purchasePackage(Package package) async {
