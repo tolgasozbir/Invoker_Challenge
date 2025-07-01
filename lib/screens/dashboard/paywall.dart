@@ -47,11 +47,11 @@ class _PaywallScreenState extends State<PaywallScreen> with ScreenStateMixin {
           //   print(element.storeProduct.priceString);
           // }
 
-          if (offerings == null) {
+          if (isLoading) {
             return _buildLoadingIndicator();
           }
 
-          if (offerings.current == null || offerings.current!.availablePackages.isEmpty) {
+          if (offerings == null || offerings.current == null || offerings.current!.availablePackages.isEmpty) {
             return _buildError();
           }
 

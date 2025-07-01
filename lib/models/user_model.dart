@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dota2_invoker_game/services/hive/IBaseHiveService.dart';
+import 'package:dota2_invoker_game/services/iap/revenuecat_service.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'base_models/base_model.dart';
@@ -37,6 +38,30 @@ class UserModel extends IBaseModel<UserModel> {
   @HiveField(12)
   String? lastPlayed;
 
+  // abonelik
+  @HiveField(13)
+  bool? isSubscribed;
+  @HiveField(14)
+  int? subscriptionCount;
+  @HiveField(15)
+  String? lastSubscriptionDate;
+  @HiveField(16)
+  List<String>? subscriptionHistory;
+
+  // tekil satın alma
+  @HiveField(17)
+  bool? hasPurchased;
+  @HiveField(18)
+  int? purchaseCount;
+  @HiveField(19)
+  String? lastPurchaseDate;
+  
+  @HiveField(20)
+  bool? isAdminGrantedPremium;
+
+  @HiveField(21)
+  bool? isPremiumSuspended;
+
   UserModel({
     required this.uid,
     required this.username,
@@ -51,6 +76,15 @@ class UserModel extends IBaseModel<UserModel> {
     required this.achievements,
     required this.bestBossScores,
     required this.lastPlayed,
+    required this.isSubscribed,
+    required this.subscriptionCount,
+    required this.lastSubscriptionDate,
+    required this.subscriptionHistory,
+    required this.hasPurchased,
+    required this.purchaseCount,
+    required this.lastPurchaseDate,
+    required this.isAdminGrantedPremium,
+    required this.isPremiumSuspended,
   });
 
   UserModel.guest({
@@ -67,7 +101,42 @@ class UserModel extends IBaseModel<UserModel> {
     this.achievements,
     this.bestBossScores,
     this.lastPlayed,
+    this.isSubscribed = false,
+    this.subscriptionCount = 0,
+    this.lastSubscriptionDate,
+    this.subscriptionHistory = const [],
+    this.hasPurchased = false,
+    this.purchaseCount = 0,
+    this.lastPurchaseDate,
+    this.isAdminGrantedPremium = false,
+    this.isPremiumSuspended = false,
   });
+
+  bool get isPremium {
+    if (isPremiumSuspended ?? false) return false;
+    if (isAdminGrantedPremium ?? false) return true;
+    if (hasPurchased ?? false) return true;
+    if (_totalSubscriptionDurationInDays >= 60) return true;
+    if (RevenueCatService.instance.isSubscribed) return true;
+    return false;
+  }
+
+  int get _totalSubscriptionDurationInDays {
+    if (subscriptionHistory == null || subscriptionHistory!.length < 2) return 0;
+
+    final parsedDates = subscriptionHistory!
+        .map((e) => DateTime.tryParse(e))
+        .whereType<DateTime>()
+        .toList()
+      ..sort();
+
+    if (parsedDates.length < 2) return 0;
+
+    final first = parsedDates.first;
+    final last = parsedDates.last;
+
+    return last.difference(first).inDays;
+  }
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
@@ -84,6 +153,15 @@ class UserModel extends IBaseModel<UserModel> {
       achievements: map['achievements'] != null ? Map<String,dynamic>.from(map['achievements'] as Map<String,dynamic>) : null,
       bestBossScores: map['bestBossScores'] != null ? Map<String,dynamic>.from(map['bestBossScores'] as Map<String,dynamic>) : null,
       lastPlayed: map['lastPlayed'] as String?,
+      isSubscribed: map['isSubscribed'] as bool? ?? false,
+      subscriptionCount: map['subscriptionCount'] as int? ?? 0,
+      lastSubscriptionDate: map['lastSubscriptionDate'] as String?,
+      subscriptionHistory: map['subscriptionHistory'] != null ? List<String>.from(map['subscriptionHistory']) : [],
+      hasPurchased: map['hasPurchased'] as bool? ?? false,
+      purchaseCount: map['purchaseCount'] as int? ?? 0,
+      lastPurchaseDate: map['lastPurchaseDate'] as String?,
+      isAdminGrantedPremium: map['isAdminGrantedPremium'] as bool? ?? false,
+      isPremiumSuspended: map['isPremiumSuspended'] as bool? ?? false,
     );
   }
 
@@ -112,6 +190,15 @@ class UserModel extends IBaseModel<UserModel> {
       'achievements': achievements,
       'bestBossScores': bestBossScores,
       'lastPlayed' : lastPlayed,
+      'isSubscribed': isSubscribed,
+      'subscriptionCount': subscriptionCount,
+      'lastSubscriptionDate': lastSubscriptionDate,
+      'subscriptionHistory': subscriptionHistory,
+      'hasPurchased': hasPurchased,
+      'purchaseCount': purchaseCount,
+      'lastPurchaseDate': lastPurchaseDate,
+      'isAdminGrantedPremium' : isAdminGrantedPremium,
+      'isPremiumSuspended' : isPremiumSuspended,
     };
   }
 

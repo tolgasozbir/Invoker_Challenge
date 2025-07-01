@@ -295,4 +295,35 @@ class UserManager extends ChangeNotifier {
   void updateSyncedDate() {
     lastSyncedDate = DateTime.now();
   }
+
+  Future<void> processPremium({required bool isFromSubscription}) async {
+    // Max seviyeye gelmedi ise EXP ekle
+    if (user.level < _maxLevel) {
+      addExp(99999);
+    }
+
+    final now = DateTime.now();
+    final nowIso = now.toIso8601String();
+    final todayStr = nowIso.substring(0, 10);
+
+    if (isFromSubscription) {
+      final history = user.subscriptionHistory ?? [];
+      // Aynı gün içinde tekrar işlenmesin
+      final alreadyLoggedToday = history.any((d) => d.startsWith(todayStr));
+
+      if (!alreadyLoggedToday) {
+        user.subscriptionCount = (user.subscriptionCount ?? 0) + 1;
+        user.subscriptionHistory = List<String>.from(history)..add(nowIso);
+        user.lastSubscriptionDate = nowIso;
+      }
+      user.isSubscribed = true;
+    } else {
+      user.hasPurchased = true;
+      user.purchaseCount = (user.purchaseCount ?? 0) + 1;
+      user.lastPurchaseDate = nowIso;
+    }
+
+    // await setUserAndSaveToCache(user);
+    // await saveUserToDb(user);
+  }
 }

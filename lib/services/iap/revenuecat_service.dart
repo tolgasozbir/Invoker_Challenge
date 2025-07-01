@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:dota2_invoker_game/enums/local_storage_keys.dart';
 import 'package:dota2_invoker_game/services/local_storage/local_storage_service.dart';
+import 'package:dota2_invoker_game/services/user_manager.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -70,10 +71,19 @@ class RevenueCatService {
 
   Future<void> _processCustomerInfo(CustomerInfo customerInfo) async {
     log('is Subscribed : $isSubscribed');
+
+    // user modeldeki isSubscribed durumunu güncelle
+    final userManager = UserManager.instance;
+    userManager.user.isSubscribed = isSubscribed;
+
     if (isSubscribed) {
-      await _grantPremiumAccess();
+      await _grantPremiumAccess(isFromSubscription: true);
     }
     await _checkAndProcessConsumables(customerInfo);
+
+    await userManager.setUserAndSaveToCache(userManager.user);
+    await userManager.saveUserToDb(userManager.user);
+    log('Saved');
   }
 
   /// Fetches offerings and initial customer info.
@@ -150,7 +160,7 @@ class RevenueCatService {
 
       bool purchaseProcessed = false;
       if (productId == RevenuecatIdentifiers.consumablePackage.transactionProductId) {
-        await _grantPremiumAccess();
+        await _grantPremiumAccess(isFromSubscription: false);
       }
       purchaseProcessed = true;
 
@@ -163,9 +173,13 @@ class RevenueCatService {
     await cache.setValue<List<String>>(LocalStorageKey.processed_rc_transactions, processedTransactions);
   }
 
-  Future<void> _grantPremiumAccess() async {
-    //TODO.
-    log('GRANT PREMİUM', name: 'PurchaseService');
+  /// Grants premium access based on the type of purchase.
+  /// 
+  /// [isFromSubscription] - If true, the premium is granted via subscription.
+  /// If false, it is granted via one-time purchase.
+  Future<void> _grantPremiumAccess({required bool isFromSubscription}) async {
+    log('Granting premium access via ${isFromSubscription ? 'subscription' : 'one-time purchase'}', name: 'PurchaseService');
+    await UserManager.instance.processPremium(isFromSubscription: isFromSubscription);
     await Purchases.syncPurchases();
   }
 

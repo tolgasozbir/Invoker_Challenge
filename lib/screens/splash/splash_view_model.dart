@@ -29,9 +29,9 @@ abstract class SplashViewModel extends State<SplashView> {
 
   Future<void> init() async {
     await initHive();
-    await loadAds();
     await getUserRecords();
     await loadRevenueCatData();
+    await loadAds();
     getSettingsValues();
     loadInvokerSet();
     await goToMainMenu();
