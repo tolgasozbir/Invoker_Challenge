@@ -1,6 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
-import 'package:dota2_invoker_game/screens/dashboard/paywall.dart';
+import 'package:dota2_invoker_game/screens/profile/premium/paywall.dart';
 import 'package:dota2_invoker_game/screens/profile/invoker_style/invoker_style_view.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';

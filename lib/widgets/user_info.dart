@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../constants/app_colors.dart';
@@ -24,7 +25,10 @@ class UserStatus extends StatelessWidget {
   BoxDecoration get boxDecoration => BoxDecoration(
     color: AppColors.buttonBgColor,
     borderRadius: BorderRadius.circular(8),
-    border: Border.all(width: 2),
+    border: Border.all(
+      color: UserManager.instance.user.isPremium ? AppColors.amber.withValues(alpha: 0.32) : AppColors.black,
+      width: 2,
+    ),
   );
   
   String get username => user.username;
@@ -98,7 +102,7 @@ class UserStatus extends StatelessWidget {
                       Shadow(blurRadius: 8),
                       Shadow(blurRadius: 12),
                     ],
-                  ),
+                  ).animate(onPlay: (controller) => controller.repeat()).shimmer(size: 1, duration: 1200.ms, delay: 3600.ms),
                 ),
               ),
           ],
