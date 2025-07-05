@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
+import 'package:dota2_invoker_game/screens/dashboard/paywall.dart';
 import 'package:dota2_invoker_game/screens/profile/invoker_style/invoker_style_view.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -25,7 +26,7 @@ class ProfileDialogContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: context.dynamicHeight(0.64),
+      height: context.dynamicHeight(0.72),
       child: Column(
         children: [
           achievements(context),
@@ -33,6 +34,8 @@ class ProfileDialogContent extends StatelessWidget {
           bossGallery(context),
           const Divider(color: AppColors.amber, thickness: 1, height: 8),
           invokerForm(context),
+          const Divider(color: AppColors.amber, thickness: 1, height: 8),
+          paywall(context),
           const Divider(color: AppColors.amber, thickness: 1, height: 8),
           const EmptyBox.h8(),
           syncDataBtn(context),
@@ -48,25 +51,25 @@ class ProfileDialogContent extends StatelessWidget {
     final totalCount = AchievementManager.instance.achievements.length;
     final current = AchievementManager.instance.achievements.where((e) => e.isDone == true).toList().length;
     return InkWell(
-      child: SizedBox(
-        height: context.dynamicHeight(0.14),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Image.asset(ImagePaths.icAchievements, width: context.dynamicWidth(0.24),),
+            Image.asset(ImagePaths.icAchievements, height: context.dynamicHeight(0.1), width:context.dynamicHeight(0.1)),
             Expanded(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   AutoSizeText(
                     LocaleKeys.mainMenu_achievements.locale,
-                    style: TextStyle(fontSize: context.sp(18)),
+                    style: TextStyle(fontSize: context.sp(16)),
                     maxLines: 1,
                   ),
                   AutoSizeText(
                     '$current/$totalCount',
-                    style: TextStyle(fontSize: context.sp(14)),
+                    style: TextStyle(fontSize: context.sp(12)),
                     maxLines: 1,
                   ),
                 ],
@@ -82,17 +85,17 @@ class ProfileDialogContent extends StatelessWidget {
   
   InkWell bossGallery(BuildContext context) {
     return InkWell(
-      child: SizedBox(
-        height: context.dynamicHeight(0.14),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Image.asset(Bosses.wraith_king.getImage, width: context.dynamicWidth(0.24),),
+            Image.asset(Bosses.wraith_king.getImage, height: context.dynamicHeight(0.1), width:context.dynamicHeight(0.1)),
             Expanded(
               child: AutoSizeText(
                 LocaleKeys.mainMenu_bossGallery.locale,
-                style: TextStyle(fontSize: context.sp(18)),
+                style: TextStyle(fontSize: context.sp(16)),
                 maxLines: 1,
                 textAlign: TextAlign.center,
               ),
@@ -107,17 +110,17 @@ class ProfileDialogContent extends StatelessWidget {
   
   InkWell invokerForm(BuildContext context) {
     return InkWell(
-      child: SizedBox(
-        height: context.dynamicHeight(0.14),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Image.asset(ImagePaths.icInvokerHead, width: context.dynamicWidth(0.24),),
+            Image.asset(ImagePaths.icInvokerHead, height: context.dynamicHeight(0.1), width:context.dynamicHeight(0.1)),
             Expanded(
               child: AutoSizeText(
                 LocaleKeys.InvokerPersona_invokerPersona.locale,
-                style: TextStyle(fontSize: context.sp(18)),
+                style: TextStyle(fontSize: context.sp(16)),
                 maxLines: 1,
                 textAlign: TextAlign.center,
               ),
@@ -127,6 +130,31 @@ class ProfileDialogContent extends StatelessWidget {
         ),
       ),
       onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const InvokerStyleView(),)),
+    );
+  }
+
+  InkWell paywall(BuildContext context) {
+    return InkWell(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 4),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Image.asset(ImagePaths.premiumPaywall, height: context.dynamicHeight(0.1), width:context.dynamicHeight(0.1)),
+            Expanded(
+              child: AutoSizeText(
+                LocaleKeys.paywall_explore_premium.locale,
+                style: TextStyle(fontSize: context.sp(16)),
+                maxLines: 1,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            const Icon(Icons.chevron_right, color: AppColors.amber),
+          ],
+        ),
+      ),
+      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const PaywallScreen())),
     );
   }
 

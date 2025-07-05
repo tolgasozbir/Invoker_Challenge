@@ -360,6 +360,7 @@
     },
 
     "paywall": {
+        "explore_premium" : "Explore Premium",
         "offerings_not_fetched": "Could not fetch offerings!",
         "premium_features": "Premium Features",
         "intro_text": "Every spell is a choice. Every support is a step forward. This game is shaped by your choices. By supporting us, you not only contribute to the game’s development but also make your journey more rewarding.",

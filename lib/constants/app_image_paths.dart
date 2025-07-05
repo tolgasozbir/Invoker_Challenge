@@ -61,6 +61,7 @@ class ImagePaths {
   static const String invokerPersonaShowcase  = '$_misc/invoker_persona_showcase.jpeg';
   static const String invokerPersonaInfo1  = '$_misc/info_persona1.png';
   static const String invokerPersonaInfo2  = '$_misc/info_persona2.png';
+  static const String premiumPaywall  = '$_misc/premium_paywall.png';
 
   static const String icAchievements = '$_root/achievements/ic_achievements.png';
 

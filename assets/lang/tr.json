@@ -360,6 +360,7 @@
     },
 
     "paywall": {
+        "explore_premium" : "Premium’u Keşfet",
         "offerings_not_fetched": "Teklifler alınamadı!",
         "premium_features": "Premium Özellikler",
         "intro_text": "Her büyü bir seçimdir. Her destek bir adımdır. Bu oyunu var eden de senin seçimin olacak. Desteklerinle oyunun gelişimine katkıda bulunur, deneyimini daha da zenginleştirirsin.",

@@ -66,10 +66,9 @@ class ShopButton extends StatelessWidget {
                         !context.read<BossBattleProvider>().isHornSoundPlaying;
         if(isClickable) {
           AdsHelper.instance.shopEntryAdCounter++;
-          //print("${AdsHelper.instance.shopAdCounter % 4} / 4 || ${AdsHelper.instance.shopAdCounter % 4 == 0}");
-          if (AdsHelper.instance.shopEntryAdCounter % 4 == 0 && AdsHelper.instance.interstitialAd != null) {
+          if (AdsHelper.instance.shopEntryAdCounter % 4 == 0) {
             try {
-              await AdsHelper.instance.interstitialAd!.show();
+              await AdsHelper.instance.appOpenAdLoad();
             } catch (e) {
               log('err interstitialAd $e');
             }

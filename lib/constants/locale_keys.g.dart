@@ -292,6 +292,7 @@ abstract class  LocaleKeys {
   static const ColorPicker_ColorThemeKeys_sky = 'ColorPicker.ColorThemeKeys.sky';
   static const ColorPicker_ColorThemeKeys = 'ColorPicker.ColorThemeKeys';
   static const ColorPicker = 'ColorPicker';
+  static const paywall_explore_premium = 'paywall.explore_premium';
   static const paywall_offerings_not_fetched = 'paywall.offerings_not_fetched';
   static const paywall_premium_features = 'paywall.premium_features';
   static const paywall_intro_text = 'paywall.intro_text';

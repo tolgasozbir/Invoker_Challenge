@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +64,7 @@ class UserStatus extends StatelessWidget {
     AppDialogs.showSlidingDialog(
       dismissible: true,
       showBackButton: true,
-      height: hasUid ? context.dynamicHeight(0.72) : 500,
+      height: hasUid ? context.dynamicHeight(0.76) : 500,
       title:  hasUid ? LocaleKeys.mainMenu_profile.locale : '${LocaleKeys.formDialog_login.locale} & ${LocaleKeys.formDialog_register.locale}',
       uid: UserManager.instance.user.uid,
       content: hasUid
@@ -78,7 +80,29 @@ class UserStatus extends StatelessWidget {
       margin: const EdgeInsets.all(8),
       decoration: boxDecoration,
       child: hasUid && miniMapIc.isNotNullOrNoEmpty
-        ? Image.asset(miniMapIc!)
+        ? Stack(
+          alignment: Alignment.center,
+          children: [
+            Image.asset(miniMapIc!),
+            if (UserManager.instance.user.isPremium)
+              Positioned(
+                top: 2,
+                left: 0,
+                child: Transform.rotate(
+                  angle: 315 * pi / 180,
+                  child: const Icon(
+                    FontAwesomeIcons.crown, 
+                    color: AppColors.amber,
+                    size: 20,
+                    shadows: [
+                      Shadow(blurRadius: 8),
+                      Shadow(blurRadius: 12),
+                    ],
+                  ),
+                ),
+              ),
+          ],
+        )
         : const Icon(
             FontAwesomeIcons.userSecret, 
             shadows: [Shadow(blurRadius: 32)],
