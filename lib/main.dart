@@ -36,8 +36,6 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   //Environment variables
   await dotenv.load(fileName: '.env');
-  //IAP
-  await RevenueCatService.instance.initialize();
   //Firebase
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   //Remote config
@@ -48,6 +46,8 @@ void main() async {
     localStorageService: LocalStorageService.instance,
     firebaseAuthService: FirebaseAuthService.instance,
   );
+  //IAP
+  await RevenueCatService.instance.initialize();
   //Ads
   await MobileAds.instance.initialize();
   //Sound player
