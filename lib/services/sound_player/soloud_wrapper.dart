@@ -59,5 +59,31 @@ class SoLoudWrapper implements ISoundPlayer {
       log('Failed to load sound "$path": $e');
     }
   }
+
+  // Future already completed Hatası için
+  // final Map<String, Future<AudioSource>> _loadingFutures = {};
+
+  // Future<void> _loadSound(String path) async {
+  //   if (_loadedSounds.containsKey(path)) return;
+
+  //   // Eğer daha önce yükleme başlatıldıysa, aynı future'ı bekle
+  //   if (_loadingFutures.containsKey(path)) {
+  //     await _loadingFutures[path];
+  //     return;
+  //   }
+
+  //   try {
+  //     final future = _soLoud.loadAsset(path);
+  //     _loadingFutures[path] = future;
+
+  //     final source = await future;
+  //     _loadedSounds[path] = source;
+  //   } catch (e) {
+  //     log('Failed to load sound "$path": $e');
+  //   } finally {
+  //     _loadingFutures.remove(path); // Temizle
+  //   }
+  // }
+  
   
 }

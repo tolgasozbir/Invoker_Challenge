@@ -150,6 +150,7 @@ abstract class  LocaleKeys {
   static const leaderboard_physicalDmg = 'leaderboard.physicalDmg';
   static const leaderboard_magicalDmg = 'leaderboard.magicalDmg';
   static const leaderboard_earnedExp = 'leaderboard.earnedExp';
+  static const leaderboard_bonusGold = 'leaderboard.bonusGold';
   static const leaderboard_earnedGold = 'leaderboard.earnedGold';
   static const leaderboard_round = 'leaderboard.round';
   static const leaderboard_bestTime = 'leaderboard.bestTime';

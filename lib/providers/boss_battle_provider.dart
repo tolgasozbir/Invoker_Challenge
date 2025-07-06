@@ -629,7 +629,13 @@ class BossBattleProvider extends ChangeNotifier {
       started = false;
       currentBossHp = 0; // eksi değer göstermemesi için
       dps = 0;
-      _addGold(totalEarnedGold);
+      if (UserManager.instance.user.isPremium) {
+        final bonusGold = ((roundProgress+1)+3) * 100;
+        final totalGold = totalEarnedGold + bonusGold;
+        _addGold(totalGold);
+      } else {
+        _addGold(totalEarnedGold);
+      }
       await Future.delayed(const Duration(milliseconds: 100)); //snap işleminde 100 ms sonrasını baz almak için
       SoundManager.instance.playBossDeathSound(currentBoss);
       await snapBoss();

@@ -171,6 +171,7 @@
         "physicalDmg": "Physical Damage",
         "magicalDmg": "Magical Damage",
         "earnedExp": "Earned Exp",
+        "bonusGold" : "Bonus Gold",
         "earnedGold": "Earned Gold",
         "round": "Round",
         "bestTime": "Best Completion Time"

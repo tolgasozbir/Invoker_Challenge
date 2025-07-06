@@ -393,10 +393,12 @@ class _PaywallScreenState extends State<PaywallScreen> with ScreenStateMixin {
 
     try {
       await Purchases.purchasePackage(package);
-      _showPurchaseDialog(
-        title: LocaleKeys.paywall_transaction_messages_purchase_success_title.locale, 
-        desc: LocaleKeys.paywall_transaction_messages_purchase_success_desc.locale,
-      );
+      if (context.mounted) {
+        _showPurchaseDialog(
+          title: LocaleKeys.paywall_transaction_messages_purchase_success_title.locale, 
+          desc: LocaleKeys.paywall_transaction_messages_purchase_success_desc.locale,
+        );
+      }
     } on PlatformException catch (e) {
       final errorCode = PurchasesErrorHelper.getErrorCode(e);
       if (context.mounted) {

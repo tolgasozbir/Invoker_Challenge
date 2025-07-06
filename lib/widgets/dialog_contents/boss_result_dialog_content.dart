@@ -65,6 +65,7 @@ class BossResultRoundDialogContent extends StatelessWidget {
                 _resultField(LocaleKeys.leaderboard_AverageDps.locale, model.averageDps.numberFormat),
                 _resultField(LocaleKeys.leaderboard_earnedExp.locale,earnedExp.numberFormat, color: AppColors.green),
                 if (!timeUp && isLast) ...[
+                  if (UserManager.instance.user.isPremium) _resultField(LocaleKeys.leaderboard_bonusGold.locale, goldAmount.numberFormat, color: AppColors.amber),
                   _resultField(LocaleKeys.leaderboard_earnedGold.locale, totalEarnedGold.numberFormat, color: AppColors.amber),
                   const EmptyBox.h4(),
                   watchAdButton(context),
