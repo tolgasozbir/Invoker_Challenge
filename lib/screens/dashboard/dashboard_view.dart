@@ -4,8 +4,10 @@ import 'package:dota2_invoker_game/constants/locale_keys.g.dart';
 import 'package:dota2_invoker_game/extensions/context_extension.dart';
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:dota2_invoker_game/providers/app_context_provider.dart';
+import 'package:dota2_invoker_game/services/iap/revenuecat_service.dart';
 import 'package:dota2_invoker_game/utils/app_updater.dart';
 import 'package:dota2_invoker_game/widgets/dialog_contents/app_update_dialog.dart';
+import 'package:dota2_invoker_game/widgets/dialog_contents/become_premium_dialog.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:tuple/tuple.dart';
@@ -70,7 +72,16 @@ class _DashboardViewState extends State<DashboardView> {
       context: context,
       barrierDismissible: false,
       builder: (context) => AppUpdateDialog(forceUpdate: forceUpdate),
-    ); 
+    );
+  }
+
+  void _showPremiumDialog() async {
+    final shouldShow = await RevenueCatService.instance.shouldShowPremiumDialog();
+    if (!mounted || !shouldShow) return;
+    showDialog<void>(
+      context: context,
+      builder: (context) => const PremiumOfferDialog(),
+    );
   }
 
   void init() async {
@@ -78,6 +89,7 @@ class _DashboardViewState extends State<DashboardView> {
       context.read<AppContextProvider>().setAppContext(context);
       updateConsent();
       updateApp();
+      _showPremiumDialog();
     });
   }
 

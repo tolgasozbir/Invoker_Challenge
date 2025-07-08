@@ -364,7 +364,7 @@
         "explore_premium" : "Premium’u Keşfet",
         "offerings_not_fetched": "Teklifler alınamadı!",
         "premium_features": "Premium Özellikler",
-        "intro_text": "Her büyü bir seçimdir. Her destek bir adımdır. Bu oyunu var eden de senin seçimin olacak. Desteklerinle oyunun gelişimine katkıda bulunur, deneyimini daha da zenginleştirirsin.",
+        "intro_text": "Karanlığın ötesinde, yalnızca cesaret edenlerin dokunabildiği güç yatar. Senin desteğinle bu güç uyanır, kaderin şekillenir ve efsanen başlar.",
         "features": {
             "features_title": "Özellikler",
             "feature_ad_free_title": "Reklamsız Deneyim",
@@ -398,6 +398,33 @@
             "transaction_initiated_desc": "Satın alma talebiniz başarıyla iletildi. Ödeme onaylandığında, ürününüz otomatik olarak hesabınıza tanımlanacaktır. İlginiz ve desteğiniz için teşekkür ederiz!",
             "purchase_failed_title": "Satın Alma Başarısız",
             "purchase_failed_desc": "İşlem tamamlanamadı. Ödeme sırasında bir sorun oluştu veya işlem iptal edildi. Lütfen tekrar deneyin ya da farklı bir ödeme yöntemi kullanın."
+        }
+    },
+    
+    "premiumDialogs": {
+        "1": {
+            "title": "Bir Dünya, Bir Destekle Değişir",
+            "description": "Kael’in büyüsü tek başına yetmez.\nBu evreni inşa eden, onu yaşayanlardır.\nHer destek, yeni bir büyünün kapısını aralar.\nSeninle birlikte bu dünya daha da güçlü.",
+            "button_accept": "Destek Ol ve Devam Et",
+            "button_decline": "Belki Sonra"
+        },
+        "2": {
+            "title": "Büyü, Paylaştıkça Güçlenir",
+            "description": "Güç, sadece kullanmakla değil; paylaşmakla büyür.\nBu yolculukta verdiğin her destek,\nbilinmeyen büyülere ışık olur.\nSeçimini yap, bu öykünün yazarı ol.",
+            "button_accept": "Gücümü Katıyorum",
+            "button_decline": "Şimdi Değil"
+        },
+        "3": {
+            "title": "Kael Fısıldar: ‘Senin Zamanın Geldi’",
+            "description": "Bazıları sadece oynar.\nBazıları ise dokunduğu her şeyi değiştirir.\nBu sadece bir destek değil;\nbu, büyüyü birlikte yazmak demek.",
+            "button_accept": "Büyüye Katıl",
+            "button_decline": "Sonra Düşünürüm"
+        },
+        "4": {
+            "title": "Destek Verenler, Oyunun Gerçek Mimarıdır",
+            "description": "Görünmeyeni görenler, hissedilmeyeni yazanlar...\nSenin gibi destekçiler sayesinde bu dünya dönüyor.\nKael bunu fark etti.\nŞimdi sıra sende.",
+            "button_accept": "Destek Ol ve Devam Et",
+            "button_decline": "Şimdilik Geç"
         }
     },
  

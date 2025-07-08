@@ -203,6 +203,33 @@ class RevenueCatService {
     }
   }
 
+  Future<bool> shouldShowPremiumDialog() async {
+    if (UserManager.instance.user.isPremium) return false;
+
+    const intervalInDays = 7;
+    final storage = LocalStorageService.instance;
+
+    final lastShownTimestamp = storage.getValue<int>(LocalStorageKey.premium_dialog_last_shown);
+    final now = DateTime.now();
+
+    if (lastShownTimestamp == null) {
+      // İlk kez gösterilecekse zaman damgasını kaydet
+      await storage.setValue<int>(LocalStorageKey.premium_dialog_last_shown, now.millisecondsSinceEpoch);
+      return true;
+    }
+
+    final lastShown = DateTime.fromMillisecondsSinceEpoch(lastShownTimestamp);
+    final daysSinceLastShown = now.difference(lastShown).inDays;
+    final isDialogDue = daysSinceLastShown >= intervalInDays;
+
+    if (isDialogDue) {
+      await storage.setValue<int>(LocalStorageKey.premium_dialog_last_shown, now.millisecondsSinceEpoch);
+    }
+
+    return isDialogDue;
+  }
+
+
   /// Initiates the purchase flow for a specific package.
   // Future<bool> purchasePackage(Package package) async {
   //   errorhandling

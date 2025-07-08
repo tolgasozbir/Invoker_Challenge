@@ -364,7 +364,7 @@
         "explore_premium" : "Explore Premium",
         "offerings_not_fetched": "Could not fetch offerings!",
         "premium_features": "Premium Features",
-        "intro_text": "Every spell is a choice. Every support is a step forward. This game is shaped by your choices. By supporting us, you not only contribute to the game’s development but also make your journey more rewarding.",
+        "intro_text": "Beyond the darkness lies a power only the brave can reach. With your support, this power awakens, your destiny is shaped, and your legend begins.",
         "features": {
             "features_title": "Features",
             "feature_ad_free_title": "Ad-Free Experience",
@@ -398,6 +398,33 @@
             "transaction_initiated_desc": "Your purchase request was successfully submitted. Once payment is confirmed, your product will be automatically added to your account. Thank you for your interest and support!",
             "purchase_failed_title": "Purchase Failed",
             "purchase_failed_desc": "The transaction could not be completed. An issue occurred during payment or the transaction was canceled. Please try again or use a different payment method."
+        }
+    },
+
+    "premiumDialogs": {
+        "1": {
+            "title": "A World Changes With One Support",
+            "description": "Kael's magic alone is not enough.\nThis realm is built by those who live it.\nEvery supporter unlocks a new spell.\nWith you, this world grows stronger.",
+            "button_accept": "Support and Continue",
+            "button_decline": "Maybe Later"
+        },
+        "2": {
+            "title": "Power Grows by Sharing",
+            "description": "Power grows not just by use, but by sharing.\nYour support in this journey shines light\non unknown spells.\nMake your choice—be part of the story.",
+            "button_accept": "Join the Magic",
+            "button_decline": "Not Now"
+        },
+        "3": {
+            "title": "Kael Whispers: ‘Your Time Has Come’",
+            "description": "Some merely play.\nOthers change everything they touch.\nThis is more than support—\nit’s writing the magic together.",
+            "button_accept": "Join the Spell",
+            "button_decline": "I'll Pass"
+        },
+        "4": {
+            "title": "Supporters Are the True Architects",
+            "description": "Those who see the unseen,\nwho write what cannot be felt...\nThis world spins thanks to supporters like you.\nKael has noticed. Now it’s your turn.",
+            "button_accept": "Support and Continue",
+            "button_decline": "Skip for Now"
         }
     },
 

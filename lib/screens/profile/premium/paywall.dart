@@ -108,9 +108,9 @@ class _PaywallScreenState extends State<PaywallScreen> with ScreenStateMixin {
     return Text(
       LocaleKeys.paywall_intro_text.locale,
       textAlign: TextAlign.center,
-      style: TextStyle(
-        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.64),
-        fontSize: 16,
+      style: const TextStyle(
+        color: Color(0xFF8E8E93),
+        fontSize: 14,
       ),
     );
   }

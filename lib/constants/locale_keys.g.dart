@@ -329,6 +329,27 @@ abstract class  LocaleKeys {
   static const paywall_transaction_messages_purchase_failed_desc = 'paywall.transaction_messages.purchase_failed_desc';
   static const paywall_transaction_messages = 'paywall.transaction_messages';
   static const paywall = 'paywall';
+  static const premiumDialogs_1_title = 'premiumDialogs.1.title';
+  static const premiumDialogs_1_description = 'premiumDialogs.1.description';
+  static const premiumDialogs_1_button_accept = 'premiumDialogs.1.button_accept';
+  static const premiumDialogs_1_button_decline = 'premiumDialogs.1.button_decline';
+  static const premiumDialogs_1 = 'premiumDialogs.1';
+  static const premiumDialogs_2_title = 'premiumDialogs.2.title';
+  static const premiumDialogs_2_description = 'premiumDialogs.2.description';
+  static const premiumDialogs_2_button_accept = 'premiumDialogs.2.button_accept';
+  static const premiumDialogs_2_button_decline = 'premiumDialogs.2.button_decline';
+  static const premiumDialogs_2 = 'premiumDialogs.2';
+  static const premiumDialogs_3_title = 'premiumDialogs.3.title';
+  static const premiumDialogs_3_description = 'premiumDialogs.3.description';
+  static const premiumDialogs_3_button_accept = 'premiumDialogs.3.button_accept';
+  static const premiumDialogs_3_button_decline = 'premiumDialogs.3.button_decline';
+  static const premiumDialogs_3 = 'premiumDialogs.3';
+  static const premiumDialogs_4_title = 'premiumDialogs.4.title';
+  static const premiumDialogs_4_description = 'premiumDialogs.4.description';
+  static const premiumDialogs_4_button_accept = 'premiumDialogs.4.button_accept';
+  static const premiumDialogs_4_button_decline = 'premiumDialogs.4.button_decline';
+  static const premiumDialogs_4 = 'premiumDialogs.4';
+  static const premiumDialogs = 'premiumDialogs';
   static const InfoMessages_patchMessage = 'InfoMessages.patchMessage';
   static const InfoMessages = 'InfoMessages';
 
