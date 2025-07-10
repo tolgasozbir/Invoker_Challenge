@@ -30,13 +30,22 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       achievements: (fields[10] as Map?)?.cast<String, dynamic>(),
       bestBossScores: (fields[11] as Map?)?.cast<String, dynamic>(),
       lastPlayed: fields[12] as String?,
+      isSubscribed: fields[13] as bool?,
+      subscriptionCount: fields[14] as int?,
+      lastSubscriptionDate: fields[15] as String?,
+      subscriptionHistory: (fields[16] as List?)?.cast<String>(),
+      hasPurchased: fields[17] as bool?,
+      purchaseCount: fields[18] as int?,
+      lastPurchaseDate: fields[19] as String?,
+      isAdminGrantedPremium: fields[20] as bool?,
+      isPremiumSuspended: fields[21] as bool?,
     );
   }
 
   @override
   void write(BinaryWriter writer, UserModel obj) {
     writer
-      ..writeByte(13)
+      ..writeByte(22)
       ..writeByte(0)
       ..write(obj.uid)
       ..writeByte(1)
@@ -62,7 +71,25 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       ..writeByte(11)
       ..write(obj.bestBossScores)
       ..writeByte(12)
-      ..write(obj.lastPlayed);
+      ..write(obj.lastPlayed)
+      ..writeByte(13)
+      ..write(obj.isSubscribed)
+      ..writeByte(14)
+      ..write(obj.subscriptionCount)
+      ..writeByte(15)
+      ..write(obj.lastSubscriptionDate)
+      ..writeByte(16)
+      ..write(obj.subscriptionHistory)
+      ..writeByte(17)
+      ..write(obj.hasPurchased)
+      ..writeByte(18)
+      ..write(obj.purchaseCount)
+      ..writeByte(19)
+      ..write(obj.lastPurchaseDate)
+      ..writeByte(20)
+      ..write(obj.isAdminGrantedPremium)
+      ..writeByte(21)
+      ..write(obj.isPremiumSuspended);
   }
 
   @override

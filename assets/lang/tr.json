@@ -23,6 +23,7 @@
     },
 
     "commonGeneral": {
+        "ok" : "Tamam",
         "leaderboard": "Lider Tablosu",
         "showMore": "Daha Fazla Göster",
         "result": "Sonuçlar",
@@ -170,6 +171,7 @@
         "physicalDmg": "Fiziksel Hasar",
         "magicalDmg": "Büyü Hasarı",
         "earnedExp": "Kazanılan Deneyim",
+        "bonusGold" : "Bonus Altın",
         "earnedGold": "Kazanılan Altın",
         "round": "Round",
         "bestTime": "En İyi Bitirme Süren"
@@ -355,6 +357,74 @@
             "light": "Işık",
             "berry": "Meyve",
             "sky": "Gök"
+        }
+    },
+
+    "paywall": {
+        "explore_premium" : "Premium’u Keşfet",
+        "offerings_not_fetched": "Teklifler alınamadı!",
+        "premium_features": "Premium Özellikler",
+        "intro_text": "Karanlığın ötesinde, yalnızca cesaret edenlerin dokunabildiği güç yatar. Senin desteğinle bu güç uyanır, kaderin şekillenir ve efsanen başlar.",
+        "features": {
+            "features_title": "Özellikler",
+            "feature_ad_free_title": "Reklamsız Deneyim",
+            "feature_ad_free_desc": "Kesintisiz oyun keyfi",
+            "feature_reach_max_level_title": "Son Seviyeye Ulaş",
+            "feature_reach_max_level_desc": "Doğrudan son seviyeye geç",
+            "feature_bonus_gold_title": "Bonus Altın",
+            "feature_bonus_gold_desc": "Boss savaşlarında ekstra altın kazan",
+            "feature_challenger_life_title": "+1 Mücadeleci Canı",
+            "feature_challenger_life_desc": "Meydan okuyucu modunda ekstra deneme hakkı",
+            "feature_time_title": "+30 Saniye",
+            "feature_time_desc": "Zamana karşı modda ekstra süre",
+            "feature_combo_title": "+15 Saniye Kombo",
+            "feature_combo_desc": "Kombo modunda ekstra süre"
+        },
+        "plans": {
+            "premium": "Premium",
+            "one_time": "Tek Seferlik Satın Alım",
+            "most_popular": "En Popüler",
+            "monthly": "1 Aylık",
+            "subscription": "Aylık Abonelik",
+            "start_monthly_subscription": "Aylık Aboneliği Başlat",
+            "purchase_premium_version": "Premium Sürümünü Satın Al",
+            "one_time_payment_unlimited_use": "Tek seferlik ödeme ile süresiz kullanım",
+            "cancel_anytime": "İstediğiniz zaman iptal edebilirsiniz"
+        },
+        "transaction_messages": {
+            "purchase_success_title": "Satın Alma Tamamlandı",
+            "purchase_success_desc": "Teşekkürler! Satın alma işleminiz başarıyla tamamlandı. Ürününüz hesabınıza tanımlandı ve kullanıma hazır. Oyunumuzu desteklediğiniz için minnettarız!",
+            "transaction_initiated_title": "İşlem Başlatıldı",
+            "transaction_initiated_desc": "Satın alma talebiniz başarıyla iletildi. Ödeme onaylandığında, ürününüz otomatik olarak hesabınıza tanımlanacaktır. İlginiz ve desteğiniz için teşekkür ederiz!",
+            "purchase_failed_title": "Satın Alma Başarısız",
+            "purchase_failed_desc": "İşlem tamamlanamadı. Ödeme sırasında bir sorun oluştu veya işlem iptal edildi. Lütfen tekrar deneyin ya da farklı bir ödeme yöntemi kullanın."
+        }
+    },
+    
+    "premiumDialogs": {
+        "1": {
+            "title": "Bir Dünya, Bir Destekle Değişir",
+            "description": "Kael’in büyüsü tek başına yetmez.\nBu evreni inşa eden, onu yaşayanlardır.\nHer destek, yeni bir büyünün kapısını aralar.\nSeninle birlikte bu dünya daha da güçlü.",
+            "button_accept": "Destek Ol ve Devam Et",
+            "button_decline": "Belki Sonra"
+        },
+        "2": {
+            "title": "Büyü, Paylaştıkça Güçlenir",
+            "description": "Güç, sadece kullanmakla değil; paylaşmakla büyür.\nBu yolculukta verdiğin her destek,\nbilinmeyen büyülere ışık olur.\nSeçimini yap, bu öykünün yazarı ol.",
+            "button_accept": "Gücümü Katıyorum",
+            "button_decline": "Şimdi Değil"
+        },
+        "3": {
+            "title": "Kael Fısıldar: ‘Senin Zamanın Geldi’",
+            "description": "Bazıları sadece oynar.\nBazıları ise dokunduğu her şeyi değiştirir.\nBu sadece bir destek değil;\nbu, büyüyü birlikte yazmak demek.",
+            "button_accept": "Büyüye Katıl",
+            "button_decline": "Sonra Düşünürüm"
+        },
+        "4": {
+            "title": "Destek Verenler, Oyunun Gerçek Mimarıdır",
+            "description": "Görünmeyeni görenler, hissedilmeyeni yazanlar...\nSenin gibi destekçiler sayesinde bu dünya dönüyor.\nKael bunu fark etti.\nŞimdi sıra sende.",
+            "button_accept": "Destek Ol ve Devam Et",
+            "button_decline": "Şimdilik Geç"
         }
     },
  

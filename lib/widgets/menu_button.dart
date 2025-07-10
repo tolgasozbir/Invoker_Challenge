@@ -11,6 +11,7 @@ import '../extensions/context_extension.dart';
 import '../providers/game_provider.dart';
 import '../screens/dashboard/loading_view.dart';
 import '../services/sound_manager.dart';
+import '../services/user_manager.dart';
 import '../utils/ads_helper.dart';
 import '../utils/fade_in_page_animation.dart';
 
@@ -83,15 +84,17 @@ class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateM
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
     context.read<GameProvider>().resetTimer();
 
-    AdsHelper.instance.menuAdCounter++;
-    if (AdsHelper.instance.interstitialAd != null && AdsHelper.instance.menuAdCounter.isEven) {
-      try {
-        await AdsHelper.instance.interstitialAd!.show();
-      } catch (e) {
-        log('err interstitialAd $e');
+    if (!UserManager.instance.user.isPremium) {
+      AdsHelper.instance.menuAdCounter++;
+      if (AdsHelper.instance.interstitialAd != null && AdsHelper.instance.menuAdCounter.isEven) {
+        try {
+          await AdsHelper.instance.interstitialAd!.show();
+        } catch (e) {
+          log('err interstitialAd $e');
+        }
+        Navigator.push(context, fadeInPageRoute(widget.navigatePage!));
+        return;
       }
-      Navigator.push(context, fadeInPageRoute(widget.navigatePage!));
-      return;
     }
 
     SoundManager.instance.playLoadingSound();

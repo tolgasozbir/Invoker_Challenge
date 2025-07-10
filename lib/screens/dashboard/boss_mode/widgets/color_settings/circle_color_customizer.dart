@@ -407,7 +407,7 @@ class _CircleColorCustomizerState extends State<CircleColorCustomizer> with Scre
               border: Border.all(color: colors[i], width: 4),
               boxShadow: [
                 BoxShadow(color: colors[i].withValues(alpha: 0.1), blurRadius: 8, spreadRadius: 4),
-              ]
+              ],
             ),
           ),
         ),

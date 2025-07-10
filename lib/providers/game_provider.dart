@@ -16,6 +16,7 @@ typedef ResultDialogVoidFunc = void Function(DatabaseTable);
 class GameProvider extends ChangeNotifier {
   Timer? _timer;
 
+  bool get isPremium => UserManager.instance.user.isPremium;
   bool _isStart = false;
   bool _spellHeplerIsOpen = false;
   int _timerValue = 0;
@@ -55,7 +56,7 @@ class GameProvider extends ChangeNotifier {
   
   void continueComboAfterWatchingAd() {
     isAdWatched = true;
-    _countdownValue += 10;
+    _countdownValue += isPremium ? 15 : 10;
     startCoundown(
       gameType: GameType.Combo, 
       databaseTable: DatabaseTable.Combo,
@@ -67,7 +68,7 @@ class GameProvider extends ChangeNotifier {
     final int score = getCorrectCombinationCount;
     int exp = getCorrectCombinationCount;
     final int challangerTime = getTimerValue;
-    final int timeTrialTime = 60 + (isAdWatched ? 30 : 0);
+    final int timeTrialTime = 60 + (isAdWatched ? 30 : 0) + (isPremium ? 30 : 0);
     int time = 0;
     switch (gameType) {
       case GameType.Training:
@@ -166,6 +167,10 @@ class GameProvider extends ChangeNotifier {
       if (_countdownValue <= 0) {
         disposeTimer();
         changeIsStartStatus();
+        if (isPremium && gameType == GameType.Combo && isAdWatched == false) {
+          continueComboAfterWatchingAd();
+          return;
+        }
         showResultDialog(gameType, databaseTable);
       }
     });
@@ -179,7 +184,7 @@ class GameProvider extends ChangeNotifier {
     isAdWatched = false;
     _isStart = false;
     _timerValue = 0;
-    _countdownValue = 60;
+    _countdownValue = 60 + (isPremium ? 30 : 0);
     _correctCombinationCount = 0;
     _comboPassingTime = 0;
     disposeTimer();

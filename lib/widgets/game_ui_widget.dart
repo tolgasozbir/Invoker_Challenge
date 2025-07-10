@@ -316,7 +316,9 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, ScreenStateM
             _animKey.currentState?.playAnimation(IconType.False);
             spellProvider.getRandomSpell();
             challangerLife--;
-            UserManager.instance.snappableKey.currentState?.snap();
+            if (challangerLife <= 0) {
+              UserManager.instance.snappableKey.currentState?.snap();
+            }
             return;
           }
           SoundManager.instance.playGameOverSound();
@@ -392,7 +394,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, ScreenStateM
       case GameType.Training:
       case GameType.Challanger: 
         UserManager.instance.snappableKey.currentState?.reset();
-        challangerLife = UserManager.instance.user.challangerLife;
+        challangerLife = UserManager.instance.user.challangerLife + (UserManager.instance.user.isPremium ? 1 : 0);
         context.read<GameProvider>().startTimer(); 
       case GameType.Timer:
         context.read<GameProvider>().startCoundown(gameType: GameType.Timer, databaseTable: DatabaseTable.TimeTrial);

@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:dota2_invoker_game/services/user_manager.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' show dotenv;
@@ -72,6 +73,8 @@ class AdsHelper {
 
   //AppOpenAd
   Future<void> appOpenAdLoad() async {
+    if (UserManager.instance.user.isPremium) return; // Premium kullanıcı ise yükleme yapma
+
     AppOpenAd? appOpenAd;
     await AppOpenAd.load(
       adUnitId: AdUnit.appOpen.getAdUnitId, 
@@ -89,6 +92,8 @@ class AdsHelper {
   //InterstitialAd
   InterstitialAd? interstitialAd;
   Future<void> interstitialAdLoad() async {
+    if (UserManager.instance.user.isPremium) return; // Premium kullanıcı ise yükleme yapma
+
     await InterstitialAd.load(
       adUnitId: AdUnit.interstitial.getAdUnitId,
       request: const AdRequest(),
@@ -117,6 +122,8 @@ class AdsHelper {
   //RewardedAd
   RewardedAd? rewardedAd;
   Future<void> rewardedAdLoad() async {
+    if (UserManager.instance.user.isPremium) return; // Premium kullanıcı ise yükleme yapma
+
     await RewardedAd.load(
       adUnitId: AdUnit.rewarded.getAdUnitId,
       request: const AdRequest(),
@@ -160,6 +167,8 @@ class _AdBannerState extends State<AdBanner> {
   bool _isAdLoaded = false;
 
   void _initBannerAd() {
+    if (UserManager.instance.user.isPremium) return; // Premium kullanıcı ise yükleme yapma
+
     _bannerAd = BannerAd(
       size: widget.adSize, 
       adUnitId: AdUnit.banner.getAdUnitId, 
@@ -188,7 +197,12 @@ class _AdBannerState extends State<AdBanner> {
 
   @override
   Widget build(BuildContext context) {
-    return _isAdLoaded 
+    // Premium kullanıcı ise gizle
+    if (UserManager.instance.user.isPremium) {
+      return const SizedBox.shrink();
+    }
+
+    return _isAdLoaded && _bannerAd != null 
       ? bannerBox(child: AdWidget(ad: _bannerAd!)) 
       : bannerBox();
   }

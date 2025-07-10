@@ -23,6 +23,7 @@
     },
 
     "commonGeneral": {
+        "ok" : "OK",
         "leaderboard": "Leaderboard",
         "showMore": "Show more",
         "result": "Results",
@@ -170,6 +171,7 @@
         "physicalDmg": "Physical Damage",
         "magicalDmg": "Magical Damage",
         "earnedExp": "Earned Exp",
+        "bonusGold" : "Bonus Gold",
         "earnedGold": "Earned Gold",
         "round": "Round",
         "bestTime": "Best Completion Time"
@@ -355,6 +357,74 @@
             "light": "Light",
             "berry": "Berry",
             "sky": "Sky"
+        }
+    },
+
+    "paywall": {
+        "explore_premium" : "Explore Premium",
+        "offerings_not_fetched": "Could not fetch offerings!",
+        "premium_features": "Premium Features",
+        "intro_text": "Beyond the darkness lies a power only the brave can reach. With your support, this power awakens, your destiny is shaped, and your legend begins.",
+        "features": {
+            "features_title": "Features",
+            "feature_ad_free_title": "Ad-Free Experience",
+            "feature_ad_free_desc": "Uninterrupted gameplay",
+            "feature_reach_max_level_title": "Reach Max Level",
+            "feature_reach_max_level_desc": "Instantly jump to the final level",
+            "feature_bonus_gold_title": "Bonus Gold",
+            "feature_bonus_gold_desc": "Extra gold in boss battles",
+            "feature_challenger_life_title": "+1 Challenger Life",
+            "feature_challenger_life_desc": "Extra attempts in Challenger mode",
+            "feature_time_title": "+30 Seconds",
+            "feature_time_desc": "Extra time in Time Trial mode",
+            "feature_combo_title": "+15 Seconds Combo",
+            "feature_combo_desc": "Extra time in Combo mode"
+        },
+        "plans": {
+            "premium": "Premium",
+            "one_time": "One-Time Purchase",
+            "most_popular": "Most Popular",
+            "monthly": "1 Month",
+            "subscription": "Monthly Subscription",
+            "start_monthly_subscription": "Start Monthly Subscription",
+            "purchase_premium_version": "Buy Premium Version",
+            "one_time_payment_unlimited_use": "One-time payment for unlimited use",
+            "cancel_anytime": "Cancel anytime"
+        },
+        "transaction_messages": {
+            "purchase_success_title": "Purchase Completed",
+            "purchase_success_desc": "Thank you! Your purchase was successfully completed. Your product has been added to your account and is ready for use. We appreciate your support!",
+            "transaction_initiated_title": "Transaction Initiated",
+            "transaction_initiated_desc": "Your purchase request was successfully submitted. Once payment is confirmed, your product will be automatically added to your account. Thank you for your interest and support!",
+            "purchase_failed_title": "Purchase Failed",
+            "purchase_failed_desc": "The transaction could not be completed. An issue occurred during payment or the transaction was canceled. Please try again or use a different payment method."
+        }
+    },
+
+    "premiumDialogs": {
+        "1": {
+            "title": "A World Changes With One Support",
+            "description": "Kael's magic alone is not enough.\nThis realm is built by those who live it.\nEvery supporter unlocks a new spell.\nWith you, this world grows stronger.",
+            "button_accept": "Support and Continue",
+            "button_decline": "Maybe Later"
+        },
+        "2": {
+            "title": "Power Grows by Sharing",
+            "description": "Power grows not just by use, but by sharing.\nYour support in this journey shines light\non unknown spells.\nMake your choice—be part of the story.",
+            "button_accept": "Join the Magic",
+            "button_decline": "Not Now"
+        },
+        "3": {
+            "title": "Kael Whispers: ‘Your Time Has Come’",
+            "description": "Some merely play.\nOthers change everything they touch.\nThis is more than support—\nit’s writing the magic together.",
+            "button_accept": "Join the Spell",
+            "button_decline": "I'll Pass"
+        },
+        "4": {
+            "title": "Supporters Are the True Architects",
+            "description": "Those who see the unseen,\nwho write what cannot be felt...\nThis world spins thanks to supporters like you.\nKael has noticed. Now it’s your turn.",
+            "button_accept": "Support and Continue",
+            "button_decline": "Skip for Now"
         }
     },
 

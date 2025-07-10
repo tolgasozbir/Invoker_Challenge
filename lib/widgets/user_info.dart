@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../constants/app_colors.dart';
@@ -22,7 +25,10 @@ class UserStatus extends StatelessWidget {
   BoxDecoration get boxDecoration => BoxDecoration(
     color: AppColors.buttonBgColor,
     borderRadius: BorderRadius.circular(8),
-    border: Border.all(width: 2),
+    border: Border.all(
+      color: UserManager.instance.user.isPremium ? AppColors.amber.withValues(alpha: 0.32) : AppColors.black,
+      width: 2,
+    ),
   );
   
   String get username => user.username;
@@ -62,7 +68,7 @@ class UserStatus extends StatelessWidget {
     AppDialogs.showSlidingDialog(
       dismissible: true,
       showBackButton: true,
-      height: hasUid ? context.dynamicHeight(0.72) : 500,
+      height: hasUid ? context.dynamicHeight(0.76) : 500,
       title:  hasUid ? LocaleKeys.mainMenu_profile.locale : '${LocaleKeys.formDialog_login.locale} & ${LocaleKeys.formDialog_register.locale}',
       uid: UserManager.instance.user.uid,
       content: hasUid
@@ -78,7 +84,29 @@ class UserStatus extends StatelessWidget {
       margin: const EdgeInsets.all(8),
       decoration: boxDecoration,
       child: hasUid && miniMapIc.isNotNullOrNoEmpty
-        ? Image.asset(miniMapIc!)
+        ? Stack(
+          alignment: Alignment.center,
+          children: [
+            Image.asset(miniMapIc!),
+            if (UserManager.instance.user.isPremium)
+              Positioned(
+                top: 2,
+                left: 0,
+                child: Transform.rotate(
+                  angle: 315 * pi / 180,
+                  child: const Icon(
+                    FontAwesomeIcons.crown, 
+                    color: AppColors.amber,
+                    size: 20,
+                    shadows: [
+                      Shadow(blurRadius: 8),
+                      Shadow(blurRadius: 12),
+                    ],
+                  ).animate(onPlay: (controller) => controller.repeat()).shimmer(size: 1, duration: 1200.ms, delay: 3600.ms),
+                ),
+              ),
+          ],
+        )
         : const Icon(
             FontAwesomeIcons.userSecret, 
             shadows: [Shadow(blurRadius: 32)],
