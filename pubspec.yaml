@@ -67,7 +67,7 @@ dependencies:
   google_mobile_ads: ^6.0.0
 
   #IAP
-  purchases_flutter: ^8.10.1
+  purchases_flutter: ^8.10.6
 
 dev_dependencies:
   flutter_test:
@@ -76,9 +76,8 @@ dev_dependencies:
   very_good_analysis: ^7.0.0
   #Hive
   hive_generator: ^2.0.1
+  #
   build_runner: ^2.4.15
-  #IAP
-  in_app_purchase_platform_interface: ^1.4.0
 
 
 flutter:
