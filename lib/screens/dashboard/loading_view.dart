@@ -50,17 +50,24 @@ class _LoadingViewState extends State<LoadingView> {
     LoadingContent(
       message: LocaleKeys.loading_message5.locale,
       imagePaths: [
-        ImagePaths.invokerPersonaInfo1,
-        ImagePaths.invokerPersonaInfo2,
+        ImagePaths.infoPersona1,
+        ImagePaths.infoPersona2,
       ],
     ),
     LoadingContent(
-      message: LocaleKeys.loading_message5.locale,
+      message: LocaleKeys.loading_message6.locale,
       imagePaths: [
-        ImagePaths.invokerPersonaInfo1,
-        ImagePaths.invokerPersonaInfo2,
+        ImagePaths.infoColors1,
+        ImagePaths.infoColors2,
       ],
     ),
+    // LoadingContent(
+    //   message: LocaleKeys.loading_message7.locale,
+    //   imagePaths: [
+    //     ImagePaths.infoColors1,
+    //     ImagePaths.infoColors2,
+    //   ],
+    // ),
   ];
 
   @override

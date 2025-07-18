@@ -20,6 +20,8 @@ abstract class  LocaleKeys {
   static const loading_message3 = 'loading.message3';
   static const loading_message4 = 'loading.message4';
   static const loading_message5 = 'loading.message5';
+  static const loading_message6 = 'loading.message6';
+  static const loading_message7 = 'loading.message7';
   static const loading_continue = 'loading.continue';
   static const loading = 'loading';
   static const commonGeneral_ok = 'commonGeneral.ok';

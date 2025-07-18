@@ -74,6 +74,10 @@ class RevenueCatService {
 
     // user modeldeki isSubscribed durumunu güncelle
     final userManager = UserManager.instance;
+    if (userManager.user.uid == null) {
+      return;
+    }
+    
     userManager.user.isSubscribed = isSubscribed;
 
     if (isSubscribed) {
@@ -204,7 +208,8 @@ class RevenueCatService {
   }
 
   Future<bool> shouldShowPremiumDialog() async {
-    if (UserManager.instance.user.isPremium) return false;
+    final user = UserManager.instance.user;
+    if (user.isPremium || user.uid == null) return false;
 
     const intervalInDays = 7;
     final storage = LocalStorageService.instance;

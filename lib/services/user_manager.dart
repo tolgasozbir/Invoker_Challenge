@@ -76,7 +76,7 @@ class UserManager extends ChangeNotifier {
     // If the user is not found in the cache, create a new user
     final newUser = createUser();
     // Set the new user as the current user and save it to the cache
-    setUserAndSaveToCache(newUser);
+    await setUserAndSaveToCache(newUser);
   }
 
   UserModel createUser() {

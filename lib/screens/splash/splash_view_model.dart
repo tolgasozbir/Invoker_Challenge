@@ -49,6 +49,9 @@ abstract class SplashViewModel extends State<SplashView> {
   }
 
   Future<void> loadRevenueCatData() async {
+    if (UserManager.instance.user.uid == null) {
+      return;
+    }
     await RevenueCatService.instance.tryRestoreOnFirstLaunch();
     await RevenueCatService.instance.loadDataWithRetry();
   }
