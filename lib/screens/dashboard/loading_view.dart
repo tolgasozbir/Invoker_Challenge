@@ -41,17 +41,23 @@ class _LoadingViewState extends State<LoadingView> {
     // ),
     LoadingContent(
       message: LocaleKeys.loading_message3.locale,
-      imagePaths: [],
+      imagePaths: [
+        ImagePaths.infoSettings,
+        ImagePaths.infoFeedback,
+      ],
     ),
     LoadingContent(
       message: LocaleKeys.loading_message4.locale,
-      imagePaths: [],
+      imagePaths: [
+        ImagePaths.infoSettings,
+        ImagePaths.infoFeedback,
+      ],
     ),
     LoadingContent(
       message: LocaleKeys.loading_message5.locale,
       imagePaths: [
-        ImagePaths.infoPersona1,
-        ImagePaths.infoPersona2,
+        ImagePaths.infoProfile,
+        ImagePaths.infoPersona,
       ],
     ),
     LoadingContent(
@@ -61,13 +67,13 @@ class _LoadingViewState extends State<LoadingView> {
         ImagePaths.infoColors2,
       ],
     ),
-    // LoadingContent(
-    //   message: LocaleKeys.loading_message7.locale,
-    //   imagePaths: [
-    //     ImagePaths.infoColors1,
-    //     ImagePaths.infoColors2,
-    //   ],
-    // ),
+    LoadingContent(
+      message: LocaleKeys.loading_message7.locale,
+      imagePaths: [
+        ImagePaths.infoProfile,
+        ImagePaths.infoPremium,
+      ],
+    ),
   ];
 
   @override

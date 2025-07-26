@@ -27,12 +27,12 @@ android {
     ndkVersion = "27.0.12077973"
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
+        jvmTarget = "17"
     }
 
     defaultConfig {
@@ -72,8 +72,8 @@ flutter {
 }
 
 dependencies {
-  implementation("com.google.android.gms:play-services-ads:24.2.0")
-  implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
+  implementation("com.google.android.gms:play-services-ads:24.4.0")
+  implementation(platform("com.google.firebase:firebase-bom:34.0.0"))
   implementation("com.google.firebase:firebase-analytics")
   implementation("androidx.multidex:multidex:2.0.1")
 }

@@ -59,10 +59,13 @@ class ImagePaths {
   static const String icInvokerMiniMap        = '$_misc/ic_mini_inv.png';
   static const String icInvokerMiniMapPersona = '$_misc/ic_mini_inv_persona.png';
   static const String invokerPersonaShowcase  = '$_misc/invoker_persona_showcase.jpeg';
-  static const String infoPersona1  = '$_misc/info_persona1.png';
-  static const String infoPersona2  = '$_misc/info_persona2.png';
-  static const String infoColors1 = '$_misc/info_colors1.png';
-  static const String infoColors2 = '$_misc/info_colors2.png';
+  static const String infoProfile   = '$_misc/info_profile.png';
+  static const String infoSettings  = '$_misc/info_settings.png';
+  static const String infoFeedback  = '$_misc/info_feedback.png';
+  static const String infoPersona   = '$_misc/info_persona.png';
+  static const String infoPremium   = '$_misc/info_premium.png';
+  static const String infoColors1   = '$_misc/info_colors1.png';
+  static const String infoColors2   = '$_misc/info_colors2.png';
 
   static const String premiumPaywall  = '$_misc/premium_paywall.png';
 
