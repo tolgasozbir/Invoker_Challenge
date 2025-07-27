@@ -54,7 +54,7 @@ class _ChallangerViewState extends State<ChallangerView> {
       top: kToolbarHeight,
       child: Snappable(
         key: UserManager.instance.snappableKey,
-        duration: const Duration(milliseconds: 1600),
+        duration: const Duration(milliseconds: 2000),
         onSnapped: () => null,
         child: Image.asset(ImagePaths.icInvokerHead, height: 80),
       ),

@@ -6,8 +6,7 @@ typedef OnConsentGatheringCompleteListener = void Function(FormError? error);
 
 /// The Google Mobile Ads SDK provides the User Messaging Platform (Google's IAB
 /// Certified consent management platform) as one solution to capture consent for
-/// users in GDPR impacted countries. This is an example and you can choose
-/// another consent management platform to capture consent.
+/// users in GDPR impacted countries.
 class ConsentManager {
 
   ///Helper method to reset consent value

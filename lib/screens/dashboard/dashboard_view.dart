@@ -43,7 +43,7 @@ class DashboardView extends StatefulWidget {
 class _DashboardViewState extends State<DashboardView> {
   final _consentManager = ConsentManager();
 
-  void updateConsent() async {
+  void _updateConsent() async {
     try {
       log('Consent start');
       _consentManager.gatherConsent((consentGatheringError) async {
@@ -58,16 +58,16 @@ class _DashboardViewState extends State<DashboardView> {
     }
   }
 
-  void updateApp() {
+  void _updateApp() {
     //item1 hasUpdate
     //item2 forceUpdate
     final Tuple2<bool, bool> hasUpdate = AppUpdater.instance.checkUpdate();
     if (hasUpdate.item1) {
-      showUpdateDialog(hasUpdate.item2);
+      _showUpdateDialog(hasUpdate.item2);
     }
   }
 
-  void showUpdateDialog(bool forceUpdate) {
+  void _showUpdateDialog(bool forceUpdate) {
     showDialog<void>(
       context: context,
       barrierDismissible: false,
@@ -84,18 +84,18 @@ class _DashboardViewState extends State<DashboardView> {
     );
   }
 
-  void init() async {
+  void _init() async {
     Future.microtask(() {
       context.read<AppContextProvider>().setAppContext(context);
-      updateConsent();
-      updateApp();
+      _updateConsent();
+      _updateApp();
       _showPremiumDialog();
     });
   }
 
   @override
   void initState() {
-    init();
+    _init();
     super.initState();
   }
 
@@ -113,6 +113,7 @@ class _DashboardViewState extends State<DashboardView> {
     return SafeArea(
       child: SizedBox.expand(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               children: [
@@ -120,19 +121,24 @@ class _DashboardViewState extends State<DashboardView> {
                 TalentTree(user: user).wrapExpanded(),
                 const SettingsButton().wrapAlign(Alignment.topRight).wrapExpanded(),
               ],
-            ).wrapExpanded(flex: 3),
+            ),
 
-            ...menuBtns
-              .animate(interval: 200.ms, delay: 600.ms)
-              .fadeIn(curve: Curves.easeOutExpo, duration: 1000.ms)
-              .blurXY(begin: 32, duration: 1000.ms)
-              .slideX(begin: -0.4, duration: 1000.ms)
-              .shimmer(duration: 2400.ms)
-              .then(delay: 1000.ms)
-              .animate(onPlay: (controller) => controller.repeat(), interval: 200.ms)
-              .shimmer(size: 0.5, duration: 1000.ms, delay: 5000.ms),
-
-            if (!context.isSmallPhone) const Spacer(),
+            Flexible(
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Column(
+                  children: menuBtns
+                  .animate(interval: 200.ms, delay: 600.ms)
+                  .fadeIn(curve: Curves.easeOutExpo, duration: 1000.ms)
+                  .blurXY(begin: 32, duration: 1000.ms)
+                  .slideX(begin: -0.4, duration: 1000.ms)
+                  .shimmer(duration: 2400.ms)
+                  .then(delay: 1000.ms)
+                  .animate(onPlay: (controller) => controller.repeat(), interval: 200.ms)
+                  .shimmer(size: 0.5, duration: 1000.ms, delay: 5000.ms),
+                ),
+              ),
+            ),
             
             Padding(
               padding: context.isSmallPhone 
