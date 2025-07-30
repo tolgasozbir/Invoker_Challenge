@@ -192,9 +192,8 @@ class GameProvider extends ChangeNotifier {
   }
 
   void disposeTimer(){
-    if (_timer!=null) {
-      _timer!.cancel();
-    }
+    _timer?.cancel();
+    _timer = null;
   }
 
 }

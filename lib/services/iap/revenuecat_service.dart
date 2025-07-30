@@ -41,33 +41,32 @@ class RevenueCatService {
   String get consumablePremiumOfferingPrice => consumablePremiumOffering?.storeProduct.priceString ?? '';
 
   Future<void> initialize() async {
+    if (!Platform.isAndroid) {
+      log('PurchaseService is not supported on this platform.', name: 'PurchaseService');
+      return;
+    }
+
     if (kDebugMode) {
       await Purchases.setLogLevel(LogLevel.debug);
     }
 
-    late final PurchasesConfiguration configuration;
-    if (Platform.isAndroid) {
-      final apiKey = dotenv.env['REVENUECAT_ANDROID_API_KEY'];
-      if (apiKey == null) {
-        log('RevenueCat API Key not found.', name: 'PurchaseService');
-        return;
-      }
-
-      // --- Listen for customer info updates ---
-      Purchases.addCustomerInfoUpdateListener((updatedInfo) async {
-        _customerInfo.value = updatedInfo;
-        log('Customer info updated!', name: 'PurchaseService');
-        
-        await _processCustomerInfo(updatedInfo);
-      });
-
-      configuration = PurchasesConfiguration(apiKey);
-      await Purchases.configure(configuration);
-    } else {
-      log('PurchaseService is not supported on this platform.', name: 'PurchaseService');
+    final apiKey = dotenv.env['REVENUECAT_ANDROID_API_KEY'];
+    if (apiKey == null || apiKey.isEmpty) {
+      log('RevenueCat Android API Key not found or empty.', name: 'PurchaseService');
+      return;
     }
 
+    final configuration = PurchasesConfiguration(apiKey);
+    await Purchases.configure(configuration);
+
+    // --- Listen for customer info updates ---
+    Purchases.addCustomerInfoUpdateListener((updatedInfo) async {
+      _customerInfo.value = updatedInfo;
+      log('Customer info updated!', name: 'PurchaseService');
+      await _processCustomerInfo(updatedInfo);
+    });
   }
+
 
   Future<void> _processCustomerInfo(CustomerInfo customerInfo) async {
     log('is Subscribed : $isSubscribed');
