@@ -58,7 +58,7 @@ dependencies:
   animated_flip_counter: ^0.3.4
   snappable_thanos:
     git:
-      url: https://github.com/shahriar-siham/snappable_thanos.git
+      url: https://github.com/tolgasozbir/snappable_thanos.git
       ref: main
 
   #Widgets

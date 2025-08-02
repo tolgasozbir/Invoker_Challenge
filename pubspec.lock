@@ -949,8 +949,8 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: ea31d30bf997f8302c3cb34b682180e3d68fe70b
-      url: "https://github.com/shahriar-siham/snappable_thanos.git"
+      resolved-ref: df0f3a4ebe204d8a6795b143374b288b4a294afd
+      url: "https://github.com/tolgasozbir/snappable_thanos.git"
     source: git
     version: "0.0.4"
   source_gen:
