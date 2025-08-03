@@ -445,10 +445,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_soloud
-      sha256: e499396fbfc68e9da0d84fd839b5b92bc01733c66463a922cb28914fb8f16991
+      sha256: fc9d491561ff53e3735993b04493f17c19708fbf82f3bf88c6b10d92b0c4c468
       url: "https://pub.dev"
     source: hosted
-    version: "3.2.2"
+    version: "3.2.3"
   flutter_staggered_animations:
     dependency: "direct main"
     description:

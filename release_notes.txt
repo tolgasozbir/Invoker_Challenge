@@ -1,3 +1,12 @@
+# 1.8.0
+- Integrated in-app purchases using RevenueCat.
+- Enabled ad-free experience and additional perks for premium users.
+- Added color picker customization for Boss Battle indicators.
+- Improved the loading screen UI and enhanced loading messages with visuals.
+- Redesigned the Boss Battle game info screen for a cleaner and more appealing look.
+- Bumped Gradle and Java versions for improved compatibility and performance.
+- Other minor changes and fixes.
+
 # 1.7.0
 - Invoker persona added: unique icons, and custom voice lines have been implemented
 - Audio system updated: Switched to soloud for improved performance; audioplayers remains temporarily supported.
