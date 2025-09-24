@@ -23,8 +23,8 @@ val admobAppId = localProperties.getProperty("ADMOB_APP_ID") ?: ""
 
 android {
     namespace = "com.dota2.invoker.game"
-    compileSdk = 35
-    ndkVersion = "27.0.12077973"
+    compileSdk = 36
+    ndkVersion = "29.0.14033849"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -40,7 +40,7 @@ android {
         applicationId = "com.dota2.invoker.game"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = 23
+        minSdk = flutter.minSdkVersion
         targetSdk = 35
         versionCode = flutter.versionCode
         versionName = flutter.versionName

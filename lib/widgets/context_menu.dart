@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_null_comparison, avoid_redundant_argument_values
+// ignore_for_file: unnecessary_null_comparison
 
 import 'dart:math' as math;
 import 'dart:ui' as ui;

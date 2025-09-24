@@ -44,7 +44,7 @@ class _SoundPlayerSwitchState extends State<SoundPlayerSwitch> with ScreenStateM
           ),
         ),
         Switch(
-          activeColor: AppColors.wexColor,
+          activeThumbColor: AppColors.wexColor,
           value: SoundManager.instance.player is SoLoudWrapper,
           onChanged: (isSoLoud) async {
             final newPlayer = isSoLoud ? SoLoudWrapper.instance : AudioPlayerWrapper.instance;

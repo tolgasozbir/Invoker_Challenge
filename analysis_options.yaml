@@ -41,5 +41,8 @@ analyzer:
   errors:
     argument_type_not_assignable: ignore
     avoid_catches_without_on_clauses: ignore
+    discarded_futures: ignore
     document_ignores: ignore
     inference_failure_on_instance_creation: ignore
+    no_literal_bool_comparisons: ignore
+    specify_nonobvious_property_types: ignore

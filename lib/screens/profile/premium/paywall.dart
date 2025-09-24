@@ -392,7 +392,8 @@ class _PaywallScreenState extends State<PaywallScreen> with ScreenStateMixin {
     updateScreen(fn: () => _isPurchasing = true);
 
     try {
-      await Purchases.purchasePackage(package);
+      //await Purchases.purchasePackage(package); //deprecated
+      await Purchases.purchase(PurchaseParams.package(package));
       if (context.mounted) {
         _showPurchaseDialog(
           title: LocaleKeys.paywall_transaction_messages_purchase_success_title.locale, 
