@@ -1,6 +1,6 @@
 import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../constants/locale_keys.g.dart';
 import '../../../services/achievement_manager.dart';
@@ -25,24 +25,34 @@ class AchievementsView extends StatelessWidget {
   Widget _bodyView() {
     AchievementManager.instance.initAchievements();
     final achievements = AchievementManager.instance.achievements;
-    return AnimationLimiter(
-      child: ListView.builder(
-        physics: const BouncingScrollPhysics(),
-        padding: const EdgeInsets.all(8),
-        itemCount: achievements.length,
-        itemBuilder: (BuildContext context, int index) {
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      padding: const EdgeInsets.all(8),
+      child: Column(
+        children: List.generate(achievements.length, (index) {
           final achievement = achievements[index];
-          return AnimationConfiguration.staggeredList(
-            position: index,
-            duration: const Duration(milliseconds: 1200),
-            child: SlideAnimation(
-              horizontalOffset: 300,//index.isEven ? 300 : -300,
-                child: FadeInAnimation(
-                  child: AchievementWidget(achievement: achievement),
-                ),
-            ),
-          );
-        },
+          final delay = index * 80;
+          final isEven = index.isEven;
+
+          return AchievementWidget(achievement: achievement)
+              .animate()
+              .fadeIn(
+                delay: delay.ms,
+                duration: 400.ms,
+              )
+              .slideX(
+                delay: delay.ms,
+                begin: isEven ? 0.4 : -0.4,
+                duration: 650.ms,
+                curve: Curves.easeOutQuart,
+              )
+              .then(delay: 100.ms)
+              .shimmer(
+                delay: 200.ms,
+                duration: 1000.ms,
+                color: Colors.white.withValues(alpha: 0.2),
+              );
+        }),
       ),
     );
   }

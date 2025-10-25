@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../constants/locale_keys.g.dart';
 import '../../../enums/Bosses.dart';
@@ -31,28 +31,40 @@ class _BossGalleryViewState extends State<BossGalleryView> {
   }
 
   Widget _bodyView() {
-    return AnimationLimiter(
-      child: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          childAspectRatio: 2/3,
-        ),
-        padding: const EdgeInsets.all(8),
-        itemCount: Bosses.values.length,
-        itemBuilder: (BuildContext context, int index) {
-          final boss = Bosses.values[index];
-          return AnimationConfiguration.staggeredGrid(
-            columnCount: 3,
-            position: index,
-            duration: const Duration(milliseconds: 1200),
-            child: SlideAnimation(
-              child: FadeInAnimation(
-                child: _bossCard(boss),
-              ),
-            ),
-          );
-        },
+    return GridView.builder(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        childAspectRatio: 2/3,
       ),
+      padding: const EdgeInsets.all(8),
+      itemCount: Bosses.values.length,
+      itemBuilder: (BuildContext context, int index) {
+        final boss = Bosses.values[index];
+        final delay = (index+1) * 60;
+        const duration = 600;
+
+        return _bossCard(boss)
+            .animate()
+            .fadeIn(
+              delay: delay.ms,
+              duration: duration.ms,
+              curve: Curves.easeOutCubic,
+            )
+            .slideY(
+              delay: delay.ms,
+              begin: 0.4,
+              end: 0,
+              duration: duration.ms,
+              curve: Curves.easeOutCubic,
+            )
+            .scale(
+              delay: delay.ms,
+              begin: const Offset(0.8, 0.8),
+              end: const Offset(1.0, 1.0),
+              duration: duration.ms,
+              curve: Curves.easeOutBack,
+            );
+      },
     );
   }
 

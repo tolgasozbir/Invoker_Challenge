@@ -53,7 +53,6 @@ dependencies:
   #Animation
   lottie: ^3.3.2
   splash: ^1.2.0
-  flutter_staggered_animations: ^1.1.1 #TODO: remove use flutter_animate
   flutter_animate: ^4.5.2
   animated_flip_counter: ^0.3.4
   snappable_thanos:
