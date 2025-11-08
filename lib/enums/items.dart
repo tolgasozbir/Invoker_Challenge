@@ -235,6 +235,7 @@ enum Items {
   Eye_of_skadi(
     bonuses: ItemBonuses(
       mana: 1600,
+      //damage: 40,
     ),
     activeProps: ItemActiveProps(),
     cost: 5200,
@@ -258,6 +259,44 @@ enum Items {
     cost: 6800,
     hasSound: true,
     requiredItems: [Items.Orchid],
+  ),
+
+  Witch_blade(
+    bonuses: ItemBonuses(
+      damage: 24,
+      mana: 160,
+      manaRegen: 1.2,
+    ),
+    activeProps: ItemActiveProps(
+      cooldown: 16,
+      duration: 4,
+      manaCost: 0,
+      activeBonuses: ItemActiveBonuses(
+        magicalDamage: 40,
+      ),
+    ),
+    cost: 2775,
+    //hasSound: true,
+  ),
+  
+  Parasma(
+    bonuses: ItemBonuses(
+      damage: 40,
+      mana: 480,
+      manaRegen: 1.6,
+    ),
+    activeProps: ItemActiveProps(
+      cooldown: 12,
+      duration: 4,
+      manaCost: 0,
+      activeBonuses: ItemActiveBonuses(
+        spellAmp: 0.20,
+        magicalDamage: 64,
+      ),
+    ),
+    cost: 5975,
+    //hasSound: true,
+    requiredItems: [Items.Witch_blade],
   ),
   
   Dagon1(
@@ -502,6 +541,8 @@ class _ItemTranslations {
     Items.Daedalus: LocaleKeys.Item_Daedalus_bonus,
     Items.Eye_of_skadi: LocaleKeys.Item_Eye_of_skadi_bonus,
     Items.Bloodthorn: LocaleKeys.Item_Bloodthorn_bonus,
+    Items.Witch_blade: LocaleKeys.Item_Witch_blade_bonus,
+    Items.Parasma: LocaleKeys.Item_Parasma_bonus,
     Items.Dagon: LocaleKeys.Item_Dagon_bonus,
     Items.Dagon1: LocaleKeys.Item_Dagon1_bonus,
     Items.Dagon2: LocaleKeys.Item_Dagon2_bonus,
@@ -533,6 +574,8 @@ class _ItemTranslations {
     Items.Daedalus: LocaleKeys.Item_Daedalus_active,
     Items.Eye_of_skadi: LocaleKeys.Item_Eye_of_skadi_active,
     Items.Bloodthorn: LocaleKeys.Item_Bloodthorn_active,
+    Items.Witch_blade: LocaleKeys.Item_Witch_blade_active,
+    Items.Parasma: LocaleKeys.Item_Parasma_active,
     Items.Dagon: LocaleKeys.Item_Dagon_active,
     Items.Dagon1: LocaleKeys.Item_Dagon1_active,
     Items.Dagon2: LocaleKeys.Item_Dagon2_active,

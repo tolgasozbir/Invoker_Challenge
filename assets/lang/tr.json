@@ -260,7 +260,7 @@
         },
         "Meteor_hammer": {
             "bonus": "Zamanla patronlara hasar verir.\nMana Yenilenme Artışı +50%\nBüyü Hasarı Artışı +12%",
-            "active": "Saniyede Hasar: 100\nSüre: 6 Saniye"
+            "active": "Saniye Başına Hasar: 100\nSüre: 6 Saniye"
         },
         "Vladmirs_offering": {
             "bonus": "Fiziksel Hasar +16%\nMana Regen +1.75",
@@ -297,6 +297,14 @@
         "Bloodthorn": {
             "bonus": "Hasar +40\nMana +400\nMana Yenilenmesi +4.0",
             "active": "Eşyanın süresince verilen hasarın %15'i, süre sonunda büyü hasarına dönüşür.\nVuruş Başına Büyü Hasarı: 40\nSüre: 5 Saniye"
+        },
+        "Witch_blade": {
+            "bonus": "Hasar +24\nMana +160\nMana Yenilenmesi +1.2",
+            "active": "Saniye Başına Hasar: 40\nSüre: 4 Saniye"
+        },
+        "Parasma": {
+            "bonus": "Boss'ların aldığı büyü hasarını artırır.\nHasar +40\nMana +480\nMana Yenilenmesi +1.6",
+            "active": "Büyü Hasarı Artışı: +20%\nSaniyede Hasar: 64\nSüre: 4 Saniye"
         },
         "Dagon": {
             "bonus": "Enerji Patlaması\n(Bu eşya bir kez satın alınabilir!)",

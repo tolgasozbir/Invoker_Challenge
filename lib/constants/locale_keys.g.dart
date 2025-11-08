@@ -245,6 +245,12 @@ abstract class  LocaleKeys {
   static const Item_Bloodthorn_bonus = 'Item.Bloodthorn.bonus';
   static const Item_Bloodthorn_active = 'Item.Bloodthorn.active';
   static const Item_Bloodthorn = 'Item.Bloodthorn';
+  static const Item_Witch_blade_bonus = 'Item.Witch_blade.bonus';
+  static const Item_Witch_blade_active = 'Item.Witch_blade.active';
+  static const Item_Witch_blade = 'Item.Witch_blade';
+  static const Item_Parasma_bonus = 'Item.Parasma.bonus';
+  static const Item_Parasma_active = 'Item.Parasma.active';
+  static const Item_Parasma = 'Item.Parasma';
   static const Item_Dagon_bonus = 'Item.Dagon.bonus';
   static const Item_Dagon_active = 'Item.Dagon.active';
   static const Item_Dagon = 'Item.Dagon';

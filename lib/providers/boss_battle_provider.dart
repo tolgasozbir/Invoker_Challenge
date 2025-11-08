@@ -215,9 +215,9 @@ class BossBattleProvider extends ChangeNotifier {
     spellAmp += itemBonus.spellAmp * multiplier;
   }
 
-  void applyCooldownForSimilarItems() {
+  void applyCooldownForSimilarItems(List<Items> group) {
     for (final item in inventory) {
-      if (item.item == Items.Orchid || item.item == Items.Bloodthorn) {
+      if (group.contains(item.item)) {
         item.startCooldown();
       }
     }
@@ -251,12 +251,15 @@ class BossBattleProvider extends ChangeNotifier {
         return;
       } else if (item.item == Items.Bloodthorn) {
         _useBloodThorn();
-        applyCooldownForSimilarItems();
+        applyCooldownForSimilarItems([Items.Bloodthorn, Items.Orchid]);
       }
       else if (item.item == Items.Orchid) {
         _useOrchid();
-        applyCooldownForSimilarItems();
+        applyCooldownForSimilarItems([Items.Bloodthorn, Items.Orchid]);
         return;
+      }
+      else if (item.item == Items.Witch_blade || item.item == Items.Parasma) {
+        applyCooldownForSimilarItems([Items.Witch_blade, Items.Parasma]);
       }
       _modifyBonuses(item, true);
       await Future.delayed(

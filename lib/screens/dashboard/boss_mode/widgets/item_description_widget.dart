@@ -53,6 +53,10 @@ class _ItemDescriptionWidgetState extends State<ItemDescriptionWidget> {
       'from' : Items.Orchid,
       'to' : Items.Bloodthorn,
     },
+    {
+      'from' : Items.Witch_blade,
+      'to' : Items.Parasma,
+    },
   ];
   Map<String, Items>? getUpgradableItem() {
     for (final upgradableItem in _upgradableItems) {
@@ -197,7 +201,7 @@ class _ItemDescriptionWidgetState extends State<ItemDescriptionWidget> {
           ],
         ),
         const Spacer(),
-        if (upgradableItem != null)
+        if (upgradableItem != null && !widget.isItemSellable)
           Row(
             children: [
               const Icon(Icons.keyboard_double_arrow_right_outlined),

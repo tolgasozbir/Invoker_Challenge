@@ -298,6 +298,14 @@
             "bonus": "Damage +40\nMana +400\nMana Regen +4.0",
             "active": "15% of damage dealt over the item's duration converts to spell damage at the end.\nMagical Damage per Hit: 40\nDuration: 5 Seconds"
         },
+        "Witch_blade": {
+            "bonus": "Damage +24\nMana +160\nMana Regen +1.2",
+            "active": "Damage Per Second: 40\nDuration: 4 Seconds"
+        },
+        "Parasma": {
+            "bonus": "Increases spell damage taken by Bosses.\nDamage +40\nMana +480\nMana Regen +1.6",
+            "active": "Spell Damage Increase: +20%\nDamage Per Second: 64\nDuration: 4 Seconds"
+        },
         "Dagon": {
             "bonus": "Energy Burst\n(This item can be purchased only once!)",
             "active": "+3200 Magic Damage"
