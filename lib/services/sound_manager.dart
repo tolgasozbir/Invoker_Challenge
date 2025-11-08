@@ -1,14 +1,13 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:dota2_invoker_game/services/sound_player/audioplayer_wrapper.dart';
-import 'package:dota2_invoker_game/services/sound_player/soloud_wrapper.dart';
-import 'package:dota2_invoker_game/services/user_manager.dart';
 import '../constants/app_sound_paths.dart';
-
 import '../enums/Bosses.dart';
 import '../enums/spells.dart';
+import 'sound_player/audioplayer_wrapper.dart';
+import 'sound_player/soloud_wrapper.dart';
 import 'sound_player/sound_player_interface.dart';
+import 'user_manager.dart';
 
 class SoundManager {
   SoundManager._();

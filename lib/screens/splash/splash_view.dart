@@ -1,6 +1,6 @@
-import 'package:dota2_invoker_game/constants/app_image_paths.dart';
 import 'package:flutter/material.dart';
 
+import '../../constants/app_image_paths.dart';
 import 'splash_view_model.dart';
 
 class SplashView extends StatefulWidget {

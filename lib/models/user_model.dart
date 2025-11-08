@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:dota2_invoker_game/services/hive/IBaseHiveService.dart';
-import 'package:dota2_invoker_game/services/iap/revenuecat_service.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import '../services/hive/IBaseHiveService.dart';
+import '../services/iap/revenuecat_service.dart';
 import 'base_models/base_model.dart';
 
 part 'user_model.g.dart';

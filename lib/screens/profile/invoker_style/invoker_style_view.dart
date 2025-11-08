@@ -1,19 +1,20 @@
 import 'dart:math';
 
-import 'package:dota2_invoker_game/constants/app_colors.dart';
-import 'package:dota2_invoker_game/constants/app_image_paths.dart';
-import 'package:dota2_invoker_game/constants/locale_keys.g.dart';
-import 'package:dota2_invoker_game/extensions/context_extension.dart';
-import 'package:dota2_invoker_game/extensions/string_extension.dart';
-import 'package:dota2_invoker_game/mixins/screen_state_mixin.dart';
-import 'package:dota2_invoker_game/services/sound_manager.dart';
-import 'package:dota2_invoker_game/services/user_manager.dart';
-import 'package:dota2_invoker_game/widgets/crownfall_button.dart';
-import 'package:dota2_invoker_game/widgets/empty_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+
+import '../../../constants/app_colors.dart';
+import '../../../constants/app_image_paths.dart';
+import '../../../constants/locale_keys.g.dart';
+import '../../../extensions/context_extension.dart';
+import '../../../extensions/string_extension.dart';
+import '../../../mixins/screen_state_mixin.dart';
 import '../../../models/invoker.dart';
+import '../../../services/sound_manager.dart';
+import '../../../services/user_manager.dart';
 import '../../../utils/asset_manager.dart';
+import '../../../widgets/crownfall_button.dart';
+import '../../../widgets/empty_box.dart';
 
 class InvokerStyleView extends StatefulWidget {
   const InvokerStyleView({super.key});

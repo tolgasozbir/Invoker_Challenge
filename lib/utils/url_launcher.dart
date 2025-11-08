@@ -1,8 +1,8 @@
-import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../constants/app_strings.dart';
 import '../constants/locale_keys.g.dart';
+import '../extensions/string_extension.dart';
 import '../widgets/app_snackbar.dart';
 
 class UrlLauncher {

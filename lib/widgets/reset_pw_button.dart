@@ -1,13 +1,11 @@
-import 'package:dota2_invoker_game/extensions/string_extension.dart';
-
-import '../constants/locale_keys.g.dart';
-import '../services/user_manager.dart';
-
-import '../extensions/context_extension.dart';
-import '../mixins/screen_state_mixin.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
+import '../constants/locale_keys.g.dart';
+import '../extensions/context_extension.dart';
+import '../extensions/string_extension.dart';
+import '../mixins/screen_state_mixin.dart';
+import '../services/user_manager.dart';
 import 'app_dialogs.dart';
 import 'app_outlined_button.dart';
 import 'app_snackbar.dart';

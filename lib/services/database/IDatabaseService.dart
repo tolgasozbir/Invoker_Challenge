@@ -1,5 +1,4 @@
-import 'package:dota2_invoker_game/enums/Bosses.dart';
-
+import '../../enums/Bosses.dart';
 import '../../models/base_models/base_model.dart';
 import '../../models/feedback_model.dart';
 import '../../models/user_model.dart';

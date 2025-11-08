@@ -1,10 +1,11 @@
 import 'dart:async';
 
-import 'package:dota2_invoker_game/enums/achievements.dart';
-import 'package:dota2_invoker_game/extensions/iterable_extension.dart';
-import 'package:dota2_invoker_game/widgets/empty_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+
+import '../enums/achievements.dart';
+import '../extensions/iterable_extension.dart';
+import 'empty_box.dart';
 
 class OverlayManager {
   static OverlayEntry? _overlayEntry;

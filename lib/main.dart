@@ -1,11 +1,5 @@
 import 'dart:async';
 
-import 'package:dota2_invoker_game/providers/app_context_provider.dart';
-import 'package:dota2_invoker_game/providers/color_settings_provider.dart';
-import 'package:dota2_invoker_game/services/config/remote_config_service.dart';
-import 'package:dota2_invoker_game/services/iap/revenuecat_service.dart';
-import 'package:dota2_invoker_game/utils/ads_helper.dart';
-import 'package:dota2_invoker_game/utils/localization_manager.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -17,16 +11,22 @@ import 'package:provider/provider.dart';
 
 import 'constants/app_strings.dart';
 import 'firebase_options.dart';
+import 'providers/app_context_provider.dart';
 import 'providers/boss_battle_provider.dart';
+import 'providers/color_settings_provider.dart';
 import 'providers/game_provider.dart';
 import 'providers/spell_provider.dart';
 import 'screens/splash/splash_view.dart';
 import 'services/app_services.dart';
 import 'services/auth/firebase_auth_service.dart';
+import 'services/config/remote_config_service.dart';
 import 'services/database/firestore_service.dart';
+import 'services/iap/revenuecat_service.dart';
 import 'services/local_storage/local_storage_service.dart';
 import 'services/sound_manager.dart';
 import 'services/user_manager.dart';
+import 'utils/ads_helper.dart';
+import 'utils/localization_manager.dart';
 import 'widgets/app_dialogs.dart';
 import 'widgets/app_snackbar.dart';
 

@@ -1,12 +1,12 @@
 import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:dota2_invoker_game/widgets/empty_box.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/app_colors.dart';
 import '../extensions/context_extension.dart';
 import '../services/sound_manager.dart';
+import 'empty_box.dart';
 
 class AppDialogs {
   AppDialogs._();

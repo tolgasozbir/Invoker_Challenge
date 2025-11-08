@@ -1,7 +1,8 @@
 import 'dart:developer';
 
-import 'package:dota2_invoker_game/constants/app_strings.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
+
+import '../../constants/app_strings.dart';
 
 enum RemoteConfigKeys {
   app_version(value: AppStrings.appVersion),

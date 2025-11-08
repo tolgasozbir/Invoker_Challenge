@@ -1,15 +1,15 @@
 import 'dart:math';
 
-import 'package:dota2_invoker_game/enums/Bosses.dart';
-import 'package:dota2_invoker_game/enums/spells.dart';
-import 'package:dota2_invoker_game/extensions/string_extension.dart';
-import 'package:dota2_invoker_game/utils/ads_helper.dart';
-import 'package:dota2_invoker_game/widgets/empty_box.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../../../../../constants/locale_keys.g.dart';
+import '../../../../../enums/Bosses.dart';
+import '../../../../../enums/spells.dart';
+import '../../../../../extensions/string_extension.dart';
 import '../../../../../services/user_manager.dart';
+import '../../../../../utils/ads_helper.dart';
+import '../../../../../widgets/empty_box.dart';
 import 'neon_circle_painter.dart';
 import 'neon_info_card.dart';
 import 'neon_section_title.dart';

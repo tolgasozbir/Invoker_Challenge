@@ -1,4 +1,3 @@
-import 'package:dota2_invoker_game/widgets/crownfall_button.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/app_image_paths.dart';
@@ -6,6 +5,7 @@ import '../extensions/context_extension.dart';
 import '../services/sound_manager.dart';
 import '../services/user_manager.dart';
 import '../utils/ads_helper.dart';
+import 'crownfall_button.dart';
 import 'empty_box.dart';
 
 class WatchAdButton extends StatelessWidget {

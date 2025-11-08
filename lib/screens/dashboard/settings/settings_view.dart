@@ -1,13 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:dota2_invoker_game/extensions/string_extension.dart';
-import 'package:dota2_invoker_game/utils/url_launcher.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/app_colors.dart';
 import '../../../constants/locale_keys.g.dart';
 import '../../../extensions/context_extension.dart';
+import '../../../extensions/string_extension.dart';
 import '../../../utils/fade_in_page_animation.dart';
+import '../../../utils/url_launcher.dart';
 import '../../../widgets/empty_box.dart';
 import '../../../widgets/sliders/qwer_hud_height_slider.dart';
 import '../../../widgets/sliders/volume_slider.dart';

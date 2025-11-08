@@ -1,9 +1,10 @@
 import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:dota2_invoker_game/screens/profile/premium/paywall.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+
+import '../../screens/profile/premium/paywall.dart';
 
 class PremiumOfferDialog extends StatefulWidget {
   const PremiumOfferDialog({super.key});

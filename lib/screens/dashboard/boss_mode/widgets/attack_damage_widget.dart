@@ -1,10 +1,10 @@
-import 'package:dota2_invoker_game/extensions/number_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 
 import '../../../../constants/app_colors.dart';
 import '../../../../constants/app_image_paths.dart';
+import '../../../../extensions/number_extension.dart';
 import '../../../../providers/boss_battle_provider.dart';
 import '../../../../widgets/empty_box.dart';
 

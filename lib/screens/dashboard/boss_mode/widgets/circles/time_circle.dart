@@ -1,11 +1,11 @@
-import 'package:dota2_invoker_game/extensions/context_extension.dart';
-import 'package:dota2_invoker_game/providers/color_settings_provider.dart';
 import 'package:flutter/widgets.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 
+import '../../../../../extensions/context_extension.dart';
 import '../../../../../providers/boss_battle_provider.dart';
+import '../../../../../providers/color_settings_provider.dart';
 
 class TimeCircle extends StatelessWidget {
   const TimeCircle({super.key});

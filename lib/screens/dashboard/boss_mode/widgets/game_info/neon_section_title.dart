@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:dota2_invoker_game/widgets/empty_box.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../../widgets/empty_box.dart';
 
 class NeonSectionTitle extends StatelessWidget {
   const NeonSectionTitle({super.key, required this.title, required this.icon, required this.color});

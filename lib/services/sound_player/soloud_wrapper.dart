@@ -1,9 +1,10 @@
 import 'dart:developer';
 import 'dart:math' as math;
 
-import 'package:dota2_invoker_game/services/sound_manager.dart';
-import 'package:dota2_invoker_game/services/sound_player/sound_player_interface.dart';
 import 'package:flutter_soloud/flutter_soloud.dart';
+
+import '../sound_manager.dart';
+import 'sound_player_interface.dart';
 
 class SoLoudWrapper implements ISoundPlayer {
   SoLoudWrapper._();

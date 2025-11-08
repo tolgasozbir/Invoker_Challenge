@@ -1,11 +1,12 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:dota2_invoker_game/services/user_manager.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' show dotenv;
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+
+import '../services/user_manager.dart';
 
 enum AdUnit {
   banner(

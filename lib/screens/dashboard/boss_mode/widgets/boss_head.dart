@@ -1,11 +1,11 @@
-import 'package:dota2_invoker_game/enums/Bosses.dart';
-import 'package:dota2_invoker_game/extensions/context_extension.dart';
-import 'package:dota2_invoker_game/extensions/number_extension.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:snappable_thanos/snappable_thanos.dart';
 import 'package:tuple/tuple.dart';
 
+import '../../../../enums/Bosses.dart';
+import '../../../../extensions/context_extension.dart';
+import '../../../../extensions/number_extension.dart';
 import '../../../../providers/boss_battle_provider.dart';
 
 class BossHead extends StatelessWidget {

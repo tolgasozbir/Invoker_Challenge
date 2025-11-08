@@ -1,12 +1,13 @@
-import 'package:dota2_invoker_game/constants/app_colors.dart';
-import 'package:dota2_invoker_game/constants/locale_keys.g.dart';
-import 'package:dota2_invoker_game/extensions/string_extension.dart';
-import 'package:dota2_invoker_game/mixins/screen_state_mixin.dart';
-import 'package:dota2_invoker_game/services/iap/revenuecat_service.dart';
-import 'package:dota2_invoker_game/widgets/empty_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
+
+import '../../../constants/app_colors.dart';
+import '../../../constants/locale_keys.g.dart';
+import '../../../extensions/string_extension.dart';
+import '../../../mixins/screen_state_mixin.dart';
+import '../../../services/iap/revenuecat_service.dart';
+import '../../../widgets/empty_box.dart';
 
 class PaywallScreen extends StatefulWidget {
   const PaywallScreen({super.key});

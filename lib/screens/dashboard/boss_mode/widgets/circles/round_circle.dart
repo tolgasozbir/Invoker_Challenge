@@ -1,10 +1,10 @@
-import 'package:dota2_invoker_game/extensions/context_extension.dart';
-import 'package:dota2_invoker_game/providers/color_settings_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 
+import '../../../../../extensions/context_extension.dart';
 import '../../../../../providers/boss_battle_provider.dart';
+import '../../../../../providers/color_settings_provider.dart';
 import 'dashed_circle.dart';
 
 class RoundCircle extends StatelessWidget {

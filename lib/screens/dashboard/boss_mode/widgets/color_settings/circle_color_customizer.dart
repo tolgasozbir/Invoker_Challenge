@@ -1,21 +1,21 @@
 import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:dota2_invoker_game/constants/locale_keys.g.dart';
-import 'package:dota2_invoker_game/enums/Bosses.dart';
-import 'package:dota2_invoker_game/enums/local_storage_keys.dart';
-import 'package:dota2_invoker_game/extensions/color_extension.dart';
-import 'package:dota2_invoker_game/extensions/string_extension.dart';
-import 'package:dota2_invoker_game/mixins/screen_state_mixin.dart';
-import 'package:dota2_invoker_game/models/circle_theme_model.dart';
-import 'package:dota2_invoker_game/providers/color_settings_provider.dart';
-import 'package:dota2_invoker_game/services/app_services.dart';
-import 'package:dota2_invoker_game/widgets/app_snackbar.dart';
-import 'package:dota2_invoker_game/widgets/empty_box.dart';
 import 'package:flutter/material.dart';
-
-import 'package:dota2_invoker_game/constants/app_colors.dart';
 import 'package:provider/provider.dart';
+
+import '../../../../../constants/app_colors.dart';
+import '../../../../../constants/locale_keys.g.dart';
+import '../../../../../enums/Bosses.dart';
+import '../../../../../enums/local_storage_keys.dart';
+import '../../../../../extensions/color_extension.dart';
+import '../../../../../extensions/string_extension.dart';
+import '../../../../../mixins/screen_state_mixin.dart';
+import '../../../../../models/circle_theme_model.dart';
+import '../../../../../providers/color_settings_provider.dart';
+import '../../../../../services/app_services.dart';
+import '../../../../../widgets/app_snackbar.dart';
+import '../../../../../widgets/empty_box.dart';
 
 class CircleColorCustomizer extends StatefulWidget {
   const CircleColorCustomizer({super.key});

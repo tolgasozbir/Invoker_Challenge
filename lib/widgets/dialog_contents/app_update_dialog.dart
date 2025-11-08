@@ -1,18 +1,18 @@
 import 'dart:io';
 
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:dota2_invoker_game/constants/app_colors.dart';
-import 'package:dota2_invoker_game/constants/app_strings.dart';
-import 'package:dota2_invoker_game/constants/locale_keys.g.dart';
-import 'package:dota2_invoker_game/extensions/context_extension.dart';
-import 'package:dota2_invoker_game/extensions/string_extension.dart';
-import 'package:dota2_invoker_game/services/sound_manager.dart';
-import 'package:dota2_invoker_game/widgets/empty_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../constants/app_colors.dart';
 import '../../constants/app_image_paths.dart';
+import '../../constants/app_strings.dart';
+import '../../constants/locale_keys.g.dart';
+import '../../extensions/context_extension.dart';
+import '../../extensions/string_extension.dart';
+import '../../services/sound_manager.dart';
 import '../../utils/url_launcher.dart';
+import '../empty_box.dart';
 
 class AppUpdateDialog extends StatelessWidget {
   const AppUpdateDialog({super.key, required this.forceUpdate});

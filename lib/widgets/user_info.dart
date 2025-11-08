@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,6 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../constants/app_colors.dart';
 import '../constants/locale_keys.g.dart';
 import '../extensions/context_extension.dart';
+import '../extensions/string_extension.dart';
 import '../extensions/widget_extension.dart';
 import '../models/user_model.dart';
 import '../services/user_manager.dart';

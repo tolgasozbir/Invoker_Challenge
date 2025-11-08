@@ -1,18 +1,18 @@
 import 'dart:developer';
 
-import 'package:dota2_invoker_game/enums/sound_players.dart';
-import 'package:dota2_invoker_game/models/invoker.dart';
-import 'package:dota2_invoker_game/services/iap/revenuecat_service.dart';
-import 'package:dota2_invoker_game/services/sound_player/audioplayer_wrapper.dart';
-import 'package:dota2_invoker_game/services/sound_player/soloud_wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../../enums/local_storage_keys.dart';
-import '../../services/user_manager.dart';
+import '../../enums/sound_players.dart';
+import '../../models/invoker.dart';
 import '../../services/app_services.dart';
+import '../../services/iap/revenuecat_service.dart';
 import '../../services/sound_manager.dart';
+import '../../services/sound_player/audioplayer_wrapper.dart';
+import '../../services/sound_player/soloud_wrapper.dart';
+import '../../services/user_manager.dart';
 import '../../utils/ads_helper.dart';
 import '../dashboard/dashboard_view.dart';
 import 'splash_view.dart';

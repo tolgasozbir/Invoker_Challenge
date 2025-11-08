@@ -1,7 +1,8 @@
 import 'dart:math';
 
-import 'package:dota2_invoker_game/constants/app_colors.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../../constants/app_colors.dart';
 
 class DashedCircle extends StatelessWidget {
   const DashedCircle({

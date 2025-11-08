@@ -1,8 +1,9 @@
 import 'dart:math' as math;
 
 import 'package:audioplayers/audioplayers.dart';
-import 'package:dota2_invoker_game/services/sound_manager.dart';
-import 'package:dota2_invoker_game/services/sound_player/sound_player_interface.dart';
+
+import '../sound_manager.dart';
+import 'sound_player_interface.dart';
 
 class AudioPlayerWrapper implements ISoundPlayer {
   AudioPlayerWrapper._();

@@ -1,13 +1,13 @@
-import 'package:dota2_invoker_game/extensions/number_extension.dart';
-import 'package:dota2_invoker_game/extensions/string_extension.dart';
-import 'package:dota2_invoker_game/widgets/empty_box.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 
 import '../../../../constants/app_colors.dart';
 import '../../../../constants/locale_keys.g.dart';
+import '../../../../extensions/number_extension.dart';
+import '../../../../extensions/string_extension.dart';
 import '../../../../providers/boss_battle_provider.dart';
+import '../../../../widgets/empty_box.dart';
 
 class DpsWidget extends StatelessWidget {
   const DpsWidget({super.key});

@@ -1,9 +1,9 @@
-import 'package:dota2_invoker_game/constants/locale_keys.g.dart';
-import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/app_colors.dart';
+import '../../constants/locale_keys.g.dart';
 import '../../enums/local_storage_keys.dart';
+import '../../extensions/string_extension.dart';
 import '../../extensions/widget_extension.dart';
 import '../../services/app_services.dart';
 import '../app_snackbar.dart';

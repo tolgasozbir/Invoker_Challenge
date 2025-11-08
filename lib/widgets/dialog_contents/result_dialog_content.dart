@@ -1,22 +1,21 @@
-import 'package:dota2_invoker_game/extensions/string_extension.dart';
-
-import '../../constants/locale_keys.g.dart';
-import '../../models/score_models/combo.dart';
-import '../../services/database/firestore_service.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/app_colors.dart';
+import '../../constants/locale_keys.g.dart';
 import '../../enums/database_table.dart';
 import '../../extensions/context_extension.dart';
+import '../../extensions/string_extension.dart';
 import '../../extensions/widget_extension.dart';
 import '../../mixins/screen_state_mixin.dart';
 import '../../models/score_models/challenger.dart';
+import '../../models/score_models/combo.dart';
 import '../../models/score_models/time_trial.dart';
 import '../../providers/game_provider.dart';
-import '../../services/user_manager.dart';
 import '../../services/app_services.dart';
+import '../../services/database/firestore_service.dart';
+import '../../services/user_manager.dart';
 import '../../utils/ads_helper.dart';
 import '../app_outlined_button.dart';
 import '../app_snackbar.dart';

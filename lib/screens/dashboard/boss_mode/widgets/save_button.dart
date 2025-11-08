@@ -1,10 +1,10 @@
-import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../constants/app_colors.dart';
 import '../../../../constants/locale_keys.g.dart';
 import '../../../../extensions/context_extension.dart';
+import '../../../../extensions/string_extension.dart';
 import '../../../../providers/boss_battle_provider.dart';
 import '../../../../utils/game_save_handler.dart';
 import '../../../../widgets/app_snackbar.dart';

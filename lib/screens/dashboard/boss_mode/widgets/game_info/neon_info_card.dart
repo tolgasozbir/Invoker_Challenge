@@ -1,5 +1,6 @@
-import 'package:dota2_invoker_game/widgets/empty_box.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../../widgets/empty_box.dart';
 
 class NeonInfoCard extends StatelessWidget {
   const NeonInfoCard({super.key, required this.color, required this.title, required this.description, required this.icon});

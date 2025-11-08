@@ -1,48 +1,45 @@
 import 'dart:math';
 
-import 'package:dota2_invoker_game/constants/app_colors.dart';
-import 'package:dota2_invoker_game/constants/app_strings.dart';
-import 'package:dota2_invoker_game/constants/locale_keys.g.dart';
-import 'package:dota2_invoker_game/extensions/string_extension.dart';
-import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/ability_slot.dart';
-import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/attack_damage_widget.dart';
-import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/boss_head.dart';
-import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/circles/health_circle.dart';
-import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/color_settings/color_settings_button.dart';
-import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/dps_widget.dart';
-import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/game_info/game_info_button.dart';
-import 'package:dota2_invoker_game/utils/value_notifier_listener.dart';
-import 'package:dota2_invoker_game/widgets/app_outlined_button.dart';
-import 'package:tuple/tuple.dart';
-
-import '../../../models/exit_dialog_message.dart';
-import 'widgets/background/background_sky.dart';
-import 'widgets/background/background_weather.dart';
-import 'widgets/circles/round_circle.dart';
-import 'widgets/circles/time_circle.dart';
-import 'widgets/mana_bar.dart';
-import 'widgets/save_button.dart';
-import '../../../utils/game_save_handler.dart';
-import '../../../widgets/app_dialogs.dart';
-
-import '../../../widgets/dialog_contents/load_game_dialog_content.dart';
-import '../../../widgets/empty_box.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'package:splash/splash.dart';
+import 'package:tuple/tuple.dart';
 
+import '../../../constants/app_colors.dart';
+import '../../../constants/app_strings.dart';
+import '../../../constants/locale_keys.g.dart';
 import '../../../enums/elements.dart';
 import '../../../enums/spells.dart';
 import '../../../extensions/context_extension.dart';
+import '../../../extensions/string_extension.dart';
 import '../../../extensions/widget_extension.dart';
 import '../../../mixins/orb_mixin.dart';
+import '../../../models/exit_dialog_message.dart';
 import '../../../providers/boss_battle_provider.dart';
 import '../../../services/sound_manager.dart';
+import '../../../utils/game_save_handler.dart';
 import '../../../utils/spell_combination_checker.dart';
+import '../../../utils/value_notifier_listener.dart';
+import '../../../widgets/app_dialogs.dart';
+import '../../../widgets/app_outlined_button.dart';
 import '../../../widgets/app_snackbar.dart';
 import '../../../widgets/bouncing_button.dart';
+import '../../../widgets/dialog_contents/load_game_dialog_content.dart';
+import '../../../widgets/empty_box.dart';
+import 'widgets/ability_slot.dart';
+import 'widgets/attack_damage_widget.dart';
+import 'widgets/background/background_sky.dart';
+import 'widgets/background/background_weather.dart';
+import 'widgets/boss_head.dart';
+import 'widgets/circles/health_circle.dart';
+import 'widgets/circles/round_circle.dart';
+import 'widgets/circles/time_circle.dart';
+import 'widgets/color_settings/color_settings_button.dart';
+import 'widgets/dps_widget.dart';
+import 'widgets/game_info/game_info_button.dart';
 import 'widgets/inventory_hud.dart';
+import 'widgets/mana_bar.dart';
+import 'widgets/save_button.dart';
 import 'widgets/shop/shop_button.dart';
 
 class BossModeView extends StatefulWidget {

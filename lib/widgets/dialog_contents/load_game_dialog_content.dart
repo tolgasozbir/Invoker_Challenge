@@ -1,15 +1,14 @@
-import 'package:dota2_invoker_game/extensions/string_extension.dart';
-
-import '../../constants/locale_keys.g.dart';
-import '../../extensions/widget_extension.dart';
-import '../../providers/boss_battle_provider.dart';
-import '../../utils/game_save_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../constants/locale_keys.g.dart';
 import '../../enums/Bosses.dart';
 import '../../enums/items.dart';
+import '../../extensions/string_extension.dart';
+import '../../extensions/widget_extension.dart';
 import '../../models/Item.dart';
+import '../../providers/boss_battle_provider.dart';
+import '../../utils/game_save_handler.dart';
 import '../app_outlined_button.dart';
 import '../empty_box.dart';
 

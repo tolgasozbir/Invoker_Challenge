@@ -1,13 +1,14 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:dota2_invoker_game/enums/local_storage_keys.dart';
-import 'package:dota2_invoker_game/services/local_storage/local_storage_service.dart';
-import 'package:dota2_invoker_game/services/user_manager.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:purchases_flutter/purchases_flutter.dart';
+
+import '../../enums/local_storage_keys.dart';
+import '../local_storage/local_storage_service.dart';
+import '../user_manager.dart';
 
 enum RevenuecatIdentifiers {
   premiumEntitlement(id: 'monthly', transactionProductId: 'com.dota2.invoker.game.supporterpass:supporter-monthly'),

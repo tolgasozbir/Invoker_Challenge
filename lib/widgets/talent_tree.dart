@@ -1,10 +1,10 @@
-import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../constants/app_colors.dart';
 import '../constants/app_image_paths.dart';
 import '../constants/locale_keys.g.dart';
+import '../extensions/string_extension.dart';
 import '../extensions/widget_extension.dart';
 import '../models/user_model.dart';
 import '../services/user_manager.dart';

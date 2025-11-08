@@ -1,8 +1,8 @@
-import 'package:dota2_invoker_game/services/user_manager.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/app_colors.dart';
 import '../constants/app_image_paths.dart';
+import '../services/user_manager.dart';
 
 enum Elements {quas, wex, exort, invoke}
 

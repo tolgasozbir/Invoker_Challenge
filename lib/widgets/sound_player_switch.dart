@@ -1,11 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/app_colors.dart';
 import '../constants/locale_keys.g.dart';
 import '../enums/local_storage_keys.dart';
 import '../enums/sound_players.dart';
+import '../extensions/string_extension.dart';
 import '../mixins/screen_state_mixin.dart';
 import '../services/app_services.dart';
 import '../services/sound_manager.dart';

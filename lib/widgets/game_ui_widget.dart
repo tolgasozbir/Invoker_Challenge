@@ -1,25 +1,24 @@
-import 'package:dota2_invoker_game/extensions/string_extension.dart';
-
-import '../constants/locale_keys.g.dart';
-import '../enums/spells.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/app_colors.dart';
 import '../constants/app_image_paths.dart';
+import '../constants/locale_keys.g.dart';
 import '../enums/database_table.dart';
 import '../enums/elements.dart';
 import '../enums/local_storage_keys.dart';
+import '../enums/spells.dart';
 import '../extensions/context_extension.dart';
+import '../extensions/string_extension.dart';
 import '../extensions/widget_extension.dart';
-import '../mixins/screen_state_mixin.dart';
 import '../mixins/orb_mixin.dart';
+import '../mixins/screen_state_mixin.dart';
 import '../providers/game_provider.dart';
 import '../providers/spell_provider.dart';
-import '../services/user_manager.dart';
 import '../services/achievement_manager.dart';
 import '../services/app_services.dart';
 import '../services/sound_manager.dart';
+import '../services/user_manager.dart';
 import '../utils/spell_combination_checker.dart';
 import '../utils/value_notifier_listener.dart';
 import 'app_outlined_button.dart';

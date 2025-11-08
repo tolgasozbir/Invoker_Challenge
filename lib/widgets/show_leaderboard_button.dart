@@ -1,9 +1,9 @@
-import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/locale_keys.g.dart';
 import '../extensions/context_extension.dart';
+import '../extensions/string_extension.dart';
 import '../providers/game_provider.dart';
 import 'app_dialogs.dart';
 import 'app_outlined_button.dart';

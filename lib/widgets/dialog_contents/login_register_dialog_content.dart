@@ -1,7 +1,3 @@
-import 'package:dota2_invoker_game/extensions/string_extension.dart';
-
-import '../../constants/locale_keys.g.dart';
-import '../../services/user_manager.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -9,10 +5,13 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../../constants/app_colors.dart';
 import '../../constants/app_image_paths.dart';
+import '../../constants/locale_keys.g.dart';
 import '../../extensions/context_extension.dart';
+import '../../extensions/string_extension.dart';
 import '../../extensions/widget_extension.dart';
 import '../../mixins/input_validation_mixin.dart';
 import '../../mixins/screen_state_mixin.dart';
+import '../../services/user_manager.dart';
 import '../app_outlined_button.dart';
 import '../app_snackbar.dart';
 import '../app_text_from_field.dart';

@@ -1,9 +1,9 @@
-import 'package:dota2_invoker_game/screens/dashboard/boss_mode/widgets/color_settings/circle_color_customizer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../providers/boss_battle_provider.dart';
 import '../../../../../services/sound_manager.dart';
+import 'circle_color_customizer.dart';
 
 class ColorSettingsButton extends StatelessWidget {
   const ColorSettingsButton({super.key});

@@ -1,12 +1,11 @@
 import 'dart:developer';
 
-import 'package:dota2_invoker_game/extensions/string_extension.dart';
-
-import '../../constants/locale_keys.g.dart';
-import 'IFirebaseAuthService.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../../constants/locale_keys.g.dart';
+import '../../extensions/string_extension.dart';
 import '../../widgets/app_snackbar.dart';
+import 'IFirebaseAuthService.dart';
 
 class FirebaseAuthService implements IFirebaseAuthService {
   FirebaseAuthService._();

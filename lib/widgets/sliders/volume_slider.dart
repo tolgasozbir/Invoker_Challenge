@@ -1,9 +1,9 @@
-import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 import '../../constants/locale_keys.g.dart';
 import '../../enums/local_storage_keys.dart';
+import '../../extensions/string_extension.dart';
 import '../../services/app_services.dart';
 import '../../services/sound_manager.dart';
 

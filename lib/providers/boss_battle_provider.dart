@@ -15,9 +15,9 @@ import '../models/ability.dart';
 import '../models/score_models/boss_battle.dart';
 import '../services/achievement_manager.dart';
 import '../services/sound_manager.dart';
+import '../services/user_manager.dart';
 import '../widgets/app_dialogs.dart';
 import '../widgets/dialog_contents/boss_result_dialog_content.dart';
-import '../services/user_manager.dart';
 
 class BossBattleProvider extends ChangeNotifier {
   Timer? _timer;

@@ -1,15 +1,15 @@
 import 'dart:math';
 
-import 'package:dota2_invoker_game/constants/app_colors.dart';
-import 'package:dota2_invoker_game/constants/locale_keys.g.dart';
-import 'package:dota2_invoker_game/extensions/string_extension.dart';
-import 'package:dota2_invoker_game/widgets/empty_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
+import '../../constants/app_colors.dart';
 import '../../constants/app_image_paths.dart';
+import '../../constants/locale_keys.g.dart';
 import '../../extensions/context_extension.dart';
+import '../../extensions/string_extension.dart';
 import '../../utils/fade_in_page_animation.dart';
+import '../../widgets/empty_box.dart';
 
 class LoadingContent {
   final String message;

@@ -1,24 +1,23 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:dota2_invoker_game/enums/Bosses.dart';
-import 'package:dota2_invoker_game/extensions/string_extension.dart';
-import 'package:dota2_invoker_game/widgets/crownfall_button.dart';
-
-import '../../constants/locale_keys.g.dart';
-import '../../extensions/number_extension.dart';
-import '../../services/database/firestore_service.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/app_colors.dart';
+import '../../constants/locale_keys.g.dart';
+import '../../enums/Bosses.dart';
 import '../../extensions/context_extension.dart';
+import '../../extensions/number_extension.dart';
+import '../../extensions/string_extension.dart';
 import '../../extensions/widget_extension.dart';
 import '../../mixins/screen_state_mixin.dart';
 import '../../models/score_models/boss_battle.dart';
 import '../../providers/boss_battle_provider.dart';
-import '../../services/user_manager.dart';
 import '../../services/app_services.dart';
+import '../../services/database/firestore_service.dart';
+import '../../services/user_manager.dart';
 import '../app_snackbar.dart';
+import '../crownfall_button.dart';
 import '../empty_box.dart';
 import '../watch_ad_button.dart';
 

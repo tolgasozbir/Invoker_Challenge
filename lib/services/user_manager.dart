@@ -1,18 +1,18 @@
-import 'package:dota2_invoker_game/enums/Bosses.dart';
-import 'package:dota2_invoker_game/extensions/string_extension.dart';
-import '../constants/locale_keys.g.dart';
-import '../models/invoker.dart';
-import '../utils/formatted_date.dart';
 import 'package:flutter/material.dart';
 import 'package:snappable_thanos/snappable_thanos.dart';
 
+import '../constants/locale_keys.g.dart';
+import '../enums/Bosses.dart';
 import '../enums/local_storage_keys.dart';
+import '../extensions/string_extension.dart';
+import '../models/invoker.dart';
 import '../models/score_models/boss_battle.dart';
 import '../models/user_model.dart';
-import 'achievement_manager.dart';
-import 'app_services.dart';
+import '../utils/formatted_date.dart';
 import '../utils/id_generator.dart';
 import '../widgets/game_ui_widget.dart';
+import 'achievement_manager.dart';
+import 'app_services.dart';
 import 'hive/IBaseHiveService.dart';
 
 class UserManager extends ChangeNotifier {

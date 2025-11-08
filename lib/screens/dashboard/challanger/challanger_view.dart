@@ -1,10 +1,10 @@
-import 'package:dota2_invoker_game/constants/locale_keys.g.dart';
-import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:snappable_thanos/snappable_thanos.dart';
 
 import '../../../constants/app_image_paths.dart';
+import '../../../constants/locale_keys.g.dart';
 import '../../../extensions/context_extension.dart';
+import '../../../extensions/string_extension.dart';
 import '../../../services/user_manager.dart';
 import '../../../widgets/app_scaffold.dart';
 import '../../../widgets/dialog_contents/leaderboard_dialog.dart';

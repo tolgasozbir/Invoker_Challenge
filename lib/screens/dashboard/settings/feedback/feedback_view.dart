@@ -1,4 +1,3 @@
-import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:lottie/lottie.dart';
@@ -8,6 +7,7 @@ import '../../../../constants/app_colors.dart';
 import '../../../../constants/app_image_paths.dart';
 import '../../../../constants/locale_keys.g.dart';
 import '../../../../extensions/context_extension.dart';
+import '../../../../extensions/string_extension.dart';
 import '../../../../extensions/widget_extension.dart';
 import '../../../../mixins/screen_state_mixin.dart';
 import '../../../../models/feedback_model.dart';

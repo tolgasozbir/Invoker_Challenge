@@ -1,9 +1,9 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dota2_invoker_game/enums/Bosses.dart';
 
 import '../../constants/locale_keys.g.dart';
+import '../../enums/Bosses.dart';
 import '../../enums/database_table.dart';
 import '../../extensions/string_extension.dart';
 import '../../models/base_models/base_model.dart';

@@ -1,8 +1,9 @@
-import 'package:dota2_invoker_game/constants/app_colors.dart';
-import 'package:dota2_invoker_game/enums/local_storage_keys.dart';
-import 'package:dota2_invoker_game/extensions/color_extension.dart';
-import 'package:dota2_invoker_game/services/app_services.dart';
 import 'package:flutter/material.dart';
+
+import '../constants/app_colors.dart';
+import '../enums/local_storage_keys.dart';
+import '../extensions/color_extension.dart';
+import '../services/app_services.dart';
 
 class ColorSettingsProvider extends ChangeNotifier {
   late Color _healthColor;

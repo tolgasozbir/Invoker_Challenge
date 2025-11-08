@@ -1,5 +1,6 @@
-import 'package:dota2_invoker_game/extensions/number_extension.dart';
 import 'package:flutter/material.dart';
+
+import 'number_extension.dart';
 
 extension ColorExtension on Color {
   // /// Returns a new color with the provided components updated.

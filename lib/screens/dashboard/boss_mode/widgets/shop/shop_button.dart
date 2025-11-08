@@ -1,10 +1,10 @@
 import 'dart:developer';
 
-import 'package:dota2_invoker_game/constants/locale_keys.g.dart';
-import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../constants/locale_keys.g.dart';
+import '../../../../../extensions/string_extension.dart';
 import '../../../../../providers/boss_battle_provider.dart';
 import '../../../../../services/sound_manager.dart';
 import '../../../../../utils/ads_helper.dart';

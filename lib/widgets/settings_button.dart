@@ -1,12 +1,12 @@
-import 'package:dota2_invoker_game/extensions/string_extension.dart';
-import 'package:dota2_invoker_game/widgets/language_popup.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/app_colors.dart';
 import '../constants/locale_keys.g.dart';
 import '../extensions/context_extension.dart';
+import '../extensions/string_extension.dart';
 import '../screens/dashboard/settings/settings_view.dart';
 import 'app_dialogs.dart';
+import 'language_popup.dart';
 
 class SettingsButton extends StatefulWidget {
   const SettingsButton({ super.key, });

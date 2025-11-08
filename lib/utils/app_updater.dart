@@ -1,6 +1,8 @@
 import 'dart:developer';
-import 'package:dota2_invoker_game/constants/app_strings.dart';
+
 import 'package:tuple/tuple.dart';
+
+import '../constants/app_strings.dart';
 import '../services/config/remote_config_service.dart';
 
 class AppUpdater {

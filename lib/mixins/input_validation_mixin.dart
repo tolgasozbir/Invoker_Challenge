@@ -1,7 +1,7 @@
-import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/locale_keys.g.dart';
+import '../extensions/string_extension.dart';
 
 mixin InputValidationMixin {
 

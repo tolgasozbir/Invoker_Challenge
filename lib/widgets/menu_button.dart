@@ -1,13 +1,13 @@
 import 'dart:developer';
 
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:dota2_invoker_game/extensions/widget_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:splash/splash.dart';
 
 import '../constants/app_colors.dart';
 import '../extensions/context_extension.dart';
+import '../extensions/widget_extension.dart';
 import '../providers/game_provider.dart';
 import '../screens/dashboard/loading_view.dart';
 import '../services/sound_manager.dart';

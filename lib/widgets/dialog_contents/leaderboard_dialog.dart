@@ -1,13 +1,13 @@
-import 'package:dota2_invoker_game/enums/Bosses.dart';
-import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../constants/app_colors.dart';
 import '../../constants/app_image_paths.dart';
 import '../../constants/locale_keys.g.dart';
+import '../../enums/Bosses.dart';
 import '../../extensions/context_extension.dart';
 import '../../extensions/number_extension.dart';
+import '../../extensions/string_extension.dart';
 import '../../extensions/widget_extension.dart';
 import '../../mixins/screen_state_mixin.dart';
 import '../../models/base_models/base_score_model.dart';

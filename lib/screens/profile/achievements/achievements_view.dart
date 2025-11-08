@@ -1,8 +1,8 @@
-import 'package:dota2_invoker_game/extensions/string_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../constants/locale_keys.g.dart';
+import '../../../extensions/string_extension.dart';
 import '../../../services/achievement_manager.dart';
 import '../../../widgets/app_scaffold.dart';
 import 'widgets/achievement_widget.dart';
