@@ -1,3 +1,9 @@
+# 1.8.1
+- Updated project configuration for Android 16 (KB) compatibility.
+- Added two new Boss Battle items: Witch Blade and Parasma.
+- Resized several Boss Battle item icons for better visual consistency.
+- Fixed a minor UI issue and applied small improvements.
+
 # 1.8.0
 - Integrated in-app purchases using RevenueCat.
 - Enabled ad-free experience and additional perks for premium users.
