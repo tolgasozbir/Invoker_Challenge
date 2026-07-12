@@ -40,28 +40,28 @@ class _BossGalleryViewState extends State<BossGalleryView> {
       itemCount: Bosses.values.length,
       itemBuilder: (BuildContext context, int index) {
         final boss = Bosses.values[index];
-        final delay = (index+1) * 60;
-        const duration = 600;
+        final delay = ((index+1) * 60).ms;
+        final duration = 600.ms;
 
         return _bossCard(boss)
             .animate()
             .fadeIn(
-              delay: delay.ms,
-              duration: duration.ms,
+              delay: delay,
+              duration: duration,
               curve: Curves.easeOutCubic,
             )
             .slideY(
-              delay: delay.ms,
+              delay: delay,
               begin: 0.4,
               end: 0,
-              duration: duration.ms,
+              duration: duration,
               curve: Curves.easeOutCubic,
             )
             .scale(
-              delay: delay.ms,
+              delay: delay,
               begin: const Offset(0.8, 0.8),
               end: const Offset(1.0, 1.0),
-              duration: duration.ms,
+              duration: duration,
               curve: Curves.easeOutBack,
             );
       },
@@ -75,24 +75,28 @@ class _BossGalleryViewState extends State<BossGalleryView> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Image.asset(boss.getImage),
+            Image.asset(boss.getImage, filterQuality: FilterQuality.low),
             FittedBox(
               child: Text(
                 boss.getReadableName, 
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   fontFamily: 'Virgil',
                   fontSize: 16,
-                  shadows: List.generate(2, (index) => const Shadow(color: Colors.red, blurRadius: 4)),
+                  // shadows: [
+                  //   Shadow(color: Colors.red, blurRadius: 4), //8
+                  // ],
                 ),
               ),
             ),
             FittedBox(
               child: Text(
                 'HP ${boss.health.numberFormat}',
-                style: TextStyle(
+                style: const TextStyle(
                   fontFamily: 'Virgil',
-                  shadows: List.generate(2, (index) => const Shadow(color: Colors.deepPurple, blurRadius: 4)),
+                  // shadows: [
+                  //   Shadow(color: Colors.deepPurple, blurRadius: 4), //8
+                  // ],
                 ),
               ),
             ),
@@ -109,9 +113,7 @@ class _BossGalleryViewState extends State<BossGalleryView> {
       content: LeaderboardDialog(leaderboardType: LeaderboardType.Boss, boss: boss),
       action: AppOutlinedButton(
         title: LocaleKeys.commonGeneral_back.locale,
-        onPressed: () {
-          Navigator.pop(context);
-        },
+        onPressed: () => Navigator.pop(context),
       ),
     );
   }

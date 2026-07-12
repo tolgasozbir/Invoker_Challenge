@@ -24,6 +24,23 @@ class InvokerStyleView extends StatefulWidget {
 }
 
 class _InvokerStyleViewState extends State<InvokerStyleView> with ScreenStateMixin {
+  late final List<String> _icons;
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeIcons();
+  }
+
+  void _initializeIcons() {
+    const invokerSet = InvokerSet.personaSet;
+    _icons = [
+      invokerSet.type.miniMapIcon,
+      ...invokerSet.type.skills.values,
+      ...invokerSet.type.spells.values,
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,30 +55,62 @@ class _InvokerStyleViewState extends State<InvokerStyleView> with ScreenStateMix
   Widget _bodyView() {
     return Column(
       children: [
-        _buildSkillGrid(InvokerSet.personaSet),
+        _buildSkillGrid(),
         _buildShowcaseSection(),
       ],
     );
   }
 
-  Widget _buildSkillGrid(InvokerSet invokerSet) {
-    final icons = [
-      invokerSet.type.miniMapIcon,
-      ...invokerSet.type.skills.values,
-      ...invokerSet.type.spells.values,
-    ];
-
+  Widget _buildSkillGrid() {
     return GridView.builder(
       padding: const EdgeInsets.all(4),
       shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 5),
-      itemCount: icons.length,
-      itemBuilder: (context, index) => _buildIconTile(icons[index]),
+      itemCount: _icons.length,
+      itemBuilder: (context, index) {
+        const crossAxisCount = 5;
+        final row = index ~/ crossAxisCount;
+        final col = index % crossAxisCount;
+        final diagonalIndex = row + col;
+        final delay = (diagonalIndex * 80).ms;
+        final duration = 600.ms;
+
+        return _buildIconTile(_icons[index])
+            .animate()
+            .fadeIn(
+              delay: delay,
+              duration: duration,
+              curve: Curves.easeOutCubic,
+            ).slideY(
+              delay: delay,
+              begin: 0.4,
+              end: 0,
+              duration: duration,
+              curve: Curves.easeOutCubic,
+            )
+            .scale(
+              delay: delay,
+              begin: const Offset(0.8, 0.8),
+              end: const Offset(1.0, 1.0),
+              duration: duration,
+              curve: Curves.easeOutBack,
+            )
+            .then()
+            .animate()
+            .shimmer(
+              delay: 600.ms,
+              duration: 800.ms,
+              size: 0.4,
+              angle: pi / 4,
+            );
+      },
     );
   }
 
   Widget _buildIconTile(String iconPath) {
     final isPersonaIcon = iconPath.contains('persona');
+
     return Opacity(
       opacity: isPersonaIcon ? 1 : 0.5,
       child: Container(
@@ -76,7 +125,7 @@ class _InvokerStyleViewState extends State<InvokerStyleView> with ScreenStateMix
           child: Image(image: AssetManager.getIcon(iconPath), fit: BoxFit.cover),
         ),
       ),
-    ).animate().shimmer(size: 0.4, duration: 800.ms, delay: 400.ms, angle: pi / 4, padding: 0);
+    );
   }
 
   Widget _buildShowcaseSection() {
@@ -94,25 +143,6 @@ class _InvokerStyleViewState extends State<InvokerStyleView> with ScreenStateMix
         ),
         child: Column(
           children: [
-            // const EmptyBox.h24(),
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: 48),
-            //   child: BlurWidget(
-            //     borderRadius: const BorderRadius.all(Radius.circular(8)),
-            //     child: Container(
-            //       padding: const EdgeInsets.all(8),
-            //       decoration: BoxDecoration(
-            //         color: Colors.black26,
-            //         borderRadius: const BorderRadius.all(Radius.circular(8)),
-            //         border: Border.all(color: Colors.white54),
-            //       ),
-            //       child: const Text(
-            //         'Embrace the power within and don the Persona. Let its essence shape your identity, unlocking a new path filled with unseen potential and mastery.',
-            //         textAlign: TextAlign.center,
-            //       ),
-            //     ),
-            //   ),
-            // ),
             const Spacer(),
             _buildUnlockButton(),
             const EmptyBox.h16(),
@@ -126,11 +156,15 @@ class _InvokerStyleViewState extends State<InvokerStyleView> with ScreenStateMix
     final isPersonaActive = UserManager.instance.invokerType == InvokerSet.personaSet.type;
 
     return CrownfallButton(
-      buttonType: isPersonaActive ? CrownfallButtonTypes.Ruby : CrownfallButtonTypes.Jade,
+      buttonType: isPersonaActive 
+          ? CrownfallButtonTypes.Ruby 
+          : CrownfallButtonTypes.Jade,
       width: context.dynamicWidth(0.64),
       height: 64,
       onTap: () {
-        final invokerSet = isPersonaActive ? InvokerSet.defaultSet : InvokerSet.personaSet;
+        final invokerSet = isPersonaActive 
+            ? InvokerSet.defaultSet 
+            : InvokerSet.personaSet;
         UserManager.instance.changeInvokerType(invokerSet);
 
         if (!isPersonaActive) {
@@ -140,35 +174,12 @@ class _InvokerStyleViewState extends State<InvokerStyleView> with ScreenStateMix
         updateScreen();
       },
       child: Text(
-        isPersonaActive ? LocaleKeys.InvokerPersona_unequipPersona.locale : LocaleKeys.InvokerPersona_equipPersona.locale,
+        isPersonaActive 
+            ? LocaleKeys.InvokerPersona_unequipPersona.locale 
+            : LocaleKeys.InvokerPersona_equipPersona.locale,
         style: TextStyle(fontSize: context.sp(14), fontWeight: FontWeight.w600),
         textAlign: TextAlign.center,
       ),
     ).animate(onPlay: (controller) => controller.repeat()).shimmer(size: 0.6, duration: 800.ms, delay: 3000.ms);
   }
 }
-
-
-// class BlurWidget extends StatelessWidget {
-//   final Widget child;
-//   final double sigmaXY;
-//   final BorderRadius borderRadius;
-
-//   const BlurWidget({
-//     super.key,
-//     required this.child,
-//     this.sigmaXY = 8,
-//     this.borderRadius = BorderRadius.zero,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return ClipRRect(
-//       borderRadius: borderRadius,
-//       child: BackdropFilter(
-//         filter: ImageFilter.blur(sigmaX: sigmaXY, sigmaY: sigmaXY),
-//         child: child,
-//       ),
-//     );
-//   }
-// }

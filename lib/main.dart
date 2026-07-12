@@ -32,6 +32,7 @@ import 'widgets/app_snackbar.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  //debugRepaintRainbowEnabled = true;
   //Localization
   await EasyLocalization.ensureInitialized();
   //Environment variables

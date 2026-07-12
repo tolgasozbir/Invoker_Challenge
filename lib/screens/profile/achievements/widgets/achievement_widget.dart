@@ -25,6 +25,7 @@ class AchievementWidget extends StatelessWidget {
           Image.asset(
             achievement.iconPath, 
             fit: BoxFit.scaleDown,
+            filterQuality: FilterQuality.low,
           ).wrapExpanded(),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
