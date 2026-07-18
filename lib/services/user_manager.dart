@@ -32,7 +32,7 @@ class UserManager extends ChangeNotifier {
     _invokerType = set.type;
 
     await AppServices.instance.localStorageService.setValue<String>(
-      LocalStorageKey.userRecords,
+      LocalStorageKey.invokerForm,
       set.name,
     );
 
