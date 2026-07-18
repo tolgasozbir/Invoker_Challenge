@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../constants/app_colors.dart';
 import '../constants/app_image_paths.dart';
+import '../services/key_binding_manager.dart';
 import '../services/user_manager.dart';
 
 enum Elements {quas, wex, exort, invoke}
@@ -12,6 +13,11 @@ extension ElementsExtension on Elements {
     if (this.name == 'invoke') return 'r';
     return name[0];
   }
+
+  /// Butonun üzerinde gösterilecek, kullanıcı tarafından özelleştirilebilen tuş.
+  /// Varsayılanı [getKey] ile aynıdır (QWER).
+  String get getDisplayKey => KeyBindingManager.instance.keyOf(this);
+  
   Color get getColor {
     switch (this) {
       case Elements.quas:

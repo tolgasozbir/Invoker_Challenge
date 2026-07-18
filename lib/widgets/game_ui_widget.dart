@@ -215,7 +215,7 @@ class _GameUIWidgetState extends State<GameUIWidget> with OrbMixin, ScreenStateM
             ),
           ),
           Text(
-            element.getKey.toUpperCase(), 
+            element.getDisplayKey.toUpperCase(),
             style: TextStyle(
               color: element.getColor, 
               fontSize: context.sp(16),

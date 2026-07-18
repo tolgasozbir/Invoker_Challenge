@@ -131,9 +131,18 @@
     "settings": {
         "feedback": "Geri Bildirim",
         "rateApp": "Uygulamayı değerlendir",
+        "keyBindings": "Tuş Atamaları",
         "volume": "Ses Düzeyi",
         "playerInfoTitle" : "Ses Modu | Normal - Gelişmiş",
         "playerInfoDesc" : "Ses çalmıyorsa bu ayarı değiştirin."
+    },
+
+    "keyBindings" : {
+        "title": "Tuş Atamaları",
+        "assignHint": "Yeni tuşa bas",
+        "reset": "Varsayılana Dön (QWER)",
+        "resetDone": "Tuş atamaları varsayılana döndürüldü.",
+        "swapMessage": "{} ve {} tuşları yer değiştirdi."
     },
 
     "feedback": {

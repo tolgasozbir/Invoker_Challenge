@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:dota2_invoker_game/services/key_binding_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -34,6 +35,7 @@ abstract class SplashViewModel extends State<SplashView> {
     await loadAds();
     getSettingsValues();
     loadInvokerSet();
+    loadKeyBindings();
     await goToMainMenu();
   }
 
@@ -103,6 +105,11 @@ abstract class SplashViewModel extends State<SplashView> {
       );
       UserManager.instance.changeInvokerType(set);
     }
+  }
+
+  void loadKeyBindings() {
+    //Key bindings (requires local storage to be ready)
+    KeyBindingManager.instance.init();
   }
 
   Future<void> goToMainMenu() async {

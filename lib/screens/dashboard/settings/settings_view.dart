@@ -13,6 +13,7 @@ import '../../../widgets/sliders/qwer_hud_height_slider.dart';
 import '../../../widgets/sliders/volume_slider.dart';
 import '../../../widgets/sound_player_switch.dart';
 import 'feedback/feedback_view.dart';
+import 'key_bindings/key_bindings_view.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
@@ -26,6 +27,13 @@ class SettingsView extends StatelessWidget {
           const QWERHudHeightSlider(),
           const EmptyBox.h8(),
           const SoundPlayerSwitch(),
+          divider(),
+          menuItem(
+            context: context,
+            leading: CupertinoIcons.keyboard,
+            text: LocaleKeys.settings_keyBindings.locale,
+            onTap: () => Navigator.push(context, fadeInPageRoute(const KeyBindingsView())),
+          ),
           divider(),
           menuItem(
             context: context,

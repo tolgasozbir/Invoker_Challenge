@@ -116,10 +116,17 @@ abstract class  LocaleKeys {
   static const talents = 'talents';
   static const settings_feedback = 'settings.feedback';
   static const settings_rateApp = 'settings.rateApp';
+  static const settings_keyBindings = 'settings.keyBindings';
   static const settings_volume = 'settings.volume';
   static const settings_playerInfoTitle = 'settings.playerInfoTitle';
   static const settings_playerInfoDesc = 'settings.playerInfoDesc';
   static const settings = 'settings';
+  static const keyBindings_title = 'keyBindings.title';
+  static const keyBindings_assignHint = 'keyBindings.assignHint';
+  static const keyBindings_reset = 'keyBindings.reset';
+  static const keyBindings_resetDone = 'keyBindings.resetDone';
+  static const keyBindings_swapMessage = 'keyBindings.swapMessage';
+  static const keyBindings = 'keyBindings';
   static const feedback_fbTitleFirst = 'feedback.fbTitleFirst';
   static const feedback_fbTitleSecond = 'feedback.fbTitleSecond';
   static const feedback_fbMidText = 'feedback.fbMidText';

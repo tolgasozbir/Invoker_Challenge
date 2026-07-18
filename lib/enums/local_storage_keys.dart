@@ -4,6 +4,7 @@ enum LocalStorageKey {
   savedGame,
   soundPlayer,
   invokerForm,
+  keyBindings,
   //int keys
   volume,
   qwerHudHeight,

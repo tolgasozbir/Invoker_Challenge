@@ -131,9 +131,18 @@
     "settings" : {
         "feedback": "Feedback",
         "rateApp": "Rate this app",
+        "keyBindings": "Key Bindings",
         "volume": "Volume",
         "playerInfoTitle" : "Sound Mode | Normal - Advanced",
         "playerInfoDesc" : "If there is no sound, change this setting."
+    },
+
+    "keyBindings" : {
+        "title": "Key Bindings",
+        "assignHint": "Type the new key",
+        "reset": "Reset to Default (QWER)",
+        "resetDone": "Key bindings restored to default.",
+        "swapMessage": "{} and {} swapped keys."
     },
 
     "feedback" : {

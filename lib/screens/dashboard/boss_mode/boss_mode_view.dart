@@ -285,7 +285,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
             ),
           ),
           Text(
-            element.getKey.toUpperCase(),
+            element.getDisplayKey.toUpperCase(),
             style: TextStyle(
               color: element.getColor,
               fontSize: context.sp(16),
