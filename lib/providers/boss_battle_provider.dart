@@ -44,6 +44,15 @@ class BossBattleProvider extends ChangeNotifier {
   double magicalPercentage = 0;
   List<double> last5AttackDamage = [];
   bool isSavingEnabled = false;
+
+  ///Boss öldüğü an true olur, sonuç diyaloğu gösterilene kadar true kalır.
+  ///
+  ///Ölüm ile snap animasyonunun bitişi arasında `started` false, `snapIsDone` ise
+  ///henüz true olduğu için start butonu kısa süreliğine tıklanabilir hale geliyordu.
+  ///Oyuncu o aralıkta yeni round başlatınca sonuç modeli bir sonraki boss'un
+  ///taze değerleriyle (3 sn / çok düşük hasar) kuruluyor ve skor tablosuna
+  ///imkansız kayıtlar düşüyordu. Bu bayrak o aralığı kapatır.
+  bool isRoundEnding = false;
   //
 
   //Circle Values
@@ -66,16 +75,19 @@ class BossBattleProvider extends ChangeNotifier {
   ///Boss shattering effect upon boss's death
   final snappableKey = GlobalKey<SnappableState>();
   bool snapIsDone = true;
-  void changeSnapStatus () {
-    snapIsDone = !snapIsDone;
+
+  ///Toggle yerine doğrudan atama yapıyoruz; animasyon sırasında oyun resetlenirse
+  ///(_reset snapIsDone = true yapıyor) toggle mantığı bayrağı ters çeviriyordu.
+  void _setSnapStatus({required bool isDone}) {
+    snapIsDone = isDone;
     updateView();
   }
 
   Future<void> snapBoss() async {
-    changeSnapStatus();
+    _setSnapStatus(isDone: false);
     await snappableKey.currentState?.snap();
     await Future.delayed(const Duration(milliseconds: 3000));
-    changeSnapStatus();
+    _setSnapStatus(isDone: true);
     snappableKey.currentState?.reset();
   }
   //
@@ -630,31 +642,59 @@ class BossBattleProvider extends ChangeNotifier {
       _timer?.cancel();
       _timer = null;
       started = false;
+      isRoundEnding = true; //snap animasyonu boyunca yeni round başlatılmasını engeller
       currentBossHp = 0; // eksi değer göstermemesi için
       dps = 0;
-      if (UserManager.instance.user.isPremium) {
-        final bonusGold = ((roundProgress+1)+3) * 100;
-        final totalGold = totalEarnedGold + bonusGold;
-        _addGold(totalGold);
-      } else {
-        _addGold(totalEarnedGold);
-      }
+
+      ///Sonuç değerleri, aşağıdaki animasyon beklemelerinden ÖNCE dondurulur.
+      ///Aksi halde bekleme sırasında state değişirse (bkz. [isRoundEnding])
+      ///skor modeli yanlış boss/süre/hasar ile kurulur.
+      final defeatedBoss = currentBoss;
+      final defeatedRound = roundProgress + 1;
+      final model = _createScoreModel(boss: defeatedBoss, round: defeatedRound);
+      final int expGain = (defeatedRound * 6) + (getRemainingTime ~/ 8);
+      final int earnedGold = totalEarnedGold;
+      final int bonusGold = UserManager.instance.user.isPremium ? (defeatedRound + 3) * 100 : 0;
+      final bool isLastRound = defeatedRound == Bosses.values.length;
+
+      _addGold(earnedGold + bonusGold);
       await Future.delayed(const Duration(milliseconds: 100)); //snap işleminde 100 ms sonrasını baz almak için
-      SoundManager.instance.playBossDeathSound(currentBoss);
+      SoundManager.instance.playBossDeathSound(defeatedBoss);
       await snapBoss();
+
+      ///Bekleme sırasında oyun resetlendiyse (ekrandan çıkış / disposeGame)
+      ///bayrak temizlenmiş olur; artık geçersiz bir sonuç göstermemeliyiz.
+      if (!isRoundEnding) return;
+      isRoundEnding = false;
+
       currentBossAlive = false;
       _handOfMidasFn();
       updateView();
-      _showRoundResultDialog();
+      _showRoundResultDialog(
+        model: model,
+        boss: defeatedBoss,
+        expGain: expGain,
+        earnedGold: earnedGold,
+        bossHpLeft: 0,
+        bossDefeated: true,
+      );
       isSavingEnabled = true;
-      if (roundProgress+1 == Bosses.values.length)  _reset();
+      if (isLastRound) _reset();
       return;
     }
 
     if (timeProgress >= timeUnits) {
       log('Time out');
       SoundManager.instance.playBossTauntSound(currentBoss);
-      _showRoundResultDialog(timeUp: true);
+      final timedOutRound = roundProgress + 1;
+      _showRoundResultDialog(
+        model: _createScoreModel(boss: currentBoss, round: timedOutRound),
+        boss: currentBoss,
+        expGain: (timedOutRound * 6) + (getRemainingTime ~/ 8),
+        earnedGold: totalEarnedGold,
+        bossHpLeft: currentBossHp,
+        timeUp: true,
+      );
       //burada reklam izlerke başa sarcak
       //TODO:
       _reset();
@@ -676,33 +716,47 @@ class BossBattleProvider extends ChangeNotifier {
     });
   }
 
-  void _showRoundResultDialog({bool timeUp = false}) {
-    final model = BossBattle(
+  ///Round sonucu skor modelini o anki değerlerle oluşturur.
+  ///
+  ///Bu fonksiyon her zaman `await` içermeyen senkron bir blokta,
+  ///yani round bittiği anda çağrılmalıdır. Aksi halde beklemeler sırasında
+  ///değişen state yüzünden yanlış boss/süre/hasar kaydedilir.
+  BossBattle _createScoreModel({required Bosses boss, required int round}) {
+    return BossBattle(
       uid: UserManager.instance.user.uid,
       name: UserManager.instance.user.username,
-      round: roundProgress+1, 
-      boss: currentBoss.getDbName, 
-      time: elapsedTime, 
-      averageDps: averageDps, 
-      maxDps: maxDps, 
-      physicalDamage: physicalDamage, 
-      magicalDamage: magicalDamage, 
+      round: round,
+      boss: boss.getDbName,
+      time: elapsedTime,
+      averageDps: averageDps,
+      maxDps: maxDps,
+      physicalDamage: physicalDamage,
+      magicalDamage: magicalDamage,
       items: inventory.map((e) => e.item.getName).toList(),
     );
+  }
 
-    if (currentBossHp <= 0) {
-      UserManager.instance.updateBestBossTimeScore(currentBoss, elapsedTime, model);
+  void _showRoundResultDialog({
+    required BossBattle model,
+    required Bosses boss,
+    required int expGain,
+    required int earnedGold,
+    required double bossHpLeft,
+    bool timeUp = false,
+    bool bossDefeated = false,
+  }) {
+    if (bossDefeated) {
+      UserManager.instance.updateBestBossTimeScore(boss, model.time, model);
     }
     AchievementManager.instance.updateBoss();
     AchievementManager.instance.updateMiscGold(userGold);
-    if (currentBoss == Bosses.wraith_king && currentBossHp <= 0) {
+    if (boss == Bosses.wraith_king && bossDefeated) {
       AchievementManager.instance.updateMiscKillWk();
     }
-    if (currentBoss == Bosses.wraith_king || timeProgress >= timeUnits) {
+    if (boss == Bosses.wraith_king || timeUp) {
       AchievementManager.instance.updatePlayedGame();
     }
 
-    final int expGain = ((roundProgress+1) * 6) + (getRemainingTime ~/ 8);
     UserManager.instance.addExp(expGain);
     _updateManaAndBaseDamage();
     _resetCooldowns();
@@ -710,16 +764,16 @@ class BossBattleProvider extends ChangeNotifier {
 
     AppDialogs.showScaleFadeDialog(
       content: BossResultRoundDialogContent(
-        model: model, 
-        boss: currentBoss,
-        totalEarnedGold: totalEarnedGold + (_isActiveMidas ? midasGold : 0),
+        model: model,
+        boss: boss,
+        totalEarnedGold: earnedGold + (_isActiveMidas ? midasGold : 0),
         earnedExp: UserManager.instance.expCalc(expGain),
         timeUp: timeUp,
         isLast: model.round != Bosses.values.length,
-        bossHpLeft: currentBossHp,
+        bossHpLeft: bossHpLeft,
       ),
       action: BossResultRoundDialogAction(
-        boss: currentBoss, 
+        boss: boss,
         timeUp: timeUp,
         model: model,
       ),
@@ -733,6 +787,10 @@ class BossBattleProvider extends ChangeNotifier {
   // Also stops the timer depending on whether the boss is dead or the time is up.
   // Calls the updateView() function to update the display.
   void startGame() async {
+    //Buton görünürlüğü Selector'ın son build'inden geliyor; bayrak set edildikten
+    //sonraki ilk frame'e kadar eski değer geçerli olduğu için tıklama sızabilir.
+    //Bu guard o frame boşluğunu kapatır.
+    if (started || isRoundEnding || !snapIsDone || isHornSoundPlaying) return;
     isSavingEnabled = false;
     await nextRound();
     if (!hasHornSoundStopped) return;
@@ -764,6 +822,7 @@ class BossBattleProvider extends ChangeNotifier {
     _timer?.cancel();
     _timer = null;
     started = false;
+    isRoundEnding = false;
     isHornSoundPlaying = false;
     hornSoundPlayed = false;
     hasHornSoundStopped = false;
