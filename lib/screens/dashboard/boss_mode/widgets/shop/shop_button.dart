@@ -61,9 +61,7 @@ class ShopButton extends StatelessWidget {
         ],
       ),
       onPressed: () async {
-        final bool isClickable = !context.read<BossBattleProvider>().started && 
-                         context.read<BossBattleProvider>().snapIsDone && 
-                        !context.read<BossBattleProvider>().isHornSoundPlaying;
+        final bool isClickable = context.read<BossBattleProvider>().isBetweenRounds;
         if(isClickable) {
           AdsHelper.instance.shopEntryAdCounter++;
           if (AdsHelper.instance.shopEntryAdCounter % 4 == 0) {

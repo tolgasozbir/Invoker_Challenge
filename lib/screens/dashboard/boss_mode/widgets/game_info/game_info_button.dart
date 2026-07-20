@@ -12,9 +12,7 @@ class GameInfoButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () {
-        final isClickable = !context.read<BossBattleProvider>().started && 
-                             context.read<BossBattleProvider>().snapIsDone && 
-                            !context.read<BossBattleProvider>().isHornSoundPlaying;
+        final isClickable = context.read<BossBattleProvider>().isBetweenRounds;
         if(isClickable)
           Navigator.push(context, MaterialPageRoute(builder: (context) => const GameInfoView()));
         else {

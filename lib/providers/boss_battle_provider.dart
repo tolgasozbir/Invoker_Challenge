@@ -53,6 +53,14 @@ class BossBattleProvider extends ChangeNotifier {
   ///taze değerleriyle (3 sn / çok düşük hasar) kuruluyor ve skor tablosuna
   ///imkansız kayıtlar düşüyordu. Bu bayrak o aralığı kapatır.
   bool isRoundEnding = false;
+
+  ///Oyuncu şu an iki round arasında mı?
+  ///
+  ///Shop / oyun bilgisi / renk ayarları ekranlarına girmek ve yeni round
+  ///başlatmak sadece bu true iken serbesttir. `started` tek başına yeterli
+  ///değil: round bitiş animasyonu, horn ve WK canlanma aralıklarında da false
+  ///oluyor ama round aslında bitmiş olmuyor.
+  bool get isBetweenRounds => !started && !isRoundEnding && snapIsDone && !isHornSoundPlaying;
   //
 
   //Circle Values
@@ -709,11 +717,19 @@ class BossBattleProvider extends ChangeNotifier {
     _timer?.cancel();
     _timer = null;
     started = false;
-    await Future.delayed(const Duration(seconds: 3),() { //TODO: 4 5 sn yap ve healthprogressi yükselt 
-      healthProgress = 30;
-      started = true;
-      timerFn();
-    });
+    //Canlanma arası da bir geçiş durumu: started false olduğu için shop/ayar
+    //ekranları ve yeni round bu 3 saniyede açılabiliyordu.
+    isRoundEnding = true;
+    updateView();
+    await Future.delayed(const Duration(seconds: 3)); //TODO: 4 5 sn yap ve healthprogressi yükselt
+    //Bu sırada oyundan çıkıldıysa (_reset bayrağı temizler) timer'ı yeniden
+    //başlatmıyoruz; aksi halde ekran kapandıktan sonra arka planda çalışmaya devam ederdi.
+    if (!isRoundEnding) return;
+    isRoundEnding = false;
+    healthProgress = 30;
+    started = true;
+    timerFn();
+    updateView();
   }
 
   ///Round sonucu skor modelini o anki değerlerle oluşturur.
@@ -790,7 +806,7 @@ class BossBattleProvider extends ChangeNotifier {
     //Buton görünürlüğü Selector'ın son build'inden geliyor; bayrak set edildikten
     //sonraki ilk frame'e kadar eski değer geçerli olduğu için tıklama sızabilir.
     //Bu guard o frame boşluğunu kapatır.
-    if (started || isRoundEnding || !snapIsDone || isHornSoundPlaying) return;
+    if (!isBetweenRounds) return;
     isSavingEnabled = false;
     await nextRound();
     if (!hasHornSoundStopped) return;
