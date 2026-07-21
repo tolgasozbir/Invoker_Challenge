@@ -72,9 +72,16 @@ class AdsHelper {
   int menuAdCounter = 0; // Menü butonlarına her (X). tıkladığında geçiş reklamı gösterimi için kullanılır.
   int shopEntryAdCounter = 0; // Boss battle modunda shop'a girdiğinde her (X). girişte reklam gösterimi için kullanılır.
 
+  ///Premium kullanıcıda reklam yüklenmez.
+  static bool _skipForPremium(String adName) {
+    if (!UserManager.instance.user.isPremium) return false;
+    log('($adName) Skipped: user is premium');
+    return true;
+  }
+
   //AppOpenAd
   Future<void> appOpenAdLoad() async {
-    if (UserManager.instance.user.isPremium) return; // Premium kullanıcı ise yükleme yapma
+    if (_skipForPremium('AppOpenAd')) return; // Premium kullanıcı ise yükleme yapma
 
     AppOpenAd? appOpenAd;
     await AppOpenAd.load(
@@ -93,7 +100,7 @@ class AdsHelper {
   //InterstitialAd
   InterstitialAd? interstitialAd;
   Future<void> interstitialAdLoad() async {
-    if (UserManager.instance.user.isPremium) return; // Premium kullanıcı ise yükleme yapma
+    if (_skipForPremium('InterstitialAd')) return; // Premium kullanıcı ise yükleme yapma
 
     await InterstitialAd.load(
       adUnitId: AdUnit.interstitial.getAdUnitId,
@@ -123,7 +130,7 @@ class AdsHelper {
   //RewardedAd
   RewardedAd? rewardedAd;
   Future<void> rewardedAdLoad() async {
-    if (UserManager.instance.user.isPremium) return; // Premium kullanıcı ise yükleme yapma
+    if (_skipForPremium('RewardedAd')) return; // Premium kullanıcı ise yükleme yapma
 
     await RewardedAd.load(
       adUnitId: AdUnit.rewarded.getAdUnitId,
@@ -168,7 +175,7 @@ class _AdBannerState extends State<AdBanner> {
   bool _isAdLoaded = false;
 
   void _initBannerAd() {
-    if (UserManager.instance.user.isPremium) return; // Premium kullanıcı ise yükleme yapma
+    if (AdsHelper._skipForPremium('BannerAd')) return; // Premium kullanıcı ise yükleme yapma
 
     _bannerAd = BannerAd(
       size: widget.adSize, 

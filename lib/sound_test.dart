@@ -38,7 +38,6 @@
 //           _buildButton('Exit Shop', SoundManager.instance.playShopExitSound),
 //           _buildButton('Buy Item', SoundManager.instance.playItemBuySound),
 //           _buildButton('Sell Item', SoundManager.instance.playItemSellSound),
-//           _buildButton('Play Tango', () => SoundManager.instance.playItemSound('tango')), //TODO:
 
 //           const SizedBox(height: 16),
 //           _buildSectionTitle('Boss Sounds'),
