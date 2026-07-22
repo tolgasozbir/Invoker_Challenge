@@ -4,6 +4,7 @@
 - Fixed invalid Boss Battle scores being sent to the leaderboard.
 - Removed invalid Boss Battle scores from the leaderboard.
 - Updated core packages (Firebase, ads, in-app purchases) and Android build configuration.
+- Updated the app to target Android 16 (API level 36) to meet Google Play requirements, keeping the portrait layout locked on tablets and foldables.
 - Other minor changes and fixes.
 
 # 1.8.1

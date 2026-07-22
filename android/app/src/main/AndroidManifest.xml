@@ -29,6 +29,7 @@
         android:name="${applicationName}"
         android:label="Invoker Challenge"
         android:icon="@mipmap/ic_launcher"
+        android:appCategory="game"
         android:usesCleartextTraffic="true">
 
         <activity
