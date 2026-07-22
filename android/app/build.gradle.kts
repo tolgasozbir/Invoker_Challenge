@@ -1,5 +1,6 @@
 import java.util.Properties
 import java.io.FileInputStream
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     id("com.android.application")
@@ -29,10 +30,6 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
-    }
-
-    kotlinOptions {
-        jvmTarget = "17"
     }
 
     defaultConfig {
@@ -67,12 +64,18 @@ android {
     }
 }
 
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_17
+    }
+}
+
 flutter {
     source = "../.."
 }
 
 dependencies {
-  implementation("com.google.android.gms:play-services-ads:24.4.0")
+  implementation("com.google.android.gms:play-services-ads:25.3.0")
   implementation(platform("com.google.firebase:firebase-bom:34.0.0"))
   implementation("com.google.firebase:firebase-analytics")
   implementation("androidx.multidex:multidex:2.0.1")
