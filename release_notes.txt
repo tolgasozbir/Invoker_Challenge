@@ -1,3 +1,11 @@
+# 1.9.0
+- Added customizable key bindings: the letters shown on the orb and Invoke buttons can now be changed from the settings menu.
+- Fixed the issue where the selected Invoker form was not saved and reset back to default after restarting the app.
+- Fixed invalid Boss Battle scores being sent to the leaderboard.
+- Removed invalid Boss Battle scores from the leaderboard.
+- Updated core packages (Firebase, ads, in-app purchases) and Android build configuration.
+- Other minor changes and fixes.
+
 # 1.8.1
 - Updated project configuration for Android 16 (KB) compatibility.
 - Added two new Boss Battle items: Witch Blade and Parasma.
