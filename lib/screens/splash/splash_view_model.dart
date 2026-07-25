@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:dota2_invoker_game/services/key_binding_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../../enums/local_storage_keys.dart';

@@ -1,0 +1,8 @@
+targets:
+  $default:
+    builders:
+      # Tek bir HiveType modelimiz var ve adapter kaydını IBaseHiveService
+      # içinde manuel yapıyoruz; hive_ce'nin ürettigi hive_registrar.g.dart
+      # kullanilmadigi icin bu builder'i kapatiyoruz.
+      hive_ce_generator:hive_registrar_generator:
+        enabled: false
