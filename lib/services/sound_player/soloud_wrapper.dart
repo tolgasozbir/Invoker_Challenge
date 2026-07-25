@@ -15,8 +15,12 @@ class SoLoudWrapper implements ISoundPlayer {
   final _loadedSounds = <String, AudioSource>{};
   final _rnd = math.Random();
 
+  /// SoLoud, AudioPlayer'a göre daha kısık çaldığı için ses seviyelerini
+  /// birbirine yaklaştırmak amacıyla uygulama sesiyle çarpılan katsayı.
+  static const double gain = 1.8;
+
   @override
-  double get appVolume => (SoundManager.instance.appVolume+70)/100;
+  double get appVolume => (SoundManager.instance.appVolume / 100) * gain;
 
   @override
   Future<void> initialize() async {
