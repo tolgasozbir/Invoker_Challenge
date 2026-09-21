@@ -15,15 +15,15 @@ class BossHead extends StatelessWidget {
   Widget build(BuildContext context) {
     return Selector<BossBattleProvider, Tuple3<GlobalKey<SnappableState>, bool, Bosses>>(
       selector: (_, provider) => Tuple3(provider.snappableKey, provider.currentBossAlive, provider.currentBoss),
-      builder: (_, value, __) => Snappable(
-        key: value.item1,
-        onSnapped: () => null,
-        duration: const Duration(milliseconds: 3000),
-        child: Opacity(
-          opacity: value.item2 ? 1 : 0,
-          child: Center(
+      builder: (_, value, __) => UnconstrainedBox(
+        child: Snappable(
+          key: value.item1,
+          onSnapped: () => null,
+          duration: const Duration(milliseconds: 3000),
+          child: Opacity(
+            opacity: value.item2 ? 1 : 0,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 //Boss Head Image
                 AnimatedScale(
