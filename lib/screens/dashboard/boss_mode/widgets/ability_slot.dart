@@ -42,7 +42,7 @@ class _AbilitySlotState extends State<AbilitySlot> {
       child: CooldownAnimation(
         key: ObjectKey(ability.spell),
         duration: Duration(seconds: ability.spell.cooldown.toInt()),
-        remainingCd: ability.getRemainingCooldownTime,
+        lastPressedAt: ability.lastPressedAt,
         size: context.dynamicWidth(0.2),
         child: Stack(
           children: [

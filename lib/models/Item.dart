@@ -7,9 +7,6 @@ class Item extends ICooldownModel {
   Item({required this.item});
 
   @override
-  double get getRemainingCooldownTime => (item.activeProps.cooldown ?? 0) - (DateTime.now().difference(lastPressedAt).inSeconds);
-
-  @override
   bool onPressed(double currentMana) {
     if (item.activeProps.cooldown == null) return false;
     final cooldown = Duration(seconds: item.activeProps.cooldown!.toInt());

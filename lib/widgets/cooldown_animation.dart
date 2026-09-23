@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 class CooldownAnimation extends StatefulWidget {
   final Widget child;
-  final double remainingCd;
-  final Duration duration; 
+  final DateTime lastPressedAt;
+  final Duration duration;
   final double size;
 
-  const CooldownAnimation({super.key, required this.child, required this.duration, required this.remainingCd, required this.size});
+  const CooldownAnimation({super.key, required this.child, required this.duration, required this.lastPressedAt, required this.size});
 
   @override
   State<CooldownAnimation> createState() => _CooldownAnimationState();
@@ -18,10 +18,12 @@ class _CooldownAnimationState extends State<CooldownAnimation> with SingleTicker
   late Animation<double> _opacity;
   late Animation<double> _durationText;
 
-  double calculateCooldown(double cooldownDuration, double remainingCd) {
-    if (remainingCd <= 0) return 1.0;
-    final result = 1 - (((remainingCd * 100) / cooldownDuration) / 100);
-    return result;
+  ///0.0 = cooldown yeni başladı, 1.0 = bitti
+  double get _elapsedRatio {
+    final totalMs = widget.duration.inMilliseconds;
+    if (totalMs <= 0) return 1;
+    final elapsedMs = DateTime.now().difference(widget.lastPressedAt).inMilliseconds;
+    return (elapsedMs / totalMs).clamp(0.0, 1.0);
   }
 
   @override
@@ -47,14 +49,14 @@ class _CooldownAnimationState extends State<CooldownAnimation> with SingleTicker
       end: 0.0,
     ).animate(_controller);
  
-    _controller.value = calculateCooldown(widget.duration.inSeconds.toDouble(), widget.remainingCd);
+    _controller.value = _elapsedRatio;
     _controller.forward();
   }
 
   @override
   void didUpdateWidget(covariant CooldownAnimation oldWidget) {
-    if (oldWidget.remainingCd != widget.remainingCd) {
-      _controller.value = calculateCooldown(widget.duration.inSeconds.toDouble(), widget.remainingCd);
+    if (oldWidget.lastPressedAt != widget.lastPressedAt) {
+      _controller.value = _elapsedRatio;
       _controller.forward();
     }
     super.didUpdateWidget(oldWidget);
