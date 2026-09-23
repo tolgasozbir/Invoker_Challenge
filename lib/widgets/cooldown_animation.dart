@@ -71,42 +71,44 @@ class _CooldownAnimationState extends State<CooldownAnimation> with SingleTicker
     return Stack(
       children: [
         widget.child,
-        AnimatedBuilder(
-          animation: _animation,
-          builder: (BuildContext context, Widget? child) {
-            return Stack(
-              children: [
-                Opacity(
-                  opacity: _opacity.value == 0.0 ? 1.0 : _opacity.value,
-                  child: Container(
-                    color: Colors.black,
-                    height: _animation.value * widget.size,
-                    width: widget.size,
+        RepaintBoundary(
+          child: AnimatedBuilder(
+            animation: _animation,
+            builder: (BuildContext context, Widget? child) {
+              return Stack(
+                children: [
+                  Opacity(
+                    opacity: _opacity.value == 0.0 ? 1.0 : _opacity.value,
+                    child: Container(
+                      color: Colors.black,
+                      height: _animation.value * widget.size,
+                      width: widget.size,
+                    ),
                   ),
-                ),
-                AnimatedCrossFade(
-                  sizeCurve: Curves.decelerate,
-                  alignment: Alignment.center,
-                  crossFadeState: _durationText.value != 0 ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-                  duration: const Duration(milliseconds: 400), 
-                  firstChild: SizedBox.square(
-                    dimension: widget.size,
-                    child: Center(
-                      child: Text(
-                        _durationText.value.toStringAsFixed(0),
-                        style: TextStyle(
-                          fontSize: 24,
-                          color: Colors.white,
-                          shadows: List.generate(6, (index) => const Shadow(blurRadius: 8)),
+                  AnimatedCrossFade(
+                    sizeCurve: Curves.decelerate,
+                    alignment: Alignment.center,
+                    crossFadeState: _durationText.value != 0 ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+                    duration: const Duration(milliseconds: 400),
+                    firstChild: SizedBox.square(
+                      dimension: widget.size,
+                      child: Center(
+                        child: Text(
+                          _durationText.value.toStringAsFixed(0),
+                          style: TextStyle(
+                            fontSize: 24,
+                            color: Colors.white,
+                            shadows: List.generate(6, (index) => const Shadow(blurRadius: 8)),
+                          ),
                         ),
                       ),
                     ),
+                    secondChild: SizedBox.square(dimension: widget.size),
                   ),
-                  secondChild: SizedBox.square(dimension: widget.size),
-                ),
-              ],
-            );
-          },
+                ],
+              );
+            },
+          ),
         ),
       ],
     );

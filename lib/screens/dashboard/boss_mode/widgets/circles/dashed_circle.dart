@@ -102,5 +102,13 @@ class CirclePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(CustomPainter oldDelegate) => false;
+  bool shouldRepaint(CirclePainter oldDelegate) {
+    return oldDelegate.progress != progress ||
+        oldDelegate.units != units ||
+        oldDelegate.radius != radius ||
+        oldDelegate.gap != gap ||
+        oldDelegate.color != color ||
+        oldDelegate.colorSecondary != colorSecondary ||
+        oldDelegate.reversedColor != reversedColor;
+  }
 }
