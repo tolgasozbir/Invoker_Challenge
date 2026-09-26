@@ -179,14 +179,14 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
             alignment: Alignment.center,
             fit: StackFit.expand,
             children: [
-              const BackgroundSky(),
+              const RepaintBoundary(child: BackgroundSky()),
               /// -- Circles -- ///
               const HealthCircle(), //outer
               const RoundCircle(),  //middle
               const TimeCircle(),   //inner
               /// -- Circles End -- ///
-              const BossHead(),
-              const BackgroundWeather(),
+              const RepaintBoundary(child: BossHead()),
+              const RepaintBoundary(child: BackgroundWeather()),
               const DpsWidget(),
               const AttackDamageWidget(),
               startBtn(),
@@ -194,15 +194,15 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
           ),
         ),
         selectedElementOrbs(),
-        skills(),
+        RepaintBoundary(child: skills()),
         const EmptyBox.h12(),
-        const ManaBar(),
+        const RepaintBoundary(child: ManaBar()),
         const EmptyBox.h8(),
         const Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             InventoryHud(),
-            Expanded(child: AbilitySlot()),
+            Expanded(child: RepaintBoundary(child: AbilitySlot())),
           ],
         ),
         const EmptyBox.h16(),
@@ -274,28 +274,30 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
 
   BouncingButton skill(Elements element) {
     return BouncingButton(
-      child: Stack(
-        children: [
-          DecoratedBox(
-            decoration: qwerAbilityDecoration(element.getColor),
-            child: ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(8)),
-              child: Image.asset(
-                element.getImage,
-                width: context.dynamicWidth(0.18),
+      child: RepaintBoundary(
+        child: Stack(
+          children: [
+            DecoratedBox(
+              decoration: qwerAbilityDecoration(element.getColor),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
+                child: Image.asset(
+                  element.getImage,
+                  width: context.dynamicWidth(0.18),
+                ),
               ),
             ),
-          ),
-          Text(
-            element.getDisplayKey.toUpperCase(),
-            style: TextStyle(
-              color: element.getColor,
-              fontSize: context.sp(16),
-              fontWeight: FontWeight.w500,
-              shadows: List.generate(3, (index) => const Shadow(blurRadius: 8)),
-            ),
-          ).wrapPadding(const EdgeInsets.only(left: 2)),
-        ],
+            Text(
+              element.getDisplayKey.toUpperCase(),
+              style: TextStyle(
+                color: element.getColor,
+                fontSize: context.sp(16),
+                fontWeight: FontWeight.w500,
+                shadows: List.generate(3, (index) => const Shadow(blurRadius: 8)),
+              ),
+            ).wrapPadding(const EdgeInsets.only(left: 2)),
+          ],
+        ),
       ),
       onPressed: () {
         switch (element) {

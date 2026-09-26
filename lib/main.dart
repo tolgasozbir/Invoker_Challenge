@@ -26,6 +26,7 @@ import 'services/local_storage/local_storage_service.dart';
 import 'services/sound_manager.dart';
 import 'services/user_manager.dart';
 import 'utils/ads_helper.dart';
+import 'utils/app_route_observer.dart';
 import 'utils/localization_manager.dart';
 import 'widgets/app_dialogs.dart';
 import 'widgets/app_snackbar.dart';
@@ -108,6 +109,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData.dark(useMaterial3: false),
       navigatorKey: AppDialogs.navigatorKey,
       scaffoldMessengerKey: AppSnackBar.scaffoldMessengerKey,
+      navigatorObservers: [appRouteObserver],
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,

@@ -36,6 +36,7 @@ class _BouncingButtonState extends State<BouncingButton> with SingleTickerProvid
     return GestureDetector(
       onTapDown: _tapDown,
       onTapUp: _tapUp,
+      onTapCancel: _tapCancel,
       onTap: widget.onPressed,
       child: Transform.scale(
         scale: _scale - _controller.value,
@@ -46,4 +47,5 @@ class _BouncingButtonState extends State<BouncingButton> with SingleTickerProvid
 
   void _tapDown(TapDownDetails details) => _controller.forward();
   void _tapUp(TapUpDetails details) => _controller.reverse();
+  void _tapCancel() => _controller.reverse();
 }

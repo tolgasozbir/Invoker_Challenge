@@ -88,7 +88,7 @@ class _InventoryHudState extends State<InventoryHud> {
       child: CooldownAnimation(
         key: ObjectKey(item),
         duration: Duration(seconds: (item.item.activeProps.cooldown ?? 0).toInt()),
-        remainingCd: item.getRemainingCooldownTime,
+        lastPressedAt: item.lastPressedAt,
         size: context.dynamicWidth(0.12)+4,
         child: Container(
           width: context.dynamicWidth(0.12),

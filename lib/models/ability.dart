@@ -7,9 +7,6 @@ class Ability extends ICooldownModel {
   Ability({required this.spell});
 
   @override
-  double get getRemainingCooldownTime => spell.cooldown - (DateTime.now().difference(lastPressedAt).inSeconds);
-
-  @override
   bool onPressed(double currentMana) {
     final cooldown = Duration(seconds: spell.cooldown.toInt());
     final isCooldownOver = DateTime.now().difference(lastPressedAt) > cooldown;
