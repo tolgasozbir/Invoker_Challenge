@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ import '../../providers/app_context_provider.dart';
 import '../../services/iap/revenuecat_service.dart';
 import '../../services/user_manager.dart';
 import '../../utils/ads_helper.dart';
+import '../../utils/app_route_observer.dart';
 import '../../utils/app_updater.dart';
 import '../../utils/consent_manager.dart';
 import '../../widgets/dialog_contents/app_update_dialog.dart';
@@ -39,8 +41,13 @@ class DashboardView extends StatefulWidget {
   State<DashboardView> createState() => _DashboardViewState();
 }
 
-class _DashboardViewState extends State<DashboardView> {
+class _DashboardViewState extends State<DashboardView> with RouteAware {
   final _consentManager = ConsentManager();
+
+  ///GIF'ler TickerMode'a uymaz; üstte başka ekran varken de kare ilerletip
+  ///tüm uygulamayı her frame yeniden çizdirirler
+  bool _menuGifsPaused = false;
+  Timer? _pauseGifsTimer;
 
   void _updateConsent() async {
     try {
@@ -96,6 +103,35 @@ class _DashboardViewState extends State<DashboardView> {
   void initState() {
     _init();
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final route = ModalRoute.of(context);
+    if (route is PageRoute) appRouteObserver.subscribe(this, route);
+  }
+
+  @override
+  void dispose() {
+    _pauseGifsTimer?.cancel();
+    appRouteObserver.unsubscribe(this);
+    super.dispose();
+  }
+
+  ///Geçiş animasyonu bitmeden değiştirmiyoruz ki statik hâli kullanıcı görmesin
+  @override
+  void didPushNext() {
+    _pauseGifsTimer?.cancel();
+    _pauseGifsTimer = Timer(const Duration(milliseconds: 500), () {
+      if (mounted) setState(() => _menuGifsPaused = true);
+    });
+  }
+
+  @override
+  void didPopNext() {
+    _pauseGifsTimer?.cancel();
+    if (_menuGifsPaused) setState(() => _menuGifsPaused = false);
   }
 
   @override
@@ -157,19 +193,19 @@ class _DashboardViewState extends State<DashboardView> {
   List<Widget> get menuBtns => [
     MenuButton( 
       color: AppColors.quasColor,
-      imagePath: ImagePaths.quas,
+      imagePath: _menuGifsPaused ? Elements.quas.getImage : ImagePaths.quas,
       title: LocaleKeys.mainMenu_titleTraining.locale,
       navigatePage: const TrainingView(),
     ),
     MenuButton(
       color: AppColors.wexColor,
-      imagePath: ImagePaths.wex,
+      imagePath: _menuGifsPaused ? Elements.wex.getImage : ImagePaths.wex,
       title: LocaleKeys.mainMenu_titleWithTimer.locale,
       navigatePage: const TimeTrialView(),
     ),
     MenuButton(
       color: AppColors.exortColor,
-      imagePath: ImagePaths.exort,
+      imagePath: _menuGifsPaused ? Elements.exort.getImage : ImagePaths.exort,
       title: LocaleKeys.mainMenu_titleChallenger.locale,
       navigatePage: const ChallangerView(),
     ),
