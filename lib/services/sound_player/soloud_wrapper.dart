@@ -33,6 +33,7 @@ class SoLoudWrapper implements ISoundPlayer {
       try {
         await _soLoud.init(lowLatency: lowLatency);
         _soLoud.setAudioDeviceIdleTimeout(_deviceIdleTimeout);
+        _soLoud.audioDeviceStartFailures.listen((_) => _restartDevice());
         return;
       } catch (e) {
         log('Failed to initialize SoLoud (lowLatency: $lowLatency): $e');
@@ -60,6 +61,16 @@ class SoLoudWrapper implements ISoundPlayer {
     if (sounds.isNotEmpty) {
       final sound = sounds[_rnd.nextInt(sounds.length)];
       play(sound, volume: volume);
+    }
+  }
+
+  // Boşta kapanan cihaz play() ile tekrar açılamazsa ses sessizce kesilir; bir kez yeniden dene.
+  // startAudioDevice hatayı stream'e değil çağırana atar, döngü oluşmaz.
+  Future<void> _restartDevice() async {
+    try {
+      await _soLoud.startAudioDevice();
+    } catch (e) {
+      log('Failed to restart audio device: $e');
     }
   }
 
