@@ -40,7 +40,7 @@ class ConsentManager {
         // Consent has been gathered.
         onConsentGatheringCompleteListener(loadAndShowError);
       });
-    }, (FormError formError) {
+    }, (formError) {
       onConsentGatheringCompleteListener(formError);
     });
   }

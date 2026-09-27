@@ -45,7 +45,7 @@ class LoadGameDialogContent extends StatelessWidget {
       children: [
         Text('${LocaleKeys.commonGeneral_items.locale} : ', style: const TextStyle(fontWeight: FontWeight.w500),),
         for (var i = 0; i < 6; i++)
-          i < items.length ? Image.asset(items[i].image, height: 48).wrapExpanded() : const EmptyBox().wrapExpanded(),
+          if (i < items.length) Image.asset(items[i].image, height: 48).wrapExpanded() else const EmptyBox().wrapExpanded(),
       ],
     );
   }

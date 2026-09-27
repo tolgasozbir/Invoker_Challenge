@@ -22,7 +22,7 @@ class _AbilitySlotState extends State<AbilitySlot> {
   Widget build(BuildContext context) {
     return Selector<BossBattleProvider, Tuple3<List<Ability>, bool, bool>>(
       selector: (_, provider) => Tuple3(provider.castedAbility, provider.abilitySwitch, provider.triggerView),
-      builder: (_, value, __) => Row(
+      builder: (_, value, _) => Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: List.generate(2, (index) => value.item1.length < index + 1 ? emptyAbilitySlot() : DecoratedBox(
             decoration: BoxDecoration(

@@ -82,9 +82,10 @@ class _LeaderboardDialogState extends State<LeaderboardDialog> with ScreenStateM
         children: [
           challengerTitles(),
           if (results == null) const CircularProgressIndicator.adaptive().wrapCenter() 
-          else results!.isEmpty 
-            ? Lottie.asset(LottiePaths.lottieNoData, height: context.dynamicHeight(0.32))
-            : resultListView(results!),
+          else if (results!.isEmpty)
+            Lottie.asset(LottiePaths.lottieNoData, height: context.dynamicHeight(0.32))
+          else
+            resultListView(results!),
           if (results!= null && results!.isNotEmpty)
             showMoreBtn().wrapPadding(const EdgeInsets.all(8)),
         ],
@@ -271,7 +272,7 @@ class _LeaderboardDialogState extends State<LeaderboardDialog> with ScreenStateM
               children: [
                 Text('${LocaleKeys.commonGeneral_items.locale} : ', style: const TextStyle(fontWeight: FontWeight.w500),),
                 for (var i = 0; i < 6; i++)
-                  i < itemWidgets.length ? itemWidgets[i].wrapExpanded() : const EmptyBox().wrapExpanded(),
+                  if (i < itemWidgets.length) itemWidgets[i].wrapExpanded() else const EmptyBox().wrapExpanded(),
               ],
             ),
           ),

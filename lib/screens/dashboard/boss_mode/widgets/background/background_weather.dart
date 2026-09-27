@@ -11,7 +11,7 @@ class BackgroundWeather extends StatelessWidget {
   Widget build(BuildContext context) {
     return Selector<BossBattleProvider, int>(
       selector: (_, provider) => provider.roundProgress,
-      builder: (_, value, __) => Weather(weatherType: value >= 10 ? WeatherType.rainy : WeatherType.normal),
+      builder: (_, value, _) => Weather(weatherType: value >= 10 ? WeatherType.rainy : WeatherType.normal),
     );
   }
 }

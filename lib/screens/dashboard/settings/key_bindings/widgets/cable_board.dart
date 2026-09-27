@@ -119,7 +119,7 @@ class _Cable extends StatelessWidget {
         tween: Tween(end: keyCenterX ?? startX),
         duration: Durations.medium4,
         curve: Curves.easeInOutCubic,
-        builder: (_, endX, __) => CustomPaint(
+        builder: (_, endX, _) => CustomPaint(
           painter: CablePainter(
             color: element.getColor,
             startX: startX,

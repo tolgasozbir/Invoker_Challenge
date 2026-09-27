@@ -14,7 +14,7 @@ class OverlayManager {
 
   static void showOverlay(BuildContext context, Widget overlay) {
     if (_overlayEntry == null) {
-      _overlayEntry = OverlayEntry(builder: (BuildContext context) => overlay);
+      _overlayEntry = OverlayEntry(builder: (context) => overlay);
       Overlay.of(context).insert(_overlayEntry!);
     }
   }

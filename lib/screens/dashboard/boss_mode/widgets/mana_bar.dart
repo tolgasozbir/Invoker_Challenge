@@ -65,7 +65,7 @@ class _ManaBarState extends State<ManaBar> with SingleTickerProviderStateMixin {
       padding: _margin,
       child: Selector<BossBattleProvider, Tuple2<double, double>>(
         selector: (_, provider) => Tuple2(provider.maxMana, provider.manaRegen),
-        builder: (_, value, __) => CustomPaint(
+        builder: (_, value, _) => CustomPaint(
           size: Size(context.width, context.dynamicHeight(0.048)),
           painter: _ManaBarPainter(
             mana: _shownMana,

@@ -38,7 +38,7 @@ class _BossGalleryViewState extends State<BossGalleryView> {
       ),
       padding: const EdgeInsets.all(8),
       itemCount: Bosses.values.length,
-      itemBuilder: (BuildContext context, int index) {
+      itemBuilder: (context, index) {
         final boss = Bosses.values[index];
         final delay = ((index+1) * 60).ms;
         final duration = 600.ms;

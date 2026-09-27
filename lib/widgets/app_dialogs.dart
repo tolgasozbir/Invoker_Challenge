@@ -72,7 +72,7 @@ class AppDialogs {
       barrierLabel: '',
       barrierDismissible: dismissible,
       transitionDuration: const Duration(milliseconds: 400),
-      pageBuilder: (context, __, ___) {
+      pageBuilder: (context, _, _) {
         return Scaffold(
           backgroundColor: AppColors.transparent,
           resizeToAvoidBottomInset: false,
@@ -174,7 +174,7 @@ class AppDialogs {
           ),
         );
       },
-      transitionBuilder: (_, anim, __, child) {
+      transitionBuilder: (_, anim, _, child) {
         Tween<Offset> tween;
         anim.status == AnimationStatus.reverse 
           ? tween = Tween(begin: const Offset(-1, 0), end: Offset.zero)
@@ -207,7 +207,7 @@ class AppDialogs {
       barrierDismissible: barrierDismissible,
       barrierColor: barrierColor,
       barrierLabel: '',
-      pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) { 
+      pageBuilder: (context, animation, secondaryAnimation) { 
         return Material(
           type: MaterialType.transparency, 
           child: SafeArea(
@@ -252,7 +252,7 @@ class AppDialogs {
           ),
         ); 
       },
-      transitionBuilder: (_, anim, __, child) {
+      transitionBuilder: (_, anim, _, child) {
         return Transform.scale(
           scaleX: 1,
           scaleY: anim.value,
@@ -300,7 +300,7 @@ class CircularRevealAnimation extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: animation,
-      builder: (BuildContext context, Widget? child) {
+      builder: (context, child) {
         return ClipPath(
           clipper: CircularRevealClipper(
             fraction: animation.value,

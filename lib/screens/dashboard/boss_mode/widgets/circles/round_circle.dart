@@ -17,7 +17,7 @@ class RoundCircle extends StatelessWidget {
 
     return Selector<BossBattleProvider, Tuple2<double, int>>(
       selector: (_, provider) => Tuple2(provider.roundProgress.toDouble() +1, provider.roundUnit),
-      builder: (_, value, __) => DashedCircle(
+      builder: (_, value, _) => DashedCircle(
         dashProgress: value.item1,
         dashUnits: value.item2,
         circleRadius: radius,

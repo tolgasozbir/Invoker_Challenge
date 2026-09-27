@@ -15,7 +15,7 @@ class BossHead extends StatelessWidget {
   Widget build(BuildContext context) {
     return Selector<BossBattleProvider, Tuple3<GlobalKey<SnappableState>, bool, Bosses>>(
       selector: (_, provider) => Tuple3(provider.snappableKey, provider.currentBossAlive, provider.currentBoss),
-      builder: (_, value, __) => UnconstrainedBox(
+      builder: (_, value, _) => UnconstrainedBox(
         child: Snappable(
           key: value.item1,
           onSnapped: () => null,

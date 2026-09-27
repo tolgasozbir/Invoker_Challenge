@@ -77,7 +77,7 @@ class _ShopViewState extends State<ShopView> with ScreenStateMixin {
             crossAxisCount: 5,
           ),
           itemCount: getSelectedItems.length,
-          itemBuilder: (BuildContext context, int index) {
+          itemBuilder: (context, index) {
             final item = getSelectedItems[index];
             return InkWell(
               child: Container(

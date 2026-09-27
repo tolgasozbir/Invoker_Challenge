@@ -19,7 +19,7 @@ class DpsWidget extends StatelessWidget {
       left: 8,
       child: Selector<BossBattleProvider, Tuple3<double, double, double>>(
         selector: (_, provider) => Tuple3(provider.physicalPercentage, provider.magicalPercentage, provider.dps),
-        builder: (_, value, __) => Column(
+        builder: (_, value, _) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             //Dps Bar
