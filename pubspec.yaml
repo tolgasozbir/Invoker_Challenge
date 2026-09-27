@@ -78,6 +78,11 @@ dev_dependencies:
   #
   build_runner: ^2.16.1
 
+hooks:
+  user_defines:
+    flutter_soloud:
+      # Sesler MP3; OGG/Opus/FLAC eklenirse bu satırı kaldır.
+      no_xiph_libs: true
 
 flutter:
   uses-material-design: true
