@@ -19,7 +19,7 @@ dependencies:
   easy_localization: ^3.0.8
 
   #Icons
-  font_awesome_flutter: ^10.12.0
+  font_awesome_flutter: ^11.0.0
   cupertino_icons: ^1.0.9
 
   #Utils
