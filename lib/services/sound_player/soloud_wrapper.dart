@@ -12,37 +12,42 @@ class SoLoudWrapper implements ISoundPlayer {
   static SoLoudWrapper get instance => _instance;
 
   final _soLoud = SoLoud.instance;
-  final _loadedSounds = <String, AudioSource>{};
+  // Yükleme future'ı saklanıyor; aynı ses peş peşe istenirse tek yükleme yapılır.
+  final _sources = <String, Future<AudioSource>>{};
   final _rnd = math.Random();
 
   /// SoLoud kısık çaldığı için uygulama sesiyle çarpılan katsayı.
   static const double gain = 1.8;
+
+  /// Sessizlikten sonra cihazın tekrar açılma gecikmesini önler (varsayılan 500 ms).
+  static const _deviceIdleTimeout = Duration(seconds: 30);
 
   @override
   double get appVolume => (SoundManager.instance.appVolume / 100) * gain;
 
   @override
   Future<void> initialize() async {
-    // Ses başlatılamazsa uygulama sessiz açılsın, çökmesin.
-    try {
-      await _soLoud.init();
-    } catch (e) {
-      log('Failed to initialize SoLoud: $e');
+    // Bazı Android cihazlar düşük gecikmeli akışı başlatamıyor; normal modla tekrar dene.
+    // İkisi de olmazsa uygulama sessiz açılsın, çökmesin.
+    for (final lowLatency in [true, false]) {
+      try {
+        await _soLoud.init(lowLatency: lowLatency);
+        _soLoud.setAudioDeviceIdleTimeout(_deviceIdleTimeout);
+        return;
+      } catch (e) {
+        log('Failed to initialize SoLoud (lowLatency: $lowLatency): $e');
+      }
     }
   }
 
   @override
   Future<void> play(String filePath, {double volume = 0.35, bool loop = false}) async {
+    if (!_soLoud.isInitialized) return;
     try {
-      // Ses yüklenmemişse önce yükle
-      if (!_loadedSounds.containsKey(filePath)) {
-        await _loadSound(filePath);
-      }
-
-      // Sesi çal
+      final source = await _load(filePath);
       _soLoud.play(
-        _loadedSounds[filePath]!,
-        volume: (volume * appVolume).clamp(0.0, 1.0), // Ses seviyesi sınırlandırılıyor
+        source,
+        volume: (volume * appVolume).clamp(0.0, 1.0),
         looping: loop,
       );
     } catch (e) {
@@ -58,15 +63,16 @@ class SoLoudWrapper implements ISoundPlayer {
     }
   }
 
-  Future<void> _loadSound(String path) async {
-    if (_loadedSounds.containsKey(path)) return;
-
-    try {
-      final source = await _soLoud.loadAsset(path);
-      _loadedSounds[path] = source;
-    } catch (e) {
-      log('Failed to load sound "$path": $e');
-    }
+  // Başarısız yükleme cache'ten silinir, sonraki çalmada tekrar denenir.
+  Future<AudioSource> _load(String path) {
+    return _sources.putIfAbsent(path, () async {
+      try {
+        return await _soLoud.loadAsset(path);
+      } catch (_) {
+        _sources.remove(path);
+        rethrow;
+      }
+    });
   }
-  
+
 }
