@@ -13,7 +13,7 @@ dependencies:
     sdk: flutter
   
   #State Management
-  provider: ^6.1.5
+  provider: ^6.1.5+1
 
   #Localization
   easy_localization: ^3.0.8
@@ -24,7 +24,7 @@ dependencies:
 
   #Utils
   flutter_svg: ^2.3.0
-  flutter_soloud: ^3.4.2
+  flutter_soloud: ^5.1.2
   internet_connection_checker: ^1.0.0+1
   url_launcher: ^6.3.2
   auto_size_text: ^3.0.0
@@ -36,19 +36,19 @@ dependencies:
   flutter_dotenv: ^6.0.1
 
   #Local Storage
-  hive_ce: ^2.19.3
+  hive_ce: ^2.20.0
   hive_ce_flutter: ^2.3.4
   shared_preferences: ^2.5.5
 
   #Firebase
-  firebase_core: ^4.12.1
-  cloud_firestore: ^6.7.1
-  firebase_auth: ^6.5.6
-  firebase_remote_config: ^6.5.5
-  firebase_analytics: ^12.4.5
+  firebase_core: ^4.15.0
+  cloud_firestore: ^6.10.0
+  firebase_auth: ^6.7.0
+  firebase_remote_config: ^6.7.0
+  firebase_analytics: ^12.6.0
 
   #Animation
-  lottie: ^3.3.2
+  lottie: ^3.6.1
   splash: ^1.2.0
   flutter_animate: ^4.5.2
   animated_flip_counter: ^0.3.4
@@ -63,20 +63,20 @@ dependencies:
   percent_indicator: ^4.2.5
 
   #Ads
-  google_mobile_ads: ^9.0.0
+  google_mobile_ads: ^9.1.0
 
   #IAP
-  purchases_flutter: ^10.4.2
+  purchases_flutter: ^10.13.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   #Lint
-  very_good_analysis: ^10.0.0
+  very_good_analysis: ^10.3.0
   #Hive
-  hive_ce_generator: ^1.4.0
+  hive_ce_generator: ^1.11.3
   #
-  build_runner: ^2.4.0
+  build_runner: ^2.16.1
 
 
 flutter:

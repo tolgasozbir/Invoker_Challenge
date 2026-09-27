@@ -40,7 +40,7 @@ class SoLoudWrapper implements ISoundPlayer {
       }
 
       // Sesi çal
-      await _soLoud.play(
+      _soLoud.play(
         _loadedSounds[filePath]!,
         volume: (volume * appVolume).clamp(0.0, 1.0), // Ses seviyesi sınırlandırılıyor
         looping: loop,

@@ -46,3 +46,7 @@ analyzer:
     inference_failure_on_instance_creation: ignore
     no_literal_bool_comparisons: ignore
     specify_nonobvious_property_types: ignore
+  exclude:
+    - build/**
+    - android/**
+    - ios/**
