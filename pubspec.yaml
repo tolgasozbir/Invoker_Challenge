@@ -72,7 +72,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   #Lint
-  very_good_analysis: ^10.3.0
+  very_good_analysis: ^11.0.0
   #Hive
   hive_ce_generator: ^1.11.3
   #

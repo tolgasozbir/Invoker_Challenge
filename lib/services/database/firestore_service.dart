@@ -116,7 +116,7 @@ class FirestoreService implements IDatabaseService {
   }
 
   @override
-  Future<bool> addScore<T extends IBaseModel<T>>({required ScoreType scoreType, required T score}) async {
+  Future<bool> addScore<T extends IBaseModel<T>>({required ScoreType scoreType, required T score}) {
     switch (scoreType) {
       case ScoreType.TimeTrial:
         return _setData(_collectionRefTimeTrial, score.toMap());

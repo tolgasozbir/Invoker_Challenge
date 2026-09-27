@@ -170,7 +170,7 @@ class UserManager extends ChangeNotifier {
   
   //Db
 
-  Future<UserModel?> getUserFromDb(String uid) async {
+  Future<UserModel?> getUserFromDb(String uid) {
     return AppServices.instance.databaseService.getUserRecords(uid);
   }
 

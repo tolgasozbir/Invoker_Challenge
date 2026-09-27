@@ -80,13 +80,13 @@ class FirebaseAuthService implements IFirebaseAuthService {
   }
 
   @override
-  Future<bool> resetPassword({required String email}) async {
-    return _handleAsyncAuthOperation(() async => _firebaseAuth.sendPasswordResetEmail(email: email));
+  Future<bool> resetPassword({required String email}) {
+    return _handleAsyncAuthOperation(() => _firebaseAuth.sendPasswordResetEmail(email: email));
   }
 
   @override
   Future<void> signOut() async {
-    await _handleAsyncAuthOperation(() async => _firebaseAuth.signOut());
+    await _handleAsyncAuthOperation(() => _firebaseAuth.signOut());
   }
 
 }
