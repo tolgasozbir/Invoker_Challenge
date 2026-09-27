@@ -15,8 +15,7 @@ class SoLoudWrapper implements ISoundPlayer {
   final _loadedSounds = <String, AudioSource>{};
   final _rnd = math.Random();
 
-  /// SoLoud, AudioPlayer'a göre daha kısık çaldığı için ses seviyelerini
-  /// birbirine yaklaştırmak amacıyla uygulama sesiyle çarpılan katsayı.
+  /// SoLoud kısık çaldığı için uygulama sesiyle çarpılan katsayı.
   static const double gain = 1.8;
 
   @override
@@ -24,7 +23,12 @@ class SoLoudWrapper implements ISoundPlayer {
 
   @override
   Future<void> initialize() async {
-    await _soLoud.init();
+    // Ses başlatılamazsa uygulama sessiz açılsın, çökmesin.
+    try {
+      await _soLoud.init();
+    } catch (e) {
+      log('Failed to initialize SoLoud: $e');
+    }
   }
 
   @override

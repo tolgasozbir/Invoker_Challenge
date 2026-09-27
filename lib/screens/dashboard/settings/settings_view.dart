@@ -11,7 +11,6 @@ import '../../../utils/url_launcher.dart';
 import '../../../widgets/empty_box.dart';
 import '../../../widgets/sliders/qwer_hud_height_slider.dart';
 import '../../../widgets/sliders/volume_slider.dart';
-import '../../../widgets/sound_player_switch.dart';
 import 'feedback/feedback_view.dart';
 import 'key_bindings/key_bindings_view.dart';
 
@@ -26,7 +25,6 @@ class SettingsView extends StatelessWidget {
           VolumeSlider(size: context.dynamicHeight(0.24)),
           const QWERHudHeightSlider(),
           const EmptyBox.h8(),
-          const SoundPlayerSwitch(),
           divider(),
           menuItem(
             context: context,
