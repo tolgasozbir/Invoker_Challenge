@@ -24,13 +24,15 @@ dependencies:
 
   #Utils
   flutter_svg: ^2.3.0
-  flutter_soloud: ^5.1.2
   internet_connection_checker: ^1.0.0+1
   url_launcher: ^6.3.2
   auto_size_text: ^3.0.0
   flutter_fgbg: ^0.8.0
   tuple: ^2.0.2
   collection: ^1.19.1
+
+  #Audio
+  flutter_soloud: ^5.1.4
 
   #.env
   flutter_dotenv: ^6.0.1
