@@ -4,7 +4,6 @@ import 'dart:math';
 import '../constants/app_sound_paths.dart';
 import '../enums/Bosses.dart';
 import '../enums/spells.dart';
-import 'sound_player/audioplayer_wrapper.dart';
 import 'sound_player/soloud_wrapper.dart';
 import 'sound_player/sound_player_interface.dart';
 import 'user_manager.dart';
@@ -17,8 +16,7 @@ class SoundManager {
   final _random = Random();
   final Map<String, DateTime> _lastPlayedTimes = {}; // Map to store the last played time of each sound
 
-  ISoundPlayer _player = SoLoudWrapper.instance; //Default SoLoud
-  ISoundPlayer get player => _player;
+  final ISoundPlayer player = SoLoudWrapper.instance;
 
   double _appVolume = 100; // default %100
   double get appVolume => _appVolume;
@@ -26,15 +24,9 @@ class SoundManager {
   bool get _isPersona => UserManager.instance.isPersonaActive;
 
 
-  void switchPlayer(ISoundPlayer newPlayer) => _player = newPlayer;
-
   void setVolume(double value) => _appVolume = value.clamp(0, 100);
 
-  // İnitialize all players
-  Future<void> initialize() async {
-    await SoLoudWrapper.instance.initialize();
-    await AudioPlayerWrapper.instance.initialize();
-  }
+  Future<void> initialize() => player.initialize();
 
   // Checks the cooldown for a specific sound and plays it if the cooldown has passed (1 second)
   void _playWithCooldown(String id, List<String> soundPaths, {double volume = 0.35, Duration cooldown = const Duration(seconds: 1)}) {

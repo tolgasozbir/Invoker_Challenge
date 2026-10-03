@@ -18,7 +18,7 @@ class AttackDamageWidget extends StatelessWidget {
       right: 8,
       child: Selector<BossBattleProvider, Tuple3<int,double,double>>(
         selector: (_, provider) => Tuple3(provider.baseDamage, provider.damageMultiplier, provider.bonusDamage),
-        builder: (_, value, __) => Row(
+        builder: (_, value, _) => Row(
           children: [
             Text((value.item1 + (value.item1 * value.item2)).numberFormat),
             if (value.item3 > 0)

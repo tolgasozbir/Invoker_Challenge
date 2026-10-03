@@ -94,7 +94,7 @@ class UserStatus extends StatelessWidget {
                 left: 0,
                 child: Transform.rotate(
                   angle: 315 * pi / 180,
-                  child: const Icon(
+                  child: const FaIcon(
                     FontAwesomeIcons.crown, 
                     color: AppColors.amber,
                     size: 20,
@@ -107,9 +107,12 @@ class UserStatus extends StatelessWidget {
               ),
           ],
         )
-        : const Icon(
-            FontAwesomeIcons.userSecret, 
-            shadows: [Shadow(blurRadius: 32)],
+        // FaIcon, Icon'un aksine kendini ortalamıyor.
+        : const Center(
+            child: FaIcon(
+              FontAwesomeIcons.userSecret,
+              shadows: [Shadow(blurRadius: 32)],
+            ),
           ),
     );
   }

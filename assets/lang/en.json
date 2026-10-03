@@ -132,9 +132,7 @@
         "feedback": "Feedback",
         "rateApp": "Rate this app",
         "keyBindings": "Key Bindings",
-        "volume": "Volume",
-        "playerInfoTitle" : "Sound Mode | Normal - Advanced",
-        "playerInfoDesc" : "If there is no sound, change this setting."
+        "volume": "Volume"
     },
 
     "keyBindings" : {

@@ -45,7 +45,7 @@ class _ResultDialogContentState extends State<ResultDialogContent> {
 
   @override
   void initState() {
-    Future.microtask(() async => AdsHelper.instance.rewardedAdLoad());
+    Future.microtask(() => AdsHelper.instance.rewardedAdLoad());
     super.initState();
   }
 
@@ -156,7 +156,7 @@ class _ResultDialogActionState extends State<ResultDialogAction> with ScreenStat
         AppOutlinedButton(
           title: LocaleKeys.commonGeneral_send.locale,
           isButtonActive: !isLoading,
-          onPressed: () async => submitScoreFn(widget.databaseTable),
+          onPressed: () => submitScoreFn(widget.databaseTable),
         ).wrapExpanded(),
         const EmptyBox.w8(),
         AppOutlinedButton(

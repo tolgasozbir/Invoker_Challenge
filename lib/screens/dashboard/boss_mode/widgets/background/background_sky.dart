@@ -12,7 +12,7 @@ class BackgroundSky extends StatelessWidget {
   Widget build(BuildContext context) {
     return Selector<BossBattleProvider, Tuple2<bool, int>>(
       selector: (_, provider) => Tuple2(provider.currentBossAlive, provider.roundProgress),
-      builder: (_, value, __) => Sky(
+      builder: (_, value, _) => Sky(
         skyLight: value.item1 ? SkyLight.dark : SkyLight.light, 
         skyType: value.item2 >= 6 ? SkyType.thunderstorm : SkyType.normal,
       ),

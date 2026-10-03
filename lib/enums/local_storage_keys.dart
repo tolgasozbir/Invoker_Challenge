@@ -2,7 +2,6 @@ enum LocalStorageKey {
   //string keys
   userRecords,
   savedGame,
-  soundPlayer,
   invokerForm,
   keyBindings,
   //int keys

@@ -17,7 +17,7 @@ class TimeCircle extends StatelessWidget {
 
     return Selector<BossBattleProvider, Tuple2<double, int>>(
       selector: (_, provider) => Tuple2(provider.timeProgress, provider.timeUnits),
-      builder: (_, value, __) => CircularPercentIndicator(
+      builder: (_, value, _) => CircularPercentIndicator(
         percent: (value.item1 / value.item2).clamp(0.0, 1.0),
         radius: radius,
         lineWidth: 4,

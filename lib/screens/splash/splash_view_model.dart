@@ -6,13 +6,10 @@ import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import '../../enums/local_storage_keys.dart';
-import '../../enums/sound_players.dart';
 import '../../models/invoker.dart';
 import '../../services/app_services.dart';
 import '../../services/iap/revenuecat_service.dart';
 import '../../services/sound_manager.dart';
-import '../../services/sound_player/audioplayer_wrapper.dart';
-import '../../services/sound_player/soloud_wrapper.dart';
 import '../../services/user_manager.dart';
 import '../../utils/ads_helper.dart';
 import '../dashboard/dashboard_view.dart';
@@ -88,12 +85,6 @@ abstract class SplashViewModel extends State<SplashView> {
 
     final savedVolume = storage.getValue<int>(LocalStorageKey.volume)?.toDouble() ?? 80;
     SoundManager.instance.setVolume(savedVolume);
-
-    final soundPlayer = storage.getValue<String>(LocalStorageKey.soundPlayer) ?? SoundPlayers.SoLoud.name;
-    final isSoLoud = soundPlayer == SoundPlayers.SoLoud.name;
-    final player = isSoLoud ? SoLoudWrapper.instance : AudioPlayerWrapper.instance;
-
-    SoundManager.instance.switchPlayer(player);
   }
 
   void loadInvokerSet() {

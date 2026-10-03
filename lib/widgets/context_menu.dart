@@ -142,7 +142,7 @@ class _ContextMenuWidgetState extends State<ContextMenu> with TickerProviderStat
       ),
       contextMenuLocation: _contextMenuLocation,
       previousChildRect: _decoyChildEndRect!,
-      builder: (BuildContext context, Animation<double> animation) {
+      builder: (context, animation) {
         if (widget.previewBuilder == null) {
           return widget.child;
         }
@@ -173,7 +173,7 @@ class _ContextMenuWidgetState extends State<ContextMenu> with TickerProviderStat
         // because _ContextMenuRoute renders its first frame offscreen.
         // Otherwise there would be a visible flash when nothing is rendered for
         // one frame.
-        SchedulerBinding.instance.addPostFrameCallback((Duration _) {
+        SchedulerBinding.instance.addPostFrameCallback((_) {
           _lastOverlayEntry?.remove();
           _lastOverlayEntry = null;
           _openController.reset();
@@ -240,7 +240,7 @@ class _ContextMenuWidgetState extends State<ContextMenu> with TickerProviderStat
     // it expands. This may be solvable by adding a widget to Scaffold that's
     // underneath the AppBar.
     _lastOverlayEntry = OverlayEntry(
-      builder: (BuildContext context) {
+      builder: (context) {
         return _DecoyChild(
           beginRect: childRect,
           controller: _openController,
@@ -372,7 +372,7 @@ class _DecoyChildState extends State<_DecoyChild> with TickerProviderStateMixin 
       rect: _rect.value!,
       child: ShaderMask(
         key: _childGlobalKey,
-        shaderCallback: (Rect bounds) {
+        shaderCallback: (bounds) {
           return LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -598,7 +598,7 @@ class _ContextMenuRoute<T> extends PopupRoute<T> {
 
     // Render one frame offstage in the final position so that we can take
     // measurements of its layout and then animate to them.
-    SchedulerBinding.instance.addPostFrameCallback((Duration _) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
       _updateTweenRects();
       _internalOffstage = false;
       _setOffstageInternally();
@@ -629,7 +629,7 @@ class _ContextMenuRoute<T> extends PopupRoute<T> {
   @override
   Widget buildTransitions(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
     return OrientationBuilder(
-      builder: (BuildContext context, Orientation orientation) {
+      builder: (context, orientation) {
         _lastOrientation = orientation;
 
         // While the animation is running, render everything in a Stack so that

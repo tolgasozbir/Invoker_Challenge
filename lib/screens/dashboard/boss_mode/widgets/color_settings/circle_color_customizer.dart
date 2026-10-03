@@ -466,7 +466,7 @@ class _CircleColorCustomizerState extends State<CircleColorCustomizer> with Scre
                  // This callback is triggered when a color is tapped in the picker
                  onColorSelected(selectedColor); // Pass the color back to update the specific circle
               },
-              setModalState: (VoidCallback fn) {
+              setModalState: (fn) {
                  // This parameter is the setModalState from the StatefulBuilder
                  // It's not directly used here, but shows how you *could* update modal state if needed
                  fn(); // Execute the function passed from the modal
@@ -504,7 +504,7 @@ class _CircleColorCustomizerState extends State<CircleColorCustomizer> with Scre
       builder: (context) {
         // Use StatefulBuilder to manage the internal state of the modal (like the checkmark)
         return StatefulBuilder(
-          builder: (BuildContext context, StateSetter setStateInsideModal) {
+          builder: (context, setStateInsideModal) {
             return Container(
               padding: const EdgeInsets.all(20),
               child: Column(

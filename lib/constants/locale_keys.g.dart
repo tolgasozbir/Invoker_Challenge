@@ -118,8 +118,6 @@ abstract class  LocaleKeys {
   static const settings_rateApp = 'settings.rateApp';
   static const settings_keyBindings = 'settings.keyBindings';
   static const settings_volume = 'settings.volume';
-  static const settings_playerInfoTitle = 'settings.playerInfoTitle';
-  static const settings_playerInfoDesc = 'settings.playerInfoDesc';
   static const settings = 'settings';
   static const keyBindings_title = 'keyBindings.title';
   static const keyBindings_assignHint = 'keyBindings.assignHint';

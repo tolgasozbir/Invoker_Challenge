@@ -2,9 +2,9 @@
 
 import 'package:flutter/foundation.dart';
 
-import '../../constants/app_image_paths.dart';
-import '../../enums/elements.dart';
-import '../../enums/spells.dart';
+import '../constants/app_image_paths.dart';
+import '../enums/elements.dart';
+import '../enums/spells.dart';
 
 enum InvokerSet {
   defaultSet(

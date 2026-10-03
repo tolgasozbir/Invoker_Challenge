@@ -31,7 +31,7 @@ class WatchAdButton extends StatelessWidget {
     
     return CrownfallButton.normal(
       buttonType: isAdWatched ? CrownfallButtonTypes.Onyx : CrownfallButtonTypes.Azurite,
-      onTap: isAdWatched ? meepMerp : () async => watchAdFn(context),
+      onTap: isAdWatched ? meepMerp : () => watchAdFn(context),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,

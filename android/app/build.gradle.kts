@@ -4,7 +4,6 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     id("com.android.application")
-    id("kotlin-android")
     id("dev.flutter.flutter-gradle-plugin")
     id("com.google.gms.google-services")
 }
@@ -43,7 +42,6 @@ android {
         versionName = flutter.versionName
         // 🔽 AdMob placeholder
         manifestPlaceholders["ADMOB_APP_ID"] = admobAppId
-        multiDexEnabled = true
     }
 
     signingConfigs {
@@ -75,8 +73,6 @@ flutter {
 }
 
 dependencies {
-  implementation("com.google.android.gms:play-services-ads:25.3.0")
-  implementation(platform("com.google.firebase:firebase-bom:34.0.0"))
-  implementation("com.google.firebase:firebase-analytics")
-  implementation("androidx.multidex:multidex:2.0.1")
+    // play-services-ads eski WorkManager 2.7.0'ı getiriyor; onun Room'u AGP 9 R8 ile release'te çöküyor.
+    implementation("androidx.work:work-runtime:2.12.0")
 }

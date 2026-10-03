@@ -214,7 +214,7 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
   Widget startBtn() {
     return Selector<BossBattleProvider, Tuple5<bool,bool,bool,bool,bool>>(
       selector: (_, provider) => Tuple5(provider.started, provider.snapIsDone, provider.isHornSoundPlaying,  provider.isWraithKingReincarnated, provider.isRoundEnding),
-      builder: (_, value, __) {
+      builder: (_, value, _) {
         //item5 (isRoundEnding): boss öldükten sonra snap animasyonu başlayana kadar
         //geçen ~100 ms'lik aralıkta butonun görünmesini engeller
         final bool status = value.item1 || !value.item2 || value.item4 || value.item5;

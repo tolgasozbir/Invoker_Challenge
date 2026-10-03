@@ -132,9 +132,7 @@
         "feedback": "Geri Bildirim",
         "rateApp": "Uygulamayı değerlendir",
         "keyBindings": "Tuş Atamaları",
-        "volume": "Ses Düzeyi",
-        "playerInfoTitle" : "Ses Modu | Normal - Gelişmiş",
-        "playerInfoDesc" : "Ses çalmıyorsa bu ayarı değiştirin."
+        "volume": "Ses Düzeyi"
     },
 
     "keyBindings" : {
