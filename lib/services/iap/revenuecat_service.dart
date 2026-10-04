@@ -220,6 +220,8 @@ class RevenueCatService {
   }
 
   Future<bool> shouldShowPremiumDialog() async {
+    if (!_isConfigured) return false;
+
     final user = UserManager.instance.user;
     if (user.isPremium || user.uid == null) return false;
 
