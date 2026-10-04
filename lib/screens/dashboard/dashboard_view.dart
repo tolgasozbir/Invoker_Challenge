@@ -219,7 +219,6 @@ class _DashboardViewState extends State<DashboardView> with RouteAware {
       color: AppColors.white,
       imagePath: Elements.invoke.getImage,
       title: LocaleKeys.mainMenu_titleBossMode.locale,
-      bannerTitle: 'Beta',
       animType: AnimType.Rotation,
       fit: BoxFit.contain,
       navigatePage: const BossModeView(),
