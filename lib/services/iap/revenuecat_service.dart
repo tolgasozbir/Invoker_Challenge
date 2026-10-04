@@ -28,6 +28,10 @@ class RevenueCatService {
   static final RevenueCatService _instance = RevenueCatService._();
   static RevenueCatService get instance => _instance;
 
+  // Yapılandırılmamış SDK'ya yapılan çağrı native tarafta fatalError ile çöker.
+  bool _isConfigured = false;
+  bool get isConfigured => _isConfigured;
+
   Offerings? _offerings;
   Offerings? get offerings => _offerings;
   
@@ -59,6 +63,7 @@ class RevenueCatService {
 
     final configuration = PurchasesConfiguration(apiKey);
     await Purchases.configure(configuration);
+    _isConfigured = true;
 
     // --- Listen for customer info updates ---
     Purchases.addCustomerInfoUpdateListener((updatedInfo) async {
@@ -98,6 +103,11 @@ class RevenueCatService {
     void Function()? onRetry,
     void Function()? onFail,
   }) async {
+    if (!_isConfigured) {
+      onFail?.call();
+      return;
+    }
+
     // if (forceReload) {
     //   log('Forcing sync with RevenueCat servers...', name: 'PurchaseService');
     //   await Purchases.syncPurchases();
@@ -189,6 +199,8 @@ class RevenueCatService {
 
   /// Sadece ilk uygulama açılışında restore etmeyi dener
   Future<void> tryRestoreOnFirstLaunch() async {
+    if (!_isConfigured) return;
+
     final cache = LocalStorageService.instance;
     final hasRestored = cache.getValue<bool>(LocalStorageKey.hasRestoredPurchases) ?? false;
 
