@@ -10,5 +10,6 @@ abstract class IDatabaseService {
   Future<List<T>> getScores<T extends IBaseModel<T>>({required ScoreType scoreType, Bosses? boss});
   Future<bool> addScore<T extends IBaseModel<T>>({required ScoreType scoreType, required T score});
   Future<bool> sendFeedback(FeedbackModel feedbackModel);
+  Future<bool> deleteUserData({required String uid, required Map<String, dynamic> deletionRecord});
   void resetPagination();
 }

@@ -6,4 +6,6 @@ abstract class IFirebaseAuthService {
   Future<bool> signUp({required String email, required String password, required String username});
   Future<bool> resetPassword({required String email});
   Future<void> signOut();
+  Future<bool> reauthenticate({required String password});
+  Future<bool> deleteUser();
 }

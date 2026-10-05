@@ -1,13 +1,17 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constants/app_colors.dart';
 import '../../../constants/locale_keys.g.dart';
 import '../../../extensions/context_extension.dart';
 import '../../../extensions/string_extension.dart';
+import '../../../services/user_manager.dart';
 import '../../../utils/fade_in_page_animation.dart';
 import '../../../utils/url_launcher.dart';
+import '../../../widgets/app_dialogs.dart';
+import '../../../widgets/dialog_contents/delete_account_dialog_content.dart';
 import '../../../widgets/empty_box.dart';
 import '../../../widgets/sliders/qwer_hud_height_slider.dart';
 import '../../../widgets/sliders/volume_slider.dart';
@@ -47,6 +51,16 @@ class SettingsView extends StatelessWidget {
             onTap: () => UrlLauncher.instance.storeRedirect(writeReview: true),
           ),
           divider(),
+          // Sadece giriş yapmış kullanıcıya görünür.
+          if (context.select<UserManager, bool>((manager) => manager.user.uid != null)) ...[
+            menuItem(
+              context: context,
+              leading: CupertinoIcons.delete,
+              text: LocaleKeys.deleteAccount_title.locale,
+              onTap: openDeleteAccountDialog,
+            ),
+            divider(),
+          ],
           // menuItem(
           //   context: context,
           //   leading: CupertinoIcons.gift,
@@ -66,6 +80,15 @@ class SettingsView extends StatelessWidget {
           // divider(),
         ],
       ),
+    );
+  }
+
+  void openDeleteAccountDialog() {
+    AppDialogs.showSlidingDialog(
+      showBackButton: true,
+      height: DeleteAccountDialogContent.dialogHeight,
+      title: LocaleKeys.deleteAccount_title.locale,
+      content: const DeleteAccountDialogContent(),
     );
   }
 

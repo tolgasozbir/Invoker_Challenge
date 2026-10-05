@@ -135,6 +135,14 @@
         "volume": "Volume"
     },
 
+    "deleteAccount" : {
+        "title": "Delete Account",
+        "warning": "This permanently deletes your account, your progress and all your leaderboard scores. This cannot be undone.",
+        "subscriptionNote": "If you have an active subscription, cancel it from your store account. Deleting your account does not cancel it.",
+        "confirm": "Delete My Account",
+        "success": "Your account has been deleted."
+    },
+
     "keyBindings" : {
         "title": "Key Bindings",
         "assignHint": "Type the new key",

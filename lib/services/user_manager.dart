@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:snappable_thanos/snappable_thanos.dart';
 
+import '../constants/app_strings.dart';
 import '../constants/locale_keys.g.dart';
 import '../enums/Bosses.dart';
 import '../enums/local_storage_keys.dart';
@@ -159,6 +162,37 @@ class UserManager extends ChangeNotifier {
 
   Future<void> signOut() async {
     await AppServices.instance.firebaseAuthService.signOut();
+    await _resetToGuest();
+  }
+
+  /// Hesabı ve tüm verisini kalıcı olarak siler.
+  Future<bool> deleteAccount({required String password}) async {
+    final uid = user.uid;
+    if (uid == null) return false;
+
+    final authService = AppServices.instance.firebaseAuthService;
+    if (!await authService.reauthenticate(password: password)) return false;
+
+    // Veriler, oturum hâlâ açıkken silinmeli.
+    final isDataDeleted = await AppServices.instance.databaseService.deleteUserData(
+      uid: uid,
+      deletionRecord: {
+        'platform': Platform.operatingSystem,
+        'appVersion': AppStrings.appVersion,
+        'level': user.level,
+        'isPremium': user.isPremium,
+        'lastPlayed': user.lastPlayed,
+      },
+    );
+    if (!isDataDeleted) return false;
+
+    if (!await authService.deleteUser()) return false;
+
+    await _resetToGuest();
+    return true;
+  }
+
+  Future<void> _resetToGuest() async {
     await AppServices.instance.localStorageService.deleteAllValues();
     await setUserAndSaveToCache(createUser());
   }
