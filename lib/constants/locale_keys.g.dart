@@ -119,6 +119,12 @@ abstract class  LocaleKeys {
   static const settings_keyBindings = 'settings.keyBindings';
   static const settings_volume = 'settings.volume';
   static const settings = 'settings';
+  static const deleteAccount_title = 'deleteAccount.title';
+  static const deleteAccount_warning = 'deleteAccount.warning';
+  static const deleteAccount_subscriptionNote = 'deleteAccount.subscriptionNote';
+  static const deleteAccount_confirm = 'deleteAccount.confirm';
+  static const deleteAccount_success = 'deleteAccount.success';
+  static const deleteAccount = 'deleteAccount';
   static const keyBindings_title = 'keyBindings.title';
   static const keyBindings_assignHint = 'keyBindings.assignHint';
   static const keyBindings_reset = 'keyBindings.reset';

@@ -135,6 +135,14 @@
         "volume": "Ses Düzeyi"
     },
 
+    "deleteAccount" : {
+        "title": "Hesabı Sil",
+        "warning": "Hesabınız, ilerlemeniz ve liderlik tablosundaki tüm skorlarınız kalıcı olarak silinir. Bu işlem geri alınamaz.",
+        "subscriptionNote": "Aktif bir aboneliğiniz varsa mağaza hesabınızdan iptal etmelisiniz. Hesabı silmek aboneliği iptal etmez.",
+        "confirm": "Hesabımı Sil",
+        "success": "Hesabınız silindi."
+    },
+
     "keyBindings" : {
         "title": "Tuş Atamaları",
         "assignHint": "Yeni tuşa bas",
