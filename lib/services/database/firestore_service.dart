@@ -25,6 +25,7 @@ class FirestoreService implements IDatabaseService {
 
   final _collectionRefUsers       = FirebaseFirestore.instance.collection('Users');
   final _collectionRefFeedbacks   = FirebaseFirestore.instance.collection('Feedbacks');
+  final _collectionRefDeletedAccounts = FirebaseFirestore.instance.collection('DeletedAccounts');
   final _collectionRefChallanger  = FirebaseFirestore.instance.collection(DatabaseTable.Challenger.name);
   final _collectionRefTimeTrial   = FirebaseFirestore.instance.collection(DatabaseTable.TimeTrial.name);
   final _collectionRefCombo       = FirebaseFirestore.instance.collection(DatabaseTable.Combo.name);
@@ -179,6 +180,36 @@ class FirestoreService implements IDatabaseService {
       return true;
     } catch (e) {
       log(e.toString());
+      return false;
+    }
+  }
+
+  /// Kullanıcı kaydını ve tüm skorlarını tek batch ile siler.
+  /// [deletionRecord] kimliksiz istatistik kaydıdır (uid/e-posta içermemeli).
+  @override
+  Future<bool> deleteUserData({required String uid, required Map<String, dynamic> deletionRecord}) async {
+    try {
+      final firestore = FirebaseFirestore.instance;
+      final batch = firestore.batch()
+        ..delete(_collectionRefUsers.doc(uid))
+        ..delete(_collectionRefTimeTrial.doc(uid))
+        ..delete(_collectionRefChallanger.doc(uid))
+        ..delete(_collectionRefCombo.doc(uid));
+
+      for (final boss in Bosses.values) {
+        batch.delete(firestore.collection('Boss_${boss.getDbName}').doc(uid));
+      }
+
+      batch.set(_collectionRefDeletedAccounts.doc(), {
+        ...deletionRecord,
+        'deletedAt': FieldValue.serverTimestamp(),
+      });
+
+      await batch.commit().timeout(const Duration(seconds: 10));
+      return true;
+    } catch (e) {
+      log('An error occurred: $e');
+      _errorSnackbar();
       return false;
     }
   }

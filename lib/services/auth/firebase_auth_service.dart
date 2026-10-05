@@ -30,6 +30,7 @@ class FirebaseAuthService implements IFirebaseAuthService {
       case 'user-not-found':
         return LocaleKeys.authErrorMessages_AuthUserNotFound.locale;
       case 'wrong-password':
+      case 'invalid-credential':
         return LocaleKeys.authErrorMessages_AuthWrongPassword.locale;
       case 'weak-password':
         return LocaleKeys.authErrorMessages_AuthWeakPassword.locale;
@@ -87,6 +88,26 @@ class FirebaseAuthService implements IFirebaseAuthService {
   @override
   Future<void> signOut() async {
     await _handleAsyncAuthOperation(() => _firebaseAuth.signOut());
+  }
+
+  // Hesap silme yakın zamanda giriş ister; şifreyle yeniden doğrulanır.
+  @override
+  Future<bool> reauthenticate({required String password}) {
+    return _handleAsyncAuthOperation(() async {
+      final user = _firebaseAuth.currentUser;
+      final email = user?.email;
+      if (user == null || email == null) throw Exception(LocaleKeys.authErrorMessages_AuthDefaultError.locale);
+      await user.reauthenticateWithCredential(EmailAuthProvider.credential(email: email, password: password));
+    });
+  }
+
+  @override
+  Future<bool> deleteUser() {
+    return _handleAsyncAuthOperation(() async {
+      final user = _firebaseAuth.currentUser;
+      if (user == null) throw Exception(LocaleKeys.authErrorMessages_AuthDefaultError.locale);
+      await user.delete();
+    });
   }
 
 }
