@@ -88,5 +88,8 @@
     <true/>
     <key>UIApplicationSupportsIndirectInputEvents</key>
     <true/>
+    <!-- Export compliance -->
+    <key>ITSAppUsesNonExemptEncryption</key>
+    <false/>
   </dict>
 </plist>

@@ -6,8 +6,9 @@ class AppStrings {
   
   static const String appName = 'Invoker Challenge';
   static const String appVersion = '1.9.0';
-  static const String appVersionStr = 'Beta $appVersion';
-  static const String googlePlayStoreUrl = 'https://play.google.com/store/apps/details?id=com.dota2.invoker.game';
+  static const String appVersionStr = 'v$appVersion';
+  static const String playStoreUrl = 'https://play.google.com/store/apps/details?id=com.dota2.invoker.game';
+  static const String appStoreUrl = 'https://apps.apple.com/app/id6818867958';
   
   static const List<ExitDialogMessage> exitMessages = [
     ExitDialogMessage(

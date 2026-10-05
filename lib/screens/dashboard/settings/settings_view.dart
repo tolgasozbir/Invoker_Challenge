@@ -44,7 +44,7 @@ class SettingsView extends StatelessWidget {
             context: context,
             leading: CupertinoIcons.star_lefthalf_fill,
             text: LocaleKeys.settings_rateApp.locale,
-            onTap: () => UrlLauncher.instance.storeRedirect(),
+            onTap: () => UrlLauncher.instance.storeRedirect(writeReview: true),
           ),
           divider(),
           // menuItem(

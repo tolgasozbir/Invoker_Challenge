@@ -15,6 +15,7 @@ import '../../screens/profile/boss_gallery/boss_gallery_view.dart';
 import '../../screens/profile/invoker_style/invoker_style_view.dart';
 import '../../screens/profile/premium/paywall.dart';
 import '../../services/achievement_manager.dart';
+import '../../services/iap/revenuecat_service.dart';
 import '../../services/user_manager.dart';
 import '../app_outlined_button.dart';
 import '../app_snackbar.dart';
@@ -35,8 +36,11 @@ class ProfileDialogContent extends StatelessWidget {
           const Divider(color: AppColors.amber, thickness: 1, height: 8),
           invokerForm(context),
           const Divider(color: AppColors.amber, thickness: 1, height: 8),
-          paywall(context),
-          const Divider(color: AppColors.amber, thickness: 1, height: 8),
+          // Satın alma kurulu değilse (iOS) paywall gizlenir.
+          if (RevenueCatService.instance.isConfigured) ...[
+            paywall(context),
+            const Divider(color: AppColors.amber, thickness: 1, height: 8),
+          ],
           const EmptyBox.h8(),
           syncDataBtn(context),
           if (!context.isSmallPhone) const EmptyBox.h8(),

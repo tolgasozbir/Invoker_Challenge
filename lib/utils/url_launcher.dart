@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:url_launcher/url_launcher.dart';
 
 import '../constants/app_strings.dart';
@@ -11,10 +13,11 @@ class UrlLauncher {
   static UrlLauncher? _instance;
   static UrlLauncher get instance => _instance ??= UrlLauncher._();
 
-  Future<void> storeRedirect() async {
+  /// [writeReview] iOS'ta doğrudan yorum yazma ekranını açar.
+  Future<void> storeRedirect({bool writeReview = false}) async {
     try{
       await launchUrl(
-        Uri.parse(AppStrings.googlePlayStoreUrl),
+        Uri.parse(_storeUrl(writeReview: writeReview)),
         mode: LaunchMode.externalApplication,
       );
     }
@@ -24,6 +27,13 @@ class UrlLauncher {
         snackBartype: SnackBarType.error,
       );
     }
+  }
+
+  String _storeUrl({required bool writeReview}) {
+    if (!Platform.isIOS) return AppStrings.playStoreUrl;
+    return writeReview
+      ? '${AppStrings.appStoreUrl}?action=write-review'
+      : AppStrings.appStoreUrl;
   }
 
 }
