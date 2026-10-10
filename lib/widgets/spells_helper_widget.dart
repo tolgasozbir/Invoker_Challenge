@@ -39,7 +39,7 @@ class SpellsHelperWidget extends StatefulWidget {
 
 class _SpellsHelperWidgetState extends State<SpellsHelperWidget> {
   final List<Spell> allSpells = Spell.values;
-  final margin = const EdgeInsets.symmetric(vertical: 4);
+  final margin = const EdgeInsets.symmetric(vertical: 4, horizontal: 2);
 
   @override
   Widget build(BuildContext context) {
@@ -48,26 +48,29 @@ class _SpellsHelperWidgetState extends State<SpellsHelperWidget> {
       child: Card(
         color: AppColors.spellHelperShadow,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            quasColumn(),
-            wexColumn(),
-            exortColumn(),
+            Expanded(child: quasColumn()),
+            Expanded(child: wexColumn()),
+            Expanded(child: exortColumn()),
           ],
         ),
       ),
     );
   }
 
-  Row keyCard(int i) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Image.asset(allSpells[i].image, scale: 5,),
-        ...List.generate(allSpells[i].combination.length, (index) {
-          return QWEKey.values.byName(allSpells[i].combination[index].toUpperCase()).getSpellKey(allSpells[i].combination[index]);
-        }),
-      ],
+  // Dar ekranlarda satır taşmak yerine küçülür.
+  Widget keyCard(int i) {
+    return FittedBox(
+      fit: BoxFit.scaleDown,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(allSpells[i].image, scale: 5,),
+          ...List.generate(allSpells[i].combination.length, (index) {
+            return QWEKey.values.byName(allSpells[i].combination[index].toUpperCase()).getSpellKey(allSpells[i].combination[index]);
+          }),
+        ],
+      ),
     );
   }
 

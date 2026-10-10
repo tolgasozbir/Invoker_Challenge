@@ -20,9 +20,11 @@ class TrainingView extends StatefulWidget {
 class _TrainingViewState extends State<TrainingView> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: AppScaffold(
-        body: _bodyView(),
+    // Scaffold tüm ekranı boyar, içerik güvenli alanda kalır.
+    return AppScaffold(
+      body: Padding(
+        padding: MediaQuery.viewPaddingOf(context),
+        child: _bodyView(),
       ),
     );
   }
