@@ -21,10 +21,12 @@ class ChallangerView extends StatefulWidget {
 class _ChallangerViewState extends State<ChallangerView> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: AppScaffold(
-        resizeToAvoidBottomInset: false,
-        body: _bodyView(),
+    // Scaffold tüm ekranı boyar, içerik güvenli alanda kalır.
+    return AppScaffold(
+      resizeToAvoidBottomInset: false,
+      body: Padding(
+        padding: MediaQuery.viewPaddingOf(context),
+        child: _bodyView(),
       ),
     );
   }
