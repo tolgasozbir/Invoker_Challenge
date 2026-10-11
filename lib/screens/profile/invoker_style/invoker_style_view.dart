@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -14,7 +15,6 @@ import '../../../services/sound_manager.dart';
 import '../../../services/user_manager.dart';
 import '../../../utils/asset_manager.dart';
 import '../../../widgets/crownfall_button.dart';
-import '../../../widgets/empty_box.dart';
 
 class InvokerStyleView extends StatefulWidget {
   const InvokerStyleView({super.key});
@@ -128,6 +128,13 @@ class _InvokerStyleViewState extends State<InvokerStyleView> with ScreenStateMix
     );
   }
 
+  // Buton, alt sistem çubuğunun altında kalmaz; görsel ekranın altına kadar uzanır.
+  // iOS: home indicator boşluğundan 8 px az. Android: gezinme çubuğunun üstüne 16 px pay.
+  double get bottomSpacing {
+    final bottomInset = MediaQuery.viewPaddingOf(context).bottom;
+    return Platform.isIOS ? max(16, bottomInset - 8) : 16 + bottomInset;
+  }
+
   Widget _buildShowcaseSection() {
     return Expanded(
       child: Container(
@@ -145,7 +152,7 @@ class _InvokerStyleViewState extends State<InvokerStyleView> with ScreenStateMix
           children: [
             const Spacer(),
             _buildUnlockButton(),
-            const EmptyBox.h16(),
+            SizedBox(height: bottomSpacing),
           ],
         ),
       ),
