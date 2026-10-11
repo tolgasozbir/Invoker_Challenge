@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
@@ -197,6 +198,13 @@ class _CircleColorCustomizerState extends State<CircleColorCustomizer> with Scre
     );
   }
 
+  // Butonlar sistem çubuğunun altında kalmaz.
+  // iOS: home indicator boşluğu kadar. Android: gezinme çubuğunun üstüne 8 px pay.
+  double get bottomPanelPadding {
+    final bottomInset = MediaQuery.viewPaddingOf(context).bottom;
+    return Platform.isIOS ? max(8, bottomInset) : 8 + bottomInset;
+  }
+
   Widget _bodyView() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -230,7 +238,8 @@ class _CircleColorCustomizerState extends State<CircleColorCustomizer> with Scre
         
         // Flexible part (bottom section) - it will now size itself to its children
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          // Panel ekranın altına kadar boyanır, butonlar sistem çubuğunun üstünde kalır.
+          padding: EdgeInsets.fromLTRB(16, 8, 16, bottomPanelPadding),
           decoration: const BoxDecoration(
             color: Color(0xFF1A1A1A),
             borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
