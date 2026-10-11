@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -205,10 +206,16 @@ class _BossModeViewState extends State<BossModeView> with OrbMixin {
             Expanded(child: RepaintBoundary(child: AbilitySlot())),
           ],
         ),
-        const EmptyBox.h16(),
-        //
+        SizedBox(height: bottomHudSpacing),
       ],
     );
+  }
+
+  // Alt HUD, sistem çubuğunun altında kalmaz.
+  // iOS: home indicator boşluğundan 8 px az. Android: gezinme çubuğunun üstüne 16 px pay.
+  double get bottomHudSpacing {
+    final bottomInset = MediaQuery.viewPaddingOf(context).bottom;
+    return Platform.isIOS ? max(16, bottomInset - 8) : 16 + bottomInset;
   }
 
   Widget startBtn() {
