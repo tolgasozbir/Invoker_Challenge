@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -94,9 +95,16 @@ class _LoadingViewState extends State<LoadingView> {
     );
   }
 
+  // Alttaki yazı, sistem çubuğunun altında kalmaz.
+  // iOS: home indicator boşluğundan 8 px az. Android: gezinme çubuğunun üstüne 16 px pay.
+  double get bottomSpacing {
+    final bottomInset = MediaQuery.viewPaddingOf(context).bottom;
+    return max(32, Platform.isIOS ? bottomInset - 8 : 16 + bottomInset);
+  }
+
   Widget _bodyView() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(32, 64, 32, 32),
+      padding: EdgeInsets.fromLTRB(32, 64, 32, bottomSpacing),
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: _navigateToPage,
