@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:lottie/lottie.dart';
@@ -47,9 +50,21 @@ class _FeedbackViewState extends State<FeedbackView> with SingleTickerProviderSt
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: AppScaffold(body: _bodyView()),
+    // Scaffold tüm ekranı boyar, içerik güvenli alanda kalır.
+    return AppScaffold(
+      body: Padding(
+        padding: EdgeInsets.only(top: topSpacing, bottom: bottomSpacing),
+        child: _bodyView(),
+      ),
     );
+  }
+
+  double get topSpacing => MediaQuery.viewPaddingOf(context).top;
+
+  // iOS: home indicator boşluğundan 8 px az. Android: gezinme çubuğu kadar.
+  double get bottomSpacing {
+    final bottomInset = MediaQuery.viewPaddingOf(context).bottom;
+    return Platform.isIOS ? max(0, bottomInset - 8) : bottomInset;
   }
 
   Widget _bodyView() {
@@ -61,7 +76,8 @@ class _FeedbackViewState extends State<FeedbackView> with SingleTickerProviderSt
       child: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: SizedBox(
-          height: context.height,
+          // Görünür alan kadar; gönder butonu ekranın dışına taşmaz.
+          height: context.height - topSpacing - bottomSpacing,
           width: context.width,
           child: Column(
             children: [
@@ -89,7 +105,7 @@ class _FeedbackViewState extends State<FeedbackView> with SingleTickerProviderSt
                 ),
               ).wrapExpanded(flex: 10),
               sendButton(),
-              const Spacer(),
+              const EmptyBox.h8(),
             ],
           ),
         ),
