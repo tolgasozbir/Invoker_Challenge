@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -18,16 +21,23 @@ class AchievementsView extends StatelessWidget {
         centerTitle: true,
         title: Text(LocaleKeys.mainMenu_achievements.locale),
       ),
-      body: _bodyView(),
+      body: _bodyView(context),
     );
   }
 
-  Widget _bodyView() {
+  // Son başarım, alt sistem çubuğunun altında kalmaz.
+  // iOS: home indicator boşluğundan 8 px az. Android: gezinme çubuğu kadar.
+  double _bottomSpacing(BuildContext context) {
+    final bottomInset = MediaQuery.viewPaddingOf(context).bottom;
+    return Platform.isIOS ? max(0, bottomInset - 8) : bottomInset;
+  }
+
+  Widget _bodyView(BuildContext context) {
     AchievementManager.instance.initAchievements();
     final achievements = AchievementManager.instance.achievements;
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
-      padding: const EdgeInsets.all(8),
+      padding: EdgeInsets.fromLTRB(8, 8, 8, 8 + _bottomSpacing(context)),
       child: Column(
         children: List.generate(achievements.length, (index) {
           final achievement = achievements[index];

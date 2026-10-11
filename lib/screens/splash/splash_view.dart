@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 import '../../constants/app_image_paths.dart';
@@ -17,13 +19,36 @@ class _SplashViewState extends SplashViewModel {
   }
 
   Widget _bodyView() {
-    return SafeArea(
-      child: SizedBox.expand(
-        child: Image.asset(
-          ImagePaths.splashImage,
-          fit: BoxFit.cover,
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        // Arka plan: görselin blur'lu hali, sistem çubuklarının arkası dahil tüm ekranı doldurur.
+        ImageFiltered(
+          imageFilter: ImageFilter.blur(sigmaX: 30, sigmaY: 30, tileMode: TileMode.clamp),
+          child: Image.asset(
+            ImagePaths.splashImage,
+            fit: BoxFit.cover,
+          ),
         ),
-      ),
+        const ColoredBox(color: Colors.black26),
+        // Ön plan: görsel tam genişlikte, yanlardan kırpılmaz. Üst ve alt kenarı arka plana doğru erir.
+        Center(
+          child: ShaderMask(
+            blendMode: BlendMode.dstIn,
+            shaderCallback: (rect) => const LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Colors.transparent, Colors.black, Colors.black, Colors.transparent],
+              stops: [0, 0.15, 0.85, 1],
+            ).createShader(rect),
+            child: Image.asset(
+              ImagePaths.splashImage,
+              width: double.infinity,
+              fit: BoxFit.fitWidth,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

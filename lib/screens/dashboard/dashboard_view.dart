@@ -139,7 +139,11 @@ class _DashboardViewState extends State<DashboardView> with RouteAware {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: _bodyView(context),
-      bottomNavigationBar: const AdBanner(adSize: AdSize.fullBanner),
+      // Banner, alt sistem çubuğunun altında kalmaz.
+      bottomNavigationBar: const SafeArea(
+        top: false,
+        child: AdBanner(adSize: AdSize.fullBanner),
+      ),
     );
   }
 

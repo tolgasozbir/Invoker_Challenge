@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -77,50 +80,56 @@ class _KeyBindingsViewState extends State<KeyBindingsView> with ScreenStateMixin
     );
   }
 
+  // İçerik alt sistem çubuğunun altında kalmaz.
+  // iOS: home indicator boşluğundan 8 px az. Android: gezinme çubuğu kadar.
+  double get bottomSpacing {
+    final bottomInset = MediaQuery.viewPaddingOf(context).bottom;
+    return Platform.isIOS ? max(0, bottomInset - 8) : bottomInset;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: _buildAppBar(),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Column(
-            children: [
-              const EmptyBox.h4(),
-              ElementGradientDivider(
-                colors: [for (final element in _elements) element.getColor],
-              ),
-              const EmptyBox.h12(),
-              SelectedElementHint(color: _selectedElement.getColor),
-              const EmptyBox.h12(),
-              ElementPortRow(
+    return Scaffold(
+      appBar: _buildAppBar(),
+      // Scaffold tüm ekranı boyar, içerik alt sistem çubuğunun üstünde kalır.
+      body: Padding(
+        padding: EdgeInsets.fromLTRB(24, 0, 24, bottomSpacing),
+        child: Column(
+          children: [
+            const EmptyBox.h4(),
+            ElementGradientDivider(
+              colors: [for (final element in _elements) element.getColor],
+            ),
+            const EmptyBox.h12(),
+            SelectedElementHint(color: _selectedElement.getColor),
+            const EmptyBox.h12(),
+            ElementPortRow(
+              elements: _elements,
+              selectedElement: _selectedElement,
+              onElementSelected: _onElementSelected,
+            ),
+            const EmptyBox.h4(),
+            Expanded(
+              child: CableBoard(
                 elements: _elements,
                 selectedElement: _selectedElement,
-                onElementSelected: _onElementSelected,
               ),
-              const EmptyBox.h4(),
-              Expanded(
-                child: CableBoard(
-                  elements: _elements,
-                  selectedElement: _selectedElement,
-                ),
-              ),
-              const EmptyBox.h4(),
-              BindingKeyboard(
-                elementsByKey: _elementsByKey,
-                selectedElement: _selectedElement,
-                onKeyTap: _onKeyTap,
-              ),
-              const EmptyBox.h12(),
-              ResetBindingsButton(onPressed: _onResetPressed),
-              // AppOutlinedButton(
-              //   title: LocaleKeys.keyBindings_reset.locale,
-              //   width: double.infinity,
-              //   padding: const EdgeInsets.only(bottom: 16),
-              //   onPressed: _onResetPressed,
-              // ),
-            ],
-          ),
+            ),
+            const EmptyBox.h4(),
+            BindingKeyboard(
+              elementsByKey: _elementsByKey,
+              selectedElement: _selectedElement,
+              onKeyTap: _onKeyTap,
+            ),
+            const EmptyBox.h12(),
+            ResetBindingsButton(onPressed: _onResetPressed),
+            // AppOutlinedButton(
+            //   title: LocaleKeys.keyBindings_reset.locale,
+            //   width: double.infinity,
+            //   padding: const EdgeInsets.only(bottom: 16),
+            //   onPressed: _onResetPressed,
+            // ),
+          ],
         ),
       ),
     );

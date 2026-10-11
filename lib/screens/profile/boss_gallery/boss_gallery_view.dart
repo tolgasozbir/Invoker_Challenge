@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -30,13 +33,20 @@ class _BossGalleryViewState extends State<BossGalleryView> {
     );
   }
 
+  // Son satır, alt sistem çubuğunun altında kalmaz.
+  // iOS: home indicator boşluğundan 8 px az. Android: gezinme çubuğu kadar.
+  double get bottomSpacing {
+    final bottomInset = MediaQuery.viewPaddingOf(context).bottom;
+    return Platform.isIOS ? max(0, bottomInset - 8) : bottomInset;
+  }
+
   Widget _bodyView() {
     return GridView.builder(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
         childAspectRatio: 2/3,
       ),
-      padding: const EdgeInsets.all(8),
+      padding: EdgeInsets.fromLTRB(8, 8, 8, 8 + bottomSpacing),
       itemCount: Bosses.values.length,
       itemBuilder: (context, index) {
         final boss = Bosses.values[index];
