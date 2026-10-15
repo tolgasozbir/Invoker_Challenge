@@ -50,8 +50,8 @@ void main() async {
   );
   //IAP
   await RevenueCatService.instance.initialize();
-  //Ads
-  await MobileAds.instance.initialize();
+  //Ads (iOS'ta reklam yok, SDK başlatılmaz)
+  if (AdsHelper.adsEnabled) await MobileAds.instance.initialize();
   //Sound player
   await SoundManager.instance.initialize();
   //App orientation

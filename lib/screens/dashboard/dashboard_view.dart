@@ -93,7 +93,8 @@ class _DashboardViewState extends State<DashboardView> with RouteAware {
   void _init() async {
     Future.microtask(() {
       context.read<AppContextProvider>().setAppContext(context);
-      _updateConsent();
+      // Reklam izin formu yalnızca reklam gösterilen platformda.
+      if (AdsHelper.adsEnabled) _updateConsent();
       _updateApp();
       _showPremiumDialog();
     });
