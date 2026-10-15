@@ -24,8 +24,8 @@ class WatchAdButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Premium kullanıcı ise gizle
-    if (UserManager.instance.user.isPremium) {
+    // Reklamlar kapalıysa (iOS) veya kullanıcı premium ise gizle
+    if (!AdsHelper.adsEnabled || UserManager.instance.user.isPremium) {
       return const SizedBox.shrink();
     }
     

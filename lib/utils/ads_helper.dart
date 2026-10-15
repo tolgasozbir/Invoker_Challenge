@@ -72,8 +72,15 @@ class AdsHelper {
   int menuAdCounter = 0; // Menü butonlarına her (X). tıkladığında geçiş reklamı gösterimi için kullanılır.
   int shopEntryAdCounter = 0; // Boss battle modunda shop'a girdiğinde her (X). girişte reklam gösterimi için kullanılır.
 
-  ///Premium kullanıcıda reklam yüklenmez.
-  static bool _skipForPremium(String adName) {
+  /// İlk iOS sürümü reklamsız çıkıyor; reklamlar yalnızca Android'de.
+  static bool get adsEnabled => !Platform.isIOS;
+
+  ///Reklamlar kapalıysa (iOS) veya kullanıcı premium ise reklam yüklenmez.
+  static bool _skipAd(String adName) {
+    if (!adsEnabled) {
+      log('($adName) Skipped: ads are disabled on this platform');
+      return true;
+    }
     if (!UserManager.instance.user.isPremium) return false;
     log('($adName) Skipped: user is premium');
     return true;
@@ -81,7 +88,7 @@ class AdsHelper {
 
   //AppOpenAd
   Future<void> appOpenAdLoad() async {
-    if (_skipForPremium('AppOpenAd')) return; // Premium kullanıcı ise yükleme yapma
+    if (_skipAd('AppOpenAd')) return; // Reklamlar kapalıysa veya premium ise yükleme yapma
 
     AppOpenAd? appOpenAd;
     await AppOpenAd.load(
@@ -100,7 +107,7 @@ class AdsHelper {
   //InterstitialAd
   InterstitialAd? interstitialAd;
   Future<void> interstitialAdLoad() async {
-    if (_skipForPremium('InterstitialAd')) return; // Premium kullanıcı ise yükleme yapma
+    if (_skipAd('InterstitialAd')) return; // Reklamlar kapalıysa veya premium ise yükleme yapma
 
     await InterstitialAd.load(
       adUnitId: AdUnit.interstitial.getAdUnitId,
@@ -130,7 +137,7 @@ class AdsHelper {
   //RewardedAd
   RewardedAd? rewardedAd;
   Future<void> rewardedAdLoad() async {
-    if (_skipForPremium('RewardedAd')) return; // Premium kullanıcı ise yükleme yapma
+    if (_skipAd('RewardedAd')) return; // Reklamlar kapalıysa veya premium ise yükleme yapma
 
     await RewardedAd.load(
       adUnitId: AdUnit.rewarded.getAdUnitId,
@@ -175,7 +182,7 @@ class _AdBannerState extends State<AdBanner> {
   bool _isAdLoaded = false;
 
   void _initBannerAd() {
-    if (AdsHelper._skipForPremium('BannerAd')) return; // Premium kullanıcı ise yükleme yapma
+    if (AdsHelper._skipAd('BannerAd')) return; // Reklamlar kapalıysa veya premium ise yükleme yapma
 
     _bannerAd = BannerAd(
       size: widget.adSize, 
