@@ -48,6 +48,7 @@ dependencies:
   firebase_auth: ^6.7.0
   firebase_remote_config: ^6.7.0
   firebase_analytics: ^12.6.0
+  firebase_crashlytics: ^5.4.0
 
   #Animation
   lottie: ^3.6.1
