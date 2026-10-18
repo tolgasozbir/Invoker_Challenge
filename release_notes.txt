@@ -1,3 +1,20 @@
+# 2.0.0
+- Added iOS (iPhone) support.
+- Added account deletion: signed-in players can permanently delete their account and data from Settings.
+- Improved Boss Battle performance: smoother animations, fewer stutters and less battery use, especially on lower-end devices.
+- Main menu animations now pause while another screen is open, saving battery.
+- Fixed screens being covered by the status bar or navigation bar on newer devices; the game now uses the full screen.
+- Fixed the spell table overflowing in Training when helper spells are shown.
+- Removed the old audio engine: all sounds now play through SoLoud only, for lower latency and fewer audio issues.
+- Fixed sounds occasionally starting late or not playing, and the volume not fully muting at 0.
+- Fixed buttons sometimes staying pressed after a cancelled tap.
+- Fixed the cooldown overlay jumping back every second in Boss Battle.
+- Clearer error message when the password is wrong.
+- Removed the Beta labels.
+- Added crash reporting to help us find and fix issues faster.
+- Updated the app to Flutter 3.47 and the latest Android build tools.
+- Other minor changes and fixes.
+
 # 1.9.0
 - Added customizable key bindings: the letters shown on the orb and Invoke buttons can now be changed from the settings menu.
 - Fixed the issue where the selected Invoker form was not saved and reset back to default after restarting the app.
