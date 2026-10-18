@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+import 'halo_painter.dart';
 import 'moon_painter.dart';
 import 'sky_painter.dart';
 import 'sun_painter.dart';
@@ -32,14 +33,6 @@ class SkyState extends State<Sky> with TickerProviderStateMixin {
   ///Şimşek değeri sadece parlama anlarında değişir, painter da sadece o an boyanır
   final ValueNotifier<double> _thunder = ValueNotifier(0);
   Timer? _thunderTimer;
-
-  Paint haloOuter = Paint()
-    ..strokeWidth = 4.0
-    ..maskFilter = const MaskFilter.blur(BlurStyle.outer, 400);
-
-  Paint haloInner = Paint()
-    ..strokeWidth = 4.0
-    ..maskFilter = const MaskFilter.blur(BlurStyle.inner, 200);
 
   Paint thunder = Paint()
     ..color = Colors.white.withValues(alpha: 1)
@@ -123,11 +116,10 @@ class SkyState extends State<Sky> with TickerProviderStateMixin {
           children: [
             CustomPaint(painter: SunPainter(constraints.maxHeight / 12, _sunShine)),
             CustomPaint(painter: MoonPainter(constraints.maxHeight / 14, _moonShine)),
-            CustomPaint(painter: SkyPainter(constraints.maxHeight * 0.4, _brightness, haloOuter)),
             RepaintBoundary(
               child: CustomPaint(painter: SkyPainter(constraints.maxHeight * 0.3, _thunder, thunder)),
             ),
-            CustomPaint(painter: SkyPainter(constraints.maxHeight * 0.4, _brightness, haloInner)),
+            CustomPaint(painter: HaloPainter(constraints.maxHeight * 0.4, _brightness)),
           ],
         );
     },);
