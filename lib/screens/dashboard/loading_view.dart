@@ -9,6 +9,7 @@ import '../../constants/app_image_paths.dart';
 import '../../constants/locale_keys.g.dart';
 import '../../extensions/context_extension.dart';
 import '../../extensions/string_extension.dart';
+import '../../services/iap/revenuecat_service.dart';
 import '../../utils/fade_in_page_animation.dart';
 import '../../widgets/empty_box.dart';
 
@@ -68,13 +69,15 @@ class _LoadingViewState extends State<LoadingView> {
         ImagePaths.infoColors2,
       ],
     ),
-    LoadingContent(
-      message: LocaleKeys.loading_message7.locale,
-      imagePaths: [
-        ImagePaths.infoProfile,
-        ImagePaths.infoPremium,
-      ],
-    ),
+    // Premium ipucu yalnızca satın alma kuruluysa (iOS'ta yok).
+    if (RevenueCatService.instance.isConfigured)
+      LoadingContent(
+        message: LocaleKeys.loading_message7.locale,
+        imagePaths: [
+          ImagePaths.infoProfile,
+          ImagePaths.infoPremium,
+        ],
+      ),
   ];
 
   @override
