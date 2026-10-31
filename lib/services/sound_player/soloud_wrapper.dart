@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 import 'dart:math' as math;
 
 import 'package:flutter_soloud/flutter_soloud.dart';
@@ -16,8 +17,8 @@ class SoLoudWrapper implements ISoundPlayer {
   final _sources = <String, Future<AudioSource>>{};
   final _rnd = math.Random();
 
-  /// SoLoud kısık çaldığı için uygulama sesiyle çarpılan katsayı.
-  static const double gain = 1.8;
+  /// Android'de SoLoud kısık çaldığı için uygulama sesiyle çarpılan katsayı; iOS'ta gerek yok.
+  static final double gain = Platform.isIOS ? 1 : 1.8;
 
   /// Sessizlikten sonra cihazın tekrar açılma gecikmesini önler (varsayılan 500 ms).
   static const _deviceIdleTimeout = Duration(seconds: 30);
