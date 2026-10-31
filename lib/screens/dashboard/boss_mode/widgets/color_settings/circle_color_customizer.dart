@@ -174,7 +174,7 @@ class _CircleColorCustomizerState extends State<CircleColorCustomizer> with Scre
       roundColor: _middleCircleColor, 
       timeColor: _innerCircleColor,
     );
-    AppSnackBar.showSnackBarMessage(text: 'Başarılı', snackBartype: SnackBarType.success, duration: Durations.long2);
+    AppSnackBar.showSnackBarMessage(text: LocaleKeys.snackbarMessages_sbSuccess.locale, snackBartype: SnackBarType.success, duration: Durations.long2);
   }
 
   // Reset colors to default and save
