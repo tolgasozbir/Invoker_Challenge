@@ -43,12 +43,12 @@ dependencies:
   shared_preferences: ^2.5.5
 
   #Firebase
-  firebase_core: ^4.15.0
-  cloud_firestore: ^6.10.0
-  firebase_auth: ^6.7.0
-  firebase_remote_config: ^6.7.0
-  firebase_analytics: ^12.6.0
-  firebase_crashlytics: ^5.4.0
+  firebase_core: ^5.1.0
+  cloud_firestore: ^7.1.0
+  firebase_auth: ^7.0.1
+  firebase_remote_config: ^7.0.1
+  firebase_analytics: ^13.0.1
+  firebase_crashlytics: ^6.0.1
 
   #Animation
   lottie: ^3.6.1
