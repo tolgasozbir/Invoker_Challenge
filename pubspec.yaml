@@ -23,7 +23,7 @@ dependencies:
   cupertino_icons: ^2.0.0
 
   #Utils
-  flutter_svg: ^2.3.0
+  flutter_svg: ^2.3.2
   internet_connection_checker: ^1.0.0+1
   url_launcher: ^6.3.3
   auto_size_text: ^3.0.0
@@ -32,15 +32,15 @@ dependencies:
   collection: ^1.19.1
 
   #Audio
-  flutter_soloud: ^5.1.6
+  flutter_soloud: ^5.2.2
 
   #.env
   flutter_dotenv: ^6.0.1
 
   #Local Storage
-  hive_ce: ^2.20.1
-  hive_ce_flutter: ^2.4.0
-  shared_preferences: ^2.5.5
+  hive_ce: ^2.22.0
+  hive_ce_flutter: ^2.5.0
+  shared_preferences: ^2.5.6
 
   #Firebase
   firebase_core: ^5.1.0
@@ -51,7 +51,7 @@ dependencies:
   firebase_crashlytics: ^6.0.1
 
   #Animation
-  lottie: ^3.6.1
+  lottie: ^3.8.1
   splash: ^1.2.0
   flutter_animate: ^4.5.2
   animated_flip_counter: ^0.3.4
@@ -66,10 +66,10 @@ dependencies:
   percent_indicator: ^4.2.5
 
   #Ads
-  google_mobile_ads: ^9.1.0
+  google_mobile_ads: ^9.2.0
 
   #IAP
-  purchases_flutter: ^10.14.0
+  purchases_flutter: ^10.19.0
 
 dev_dependencies:
   flutter_test:
@@ -77,9 +77,9 @@ dev_dependencies:
   #Lint
   very_good_analysis: ^11.0.0
   #Hive
-  hive_ce_generator: ^1.11.3
+  hive_ce_generator: ^1.12.0
   #
-  build_runner: ^2.16.1
+  build_runner: ^2.16.2
 
 hooks:
   user_defines:
