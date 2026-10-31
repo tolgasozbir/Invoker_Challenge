@@ -1,3 +1,11 @@
+# 2.0.1
+- Security update: updated Flutter and Firebase to fix a connection security issue (compromised eMudhra certificates).
+- iOS: game sounds no longer stop music playing in other apps.
+- iOS: lowered the sound level, which was too loud.
+- Fixed the success message in the Boss Battle color settings not following the app language.
+- Updated Firebase and other core packages.
+- Other minor changes and fixes.
+
 # 2.0.0
 - Added iOS (iPhone) support.
 - Added account deletion: signed-in players can permanently delete their account and data from Settings.
